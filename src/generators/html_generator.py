@@ -3809,9 +3809,9 @@ async function exportAllBuildingsCSV() {{
             b.owner,
             b.sqft,
             b.year_built || '',
-            b.total_opex.toFixed(2),
-            b.valuation_impact.toFixed(2),
-            b.carbon.toFixed(2),
+            (b.opex || 0).toFixed(2),
+            (b.valuation || 0).toFixed(2),
+            (b.carbon || 0).toFixed(2),
             b.site_eui ? b.site_eui.toFixed(1) : '',
             b.vertical
         ]);
@@ -3845,16 +3845,16 @@ function exportPortfolioCSV() {{
     const headers = ['Organization', 'Building Count', 'Classification', 'Total OpEx Savings ($)', 'Total Valuation Impact ($)', 'Total Carbon Reduction (tCO2e)', 'Median EUI', 'Verticals'];
     const rows = [headers];
 
-    PORTFOLIO_EXPORT.forEach(p => {{
+    PORTFOLIO_CARDS.forEach(p => {{
         rows.push([
-            p.organization,
-            p.building_count,
-            p.classification,
-            p.total_opex.toFixed(2),
-            p.total_valuation.toFixed(2),
-            p.total_carbon.toFixed(2),
+            p.org_name || p.display_name || '',
+            p.building_count || 0,
+            p.classification || '',
+            (p.total_opex || 0).toFixed(2),
+            (p.total_valuation || 0).toFixed(2),
+            (p.total_carbon || 0).toFixed(2),
             p.median_eui ? p.median_eui.toFixed(1) : '',
-            p.verticals
+            Array.isArray(p.verticals) ? p.verticals.join(', ') : (p.verticals || '')
         ]);
     }});
 
