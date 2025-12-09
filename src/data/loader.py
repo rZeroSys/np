@@ -107,7 +107,7 @@ def load_building_data():
     df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
 
     # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building type']:
+    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
         if col in df.columns:
             df[col] = df[col].fillna('').astype(str).str.strip()
 
@@ -140,7 +140,7 @@ def load_portfolio_data():
     df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
 
     # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building type']:
+    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
         if col in df.columns:
             df[col] = df[col].fillna('').astype(str).str.strip()
 
@@ -173,7 +173,7 @@ def load_buildings_tab_data():
     df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
 
     # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building type']:
+    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
         if col in df.columns:
             df[col] = df[col].fillna('').astype(str).str.strip()
 

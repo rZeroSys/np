@@ -22,26 +22,6 @@ from src.data.helpers import (
     format_currency, format_number, format_sqft, format_carbon,
     slugify, vertical_color, building_type_icon
 )
-from src.config import LOGO_BACKGROUNDS_PATH
-
-# =============================================================================
-# LOGO BACKGROUND CONFIG - loaded from CSV
-# =============================================================================
-
-def load_logo_backgrounds():
-    """Load logo background requirements from CSV file."""
-    csv_path = str(LOGO_BACKGROUNDS_PATH)
-    dark_bg_logos = set()
-
-    if os.path.exists(csv_path):
-        with open(csv_path, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('background_needed') == 'dark':
-                    dark_bg_logos.add(row['filename'])
-
-    return dark_bg_logos
-
 def strip_acronym(name):
     """Remove trailing acronym in parentheses from org name for display."""
     # Match pattern like " (CBRE)" or " (GSA)" at end of string
@@ -70,8 +50,6 @@ def savings_color(amount):
     else:
         return '#4ade80'  # light green
 
-# Load from CSV on module import
-WHITE_LOGOS = load_logo_backgrounds()
 
 class NationwideHTMLGenerator:
     """Generates the Nationwide ODCV Prospector HTML page."""
@@ -256,7 +234,6 @@ class NationwideHTMLGenerator:
                 'display_name': p.get('display_name', p['org_name']),
                 'logo_file': p.get('logo_file', ''),
                 'aws_logo_url': p.get('aws_logo_url', ''),
-                'is_white_logo': p.get('logo_file', '') in WHITE_LOGOS,
                 'building_count': p['building_count'],
                 'total_sqft': total_sqft,
                 'median_eui': p.get('median_eui', 0) or 0,
@@ -1489,10 +1466,6 @@ body.all-buildings-active .main-tabs {
     border-radius: 6px;
     background: #f5f5f5;
     padding: 2px;
-}
-
-.opp-logo.dark-bg {
-    background: #222;
 }
 
 .opp-logo-placeholder {
@@ -3088,7 +3061,7 @@ tr.pin-highlight {
     def _generate_header(self):
         """Generate page header with tab bar and user profile."""
         return '''
-<header class="header" style="position: relative;">
+<header class="header">
     <!-- User Profile Section -->
     <div id="userInfo" style="position: absolute; top: 15px; right: 20px; color: white; font-size: 14px; display: none; z-index: 10;">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -3186,7 +3159,7 @@ tr.pin-highlight {
 
         return f'''
 <div id="portfolios-tab" class="tab-content active">
-<div class="portfolio-section" style="padding: 210px 32px 20px 32px;">
+<div class="portfolio-section" style="padding: 200px 32px 20px 32px;">
     <div class="portfolio-sort-header">
         <span class="sort-col" id="header-org-col"></span>
         <span class="sort-col" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings <span class="sort-indicator">↕</span></span>
@@ -3355,9 +3328,8 @@ tr.pin-highlight {
             logo_url = f"{bucket}/logos/{p['logo_file']}"
 
         if logo_url:
-            logo_class = 'org-logo dark-bg' if p['logo_file'] in WHITE_LOGOS else 'org-logo'
             # Always eager load logos - they're small and critical for UX
-            logo_html = f'<img src="{attr_escape(logo_url)}" alt="" class="{logo_class}" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
+            logo_html = f'<img src="{attr_escape(logo_url)}" alt="" class="org-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
         else:
             logo_html = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
 
@@ -5655,10 +5627,9 @@ let isLoadingMore = false;
 
 function renderPortfolioCard(p) {{
     const bucket = CONFIG.awsBucket;
-    const logoClass = p.is_white_logo ? 'org-logo dark-bg' : 'org-logo';
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
     const logoHtml = logoUrl
-        ? `<img src="${{logoUrl}}" alt="" class="${{logoClass}}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${{p.org_name[0].toUpperCase()}}</div>`
+        ? `<img src="${{logoUrl}}" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${{p.org_name[0].toUpperCase()}}</div>`
         : `<div class="org-logo-placeholder">${{p.org_name[0].toUpperCase()}}</div>`;
 
     return `<div class="portfolio-card" data-idx="${{p.idx}}" data-org="${{p.org_name}}" data-buildings="${{p.building_count}}" data-sqft="${{p.total_sqft || 0}}" data-eui="${{p.median_eui}}" data-valuation="${{p.total_valuation}}" data-carbon="${{p.total_carbon}}" data-opex="${{p.total_opex}}">
