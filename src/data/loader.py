@@ -847,6 +847,7 @@ def export_split_data(data, output_dir):
             'city': b.get('city', ''),
             'state': b.get('state', ''),
             'type': b.get('radio_type', ''),
+            'building_type': b.get('building_type', ''),
             'vertical': b['vertical'],
             'sqft': b['sqft'],
             'opex': b['total_opex'],

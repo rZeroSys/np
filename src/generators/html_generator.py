@@ -196,6 +196,7 @@ class NationwideHTMLGenerator:
                 'state': b.get('state', ''),
                 'property_name': self._get_display_name(b),
                 'type': b.get('radio_type', ''),
+                'building_type': b.get('building_type', ''),
                 'vertical': b.get('vertical', ''),
                 'sqft': b.get('sqft', 0) or 0,
                 'opex': b.get('total_opex', 0) or 0,
@@ -2705,7 +2706,7 @@ tr.pin-highlight {
             address = escape(b.get('address', 'Unknown'))
             city = escape(b.get('city', ''))
             state = escape(b.get('state', ''))
-            btype = escape(b.get('radio_type', ''))
+            btype = escape(b.get('building_type', ''))
             owner_raw = b.get('owner', '') or b.get('org_name', '')
             owner = escape(self._get_org_display_name(owner_raw))
             manager = escape(b.get('manager', ''))
@@ -2922,7 +2923,7 @@ tr.pin-highlight {
 
         sqft_value = b.get('sqft', 0) or 0
         sqft_display = fmt_sqft(sqft_value)
-        type_badge = fmt_building_type(b.get('radio_type', ''))
+        type_badge = fmt_building_type(b.get('building_type', ''))
 
         return f'''
 <div class="building-grid-row" data-id="{building_id}" data-lat="{b['latitude'] or ''}" data-lon="{b['longitude'] or ''}" data-radio-type="{attr_escape(radio_type)}" data-vertical="{attr_escape(b.get('vertical', ''))}" data-opex="{opex_value}" data-valuation="{valuation_value}" data-carbon="{carbon_value}" data-sqft="{sqft_value}" data-tenant="{attr_escape(b.get('tenant', ''))}" data-sub-org="{attr_escape(b.get('tenant_sub_org', ''))}" onclick="window.location='buildings/{building_id}.html'">
