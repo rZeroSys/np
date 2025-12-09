@@ -3755,31 +3755,6 @@ tr.pin-highlight {
         <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
     </div>
     <div id="full-map"></div>
-    <div id="climate-legend" style="
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(255,255,255,0.95);
-        padding: 8px 16px;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        font-size: 11px;
-        z-index: 1;
-        transition: opacity 0.3s;
-    ">
-        <div style="display:flex;flex-direction:row;align-items:center;gap:16px;">
-            <div style="font-weight:600;">IECC Climate Zone</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ff4444;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>1 - Very Hot</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ff8844;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>2 - Hot</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ffcc44;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>3 - Warm</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#88cc44;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>4 - Mixed</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#44cc88;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>5 - Cool</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#4488cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>6 - Cold</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#4444cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>7 - Very Cold</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#8844cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>8 - Subarctic</div>
-        </div>
-    </div>
 </div>'''
 
     # =========================================================================

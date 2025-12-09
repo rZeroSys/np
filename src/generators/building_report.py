@@ -1050,8 +1050,8 @@ def generate_odcv_savings(row):
     if odcv_savings and odcv_savings > 0:
         html += f"<tr style=\"background: #f0f9ff;\"><td><strong>Annual Utility Savings{tooltip('annual_savings', row)}</strong></td><td><strong>{format_currency(odcv_savings)}</strong></td></tr>"
 
-    # 5. Whole Building Savings %
-    if whole_bldg_pct and whole_bldg_pct > 0:
+    # 5. Whole Building Savings % (cap at 100% - values over 1.0 are data errors)
+    if whole_bldg_pct and whole_bldg_pct > 0 and whole_bldg_pct <= 1.0:
         html += f"<tr><td>Whole Building Savings{tooltip('whole_building_savings')}</td><td>{whole_bldg_pct*100:.1f}%</td></tr>"
 
     # 6. Property Valuation Increase

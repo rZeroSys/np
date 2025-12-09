@@ -417,7 +417,8 @@ def build_nyc_row(bbl, data):
 
 
 def update_csv_files(nyc_rows_df):
-    """Update both portfolio_data.csv and buildings_tab_data.csv with NYC data."""
+    """Update portfolio_data.csv with NYC data."""
+    import os
 
     # Fields to preserve from original nationwide CSV
     PRESERVE_ELEC_FIELDS = [
@@ -434,21 +435,28 @@ def update_csv_files(nyc_rows_df):
 
     # Load existing files
     print("\nLoading existing CSV files...")
-    portfolio_df = pd.read_csv(PORTFOLIO_DATA, encoding='utf-8')
-    buildings_tab_df = pd.read_csv(BUILDINGS_TAB_DATA, encoding='utf-8')
+    portfolio_df = pd.read_csv(PORTFOLIO_DATA, encoding='utf-8', low_memory=False)
+
+    # Check if buildings_tab_data exists
+    has_buildings_tab = os.path.exists(BUILDINGS_TAB_DATA)
+    if has_buildings_tab:
+        buildings_tab_df = pd.read_csv(BUILDINGS_TAB_DATA, encoding='utf-8', low_memory=False)
+        print(f"  - buildings_tab_data.csv: {len(buildings_tab_df)} rows")
+    else:
+        print("  - buildings_tab_data.csv: NOT FOUND (skipping)")
 
     print(f"  - portfolio_data.csv: {len(portfolio_df)} rows")
-    print(f"  - buildings_tab_data.csv: {len(buildings_tab_df)} rows")
 
     # Create backups
     print("\nCreating backups...")
     portfolio_backup = PORTFOLIO_DATA.replace('.csv', f'_backup_{BACKUP_SUFFIX}.csv')
-    buildings_backup = BUILDINGS_TAB_DATA.replace('.csv', f'_backup_{BACKUP_SUFFIX}.csv')
-
     portfolio_df.to_csv(portfolio_backup, index=False)
-    buildings_tab_df.to_csv(buildings_backup, index=False)
     print(f"  - Backed up to: {portfolio_backup}")
-    print(f"  - Backed up to: {buildings_backup}")
+
+    if has_buildings_tab:
+        buildings_backup = BUILDINGS_TAB_DATA.replace('.csv', f'_backup_{BACKUP_SUFFIX}.csv')
+        buildings_tab_df.to_csv(buildings_backup, index=False)
+        print(f"  - Backed up to: {buildings_backup}")
 
     # Get list of NYC building IDs to update
     nyc_building_ids = set(nyc_rows_df['building_id'].tolist())
@@ -456,10 +464,11 @@ def update_csv_files(nyc_rows_df):
 
     # Extract existing NYC rows to preserve elec rate fields
     portfolio_existing_nyc = portfolio_df[portfolio_df['building_id'].isin(nyc_building_ids)].copy()
-    buildings_tab_existing_nyc = buildings_tab_df[buildings_tab_df['building_id'].isin(nyc_building_ids)].copy()
-
     print(f"  - Preserving elec rate fields from {len(portfolio_existing_nyc)} existing portfolio rows")
-    print(f"  - Preserving elec rate fields from {len(buildings_tab_existing_nyc)} existing buildings_tab rows")
+
+    if has_buildings_tab:
+        buildings_tab_existing_nyc = buildings_tab_df[buildings_tab_df['building_id'].isin(nyc_building_ids)].copy()
+        print(f"  - Preserving elec rate fields from {len(buildings_tab_existing_nyc)} existing buildings_tab rows")
 
     # Create lookup dicts for preserved fields
     portfolio_preserved = {}
@@ -468,9 +477,10 @@ def update_csv_files(nyc_rows_df):
         portfolio_preserved[bid] = {col: row[col] for col in PRESERVE_ELEC_FIELDS if col in row.index}
 
     buildings_tab_preserved = {}
-    for _, row in buildings_tab_existing_nyc.iterrows():
-        bid = row['building_id']
-        buildings_tab_preserved[bid] = {col: row[col] for col in PRESERVE_ELEC_FIELDS if col in row.index}
+    if has_buildings_tab:
+        for _, row in buildings_tab_existing_nyc.iterrows():
+            bid = row['building_id']
+            buildings_tab_preserved[bid] = {col: row[col] for col in PRESERVE_ELEC_FIELDS if col in row.index}
 
     # Apply preserved fields to new NYC data
     for idx, row in nyc_rows_df.iterrows():
@@ -484,32 +494,36 @@ def update_csv_files(nyc_rows_df):
 
     # Remove existing NYC rows (we'll replace them)
     portfolio_non_nyc = portfolio_df[~portfolio_df['building_id'].isin(nyc_building_ids)]
-    buildings_tab_non_nyc = buildings_tab_df[~buildings_tab_df['building_id'].isin(nyc_building_ids)]
-
     print(f"  - Removed {len(portfolio_df) - len(portfolio_non_nyc)} existing NYC rows from portfolio_data")
-    print(f"  - Removed {len(buildings_tab_df) - len(buildings_tab_non_nyc)} existing NYC rows from buildings_tab_data")
+
+    if has_buildings_tab:
+        buildings_tab_non_nyc = buildings_tab_df[~buildings_tab_df['building_id'].isin(nyc_building_ids)]
+        print(f"  - Removed {len(buildings_tab_df) - len(buildings_tab_non_nyc)} existing NYC rows from buildings_tab_data")
 
     # Ensure column order matches
     portfolio_columns = portfolio_df.columns.tolist()
-    buildings_tab_columns = buildings_tab_df.columns.tolist()
 
     # Reorder nyc_rows_df to match existing column order
     nyc_for_portfolio = nyc_rows_df.reindex(columns=portfolio_columns)
-    nyc_for_buildings_tab = nyc_rows_df.reindex(columns=buildings_tab_columns)
 
     # Concatenate
     updated_portfolio = pd.concat([portfolio_non_nyc, nyc_for_portfolio], ignore_index=True)
-    updated_buildings_tab = pd.concat([buildings_tab_non_nyc, nyc_for_buildings_tab], ignore_index=True)
+
+    if has_buildings_tab:
+        buildings_tab_columns = buildings_tab_df.columns.tolist()
+        nyc_for_buildings_tab = nyc_rows_df.reindex(columns=buildings_tab_columns)
+        updated_buildings_tab = pd.concat([buildings_tab_non_nyc, nyc_for_buildings_tab], ignore_index=True)
 
     # Save updated files
     print("\nSaving updated files...")
     updated_portfolio.to_csv(PORTFOLIO_DATA, index=False)
-    updated_buildings_tab.to_csv(BUILDINGS_TAB_DATA, index=False)
-
     print(f"  - portfolio_data.csv: {len(updated_portfolio)} rows (was {len(portfolio_df)})")
-    print(f"  - buildings_tab_data.csv: {len(updated_buildings_tab)} rows (was {len(buildings_tab_df)})")
 
-    return updated_portfolio, updated_buildings_tab
+    if has_buildings_tab:
+        updated_buildings_tab.to_csv(BUILDINGS_TAB_DATA, index=False)
+        print(f"  - buildings_tab_data.csv: {len(updated_buildings_tab)} rows (was {len(buildings_tab_df)})")
+
+    return updated_portfolio, (updated_buildings_tab if has_buildings_tab else None)
 
 
 def main():

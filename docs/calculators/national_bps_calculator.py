@@ -39,7 +39,6 @@ def safe_float(val, default=0.0):
 # =============================================================================
 
 INPUT_CSVS = [
-    "/Users/forrestmiller/Desktop/nationwide-prospector/data/source/buildings_tab_data.csv",
     "/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv",
 ]
 

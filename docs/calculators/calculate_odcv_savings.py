@@ -23,9 +23,9 @@ import os
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE = '/Users/forrestmiller/Desktop/analysis stage/ANALYSIS STEP merged_property_matches_updated.csv'
-OUTPUT_DIR = '/Users/forrestmiller/Desktop/analysis stage/FINAL FILE'
-OUTPUT_FILE = 'ANALYSIS STEP II merged_property_matches_updated.csv'
+INPUT_FILES = [
+    '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv',
+]
 
 # =============================================================================
 # BUILDING TYPE CONFIGURATION
@@ -48,9 +48,11 @@ BUILDING_TYPE_BOUNDS = {
     'Restaurant/Bar':            (0.10, 0.25),
     'Gym':                       (0.15, 0.35),
     'Event Space':               (0.20, 0.45),
+    'Venue':                     (0.20, 0.45),  # Same as Event Space
     'Theater':                   (0.18, 0.40),
     'Arts & Culture':            (0.15, 0.35),
     'Library':                   (0.12, 0.28),
+    'Library/Museum':            (0.12, 0.28),  # Same as Library
     'Bank Branch':               (0.12, 0.28),
     'Vehicle Dealership':        (0.15, 0.35),
     'Courthouse':                (0.10, 0.25),
@@ -60,6 +62,7 @@ BUILDING_TYPE_BOUNDS = {
     'Inpatient Hospital':        (0.05, 0.15),
     'Specialty Hospital':        (0.05, 0.15),
     'Residential Care Facility': (0.05, 0.15),
+    'Residential Care':          (0.05, 0.15),  # Same as Residential Care Facility
     'Laboratory':                (0.05, 0.15),
     'Police Station':            (0.05, 0.15),
     'Fire Station':              (0.05, 0.15),
@@ -220,46 +223,46 @@ def calculate_climate_modifier(climate_zone):
 # MAIN CALCULATION
 # =============================================================================
 
-def main():
+def process_file(input_file):
+    """Process a single CSV file."""
+    print(f"\n{'=' * 60}")
+    print(f"Processing: {input_file}")
     print("=" * 60)
-    print("ODCV Savings Percentage Calculator")
-    print("=" * 60)
-    
+
     # Load data
-    print(f"\nLoading: {INPUT_FILE}")
-    df = pd.read_csv(INPUT_FILE, dtype=str)  # Load as string to handle empty values
+    df = pd.read_csv(input_file, dtype=str, low_memory=False)
     print(f"Loaded {len(df):,} buildings")
-    
+
     # Calculate peer median EUI by building type (for efficiency modifier fallback)
     print("\nCalculating peer median EUI by building type...")
     df['site_eui_float'] = df['site_eui'].apply(lambda x: safe_float(x))
-    peer_median_eui = df.groupby('building type')['site_eui_float'].median().to_dict()
-    
+    peer_median_eui = df.groupby('building_type')['site_eui_float'].median().to_dict()
+
     # Calculate median year_built by building type (for missing value fallback)
     print("Calculating median year_built by building type...")
     df['year_built_float'] = df['year_built'].apply(lambda x: safe_float(x))
-    median_year_by_type = df.groupby('building type')['year_built_float'].median().to_dict()
-    
+    median_year_by_type = df.groupby('building_type')['year_built_float'].median().to_dict()
+
     # Default values
     DEFAULT_VACANCY = 0.15
     DEFAULT_UTILIZATION = 0.60
-    
+
     # Calculate ODCV savings for each building
     print("\nCalculating ODCV savings percentage for each building...")
-    
+
     odcv_savings_list = []
-    
+
     for idx, row in df.iterrows():
-        building_type = row['building type']
-        
+        building_type = row['building_type']
+
         # Get floor/ceiling for this building type
         floor, ceiling = BUILDING_TYPE_BOUNDS.get(building_type, (0.15, 0.35))
-        
+
         # Data Center = 0%
         if building_type == 'Data Center':
             odcv_savings_list.append(0.0)
             continue
-        
+
         # Parse values with defaults
         vacancy = safe_float(row['vacancy_rate'], DEFAULT_VACANCY)
         utilization = safe_float(row['utilization_rate'], DEFAULT_UTILIZATION)
@@ -267,74 +270,87 @@ def main():
         sqft = safe_float(row['square_footage'], 89000)
         energy_star = safe_float(row['energy_star_score'])
         eui = safe_float(row['site_eui'])
-        climate_zone = row['ENERGY STAR Climate Zone'] if row['ENERGY STAR Climate Zone'] else ''
-        
+        climate_zone = row['energy_star_climate_zone'] if pd.notna(row['energy_star_climate_zone']) and row['energy_star_climate_zone'] else ''
+
         # Step 1: Opportunity score
         opportunity = calculate_opportunity_score(building_type, vacancy, utilization)
-        
+
         # Step 2: Automation score
         automation = calculate_automation_score(year_built, sqft)
-        
+
         # Step 3: Efficiency modifier (Energy Star if available, else EUI)
         efficiency_modifier = calculate_efficiency_modifier_energy_star(energy_star)
         if efficiency_modifier is None:
             efficiency_modifier = calculate_efficiency_modifier_eui(eui, peer_median_eui.get(building_type))
-        
+
         # Step 4: Climate modifier
         climate_modifier = calculate_climate_modifier(climate_zone)
-        
+
         # Step 5: Calculate final ODCV savings %
         # Base calculation: floor + (opportunity * automation * range)
         range_size = ceiling - floor
         base_odcv = floor + (opportunity * automation * range_size)
-        
+
         # Apply modifiers
         final_odcv = base_odcv * efficiency_modifier * climate_modifier
-        
-        # Clamp to floor/ceiling
+
+        # Apply 20% increase (multiplicative, not additive)
+        final_odcv = final_odcv * 1.20
+
+        # Clamp to building type floor/ceiling first
         final_odcv = max(floor, min(ceiling, final_odcv))
-        
+
+        # GLOBAL bounds: never below 20%, never above 50%
+        final_odcv = max(0.20, min(0.50, final_odcv))
+
         odcv_savings_list.append(round(final_odcv, 4))
-    
+
     # Add column to dataframe
     df['odcv_savings_pct'] = odcv_savings_list
-    
+
     # Drop temp columns
     df = df.drop(columns=['site_eui_float', 'year_built_float'])
-    
+
     # Summary statistics
-    print("\n" + "=" * 60)
+    print("\n" + "-" * 60)
     print("RESULTS SUMMARY")
-    print("=" * 60)
-    
+    print("-" * 60)
+
     df['odcv_savings_pct_float'] = df['odcv_savings_pct'].astype(float)
-    
+
     print(f"\nOverall Statistics:")
     print(f"  Min:    {df['odcv_savings_pct_float'].min():.1%}")
     print(f"  Max:    {df['odcv_savings_pct_float'].max():.1%}")
     print(f"  Mean:   {df['odcv_savings_pct_float'].mean():.1%}")
     print(f"  Median: {df['odcv_savings_pct_float'].median():.1%}")
-    
+
     print(f"\nBy Building Type:")
     print("-" * 50)
-    type_stats = df.groupby('building type')['odcv_savings_pct_float'].agg(['count', 'min', 'max', 'mean', 'median'])
+    type_stats = df.groupby('building_type')['odcv_savings_pct_float'].agg(['count', 'min', 'max', 'mean', 'median'])
     type_stats = type_stats.sort_values('count', ascending=False)
-    
+
     for btype, stats in type_stats.iterrows():
         print(f"  {btype:30s} n={int(stats['count']):5d}  "
               f"min={stats['min']:.1%}  max={stats['max']:.1%}  "
               f"mean={stats['mean']:.1%}  median={stats['median']:.1%}")
-    
+
     # Drop temp column
     df = df.drop(columns=['odcv_savings_pct_float'])
-    
-    # Save output
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    output_path = os.path.join(OUTPUT_DIR, OUTPUT_FILE)
-    print(f"\nSaving to: {output_path}")
-    df.to_csv(output_path, index=False)
-    print(f"Saved {len(df):,} buildings with odcv_savings_pct column")
-    
+
+    # Save back to same file
+    print(f"\nSaving to: {input_file}")
+    df.to_csv(input_file, index=False)
+    print(f"Saved {len(df):,} buildings with updated odcv_savings_pct")
+
+
+def main():
+    print("=" * 60)
+    print("ODCV Savings Percentage Calculator (20% increase)")
+    print("=" * 60)
+
+    for input_file in INPUT_FILES:
+        process_file(input_file)
+
     print("\n" + "=" * 60)
     print("DONE")
     print("=" * 60)

@@ -43,7 +43,6 @@ import os
 # =============================================================================
 
 INPUT_FILES = [
-    '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/buildings_tab_data.csv',
     '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv',
 ]
 
