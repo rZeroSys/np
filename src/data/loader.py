@@ -466,7 +466,7 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
 
         # Get unique cities and building types for filtering
         cities = sorted(list(set(b['city'] for b in buildings_list if b.get('city'))))
-        building_types = sorted(list(set(b['building_type'] for b in buildings_list if b.get('building_type'))))
+        building_types = sorted(list(set(b['radio_type'] for b in buildings_list if b.get('radio_type'))))
         radio_types = sorted(list(set(b['radio_type'] for b in buildings_list if b.get('radio_type'))))
 
         # Get unique tenants, tenant sub-orgs, owners, and managers for search
@@ -568,7 +568,7 @@ def calculate_stats(buildings_df, portfolios):
     ]
 
     # Get all unique building types
-    all_building_types = sorted(buildings_df['building_type'].dropna().unique().tolist())
+    all_building_types = sorted(buildings_df['radio_button_building_type'].dropna().unique().tolist())
 
     stats = {
         'total_buildings': len(buildings_df),
@@ -670,7 +670,7 @@ def prepare_all_buildings(buildings_df, image_map):
             'address': safe_str(row['address']),
             'city': safe_str(row.get('city')),
             'state': safe_str(row.get('state')),
-            'type': normalize_building_type(safe_str(row.get('radio_button_building_type') or row.get('building_type'))),
+            'type': normalize_building_type(safe_str(row.get('radio_button_building_type'))),
             'radio_type': normalize_building_type(safe_str(row.get('radio_button_building_type'))),
             'vertical': safe_str(row.get('vertical')),
             'sqft': safe_float(row['square_footage']),
@@ -846,7 +846,7 @@ def export_split_data(data, output_dir):
             'address': b['address'],
             'city': b.get('city', ''),
             'state': b.get('state', ''),
-            'type': normalize_building_type(b.get('radio_type') or b.get('building_type', '')),
+            'type': b.get('radio_type', ''),
             'vertical': b['vertical'],
             'sqft': b['sqft'],
             'opex': b['total_opex'],
