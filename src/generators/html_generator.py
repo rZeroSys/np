@@ -1157,7 +1157,9 @@ body.all-buildings-active .main-tabs {
     background: white;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    overflow: hidden;
+    overflow: visible;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }
 
 .ab-table {
@@ -2265,7 +2267,7 @@ body.all-buildings-active .main-tabs {
     width: 50%;
     height: 100%;
     background: white;
-    z-index: 2000;
+    z-index: 9999;
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -4px 0 20px rgba(0,0,0,0.1);
@@ -2741,7 +2743,6 @@ tr.pin-highlight {
         </div>
     </div>
 
-    <div id="mainContent" style="display: none;">
 {sidebar_html}'''
 
     def _generate_left_sidebar(self):
@@ -3061,7 +3062,7 @@ tr.pin-highlight {
     def _generate_header(self):
         """Generate page header with tab bar and user profile."""
         return '''
-<header class="header">
+<header class="header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1001;">
     <!-- User Profile Section -->
     <div id="userInfo" style="position: absolute; top: 15px; right: 20px; color: white; font-size: 14px; display: none; z-index: 10;">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -3082,32 +3083,32 @@ tr.pin-highlight {
         </h1>
         <input type="text" id="global-search" class="global-search" placeholder="Search owner, tenant, brand..." oninput="globalSearch(this.value)" style="margin-left: 40px;">
         <div id="filter-chips" class="filter-chips"></div>
-        <div style="margin-left: auto; display: flex; gap: 12px; align-items: center; margin-right: 85px;">
-            <button onclick="openMapPanel()" style="
-                background: #0066cc;
-                color: white;
-                border: none;
-                padding: 8px 14px;
-                border-radius: 6px;
-                font-weight: 500;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 13px;
-                transition: background 0.2s;
-            " onmouseover="this.style.background='#0052a3'" onmouseout="this.style.background='#0066cc'">
-                <span style="font-size: 14px;">&#128506;</span> View Map
-            </button>
-        </div>
     </div>
 </header>
 <div class="main-tabs" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 1002; background: white; border-bottom: 1px solid var(--gray-200); padding: 0 32px;">
-    <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0;">
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: center;">
         <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')">Portfolios</button>
         <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')">Cities</button>
+        <button onclick="openMapPanel()" style="
+            margin-left: auto;
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#0052a3'" onmouseout="this.style.background='#0066cc'">
+            <span style="font-size: 14px;">&#128506;</span> Map
+        </button>
     </div>
-</div>'''
+</div>
+<div id="mainContent" style="display: none;">'''
 
     # =========================================================================
     # PORTFOLIO SECTION
