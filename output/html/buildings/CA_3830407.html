@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!-- Generated: 2025-12-05 23:40:56 EST -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Report - CA_3830407</title>
+    <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f9fafb;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .hero .address {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 3px;
+        }
+
+        .hero .building-info {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .hero .opportunity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .hero .metric {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .hero .metric-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .hero .metric-value {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section {
+            margin: 40px 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #1a202c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0066cc;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        /* Chart */
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .hero .opportunity {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        /* Tooltip Styles */
+        .info-tooltip {
+            display: inline-block;
+            margin-left: 5px;
+            width: 16px;
+            height: 16px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 12px;
+            cursor: help;
+            position: relative;
+        }
+
+        .info-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: normal;
+            width: 500px;
+            max-width: 90vw;
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: left;
+            z-index: 2147483647;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+        }
+
+        .info-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-tooltip::before {
+            content: "";
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .info-tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile tooltip adjustments */
+        @media (max-width: 768px) {
+            .info-tooltip::after {
+                width: 280px;
+                font-size: 12px;
+                left: auto;
+                right: 0;
+                transform: none;
+            }
+
+            .info-tooltip::before {
+                left: auto;
+                right: 10px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <div style="padding: 15px 20px; display: flex; align-items: center;">
+        <a href="../nationwide_index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: #0066cc; font-weight: 500;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Nationwide Prospector
+        </a>
+    </div>
+
+    <div class="hero">
+        <h1><a href="https://www.google.com/maps/search/?api=1&amp;query=1525%20O%27Brien%20Drive%2C%20Menlo%20Park%2C%20CA%2C%2094025" target="_blank" style="color: inherit; text-decoration: none;">Menlo Business Park Building Obrien</a></h1>
+        <div class="address">1525 O'Brien Drive, Menlo Park, CA, 94025</div>
+        <div class="building-info">
+74,250 sqft | Laboratory | Built 1989
+        </div>
+        <div class="opportunity">
+
+            <div class="metric">
+                <div class="metric-label">Annual Savings<span class="info-tooltip" data-tooltip="First, we get energy usage from AB 802 filing. Then we estimate how much goes to HVAC (from CBECS federal building survey, adjusted for this building). Then we apply ODCV savings % (see ODCV Reduction tooltip) to get energy saved. Finally, we calculate the dollar value using average commercial energy rates and demand rates for this ZIP code (from NREL). Peak kW estimated from usage via load factor (see Peak Demand tooltip)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></div>
+                <div class="metric-value">$16K</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">HVAC Savings<span class="info-tooltip" data-tooltip="Savings calculated from two factors: utilization and automation capability—but capped at 30% of other buildings because these facilities require high airflow 24/7 for safety or infection control (ASHRAE 170). Savings limited to non-critical areas like lobbies and offices (utilization data from Placer AI)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></div>
+                <div class="metric-value">5.5%</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Whole Building Savings<span class="info-tooltip" data-tooltip="Annual Savings as a percentage of Total Energy Cost. Shows the impact relative to your entire energy spend, not just HVAC." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></div>
+                <div class="metric-value">1.2%</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section" style="margin: 0; padding: 0;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/CA_3830407_streetview.jpg" alt="Building CA_3830407" style="width: 100%; max-height: 600px; object-fit: cover; border-radius: 8px;">
+    </div>
+
+    <div class="section">
+        <h2>ODCV Savings</h2>
+        <table>
+<tr><td>Total Energy Cost<span class="info-tooltip" data-tooltip="Annual electricity + gas + steam costs. Electricity from benchmarking disclosure, costs calculated using utility rate schedules for this ZIP code (from NREL). Gas and steam costs from local utility rates." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>$1.4M</td></tr><tr><td>HVAC Energy Cost<span class="info-tooltip" data-tooltip="Portion of energy bill going to heating, cooling, and ventilation. Calculated from EIA CBECS 2018 survey of 6,700 buildings - the federal government's primary source on commercial building energy use. Adjusted for this building's type, climate zone, age, and efficiency score." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>$295K</td></tr><tr><td>HVAC Savings %<span class="info-tooltip" data-tooltip="Savings calculated from two factors: utilization and automation capability—but capped at 30% of other buildings because these facilities require high airflow 24/7 for safety or infection control (ASHRAE 170). Savings limited to non-critical areas like lobbies and offices (utilization data from Placer AI)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>5.5%</td></tr><tr><td style="padding-left: 30px; color: #6b7280;">↳ Utilization Rate<span class="info-tooltip" data-tooltip="Percentage of time occupied spaces are actually in use. Data from Placer AI foot traffic analysis. A 50% utilization means the space is empty half the time but still getting full ventilation." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td style="color: #6b7280;">60.0%</td></tr><tr style="background: #f0f9ff;"><td><strong>Annual Savings<span class="info-tooltip" data-tooltip="First, we get energy usage from AB 802 filing. Then we estimate how much goes to HVAC (from CBECS federal building survey, adjusted for this building). Then we apply ODCV savings % (see ODCV Reduction tooltip) to get energy saved. Finally, we calculate the dollar value using average commercial energy rates and demand rates for this ZIP code (from NREL). Peak kW estimated from usage via load factor (see Peak Demand tooltip)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></strong></td><td><strong>$16K</strong></td></tr><tr><td>Whole Building Savings<span class="info-tooltip" data-tooltip="Annual Savings as a percentage of Total Energy Cost. Shows the impact relative to your entire energy spend, not just HVAC." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>1.2%</td></tr><tr><td>Carbon Reduction Year 1<span class="info-tooltip" data-tooltip="Metric tons of CO2 equivalent reduced annually. Calculated from HVAC energy reduction × emission factors. Electricity factors vary by grid (Seattle is very clean, Midwest is coal-heavy). Gas and steam use standard combustion factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>14.4 MT CO2e</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Building & Property</h2>
+        <table>
+<tr><td>Property Name</td><td>Menlo Business Park Building Obrien</td></tr><tr><td>Site EUI<span class="info-tooltip" data-tooltip="Site Energy Use Intensity in kBtu per square foot per year (from energy disclosure filing). Lower EUI indicates better efficiency. Inefficient buildings have more waste for ODCV to capture." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>158.0 kBtu/sqft</td></tr><tr><td>Utilization Rate<span class="info-tooltip" data-tooltip="Percentage of time occupied spaces are actually in use. Data from Placer AI foot traffic analysis. A 50% utilization means the space is empty half the time but still getting full ventilation." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>60.0%</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Energy</h2>
+
+        <table>
+            <tr>
+                <th>Fuel Type</th>
+                <th>Annual Use</th>
+                <th>Annual Cost</th>
+            </tr>
+
+            <tr>
+                <td>Electricity<span class="info-tooltip" data-tooltip="Annual electricity consumption in kilowatt-hours (from AB 802 filing)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,700,237 kWh</td>
+                <td>$1.3M</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Annual natural gas use in therms (from AB 802 filing)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>25,187 therms</td>
+                <td>$48K</td>
+            </tr>
+
+        </table>
+
+        <p style="margin-top: 15px;"><strong>Total GHG Emissions<span class="info-tooltip" data-tooltip="Total annual greenhouse gas emissions in metric tons CO2e. Calculated from energy use with Menlo Park grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span>:</strong> 983.2 MT CO2e</p>
+
+        <h3 style="margin-top: 25px; font-size: 1.1em; color: #374151;">HVAC Breakdown<span class="info-tooltip" data-tooltip="% of electricity for HVAC. From CBECS 2018 survey, adjusted for this building's efficiency score, age, and energy intensity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></h3>
+        <table style="margin-top: 10px;">
+            <tr>
+                <th>Fuel</th>
+                <th>% HVAC</th>
+                <th>HVAC Cost</th>
+            </tr>
+
+            <tr>
+                <td>Electricity</td>
+                <td>19%</td>
+                <td>$251K</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas</td>
+                <td>91%</td>
+                <td>$43K</td>
+            </tr>
+
+        </table>
+
+        <p style="margin-top: 10px;"><strong>Total HVAC Cost:</strong> $295K</p>
+
+        <div style="margin-top: 15px;">
+            <div style="font-size: 0.85em; color: #6b7280; margin-bottom: 5px;">Electricity: HVAC vs Non-HVAC</div>
+            <div style="display: flex; height: 24px; border-radius: 4px; overflow: hidden; background: #e5e7eb;">
+                <div style="width: 18.7%; background: #0066cc;" title="HVAC: 19%"></div>
+                <div style="width: 81.3%; background: #94a3b8;" title="Non-HVAC: 81%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75em; color: #6b7280; margin-top: 3px;">
+                <span>HVAC 19%</span>
+                <span>Non-HVAC 81%</span>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+</body>
+</html>

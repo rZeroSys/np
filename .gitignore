@@ -1,0 +1,51 @@
+# Images - hosted on S3
+assets/images/
+assets/thumbnails/
+assets/logos/
+
+# Staging
+staging/
+
+# Data source files (large CSVs)
+data/source/
+
+# Archive
+archive/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# Backup files
+backup/
+
+# Logs
+*.log
+
+# Test files
+output/html/test_*.html
+
+# Claude settings (local)
+.claude/settings.json
+.claude/plans/
