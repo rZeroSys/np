@@ -183,6 +183,7 @@ class NationwideHTMLGenerator:
                 'eui': b.get('site_eui', 0) or 0,
                 'eui_benchmark': b.get('eui_benchmark', 0) or 0,
                 'image': b.get('image', ''),
+                'sub_org': b.get('tenant_sub_org', ''),
             } for b in p['buildings']] for i, p in enumerate(self.portfolios)
         }
 
@@ -528,6 +529,23 @@ body {
     z-index: 1000;
 }
 
+/* City filter bar - identical to vertical filter bar, for Cities tab */
+.city-filter-bar {
+    position: fixed;
+    top: 133px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 32px;
+    z-index: 1000;
+    display: none;
+}
+
+body.all-buildings-active .city-filter-bar {
+    display: block;
+}
+
 .vertical-filter-inner {
     max-width: 1272px;
     margin: 0 auto;
@@ -598,10 +616,10 @@ body {
 /* FILTER DRAWER - slides out from left */
 .filter-drawer {
     position: fixed;
-    top: 133px;
+    top: 185px;
     left: 0;
     width: 300px;
-    height: calc(100vh - 133px);
+    height: calc(100vh - 185px);
     background: #f5f5f5;
     z-index: 2000;
     transform: translateX(-100%);
@@ -634,7 +652,7 @@ body {
     font-weight: 600;
     letter-spacing: 1px;
     box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-    transition: background 0.2s, padding-left 0.2s;
+    transition: background 0.2s, padding-left 0.2s, left 0.3s ease;
 }
 
 .filter-drawer-toggle:hover {
@@ -649,25 +667,61 @@ body.filter-drawer-open .filter-drawer-toggle {
 
 .filter-drawer-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
 }
 
 .filter-drawer-close {
-    background: none;
-    border: none;
-    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #3b82f6;
     cursor: pointer;
-    color: #666;
-    padding: 0 4px;
-    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.15s;
 }
 
 .filter-drawer-close:hover {
+    background: #dbeafe;
+    border-color: #3b82f6;
+    box-shadow: 0 2px 4px rgba(59,130,246,0.2);
+}
+
+/* Leaderboard list styling */
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 13px;
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-name {
+    font-weight: 500;
     color: #333;
+}
+
+.leaderboard-count {
+    color: #059669;
+    font-weight: 600;
 }
 
 .sidebar-label {
@@ -702,7 +756,7 @@ body.filter-drawer-open .filter-drawer-toggle {
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, var(--rzero-blue) 0%, #004499 100%);
+    background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
     color: white;
     padding: 24px 32px;
     position: fixed;
@@ -1107,22 +1161,27 @@ body.all-buildings-active .main-tabs {
 }
 
 
-/* Cities tab */
+/* Cities tab - blue header bar like Portfolios tab */
 .cities-header {
     display: grid;
     grid-template-columns: 60px minmax(200px, 2fr) 90px 80px 70px minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 90px;
     gap: 8px;
     padding: 12px 16px;
-    background: #f1f5f9;
-    border-bottom: 2px solid #cbd5e1;
-    font-size: 11px;
+    background: var(--rzero-blue);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 12px;
     font-weight: 600;
-    color: #475569;
+    color: white;
     text-transform: uppercase;
+    letter-spacing: 0.3px;
     align-items: center;
+    position: sticky;
+    top: 133px;
+    z-index: 100;
 }
 .cities-header span { cursor: pointer; }
-.cities-header span:hover { color: #3b82f6; }
+.cities-header span:hover { color: rgba(255,255,255,0.8); }
 
 .cities-row {
     display: grid;
@@ -1148,9 +1207,10 @@ body.all-buildings-active .main-tabs {
 
 .cities-container {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     overflow: hidden;
+    margin-top: 8px;
 }
 
 .ab-table-wrapper {
@@ -1383,6 +1443,93 @@ body.all-buildings-active .main-tabs {
 
 .export-menu button:last-child {
     border-radius: 0 0 8px 8px;
+}
+
+/* Leaderboard dropdown - similar to export dropdown */
+.leaderboard-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 1002;
+}
+
+.leaderboard-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 99999;
+    padding: 12px;
+}
+
+.leaderboard-menu.show {
+    display: block;
+}
+
+.leaderboard-menu .lb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.leaderboard-menu .lb-header span {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gray-700);
+}
+
+.leaderboard-menu .lb-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.leaderboard-menu .lb-refresh {
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.leaderboard-menu .lb-refresh:hover {
+    background: var(--gray-100);
+}
+
+.leaderboard-menu .lb-updated {
+    font-size: 10px;
+    color: #888;
+}
+
+.leaderboard-menu .leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-menu .leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13px;
+}
+
+.leaderboard-menu .leaderboard-item:last-child {
+    border-bottom: none;
 }
 
 .clear-btn {
@@ -2806,7 +2953,7 @@ tr.pin-highlight {
             <span class="chip-text"></span>
         </div>
         <div class="export-dropdown" style="margin-left: auto;">
-            <button class="export-btn" onclick="toggleExportMenu(event)">
+            <button class="export-btn" onclick="toggleExportMenu(event)" style="background: #1e3a5f;">
                 <span style="font-size: 14px;">&#8595;</span> Export CSV
             </button>
             <div id="export-menu" class="export-menu">
@@ -2815,32 +2962,41 @@ tr.pin-highlight {
                 <button onclick="exportPortfolioCSV()">Portfolio Summaries</button>
             </div>
         </div>
+        <button class="export-btn" onclick="openMapPanel()" style="margin-left: 8px; background: #0077cc;">
+            <span style="font-size: 14px;">&#128506;</span> Map
+        </button>
+        <div class="leaderboard-dropdown" style="margin-left: 8px;">
+            <button class="export-btn" onclick="toggleLeaderboardMenu(event)" style="background: #5ba3d9;">
+                <span style="font-size: 14px;">&#9733;</span> Leaderboard
+            </button>
+            <div id="leaderboard-menu" class="leaderboard-menu">
+                <div class="lb-header">
+                    <span>Most Active Users</span>
+                </div>
+                <div class="lb-controls">
+                    <button class="lb-refresh" id="lb-refresh-dropdown" onclick="event.stopPropagation(); refreshLeaderboard();">Refresh</button>
+                    <span class="lb-updated" id="lb-updated-dropdown"></span>
+                </div>
+                <ul class="leaderboard-list" id="leaderboard-list">
+                    <li class="leaderboard-item" style="color:#888;">Loading...</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <div class="filter-drawer" id="filter-drawer">
-    <div class="filter-drawer-header">
-        <span class="sidebar-label">Filter by Building Type</span>
-        <button class="filter-drawer-close" onclick="toggleFilterDrawer()">&times;</button>
-    </div>
     <div class="building-type-filters">
         {''.join(building_html)}
     </div>
 </div>
-<button class="filter-drawer-toggle" onclick="toggleFilterDrawer()">Filters</button>'''
+<button class="filter-drawer-toggle" id="filter-drawer-toggle" onclick="toggleFilterDrawer()">Filters</button>'''
 
     def _generate_body_end(self):
         """Generate closing body and html tags with auth functions and visitor leaderboard."""
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d %H:%M:%S EST')
         return f'''
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
-      <div id="lb-controls" style="display:flex;justify-content:center;gap:8px;align-items:center;margin:6px 0 6px 0;font-size:10px;color:#aaa;">
-        <button id="lb-refresh" style="padding:3px 8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;cursor:pointer;font-size:10px;color:#666;line-height:16px;">Update data</button>
-        <span id="lb-updated" aria-live="polite" style="margin-left:6px;"></span>
-      </div>
-      <div id="visitor-leaderboard" style="margin-top: 10px; padding-bottom: 8px; font-size: 10px; color: #aaa; display: none;">
-        <!-- Leaderboard will be populated here -->
-      </div>
-      <div class="build-footer" style="padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10px; color: #aaa;">
+      <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
         Build: {timestamp}
       </div>
     </footer>
@@ -2991,31 +3147,32 @@ tr.pin-highlight {
     document.addEventListener('DOMContentLoaded', checkAuth);
     </script>
 
-    <!-- Visitor Leaderboard Script -->
+    <!-- Visitor Leaderboard Script (Dropdown) -->
     <script>
     (function(){{
       if (typeof firebase === 'undefined' || !firebase.firestore) return;
 
       const db   = window.db || firebase.firestore();
-      const box  = document.getElementById('visitor-leaderboard');
-      const btn  = document.getElementById('lb-refresh');
-      const info = document.getElementById('lb-updated');
-      if (!box || !btn) return;
+      const list = document.getElementById('leaderboard-list');
+      const btn  = document.getElementById('lb-refresh-dropdown');
+      const info = document.getElementById('lb-updated-dropdown');
+      if (!list || !btn) return;
 
       function render(rows){{
-        if (!rows.length) {{ box.style.display='none'; info.textContent='No data yet.'; return; }}
-        const items = rows.map(r=>{{
+        if (!rows.length) {{
+          list.innerHTML = '<li class="leaderboard-item" style="color:#888;">No data yet.</li>';
+          return;
+        }}
+        list.innerHTML = rows.map((r, i) => {{
           const name = [r.firstName, r.lastName].filter(Boolean).join(' ') || r.displayName || r.email || 'Anonymous';
-          const n    = r.visitCount || 0;
+          const n = r.visitCount || 0;
           const pretty = n >= 1000 ? (Math.round(n/100)/10)+'k' : String(n);
-          return `${{name}} (${{pretty}})`;
-        }});
-        box.textContent = 'Most active: ' + items.join(', ');
-        box.style.display = 'block';
+          return `<li class="leaderboard-item"><span class="leaderboard-name">${{i+1}}. ${{name}}</span><span class="leaderboard-count">${{pretty}} visits</span></li>`;
+        }}).join('');
       }}
 
-      function stamp(ts){{
-        const d = new Date(ts || Date.now());
+      function stamp(){{
+        const d = new Date();
         info.textContent = 'Updated ' + d.toLocaleTimeString([], {{hour:'2-digit', minute:'2-digit'}});
       }}
 
@@ -3023,8 +3180,7 @@ tr.pin-highlight {
         try {{
           await firebase.firestore().enableNetwork().catch(()=>{{}});
           btn.disabled = true;
-          const prev = btn.textContent;
-          btn.textContent = 'Refreshing…';
+          btn.textContent = 'Refreshing...';
 
           const q = db.collection('nationwideUserActivity').orderBy('visitCount','desc').limit(30);
           const snap = await q.get({{ source: 'server' }});
@@ -3033,7 +3189,7 @@ tr.pin-highlight {
           snap.forEach(doc => rows.push(doc.data()));
           render(rows);
           stamp();
-          btn.textContent = prev;
+          btn.textContent = 'Refresh';
         }} catch (e) {{
           console.log('[Leaderboard] refresh failed', e);
           try {{
@@ -3046,6 +3202,7 @@ tr.pin-highlight {
           }} catch(_) {{
             info.textContent = 'Update failed';
           }}
+          btn.textContent = 'Refresh';
         }} finally {{
           btn.disabled = false;
         }}
@@ -3089,23 +3246,6 @@ tr.pin-highlight {
     <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: center;">
         <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')">Portfolios</button>
         <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')">Cities</button>
-        <button onclick="openMapPanel()" style="
-            margin-left: auto;
-            background: #0066cc;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            transition: background 0.2s;
-        " onmouseover="this.style.background='#0052a3'" onmouseout="this.style.background='#0066cc'">
-            <span style="font-size: 14px;">&#128506;</span> Map
-        </button>
     </div>
 </div>
 <div id="mainContent" style="display: none;">'''
@@ -3162,14 +3302,14 @@ tr.pin-highlight {
 <div id="portfolios-tab" class="tab-content active">
 <div class="portfolio-section" style="padding: 200px 32px 20px 32px;">
     <div class="portfolio-sort-header">
-        <span class="sort-col" id="header-org-col"></span>
-        <span class="sort-col" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('classification')" style="cursor:pointer">Type <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr <span class="sort-indicator">↕</span></span>
-        <span class="sort-col" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr <span class="sort-indicator">↕</span></span>
+        <span class="sort-col">Portfolio</span>
+        <span class="sort-col" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
+        <span class="sort-col" onclick="sortPortfolios('classification')" style="cursor:pointer">Type</span>
+        <span class="sort-col" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
+        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
+        <span class="sort-col" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
+        <span class="sort-col" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
+        <span class="sort-col" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
     </div>
     <div class="portfolios-list" id="portfolios-list">
         {''.join(portfolio_cards)}
@@ -3201,6 +3341,19 @@ tr.pin-highlight {
 
         top_cities = sorted(city_stats.items(), key=lambda x: x[1]['opex'], reverse=True)[:5]
 
+        # Sort cities geographically west to east (by longitude)
+        city_longitudes = {
+            'San Francisco': -122.4, 'Los Angeles': -118.2, 'San Jose': -121.9,
+            'Seattle': -122.3, 'Portland': -122.7, 'San Diego': -117.2,
+            'Phoenix': -112.1, 'Denver': -104.9, 'Salt Lake City': -111.9,
+            'Dallas': -96.8, 'Houston': -95.4, 'Austin': -97.7,
+            'Chicago': -87.6, 'Minneapolis': -93.3, 'Kansas City': -94.6,
+            'Atlanta': -84.4, 'Miami': -80.2, 'Tampa': -82.5,
+            'Boston': -71.1, 'New York': -74.0, 'Washington': -77.0,
+            'Philadelphia': -75.2, 'Baltimore': -76.6, 'Charlotte': -80.8,
+        }
+        top_cities = sorted(top_cities, key=lambda x: city_longitudes.get(x[0], -90))
+
         # Format functions
         def fmt_money(n):
             if n >= 1_000_000_000:
@@ -3220,38 +3373,46 @@ tr.pin-highlight {
                 return f'{int(n/1_000)}K'
             return f'{int(n):,}'
 
-        # Generate city filter cards HTML - compact chips
-        city_cards = []
-        for city, stats in top_cities:
-            city_cards.append(f'''<div class="city-filter-card" onclick="filterByCity('{escape(city)}')"><strong>{escape(city)}</strong><span class="city-count">{stats['count']:,}</span><span class="city-opex">{fmt_money(stats['opex'])}</span></div>''')
+        # Generate city filter buttons - matching vertical-btn style
+        # Gradient: dark navy (west) → light blue (east)
+        city_buttons = []
+        colors = ['#1e3a5f', '#2d5a87', '#0077cc', '#4a90c2', '#5ba3d9']
+        for i, (city, stats) in enumerate(top_cities):
+            color = colors[i] if i < len(colors) else colors[-1]
+            city_buttons.append(
+                f'<button class="vertical-btn city-btn" data-city="{escape(city)}" '
+                f'onclick="filterByCity(\'{escape(city)}\')" style="background:{color}">'
+                f'{escape(city)} <span class="btn-count">({stats["count"]:,})</span>'
+                f'<span class="btn-x" onclick="event.stopPropagation(); clearCityFilter()">✕</span>'
+                f'</button>'
+            )
 
         return f'''
+<div class="city-filter-bar">
+    <div class="vertical-filter-inner">
+        {''.join(city_buttons)}
+    </div>
+</div>
 <div id="all-buildings-tab" class="tab-content">
-<div class="all-buildings-section" style="padding: 210px 32px 20px 32px;">
-    <!-- City Filter -->
-    <div class="city-filter-section">
-        <div class="city-filter-label">Filter by City</div>
-        <div class="city-filter-cards">{''.join(city_cards)}</div>
-    </div>
-
+<div class="all-buildings-section" style="padding: 190px 32px 20px 32px;">
     <!-- Cities Table -->
+    <div class="cities-header">
+        <span></span>
+        <span onclick="sortAllBuildings('address')">Address</span>
+        <span onclick="sortAllBuildings('type')">Type</span>
+        <span onclick="sortAllBuildings('sqft')">Sq Ft</span>
+        <span onclick="sortAllBuildings('eui')">EUI</span>
+        <span onclick="sortAllBuildings('owner')">Owner</span>
+        <span onclick="sortAllBuildings('tenant')">Tenant</span>
+        <span onclick="sortAllBuildings('property_manager')">Prop Mgr</span>
+        <span onclick="sortAllBuildings('opex')">OpEx <span id="cities-total-opex" style="font-weight:700;color:#059669;"></span></span>
+    </div>
     <div class="cities-container">
-        <div class="cities-header">
-            <span></span>
-            <span onclick="sortAllBuildings('address')">Address</span>
-            <span onclick="sortAllBuildings('type')">Type</span>
-            <span onclick="sortAllBuildings('sqft')">Sq Ft</span>
-            <span onclick="sortAllBuildings('eui')">EUI</span>
-            <span onclick="sortAllBuildings('owner')">Owner</span>
-            <span onclick="sortAllBuildings('tenant')">Tenant</span>
-            <span onclick="sortAllBuildings('property_manager')">Prop Mgr</span>
-            <span onclick="sortAllBuildings('opex')">OpEx <span id="cities-total-opex" style="font-weight:700;color:#059669;"></span></span>
-        </div>
-        <div id="cities-rows" style="max-height:calc(100vh - 340px);overflow-y:auto;">
+        <div id="cities-rows">
             <div id="cities-list"></div>
-            <div class="ab-loading-trigger" id="ab-loading-trigger">Loading more...</div>
         </div>
     </div>
+    <div id="ab-loading-trigger" style="height:1px;"></div>
 </div>
 </div>'''
 
@@ -3538,8 +3699,8 @@ tr.pin-highlight {
     <div id="full-map"></div>
     <div id="climate-legend" style="
         position: absolute;
-        bottom: 30px;
-        left: 10px;
+        top: 70px;
+        right: 10px;
         background: rgba(255,255,255,0.95);
         padding: 10px 12px;
         border-radius: 6px;
@@ -3690,11 +3851,9 @@ function renderAllBuildingsBatch() {{
     container.appendChild(fragment);
     abCurrentIndex = endIndex;
 
+    // Hide trigger when all loaded
     if (abCurrentIndex >= filteredBuildingsData.length) {{
         trigger.style.display = 'none';
-    }} else {{
-        trigger.textContent = `Loading more... (${{abCurrentIndex.toLocaleString()}} of ${{filteredBuildingsData.length.toLocaleString()}})`;
-        trigger.style.display = 'block';
     }}
 }}
 
@@ -3732,7 +3891,6 @@ function createAllBuildingsRow(b) {{
 
 function setupAbInfiniteScroll() {{
     const trigger = document.getElementById('ab-loading-trigger');
-    const wrapper = document.getElementById('cities-rows');
 
     if (abInfiniteScrollObserver) {{
         abInfiniteScrollObserver.disconnect();
@@ -3742,7 +3900,7 @@ function setupAbInfiniteScroll() {{
         if (entries[0].isIntersecting && abCurrentIndex < filteredBuildingsData.length) {{
             renderAllBuildingsBatch();
         }}
-    }}, {{ root: wrapper, threshold: 0.1 }});
+    }}, {{ threshold: 0.1 }});
 
     abInfiniteScrollObserver.observe(trigger);
 }}
@@ -3766,7 +3924,8 @@ function doFilterAllBuildings() {{
                 b.city || '',
                 b.state || '',
                 b.type || '',
-                b.owner || ''
+                b.owner || '',
+                b.sub_org || ''
             ].join(' ').toLowerCase();
             if (!searchFields.includes(globalQuery)) return false;
         }}
@@ -4198,12 +4357,18 @@ function globalSearch(query) {{
                         aliasExact;  // NYC, LA, SF, etc.
             }} else {{
                 // Long queries: search all fields
+                const tenantMatch = (p.tenants || []).some(t => t.toLowerCase().includes(globalQuery));
+                const subOrgMatch = (p.tenant_sub_orgs || []).some(s => s.toLowerCase().includes(globalQuery));
+                const ownerMatch = (p.owners || []).some(o => o.toLowerCase().includes(globalQuery));
+                const managerMatch = (p.managers || []).some(m => m.toLowerCase().includes(globalQuery));
+
+                if (subOrgMatch) {{
+                    console.log('TENANT_SUB_ORG MATCH:', p.org_name, 'tenant_sub_orgs:', p.tenant_sub_orgs);
+                }}
+
                 match = orgLower.includes(globalQuery) ||
                         displayLower.includes(globalQuery) ||
-                        (p.tenants || []).some(t => t.toLowerCase().includes(globalQuery)) ||
-                        (p.tenant_sub_orgs || []).some(s => s.toLowerCase().includes(globalQuery)) ||
-                        (p.owners || []).some(o => o.toLowerCase().includes(globalQuery)) ||
-                        (p.managers || []).some(m => m.toLowerCase().includes(globalQuery));
+                        tenantMatch || subOrgMatch || ownerMatch || managerMatch;
             }}
 
             if (match) searchMatchingIndices.push(p.idx);
@@ -4530,9 +4695,30 @@ window.sortPortfolios = function(col) {{
 
 function toggleFilterDrawer() {{
     const drawer = document.getElementById('filter-drawer');
+    const toggle = document.getElementById('filter-drawer-toggle');
     drawer.classList.toggle('open');
     document.body.classList.toggle('filter-drawer-open');
+    toggle.textContent = drawer.classList.contains('open') ? 'Close ◀' : 'Filters';
 }}
+
+function toggleLeaderboardMenu(event) {{
+    event.stopPropagation();
+    const menu = document.getElementById('leaderboard-menu');
+    menu.classList.toggle('show');
+
+    // Load leaderboard data when opening
+    if (menu.classList.contains('show')) {{
+        refreshLeaderboard();
+    }}
+}}
+
+// Close leaderboard menu when clicking outside
+document.addEventListener('click', function(e) {{
+    if (!e.target.closest('.leaderboard-dropdown')) {{
+        const menu = document.getElementById('leaderboard-menu');
+        if (menu) menu.classList.remove('show');
+    }}
+}});
 
 // =============================================================================
 // PORTFOLIO EXPANSION
@@ -4576,7 +4762,7 @@ function updateStickyOrgName() {{
 
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (!expanded) {{
-        headerOrgCol.textContent = '';
+        headerOrgCol.textContent = 'Org';
         return;
     }}
 
@@ -4593,7 +4779,7 @@ function updateStickyOrgName() {{
         const displayName = orgNameSpan ? orgNameSpan.getAttribute('title') : '';
         headerOrgCol.textContent = displayName;
     }} else {{
-        headerOrgCol.textContent = '';
+        headerOrgCol.textContent = 'Org';
     }}
 }}
 
@@ -4976,8 +5162,6 @@ async function initFullMap() {{
         center: [-98.5795, 39.8283],  // US center
         zoom: 3
     }});
-
-    fullMap.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
     fullMap.on('load', () => {{
         const geojson = buildingsGeoJSON();
@@ -5524,6 +5708,19 @@ function loadPortfolioRows(card, loadMore = false) {{
     // Filter by active vertical if not 'all'
     if (activeVertical && activeVertical !== 'all') {{
         buildings = buildings.filter(b => b.vertical === activeVertical);
+    }}
+    // Filter by global search query
+    if (globalQuery) {{
+        buildings = buildings.filter(b => {{
+            const searchFields = [
+                b.address || '',
+                b.city || '',
+                b.state || '',
+                b.type || '',
+                b.sub_org || ''
+            ].join(' ').toLowerCase();
+            return searchFields.includes(globalQuery);
+        }});
     }}
 
     if (!buildings.length) {{

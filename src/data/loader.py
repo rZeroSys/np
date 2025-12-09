@@ -393,10 +393,11 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
 
     portfolios = {}
 
-    # Create lookup for buildings by owner, manager, AND tenant (per methodology)
+    # Create lookup for buildings by owner, manager, tenant, AND tenant_sub_org (per methodology)
     owner_buildings = defaultdict(list)
     manager_buildings = defaultdict(list)
     tenant_buildings = defaultdict(list)
+    tenant_sub_org_buildings = defaultdict(list)
 
     for _, row in buildings_df.iterrows():
         building_data = {
@@ -422,7 +423,9 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             'tenant': safe_str(row.get('tenant')),
             'tenant_sub_org': safe_str(row.get('tenant_sub_org')),
             'site_eui': safe_float(row.get('site_eui'), None),
-            'eui_benchmark': safe_float(row.get('eui_benchmark'), None)
+            'eui_benchmark': safe_float(row.get('eui_benchmark'), None),
+            'owner': safe_str(row.get('building_owner')),
+            'manager': safe_str(row.get('property_manager'))
         }
 
         owner = safe_str(row.get('building_owner'))
@@ -435,6 +438,9 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             manager_buildings[manager].append(building_data)
         if tenant:
             tenant_buildings[tenant].append(building_data)
+        tenant_sub_org = safe_str(row.get('tenant_sub_org'))
+        if tenant_sub_org:
+            tenant_sub_org_buildings[tenant_sub_org].append(building_data)
 
     # Process each portfolio organization (calculated dynamically from building data)
     for org_name, row_count in portfolio_orgs.items():
@@ -448,6 +454,9 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             org_buildings[bldg['building_id']] = bldg
 
         for bldg in tenant_buildings.get(org_name, []):
+            org_buildings[bldg['building_id']] = bldg
+
+        for bldg in tenant_sub_org_buildings.get(org_name, []):
             org_buildings[bldg['building_id']] = bldg
 
         if not org_buildings:
