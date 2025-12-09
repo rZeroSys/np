@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 07:29:29 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 07:37:52 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -664,39 +664,41 @@ body.all-buildings-active .main-tabs {
 /* Cities tab */
 .cities-header {
     display: grid;
-    grid-template-columns: 70px 2fr 80px 80px 60px 1fr 1fr 1fr 80px;
-    gap: 10px;
-    padding: 12px 20px;
+    grid-template-columns: 60px minmax(200px, 2fr) 90px 80px 70px minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 90px;
+    gap: 8px;
+    padding: 12px 16px;
     background: #f1f5f9;
     border-bottom: 2px solid #cbd5e1;
     font-size: 11px;
     font-weight: 600;
     color: #475569;
     text-transform: uppercase;
+    align-items: center;
 }
 .cities-header span { cursor: pointer; }
 .cities-header span:hover { color: #3b82f6; }
 
 .cities-row {
     display: grid;
-    grid-template-columns: 70px 2fr 80px 80px 60px 1fr 1fr 1fr 80px;
-    gap: 10px;
-    padding: 10px 20px;
+    grid-template-columns: 60px minmax(200px, 2fr) 90px 80px 70px minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 90px;
+    gap: 8px;
+    padding: 8px 16px;
     border-bottom: 1px solid #e5e7eb;
     cursor: pointer;
     align-items: center;
     background: white;
-    font-size: 13px;
+    font-size: 12px;
 }
 .cities-row:hover { background: #f8fafc; }
 .cities-row .cell {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    min-width: 0;
 }
-.cities-row .addr { display: flex; flex-direction: column; }
-.cities-row .addr-main { font-weight: 500; }
-.cities-row .addr-sub { font-size: 11px; color: #6b7280; }
+.cities-row .addr { display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.cities-row .addr-main { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cities-row .addr-sub { font-size: 11px; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .cities-container {
     background: white;
@@ -4189,9 +4191,12 @@ function createAllBuildingsRow(b) {
     const eui = formatEuiRating(b.site_eui, b.eui_benchmark);
     const propertyName = b.property_name || '';
 
+    // Strip zip code from address (remove trailing 5-digit or 5+4 zip)
+    let addrClean = (b.address || '').replace(/,?\s*\d{5}(-\d{4})?$/, '').trim();
+
     row.innerHTML = `
         <div>${thumb}</div>
-        <div class="addr"><span class="addr-main">${escapeHtml(b.address)}</span><span class="addr-sub">${escapeHtml(propertyName)}</span></div>
+        <div class="addr"><span class="addr-main">${escapeHtml(addrClean)}</span><span class="addr-sub">${escapeHtml(propertyName)}</span></div>
         <div class="cell">${escapeHtml(b.type || '-')}</div>
         <div class="cell">${sqft}</div>
         <div class="cell">${eui}</div>

@@ -957,23 +957,30 @@ def generate_energy_section(row):
             </tr>
 """
 
-    html += """
-        </table>
-"""
-
     # Total HVAC cost (single line summary)
     total_hvac_cost = safe_num(row, 'total_hvac_energy_cost')
     ghg = safe_num(row, 'total_ghg_emissions_mt_co2e')
 
     # Add HVAC Cost row
     if total_hvac_cost:
-        html += f"<tr><td>Total HVAC Cost{tooltip('total_hvac_cost')}</td><td>{format_currency(total_hvac_cost)}</td></tr>"
+        html += f"""
+            <tr style="border-top: 2px solid #e0e0e0;">
+                <td style="padding-top: 12px;"><strong>Total HVAC Cost</strong>{tooltip('total_hvac_cost')}</td>
+                <td style="padding-top: 12px;" colspan="3"><strong>{format_currency(total_hvac_cost)}</strong></td>
+            </tr>
+"""
 
     # Add GHG Emissions row
     if ghg:
-        html += f"<tr><td>GHG Emissions{tooltip('total_ghg', row)}</td><td>{format_number(ghg, 1)} MT CO2e</td></tr>"
+        html += f"""
+            <tr>
+                <td><strong>GHG Emissions</strong>{tooltip('total_ghg', row)}</td>
+                <td colspan="3"><strong>{format_number(ghg, 1)} MT CO2e</strong></td>
+            </tr>
+"""
 
     html += """
+        </table>
     </div>
 """
     return html
