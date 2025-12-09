@@ -204,7 +204,7 @@ def calculate_portfolio_orgs(buildings_df, min_rows=3):
     for idx, row in buildings_df.iterrows():
         row_orgs = set()  # Collect unique orgs in this row
 
-        for col in ['building_owner', 'property_manager', 'tenant']:
+        for col in ['building_owner', 'property_manager', 'tenant', 'tenant_sub_org']:
             org = str(row.get(col, '')).strip()
             if org:
                 row_orgs.add(org)
@@ -249,7 +249,7 @@ def load_logo_mappings():
         logo_file = safe_str(row.get('logo_file', ''))
         classification = safe_str(row.get('classification', '')).lower()
         # Validate classification
-        if classification not in ['owner', 'tenant', 'property manager', 'owner/occupier', 'owner/operator']:
+        if classification not in ['owner', 'tenant', 'property manager', 'owner/occupier', 'owner/operator', 'tenant_sub_org']:
             classification = ''
         display_name = safe_str(row.get('display_name', '')) or org_name  # fallback to org_name
         aws_logo_url = safe_str(row.get('aws_logo_url', ''))
@@ -393,6 +393,14 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
 
     portfolios = {}
 
+    # Build tenant_sub_org -> parent_tenant mapping from building data
+    sub_org_to_parent = {}
+    for _, row in buildings_df.iterrows():
+        sub_org = safe_str(row.get('tenant_sub_org'))
+        tenant = safe_str(row.get('tenant'))
+        if sub_org and tenant:
+            sub_org_to_parent[sub_org] = tenant
+
     # Create lookup for buildings by owner, manager, tenant, AND tenant_sub_org (per methodology)
     owner_buildings = defaultdict(list)
     manager_buildings = defaultdict(list)
@@ -513,13 +521,25 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             # Try stripping trailing acronym in parentheses
             stripped_name = re.sub(r'\s*\([A-Z]+\)\s*$', '', org_name)
             org_info = logo_mappings.get(stripped_name, {})
+        # Get parent tenant info for tenant_sub_org portfolios
+        classification = org_info.get('classification', '')
+        parent_tenant = ''
+        parent_logo_url = ''
+        if classification == 'tenant_sub_org':
+            parent_tenant = sub_org_to_parent.get(org_name, '')
+            if parent_tenant:
+                parent_info = logo_mappings.get(parent_tenant, {})
+                parent_logo_url = parent_info.get('aws_logo_url', '')
+
         portfolios[org_name] = {
             'org_name': org_name,
             'display_name': org_info.get('display_name', org_name),
             'logo_file': org_info.get('logo_file', ''),
             'aws_logo_url': org_info.get('aws_logo_url', ''),
-            'classification': org_info.get('classification', ''),
+            'classification': classification,
             'search_aliases': org_info.get('search_aliases', []),
+            'parent_tenant': parent_tenant,
+            'parent_logo_url': parent_logo_url,
             'building_count': len(buildings_list),
             'total_sqft': total_sqft,
             'total_utility_savings': total_utility_savings,

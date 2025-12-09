@@ -229,10 +229,25 @@ class NationwideHTMLGenerator:
         portfolio_cards = []
         for i, p in enumerate(self.portfolios):
             total_sqft = sum(b.get('sqft', 0) or 0 for b in p['buildings'])
+
+            # Build display_name and parent_owned separately for two-line display
+            display_name = p.get('display_name', p['org_name'])
+            parent_owned = ''
+            parent_tenant = p.get('parent_tenant', '')
+            if parent_tenant:
+                # Get parent's display_name for cleaner output
+                parent_display = parent_tenant
+                for port in self.portfolios:
+                    if port['org_name'] == parent_tenant:
+                        parent_display = port.get('display_name', parent_tenant)
+                        break
+                parent_owned = f"{parent_display} Owned"
+
             portfolio_cards.append({
                 'idx': i,
                 'org_name': p['org_name'],
-                'display_name': p.get('display_name', p['org_name']),
+                'display_name': display_name,
+                'parent_owned': parent_owned,
                 'logo_file': p.get('logo_file', ''),
                 'aws_logo_url': p.get('aws_logo_url', ''),
                 'building_count': p['building_count'],
@@ -550,8 +565,9 @@ body.all-buildings-active .city-filter-bar {
     max-width: 1272px;
     margin: 0 auto;
     display: flex;
-    gap: 10px;
+    gap: 24px;
     align-items: center;
+    justify-content: center;
     padding: 0;
 }
 
@@ -637,8 +653,7 @@ body.all-buildings-active .city-filter-bar {
 .filter-drawer-toggle {
     position: fixed;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 205px;
     z-index: 1999;
     background: var(--rzero-blue);
     color: white;
@@ -663,6 +678,7 @@ body.all-buildings-active .city-filter-bar {
 .filter-drawer.open + .filter-drawer-toggle,
 body.filter-drawer-open .filter-drawer-toggle {
     left: 300px;
+    background: #1e3a5f;
 }
 
 .filter-drawer-header {
@@ -1164,7 +1180,7 @@ body.all-buildings-active .main-tabs {
 /* Cities tab - blue header bar like Portfolios tab */
 .cities-header {
     display: grid;
-    grid-template-columns: 60px minmax(200px, 2fr) 90px 80px 70px minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 90px;
+    grid-template-columns: 60px minmax(180px, 2.5fr) 85px 70px 60px minmax(120px, 1.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr) 85px;
     gap: 8px;
     padding: 12px 16px;
     background: var(--rzero-blue);
@@ -1185,7 +1201,7 @@ body.all-buildings-active .main-tabs {
 
 .cities-row {
     display: grid;
-    grid-template-columns: 60px minmax(200px, 2fr) 90px 80px 70px minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 90px;
+    grid-template-columns: 60px minmax(180px, 2.5fr) 85px 70px 60px minmax(120px, 1.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr) 85px;
     gap: 8px;
     padding: 8px 16px;
     border-bottom: 1px solid #e5e7eb;
@@ -1207,10 +1223,14 @@ body.all-buildings-active .main-tabs {
 
 .cities-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     overflow: hidden;
     margin-top: 8px;
+}
+
+.cities-container.fully-loaded {
+    border-radius: 12px;
 }
 
 .ab-table-wrapper {
@@ -1313,6 +1333,26 @@ body.all-buildings-active .main-tabs {
     justify-content: center;
     color: var(--gray-400);
     font-size: 14px;
+    background: linear-gradient(to bottom, white, #f9fafb);
+}
+
+.ab-loading-trigger::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-300);
+    border-top-color: var(--rzero-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px;
+}
+
+.ab-loading-trigger::after {
+    content: 'Loading more buildings...';
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 .ab-empty-state {
@@ -1839,6 +1879,10 @@ body.all-buildings-active .main-tabs {
     text-transform: uppercase;
     letter-spacing: 0.3px;
     position: relative;
+    transition: color 0.15s;
+}
+.sort-col:hover {
+    color: rgba(255,255,255,0.8);
 }
 .sort-col[data-total]::before {
     content: attr(data-total);
@@ -1899,10 +1943,19 @@ body.all-buildings-active .main-tabs {
     font-size: 10px;
     font-weight: 600;
     max-width: 120px;
+    color: #666;
+    line-height: 1.2;
+    text-align: center;
+}
+.org-logo-stack .org-name-small .parent-owned {
+    display: block;
+    font-size: 8px;
+    font-weight: 400;
+    color: #999;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #666;
+    margin-top: -1px;
 }
 
 .building-grid-row .address-cell {
@@ -2097,24 +2150,19 @@ body.all-buildings-active .main-tabs {
     display: grid;
     grid-template-columns: 120px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 12px;
-    padding: 8px 20px;
-    border-bottom: 1px solid var(--gray-100);
+    padding: 8px 20px 8px 28px;
+    border-bottom: 1px solid #d4e5f7;
     cursor: pointer;
     align-items: center;
-    background: #fafbfc;
-    border-left: 3px solid #e2e8f0;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+    background: #eef6ff;
+    border-left: 4px solid #60a5fa;
     font-size: 12px;
 }
 .building-grid-row:hover {
-    background: #f1f5f9;
-    border-left-color: #3b82f6;
+    background: #dbeafe;
+    border-left-color: #2563eb;
 }
 .building-grid-row > div:first-child {
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2150,8 +2198,8 @@ body.all-buildings-active .main-tabs {
     justify-content: center;
     gap: 12px;
     padding: 8px;
-    background: #f1f5f9;
-    border-top: 1px solid #e2e8f0;
+    background: #dbeafe;
+    border-top: 1px solid #bfdbfe;
 }
 
 .row-arrow {
@@ -3339,20 +3387,14 @@ tr.pin-highlight {
                     city_stats[city]['count'] += 1
                     city_stats[city]['opex'] += b.get('total_opex', 0) or 0
 
-        top_cities = sorted(city_stats.items(), key=lambda x: x[1]['opex'], reverse=True)[:5]
+        # Top 5 cities by building count (most to least)
+        top_cities = sorted(city_stats.items(), key=lambda x: x[1]['count'], reverse=True)[:5]
 
-        # Sort cities geographically west to east (by longitude)
-        city_longitudes = {
-            'San Francisco': -122.4, 'Los Angeles': -118.2, 'San Jose': -121.9,
-            'Seattle': -122.3, 'Portland': -122.7, 'San Diego': -117.2,
-            'Phoenix': -112.1, 'Denver': -104.9, 'Salt Lake City': -111.9,
-            'Dallas': -96.8, 'Houston': -95.4, 'Austin': -97.7,
-            'Chicago': -87.6, 'Minneapolis': -93.3, 'Kansas City': -94.6,
-            'Atlanta': -84.4, 'Miami': -80.2, 'Tampa': -82.5,
-            'Boston': -71.1, 'New York': -74.0, 'Washington': -77.0,
-            'Philadelphia': -75.2, 'Baltimore': -76.6, 'Charlotte': -80.8,
+        # Display names for cities (NYC and D.C. to match table)
+        city_display_names = {
+            'New York': 'NYC',
+            'Washington': 'D.C.',
         }
-        top_cities = sorted(top_cities, key=lambda x: city_longitudes.get(x[0], -90))
 
         # Format functions
         def fmt_money(n):
@@ -3374,15 +3416,16 @@ tr.pin-highlight {
             return f'{int(n):,}'
 
         # Generate city filter buttons - matching vertical-btn style
-        # Gradient: dark navy (west) → light blue (east)
+        # Gradient: dark navy (most) → light blue (least)
         city_buttons = []
         colors = ['#1e3a5f', '#2d5a87', '#0077cc', '#4a90c2', '#5ba3d9']
         for i, (city, stats) in enumerate(top_cities):
             color = colors[i] if i < len(colors) else colors[-1]
+            display_name = city_display_names.get(city, city)
             city_buttons.append(
                 f'<button class="vertical-btn city-btn" data-city="{escape(city)}" '
                 f'onclick="filterByCity(\'{escape(city)}\')" style="background:{color}">'
-                f'{escape(city)} <span class="btn-count">({stats["count"]:,})</span>'
+                f'{escape(display_name)} <span class="btn-count">({stats["count"]:,})</span>'
                 f'<span class="btn-x" onclick="event.stopPropagation(); clearCityFilter()">✕</span>'
                 f'</button>'
             )
@@ -3407,12 +3450,12 @@ tr.pin-highlight {
         <span onclick="sortAllBuildings('property_manager')">Prop Mgr</span>
         <span onclick="sortAllBuildings('opex')">OpEx <span id="cities-total-opex" style="font-weight:700;color:#059669;"></span></span>
     </div>
-    <div class="cities-container">
+    <div class="cities-container" id="cities-container">
         <div id="cities-rows">
             <div id="cities-list"></div>
         </div>
+        <div id="ab-loading-trigger" class="ab-loading-trigger"></div>
     </div>
-    <div id="ab-loading-trigger" style="height:1px;"></div>
 </div>
 </div>'''
 
@@ -3489,6 +3532,10 @@ tr.pin-highlight {
         if not logo_url and p['logo_file']:
             logo_url = f"{bucket}/logos/{p['logo_file']}"
 
+        # Check if this is a tenant_sub_org with a parent tenant
+        classification = p.get('classification', '')
+        parent_tenant = p.get('parent_tenant', '')
+
         if logo_url:
             # Always eager load logos - they're small and critical for UX
             logo_html = f'<img src="{attr_escape(logo_url)}" alt="" class="org-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
@@ -3516,9 +3563,6 @@ tr.pin-highlight {
         tenants_data = ','.join(p.get('tenants', []))
         sub_orgs_data = ','.join(p.get('tenant_sub_orgs', []))
 
-        # Classification (for sortable column)
-        classification = p.get('classification', '')
-
         # Median EUI with rating
         median_eui = p.get('median_eui')
         median_eui_benchmark = p.get('median_eui_benchmark')
@@ -3540,11 +3584,25 @@ tr.pin-highlight {
 
         sqft_display = fmt_sqft(total_sqft)
 
+        # Display name with parent info for tenant_sub_orgs (on separate line)
+        display_name = p.get('display_name', p['org_name'])
+        parent_html = ''
+        full_title = display_name
+        if parent_tenant:
+            # Get parent's display_name for cleaner output
+            parent_display = parent_tenant
+            for port in self.portfolios:
+                if port['org_name'] == parent_tenant:
+                    parent_display = port.get('display_name', parent_tenant)
+                    break
+            parent_html = f'<span class="parent-owned">{escape(parent_display)} Owned</span>'
+            full_title = f"{display_name} ({parent_display} Owned)"
+
         return f'''
 <div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
-            <span class="org-name-small" title="{attr_escape(p.get('display_name', p['org_name']))}">{escape(p.get('display_name', p['org_name']))}</span>
+            <span class="org-name-small" title="{attr_escape(full_title)}">{escape(display_name)}{parent_html}</span>
             {logo_html}
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">{p['building_count']}</span></span>
@@ -3699,26 +3757,27 @@ tr.pin-highlight {
     <div id="full-map"></div>
     <div id="climate-legend" style="
         position: absolute;
-        top: 70px;
-        right: 10px;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
         background: rgba(255,255,255,0.95);
-        padding: 10px 12px;
+        padding: 8px 16px;
         border-radius: 6px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         font-size: 11px;
         z-index: 1;
         transition: opacity 0.3s;
     ">
-        <div style="font-weight:600;margin-bottom:6px;">IECC Climate Zone</div>
-        <div style="display:flex;flex-direction:column;gap:3px;">
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ff4444;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>1 - Very Hot</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ff8844;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>2 - Hot</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#ffcc44;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>3 - Warm</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#88cc44;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>4 - Mixed</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#44cc88;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>5 - Cool</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#4488cc;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>6 - Cold</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#4444cc;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>7 - Very Cold</div>
-            <div><span style="display:inline-block;width:14px;height:14px;background:#8844cc;border-radius:2px;vertical-align:middle;margin-right:6px;"></span>8 - Subarctic</div>
+        <div style="display:flex;flex-direction:row;align-items:center;gap:16px;">
+            <div style="font-weight:600;">IECC Climate Zone</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#ff4444;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>1 - Very Hot</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#ff8844;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>2 - Hot</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#ffcc44;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>3 - Warm</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#88cc44;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>4 - Mixed</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#44cc88;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>5 - Cool</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#4488cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>6 - Cold</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#4444cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>7 - Very Cold</div>
+            <div><span style="display:inline-block;width:14px;height:14px;background:#8844cc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>8 - Subarctic</div>
         </div>
     </div>
 </div>'''
@@ -3782,6 +3841,14 @@ function switchMainTab(tabId) {{
     // Show/hide tab content
     document.getElementById('portfolios-tab').style.display = tabId === 'portfolios' ? 'block' : 'none';
     document.getElementById('all-buildings-tab').style.display = tabId === 'all-buildings' ? 'block' : 'none';
+
+    // Update search placeholder based on tab
+    const searchInput = document.getElementById('global-search');
+    if (tabId === 'all-buildings') {{
+        searchInput.placeholder = 'Search owner, city, building...';
+    }} else {{
+        searchInput.placeholder = 'Search owner, tenant, brand...';
+    }}
 
     // Initialize All Buildings tab on first view
     if (tabId === 'all-buildings' && !window.allBuildingsInitialized) {{
@@ -3851,9 +3918,14 @@ function renderAllBuildingsBatch() {{
     container.appendChild(fragment);
     abCurrentIndex = endIndex;
 
-    // Hide trigger when all loaded
+    // Hide trigger and round corners when all loaded
+    const citiesContainer = document.getElementById('cities-container');
     if (abCurrentIndex >= filteredBuildingsData.length) {{
         trigger.style.display = 'none';
+        citiesContainer.classList.add('fully-loaded');
+    }} else {{
+        trigger.style.display = 'flex';
+        citiesContainer.classList.remove('fully-loaded');
     }}
 }}
 
@@ -3871,12 +3943,25 @@ function createAllBuildingsRow(b) {{
     const eui = formatEuiRating(b.site_eui, b.eui_benchmark);
     const propertyName = b.property_name || '';
 
-    // Strip zip code from address (remove trailing 5-digit or 5+4 zip)
+    // Strip zip code, city, and state from address to get just street
     let addrClean = (b.address || '').replace(/,?\s*\d{{5}}(-\d{{4}})?$/, '').trim();
+    if (b.city && b.state) {{
+        // Remove ", City, ST" or ", City ST" pattern from end (handles both comma and space before state)
+        const cityStatePattern = new RegExp(',?\\\\s*' + b.city.replace(/[.*+?^${{}}()|[\\]\\\\]/g, '\\\\$&') + '[,\\\\s]+' + b.state + '\\\\s*$', 'i');
+        addrClean = addrClean.replace(cityStatePattern, '').trim();
+    }}
+
+    // Format city name for display (use city column, not from address)
+    let cityDisplay = b.city || '';
+    if (cityDisplay === 'New York') cityDisplay = 'NYC';
+    else if (cityDisplay === 'Washington') cityDisplay = 'D.C.';
+
+    // Combine street + formatted city
+    const addrLine = cityDisplay ? addrClean + ', ' + cityDisplay : addrClean;
 
     row.innerHTML = `
         <div>${{thumb}}</div>
-        <div class="addr"><span class="addr-main">${{escapeHtml(addrClean)}}</span><span class="addr-sub">${{escapeHtml(propertyName)}}</span></div>
+        <div class="addr"><span class="addr-main">${{escapeHtml(addrLine)}}${{b.url ? ` <a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" class="external-link" title="View source">↗</a>` : ''}}</span><span class="addr-sub">${{escapeHtml(propertyName)}}</span></div>
         <div class="cell">${{escapeHtml(b.type || '-')}}</div>
         <div class="cell">${{sqft}}</div>
         <div class="cell">${{eui}}</div>
@@ -3925,7 +4010,8 @@ function doFilterAllBuildings() {{
                 b.state || '',
                 b.type || '',
                 b.owner || '',
-                b.sub_org || ''
+                b.sub_org || '',
+                b.property_name || ''
             ].join(' ').toLowerCase();
             if (!searchFields.includes(globalQuery)) return false;
         }}
@@ -3938,6 +4024,13 @@ function doFilterAllBuildings() {{
     // Reset and re-render
     abCurrentIndex = 0;
     document.getElementById('cities-list').innerHTML = '';
+
+    // Show the loading trigger again (it may have been hidden)
+    const trigger = document.getElementById('ab-loading-trigger');
+    const citiesContainer = document.getElementById('cities-container');
+    if (trigger) trigger.style.display = 'flex';
+    if (citiesContainer) citiesContainer.classList.remove('fully-loaded');
+
     renderAllBuildingsBatch();
 
     // Update stats
@@ -4095,8 +4188,6 @@ function applyFilters() {{
             carbon += vals[3];
             sqft += vals[4];
         }}
-        // Debug log for Hyatt (idx 32)
-        if (idx === 32) console.log('[applyFilters] Hyatt idx=32, count:', count, 'agg:', agg);
 
         // Filter by search
         if (globalQuery) {{
@@ -5686,14 +5777,12 @@ function loadPortfolioRows(card, loadMore = false) {{
     const container = card.querySelector('.building-rows-container');
     if (!container) return;
 
-    // Load portfolio data on-demand if not already loaded
     if (!PORTFOLIO_BUILDINGS[idx]) {{
-        console.log('[loadPortfolioRows] Loading on-demand: portfolios/p_' + idx + '.js');
         container.innerHTML = '<div style="padding:20px;text-align:center;color:#666;">Loading...</div>';
         const script = document.createElement('script');
         script.src = `data/portfolios/p_${{idx}}.js`;
-        script.onload = () => {{ console.log('[loadPortfolioRows] Loaded p_' + idx + '.js'); loadPortfolioRows(card, loadMore); }};
-        script.onerror = () => {{ console.error('[loadPortfolioRows] FAILED to load p_' + idx + '.js'); container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>'; }};
+        script.onload = () => loadPortfolioRows(card, loadMore);
+        script.onerror = () => container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>';
         document.head.appendChild(script);
         return;
     }}
@@ -5709,30 +5798,19 @@ function loadPortfolioRows(card, loadMore = false) {{
     if (activeVertical && activeVertical !== 'all') {{
         buildings = buildings.filter(b => b.vertical === activeVertical);
     }}
-    // Filter by global search query
-    if (globalQuery) {{
-        buildings = buildings.filter(b => {{
-            const searchFields = [
-                b.address || '',
-                b.city || '',
-                b.state || '',
-                b.type || '',
-                b.sub_org || ''
-            ].join(' ').toLowerCase();
-            return searchFields.includes(globalQuery);
-        }});
-    }}
+    // NOTE: globalQuery filters PORTFOLIOS not buildings - don't filter here
 
     if (!buildings.length) {{
         container.innerHTML = '';
         return;
     }}
 
-    // Track shown count
+    // Track shown count - first click shows 10, second click shows ALL remaining
     if (!loadMore) {{
         portfolioBuildingCounts[idx] = BUILDINGS_PER_BATCH;
     }} else {{
-        portfolioBuildingCounts[idx] = (portfolioBuildingCounts[idx] || BUILDINGS_PER_BATCH) + BUILDINGS_PER_BATCH;
+        // Show ALL remaining buildings on "Show More" click
+        portfolioBuildingCounts[idx] = buildings.length;
     }}
     const showCount = Math.min(portfolioBuildingCounts[idx], buildings.length);
     const buildingsToShow = buildings.slice(0, showCount);
@@ -5783,6 +5861,7 @@ function loadPortfolioRows(card, loadMore = false) {{
 
     container.innerHTML = html + controlBar;
     loadedPortfolios.add(idx);
+    console.log('[Portfolio] idx=' + idx + ' showing ' + buildingsToShow.length + '/' + buildings.length + ' buildings' + (loadMore ? ' (ALL)' : ''));
 }}
 
 // Show less - ALWAYS collapse the portfolio (hide all building rows)
@@ -5829,11 +5908,13 @@ function renderPortfolioCard(p) {{
     const logoHtml = logoUrl
         ? `<img src="${{logoUrl}}" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${{p.org_name[0].toUpperCase()}}</div>`
         : `<div class="org-logo-placeholder">${{p.org_name[0].toUpperCase()}}</div>`;
+    const parentHtml = p.parent_owned ? `<span class="parent-owned">${{p.parent_owned}}</span>` : '';
+    const fullTitle = p.parent_owned ? `${{p.display_name || p.org_name}} (${{p.parent_owned}})` : (p.display_name || p.org_name);
 
     return `<div class="portfolio-card" data-idx="${{p.idx}}" data-org="${{p.org_name}}" data-buildings="${{p.building_count}}" data-sqft="${{p.total_sqft || 0}}" data-eui="${{p.median_eui}}" data-valuation="${{p.total_valuation}}" data-carbon="${{p.total_carbon}}" data-opex="${{p.total_opex}}">
         <div class="portfolio-header" onclick="togglePortfolio(this)">
             <div class="org-logo-stack">
-                <span class="org-name-small" title="${{p.display_name || p.org_name}}">${{p.display_name || p.org_name}}</span>
+                <span class="org-name-small" title="${{fullTitle}}">${{p.display_name || p.org_name}}${{parentHtml}}</span>
                 ${{logoHtml}}
             </div>
             <span class="stat-cell building-count">${{p.building_count}}</span>

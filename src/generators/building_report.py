@@ -471,7 +471,7 @@ def generate_hero(row):
     if has_building_url:
         html = f"""
     <div class="hero">
-        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(title)}</a></h1>
+        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(title)} <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
 """
     else:
         html = f"""
@@ -498,10 +498,10 @@ def generate_hero(row):
     return html
 
 def generate_building_info(row):
-    """Building & Property information table (merged from Building Info + Property Metrics)"""
+    """Property information table (merged from Building Info + Property Metrics)"""
     html = """
     <div class="section">
-        <h2>Building & Property</h2>
+        <h2>Property</h2>
         <table>
 """
 
@@ -525,11 +525,6 @@ def generate_building_info(row):
     tenant = tenant if tenant and str(tenant).lower() != 'nan' else None
     tenant_sub = tenant_sub if tenant_sub and str(tenant_sub).lower() != 'nan' else None
 
-    # Build tenant display name (with sub-org in parentheses if exists)
-    tenant_display = tenant
-    if tenant and tenant_sub:
-        tenant_display = f"{tenant} ({tenant_sub})"
-
     # Helper to build logo HTML
     def build_logo(name):
         if not name:
@@ -540,6 +535,11 @@ def generate_building_info(row):
             return f' <img src="{logo_url}" style="height:30px;margin-left:10px;vertical-align:middle;" onerror="this.style.display=\'none\'">'
         return ""
 
+    # Build tenant sub-org HTML with logo (if exists)
+    tenant_sub_html = ""
+    if tenant_sub:
+        tenant_sub_html = f" ({escape(tenant_sub)}{build_logo(tenant_sub)})"
+
     # Determine matching pattern and render rows
     all_same = owner and entities_match(owner, pm) and entities_match(owner, tenant)
     owner_tenant = owner and tenant and entities_match(owner, tenant) and not all_same
@@ -548,25 +548,25 @@ def generate_building_info(row):
 
     if all_same:
         # All three are the same entity - show as "All Roles"
-        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{escape(owner)}{build_logo(owner)}</td></tr>"
+        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{escape(owner)}{build_logo(owner)}{tenant_sub_html}</td></tr>"
     elif owner_tenant and owner_pm:
         # Owner matches both tenant and PM - show as "All Roles"
-        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{escape(tenant_display)}{build_logo(owner)}</td></tr>"
+        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{escape(tenant)}{build_logo(owner)}{tenant_sub_html}</td></tr>"
     elif owner_tenant:
         # Owner and Tenant match - owner/occupier
-        html += f"<tr><td>Owner/Occupier{tooltip('owner')}</td><td>{escape(tenant_display)}{build_logo(owner)}</td></tr>"
+        html += f"<tr><td>Owner/Occupier{tooltip('owner')}</td><td>{escape(tenant)}{build_logo(owner)}{tenant_sub_html}</td></tr>"
         if pm:
             html += f"<tr><td>Property Manager</td><td>{escape(pm)}{build_logo(pm)}</td></tr>"
     elif owner_pm:
         # Owner and Property Manager match - owner/operator
         html += f"<tr><td>Owner/Operator{tooltip('owner')}</td><td>{escape(owner)}{build_logo(owner)}</td></tr>"
         if tenant:
-            html += f"<tr><td>Tenant</td><td>{escape(tenant_display)}{build_logo(tenant)}</td></tr>"
+            html += f"<tr><td>Tenant</td><td>{escape(tenant)}{build_logo(tenant)}{tenant_sub_html}</td></tr>"
     elif tenant_pm:
         # Tenant and Property Manager match
         if owner:
             html += f"<tr><td>Owner{tooltip('owner')}</td><td>{escape(owner)}{build_logo(owner)}</td></tr>"
-        html += f"<tr><td>Tenant & Property Manager</td><td>{escape(tenant_display)}{build_logo(tenant)}</td></tr>"
+        html += f"<tr><td>Tenant & Property Manager</td><td>{escape(tenant)}{build_logo(tenant)}{tenant_sub_html}</td></tr>"
     else:
         # All different - show separately
         if owner:
@@ -574,7 +574,7 @@ def generate_building_info(row):
         if pm:
             html += f"<tr><td>Property Manager</td><td>{escape(pm)}{build_logo(pm)}</td></tr>"
         if tenant:
-            html += f"<tr><td>Tenant</td><td>{escape(tenant_display)}{build_logo(tenant)}</td></tr>"
+            html += f"<tr><td>Tenant</td><td>{escape(tenant)}{build_logo(tenant)}{tenant_sub_html}</td></tr>"
 
     # Site EUI
     eui = safe_num(row, 'site_eui')
@@ -628,15 +628,36 @@ def generate_energy_use(row):
             </tr>
 """
 
-    # Natural Gas
+    # Natural Gas (and Fuel Oil if building has both)
     gas_use = safe_num(row, 'natural_gas_use_kbtu')
     gas_cost = safe_num(row, 'annual_gas_cost')
     gas_rate = safe_num(row, 'gas_rate_per_therm')
+    fuel_use = safe_num(row, 'fuel_oil_use_kbtu')
+    fuel_cost = safe_num(row, 'annual_fuel_oil_cost')
+
     if gas_use and gas_use > 0:
         gas_therms = gas_use / 100  # kBtu to therms
-        use_str = f"{format_number(gas_therms)} therms"
-        hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
-        html += f"""
+
+        # If building has BOTH gas and fuel oil, merge them
+        if fuel_use and fuel_use > 0:
+            fuel_therms = fuel_use / 100  # Convert fuel oil kBtu to therms
+            total_therms = gas_therms + fuel_therms
+            total_cost = (gas_cost or 0) + (fuel_cost or 0)
+            use_str = f"{format_number(total_therms)} therms"
+            hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
+            html += f"""
+            <tr>
+                <td>Natural Gas & Fuel Oil{tooltip('natural_gas', row)}</td>
+                <td>{use_str}</td>
+                <td>{format_currency(total_cost) if total_cost else '$0'}</td>
+                <td>{hvac_pct_str}</td>
+            </tr>
+"""
+        else:
+            # Gas only
+            use_str = f"{format_number(gas_therms)} therms"
+            hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
+            html += f"""
             <tr>
                 <td>Natural Gas{tooltip('natural_gas', row)}</td>
                 <td>{use_str}</td>
@@ -662,11 +683,8 @@ def generate_energy_use(row):
             </tr>
 """
 
-    # Fuel Oil
-    fuel_use = safe_num(row, 'fuel_oil_use_kbtu')
-    fuel_cost = safe_num(row, 'annual_fuel_oil_cost')
-    fuel_rate = safe_num(row, 'fuel_oil_rate_per_gallon')
-    if fuel_use and fuel_use > 0:
+    # Fuel Oil - only show if NO natural gas (fuel oil only buildings)
+    if fuel_use and fuel_use > 0 and (not gas_use or gas_use <= 0):
         fuel_gal = fuel_use / 138.5  # kBtu to gallons
         use_str = f"{format_number(fuel_gal)} gallons"
         hvac_pct_str = f"{pct_fuel_hvac*100:.0f}%" if pct_fuel_hvac else "—"
@@ -918,11 +936,27 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Natural Gas
+    # Natural Gas (and Fuel Oil if building has both)
     if gas_use and gas_use > 0:
         gas_therms = gas_use / 100
         hvac_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
-        html += f"""
+
+        # If building has BOTH gas and fuel oil, merge them
+        if fuel_use and fuel_use > 0:
+            fuel_therms = fuel_use / 100  # Convert fuel oil kBtu to therms
+            total_therms = gas_therms + fuel_therms
+            total_cost = (gas_cost or 0) + (fuel_cost or 0)
+            html += f"""
+            <tr>
+                <td>Natural Gas & Fuel Oil{tooltip('natural_gas', row)}</td>
+                <td>{format_number(total_therms)} therms</td>
+                <td>{format_currency(total_cost) if total_cost else ''}</td>
+                <td>{hvac_str}</td>
+            </tr>
+"""
+        else:
+            # Gas only
+            html += f"""
             <tr>
                 <td>Natural Gas{tooltip('natural_gas', row)}</td>
                 <td>{format_number(gas_therms)} therms</td>
@@ -944,8 +978,8 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Fuel Oil
-    if fuel_use and fuel_use > 0:
+    # Fuel Oil - only show if NO natural gas (fuel oil only buildings)
+    if fuel_use and fuel_use > 0 and (not gas_use or gas_use <= 0):
         fuel_gal = fuel_use / 138.5
         hvac_str = f"{pct_fuel_hvac*100:.0f}%" if pct_fuel_hvac else "—"
         html += f"""
@@ -1011,11 +1045,6 @@ def generate_odcv_savings(row):
         <h2>ODCV Savings</h2>
         <table>
 """
-
-    # Energy costs shown in Energy section above - start with the savings %
-    # 1. ODCV Savings % (the efficiency gain) - tooltip shows vacancy/utilization dynamically by building type
-    if odcv_pct and odcv_pct > 0:
-        html += f"<tr><td>HVAC Savings %{tooltip('odcv_savings_pct', row)}</td><td>{odcv_pct*100:.1f}%</td></tr>"
 
     # 4. Annual Utility Bill Savings (the payoff) - BOLD this row
     if odcv_savings and odcv_savings > 0:
