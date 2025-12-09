@@ -253,14 +253,20 @@ def load_logo_mappings():
             classification = ''
         display_name = safe_str(row.get('display_name', '')) or org_name  # fallback to org_name
         aws_logo_url = safe_str(row.get('aws_logo_url', ''))
+
+        # Parse search_aliases (pipe-separated)
+        search_aliases_raw = safe_str(row.get('search_aliases', ''))
+        search_aliases = [a.strip() for a in search_aliases_raw.split('|') if a.strip()]
+
         mappings[org_name] = {
             'logo_file': logo_file,
             'classification': classification,
             'display_name': display_name,
-            'aws_logo_url': aws_logo_url
+            'aws_logo_url': aws_logo_url,
+            'search_aliases': search_aliases
         }
 
-    print(f"  Loaded {len(mappings):,} org mappings (logos + classifications)")
+    print(f"  Loaded {len(mappings):,} org mappings (logos + classifications + aliases)")
     return mappings
 
 
@@ -504,6 +510,7 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             'logo_file': org_info.get('logo_file', ''),
             'aws_logo_url': org_info.get('aws_logo_url', ''),
             'classification': org_info.get('classification', ''),
+            'search_aliases': org_info.get('search_aliases', []),
             'building_count': len(buildings_list),
             'total_sqft': total_sqft,
             'total_utility_savings': total_utility_savings,

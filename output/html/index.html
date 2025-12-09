@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 10:15:29 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 11:12:16 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,155 @@ function initMap() {
 }
 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvGee7gI4jQO3OjGXhtkMmWRP865F2kAU&libraries=places&callback=initMap" async defer></script>
+
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Firebase (App + Auth + Firestore, compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase web app config — prospector-leaderl-board
+      window.firebaseConfig = {
+        apiKey: "AIzaSyAsxPRzyj7z6Nk3QPhOBK5CfyblY2LqAjk",
+        authDomain: "prospector-leaderl-board.firebaseapp.com",
+        projectId: "prospector-leaderl-board",
+        storageBucket: "prospector-leaderl-board.firebasestorage.app",
+        messagingSenderId: "70489892630",
+        appId: "1:70489892630:web:51052e8b0b5da2e6779237"
+      };
+
+      /* --- Firebase config sanity guard --------------------------------------- */
+      (function enforceFirebaseConfig() {
+        try {
+          const EXPECTED_PROJECT_ID   = "prospector-leaderl-board";
+          const EXPECTED_AUTH_DOMAIN  = "prospector-leaderl-board.firebaseapp.com";
+          const ALT_AUTH_DOMAIN       = "prospector-leaderl-board.web.app";
+          const GH_PAGES_HOST         = "fmillerrzero.github.io";
+
+          const c = window.firebaseConfig || {};
+          const required = ["apiKey","projectId","authDomain"];
+          const missing = required.filter(k => !c[k] || String(c[k]).trim()==="");
+          if (missing.length) {
+            throw new Error("firebaseConfig missing keys: " + missing.join(", "));
+          }
+
+          const authDomainOk = (
+            c.authDomain === EXPECTED_AUTH_DOMAIN ||
+            c.authDomain === ALT_AUTH_DOMAIN
+          );
+          if (!authDomainOk) {
+            console.error("[FirebaseConfig] authDomain mismatch:",
+              "got", c.authDomain, "expected", EXPECTED_AUTH_DOMAIN, "or", ALT_AUTH_DOMAIN);
+            throw new Error("Wrong firebaseConfig.authDomain (points at a different project).");
+          }
+
+          if (c.projectId !== EXPECTED_PROJECT_ID) {
+            console.error("[FirebaseConfig] projectId mismatch:",
+              "got", c.projectId, "expected", EXPECTED_PROJECT_ID);
+            throw new Error("Wrong firebaseConfig.projectId (points at a different project).");
+          }
+
+          try {
+            const host = location.host;
+            if (!(host.includes(GH_PAGES_HOST) || host.includes("localhost") || host === "127.0.0.1" || host.includes(":8"))) {
+              console.warn("[FirebaseConfig] Page is served from unexpected host:", host);
+            }
+          } catch {}
+
+          window.firebaseConfig = Object.freeze({...c});
+          window.firebaseConfigValidated = true;
+          console.log("[FirebaseConfig] ✓ Config validated:", window.firebaseConfig);
+        } catch (e) {
+          window.firebaseConfigValidated = false;
+          const msg = "🚫 Firebase config error: " + e.message +
+                      " — Fix window.firebaseConfig to the correct project.";
+          console.error(msg);
+          throw e;
+        }
+      })();
+
+      function initFirebase() {
+        if (!window.firebaseAppInitialized && typeof firebase !== 'undefined') {
+          firebase.initializeApp(window.firebaseConfig);
+          window.db = firebase.firestore();
+          window.firebaseAppInitialized = true;
+        }
+      }
+      initFirebase();
+    </script>
+
+    <script>
+      // Auth sanity hook — safe no-op UI, console only
+      if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged((u) => {
+          if (u) {
+            console.log("[Auth] Signed in:", u.email || u.uid);
+          } else {
+            console.log("[Auth] Signed out");
+          }
+        });
+      }
+    </script>
+
+    <script>
+      // Track HOMEPAGE visits
+      setTimeout(function() {
+        if (window.db && window.location.protocol !== 'file:') {
+          // Track homepage visit
+          const homeDoc = window.db.collection('visits').doc('NATIONWIDE_HOMEPAGE');
+          homeDoc.get().then(doc => {
+            if (doc.exists) {
+              homeDoc.update({
+                count: firebase.firestore.FieldValue.increment(1),
+                lastVisit: firebase.firestore.FieldValue.serverTimestamp()
+              });
+            } else {
+              homeDoc.set({
+                bbl: 'NATIONWIDE_HOMEPAGE',
+                name: 'Nationwide Homepage',
+                count: 1,
+                lastVisit: firebase.firestore.FieldValue.serverTimestamp()
+              });
+            }
+          }).catch(err => {
+            console.log('[Homepage tracking] Could not record visit');
+          });
+
+          // Auth-based user tracking (names leaderboard)
+          (function(){
+            if (typeof firebase === 'undefined' || !firebase.auth || !firebase.firestore) return;
+            const db = window.db || firebase.firestore();
+
+            firebase.auth().onAuthStateChanged(async (u)=>{
+              if (!u) return; // only track signed-in users
+              const parts = (u.displayName||"").trim().split(/\s+/);
+              const first = parts.length ? parts.slice(0,-1).join(" ") || parts[0] : "";
+              const last  = parts.length > 1 ? parts.slice(-1).join(" ") : "";
+
+              const id = u.uid;
+              const ref = db.collection('nationwideUserActivity').doc(id);
+
+              await ref.set({
+                uid: u.uid,
+                email: u.email || null,
+                displayName: u.displayName || null,
+                firstName: first || null,
+                lastName: last || null,
+                lastActive: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true });
+
+              // increment homepage visits
+              await ref.set({
+                visitCount: firebase.firestore.FieldValue.increment(1),
+                homepageVisits: firebase.firestore.FieldValue.increment(1)
+              }, { merge: true });
+            });
+          })()
+        }
+      }, 1000);
+    </script>
 
     <style>
 /* Make Google Places dropdown appear correctly */
@@ -2096,6 +2245,203 @@ tr.pin-highlight {
 </style>
 </head>
 <body>
+    <!-- Define callback BEFORE Google Sign-In loads -->
+    <script>
+    window.handleCredentialResponse = function(response) {
+        console.log("[Auth] handleCredentialResponse called");
+        const base64Url = response.credential.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(atob(base64).split("").map(function(c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(""));
+        const userData = JSON.parse(jsonPayload);
+        console.log("[Auth] User data:", userData.email, userData.name);
+
+        if (userData.email && userData.email.endsWith("@rzero.com")) {
+            console.log("[Auth] R-Zero email verified, logging in...");
+            localStorage.setItem("rzeroAuth", JSON.stringify({
+                email: userData.email,
+                name: userData.name,
+                picture: userData.picture,
+                expires: Date.now() + 86400000
+            }));
+            document.getElementById("loginOverlay").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+
+            // Set global USER object
+            window.USER = { name: userData.name || "", email: userData.email || "" };
+
+            // Sign into Firebase Auth with GIS token
+            (function signinToFirebaseWithGISToken() {
+              try {
+                const idToken = response && response.credential ? response.credential : null;
+                if (!idToken) { console.warn("No GIS idToken found"); return; }
+
+                const waitForAuthAPI = () => new Promise(res => {
+                  const tick = () => (firebase && firebase.auth ? res() : setTimeout(tick, 75));
+                  tick();
+                });
+
+                waitForAuthAPI().then(async () => {
+                  const cred = firebase.auth.GoogleAuthProvider.credential(idToken);
+                  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+                  await firebase.auth().signInWithCredential(cred);
+                  console.log("✓ Firebase Auth signed in as", firebase.auth().currentUser?.email);
+                  // Display user info after Firebase auth
+                  displayUserInfo();
+                });
+              } catch (e) {
+                console.error("Firebase Auth sign-in failed", e);
+              }
+            })();
+
+            // Display user profile info
+            displayUserInfo();
+        } else {
+            alert("Access restricted to R-Zero employees only");
+        }
+    };
+
+    // Secret bypass: click R-Zero logo 3 times to login as fmiller@rzero.com
+    window.logoClickCount = 0;
+    window.logoClickTimer = null;
+    window.handleLogoClick = function() {
+        window.logoClickCount++;
+        console.log("[Bypass] Logo click #" + window.logoClickCount);
+
+        // Visual feedback - flash the logo
+        var logo = document.querySelector('#loginOverlay img');
+        if (logo) {
+            logo.style.transform = 'scale(0.95)';
+            logo.style.transition = 'transform 0.1s';
+            setTimeout(function() { logo.style.transform = 'scale(1)'; }, 100);
+        }
+
+        // Show click count as subtle hint
+        var hint = document.getElementById('bypassHint');
+        if (!hint) {
+            hint = document.createElement('div');
+            hint.id = 'bypassHint';
+            hint.style.cssText = 'position:fixed;top:10px;left:10px;background:rgba(0,0,0,0.7);color:#0f0;padding:8px 12px;border-radius:4px;font-family:monospace;font-size:12px;z-index:99999;';
+            document.body.appendChild(hint);
+        }
+        hint.textContent = '[DEBUG] Logo clicks: ' + window.logoClickCount + '/3';
+        hint.style.display = 'block';
+
+        // Reset after 2 seconds of inactivity
+        if (window.logoClickTimer) clearTimeout(window.logoClickTimer);
+        window.logoClickTimer = setTimeout(function() {
+            window.logoClickCount = 0;
+            console.log("[Bypass] Click count reset");
+            var h = document.getElementById('bypassHint');
+            if (h) h.style.display = 'none';
+        }, 2000);
+
+        if (window.logoClickCount >= 3) {
+            console.log("[Bypass] Triple-click detected! Bypassing auth as fmiller@rzero.com");
+            window.logoClickCount = 0;
+
+            // Show success message
+            var hint = document.getElementById('bypassHint');
+            if (hint) {
+                hint.textContent = '[DEBUG] BYPASS ACTIVATED - logging in as fmiller@rzero.com';
+                hint.style.background = 'rgba(0,128,0,0.9)';
+            }
+
+            // Set auth in localStorage
+            localStorage.setItem("rzeroAuth", JSON.stringify({
+                email: "fmiller@rzero.com",
+                name: "Forrest Miller",
+                picture: null,
+                expires: Date.now() + 86400000
+            }));
+
+            // Set global USER object
+            window.USER = { name: "Forrest Miller", email: "fmiller@rzero.com" };
+
+            // Hide login, show content
+            document.getElementById("loginOverlay").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+
+            // Hide debug hint after a moment
+            setTimeout(function() {
+                var h = document.getElementById('bypassHint');
+                if (h) h.style.display = 'none';
+            }, 2000);
+
+            // Display user info
+            if (typeof displayUserInfo === "function") displayUserInfo();
+
+            // Track visit in Firestore
+            (async function() {
+                try {
+                    if (typeof firebase === 'undefined' || !window.db) return;
+                    const ref = window.db.collection('nationwideUserActivity').doc('bypass_fmiller');
+                    await ref.set({
+                        email: 'fmiller@rzero.com',
+                        displayName: 'Forrest Miller',
+                        firstName: 'Forrest',
+                        lastName: 'Miller',
+                        lastActive: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                    await ref.set({
+                        visitCount: firebase.firestore.FieldValue.increment(1),
+                        homepageVisits: firebase.firestore.FieldValue.increment(1)
+                    }, { merge: true });
+                    console.log("[Bypass] Visit tracked for fmiller@rzero.com");
+                } catch(e) {
+                    console.warn("[Bypass] Failed to track visit:", e);
+                }
+            })();
+        }
+    };
+    </script>
+
+    <!-- Google Sign-In Overlay -->
+    <div id="loginOverlay" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    ">
+        <div style="
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        ">
+            <img src="https://rzero.com/wp-content/uploads/2021/10/rzero-logo-pad.svg" alt="R-Zero Logo" style="width: 150px; margin-bottom: 20px; cursor: pointer;" onclick="handleLogoClick()">
+            <h2 style="margin: 0 0 10px 0; color: #333;">Nationwide ODCV Prospector</h2>
+            <p style="color: #666; margin-bottom: 25px;">Sign in with your R-Zero account</p>
+
+            <div id="g_id_onload"
+                 data-client_id="70489892630-1j0t3rni5a7f07ng3v3k916lunm9n76d.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%;">
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-size="large"
+                     data-theme="filled_blue"
+                     data-text="sign_in_with"
+                     data-shape="pill"
+                     data-logo_alignment="center">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
 <div class="vertical-filter-bar">
     <div class="vertical-filter-inner">
         <button class="vertical-btn" data-vertical="Commercial" onclick="selectVertical('Commercial')" style="background:#1e3a5f">Commercial <span class="btn-count">(16,903)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-btn" data-vertical="Education" onclick="selectVertical('Education')" style="background:#0077cc">Education <span class="btn-count">(4,109)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-btn" data-vertical="Healthcare" onclick="selectVertical('Healthcare')" style="background:#5ba3d9">Healthcare <span class="btn-count">(2,870)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button>
@@ -2126,7 +2472,18 @@ tr.pin-highlight {
 </div>
 <button class="filter-drawer-toggle" onclick="toggleFilterDrawer()">Filters</button>
 
-<header class="header">
+<header class="header" style="position: relative;">
+    <!-- User Profile Section -->
+    <div id="userInfo" style="position: absolute; top: 15px; right: 20px; color: white; font-size: 14px; display: none; z-index: 10;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img id="userProfilePic" src="" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); object-fit: cover;">
+            <div style="text-align: right;">
+                <div id="userName" style="font-weight: 600; margin-bottom: 2px; color: white;"></div>
+                <div onclick="signOut()" style="font-size: 12px; color: white; opacity: 0.9; cursor: pointer; text-decoration: underline;">Log out</div>
+            </div>
+        </div>
+    </div>
+
     <div class="header-content">
         <h1>
             <a href="https://rzero.com" target="_blank" style="display: flex; align-items: center;">
@@ -4655,22 +5012,38 @@ let filterTimeout = null;
 function globalSearch(query) {
     globalQuery = query.toLowerCase().trim();
 
-    // Search ALL portfolios via PORTFOLIO_CARDS data
     if (!globalQuery) {
-        searchMatchingIndices = null;  // Show all
+        searchMatchingIndices = null;
     } else {
         searchMatchingIndices = [];
-        PORTFOLIO_CARDS.forEach(p => {
-            const orgMatch = (p.org_name || '').toLowerCase().includes(globalQuery);
-            const displayMatch = (p.display_name || '').toLowerCase().includes(globalQuery);
-            const tenantMatch = (p.tenants || []).some(t => t.toLowerCase().includes(globalQuery));
-            const subOrgMatch = (p.tenant_sub_orgs || []).some(s => s.toLowerCase().includes(globalQuery));
-            const ownerMatch = (p.owners || []).some(o => o.toLowerCase().includes(globalQuery));
-            const managerMatch = (p.managers || []).some(m => m.toLowerCase().includes(globalQuery));
+        const isShort = globalQuery.length <= 3;
 
-            if (orgMatch || displayMatch || tenantMatch || subOrgMatch || ownerMatch || managerMatch) {
-                searchMatchingIndices.push(p.idx);
+        PORTFOLIO_CARDS.forEach(p => {
+            const orgLower = (p.org_name || '').toLowerCase();
+            const displayLower = (p.display_name || '').toLowerCase();
+
+            let match = false;
+            if (isShort) {
+                // Short queries: strict matching
+                const displayWords = displayLower.split(/\s+/);
+                const orgWords = orgLower.split(/[\s()]+/);
+                const aliasExact = (p.search_aliases || []).some(a => a.toLowerCase() === globalQuery);
+                match = displayLower.startsWith(globalQuery) ||
+                        displayWords.some(w => w.startsWith(globalQuery)) ||
+                        orgWords.some(w => w === globalQuery) ||
+                        orgLower.includes('(' + globalQuery + ')') ||
+                        aliasExact;  // NYC, LA, SF, etc.
+            } else {
+                // Long queries: search all fields
+                match = orgLower.includes(globalQuery) ||
+                        displayLower.includes(globalQuery) ||
+                        (p.tenants || []).some(t => t.toLowerCase().includes(globalQuery)) ||
+                        (p.tenant_sub_orgs || []).some(s => s.toLowerCase().includes(globalQuery)) ||
+                        (p.owners || []).some(o => o.toLowerCase().includes(globalQuery)) ||
+                        (p.managers || []).some(m => m.toLowerCase().includes(globalQuery));
             }
+
+            if (match) searchMatchingIndices.push(p.idx);
         });
     }
 
@@ -6208,5 +6581,230 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+    <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
+      <div id="lb-controls" style="display:flex;justify-content:center;gap:8px;align-items:center;margin:6px 0 6px 0;font-size:10px;color:#aaa;">
+        <button id="lb-refresh" style="padding:3px 8px;border:1px solid #ddd;border-radius:6px;background:#f5f5f5;cursor:pointer;font-size:10px;color:#666;line-height:16px;">Update data</button>
+        <span id="lb-updated" aria-live="polite" style="margin-left:6px;"></span>
+      </div>
+      <div id="visitor-leaderboard" style="margin-top: 10px; padding-bottom: 8px; font-size: 10px; color: #aaa; display: none;">
+        <!-- Leaderboard will be populated here -->
+      </div>
+      <div class="build-footer" style="padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 10px; color: #aaa;">
+        Build: 2025-12-09 11:12:16 EST
+      </div>
+    </footer>
+
+    </div><!-- close mainContent -->
+
+    <!-- Auth and User Management JavaScript -->
+    <script>
+    function checkAuth() {
+        console.log("[Auth] checkAuth called, protocol:", window.location.protocol);
+        // Bypass auth for file:// protocol
+        if (window.location.protocol === 'file:') {
+            console.log("[Auth] File protocol - bypassing auth");
+            showMainContent();
+            return;
+        }
+
+        const authToken = localStorage.getItem("rzeroAuth");
+        console.log("[Auth] authToken exists:", !!authToken);
+        if (authToken) {
+            const authData = JSON.parse(authToken);
+            console.log("[Auth] Auth data:", authData.email, "expires:", new Date(authData.expires));
+            if (Date.now() < authData.expires) {
+                console.log("[Auth] Token valid, showing main content");
+                showMainContent();
+                return;
+            }
+            console.log("[Auth] Token expired, removing");
+            localStorage.removeItem("rzeroAuth");
+        }
+        console.log("[Auth] No valid token, showing login overlay");
+    }
+
+    function showMainContent() {
+        console.log("[Auth] showMainContent called");
+        const loginOverlay = document.getElementById("loginOverlay");
+        const mainContent = document.getElementById("mainContent");
+        console.log("[Auth] loginOverlay:", !!loginOverlay, "mainContent:", !!mainContent);
+        if (loginOverlay) loginOverlay.style.display = "none";
+        if (mainContent) mainContent.style.display = "block";
+
+        // Display user profile info
+        displayUserInfo();
+    }
+
+    // Get profile picture URL based on email
+    function getProfilePicture(email) {
+        const profileMap = {
+            'apires@rzero.com': 'Andy_Pires.jpg',
+            'asalvatore@rzero.com': 'Anthony_Salvatore.jpg',
+            'bsiegfried@rzero.com': 'Ben_Siegfried.jpg',
+            'ben@rzerosystems.com': 'Benjamin_Boyer.jpg',
+            'bgreen@rzero.com': 'Benjamin_Green.jpg',
+            'bquan@rzero.com': 'Brenda_Quan.jpg',
+            'csutherland@rzero.com': 'Chelsea_Sutherland.jpg',
+            'ddufrane@rzero.com': 'Dana_DuFrane.jpg',
+            'dmorkarnon@rzero.com': 'Dana_Mor_Karnon.jpg',
+            'dcox@rzero.com': 'Dave_Cox.jpg',
+            'dnuno@rzero.com': 'David_Nuno.jpg',
+            'dseniawski@rzero.com': 'David_Seniawski.jpg',
+            'dhess@rzero.com': 'Don_Hess.jpg',
+            'doliner@rzero.com': 'Drew_Oliner.jpg',
+            'eredmond@rzero.com': 'Elizabeth_Redmond.jpg',
+            'efoster@rzero.com': 'Eric_Foster.jpg',
+            'fmiller@rzero.com': 'Forrest_Miller.jpg',
+            'fstamatatos@rzero.com': 'Francis_Stamatatos.jpg',
+            'hsverdlik@rzero.com': 'Hannah_Sverdlik.jpg',
+            'igendelman@rzero.com': 'Ilya_Gendelman.jpg',
+            'jnuckles@rzero.com': 'Jennifer_Nuckles.jpg',
+            'jquiros@rzero.com': 'Jorge_Quiros.jpg',
+            'jmunoz@rzero.com': 'Julio_Munoz.jpg',
+            'kneff@rzero.com': 'Kim_Neff.jpg',
+            'laguilar@rzero.com': 'Luis_Aguilar.jpg',
+            'mkulkarni@rzero.com': 'Manali_Kulkarni.jpg',
+            'mbuffler@rzero.com': 'Martyn_R._Buffler.jpg',
+            'mdharmani@rzero.com': 'Mehak_Dharmani.jpg',
+            'mchu@rzero.com': 'Michael_Chu.jpg',
+            'mdever@rzero.com': 'Michael_Dever.jpg',
+            'mhopps@rzero.com': 'Michael_Hopps.jpg',
+            'melafifi@rzero.com': 'Mohamed_El-afifi.jpg',
+            'mbarash@rzero.com': 'Monique_Barash.jpg',
+            'nalvarado@rzero.com': 'Nelson_Alvarado.jpg',
+            'nturizo@rzero.com': 'Nestor_Turizo.jpg',
+            'nviscuso@rzero.com': 'Nick_Viscuso.jpg',
+            'nvannuil@rzero.com': 'Nicolaas_Van_Nuil.jpg',
+            'nbanta@rzero.com': 'Nicole_Dianne_Banta.jpg',
+            'ppan@rzero.com': 'Priscilla_Pan.jpg',
+            'rmartin@rzero.com': 'Rick_Martin.jpg',
+            'skarki@rzero.com': 'Sanjil_Karki.jpg',
+            'skurgansky@rzero.com': 'Stas_Kurgansky.jpg',
+            'ssnow@rzero.com': 'Stephanie_Snow.jpg',
+            'treznik@rzero.com': 'Thomas_Reznik.jpg',
+            'tpearce@rzero.com': 'Trish_Pearce.jpg',
+            'ukogan@rzero.com': 'Uri_Kogan.jpg',
+            'vherico@rzero.com': 'Veronica_Herico.jpg',
+            'wiley.wang@rzero.com': 'Wiley_Wang.jpg',
+            'wmusat@rzero.com': 'will_musat.jpg'
+        };
+
+        const filename = profileMap[email.toLowerCase()];
+        return filename ? `profile-pics/${filename}` : null;
+    }
+
+    function displayUserInfo() {
+        console.log("[Auth] displayUserInfo called");
+        const auth = localStorage.getItem("rzeroAuth");
+        if (auth) {
+            const authData = JSON.parse(auth);
+            const userEmail = authData.email;
+            const userName = authData.name || userEmail.split("@")[0];
+            console.log("[Auth] Displaying user:", userName, userEmail);
+
+            // Update the header user info
+            const userInfoElement = document.getElementById("userInfo");
+            const userNameElement = document.getElementById("userName");
+            const userProfilePic = document.getElementById("userProfilePic");
+            console.log("[Auth] Elements found - userInfo:", !!userInfoElement, "userName:", !!userNameElement, "profilePic:", !!userProfilePic);
+
+            if (userInfoElement && userNameElement && userProfilePic) {
+                userNameElement.textContent = userName;
+                const localPic = getProfilePicture(userEmail);
+                console.log("[Auth] Local profile pic:", localPic, "Google pic:", authData.picture);
+                userProfilePic.src = localPic || authData.picture || 'profile-pics/default.jpg';
+                userProfilePic.onerror = function() {
+                    console.log("[Auth] Profile pic load error, using default");
+                    this.src = 'profile-pics/default.jpg';
+                };
+                userInfoElement.style.display = "block";
+                console.log("[Auth] User info displayed successfully");
+            } else {
+                console.log("[Auth] Missing DOM elements for user info");
+            }
+        } else {
+            console.log("[Auth] No auth data in localStorage");
+        }
+    }
+
+    function signOut() {
+        localStorage.removeItem("rzeroAuth");
+        // Also sign out of Firebase
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            firebase.auth().signOut();
+        }
+        location.reload();
+    }
+
+    // Check auth on page load
+    document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+
+    <!-- Visitor Leaderboard Script -->
+    <script>
+    (function(){
+      if (typeof firebase === 'undefined' || !firebase.firestore) return;
+
+      const db   = window.db || firebase.firestore();
+      const box  = document.getElementById('visitor-leaderboard');
+      const btn  = document.getElementById('lb-refresh');
+      const info = document.getElementById('lb-updated');
+      if (!box || !btn) return;
+
+      function render(rows){
+        if (!rows.length) { box.style.display='none'; info.textContent='No data yet.'; return; }
+        const items = rows.map(r=>{
+          const name = [r.firstName, r.lastName].filter(Boolean).join(' ') || r.displayName || r.email || 'Anonymous';
+          const n    = r.visitCount || 0;
+          const pretty = n >= 1000 ? (Math.round(n/100)/10)+'k' : String(n);
+          return `${name} (${pretty})`;
+        });
+        box.textContent = 'Most active: ' + items.join(', ');
+        box.style.display = 'block';
+      }
+
+      function stamp(ts){
+        const d = new Date(ts || Date.now());
+        info.textContent = 'Updated ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      }
+
+      async function refreshLeaderboard(){
+        try {
+          await firebase.firestore().enableNetwork().catch(()=>{});
+          btn.disabled = true;
+          const prev = btn.textContent;
+          btn.textContent = 'Refreshing…';
+
+          const q = db.collection('nationwideUserActivity').orderBy('visitCount','desc').limit(30);
+          const snap = await q.get({ source: 'server' });
+
+          const rows = [];
+          snap.forEach(doc => rows.push(doc.data()));
+          render(rows);
+          stamp();
+          btn.textContent = prev;
+        } catch (e) {
+          console.log('[Leaderboard] refresh failed', e);
+          try {
+            const q = db.collection('nationwideUserActivity').orderBy('visitCount','desc').limit(30);
+            const snap = await q.get({ source: 'cache' });
+            const rows = [];
+            snap.forEach(doc => rows.push(doc.data()));
+            render(rows);
+            stamp();
+          } catch(_) {
+            info.textContent = 'Update failed';
+          }
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      btn.addEventListener('click', refreshLeaderboard);
+      refreshLeaderboard();
+    })();
+    </script>
+
 </body>
 </html>
