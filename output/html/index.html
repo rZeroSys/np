@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 07:37:52 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-09 07:47:43 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -4180,7 +4180,7 @@ function renderAllBuildingsBatch() {
 function createAllBuildingsRow(b) {
     const row = document.createElement('div');
     row.className = 'cities-row';
-    row.onclick = function() { if (b.url) window.open(b.url, '_blank'); };
+    row.onclick = function() { window.location = 'buildings/' + b.id + '.html'; };
 
     const thumb = b.image
         ? `<img src="${CONFIG.awsBucket}/thumbnails/${b.image}" alt="" class="building-thumb" loading="lazy" onerror="this.style.display='none'">`

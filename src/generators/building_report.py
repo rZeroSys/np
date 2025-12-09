@@ -114,8 +114,8 @@ TOOLTIPS = {
     # ODCV Savings (from NATIONAL METHODS)
     'odcv_savings_pct': "HVAC savings from matching ventilation to occupancy. Based on ASHRAE 62.1 standards.",
     'annual_savings': "HVAC Cost × Savings %. Annual utility reduction from O-DCV.",
-    'whole_building_savings': "Annual Savings ÷ Total Energy Cost. Impact on entire bill, not just HVAC.",
-    'property_value_increase': "Annual Savings ÷ Cap Rate. Every $1 saved increases NOI → property value. Cap rate from caprateindex.com by type/market.",
+    'whole_building_savings': "Annual Utility Savings ÷ Total Energy Cost. Impact on entire bill, not just HVAC.",
+    'property_value_increase': "Annual Utility Savings ÷ Cap Rate. Every $1 saved increases NOI → property value. Cap rate from caprateindex.com by type/market.",
 
     # Carbon Impact (from NATIONAL METHODS)
     'carbon_reduction': "MT CO2e reduced annually. HVAC reduction × emission factors (EPA eGRID by region).",
@@ -192,10 +192,10 @@ def get_property_value_tooltip(row):
     cap_str = f"{cap_rate*100:.1f}% cap rate" if cap_rate else "cap rate"
 
     if city in BPS_CITIES:
-        return (f"(Annual Savings + Fine Avoidance) ÷ {cap_str} (caprateindex.com). "
+        return (f"(Annual Utility Savings + Fine Avoidance) ÷ {cap_str} (caprateindex.com). "
                 "Reduced OpEx → higher NOI → higher value.")
     else:
-        return (f"Annual Savings ÷ {cap_str} (caprateindex.com). "
+        return (f"Annual Utility Savings ÷ {cap_str} (caprateindex.com). "
                 "Reduced OpEx → higher NOI → higher value.")
 
 def get_size_tooltip(row):
@@ -1017,9 +1017,9 @@ def generate_odcv_savings(row):
     if odcv_pct and odcv_pct > 0:
         html += f"<tr><td>HVAC Savings %{tooltip('odcv_savings_pct', row)}</td><td>{odcv_pct*100:.1f}%</td></tr>"
 
-    # 4. Annual Savings (the payoff) - BOLD this row
+    # 4. Annual Utility Bill Savings (the payoff) - BOLD this row
     if odcv_savings and odcv_savings > 0:
-        html += f"<tr style=\"background: #f0f9ff;\"><td><strong>Annual Savings{tooltip('annual_savings', row)}</strong></td><td><strong>{format_currency(odcv_savings)}</strong></td></tr>"
+        html += f"<tr style=\"background: #f0f9ff;\"><td><strong>Annual Utility Savings{tooltip('annual_savings', row)}</strong></td><td><strong>{format_currency(odcv_savings)}</strong></td></tr>"
 
     # 5. Whole Building Savings %
     if whole_bldg_pct and whole_bldg_pct > 0:

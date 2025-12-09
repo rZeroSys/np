@@ -3115,7 +3115,7 @@ function renderAllBuildingsBatch() {{
 function createAllBuildingsRow(b) {{
     const row = document.createElement('div');
     row.className = 'cities-row';
-    row.onclick = function() {{ if (b.url) window.open(b.url, '_blank'); }};
+    row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html'; }};
 
     const thumb = b.image
         ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" alt="" class="building-thumb" loading="lazy" onerror="this.style.display='none'">`
