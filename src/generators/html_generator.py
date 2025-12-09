@@ -272,12 +272,37 @@ class NationwideHTMLGenerator:
                 'managers': p.get('managers', []),
             })
 
-        return {
-            'portfolio_buildings.js': f'const PORTFOLIO_BUILDINGS = {json.dumps(portfolio_buildings)};',
+        # Filter data - aggregated by type|vertical per portfolio (tiny ~75KB)
+        filter_data = {}
+        for i, p in enumerate(self.portfolios):
+            agg = {}
+            for b in p['buildings']:
+                t = b.get('radio_type', '') or ''
+                v = b.get('vertical', '') or ''
+                if not t or not v:
+                    continue
+                key = f'{t}|{v}'
+                if key not in agg:
+                    agg[key] = [0, 0, 0, 0, 0]  # count, opex, val, carbon, sqft
+                agg[key][0] += 1
+                agg[key][1] += int(b.get('total_opex', 0) or 0)
+                agg[key][2] += int(b.get('valuation_impact', 0) or 0)
+                agg[key][3] += int(b.get('carbon_reduction', 0) or 0)
+                agg[key][4] += int(b.get('sqft', 0) or 0)
+            filter_data[i] = agg
+
+        data_files = {
+            'filter_data.js': f'const FILTER_DATA = {json.dumps(filter_data)};',
             'map_data.js': f'MAP_DATA = {json.dumps(map_data)};',
             'portfolio_cards.js': f'const PORTFOLIO_CARDS = {json.dumps(portfolio_cards)};',
             'export_data.js': f'EXPORT_DATA = {json.dumps(export_data)};',
         }
+
+        # Individual portfolio building files - loaded on demand
+        for idx, buildings in portfolio_buildings.items():
+            data_files[f'portfolios/p_{idx}.js'] = f'PORTFOLIO_BUILDINGS[{idx}] = {json.dumps(buildings)};'
+
+        return data_files
 
     # =========================================================================
     # HEAD SECTION
@@ -2987,8 +3012,9 @@ tr.pin-highlight {
         return f'''
 <!-- Load data from external files -->
 <script src="data/portfolio_cards.js"></script>
-<script src="data/portfolio_buildings.js"></script>
-<!-- map_data.js is loaded on-demand when map is opened -->
+<script src="data/filter_data.js"></script>
+<script>const PORTFOLIO_BUILDINGS = {{}};</script>
+<!-- map_data.js and portfolio building files loaded on-demand -->
 
 <script>
 // =============================================================================
@@ -3332,32 +3358,37 @@ function applyFilters() {{
 
     cards.forEach(card => {{
         const idx = parseInt(card.dataset.idx);
-        let buildings = PORTFOLIO_BUILDINGS[idx] || [];
+        const agg = FILTER_DATA[idx] || {{}};
 
-        // Filter by building type
-        if (selectedBuildingType) {{
-            buildings = buildings.filter(b => b.type === selectedBuildingType);
+        // FILTER_DATA format: {{"type|vertical": [count, opex, val, carbon, sqft], ...}}
+        let count = 0, opex = 0, valuation = 0, carbon = 0, sqft = 0;
+
+        for (const [key, vals] of Object.entries(agg)) {{
+            const [t, v] = key.split('|');
+            // Filter by building type (radio_button_building_type)
+            if (selectedBuildingType && t !== selectedBuildingType) continue;
+            // Filter by vertical
+            if (activeVertical !== 'all' && v !== activeVertical) continue;
+            // Accumulate matching
+            count += vals[0];
+            opex += vals[1];
+            valuation += vals[2];
+            carbon += vals[3];
+            sqft += vals[4];
         }}
-        // Filter by vertical
-        if (activeVertical !== 'all') {{
-            buildings = buildings.filter(b => b.vertical === activeVertical);
-        }}
+
         // Filter by search
         if (globalQuery) {{
             const orgName = (card.dataset.org || '').toLowerCase();
             if (!orgName.includes(globalQuery)) {{
-                buildings = [];
+                count = 0;
             }}
         }}
 
-        if (buildings.length === 0) {{
+        if (count === 0) {{
             card.classList.add('hidden');
         }} else {{
             card.classList.remove('hidden');
-            const opex = buildings.reduce((s, b) => s + (b.opex || 0), 0);
-            const valuation = buildings.reduce((s, b) => s + (b.valuation || 0), 0);
-            const carbon = buildings.reduce((s, b) => s + (b.carbon || 0), 0);
-            const sqft = buildings.reduce((s, b) => s + (b.sqft || 0), 0);
 
             // Update card display
             const countEl = card.querySelector('.building-count-value');
@@ -3366,7 +3397,7 @@ function applyFilters() {{
             const carbonEl = card.querySelector('.carbon-value');
             const sqftEl = card.querySelector('.sqft-value');
 
-            if (countEl) countEl.textContent = buildings.length.toLocaleString();
+            if (countEl) countEl.textContent = count.toLocaleString();
             if (opexEl) opexEl.textContent = formatMoneyJS(opex);
             if (valEl) valEl.textContent = formatMoneyJS(valuation);
             if (carbonEl) carbonEl.textContent = formatCarbonJS(carbon);
@@ -4893,7 +4924,17 @@ function loadPortfolioRows(card, loadMore = false) {{
     const container = card.querySelector('.building-rows-container');
     if (!container) return;
 
-    // Use embedded data - NO fetch, NO waiting
+    // Load portfolio data on-demand if not already loaded
+    if (!PORTFOLIO_BUILDINGS[idx]) {{
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#666;">Loading...</div>';
+        const script = document.createElement('script');
+        script.src = `data/portfolios/p_${{idx}}.js`;
+        script.onload = () => loadPortfolioRows(card, loadMore);
+        script.onerror = () => {{ container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>'; }};
+        document.head.appendChild(script);
+        return;
+    }}
+
     let buildings = PORTFOLIO_BUILDINGS[idx];
     if (!buildings || !buildings.length) return;
 
@@ -5149,17 +5190,21 @@ if __name__ == '__main__':
     generator = NationwideHTMLGenerator(config, data)
     html, data_files = generator.generate()
 
-    # Save the HTML file
-    base_dir = os.path.dirname(__file__)
-    output_path = os.path.join(base_dir, 'nationwide_index.html')
+    # Save the HTML file to output/html (GitHub Pages path)
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    output_dir = os.path.join(project_root, 'output', 'html')
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, 'index.html')
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    # Save data files
-    data_dir = os.path.join(base_dir, 'data')
+    # Save data files to output/html/data
+    data_dir = os.path.join(output_dir, 'data')
     os.makedirs(data_dir, exist_ok=True)
+    os.makedirs(os.path.join(data_dir, 'portfolios'), exist_ok=True)
     for filename, content in data_files.items():
         filepath = os.path.join(data_dir, filename)
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f"Saved {filename}: {os.path.getsize(filepath) / 1024:.1f} KB")
