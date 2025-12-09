@@ -3347,6 +3347,7 @@ let selectedBuildingType = null;
 let mapUpdateTimeout = null;
 
 function applyFilters() {{
+    console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical);
     const cards = document.querySelectorAll('.portfolio-card');
     const container = document.getElementById('portfolios-list');
     if (!container) return;
@@ -3376,6 +3377,8 @@ function applyFilters() {{
             carbon += vals[3];
             sqft += vals[4];
         }}
+        // Debug log for Hyatt (idx 32)
+        if (idx === 32) console.log('[applyFilters] Hyatt idx=32, count:', count, 'agg:', agg);
 
         // Filter by search
         if (globalQuery) {{
@@ -4926,11 +4929,12 @@ function loadPortfolioRows(card, loadMore = false) {{
 
     // Load portfolio data on-demand if not already loaded
     if (!PORTFOLIO_BUILDINGS[idx]) {{
+        console.log('[loadPortfolioRows] Loading on-demand: portfolios/p_' + idx + '.js');
         container.innerHTML = '<div style="padding:20px;text-align:center;color:#666;">Loading...</div>';
         const script = document.createElement('script');
         script.src = `data/portfolios/p_${{idx}}.js`;
-        script.onload = () => loadPortfolioRows(card, loadMore);
-        script.onerror = () => {{ container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>'; }};
+        script.onload = () => {{ console.log('[loadPortfolioRows] Loaded p_' + idx + '.js'); loadPortfolioRows(card, loadMore); }};
+        script.onerror = () => {{ console.error('[loadPortfolioRows] FAILED to load p_' + idx + '.js'); container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>'; }};
         document.head.appendChild(script);
         return;
     }}
@@ -5110,6 +5114,9 @@ function loadMorePortfolios() {{
 }}
 
 document.addEventListener('DOMContentLoaded', function() {{
+    console.log('[DOMContentLoaded] FILTER_DATA portfolios:', Object.keys(FILTER_DATA).length);
+    console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
+    console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
     initTabs();
     selectVertical('all');
     selectVertical('all');
