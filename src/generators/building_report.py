@@ -303,7 +303,19 @@ def tooltip(key, row=None):
 
 def generate_hero(row):
     """Hero section - address with external link, centered with back button"""
-    address = safe_val(row, 'loc_address', 'Address not available')
+    street = safe_val(row, 'loc_address', 'Address not available')
+    city = safe_val(row, 'loc_city', '')
+    state = safe_val(row, 'loc_state', '')
+    zip_code = safe_val(row, 'loc_zip', '')
+
+    # Build full address: street, city, state zip
+    address_parts = [street]
+    if city and state:
+        address_parts.append(f"{city}, {state}")
+    if zip_code:
+        address_parts[-1] = address_parts[-1] + f" {zip_code}" if len(address_parts) > 1 else zip_code
+    address = ', '.join(address_parts) if len(address_parts) > 1 else street
+
     building_url = safe_val(row, 'id_source_url')
     has_url = building_url and str(building_url).lower() != 'nan'
 
@@ -905,18 +917,13 @@ def generate_savings_section(row):
             </tr>
 """
 
-    # Property Value row - use existing valuation data from CSV
-    current_val = safe_num(row, 'val_current_usd')
-    post_val = safe_num(row, 'val_post_odcv_usd')
-
+    # Property Value row - only show impact, not current/new values
     if val_impact and val_impact > 0:
-        current_str = format_currency(current_val) if current_val else '—'
-        new_str = format_currency(post_val) if post_val else '—'
         html += f"""
             <tr>
                 <td>Property Value{tooltip('property_value_increase', row)}</td>
-                <td>{current_str}</td>
-                <td>{new_str}</td>
+                <td>—</td>
+                <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+{format_currency(val_impact)}</td>
             </tr>
 """
