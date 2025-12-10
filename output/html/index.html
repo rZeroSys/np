@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-10 01:21:31 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-10 01:25:34 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5011,17 +5011,40 @@ function applyFilters() {
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
-    // Update header tooltips with filtered totals
+    // Update header tooltips with filtered totals - calculate from EXPORT_DATA for accuracy
+    // Filter EXPORT_DATA the same way we filter portfolios
+    let filteredBuildings = (EXPORT_DATA || []);
+    if (selectedBuildingType) {
+        filteredBuildings = filteredBuildings.filter(b => b.type === selectedBuildingType);
+    }
+    if (activeVertical !== 'all') {
+        filteredBuildings = filteredBuildings.filter(b => b.vertical === activeVertical);
+    }
+    if (globalQuery) {
+        filteredBuildings = filteredBuildings.filter(b => {
+            const orgName = (b.owner || '').toLowerCase();
+            const tenant = (b.tenant || '').toLowerCase();
+            const propMgr = (b.property_manager || '').toLowerCase();
+            return orgName.includes(globalQuery) || tenant.includes(globalQuery) || propMgr.includes(globalQuery);
+        });
+    }
+
+    const headerTotalBuildings = filteredBuildings.length;
+    const headerTotalSqft = filteredBuildings.reduce((sum, b) => sum + (b.sqft || 0), 0);
+    const headerTotalValuation = filteredBuildings.reduce((sum, b) => sum + (b.valuation || 0), 0);
+    const headerTotalCarbon = filteredBuildings.reduce((sum, b) => sum + (b.carbon || 0), 0);
+    const headerTotalOpex = filteredBuildings.reduce((sum, b) => sum + (b.opex || 0), 0);
+
     const headerBuildings = document.getElementById('header-buildings');
     const headerSqft = document.getElementById('header-sqft');
     const headerValuation = document.getElementById('header-valuation');
     const headerCarbon = document.getElementById('header-carbon');
     const headerOpex = document.getElementById('header-opex');
-    if (headerBuildings) headerBuildings.dataset.total = totalBuildings.toLocaleString() + ' Total Buildings';
-    if (headerSqft) headerSqft.dataset.total = formatSqftJS(totalSqft) + ' Total Sq Ft';
-    if (headerValuation) headerValuation.dataset.total = formatMoneyJS(totalValuation) + ' Total Val. Impact';
-    if (headerCarbon) headerCarbon.dataset.total = formatCarbonJS(totalCarbon) + ' Total tCO2e/yr';
-    if (headerOpex) headerOpex.dataset.total = formatMoneyJS(totalOpex) + ' Total Savings/yr';
+    if (headerBuildings) headerBuildings.dataset.total = headerTotalBuildings.toLocaleString() + ' Total Buildings';
+    if (headerSqft) headerSqft.dataset.total = formatSqftJS(headerTotalSqft) + ' Total Sq Ft';
+    if (headerValuation) headerValuation.dataset.total = formatMoneyJS(headerTotalValuation) + ' Total Val. Impact';
+    if (headerCarbon) headerCarbon.dataset.total = formatCarbonJS(headerTotalCarbon) + ' Total tCO2e/yr';
+    if (headerOpex) headerOpex.dataset.total = formatMoneyJS(headerTotalOpex) + ' Total Savings/yr';
 
     // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
     const expanded = document.querySelector('.portfolio-card.expanded');
@@ -6814,7 +6837,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-10 01:21:31 EST
+        Build: 2025-12-10 01:25:34 EST
       </div>
     </footer>
 
