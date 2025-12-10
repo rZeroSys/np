@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-09 18:11:22 EST -->
+<!-- Generated: 2025-12-09 19:04:57 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,30 +34,81 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        /* Page Header */
+        .page-header {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            position: relative;
+        }
+
+        .page-header .back-link {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .back-link:hover {
+            color: white;
+        }
+
+        .page-header .header-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .header-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .page-header .header-branding a {
+            display: block;
+        }
+
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
             color: white;
-            padding: 20px 30px;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
-        }
-
-        .hero .address {
-            font-size: 1em;
-            opacity: 0.9;
+            font-size: 1.3em;
             margin-bottom: 3px;
         }
 
-        .hero .building-info {
+        .hero .address {
             font-size: 0.9em;
-            opacity: 0.8;
-            margin-bottom: 15px;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .hero .building-info {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 0;
+            letter-spacing: 0.3px;
         }
 
         .hero .opportunity {
@@ -239,30 +290,32 @@
 <body>
     <div class="container">
 
-    <div style="padding: 15px 20px; display: flex; align-items: center;">
-        <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: #0066cc; font-weight: 500;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Nationwide Prospector
-        </a>
-    </div>
-
-    <div class="hero">
+    <div class="hero" style="position:relative;text-align:center;">
+        <a href="../index.html" class="back-link" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.8);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+    </a>
         <h1><a href="https://sfplanninggis.org/PIM/?tab=Property&amp;search=0642/001" target="_blank" style="color: inherit; text-decoration: none;">1699 Van Ness Ave, San Francisco, CA, 94109 <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
-        <div class="building-info">
-41,100 sqft | Office | Built 1919
+        <div class="building-info" style="justify-content:center;">
+<span>41,100 sqft</span><span style='margin: 0 15px;'>•</span><span>Office</span><span style='margin: 0 15px;'>•</span><span>Built 1919</span>
         </div>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
-        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/SF_06420012024_streetview.jpg" alt="Building SF_06420012024" style="width: 100%; max-height: 600px; object-fit: cover; border-radius: 8px;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/SF_06420012024_streetview.jpg" alt="Building SF_06420012024" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
     </div>
 
     <div class="section">
         <h2>Property</h2>
         <table>
-<tr><td>Tenant</td><td>Craig Ackerman | Ackerman Realty Group | Top SF Realtor <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Craig_Ackerman_|_Ackerman_Realty_Group_|_Top_SF_Realtor.png" style="height:30px;margin-left:10px;vertical-align:middle;" onerror="this.style.display='none'"></td></tr><tr><td>Site EUI<span class="info-tooltip" data-tooltip="Energy Use Intensity: kBtu/sqft/year (energy disclosure). Lower = more efficient." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>31.0 kBtu/sqft</td></tr><tr><td>Energy Star Score<span class="info-tooltip" data-tooltip="EPA rating 1-100 (SF Environment Code). Compares to similar buildings nationwide. Lower = more savings opportunity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>59</td></tr>
+<tr><td>Tenant</td><td><div style="font-size:0.9em;">Craig Ackerman | Ackerman Realty Group | Top SF Realtor</div><div style="text-align:center;margin-top:5px;"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Craig_Ackerman_|_Ackerman_Realty_Group_|_Top_SF_Realtor.png" style="height:30px;" onerror="this.parentElement.style.display='none'"></div></td></tr><tr><td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>31.0 kBtu/sqft</td></tr><tr><td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100. 50 = median building. Source: SF Environment Code." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>59</td></tr>
         </table>
     </div>
 
@@ -270,43 +323,60 @@
         <h2>Energy</h2>
         <table>
             <tr>
-                <th>Fuel Type</th>
+                <th></th>
                 <th>Annual Use</th>
                 <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="% electricity for HVAC (CBECS 2018). Adjusted for efficiency, age, energy intensity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Annual kWh (SF Environment Code)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="Source: SF Environment Code. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>340,623 kWh</td>
                 <td>$118K</td>
                 <td>49%</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Annual therms (SF Environment Code)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: SF Environment Code. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,125 therms</td>
                 <td>$2K</td>
                 <td>94%</td>
-            </tr>
-
-            <tr style="border-top: 2px solid #e0e0e0;">
-                <td style="padding-top: 12px;"><strong>Total HVAC Cost</strong><span class="info-tooltip" data-tooltip="HVAC portion of energy bill (CBECS 2018). Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td style="padding-top: 12px;" colspan="3"><strong>$60K</strong></td>
-            </tr>
-
-            <tr>
-                <td><strong>GHG Emissions</strong><span class="info-tooltip" data-tooltip="MT CO2e/year. Energy × San Francisco grid emission factors (EPA eGRID)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td colspan="3"><strong>72.2 MT CO2e</strong></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>ODCV Savings</h2>
+        <h2>Savings</h2>
         <table>
-<tr style="background: #f0f9ff;"><td><strong>Annual Utility Savings<span class="info-tooltip" data-tooltip="Energy from SF Environment Code × HVAC % (CBECS 2018) × O-DCV savings % × rates (NREL by ZIP)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></strong></td><td><strong>$16K</strong></td></tr><tr><td>Whole Building Savings<span class="info-tooltip" data-tooltip="Annual Utility Savings ÷ Total Energy Cost. Impact on entire bill, not just HVAC." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>20.0%</td></tr><tr><td>Property Value Increase<span class="info-tooltip" data-tooltip="Annual Utility Savings ÷ 7.5% cap rate (caprateindex.com). Reduced OpEx → higher NOI → higher value." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>$209K</td></tr><tr><td>Carbon Reduction Year 1<span class="info-tooltip" data-tooltip="MT CO2e reduced annually. HVAC reduction × emission factors (EPA eGRID by region)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>18.1 MT CO2e</td></tr>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: SF Environment Code, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$120K</td>
+                <td>$104K</td>
+                <td style="color: #16a34a; font-weight: 600;">-$16K</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>72.2 MT</td>
+                <td>54.1 MT</td>
+                <td style="color: #16a34a; font-weight: 600;">-18.1 MT</td>
+            </tr>
+
+            <tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 7.5% cap rate. $1 saved → $13 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$8.0M</td>
+                <td>$8.2M</td>
+                <td style="color: #16a34a; font-weight: 600;">+$209K</td>
+            </tr>
+
         </table>
     </div>
 

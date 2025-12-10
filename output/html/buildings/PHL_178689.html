@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-09 18:14:33 EST -->
+<!-- Generated: 2025-12-09 19:07:13 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,30 +34,81 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        /* Page Header */
+        .page-header {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            position: relative;
+        }
+
+        .page-header .back-link {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .back-link:hover {
+            color: white;
+        }
+
+        .page-header .header-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .header-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .page-header .header-branding a {
+            display: block;
+        }
+
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
             color: white;
-            padding: 20px 30px;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
-        }
-
-        .hero .address {
-            font-size: 1em;
-            opacity: 0.9;
+            font-size: 1.3em;
             margin-bottom: 3px;
         }
 
-        .hero .building-info {
+        .hero .address {
             font-size: 0.9em;
-            opacity: 0.8;
-            margin-bottom: 15px;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .hero .building-info {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 0;
+            letter-spacing: 0.3px;
         }
 
         .hero .opportunity {
@@ -239,31 +290,33 @@
 <body>
     <div class="container">
 
-    <div style="padding: 15px 20px; display: flex; align-items: center;">
-        <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px; color: #0066cc; font-weight: 500;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Nationwide Prospector
-        </a>
-    </div>
-
-    <div class="hero">
+    <div class="hero" style="position:relative;text-align:center;">
+        <a href="../index.html" class="back-link" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.8);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+    </a>
         <h1><a href="https://property.phila.gov/?p=883054500" target="_blank" style="color: inherit; text-decoration: none;">Peco Main Office Building <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
         <div class="address">2301 Market Street, Philadelphia, PA, 19103</div>
-        <div class="building-info">
-823,339 sqft | Office | Built 1971
+        <div class="building-info" style="justify-content:center;">
+<span>823,339 sqft</span><span style='margin: 0 15px;'>•</span><span>Office</span><span style='margin: 0 15px;'>•</span><span>Built 1971</span>
         </div>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
-        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/PHL_178689_SerpApi.jpg" alt="Building PHL_178689" style="width: 100%; max-height: 600px; object-fit: cover; border-radius: 8px;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/PHL_178689_SerpApi.jpg" alt="Building PHL_178689" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
     </div>
 
     <div class="section">
         <h2>Property</h2>
         <table>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Building owner (30+ data sources)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>Peco <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Peco.png" style="height:30px;margin-left:10px;vertical-align:middle;" onerror="this.style.display='none'"></td></tr><tr><td>Site EUI<span class="info-tooltip" data-tooltip="Energy Use Intensity: kBtu/sqft/year (energy disclosure). Lower = more efficient." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>65.8 kBtu/sqft</td></tr><tr><td>Energy Star Score<span class="info-tooltip" data-tooltip="EPA rating 1-100 (Philadelphia Benchmarking). Compares to similar buildings nationwide. Lower = more savings opportunity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>62</td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style="font-size:0.9em;">Peco</div><div style="text-align:center;margin-top:5px;"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Peco.png" style="height:30px;" onerror="this.parentElement.style.display='none'"></div></td></tr><tr><td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>65.8 kBtu/sqft</td></tr><tr><td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100. 50 = median building. Source: Philadelphia Benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>62</td></tr>
         </table>
     </div>
 
@@ -271,50 +324,67 @@
         <h2>Energy</h2>
         <table>
             <tr>
-                <th>Fuel Type</th>
+                <th></th>
                 <th>Annual Use</th>
                 <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="% electricity for HVAC (CBECS 2018). Adjusted for efficiency, age, energy intensity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Annual kWh (Philadelphia Benchmarking)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Philadelphia Benchmarking. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>14,410,988 kWh</td>
                 <td>$4.3M</td>
                 <td>41%</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="Steam use in Mlb (energy disclosure). Common in dense urban areas." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="Piped steam from central plant. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,098.70 Mlb</td>
                 <td>$77K</td>
                 <td>100%</td>
             </tr>
 
             <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Fuel oil in gallons (energy disclosure)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>18,092 gallons</td>
                 <td>$61K</td>
                 <td>93%</td>
-            </tr>
-
-            <tr style="border-top: 2px solid #e0e0e0;">
-                <td style="padding-top: 12px;"><strong>Total HVAC Cost</strong><span class="info-tooltip" data-tooltip="HVAC portion of energy bill (CBECS 2018). Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td style="padding-top: 12px;" colspan="3"><strong>$1.9M</strong></td>
-            </tr>
-
-            <tr>
-                <td><strong>GHG Emissions</strong><span class="info-tooltip" data-tooltip="MT CO2e/year. Energy × Philadelphia grid emission factors (EPA eGRID)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td colspan="3"><strong>4,646.1 MT CO2e</strong></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>ODCV Savings</h2>
+        <h2>Savings</h2>
         <table>
-<tr style="background: #f0f9ff;"><td><strong>Annual Utility Savings<span class="info-tooltip" data-tooltip="Energy from Philadelphia Benchmarking × HVAC % (CBECS 2018) × O-DCV savings % × rates (NREL by ZIP)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></strong></td><td><strong>$665K</strong></td></tr><tr><td>Whole Building Savings<span class="info-tooltip" data-tooltip="Annual Utility Savings ÷ Total Energy Cost. Impact on entire bill, not just HVAC." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>26.9%</td></tr><tr><td>Property Value Increase<span class="info-tooltip" data-tooltip="Annual Utility Savings ÷ 8.0% cap rate (caprateindex.com). Reduced OpEx → higher NOI → higher value." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>$8.3M</td></tr><tr><td>Carbon Reduction Year 1<span class="info-tooltip" data-tooltip="MT CO2e reduced annually. HVAC reduction × emission factors (EPA eGRID by region)." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>1,573.0 MT CO2e</td></tr>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Philadelphia Benchmarking, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$4.4M</td>
+                <td>$3.8M</td>
+                <td style="color: #16a34a; font-weight: 600;">-$665K</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>4,646.1 MT</td>
+                <td>3,073.1 MT</td>
+                <td style="color: #16a34a; font-weight: 600;">-1,573.0 MT</td>
+            </tr>
+
+            <tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 8.0% cap rate. $1 saved → $12 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$277.6M</td>
+                <td>$285.9M</td>
+                <td style="color: #16a34a; font-weight: 600;">+$8.3M</td>
+            </tr>
+
         </table>
     </div>
 

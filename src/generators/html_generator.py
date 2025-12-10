@@ -3011,7 +3011,7 @@ tr.pin-highlight {
             </div>
         </div>
         <button class="export-btn" onclick="openMapPanel()" style="margin-left: 8px; background: #0077cc;">
-            <span style="font-size: 14px;">&#128506;</span> Map
+            <span style="font-size: 14px;">&#9678;</span> Map
         </button>
         <div class="leaderboard-dropdown" style="margin-left: 8px;">
             <button class="export-btn" onclick="toggleLeaderboardMenu(event)" style="background: #5ba3d9;">
@@ -3599,7 +3599,7 @@ tr.pin-highlight {
             full_title = f"{display_name} ({parent_display} Owned)"
 
         return f'''
-<div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
+<div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-displayname="{attr_escape(display_name)}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="{attr_escape(full_title)}">{escape(display_name)}{parent_html}</span>
@@ -4164,10 +4164,11 @@ function applyFilters() {{
             sqft += vals[4];
         }}
 
-        // Filter by search
+        // Filter by search - check both org name AND display name
         if (globalQuery) {{
             const orgName = (card.dataset.org || '').toLowerCase();
-            if (!orgName.includes(globalQuery)) {{
+            const displayName = (card.dataset.displayname || '').toLowerCase();
+            if (!orgName.includes(globalQuery) && !displayName.includes(globalQuery)) {{
                 count = 0;
             }}
         }}
@@ -4213,9 +4214,14 @@ function applyFilters() {{
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
-    // Re-render expanded portfolio
+    // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
     const expanded = document.querySelector('.portfolio-card.expanded');
-    if (expanded) loadPortfolioRows(expanded);
+    if (expanded) {{
+        const idx = parseInt(expanded.dataset.idx);
+        // If user already expanded all buildings, keep that state
+        const showAll = portfolioBuildingCounts[idx] && portfolioBuildingCounts[idx] > BUILDINGS_PER_BATCH;
+        loadPortfolioRows(expanded, showAll);
+    }}
 }}
 
 function selectVertical(v) {{
@@ -5886,7 +5892,7 @@ function renderPortfolioCard(p) {{
     const parentHtml = p.parent_owned ? `<span class="parent-owned">${{p.parent_owned}}</span>` : '';
     const fullTitle = p.parent_owned ? `${{p.display_name || p.org_name}} (${{p.parent_owned}})` : (p.display_name || p.org_name);
 
-    return `<div class="portfolio-card" data-idx="${{p.idx}}" data-org="${{p.org_name}}" data-buildings="${{p.building_count}}" data-sqft="${{p.total_sqft || 0}}" data-eui="${{p.median_eui}}" data-valuation="${{p.total_valuation}}" data-carbon="${{p.total_carbon}}" data-opex="${{p.total_opex}}">
+    return `<div class="portfolio-card" data-idx="${{p.idx}}" data-org="${{p.org_name}}" data-displayname="${{p.display_name || p.org_name}}" data-buildings="${{p.building_count}}" data-sqft="${{p.total_sqft || 0}}" data-eui="${{p.median_eui}}" data-valuation="${{p.total_valuation}}" data-carbon="${{p.total_carbon}}" data-opex="${{p.total_opex}}">
         <div class="portfolio-header" onclick="togglePortfolio(this)">
             <div class="org-logo-stack">
                 <span class="org-name-small" title="${{fullTitle}}">${{p.display_name || p.org_name}}${{parentHtml}}</span>
