@@ -287,9 +287,9 @@ def generate_hero(row):
     building_url = safe_val(row, 'building_url')
     has_building_url = building_url and str(building_url).lower() != 'nan'
 
-    # Back button
-    back_btn = '''<a href="../index.html" class="back-link" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.8);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    # Back button - big clickable area
+    back_btn = '''<a href="../index.html" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>'''
 
@@ -352,15 +352,15 @@ def generate_building_info(row):
     tenant = tenant if tenant and str(tenant).lower() != 'nan' else None
     tenant_sub = tenant_sub if tenant_sub and str(tenant_sub).lower() != 'nan' else None
 
-    # Helper to build org name + logo HTML - smaller font, logo centered below
+    # Helper to build org - logo and name on same row
     def build_org_with_logo(name):
         if not name:
             return ""
         logo_filename = get_logo_filename(name)
         if logo_filename:
             logo_url = f"{AWS_BUCKET}/logos/{logo_filename}.png"
-            return f'<div style="font-size:0.9em;">{escape(name)}</div><div style="text-align:center;margin-top:5px;"><img src="{logo_url}" style="height:30px;" onerror="this.parentElement.style.display=\'none\'"></div>'
-        return f'<span style="font-size:0.9em;">{escape(name)}</span>'
+            return f'{escape(name)} <img src="{logo_url}" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display=\'none\'">'
+        return f'{escape(name)}'
 
     # Helper for logo only (used in combined rows)
     def build_logo(name):
