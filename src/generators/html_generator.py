@@ -5991,6 +5991,17 @@ document.addEventListener('DOMContentLoaded', function() {{
     console.log('[DOMContentLoaded] FILTER_DATA portfolios:', Object.keys(FILTER_DATA).length);
     console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
     console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
+
+    // Load export_data.js immediately for header tooltips
+    const exportScript = document.createElement('script');
+    exportScript.src = 'data/export_data.js';
+    exportScript.onload = function() {{
+        allBuildingsData = EXPORT_DATA;
+        console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
+        applyFilters(); // Re-run to update header tooltips
+    }};
+    document.head.appendChild(exportScript);
+
     initTabs();
     selectVertical('all');
     selectVertical('all');
