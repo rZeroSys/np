@@ -4220,6 +4220,9 @@ function applyFilters() {{
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
     // Update header tooltips - use allBuildingsData exactly like Cities tab does with filteredBuildingsData
+    console.log('[HEADER DEBUG] allBuildingsData length:', allBuildingsData ? allBuildingsData.length : 'NULL');
+    console.log('[HEADER DEBUG] allBuildingsData sample:', allBuildingsData && allBuildingsData[0] ? JSON.stringify(allBuildingsData[0]) : 'EMPTY');
+
     let headerFiltered = allBuildingsData.filter(b => {{
         if (selectedBuildingType && b.type !== selectedBuildingType) return false;
         if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
@@ -4230,11 +4233,16 @@ function applyFilters() {{
         return true;
     }});
 
+    console.log('[HEADER DEBUG] headerFiltered length:', headerFiltered.length);
+
     const headerTotalBuildings = headerFiltered.length;
     const headerTotalSqft = headerFiltered.reduce((sum, b) => sum + (b.sqft || 0), 0);
     const headerTotalValuation = headerFiltered.reduce((sum, b) => sum + (b.valuation || 0), 0);
     const headerTotalCarbon = headerFiltered.reduce((sum, b) => sum + (b.carbon || 0), 0);
     const headerTotalOpex = headerFiltered.reduce((sum, b) => sum + (b.opex || 0), 0);
+
+    console.log('[HEADER DEBUG] headerTotalOpex:', headerTotalOpex);
+    console.log('[HEADER DEBUG] formatted:', formatMoney(headerTotalOpex));
 
     const headerBuildings = document.getElementById('header-buildings');
     const headerSqft = document.getElementById('header-sqft');
