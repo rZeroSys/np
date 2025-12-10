@@ -89,9 +89,9 @@ class NationwideHTMLGenerator:
                 return ''
             return str(val).strip()
 
-        tenant_sub_org = safe_str(b.get('tenant_sub_org'))
-        tenant = safe_str(b.get('tenant'))
-        property_name = safe_str(b.get('property_name'))
+        tenant_sub_org = safe_str(b.get('org_tenant_subunit'))
+        tenant = safe_str(b.get('org_tenant'))
+        property_name = safe_str(b.get('id_property_name'))
 
         def clean(s):
             """Strip trailing punct, (R), (TM), and normalize."""
@@ -167,23 +167,23 @@ class NationwideHTMLGenerator:
         # Portfolio buildings - for expanding portfolios
         portfolio_buildings = {
             i: [{
-                'id': b.get('building_id', ''),
-                'url': b.get('building_url', ''),
-                'address': b.get('address', ''),
-                'city': b.get('city', ''),
-                'state': b.get('state', ''),
+                'id': b.get('id_building', ''),
+                'url': b.get('id_source_url', ''),
+                'address': b.get('loc_address', ''),
+                'city': b.get('loc_city', ''),
+                'state': b.get('loc_state', ''),
                 'property_name': self._get_display_name(b),
                 'type': b.get('radio_type', ''),
-                'building_type': b.get('building_type', ''),
-                'vertical': b.get('vertical', ''),
+                'bldg_type': b.get('bldg_type', ''),
+                'bldg_vertical': b.get('bldg_vertical', ''),
                 'sqft': b.get('sqft', 0) or 0,
                 'opex': b.get('total_opex', 0) or 0,
                 'valuation': b.get('valuation_impact', 0) or 0,
                 'carbon': b.get('carbon_reduction', 0) or 0,
-                'eui': b.get('site_eui', 0) or 0,
-                'eui_benchmark': b.get('eui_benchmark', 0) or 0,
+                'eui': b.get('energy_site_eui', 0) or 0,
+                'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
                 'image': b.get('image', ''),
-                'sub_org': b.get('tenant_sub_org', ''),
+                'sub_org': b.get('org_tenant_subunit', ''),
             } for b in p['buildings']] for i, p in enumerate(self.portfolios)
         }
 
@@ -192,12 +192,12 @@ class NationwideHTMLGenerator:
             'id': b['id'],
             'lat': b['lat'],
             'lon': b['lon'],
-            'address': b['address'],
-            'city': b['city'],
-            'state': b['state'],
+            'address': b['loc_address'],
+            'city': b['loc_city'],
+            'state': b['loc_state'],
             'type': b.get('radio_type', ''),
-            'vertical': b['vertical'],
-            'total_opex': b['total_opex'],
+            'bldg_vertical': b['bldg_vertical'],
+            'opex': b['total_opex'],
             'image': b['image']
         } for b in self.all_buildings if b['lat'] and b['lon']]
 
@@ -205,22 +205,22 @@ class NationwideHTMLGenerator:
         export_data = [{
             'id': b.get('id', ''),
             'url': b.get('url', ''),
-            'address': b.get('address', ''),
-            'city': b.get('city', ''),
-            'state': b.get('state', ''),
+            'address': b.get('loc_address', ''),
+            'city': b.get('loc_city', ''),
+            'state': b.get('loc_state', ''),
             'property_name': self._get_display_name(b),
             'type': b.get('radio_type', ''),
             'owner': self._get_org_display_name(b.get('owner', '')),
-            'tenant': self._get_org_display_name(b.get('tenant', '')),
-            'property_manager': self._get_org_display_name(b.get('manager', '')),
+            'tenant': self._get_org_display_name(b.get('org_tenant', '')),
+            'manager': self._get_org_display_name(b.get('manager', '')),
             'sqft': b.get('sqft', 0) or 0,
-            'year_built': b.get('year_built', ''),
+            'year_built': b.get('bldg_year_built', ''),
             'opex': b.get('total_opex', 0) or 0,
             'valuation': b.get('valuation_impact', 0) or 0,
             'carbon': b.get('carbon_reduction', 0) or 0,
-            'site_eui': b.get('site_eui', 0) or 0,
-            'eui_benchmark': b.get('eui_benchmark', 0) or 0,
-            'vertical': b.get('vertical', ''),
+            'site_eui': b.get('energy_site_eui', 0) or 0,
+            'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
+            'bldg_vertical': b.get('bldg_vertical', ''),
             'image': b.get('image', '')
         } for b in sorted(self.all_buildings, key=lambda x: x.get('total_opex', 0) or 0, reverse=True)]
 
@@ -272,7 +272,7 @@ class NationwideHTMLGenerator:
             agg = {}
             for b in p['buildings']:
                 t = b.get('radio_type', '') or ''
-                v = b.get('vertical', '') or ''
+                v = b.get('bldg_vertical', '') or ''
                 if not t or not v:
                     continue
                 key = f'{t}|{v}'
@@ -2980,7 +2980,7 @@ tr.pin-highlight {
         # Building type buttons HTML (for sidebar)
         building_html = []
         for btype, count in sorted_types:
-            if not btype or btype == 'radio_button_building_type':
+            if not btype or btype == 'bldg_type_filter':
                 continue
             v = type_to_vertical.get(btype, 'Commercial')
             bg = colors.get(v, colors['Commercial'])
@@ -3378,7 +3378,7 @@ tr.pin-highlight {
         city_stats = {}
         for p in self.portfolios:
             for b in p.get('buildings', []):
-                city = b.get('city', '')
+                city = b.get('loc_city', '')
                 if city:
                     if city not in city_stats:
                         city_stats[city] = {'count': 0, 'opex': 0}
@@ -3445,7 +3445,7 @@ tr.pin-highlight {
         <span onclick="sortAllBuildings('eui')">EUI</span>
         <span onclick="sortAllBuildings('owner')">Owner</span>
         <span onclick="sortAllBuildings('tenant')">Tenant</span>
-        <span onclick="sortAllBuildings('property_manager')">Prop Mgr</span>
+        <span onclick="sortAllBuildings('manager')">Prop Mgr</span>
         <span onclick="sortAllBuildings('opex')">OpEx <span id="cities-total-opex" style="font-weight:700;color:#059669;"></span></span>
     </div>
     <div class="cities-container" id="cities-container">
@@ -3490,16 +3490,16 @@ tr.pin-highlight {
 
             carbon_str = format_carbon(carbon)
 
-            address = escape(b.get('address', 'Unknown'))
-            city = escape(b.get('city', ''))
-            state = escape(b.get('state', ''))
-            btype = escape(b.get('building_type', ''))
+            address = escape(b.get('loc_address', 'Unknown'))
+            city = escape(b.get('loc_city', ''))
+            state = escape(b.get('loc_state', ''))
+            btype = escape(b.get('bldg_type', ''))
             owner_raw = b.get('owner', '') or b.get('org_name', '')
             owner = escape(self._get_org_display_name(owner_raw))
             manager = escape(b.get('manager', ''))
-            tenant = escape(b.get('tenant', ''))
+            tenant = escape(b.get('org_tenant', ''))
             sub_org = escape(b.get('sub_org', ''))
-            vertical = b.get('vertical', '')
+            vertical = b.get('bldg_vertical', '')
 
             # Data attributes for filtering + row click to external URL
             building_id = b.get('id', '')
@@ -3628,12 +3628,12 @@ tr.pin-highlight {
             thumb = f'<div class="building-thumb-placeholder">{icon}</div>'
 
         # City, State
-        city = b.get('city', '') or ''
-        state = b.get('state', '') or ''
+        city = b.get('loc_city', '') or ''
+        state = b.get('loc_state', '') or ''
         city_state = f"{city}, {state}" if city and state else ''
 
         # Address - strip city/state if present to avoid duplication
-        address_text = b['address'] if b['address'] else 'Unknown'
+        address_text = b['loc_address'] if b['loc_address'] else 'Unknown'
         if city and address_text != 'Unknown':
             # Remove city, state, and zip from end of address
             import re
@@ -3642,8 +3642,8 @@ tr.pin-highlight {
         address_html = f'<span class="building-address">{escape(address_text)}</span>'
 
         # External link
-        if b['building_url']:
-            address_html += f' <a href="{attr_escape(b["building_url"])}" target="_blank" class="external-link" title="View source">↗</a>'
+        if b['id_source_url']:
+            address_html += f' <a href="{attr_escape(b["id_source_url"])}" target="_blank" class="external-link" title="View source">↗</a>'
 
         # Money formatting
         def fmt_money(n):
@@ -3656,16 +3656,16 @@ tr.pin-highlight {
             return f'${int(n):,}'
 
         radio_type = b.get('radio_type', '')
-        building_id = attr_escape(b['building_id'].replace('/', '_').replace('\\', '_'))
+        building_id = attr_escape(b['id_building'].replace('/', '_').replace('\\', '_'))
         opex_value = b.get('total_opex', 0)
         valuation_value = b.get('valuation_impact', 0)
         carbon_value = b.get('carbon_reduction', 0)
-        odcv_pct = b.get('total_building_cost_savings_pct', 0)
+        odcv_pct = b.get('savings_pct_of_energy_cost', 0)
         odcv_pct_display = f"{odcv_pct*100:.0f}%" if odcv_pct else "-"
 
         # EUI with rating
-        site_eui = b.get('site_eui')
-        eui_benchmark = b.get('eui_benchmark')
+        site_eui = b.get('energy_site_eui')
+        eui_benchmark = b.get('energy_eui_benchmark')
         if site_eui:
             eui_display = eui_rating(site_eui, eui_benchmark)
         else:
@@ -3724,10 +3724,10 @@ tr.pin-highlight {
 
         sqft_value = b.get('sqft', 0) or 0
         sqft_display = fmt_sqft(sqft_value)
-        type_badge = fmt_building_type(b.get('building_type', ''))
+        type_badge = fmt_building_type(b.get('bldg_type', ''))
 
         return f'''
-<div class="building-grid-row" data-id="{building_id}" data-lat="{b['latitude'] or ''}" data-lon="{b['longitude'] or ''}" data-radio-type="{attr_escape(radio_type)}" data-vertical="{attr_escape(b.get('vertical', ''))}" data-opex="{opex_value}" data-valuation="{valuation_value}" data-carbon="{carbon_value}" data-sqft="{sqft_value}" data-tenant="{attr_escape(b.get('tenant', ''))}" data-sub-org="{attr_escape(b.get('tenant_sub_org', ''))}" onclick="window.location='buildings/{building_id}.html'">
+<div class="building-grid-row" data-id="{building_id}" data-lat="{b['loc_lat'] or ''}" data-lon="{b['loc_lon'] or ''}" data-radio-type="{attr_escape(radio_type)}" data-vertical="{attr_escape(b.get('bldg_vertical', ''))}" data-opex="{opex_value}" data-valuation="{valuation_value}" data-carbon="{carbon_value}" data-sqft="{sqft_value}" data-tenant="{attr_escape(b.get('org_tenant', ''))}" data-sub-org="{attr_escape(b.get('org_tenant_subunit', ''))}" onclick="window.location='buildings/{building_id}.html'">
     <div>{thumb}</div>
     <span class="stat-cell">{address_html}</span>
     <span class="stat-cell">{type_badge}</span>
@@ -4219,7 +4219,7 @@ function applyFilters() {{
     // Update header tooltips - use allBuildingsData exactly like Cities tab does with filteredBuildingsData
     let headerFiltered = allBuildingsData.filter(b => {{
         if (selectedBuildingType && b.type !== selectedBuildingType) return false;
-        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
+        if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
         if (globalQuery) {{
             const searchFields = [b.owner || '', b.tenant || '', b.property_manager || ''].join(' ').toLowerCase();
             if (!searchFields.includes(globalQuery)) return false;
@@ -5176,7 +5176,7 @@ function getFilteredBuildingsForMap() {{
         if (buildingIds && !buildingIds.has(b.id)) return false;
 
         // Apply current filters (vertical, building type)
-        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
+        if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
         if (selectedBuildingType && b.type !== selectedBuildingType) return false;
 
         return true;

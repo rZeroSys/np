@@ -24,11 +24,11 @@ This document describes the methodology for calculating carbon emissions reducti
 
 | Column | Description | Data Type |
 |--------|-------------|-----------|
-| `city` | City name extracted from address | String |
-| `carbon_local_law` | Name of applicable BPS law (Commercial only) | String |
-| `total_ghg_emissions_mt_co2e` | Baseline building emissions (city-specific factors) | Float |
-| `carbon_emissions_reduction_yr1` | tCO2e reduced via ODCV in Year 1 | Float |
-| `fine_avoidance_yr1` | $ saved by avoiding BPS fines in Year 1 | Float |
+| `loc_city` | City name extracted from address | String |
+| `bps_law_name` | Name of applicable BPS law (Commercial only) | String |
+| `carbon_emissions_total_mt` | Baseline building emissions (city-specific factors) | Float |
+| `odcv_carbon_reduction_yr1_mt` | tCO2e reduced via ODCV in Year 1 | Float |
+| `bps_fine_avoided_yr1_usd` | $ saved by avoiding BPS fines in Year 1 | Float |
 
 ---
 
@@ -111,7 +111,7 @@ steam_reduction = steam × steam_hvac × odcv_pct if steam > 0 else 0
 
 ## 3. City Extraction Methodology
 
-Cities are extracted from the `address` field using regex pattern matching:
+Cities are extracted from the `loc_address` field using regex pattern matching:
 
 ### Primary Pattern
 ```
@@ -365,19 +365,19 @@ district_steam_use_kbtu = annual_steam_cost / 33.60 × 1000
 ### 6.2 Missing HVAC Percentages
 
 For fixed records, HVAC percentages were set to dataset medians:
-- `pct_gas_hvac`: 0.844
-- `pct_steam_hvac`: 0.9667
+- `hvac_pct_gas`: 0.844
+- `hvac_pct_steam`: 0.9667
 
 ### 6.3 Columns Updated for Fixed Rows
 
 After fixing energy values, these columns were recalculated:
-- `total_site_energy_kbtu`
-- `total_hvac_energy_kbtu`
-- `total_hvac_energy_cost`
-- `odcv_dollar_savings`
-- `total_ghg_emissions_mt_co2e`
-- `carbon_emissions_reduction_yr1`
-- `fine_avoidance_yr1`
+- `energy_total_kbtu`
+- `hvac_energy_total_kbtu`
+- `hvac_cost_total_annual`
+- `odcv_hvac_savings_annual_usd`
+- `carbon_emissions_total_mt`
+- `odcv_carbon_reduction_yr1_mt`
+- `bps_fine_avoided_yr1_usd`
 
 ---
 
@@ -429,22 +429,22 @@ Buildings with fine avoidance include both:
 
 | Column | Description |
 |--------|-------------|
-| `address` | Building address (for city extraction) |
-| `state` | State abbreviation |
-| `vertical` | Building type (filtered to "Commercial") |
-| `square_footage` | Building size in sqft |
-| `site_eui` | Site Energy Use Intensity (kBtu/sqft) |
-| `electricity_use_kbtu` | Annual electricity consumption |
-| `natural_gas_use_kbtu` | Annual gas consumption |
-| `district_steam_use_kbtu` | Annual steam consumption |
-| `odcv_savings_pct` | ODCV savings potential (0.15-0.33) |
-| `pct_elec_hvac` | % of electricity used for HVAC |
-| `pct_gas_hvac` | % of gas used for HVAC |
-| `pct_steam_hvac` | % of steam used for HVAC |
-| `annual_gas_cost` | Annual gas cost ($) |
-| `annual_steam_cost` | Annual steam cost ($) |
-| `gas_rate_per_therm` | Gas rate ($/therm) |
-| `steam_rate_per_mlb` | Steam rate ($/Mlb) |
+| `loc_address` | Building address (for city extraction) |
+| `loc_state` | State abbreviation |
+| `bldg_vertical` | Building type (filtered to "Commercial") |
+| `bldg_sqft` | Building size in sqft |
+| `energy_site_eui` | Site Energy Use Intensity (kBtu/sqft) |
+| `energy_elec_kbtu` | Annual electricity consumption |
+| `energy_gas_kbtu` | Annual gas consumption |
+| `energy_steam_kbtu` | Annual steam consumption |
+| `odcv_hvac_savings_pct` | ODCV savings potential (0.15-0.33) |
+| `hvac_pct_elec` | % of electricity used for HVAC |
+| `hvac_pct_gas` | % of gas used for HVAC |
+| `hvac_pct_steam` | % of steam used for HVAC |
+| `cost_gas_annual` | Annual gas cost ($) |
+| `cost_steam_annual` | Annual steam cost ($) |
+| `cost_gas_rate_therm` | Gas rate ($/therm) |
+| `cost_steam_rate_mlb` | Steam rate ($/Mlb) |
 
 ---
 

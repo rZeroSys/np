@@ -41,6 +41,18 @@ try:
 except Exception as e:
     print(f"Warning: Could not load organization display names: {e}")
 
+# Load post-ODCV EUI lookup
+EUI_POST_ODCV = {}
+try:
+    eui_df = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/eui_post_odcv.csv')
+    for _, eui_row in eui_df.iterrows():
+        bid = eui_row.get('id_building', '')
+        eui_val = eui_row.get('energy_site_eui_post_odcv')
+        if bid and pd.notna(eui_val):
+            EUI_POST_ODCV[bid] = float(eui_val)
+except Exception as e:
+    print(f"Warning: Could not load EUI post-ODCV data: {e}")
+
 #===============================================================================
 # CITY & BUILDING TYPE CLASSIFICATIONS
 #===============================================================================
@@ -96,7 +108,7 @@ CONSTRAINED_TYPES = [
 # Static tooltips - ONLY tooltips that are actually used in the report
 TOOLTIPS = {
     'owner': "Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites.",
-    'site_eui': "Energy use per square foot. Office average: 70-90. Source: city benchmarking law.",
+    'energy_site_eui': "Energy use per square foot. Office average: 70-90. Source: city benchmarking law.",
     'district_steam': "Piped steam from central plant. Source: city benchmarking.",
     'fuel_oil': "Heating oil. Source: city benchmarking.",
     'pct_hvac_elec': "Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency.",
@@ -125,8 +137,8 @@ def safe_val(row, column, default=''):
 
 def get_law_name(row):
     """Get the energy disclosure law name for this building's city."""
-    city = safe_val(row, 'city', '')
-    state = safe_val(row, 'state', '')
+    city = safe_val(row, 'loc_city', '')
+    state = safe_val(row, 'loc_state', '')
 
     # Check for exact city match
     if city in CITY_DISCLOSURE_LAWS:
@@ -146,7 +158,7 @@ def get_annual_savings_tooltip(row):
 
 def get_property_value_tooltip(row):
     """Dynamic tooltip for Property Value Increase."""
-    cap_rate = safe_num(row, 'cap_rate')
+    cap_rate = safe_num(row, 'val_cap_rate_pct')
     if cap_rate:
         cap_pct = cap_rate * 100
         multiplier = int(100 / cap_pct)
@@ -156,7 +168,7 @@ def get_property_value_tooltip(row):
 def get_energy_star_tooltip(row):
     """Dynamic tooltip for Energy Star Score."""
     law_name = get_law_name(row)
-    return f"1-100. 50 = median building. Source: {law_name}."
+    return f"1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from {law_name}. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md"
 
 def get_electricity_kwh_tooltip(row):
     """Dynamic tooltip for electricity."""
@@ -173,7 +185,7 @@ DYNAMIC_TOOLTIPS = {
     'annual_savings': get_annual_savings_tooltip,
     'property_value_increase': get_property_value_tooltip,
     'energy_star_score': get_energy_star_tooltip,
-    'electricity_kwh': get_electricity_kwh_tooltip,
+    'energy_elec_kwh': get_electricity_kwh_tooltip,
     'natural_gas': get_natural_gas_tooltip,
 }
 
@@ -290,22 +302,10 @@ def tooltip(key, row=None):
 #===============================================================================
 
 def generate_hero(row):
-    """Hero section with building basics - back button on left, centered content"""
-    # Property name should be H1 if it exists
-    property_name = safe_val(row, 'property_name')
-
-    address = safe_val(row, 'address', 'Address not available')
-
-    # Title priority: property_name, then address
-    has_property_name = property_name and str(property_name).lower() != 'nan'
-    title = property_name if has_property_name else address
-    sqft = safe_num(row, 'square_footage')
-    bldg_type = safe_val(row, 'building_type', 'Unknown')
-    year = safe_num(row, 'year_built')
-
-    # Building URL for linking title
-    building_url = safe_val(row, 'building_url')
-    has_building_url = building_url and str(building_url).lower() != 'nan'
+    """Hero section - address with external link, centered with back button"""
+    address = safe_val(row, 'loc_address', 'Address not available')
+    building_url = safe_val(row, 'id_source_url')
+    has_url = building_url and str(building_url).lower() != 'nan'
 
     # Back button - big clickable area
     back_btn = '''<a href="../index.html" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
@@ -313,33 +313,18 @@ def generate_hero(row):
         Back
     </a>'''
 
-    if has_building_url:
+    if has_url:
         html = f"""
     <div class="hero" style="position:relative;text-align:center;">
         {back_btn}
-        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(title)} <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
+        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
+    </div>
 """
     else:
         html = f"""
     <div class="hero" style="position:relative;text-align:center;">
         {back_btn}
-        <h1>{escape(title)}</h1>
-"""
-    # Only show address line if we have a property name (otherwise address is already the title)
-    if has_property_name:
-        html += f'        <div class="address">{escape(address)}</div>\n'
-
-    html += '        <div class="building-info" style="justify-content:center;">\n'
-
-    if sqft:
-        html += f"<span>{format_number(sqft)} sqft</span>"
-    if bldg_type:
-        html += f"<span style='margin: 0 15px;'>•</span><span>{escape(bldg_type)}</span>"
-    if year:
-        html += f"<span style='margin: 0 15px;'>•</span><span>Built {int(year)}</span>"
-
-    html += """
-        </div>
+        <h1>{escape(address)}</h1>
     </div>
 """
     return html
@@ -352,19 +337,33 @@ def generate_building_info(row):
         <table>
 """
 
-    # Property Name - only show if hero used address as title (i.e., no property name was available)
-    # If property_name exists, it's already the H1 in hero - don't repeat
-    property_name = safe_val(row, 'property_name')
+    # Property Name (link is now in header)
+    property_name = safe_val(row, 'id_property_name')
     has_property_name = property_name and str(property_name).lower() != 'nan'
-    # Skip - property name is already shown as H1 in hero section
 
-    # Note: Size, Type, Year Built already shown in hero - not repeated here
+    if has_property_name:
+        html += f"<tr><td>Name</td><td>{escape(property_name)}</td></tr>\n"
+
+    # Size
+    sqft = safe_num(row, 'bldg_sqft')
+    if sqft:
+        html += f"<tr><td>Size</td><td>{format_number(sqft)} sqft</td></tr>\n"
+
+    # Type
+    bldg_type = safe_val(row, 'bldg_type')
+    if bldg_type and str(bldg_type).lower() != 'nan':
+        html += f"<tr><td>Type</td><td>{escape(bldg_type)}</td></tr>\n"
+
+    # Year Built
+    year = safe_num(row, 'bldg_year_built')
+    if year:
+        html += f"<tr><td>Year Built</td><td>{int(year)}</td></tr>\n"
 
     # Owner/Tenant/Property Manager - collapsed when matching
-    owner = safe_val(row, 'building_owner')
-    pm = safe_val(row, 'property_manager')
-    tenant = safe_val(row, 'tenant')
-    tenant_sub = safe_val(row, 'tenant_sub_org')
+    owner = safe_val(row, 'org_owner')
+    pm = safe_val(row, 'org_manager')
+    tenant = safe_val(row, 'org_tenant')
+    tenant_sub = safe_val(row, 'org_tenant_subunit')
 
     # Normalize: filter out invalid values
     owner = owner if owner and str(owner).lower() != 'nan' else None
@@ -372,30 +371,53 @@ def generate_building_info(row):
     tenant = tenant if tenant and str(tenant).lower() != 'nan' else None
     tenant_sub = tenant_sub if tenant_sub and str(tenant_sub).lower() != 'nan' else None
 
-    # Helper to build org - logo and name on same row
+    # Helper to build org - logo and name on same row (uses display name)
     def build_org_with_logo(name):
         if not name:
             return ""
-        logo_filename = get_logo_filename(name)
+        display_name = get_org_display_name(name)
+        logo_filename = get_logo_filename(name)  # Logo lookup uses original name
         if logo_filename:
             logo_url = f"{AWS_BUCKET}/logos/{logo_filename}.png"
-            return f'{escape(name)} <img src="{logo_url}" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display=\'none\'">'
-        return f'{escape(name)}'
+            return f'{escape(display_name)} <img src="{logo_url}" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display=\'none\'">'
+        return f'{escape(display_name)}'
 
-    # Helper for logo only (used in combined rows)
-    def build_logo(name):
+    # Helper for logo only (returns just the img tag)
+    def build_logo_img(name, height=30):
         if not name:
             return ""
         logo_filename = get_logo_filename(name)
         if logo_filename:
             logo_url = f"{AWS_BUCKET}/logos/{logo_filename}.png"
-            return f'<div style="text-align:center;margin-top:5px;"><img src="{logo_url}" style="height:30px;" onerror="this.parentElement.style.display=\'none\'"></div>'
+            return f'<img src="{logo_url}" style="height:{height}px;" onerror="this.style.display=\'none\'">'
         return ""
 
-    # Build tenant sub-org HTML with logo (if exists)
-    tenant_sub_html = ""
-    if tenant_sub:
-        tenant_sub_html = f"<div style='font-size:0.85em;color:#666;margin-top:3px;'>({escape(tenant_sub)})</div>{build_logo(tenant_sub)}"
+    # Build tenant with sub-org - logos only, centered
+    def build_tenant_with_sub(tenant_name, sub_name):
+        if not tenant_name:
+            return ""
+        tenant_display = get_org_display_name(tenant_name)
+
+        if sub_name:
+            sub_logo = build_logo_img(sub_name, 30)
+            tenant_logo = build_logo_img(tenant_name, 30)
+            # Logos centered using margin:auto on block element
+            if sub_logo and tenant_logo and sub_logo != tenant_logo:
+                return f"<div style=''>{tenant_logo} &nbsp; {sub_logo}</div>"
+            elif sub_logo:
+                return f"<div style=''>{sub_logo}</div>"
+            elif tenant_logo:
+                return f"<div style=''>{tenant_logo}</div>"
+            # Fallback to text if no logos
+            return f'{escape(tenant_display)} ({escape(get_org_display_name(sub_name))})'
+        else:
+            # No sub-org, show tenant name with logo inline
+            tenant_logo = build_logo_img(tenant_name, 25)
+            if tenant_logo:
+                return f'{escape(tenant_display)} {tenant_logo}'
+            return f'{escape(tenant_display)}'
+
+    tenant_sub_html = ""  # No longer used separately
 
     # Determine matching pattern and render rows
     all_same = owner and entities_match(owner, pm) and entities_match(owner, tenant)
@@ -403,27 +425,30 @@ def generate_building_info(row):
     owner_pm = owner and pm and entities_match(owner, pm) and not all_same
     tenant_pm = tenant and pm and entities_match(tenant, pm) and not all_same
 
+    # No special td style - centering handled in content
+    td_center = ""
+
     if all_same:
         # All three are the same entity - show as "All Roles"
-        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{build_org_with_logo(owner)}{tenant_sub_html}</td></tr>"
+        html += f"<tr><td>All Roles{tooltip('owner')}</td><td{td_center}>{build_tenant_with_sub(owner, tenant_sub)}</td></tr>"
     elif owner_tenant and owner_pm:
         # Owner matches both tenant and PM - show as "All Roles"
-        html += f"<tr><td>All Roles{tooltip('owner')}</td><td>{build_org_with_logo(tenant)}{tenant_sub_html}</td></tr>"
+        html += f"<tr><td>All Roles{tooltip('owner')}</td><td{td_center}>{build_tenant_with_sub(tenant, tenant_sub)}</td></tr>"
     elif owner_tenant:
         # Owner and Tenant match - owner/occupier
-        html += f"<tr><td>Owner/Occupier{tooltip('owner')}</td><td>{build_org_with_logo(tenant)}{tenant_sub_html}</td></tr>"
+        html += f"<tr><td>Owner/Occupier{tooltip('owner')}</td><td{td_center}>{build_tenant_with_sub(tenant, tenant_sub)}</td></tr>"
         if pm:
             html += f"<tr><td>Manager</td><td>{build_org_with_logo(pm)}</td></tr>"
     elif owner_pm:
         # Owner and Property Manager match - owner/operator
         html += f"<tr><td>Owner/Operator{tooltip('owner')}</td><td>{build_org_with_logo(owner)}</td></tr>"
         if tenant:
-            html += f"<tr><td>Tenant</td><td>{build_org_with_logo(tenant)}{tenant_sub_html}</td></tr>"
+            html += f"<tr><td>Tenant</td><td{td_center}>{build_tenant_with_sub(tenant, tenant_sub)}</td></tr>"
     elif tenant_pm:
         # Tenant and Property Manager match
         if owner:
             html += f"<tr><td>Owner{tooltip('owner')}</td><td>{build_org_with_logo(owner)}</td></tr>"
-        html += f"<tr><td>Tenant & Manager</td><td>{build_org_with_logo(tenant)}{tenant_sub_html}</td></tr>"
+        html += f"<tr><td>Tenant & Manager</td><td{td_center}>{build_tenant_with_sub(tenant, tenant_sub)}</td></tr>"
     else:
         # All different - show separately
         if owner:
@@ -431,19 +456,10 @@ def generate_building_info(row):
         if pm:
             html += f"<tr><td>Manager</td><td>{build_org_with_logo(pm)}</td></tr>"
         if tenant:
-            html += f"<tr><td>Tenant</td><td>{build_org_with_logo(tenant)}{tenant_sub_html}</td></tr>"
-
-    # Site EUI
-    eui = safe_num(row, 'site_eui')
-    if eui:
-        html += f"<tr><td>Site EUI{tooltip('site_eui')}</td><td>{format_number(eui, 1)} kBtu/sqft</td></tr>"
-
-    # Energy Star Score
-    es_score = safe_num(row, 'energy_star_score')
-    if es_score:
-        html += f"<tr><td>Energy Star Score{tooltip('energy_star_score', row)}</td><td>{format_number(es_score)}</td></tr>"
+            html += f"<tr><td>Tenant</td><td{td_center}>{build_tenant_with_sub(tenant, tenant_sub)}</td></tr>"
 
     # Vacancy/Utilization rates are shown in the ODCV Savings % tooltip dynamically
+    # Energy Star Score moved to Savings section
 
     html += """
         </table>
@@ -454,10 +470,10 @@ def generate_building_info(row):
 def generate_energy_use(row):
     """Energy use table with HVAC % inline"""
     # Get HVAC percentages
-    pct_elec_hvac = safe_num(row, 'pct_elec_hvac')
-    pct_gas_hvac = safe_num(row, 'pct_gas_hvac')
-    pct_steam_hvac = safe_num(row, 'pct_steam_hvac')
-    pct_fuel_hvac = safe_num(row, 'pct_fuel_oil_hvac')
+    pct_elec_hvac = safe_num(row, 'hvac_pct_elec')
+    pct_gas_hvac = safe_num(row, 'hvac_pct_gas')
+    pct_steam_hvac = safe_num(row, 'hvac_pct_steam')
+    pct_fuel_hvac = safe_num(row, 'hvac_pct_fuel_oil')
 
     html = f"""
     <div class="section">
@@ -472,84 +488,61 @@ def generate_energy_use(row):
 """
 
     # Electricity
-    elec_kwh = safe_num(row, 'electricity_kwh')
-    elec_cost = safe_num(row, 'total_annual_electricity_cost')
+    elec_kwh = safe_num(row, 'energy_elec_kwh')
+    elec_cost = safe_num(row, 'cost_elec_total_annual')
     if elec_kwh or elec_cost:
         hvac_pct_str = f"{pct_elec_hvac*100:.0f}%" if pct_elec_hvac else "—"
         html += f"""
             <tr>
-                <td>Electricity{tooltip('electricity_kwh', row)}</td>
+                <td>Electricity{tooltip('energy_elec_kwh', row)}</td>
                 <td>{format_number(elec_kwh) + ' kWh' if elec_kwh else ''}</td>
                 <td>{format_currency(elec_cost) if elec_cost else '$0'}</td>
                 <td>{hvac_pct_str}</td>
             </tr>
 """
 
-    # Natural Gas (and Fuel Oil if building has both)
-    gas_use = safe_num(row, 'natural_gas_use_kbtu')
-    gas_cost = safe_num(row, 'annual_gas_cost')
-    gas_rate = safe_num(row, 'gas_rate_per_therm')
-    fuel_use = safe_num(row, 'fuel_oil_use_kbtu')
-    fuel_cost = safe_num(row, 'annual_fuel_oil_cost')
+    # Natural Gas
+    gas_use = safe_num(row, 'energy_gas_kbtu')
+    gas_cost = safe_num(row, 'cost_gas_annual')
+    fuel_use = safe_num(row, 'energy_fuel_oil_kbtu')
+    fuel_cost = safe_num(row, 'cost_fuel_oil_annual')
 
     if gas_use and gas_use > 0:
         gas_therms = gas_use / 100  # kBtu to therms
-
-        # If building has BOTH gas and fuel oil, merge them
-        if fuel_use and fuel_use > 0:
-            fuel_therms = fuel_use / 100  # Convert fuel oil kBtu to therms
-            total_therms = gas_therms + fuel_therms
-            total_cost = (gas_cost or 0) + (fuel_cost or 0)
-            use_str = f"{format_number(total_therms)} therms"
-            hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
-            html += f"""
-            <tr>
-                <td>Natural Gas & Fuel Oil{tooltip('natural_gas', row)}</td>
-                <td>{use_str}</td>
-                <td>{format_currency(total_cost) if total_cost else '$0'}</td>
-                <td>{hvac_pct_str}</td>
-            </tr>
-"""
-        else:
-            # Gas only
-            use_str = f"{format_number(gas_therms)} therms"
-            hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
-            html += f"""
+        hvac_pct_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
+        html += f"""
             <tr>
                 <td>Natural Gas{tooltip('natural_gas', row)}</td>
-                <td>{use_str}</td>
+                <td>{format_number(gas_therms)} therms</td>
                 <td>{format_currency(gas_cost) if gas_cost else '$0'}</td>
                 <td>{hvac_pct_str}</td>
             </tr>
 """
 
-    # District Steam
-    steam_use = safe_num(row, 'district_steam_use_kbtu')
-    steam_cost = safe_num(row, 'annual_steam_cost')
-    steam_rate = safe_num(row, 'steam_rate_per_mlb')
-    if steam_use and steam_use > 0:
-        steam_mlb = steam_use / 1194  # kBtu to Mlb
-        use_str = f"{format_number(steam_mlb, 2)} Mlb"
-        hvac_pct_str = f"{pct_steam_hvac*100:.0f}%" if pct_steam_hvac else "—"
-        html += f"""
-            <tr>
-                <td>District Steam{tooltip('district_steam')}</td>
-                <td>{use_str}</td>
-                <td>{format_currency(steam_cost) if steam_cost else '$0'}</td>
-                <td>{hvac_pct_str}</td>
-            </tr>
-"""
-
-    # Fuel Oil - only show if NO natural gas (fuel oil only buildings)
-    if fuel_use and fuel_use > 0 and (not gas_use or gas_use <= 0):
+    # Fuel Oil
+    if fuel_use and fuel_use > 0:
         fuel_gal = fuel_use / 138.5  # kBtu to gallons
-        use_str = f"{format_number(fuel_gal)} gallons"
         hvac_pct_str = f"{pct_fuel_hvac*100:.0f}%" if pct_fuel_hvac else "—"
         html += f"""
             <tr>
                 <td>Fuel Oil{tooltip('fuel_oil')}</td>
-                <td>{use_str}</td>
+                <td>{format_number(fuel_gal)} gallons</td>
                 <td>{format_currency(fuel_cost) if fuel_cost else '$0'}</td>
+                <td>{hvac_pct_str}</td>
+            </tr>
+"""
+
+    # District Steam
+    steam_use = safe_num(row, 'energy_steam_kbtu')
+    steam_cost = safe_num(row, 'cost_steam_annual')
+    if steam_use and steam_use > 0:
+        steam_mlb = steam_use / 1194  # kBtu to Mlb
+        hvac_pct_str = f"{pct_steam_hvac*100:.0f}%" if pct_steam_hvac else "—"
+        html += f"""
+            <tr>
+                <td>District Steam{tooltip('district_steam')}</td>
+                <td>{format_number(steam_mlb, 2)} Mlb</td>
+                <td>{format_currency(steam_cost) if steam_cost else '$0'}</td>
                 <td>{hvac_pct_str}</td>
             </tr>
 """
@@ -559,10 +552,10 @@ def generate_energy_use(row):
 """
 
     # GHG Emissions
-    ghg = safe_num(row, 'total_ghg_emissions_mt_co2e')
+    ghg = safe_num(row, 'carbon_emissions_total_mt')
     if ghg:
         html += f"""
-        <p style="margin-top: 15px;"><strong>Total GHG Emissions{tooltip('total_ghg', row)}:</strong> {format_number(ghg, 1)} MT CO2e</p>
+        <p style="margin-top: 15px;"><strong>Total GHG Emissions{tooltip('total_ghg', row)}:</strong> {format_number(ghg, 1)} tCO2e/yr</p>
 """
 
     html += """
@@ -579,42 +572,42 @@ def generate_electricity_details(row):
 """
 
     # Total cost
-    total_cost = safe_num(row, 'total_annual_electricity_cost')
+    total_cost = safe_num(row, 'cost_elec_total_annual')
     if total_cost:
         html += f"<tr><td>Total Annual Cost{tooltip('total_annual_cost')}</td><td>{format_currency(total_cost)}</td></tr>"
 
     # Energy charges
-    energy_cost = safe_num(row, 'annual_energy_cost')
+    energy_cost = safe_num(row, 'cost_elec_energy_annual')
     if energy_cost:
         html += f"<tr><td>Energy Charges{tooltip('energy_charges')}</td><td>{format_currency(energy_cost)}</td></tr>"
 
     # Demand charges
-    demand_cost = safe_num(row, 'annual_demand_cost')
+    demand_cost = safe_num(row, 'cost_elec_demand_annual')
     if demand_cost:
         html += f"<tr><td>Demand Charges{tooltip('demand_charges')}</td><td>{format_currency(demand_cost)}</td></tr>"
 
     # Energy rate
-    energy_rate = safe_num(row, 'energy_rate_per_kwh')
+    energy_rate = safe_num(row, 'cost_elec_rate_kwh')
     if energy_rate:
         html += f"<tr><td>Energy Rate{tooltip('energy_rate')}</td><td>${energy_rate:.4f}/kWh</td></tr>"
 
     # Demand rate
-    demand_rate = safe_num(row, 'demand_rate_per_kw')
+    demand_rate = safe_num(row, 'cost_elec_rate_demand_kw')
     if demand_rate:
         html += f"<tr><td>Demand Rate{tooltip('demand_rate')}</td><td>${demand_rate:.2f}/kW</td></tr>"
 
     # Peak demand
-    peak_kw = safe_num(row, 'estimated_peak_kw')
+    peak_kw = safe_num(row, 'cost_elec_peak_kw')
     if peak_kw:
         html += f"<tr><td>Peak Demand{tooltip('peak_demand')}</td><td>{format_number(peak_kw)} kW</td></tr>"
 
     # Load factor
-    load_factor = safe_num(row, 'load_factor_used')
+    load_factor = safe_num(row, 'cost_elec_load_factor')
     if load_factor:
         html += f"<tr><td>Load Factor{tooltip('load_factor', row)}</td><td>{load_factor*100:.1f}%</td></tr>"
 
     # Utility
-    utility = safe_val(row, 'utility_name_used')
+    utility = safe_val(row, 'cost_utility_name')
     if utility:
         html += f"<tr><td>Utility Provider{tooltip('utility_provider')}</td><td>{escape(utility)}</td></tr>"
 
@@ -638,8 +631,8 @@ def generate_hvac_breakdown(row):
 """
 
     # Electricity HVAC
-    pct_elec_hvac = safe_num(row, 'pct_elec_hvac')
-    elec_cost = safe_num(row, 'total_annual_electricity_cost', 0)
+    pct_elec_hvac = safe_num(row, 'hvac_pct_elec')
+    elec_cost = safe_num(row, 'cost_elec_total_annual', 0)
     if pct_elec_hvac:
         hvac_elec_cost = elec_cost * pct_elec_hvac if elec_cost else 0
         html += f"""
@@ -651,8 +644,8 @@ def generate_hvac_breakdown(row):
 """
 
     # Gas HVAC
-    pct_gas_hvac = safe_num(row, 'pct_gas_hvac')
-    gas_cost = safe_num(row, 'annual_gas_cost', 0)
+    pct_gas_hvac = safe_num(row, 'hvac_pct_gas')
+    gas_cost = safe_num(row, 'cost_gas_annual', 0)
     if pct_gas_hvac and gas_cost:
         hvac_gas_cost = gas_cost * pct_gas_hvac
         html += f"""
@@ -664,8 +657,8 @@ def generate_hvac_breakdown(row):
 """
 
     # Steam HVAC
-    pct_steam_hvac = safe_num(row, 'pct_steam_hvac')
-    steam_cost = safe_num(row, 'annual_steam_cost', 0)
+    pct_steam_hvac = safe_num(row, 'hvac_pct_steam')
+    steam_cost = safe_num(row, 'cost_steam_annual', 0)
     if pct_steam_hvac and steam_cost:
         hvac_steam_cost = steam_cost * pct_steam_hvac
         html += f"""
@@ -677,8 +670,8 @@ def generate_hvac_breakdown(row):
 """
 
     # Fuel Oil HVAC
-    pct_fuel_hvac = safe_num(row, 'pct_fuel_oil_hvac')
-    fuel_cost = safe_num(row, 'annual_fuel_oil_cost', 0)
+    pct_fuel_hvac = safe_num(row, 'hvac_pct_fuel_oil')
+    fuel_cost = safe_num(row, 'cost_fuel_oil_annual', 0)
     if pct_fuel_hvac and fuel_cost:
         hvac_fuel_cost = fuel_cost * pct_fuel_hvac
         html += f"""
@@ -694,7 +687,7 @@ def generate_hvac_breakdown(row):
 """
 
     # Total HVAC cost
-    total_hvac_cost = safe_num(row, 'total_hvac_energy_cost')
+    total_hvac_cost = safe_num(row, 'hvac_cost_total_annual')
     if total_hvac_cost:
         html += f"""
         <p style="margin-top: 15px;"><strong>Total HVAC Cost:</strong> {format_currency(total_hvac_cost)}</p>
@@ -750,24 +743,24 @@ def generate_hvac_breakdown(row):
 def generate_energy_section(row):
     """Unified Energy section - Energy Use with HVAC % inline"""
     # Check if we have any energy data at all
-    elec_kwh = safe_num(row, 'electricity_kwh')
-    elec_cost = safe_num(row, 'total_annual_electricity_cost')
-    gas_use = safe_num(row, 'natural_gas_use_kbtu')
-    steam_use = safe_num(row, 'district_steam_use_kbtu')
-    fuel_use = safe_num(row, 'fuel_oil_use_kbtu')
+    elec_kwh = safe_num(row, 'energy_elec_kwh')
+    elec_cost = safe_num(row, 'cost_elec_total_annual')
+    gas_use = safe_num(row, 'energy_gas_kbtu')
+    steam_use = safe_num(row, 'energy_steam_kbtu')
+    fuel_use = safe_num(row, 'energy_fuel_oil_kbtu')
 
     # Skip entire section if no energy data
     if not any([elec_kwh, elec_cost, gas_use, steam_use, fuel_use]):
         return ""
 
     # Get HVAC percentages
-    pct_elec_hvac = safe_num(row, 'pct_elec_hvac')
-    pct_gas_hvac = safe_num(row, 'pct_gas_hvac')
-    pct_steam_hvac = safe_num(row, 'pct_steam_hvac')
-    pct_fuel_hvac = safe_num(row, 'pct_fuel_oil_hvac')
-    gas_cost = safe_num(row, 'annual_gas_cost')
-    steam_cost = safe_num(row, 'annual_steam_cost')
-    fuel_cost = safe_num(row, 'annual_fuel_oil_cost')
+    pct_elec_hvac = safe_num(row, 'hvac_pct_elec')
+    pct_gas_hvac = safe_num(row, 'hvac_pct_gas')
+    pct_steam_hvac = safe_num(row, 'hvac_pct_steam')
+    pct_fuel_hvac = safe_num(row, 'hvac_pct_fuel_oil')
+    gas_cost = safe_num(row, 'cost_gas_annual')
+    steam_cost = safe_num(row, 'cost_steam_annual')
+    fuel_cost = safe_num(row, 'cost_fuel_oil_annual')
 
     html = f"""
     <div class="section">
@@ -786,38 +779,35 @@ def generate_energy_section(row):
         hvac_str = f"{pct_elec_hvac*100:.0f}%" if pct_elec_hvac else "—"
         html += f"""
             <tr>
-                <td>Electricity{tooltip('electricity_kwh', row)}</td>
+                <td>Electricity{tooltip('energy_elec_kwh', row)}</td>
                 <td>{format_number(elec_kwh) + ' kWh' if elec_kwh else ''}</td>
                 <td>{format_currency(elec_cost) if elec_cost else ''}</td>
                 <td>{hvac_str}</td>
             </tr>
 """
 
-    # Natural Gas (and Fuel Oil if building has both)
+    # Natural Gas
     if gas_use and gas_use > 0:
         gas_therms = gas_use / 100
         hvac_str = f"{pct_gas_hvac*100:.0f}%" if pct_gas_hvac else "—"
-
-        # If building has BOTH gas and fuel oil, merge them
-        if fuel_use and fuel_use > 0:
-            fuel_therms = fuel_use / 100  # Convert fuel oil kBtu to therms
-            total_therms = gas_therms + fuel_therms
-            total_cost = (gas_cost or 0) + (fuel_cost or 0)
-            html += f"""
-            <tr>
-                <td>Natural Gas & Fuel Oil{tooltip('natural_gas', row)}</td>
-                <td>{format_number(total_therms)} therms</td>
-                <td>{format_currency(total_cost) if total_cost else ''}</td>
-                <td>{hvac_str}</td>
-            </tr>
-"""
-        else:
-            # Gas only
-            html += f"""
+        html += f"""
             <tr>
                 <td>Natural Gas{tooltip('natural_gas', row)}</td>
                 <td>{format_number(gas_therms)} therms</td>
                 <td>{format_currency(gas_cost) if gas_cost else ''}</td>
+                <td>{hvac_str}</td>
+            </tr>
+"""
+
+    # Fuel Oil
+    if fuel_use and fuel_use > 0:
+        fuel_gal = fuel_use / 138.5
+        hvac_str = f"{pct_fuel_hvac*100:.0f}%" if pct_fuel_hvac else "—"
+        html += f"""
+            <tr>
+                <td>Fuel Oil{tooltip('fuel_oil')}</td>
+                <td>{format_number(fuel_gal)} gallons</td>
+                <td>{format_currency(fuel_cost) if fuel_cost else ''}</td>
                 <td>{hvac_str}</td>
             </tr>
 """
@@ -835,19 +825,6 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Fuel Oil - only show if NO natural gas (fuel oil only buildings)
-    if fuel_use and fuel_use > 0 and (not gas_use or gas_use <= 0):
-        fuel_gal = fuel_use / 138.5
-        hvac_str = f"{pct_fuel_hvac*100:.0f}%" if pct_fuel_hvac else "—"
-        html += f"""
-            <tr>
-                <td>Fuel Oil{tooltip('fuel_oil')}</td>
-                <td>{format_number(fuel_gal)} gallons</td>
-                <td>{format_currency(fuel_cost) if fuel_cost else ''}</td>
-                <td>{hvac_str}</td>
-            </tr>
-"""
-
     html += """
         </table>
     </div>
@@ -857,16 +834,16 @@ def generate_energy_section(row):
 def generate_savings_section(row):
     """Savings section - shows Current vs New values with Change column"""
     # Get all the values we need
-    elec_cost = safe_num(row, 'total_annual_electricity_cost', 0)
-    gas_cost = safe_num(row, 'annual_gas_cost', 0)
-    steam_cost = safe_num(row, 'annual_steam_cost', 0)
-    fuel_oil_cost = safe_num(row, 'annual_fuel_oil_cost', 0)
+    elec_cost = safe_num(row, 'cost_elec_total_annual', 0)
+    gas_cost = safe_num(row, 'cost_gas_annual', 0)
+    steam_cost = safe_num(row, 'cost_steam_annual', 0)
+    fuel_oil_cost = safe_num(row, 'cost_fuel_oil_annual', 0)
     total_energy_cost = elec_cost + gas_cost + steam_cost + fuel_oil_cost
 
-    odcv_savings = safe_num(row, 'odcv_dollar_savings')
-    val_impact = safe_num(row, 'odcv_valuation_impact_usd')
-    carbon_current = safe_num(row, 'total_ghg_emissions_mt_co2e')
-    carbon_reduction = safe_num(row, 'carbon_emissions_reduction_yr1')
+    odcv_savings = safe_num(row, 'odcv_hvac_savings_annual_usd')
+    val_impact = safe_num(row, 'val_odcv_impact_usd')
+    carbon_current = safe_num(row, 'carbon_emissions_total_mt')
+    carbon_reduction = safe_num(row, 'odcv_carbon_reduction_yr1_mt')
 
     # Skip if no savings data
     if not odcv_savings:
@@ -896,9 +873,24 @@ def generate_savings_section(row):
         html += f"""
             <tr>
                 <td>Utility Cost{tooltip('annual_savings', row)}</td>
-                <td>{format_currency(total_energy_cost)}</td>
-                <td>{format_currency(new_utility_cost)}</td>
-                <td style="color: #16a34a; font-weight: 600;">-{format_currency(odcv_savings)}</td>
+                <td>{format_currency(total_energy_cost)}/yr</td>
+                <td>{format_currency(new_utility_cost)}/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-{format_currency(odcv_savings)}/yr</td>
+            </tr>
+"""
+
+    # Site EUI row
+    current_eui = safe_num(row, 'energy_site_eui')
+    building_id = safe_val(row, 'id_building', '')
+    new_eui = EUI_POST_ODCV.get(building_id)
+    if current_eui and new_eui:
+        eui_reduction = current_eui - new_eui
+        html += f"""
+            <tr>
+                <td>Site EUI{tooltip('energy_site_eui')}</td>
+                <td>{format_number(current_eui, 1)} kBtu/sqft</td>
+                <td>{format_number(new_eui, 1)} kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-{format_number(eui_reduction, 1)} kBtu/sqft</td>
             </tr>
 """
 
@@ -907,15 +899,15 @@ def generate_savings_section(row):
         html += f"""
             <tr>
                 <td>Carbon Emissions{tooltip('carbon_reduction')}</td>
-                <td>{format_number(carbon_current, 1)} MT</td>
-                <td>{format_number(new_carbon, 1)} MT</td>
-                <td style="color: #16a34a; font-weight: 600;">-{format_number(carbon_reduction, 1)} MT</td>
+                <td>{format_number(carbon_current, 1)} tCO2e/yr</td>
+                <td>{format_number(new_carbon, 1)} tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-{format_number(carbon_reduction, 1)} tCO2e/yr</td>
             </tr>
 """
 
     # Property Value row - use existing valuation data from CSV
-    current_val = safe_num(row, 'current_valuation_usd')
-    post_val = safe_num(row, 'post_odcv_valuation_usd')
+    current_val = safe_num(row, 'val_current_usd')
+    post_val = safe_num(row, 'val_post_odcv_usd')
 
     if val_impact and val_impact > 0:
         current_str = format_currency(current_val) if current_val else '—'
@@ -926,6 +918,26 @@ def generate_savings_section(row):
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 <td style="color: #16a34a; font-weight: 600;">+{format_currency(val_impact)}</td>
+            </tr>
+"""
+
+    # Energy Star Score row
+    current_es = safe_num(row, 'energy_star_score')
+    post_es = safe_num(row, 'energy_star_score_post_odcv')
+    if current_es:
+        current_es_str = f"{int(current_es)}"
+        post_es_str = f"{int(post_es)}" if post_es else '—'
+        if post_es and post_es > current_es:
+            change = int(post_es - current_es)
+            change_str = f'<td style="color: #16a34a; font-weight: 600;">+{change}</td>'
+        else:
+            change_str = '<td>—</td>'
+        html += f"""
+            <tr>
+                <td>Energy Star Score{tooltip('energy_star_score', row)}</td>
+                <td>{current_es_str}</td>
+                <td>{post_es_str}</td>
+                {change_str}
             </tr>
 """
 
@@ -941,7 +953,7 @@ def generate_savings_section(row):
 
 def generate_html_report(row):
     """Generate complete HTML report"""
-    building_id = safe_val(row, 'building_id', 'UNKNOWN')
+    building_id = safe_val(row, 'id_building', 'UNKNOWN')
     timestamp = datetime.now(pytz.timezone('US/Eastern')).strftime('%Y-%m-%d %H:%M:%S %Z')
 
     html = f"""<!DOCTYPE html>
@@ -1280,7 +1292,7 @@ def generate_batch_reports(args):
 
     for row_dict, idx in rows_batch:
         row = pd.Series(row_dict)
-        building_id = row.get('building_id', f'unknown_{idx}')
+        building_id = row.get('id_building', f'unknown_{idx}')
         safe_building_id = building_id.replace('/', '_').replace('\\', '_')
 
         try:
@@ -1301,7 +1313,7 @@ def generate_single_report(args):
 
     # Convert dict back to pandas Series for compatibility
     row = pd.Series(row_dict)
-    building_id = row.get('building_id', f'unknown_{idx}')
+    building_id = row.get('id_building', f'unknown_{idx}')
     safe_building_id = building_id.replace('/', '_').replace('\\', '_')
 
     try:
@@ -1332,7 +1344,7 @@ def main():
     print(f"✓ Loaded {len(df)} buildings from CSV")
 
     # Remove buildings without coordinates
-    df_clean = df.dropna(subset=['latitude', 'longitude'])
+    df_clean = df.dropna(subset=['loc_lat', 'loc_lon'])
     removed = len(df) - len(df_clean)
     if removed > 0:
         print(f"⚠ Removed {removed} buildings without coordinates")
@@ -1340,7 +1352,7 @@ def main():
     # Check for specific building ID in command line args
     if len(sys.argv) > 1:
         building_id = sys.argv[1]
-        df_to_process = df_clean[df_clean['building_id'] == building_id]
+        df_to_process = df_clean[df_clean['id_building'] == building_id]
         if len(df_to_process) == 0:
             print(f"\n✗ Building ID '{building_id}' not found in dataset")
             sys.exit(1)

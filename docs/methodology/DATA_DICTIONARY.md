@@ -1,262 +1,204 @@
-# Building Energy Data Dictionary
+# Data Dictionary for portfolio_data.csv
 
-## File: `ANALYSIS STEP merged_property_matches_updated.csv`
+This document defines all 70 columns in `portfolio_data.csv`, organized by category prefix.
 
-**Location:** `/Users/forrestmiller/Desktop/analysis stage/ANALYSIS STEP merged_property_matches_updated.csv`
-
----
-
-## Overview
-
-| Metric | Value |
-|--------|-------|
-| Total Records | 26,648 buildings |
-| Total Columns | 56 |
-| Reporting Years | 2011-2024 (90% from 2023-2024) |
-| Geographic Coverage | US commercial buildings |
-| Primary Sources | ENERGY STAR Portfolio Manager, municipal benchmarking |
-
----
-
-## Data Completeness
-
-| Field | Coverage | Notes |
-|-------|----------|-------|
-| site_eui | 100% | All buildings have EUI |
-| electricity_use_kbtu | 100% | All buildings have electricity data |
-| natural_gas_use_kbtu | 68.1% | 18,142 buildings use gas |
-| district_steam_use_kbtu | 5.1% | 1,357 buildings (mostly urban) |
-| other_fuels_use_kbtu | 9.7% | 2,572 buildings (fuel oil) |
-| energy_star_score | 70.0% | 18,641 buildings have scores |
-| year_built | 93.0% | 24,780 buildings |
-| valuation | 70.2% | 18,708 buildings |
-| latitude/longitude | 100% | All geocoded |
+**Naming Convention:**
+- `id_` - Identifiers
+- `loc_` - Location data
+- `bldg_` - Building characteristics
+- `data_` - Data metadata
+- `org_` - Organization names
+- `energy_` - Energy consumption
+- `cost_` - Utility costs
+- `hvac_` - HVAC-specific data
+- `carbon_` - Carbon emissions
+- `occ_` - Occupancy data
+- `odcv_` - ODCV savings (HVAC-related)
+- `bps_` - Building Performance Standards
+- `savings_` - Combined savings totals
+- `val_` - Valuation data
+- `meta_` - Metadata
 
 ---
 
-## Column Definitions
+## Identifiers (`id_`)
 
-### Building Identification
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `building_id` | string | Unique identifier for each building |
-| `address` | string | Street address |
-| `property_name` | string | Building/property name |
-| `zip_code` | string | ZIP code |
-| `latitude` | float | Latitude coordinate |
-| `longitude` | float | Longitude coordinate |
-| `building_url` | string | URL to building profile |
-| `Property/Plant ID` | string | ENERGY STAR property ID |
-
-### Building Characteristics
-
-| Column | Type | Description | Stats |
-|--------|------|-------------|-------|
-| `building type` | string | Primary use type (32 categories) | See Building Types below |
-| `vertical` | string | Sector: Commercial, Education, Healthcare, Government | |
-| `square_footage` | int | Gross floor area | Min: 25,000 / Median: 89,000 / Max: 11.4M |
-| `year_built` | int | Construction year | Min: 1800 / Median: 1982 / Max: 2025 |
-| `reporting_year` | int | Year of energy data | 2011-2024 |
-
-### Energy Metrics
-
-| Column | Type | Description | Stats |
-|--------|------|-------------|-------|
-| `site_eui` | float | Site Energy Use Intensity (kBtu/sqft/yr) | Min: 5 / Median: 57 / Max: 3,088 |
-| `total_site_energy_kbtu` | float | Total annual site energy (kBtu) | Median: 5.5M kBtu |
-| `electricity_use_kbtu` | float | Annual electricity consumption (kBtu) | Median: 3.4M kBtu |
-| `electricity_kwh` | float | Annual electricity (kWh) | = electricity_use_kbtu / 3.412 |
-| `natural_gas_use_kbtu` | float | Annual natural gas (kBtu) | Median: 1.9M kBtu |
-| `district_steam_use_kbtu` | float | Annual district steam (kBtu) | Median: 6.6M kBtu |
-| `other_fuels_use_kbtu` | float | Annual fuel oil/other (kBtu) | Median: 893K kBtu |
-| `energy_star_score` | int | ENERGY STAR score (1-100) | Median: 78 |
-
-### Emissions
-
-| Column | Type | Description | Stats |
-|--------|------|-------------|-------|
-| `total_ghg_emissions_mt_co2e` | float | Annual GHG emissions (metric tons CO2e) | Median: 377 MT |
-
-### Energy Costs
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `annual_energy_cost` | float | Total annual energy cost ($) |
-| `energy_rate_per_kwh` | float | Electricity rate ($/kWh) |
-| `utility_name_used` | string | Electric utility name |
-| `annual_demand_cost` | float | Demand charges ($) |
-| `estimated_peak_kw` | float | Estimated peak demand (kW) |
-| `demand_rate_per_kw` | float | Demand rate ($/kW) |
-| `total_annual_electricity_cost` | float | Total electricity cost ($) |
-| `annual_gas_cost` | float | Annual gas cost ($) |
-| `gas_rate_per_therm` | float | Gas rate ($/therm) |
-| `annual_steam_cost` | float | Annual steam cost ($) |
-| `steam_rate_per_mlb` | float | Steam rate ($/Mlb) |
-| `annual_fuel_oil_cost` | float | Annual fuel oil cost ($) |
-| `fuel_oil_rate_per_gallon` | float | Fuel oil rate ($/gallon) |
-| `load_factor_used` | float | Load factor for demand calculation |
-| `cost_calculation_notes` | string | Notes on cost methodology |
-
-### Ownership & Management
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `building_owner` | string | Building owner name (7,852 unique) |
-| `property_manager` | string | Property manager name |
-| `tenant` | string | Primary tenant |
-| `tenant_sub_org` | string | Tenant sub-org |
-
-### Location & Climate
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `ENERGY STAR Climate Zone` | string | Northern, North-Central, South-Central, Southern |
-| `statec` | string | State code |
-
-### Financial Metrics
-
-| Column | Type | Description | Stats |
-|--------|------|-------------|-------|
-| `valuation` | float | Property valuation ($) | Median: $22.9M |
-| `cap_rate` | float | Capitalization rate (%) | |
-| `noi` | float | Net Operating Income ($) | |
-| `market_rent_per_sqft` | float | Market rent ($/sqft) | |
-| `operating_expense_ratio` | float | OpEx ratio (%) | |
-| `vacancy_rate` | float | Vacancy rate (%) | |
-| `utilization_rate` | float | Utilization rate (%) | |
-
-### Media
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `photo_url` | string | Building photo URL |
-
-### HVAC Energy Allocation
-
-| Column | Type | Description | Stats |
-|--------|------|-------------|-------|
-| `pct_elec_hvac` | float | Percentage of electricity used for HVAC (0-1) | Varies by building type |
-| `pct_gas_hvac` | float | Percentage of natural gas used for HVAC (0-1) | Typically 0.8-1.0 for heating |
-| `pct_steam_hvac` | float | Percentage of district steam used for HVAC (0-1) | Typically 1.0 (heating only) |
-| `pct_other_hvac` | float | Percentage of other fuels used for HVAC (0-1) | Typically 1.0 (heating only) |
-| `method` | string | Methodology used for HVAC estimation | cbecs_adjusted, direct |
+| Column | Definition |
+|--------|------------|
+| `id_building` | Unique identifier for each building (format: CITY_NUMBER, e.g. NYC_1000160125) |
+| `id_property_name` | Common name of property (e.g. '2 World Financial Center') |
+| `id_source_plant_id` | Original ID from source database |
+| `id_source_url` | URL to original data source (e.g. Energy Star Portfolio Manager) |
 
 ---
 
-## Building Types (32 Categories)
+## Location (`loc_`)
 
-| Building Type | Count | Vertical |
-|---------------|-------|----------|
-| Office | 9,714 | Commercial |
-| K-12 School | 2,589 | Education |
-| Hotel | 2,520 | Commercial |
-| Retail Store | 1,898 | Commercial |
-| Higher Ed | 1,316 | Education |
-| Strip Mall | 1,027 | Commercial |
-| Residential Care Facility | 948 | Healthcare |
-| Medical Office | 800 | Healthcare |
-| Supermarket/Grocery | 682 | Commercial |
-| Specialty Hospital | 587 | Healthcare |
-| Mixed Use | 495 | Commercial |
-| Wholesale Club | 490 | Commercial |
-| Laboratory | 461 | Commercial |
-| Inpatient Hospital | 393 | Healthcare |
-| Arts & Culture | 291 | Commercial |
-| Gym | 278 | Commercial |
-| Restaurant/Bar | 233 | Commercial |
-| Vehicle Dealership | 224 | Commercial |
-| Event Space | 209 | Commercial |
-| Theater | 206 | Commercial |
-| Public Service | 185 | Government |
-| Police Station | 160 | Government |
-| Data Center | 152 | Commercial |
-| Enclosed Mall | 149 | Commercial |
-| Courthouse | 134 | Government |
-| Outpatient Clinic | 133 | Healthcare |
-| Preschool/Daycare | 110 | Education |
-| Library | 81 | Government |
-| Public Transit | 57 | Government |
-| Bank Branch | 46 | Commercial |
-| Fire Station | 40 | Government |
-| Sports/Gaming Center | 40 | Commercial |
+| Column | Definition |
+|--------|------------|
+| `loc_address` | Street address of building |
+| `loc_city` | City name extracted from address |
+| `loc_state` | Two-letter state abbreviation |
+| `loc_zip` | 5-digit ZIP code |
+| `loc_lat` | Geographic latitude coordinate |
+| `loc_lon` | Geographic longitude coordinate |
 
 ---
 
-## Climate Zone Distribution
+## Building Characteristics (`bldg_`)
 
-| Climate Zone | Count | % | Description |
-|--------------|-------|---|-------------|
-| South-Central | 13,148 | 49.3% | Mixed-dry/Hot-dry (TX, AZ, NM, etc.) |
-| North-Central | 8,049 | 30.2% | Mixed-humid (Mid-Atlantic, Midwest) |
-| Northern | 5,271 | 19.8% | Cold/Very cold (Northeast, Upper Midwest) |
-| Southern | 179 | 0.7% | Hot-humid (FL, Gulf Coast) |
-
----
-
-## Vertical Distribution
-
-| Vertical | Count | % |
-|----------|-------|---|
-| Commercial | 18,226 | 68.4% |
-| Education | 4,117 | 15.5% |
-| Healthcare | 3,322 | 12.5% |
-| Government | 983 | 3.7% |
+| Column | Definition |
+|--------|------------|
+| `bldg_type` | Building use type (e.g. Office, Hotel, K-12 School) |
+| `bldg_type_filter` | Simplified building type for UI filtering |
+| `bldg_type_benchmark` | Building type used for EUI benchmarking |
+| `bldg_vertical` | Market vertical: Commercial, Education, Healthcare, or Government |
+| `bldg_year_built` | Year building was constructed |
+| `bldg_sqft` | Gross floor area in square feet |
 
 ---
 
-## Top Building Owners
+## Data Metadata (`data_`)
 
-| Owner | Count |
-|-------|-------|
-| City Of New York | 325 |
-| Chicago Public Schools | 216 |
-| Walmart | 199 |
-| District Of Columbia Public Schools | 189 |
-| The Irvine Company | 161 |
-| Harvard University | 158 |
-| District Of Columbia | 147 |
-| Costco | 125 |
-| Massachusetts Institute Of Technology | 124 |
-| Boston Properties (BXP) | 119 |
-
-*Total: 7,852 unique owners*
+| Column | Definition |
+|--------|------------|
+| `data_year` | Year the energy data was reported |
 
 ---
 
-## Data Quality Notes
+## Organizations (`org_`)
 
-1. **Minimum Square Footage**: All buildings ≥25,000 sqft (large commercial threshold)
-
-2. **EUI Outliers**: Max EUI of 3,088 kBtu/sqft indicates some data quality issues or special use cases (data centers, labs)
-
-3. **Year Built Range**: 1800-2025 includes historic buildings and those under construction
-
-4. **Gas Coverage**: 32% of buildings have no gas data - likely all-electric buildings
-
-5. **Steam Coverage**: Only 5% have district steam - concentrated in dense urban areas (NYC, Boston, etc.)
-
-6. **Fuel Oil Coverage**: 10% use fuel oil - primarily in Northeast for heating
-
-7. **ENERGY STAR Score**: 30% missing scores - may be ineligible building types or incomplete data
+| Column | Definition |
+|--------|------------|
+| `org_owner` | Legal owner of the building |
+| `org_manager` | Property management company |
+| `org_tenant` | Primary tenant organization |
+| `org_tenant_subunit` | Sub-unit or department within tenant organization |
 
 ---
 
-## Fuel Type Summary
+## Energy Consumption (`energy_`)
 
-| Fuel | Buildings | % of Portfolio | Typical Use |
-|------|-----------|----------------|-------------|
-| Electricity | 26,648 | 100% | Cooling, lighting, equipment |
-| Natural Gas | 18,142 | 68% | Heating, DHW, cooking |
-| District Steam | 1,357 | 5% | Heating (urban buildings) |
-| Fuel Oil | 2,572 | 10% | Heating (Northeast) |
+| Column | Definition |
+|--------|------------|
+| `energy_site_eui` | Site Energy Use Intensity in kBtu per square foot per year |
+| `energy_eui_benchmark` | Median EUI for this building type (for comparison) |
+| `energy_total_kbtu` | Total annual site energy consumption in kBtu |
+| `energy_elec_kbtu` | Annual electricity consumption in kBtu |
+| `energy_elec_kwh` | Annual electricity consumption in kWh |
+| `energy_gas_kbtu` | Annual natural gas consumption in kBtu |
+| `energy_steam_kbtu` | Annual district steam consumption in kBtu |
+| `energy_fuel_oil_kbtu` | Annual fuel oil consumption in kBtu |
+| `energy_star_score` | EPA Energy Star score (1-100, higher = more efficient) |
+| `energy_climate_zone` | Climate zone for Energy Star calculations (Northern, South-Central, etc.) |
 
 ---
 
-## Related Files
+## Utility Costs (`cost_`)
 
-| File | Description |
-|------|-------------|
-| `hvac_pct_ACCURATE.py` | Script to estimate HVAC % by fuel type |
-| `buildings_hvac_pct_ACCURATE.csv` | Output with pct_elec_hvac, pct_gas_hvac, pct_steam_hvac, pct_other_hvac |
-| `METHODOLOGY.md` | HVAC estimation methodology documentation |
+| Column | Definition |
+|--------|------------|
+| `cost_elec_rate_kwh` | Electricity rate in dollars per kWh |
+| `cost_elec_rate_demand_kw` | Electricity demand charge in dollars per kW |
+| `cost_elec_load_factor` | Load factor used to estimate peak demand (0-1) |
+| `cost_elec_peak_kw` | Estimated peak electricity demand in kW |
+| `cost_elec_energy_annual` | Annual electricity energy charges (usage only) in USD |
+| `cost_elec_demand_annual` | Annual electricity demand charges in USD |
+| `cost_elec_total_annual` | Total annual electricity cost (energy + demand) in USD |
+| `cost_gas_rate_therm` | Natural gas rate in dollars per therm |
+| `cost_gas_annual` | Annual natural gas cost in USD |
+| `cost_steam_rate_mlb` | District steam rate in dollars per thousand pounds |
+| `cost_steam_annual` | Annual district steam cost in USD |
+| `cost_fuel_oil_rate_gal` | Fuel oil rate in dollars per gallon |
+| `cost_fuel_oil_annual` | Annual fuel oil cost in USD |
+| `cost_utility_name` | Name of electric utility used for rate lookup |
+| `cost_calc_notes` | Notes on how costs were calculated or estimated |
+
+---
+
+## HVAC Data (`hvac_`)
+
+| Column | Definition |
+|--------|------------|
+| `hvac_pct_elec` | Fraction of electricity used for HVAC (0-1), from CBECS data |
+| `hvac_pct_gas` | Fraction of natural gas used for HVAC (0-1), from CBECS data |
+| `hvac_pct_steam` | Fraction of district steam used for HVAC (0-1), from CBECS data |
+| `hvac_pct_fuel_oil` | Fraction of fuel oil used for HVAC (0-1), from CBECS data |
+| `hvac_energy_total_kbtu` | Total annual HVAC energy in kBtu = sum of (fuel_kbtu × hvac_pct) for each fuel |
+| `hvac_cost_total_annual` | Total annual HVAC cost in USD = sum of (fuel_cost × hvac_pct) for each fuel |
+| `hvac_pct_method` | Method used to determine HVAC percentages (CBECS lookup key) |
+
+---
+
+## Carbon Emissions (`carbon_`)
+
+| Column | Definition |
+|--------|------------|
+| `carbon_emissions_total_mt` | Total annual GHG emissions in metric tons CO2 equivalent |
+
+---
+
+## Occupancy Data (`occ_`)
+
+| Column | Definition |
+|--------|------------|
+| `occ_vacancy_rate` | Fraction of rentable space currently vacant (0-1) |
+| `occ_utilization_rate` | Fraction of occupied space actually in use during business hours (0-1) |
+
+---
+
+## ODCV Savings (`odcv_`)
+
+These columns represent savings from **Occupancy-Driven Control Ventilation** applied to **HVAC systems only**.
+
+| Column | Definition |
+|--------|------------|
+| `odcv_hvac_savings_pct` | Percentage of HVAC costs saved by ODCV (0.20-0.50). Derived from: opportunity score (vacancy + utilization) × automation score (year + sqft) × efficiency modifier × climate modifier, clamped to building type bounds |
+| `odcv_hvac_savings_annual_usd` | Annual HVAC utility cost savings from ODCV in USD = `hvac_cost_total_annual` × `odcv_hvac_savings_pct` |
+| `odcv_carbon_reduction_yr1_mt` | Year 1 carbon emissions reduction from ODCV in metric tons CO2e. Calculated from energy reduction × emission factors per fuel type |
+
+---
+
+## Building Performance Standards (`bps_`)
+
+| Column | Definition |
+|--------|------------|
+| `bps_law_name` | Name of Building Performance Standard law (e.g. 'NYC LL97', 'Boston BERDO') |
+| `bps_fine_avoided_yr1_usd` | Year 1 BPS penalty avoided by implementing ODCV in USD. Calculation varies by city law type (emission cap, EUI target, or Energy Star based) |
+
+---
+
+## Combined Savings (`savings_`)
+
+| Column | Definition |
+|--------|------------|
+| `savings_opex_avoided_annual_usd` | Total annual operating expense savings in USD = `odcv_hvac_savings_annual_usd` + `bps_fine_avoided_yr1_usd` |
+| `savings_pct_of_energy_cost` | ODCV savings as percentage of total annual energy cost = `odcv_hvac_savings_annual_usd` / (`cost_elec_total_annual` + `cost_gas_annual` + `cost_steam_annual` + `cost_fuel_oil_annual`) |
+
+---
+
+## Valuation (`val_`)
+
+| Column | Definition |
+|--------|------------|
+| `val_cap_rate_pct` | Capitalization rate for property valuation (stored as percentage, e.g. 7.5 means 7.5%) |
+| `val_market_rent_sqft` | Market rent in dollars per square foot per year |
+| `val_opex_ratio` | Operating expenses as fraction of gross income (0-1) |
+| `val_current_usd` | Estimated current property value in USD = (energy_cost / 0.12 × 0.60) / (cap_rate / 100) |
+| `val_post_odcv_usd` | Estimated property value after ODCV in USD = `val_current_usd` + `val_odcv_impact_usd` |
+| `val_odcv_impact_usd` | Property value increase from ODCV in USD = `savings_opex_avoided_annual_usd` / (`val_cap_rate_pct` / 100) |
+
+---
+
+## Metadata (`meta_`)
+
+| Column | Definition |
+|--------|------------|
+| `meta_photo_url` | URL to building photo image |
+
+---
+
+## Column Rename Lookup
+
+For reference, the mapping from old to new column names is stored in:
+`/data/source/column_rename_lookup.csv`

@@ -21,7 +21,6 @@ SOURCE_DATA_DIR = DATA_DIR / 'source'
 
 BUILDING_DATA_PATH = SOURCE_DATA_DIR / 'portfolio_data.csv'
 PORTFOLIO_DATA_PATH = SOURCE_DATA_DIR / 'portfolio_data.csv'
-BUILDINGS_TAB_DATA_PATH = SOURCE_DATA_DIR / 'portfolio_data.csv'
 PORTFOLIO_ORGS_PATH = SOURCE_DATA_DIR / 'portfolio_organizations.csv'
 
 # =============================================================================

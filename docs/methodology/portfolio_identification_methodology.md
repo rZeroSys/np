@@ -6,8 +6,8 @@ A **portfolio organization** is any entity that appears in **3 or more separate 
 
 **Rules:**
 - We count ROWS, not occurrences
-- If an org appears in multiple columns of the same row (e.g., as both `building_owner` AND `property_manager`), that still counts as **1 row**
-- The org can appear in any combination of `building_owner`, `property_manager`, or `tenant` columns
+- If an org appears in multiple columns of the same row (e.g., as both `org_owner` AND `org_manager`), that still counts as **1 row**
+- The org can appear in any combination of `org_owner`, `org_manager`, or `org_tenant` columns
 
 **Example - NOT a portfolio org:**
 | Row | building_owner | property_manager | tenant |
@@ -29,7 +29,7 @@ Acme Corp appears in **3 rows** = IS a portfolio org
 ## Dataset
 - **File:** `merged_property_matches_updated.csv`
 - **Total rows:** 26,648
-- **Columns used:** `building_owner`, `property_manager`, `tenant`
+- **Columns used:** `org_owner`, `org_manager`, `org_tenant`
 
 ## Results
 - **In portfolio:** 14,839 buildings (55.7%)

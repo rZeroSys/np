@@ -2,9 +2,9 @@
 
 ## Goal
 Estimate the percentage of each fuel type that goes to HVAC for 26,648 commercial buildings:
-- `pct_elec_hvac` - % of electricity used for HVAC
-- `pct_gas_hvac` - % of natural gas used for HVAC
-- `pct_steam_hvac` - % of district steam used for HVAC
+- `hvac_pct_elec` - % of electricity used for HVAC
+- `hvac_pct_gas` - % of natural gas used for HVAC
+- `hvac_pct_steam` - % of district steam used for HVAC
 - `pct_other_hvac` - % of fuel oil used for HVAC
 
 ## Final Script

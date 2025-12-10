@@ -10,8 +10,8 @@ total_annual_opex_avoidance = odcv_dollar_savings + fine_avoidance_yr1
 
 | Component | What it is |
 |-----------|------------|
-| `odcv_dollar_savings` | Utility bills not paid (lower energy use) |
-| `fine_avoidance_yr1` | BPS fines not paid (lower emissions) |
+| `odcv_hvac_savings_annual_usd` | Utility bills not paid (lower energy use) |
+| `bps_fine_avoided_yr1_usd` | BPS fines not paid (lower emissions) |
 
 Both are operating expenses (OpEx) the building avoids paying.
 
@@ -21,11 +21,11 @@ Both are operating expenses (OpEx) the building avoids paying.
 
 The total benefit of ODCV includes:
 
-| Benefit | Column | Included in `total_annual_opex_avoidance`? |
+| Benefit | Column | Included in `savings_opex_avoided_annual_usd`? |
 |---------|--------|-------------------------------------------|
-| Utility savings | `odcv_dollar_savings` | Yes |
-| Fine avoidance | `fine_avoidance_yr1` | Yes |
-| Property value increase | `odcv_valuation_impact_usd` | **No** |
+| Utility savings | `odcv_hvac_savings_annual_usd` | Yes |
+| Fine avoidance | `bps_fine_avoided_yr1_usd` | Yes |
+| Property value increase | `val_odcv_impact_usd` | **No** |
 
 Calling it "total benefit" would be wrong because valuation increase is ALSO a benefit.
 

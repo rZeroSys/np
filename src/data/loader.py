@@ -29,9 +29,9 @@ def load_csv(csv_path):
 
     # Convert numeric columns, coerce errors to NaN
     numeric_columns = [
-        'square_footage', 'site_eui', 'latitude', 'longitude',
-        'odcv_dollar_savings', 'fine_avoidance_yr1', 'total_annual_opex_avoidance',
-        'odcv_valuation_impact_usd', 'carbon_emissions_reduction_yr1'
+        'bldg_sqft', 'energy_site_eui', 'loc_lat', 'loc_lon',
+        'odcv_hvac_savings_annual_usd', 'bps_fine_avoided_yr1_usd', 'savings_opex_avoided_annual_usd',
+        'val_odcv_impact_usd', 'odcv_carbon_reduction_yr1_mt'
     ]
 
     for col in numeric_columns:
@@ -39,8 +39,8 @@ def load_csv(csv_path):
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Fill NaN values with 0 for financial columns
-    financial_cols = ['odcv_dollar_savings', 'fine_avoidance_yr1', 'total_annual_opex_avoidance',
-                      'odcv_valuation_impact_usd', 'carbon_emissions_reduction_yr1']
+    financial_cols = ['odcv_hvac_savings_annual_usd', 'bps_fine_avoided_yr1_usd', 'savings_opex_avoided_annual_usd',
+                      'val_odcv_impact_usd', 'odcv_carbon_reduction_yr1_mt']
     for col in financial_cols:
         if col in df.columns:
             df[col] = df[col].fillna(0)
@@ -62,7 +62,6 @@ def extract_filename(photo_url):
 from src.config import (
     BUILDING_DATA_PATH as CONFIG_BUILDING_DATA_PATH,
     PORTFOLIO_DATA_PATH as CONFIG_PORTFOLIO_DATA_PATH,
-    BUILDINGS_TAB_DATA_PATH as CONFIG_BUILDINGS_TAB_DATA_PATH,
     PORTFOLIO_ORGS_PATH as CONFIG_PORTFOLIO_ORGS_PATH,
     IMAGES_DIR as CONFIG_IMAGES_DIR,
     LOGOS_DIR as CONFIG_LOGOS_DIR
@@ -70,7 +69,6 @@ from src.config import (
 
 BUILDING_DATA_PATH = str(CONFIG_BUILDING_DATA_PATH)
 PORTFOLIO_DATA_PATH = str(CONFIG_PORTFOLIO_DATA_PATH)
-BUILDINGS_TAB_DATA_PATH = str(CONFIG_BUILDINGS_TAB_DATA_PATH)
 PORTFOLIO_ORGS_PATH = str(CONFIG_PORTFOLIO_ORGS_PATH)
 IMAGES_DIR = str(CONFIG_IMAGES_DIR)
 LOGOS_DIR = str(CONFIG_LOGOS_DIR)
@@ -82,7 +80,7 @@ LOGOS_DIR = str(CONFIG_LOGOS_DIR)
 def load_building_data():
     """
     Load the main building dataset (26,648 buildings).
-    DEPRECATED: Use load_portfolio_data() or load_buildings_tab_data() instead.
+    DEPRECATED: Use load_portfolio_data() instead.
 
     Returns:
         pd.DataFrame with columns: building_id, address, city, state, vertical,
@@ -96,23 +94,23 @@ def load_building_data():
     df = pd.read_csv(BUILDING_DATA_PATH, encoding='utf-8')
 
     # Ensure critical columns exist and have proper types
-    df['building_id'] = df['building_id'].astype(str)
-    df['square_footage'] = pd.to_numeric(df['square_footage'], errors='coerce').fillna(0)
-    df['odcv_dollar_savings'] = pd.to_numeric(df['odcv_dollar_savings'], errors='coerce').fillna(0)
-    df['fine_avoidance_yr1'] = pd.to_numeric(df['fine_avoidance_yr1'], errors='coerce').fillna(0)
-    df['total_annual_opex_avoidance'] = pd.to_numeric(df['total_annual_opex_avoidance'], errors='coerce').fillna(0)
-    df['odcv_valuation_impact_usd'] = pd.to_numeric(df['odcv_valuation_impact_usd'], errors='coerce').fillna(0)
-    df['carbon_emissions_reduction_yr1'] = pd.to_numeric(df['carbon_emissions_reduction_yr1'], errors='coerce').fillna(0)
-    df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
-    df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
+    df['id_building'] = df['id_building'].astype(str)
+    df['bldg_sqft'] = pd.to_numeric(df['bldg_sqft'], errors='coerce').fillna(0)
+    df['odcv_hvac_savings_annual_usd'] = pd.to_numeric(df['odcv_hvac_savings_annual_usd'], errors='coerce').fillna(0)
+    df['bps_fine_avoided_yr1_usd'] = pd.to_numeric(df['bps_fine_avoided_yr1_usd'], errors='coerce').fillna(0)
+    df['savings_opex_avoided_annual_usd'] = pd.to_numeric(df['savings_opex_avoided_annual_usd'], errors='coerce').fillna(0)
+    df['val_odcv_impact_usd'] = pd.to_numeric(df['val_odcv_impact_usd'], errors='coerce').fillna(0)
+    df['odcv_carbon_reduction_yr1_mt'] = pd.to_numeric(df['odcv_carbon_reduction_yr1_mt'], errors='coerce').fillna(0)
+    df['loc_lat'] = pd.to_numeric(df['loc_lat'], errors='coerce')
+    df['loc_lon'] = pd.to_numeric(df['loc_lon'], errors='coerce')
 
     # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
+    for col in ['org_owner', 'org_manager', 'loc_address', 'loc_city', 'loc_state', 'bldg_vertical', 'bldg_type']:
         if col in df.columns:
             df[col] = df[col].fillna('').astype(str).str.strip()
 
     print(f"  Loaded {len(df):,} buildings")
-    print(f"  Verticals: {df['vertical'].value_counts().to_dict()}")
+    print(f"  Verticals: {df['bldg_vertical'].value_counts().to_dict()}")
 
     return df
 
@@ -129,56 +127,23 @@ def load_portfolio_data():
     df = pd.read_csv(PORTFOLIO_DATA_PATH, encoding='utf-8')
 
     # Ensure critical columns exist and have proper types
-    df['building_id'] = df['building_id'].astype(str)
-    df['square_footage'] = pd.to_numeric(df['square_footage'], errors='coerce').fillna(0)
-    df['odcv_dollar_savings'] = pd.to_numeric(df['odcv_dollar_savings'], errors='coerce').fillna(0)
-    df['fine_avoidance_yr1'] = pd.to_numeric(df['fine_avoidance_yr1'], errors='coerce').fillna(0)
-    df['total_annual_opex_avoidance'] = pd.to_numeric(df['total_annual_opex_avoidance'], errors='coerce').fillna(0)
-    df['odcv_valuation_impact_usd'] = pd.to_numeric(df['odcv_valuation_impact_usd'], errors='coerce').fillna(0)
-    df['carbon_emissions_reduction_yr1'] = pd.to_numeric(df['carbon_emissions_reduction_yr1'], errors='coerce').fillna(0)
-    df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
-    df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
+    df['id_building'] = df['id_building'].astype(str)
+    df['bldg_sqft'] = pd.to_numeric(df['bldg_sqft'], errors='coerce').fillna(0)
+    df['odcv_hvac_savings_annual_usd'] = pd.to_numeric(df['odcv_hvac_savings_annual_usd'], errors='coerce').fillna(0)
+    df['bps_fine_avoided_yr1_usd'] = pd.to_numeric(df['bps_fine_avoided_yr1_usd'], errors='coerce').fillna(0)
+    df['savings_opex_avoided_annual_usd'] = pd.to_numeric(df['savings_opex_avoided_annual_usd'], errors='coerce').fillna(0)
+    df['val_odcv_impact_usd'] = pd.to_numeric(df['val_odcv_impact_usd'], errors='coerce').fillna(0)
+    df['odcv_carbon_reduction_yr1_mt'] = pd.to_numeric(df['odcv_carbon_reduction_yr1_mt'], errors='coerce').fillna(0)
+    df['loc_lat'] = pd.to_numeric(df['loc_lat'], errors='coerce')
+    df['loc_lon'] = pd.to_numeric(df['loc_lon'], errors='coerce')
 
     # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
+    for col in ['org_owner', 'org_manager', 'loc_address', 'loc_city', 'loc_state', 'bldg_vertical', 'bldg_type']:
         if col in df.columns:
             df[col] = df[col].fillna('').astype(str).str.strip()
 
     print(f"  Loaded {len(df):,} portfolio buildings")
-    print(f"  Verticals: {df['vertical'].value_counts().to_dict()}")
-
-    return df
-
-
-def load_buildings_tab_data():
-    """
-    Load building data for the Buildings tab from buildings_tab_data.csv.
-
-    Returns:
-        pd.DataFrame with building data for all-buildings display
-    """
-    print("Loading buildings tab data...")
-
-    df = pd.read_csv(BUILDINGS_TAB_DATA_PATH, encoding='utf-8')
-
-    # Ensure critical columns exist and have proper types
-    df['building_id'] = df['building_id'].astype(str)
-    df['square_footage'] = pd.to_numeric(df['square_footage'], errors='coerce').fillna(0)
-    df['odcv_dollar_savings'] = pd.to_numeric(df['odcv_dollar_savings'], errors='coerce').fillna(0)
-    df['fine_avoidance_yr1'] = pd.to_numeric(df['fine_avoidance_yr1'], errors='coerce').fillna(0)
-    df['total_annual_opex_avoidance'] = pd.to_numeric(df['total_annual_opex_avoidance'], errors='coerce').fillna(0)
-    df['odcv_valuation_impact_usd'] = pd.to_numeric(df['odcv_valuation_impact_usd'], errors='coerce').fillna(0)
-    df['carbon_emissions_reduction_yr1'] = pd.to_numeric(df['carbon_emissions_reduction_yr1'], errors='coerce').fillna(0)
-    df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
-    df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
-
-    # Clean string columns
-    for col in ['building_owner', 'property_manager', 'address', 'city', 'state', 'vertical', 'building_type']:
-        if col in df.columns:
-            df[col] = df[col].fillna('').astype(str).str.strip()
-
-    print(f"  Loaded {len(df):,} buildings tab buildings")
-    print(f"  Verticals: {df['vertical'].value_counts().to_dict()}")
+    print(f"  Verticals: {df['bldg_vertical'].value_counts().to_dict()}")
 
     return df
 
@@ -204,7 +169,7 @@ def calculate_portfolio_orgs(buildings_df, min_rows=3):
     for idx, row in buildings_df.iterrows():
         row_orgs = set()  # Collect unique orgs in this row
 
-        for col in ['building_owner', 'property_manager', 'tenant', 'tenant_sub_org']:
+        for col in ['org_owner', 'org_manager', 'org_tenant', 'org_tenant_subunit']:
             org = str(row.get(col, '')).strip()
             if org:
                 row_orgs.add(org)
@@ -249,7 +214,7 @@ def load_logo_mappings():
         logo_file = safe_str(row.get('logo_file', ''))
         classification = safe_str(row.get('classification', '')).lower()
         # Validate classification
-        if classification not in ['owner', 'tenant', 'property manager', 'owner/occupier', 'owner/operator', 'tenant_sub_org']:
+        if classification not in ['owner', 'tenant', 'org_tenant', 'property manager', 'owner/occupier', 'owner/operator', 'org_tenant_subunit', 'tenant_sub_org']:
             classification = ''
         display_name = safe_str(row.get('display_name', '')) or org_name  # fallback to org_name
         aws_logo_url = safe_str(row.get('aws_logo_url', ''))
@@ -366,12 +331,12 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
                 'verticals': ['Commercial', 'Healthcare'],  # list of unique verticals
                 'buildings': [  # list of building dicts
                     {
-                        'building_id': 'NYC_123',
-                        'address': '123 Main St',
-                        'city': 'New York',
-                        'state': 'NY',
-                        'building_type': 'Office',
-                        'vertical': 'Commercial',
+                        'id_building': 'NYC_123',
+                        'loc_address': '123 Main St',
+                        'loc_city': 'New York',
+                        'loc_state': 'NY',
+                        'bldg_type': 'Office',
+                        'bldg_vertical': 'Commercial',
                         'sqft': 500000,
                         'utility_savings': 100000,
                         'fine_avoidance': 25000,
@@ -379,9 +344,9 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
                         'valuation_impact': 1500000,
                         'carbon_reduction': 250,
                         'image_file': 'NYC_123_AWS.jpg',
-                        'building_url': 'https://energystar.gov/...',
-                        'latitude': 40.7128,
-                        'longitude': -74.0060
+                        'id_source_url': 'https://energystar.gov/...',
+                        'loc_lat': 40.7128,
+                        'loc_lon': -74.0060
                     },
                     ...
                 ]
@@ -396,8 +361,8 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
     # Build tenant_sub_org -> parent_tenant mapping from building data
     sub_org_to_parent = {}
     for _, row in buildings_df.iterrows():
-        sub_org = safe_str(row.get('tenant_sub_org'))
-        tenant = safe_str(row.get('tenant'))
+        sub_org = safe_str(row.get('org_tenant_subunit'))
+        tenant = safe_str(row.get('org_tenant'))
         if sub_org and tenant:
             sub_org_to_parent[sub_org] = tenant
 
@@ -409,36 +374,36 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
 
     for _, row in buildings_df.iterrows():
         building_data = {
-            'building_id': safe_str(row['building_id']),
-            'address': safe_str(row['address']),
-            'city': safe_str(row.get('city')),
-            'state': safe_str(row.get('state')),
-            'building_type': normalize_building_type(safe_str(row.get('building_type'))),
-            'radio_type': normalize_building_type(safe_str(row.get('radio_button_building_type'))),
-            'vertical': safe_str(row.get('vertical')),
-            'sqft': safe_float(row['square_footage']),
-            'utility_savings': safe_float(row['odcv_dollar_savings']),
-            'fine_avoidance': safe_float(row['fine_avoidance_yr1']),
-            'total_opex': safe_float(row['total_annual_opex_avoidance']),
-            'valuation_impact': safe_float(row['odcv_valuation_impact_usd']),
-            'carbon_reduction': safe_float(row['carbon_emissions_reduction_yr1']),
-            'total_building_cost_savings_pct': safe_float(row.get('total_building_cost_savings_pct', 0)),
-            'image': image_map.get(row['building_id'], ''),
-            'building_url': safe_str(row.get('building_url')),
-            'latitude': safe_float(row['latitude'], None),
-            'longitude': safe_float(row['longitude'], None),
-            'property_name': safe_str(row.get('property_name')),
-            'tenant': safe_str(row.get('tenant')),
-            'tenant_sub_org': safe_str(row.get('tenant_sub_org')),
-            'site_eui': safe_float(row.get('site_eui'), None),
-            'eui_benchmark': safe_float(row.get('eui_benchmark'), None),
-            'owner': safe_str(row.get('building_owner')),
-            'manager': safe_str(row.get('property_manager'))
+            'id_building': safe_str(row['id_building']),
+            'loc_address': safe_str(row['loc_address']),
+            'loc_city': safe_str(row.get('loc_city')),
+            'loc_state': safe_str(row.get('loc_state')),
+            'bldg_type': normalize_building_type(safe_str(row.get('bldg_type'))),
+            'radio_type': normalize_building_type(safe_str(row.get('bldg_type_filter'))),
+            'bldg_vertical': safe_str(row.get('bldg_vertical')),
+            'sqft': safe_float(row['bldg_sqft']),
+            'utility_savings': safe_float(row['odcv_hvac_savings_annual_usd']),
+            'fine_avoidance': safe_float(row['bps_fine_avoided_yr1_usd']),
+            'total_opex': safe_float(row['savings_opex_avoided_annual_usd']),
+            'valuation_impact': safe_float(row['val_odcv_impact_usd']),
+            'carbon_reduction': safe_float(row['odcv_carbon_reduction_yr1_mt']),
+            'savings_pct_of_energy_cost': safe_float(row.get('savings_pct_of_energy_cost', 0)),
+            'image': image_map.get(row['id_building'], ''),
+            'id_source_url': safe_str(row.get('id_source_url')),
+            'loc_lat': safe_float(row['loc_lat'], None),
+            'loc_lon': safe_float(row['loc_lon'], None),
+            'id_property_name': safe_str(row.get('id_property_name')),
+            'org_tenant': safe_str(row.get('org_tenant')),
+            'org_tenant_subunit': safe_str(row.get('org_tenant_subunit')),
+            'energy_site_eui': safe_float(row.get('energy_site_eui'), None),
+            'energy_eui_benchmark': safe_float(row.get('energy_eui_benchmark'), None),
+            'owner': safe_str(row.get('org_owner')),
+            'manager': safe_str(row.get('org_manager'))
         }
 
-        owner = safe_str(row.get('building_owner'))
-        manager = safe_str(row.get('property_manager'))
-        tenant = safe_str(row.get('tenant'))
+        owner = safe_str(row.get('org_owner'))
+        manager = safe_str(row.get('org_manager'))
+        tenant = safe_str(row.get('org_tenant'))
 
         if owner:
             owner_buildings[owner].append(building_data)
@@ -446,7 +411,7 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             manager_buildings[manager].append(building_data)
         if tenant:
             tenant_buildings[tenant].append(building_data)
-        tenant_sub_org = safe_str(row.get('tenant_sub_org'))
+        tenant_sub_org = safe_str(row.get('org_tenant_subunit'))
         if tenant_sub_org:
             tenant_sub_org_buildings[tenant_sub_org].append(building_data)
 
@@ -456,16 +421,16 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
         org_buildings = {}  # Use dict to dedupe by building_id
 
         for bldg in owner_buildings.get(org_name, []):
-            org_buildings[bldg['building_id']] = bldg
+            org_buildings[bldg['id_building']] = bldg
 
         for bldg in manager_buildings.get(org_name, []):
-            org_buildings[bldg['building_id']] = bldg
+            org_buildings[bldg['id_building']] = bldg
 
         for bldg in tenant_buildings.get(org_name, []):
-            org_buildings[bldg['building_id']] = bldg
+            org_buildings[bldg['id_building']] = bldg
 
         for bldg in tenant_sub_org_buildings.get(org_name, []):
-            org_buildings[bldg['building_id']] = bldg
+            org_buildings[bldg['id_building']] = bldg
 
         if not org_buildings:
             continue
@@ -479,40 +444,40 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
         total_opex_avoidance = sum(b['total_opex'] for b in buildings_list)
 
         # Valuation impact only for Commercial buildings
-        commercial_buildings = [b for b in buildings_list if b['vertical'] == 'Commercial']
+        commercial_buildings = [b for b in buildings_list if b['bldg_vertical'] == 'Commercial']
         total_valuation_impact = sum(b['valuation_impact'] for b in commercial_buildings)
 
         total_carbon_reduction = sum(b['carbon_reduction'] for b in buildings_list)
 
         # Get unique verticals
-        verticals = sorted(list(set(b['vertical'] for b in buildings_list if b['vertical'])))
+        verticals = sorted(list(set(b['bldg_vertical'] for b in buildings_list if b['bldg_vertical'])))
 
         # Get unique cities and building types for filtering
-        cities = sorted(list(set(b['city'] for b in buildings_list if b.get('city'))))
+        cities = sorted(list(set(b['loc_city'] for b in buildings_list if b.get('loc_city'))))
         building_types = sorted(list(set(b['radio_type'] for b in buildings_list if b.get('radio_type'))))
         radio_types = sorted(list(set(b['radio_type'] for b in buildings_list if b.get('radio_type'))))
 
         # Get unique tenants, tenant sub-orgs, owners, and managers for search
-        tenants = sorted(list(set(b['tenant'] for b in buildings_list if b.get('tenant'))))
-        tenant_sub_orgs = sorted(list(set(b['tenant_sub_org'] for b in buildings_list if b.get('tenant_sub_org'))))
+        tenants = sorted(list(set(b['org_tenant'] for b in buildings_list if b.get('org_tenant'))))
+        tenant_sub_orgs = sorted(list(set(b['org_tenant_subunit'] for b in buildings_list if b.get('org_tenant_subunit'))))
         owners = sorted(list(set(b['owner'] for b in buildings_list if b.get('owner'))))
         managers = sorted(list(set(b['manager'] for b in buildings_list if b.get('manager'))))
 
         # Calculate OpEx by vertical for sorting
         opex_by_vertical = {}
         for v in ['Commercial', 'Education', 'Healthcare']:
-            v_buildings = [b for b in buildings_list if b['vertical'] == v]
+            v_buildings = [b for b in buildings_list if b['bldg_vertical'] == v]
             opex_by_vertical[v] = sum(b['total_opex'] for b in v_buildings)
 
         # Sort buildings by total_opex descending
         buildings_list.sort(key=lambda x: x['total_opex'], reverse=True)
 
         # Calculate median EUI for portfolio
-        eui_values = [b['site_eui'] for b in buildings_list if b.get('site_eui')]
+        eui_values = [b['energy_site_eui'] for b in buildings_list if b.get('energy_site_eui')]
         median_eui = statistics.median(eui_values) if eui_values else None
 
         # Get median benchmark for portfolio rating
-        benchmark_values = [b['eui_benchmark'] for b in buildings_list if b.get('eui_benchmark')]
+        benchmark_values = [b['energy_eui_benchmark'] for b in buildings_list if b.get('energy_eui_benchmark')]
         median_eui_benchmark = statistics.median(benchmark_values) if benchmark_values else None
 
         # Try exact match first, then try without acronym suffix like (MIT), (GSA), etc.
@@ -525,7 +490,7 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
         classification = org_info.get('classification', '')
         parent_tenant = ''
         parent_logo_url = ''
-        if classification == 'tenant_sub_org':
+        if classification == 'org_tenant_subunit':
             parent_tenant = sub_org_to_parent.get(org_name, '')
             if parent_tenant:
                 parent_info = logo_mappings.get(parent_tenant, {})
@@ -604,47 +569,47 @@ def calculate_stats(buildings_df, portfolios):
     ]
 
     # Get all unique building types
-    all_building_types = sorted(buildings_df['radio_button_building_type'].dropna().unique().tolist())
+    all_building_types = sorted(buildings_df['bldg_type_filter'].dropna().unique().tolist())
 
     stats = {
         'total_buildings': len(buildings_df),
-        'total_opex_avoidance': buildings_df['total_annual_opex_avoidance'].sum(),
-        'total_utility_savings': buildings_df['odcv_dollar_savings'].sum(),
-        'total_fine_avoidance': buildings_df['fine_avoidance_yr1'].sum(),
-        'total_carbon_reduction': buildings_df['carbon_emissions_reduction_yr1'].sum(),
-        'total_sqft': buildings_df['square_footage'].sum(),
+        'total_opex_avoidance': buildings_df['savings_opex_avoided_annual_usd'].sum(),
+        'total_utility_savings': buildings_df['odcv_hvac_savings_annual_usd'].sum(),
+        'total_fine_avoidance': buildings_df['bps_fine_avoided_yr1_usd'].sum(),
+        'total_carbon_reduction': buildings_df['odcv_carbon_reduction_yr1_mt'].sum(),
+        'total_sqft': buildings_df['bldg_sqft'].sum(),
         'by_vertical': {},
         'bps_cities': bps_cities,
         'all_building_types': all_building_types
     }
 
     # Commercial-only valuation impact
-    commercial_df = buildings_df[buildings_df['vertical'] == 'Commercial']
-    stats['total_valuation_impact'] = commercial_df['odcv_valuation_impact_usd'].sum()
+    commercial_df = buildings_df[buildings_df['bldg_vertical'] == 'Commercial']
+    stats['total_valuation_impact'] = commercial_df['val_odcv_impact_usd'].sum()
 
     # Stats by vertical
     for vertical in ['Commercial', 'Education', 'Healthcare']:
-        v_df = buildings_df[buildings_df['vertical'] == vertical]
+        v_df = buildings_df[buildings_df['bldg_vertical'] == vertical]
         stats['by_vertical'][vertical] = {
             'building_count': len(v_df),
-            'opex_avoidance': v_df['total_annual_opex_avoidance'].sum(),
-            'utility_savings': v_df['odcv_dollar_savings'].sum(),
-            'fine_avoidance': v_df['fine_avoidance_yr1'].sum(),
-            'carbon_reduction': v_df['carbon_emissions_reduction_yr1'].sum(),
-            'sqft': v_df['square_footage'].sum(),
-            'valuation_impact': v_df['odcv_valuation_impact_usd'].sum() if vertical == 'Commercial' else 0
+            'opex_avoidance': v_df['savings_opex_avoided_annual_usd'].sum(),
+            'utility_savings': v_df['odcv_hvac_savings_annual_usd'].sum(),
+            'fine_avoidance': v_df['bps_fine_avoided_yr1_usd'].sum(),
+            'carbon_reduction': v_df['odcv_carbon_reduction_yr1_mt'].sum(),
+            'sqft': v_df['bldg_sqft'].sum(),
+            'valuation_impact': v_df['val_odcv_impact_usd'].sum() if vertical == 'Commercial' else 0
         }
 
     # Radio button building type counts
-    radio_type_counts = buildings_df['radio_button_building_type'].value_counts().to_dict()
+    radio_type_counts = buildings_df['bldg_type_filter'].value_counts().to_dict()
     stats['radio_type_counts'] = radio_type_counts
 
     # Building types by vertical - for dynamic left sidebar filtering
     # Only include types with at least 50 buildings in that vertical
     types_by_vertical = {}
     for vertical in ['Commercial', 'Education', 'Healthcare']:
-        v_df = buildings_df[buildings_df['vertical'] == vertical]
-        type_counts = v_df['radio_button_building_type'].value_counts()
+        v_df = buildings_df[buildings_df['bldg_vertical'] == vertical]
+        type_counts = v_df['bldg_type_filter'].value_counts()
         types = [t for t, c in type_counts.items() if c >= 50]
         types_by_vertical[vertical] = sorted(types)
     stats['types_by_vertical'] = types_by_vertical
@@ -674,11 +639,11 @@ def build_coordinates_map(buildings_df):
     valid_count = 0
 
     for _, row in buildings_df.iterrows():
-        lat = row['latitude']
-        lon = row['longitude']
+        lat = row['loc_lat']
+        lon = row['loc_lon']
 
         if pd.notna(lat) and pd.notna(lon):
-            coords[row['building_id']] = [float(lon), float(lat)]
+            coords[row['id_building']] = [float(lon), float(lat)]
             valid_count += 1
 
     print(f"  Coordinates for {valid_count:,} buildings")
@@ -702,30 +667,30 @@ def prepare_all_buildings(buildings_df, image_map):
 
     for _, row in buildings_df.iterrows():
         bldg = {
-            'id': safe_str(row['building_id']),
-            'address': safe_str(row['address']),
-            'city': safe_str(row.get('city')),
-            'state': safe_str(row.get('state')),
-            'type': normalize_building_type(safe_str(row.get('radio_button_building_type'))),
-            'radio_type': normalize_building_type(safe_str(row.get('radio_button_building_type'))),
-            'vertical': safe_str(row.get('vertical')),
-            'sqft': safe_float(row['square_footage']),
-            'utility_savings': safe_float(row['odcv_dollar_savings']),
-            'fine_avoidance': safe_float(row['fine_avoidance_yr1']),
-            'total_opex': safe_float(row['total_annual_opex_avoidance']),
-            'valuation_impact': safe_float(row['odcv_valuation_impact_usd']),
-            'carbon': safe_float(row['carbon_emissions_reduction_yr1']),
-            'lat': safe_float(row['latitude'], None),
-            'lon': safe_float(row['longitude'], None),
-            'image': image_map.get(row['building_id'], ''),
-            'url': safe_str(row.get('building_url')),
-            'owner': safe_str(row.get('building_owner')),
-            'manager': safe_str(row.get('property_manager')),
-            'tenant': safe_str(row.get('tenant')),
-            'sub_org': safe_str(row.get('tenant_sub_org')),
-            'property_name': safe_str(row.get('property_name')),
-            'site_eui': safe_float(row.get('site_eui', 0)),
-            'year_built': safe_int(row.get('year_built', 0))
+            'id': safe_str(row['id_building']),
+            'loc_address': safe_str(row['loc_address']),
+            'loc_city': safe_str(row.get('loc_city')),
+            'loc_state': safe_str(row.get('loc_state')),
+            'type': normalize_building_type(safe_str(row.get('bldg_type_filter'))),
+            'radio_type': normalize_building_type(safe_str(row.get('bldg_type_filter'))),
+            'bldg_vertical': safe_str(row.get('bldg_vertical')),
+            'sqft': safe_float(row['bldg_sqft']),
+            'utility_savings': safe_float(row['odcv_hvac_savings_annual_usd']),
+            'fine_avoidance': safe_float(row['bps_fine_avoided_yr1_usd']),
+            'total_opex': safe_float(row['savings_opex_avoided_annual_usd']),
+            'valuation_impact': safe_float(row['val_odcv_impact_usd']),
+            'carbon': safe_float(row['odcv_carbon_reduction_yr1_mt']),
+            'lat': safe_float(row['loc_lat'], None),
+            'lon': safe_float(row['loc_lon'], None),
+            'image': image_map.get(row['id_building'], ''),
+            'url': safe_str(row.get('id_source_url')),
+            'owner': safe_str(row.get('org_owner')),
+            'manager': safe_str(row.get('org_manager')),
+            'org_tenant': safe_str(row.get('org_tenant')),
+            'sub_org': safe_str(row.get('org_tenant_subunit')),
+            'id_property_name': safe_str(row.get('id_property_name')),
+            'energy_site_eui': safe_float(row.get('energy_site_eui', 0)),
+            'bldg_year_built': safe_int(row.get('bldg_year_built', 0))
         }
         all_buildings.append(bldg)
 
@@ -744,14 +709,11 @@ def load_all_data():
     """
     Load and process all data for the Nationwide ODCV Prospector.
 
-    Uses separate CSV files for Portfolio tab and Buildings tab:
-    - portfolio_data.csv -> Portfolio tab (portfolios, portfolio stats)
-    - buildings_tab_data.csv -> Buildings tab (all_buildings, coords_map, building stats)
+    Uses portfolio_data.csv for all tabs.
 
     Returns:
         dict with keys:
-            - portfolio_df: Raw pandas DataFrame for portfolio tab
-            - buildings_tab_df: Raw pandas DataFrame for buildings tab
+            - portfolio_df: Raw pandas DataFrame
             - portfolios: List of portfolio dicts sorted by OpEx
             - all_buildings: List of all building dicts for search
             - stats: Overall statistics dict
@@ -763,9 +725,8 @@ def load_all_data():
     print("Nationwide ODCV Prospector - Data Loading")
     print("=" * 60)
 
-    # Load raw data - use portfolio_data.csv for everything
-    portfolio_df = load_portfolio_data()        # For Portfolio tab
-    buildings_tab_df = portfolio_df.copy()      # Use same data for Buildings tab
+    # Load raw data
+    portfolio_df = load_portfolio_data()
     image_map = build_image_map()
     logo_files = build_logo_map()
 
@@ -773,14 +734,14 @@ def load_all_data():
     portfolio_orgs = calculate_portfolio_orgs(portfolio_df, min_rows=3)
     logo_mappings = load_logo_mappings()
 
-    # Process portfolios from portfolio_df
+    # Process portfolios
     portfolios = aggregate_portfolios(portfolio_df, portfolio_orgs, logo_mappings, image_map)
 
-    # Process buildings tab from buildings_tab_df
-    all_buildings = prepare_all_buildings(buildings_tab_df, image_map)
-    coords_map = build_coordinates_map(buildings_tab_df)
+    # Process all buildings for search
+    all_buildings = prepare_all_buildings(portfolio_df, image_map)
+    coords_map = build_coordinates_map(portfolio_df)
 
-    # Calculate stats (using portfolio_df for consistency with portfolio data)
+    # Calculate stats
     stats = calculate_stats(portfolio_df, portfolios)
 
     # Image coverage stats
@@ -794,7 +755,6 @@ def load_all_data():
 
     return {
         'portfolio_df': portfolio_df,
-        'buildings_tab_df': buildings_tab_df,
         'portfolios': portfolios,
         'all_buildings': all_buildings,
         'stats': stats,
@@ -878,21 +838,21 @@ def export_split_data(data, output_dir):
     for idx, p in enumerate(portfolios):
         # Minimal building data needed for display
         buildings = [{
-            'id': b['building_id'],
-            'address': b['address'],
-            'city': b.get('city', ''),
-            'state': b.get('state', ''),
+            'id': b['id_building'],
+            'loc_address': b['loc_address'],
+            'loc_city': b.get('loc_city', ''),
+            'loc_state': b.get('loc_state', ''),
             'type': b.get('radio_type', ''),
-            'building_type': b.get('building_type', ''),
-            'vertical': b['vertical'],
+            'bldg_type': b.get('bldg_type', ''),
+            'bldg_vertical': b['bldg_vertical'],
             'sqft': b['sqft'],
             'opex': b['total_opex'],
             'valuation': b['valuation_impact'],
             'carbon': b['carbon_reduction'],
-            'eui': b.get('site_eui'),
+            'eui': b.get('energy_site_eui'),
             'image': b.get('image', ''),
-            'lat': b.get('latitude'),
-            'lon': b.get('longitude')
+            'lat': b.get('loc_lat'),
+            'lon': b.get('loc_lon')
         } for b in p['buildings']]
 
         portfolio_path = os.path.join(portfolios_dir, f'portfolio_{idx}.json')
@@ -916,7 +876,7 @@ def export_split_data(data, output_dir):
                 'lat': b['lat'],
                 'lon': b['lon'],
                 'type': b.get('radio_type') or b.get('type', ''),
-                'vertical': b['vertical'],
+                'bldg_vertical': b['bldg_vertical'],
                 'opex': b['total_opex']
             })
 
@@ -931,12 +891,12 @@ def export_split_data(data, output_dir):
     # -------------------------------------------------------------------------
     all_buildings_export = [{
         'id': b['id'],
-        'address': b['address'],
-        'city': b.get('city', ''),
-        'state': b.get('state', ''),
+        'loc_address': b['loc_address'],
+        'loc_city': b.get('loc_city', ''),
+        'loc_state': b.get('loc_state', ''),
         'type': b.get('radio_type') or b.get('type', ''),
         'radio_type': b.get('radio_type', ''),
-        'vertical': b['vertical'],
+        'bldg_vertical': b['bldg_vertical'],
         'sqft': b['sqft'],
         'owner': b.get('owner', ''),
         'utility_savings': b['utility_savings'],
@@ -944,8 +904,8 @@ def export_split_data(data, output_dir):
         'total_opex': b['total_opex'],
         'valuation_impact': b['valuation_impact'],
         'carbon': b['carbon'],
-        'site_eui': b.get('site_eui', 0),
-        'year_built': b.get('year_built', 0),
+        'energy_site_eui': b.get('energy_site_eui', 0),
+        'bldg_year_built': b.get('bldg_year_built', 0),
         'lat': b.get('lat'),
         'lon': b.get('lon'),
         'image': b.get('image', ''),

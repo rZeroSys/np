@@ -34,7 +34,7 @@ Annual energy savings from ODCV implementation:
 odcv_dollar_savings = Total HVAC Cost × odcv_savings_pct
 ```
 
-The `odcv_savings_pct` ranges from 20-40% for office buildings, with type-specific ranges for other building types based on:
+The `odcv_hvac_savings_pct` ranges from 20-40% for office buildings, with type-specific ranges for other building types based on:
 - Vacancy rates (for multi-tenant buildings)
 - Utilization rates (for owner-occupied buildings)
 - Building age and size (automation likelihood proxy)
@@ -50,8 +50,8 @@ total_annual_opex_avoidance = odcv_dollar_savings + fine_avoidance_yr1
 ```
 
 Where:
-- `odcv_dollar_savings`: Annual utility cost savings from reduced HVAC energy
-- `fine_avoidance_yr1`: Year 1 BPS penalty avoidance (calculated per city's BPS law, see NATIONAL_BPS_METHODOLOGY.md)
+- `odcv_hvac_savings_annual_usd`: Annual utility cost savings from reduced HVAC energy
+- `bps_fine_avoided_yr1_usd`: Year 1 BPS penalty avoidance (calculated per city's BPS law, see NATIONAL_BPS_METHODOLOGY.md)
 
 **Rationale**: Following the NYC LL97 methodology, both utility savings and regulatory penalty avoidance contribute to increased Net Operating Income (NOI). Both represent real dollar savings that improve building cash flow.
 
@@ -63,7 +63,7 @@ Commercial real estate is valued based on income-producing potential. Operating 
 odcv_valuation_impact_usd = total_annual_opex_avoidance / (cap_rate / 100)
 ```
 
-**IMPORTANT**: The `cap_rate` column stores values as whole numbers (e.g., 8 for 8%, 7.5 for 7.5%). For the valuation calculation, this must be converted to decimal form by dividing by 100.
+**IMPORTANT**: The `val_cap_rate_pct` column stores values as whole numbers (e.g., 8 for 8%, 7.5 for 7.5%). For the valuation calculation, this must be converted to decimal form by dividing by 100.
 
 **Rationale**: In income-producing properties, a $1 reduction in operating expenses (or avoided penalties) increases NOI by $1. The capitalization rate converts this income stream into property value. For example:
 - $100,000 annual benefit / 0.07 (7% cap rate) = $1,428,571 valuation increase
@@ -89,7 +89,7 @@ Estimated NOI = Estimated Gross Income × 0.60
 current_valuation_usd = Estimated NOI / (cap_rate / 100)
 ```
 
-**Note**: The `cap_rate` must be converted from percentage to decimal (divide by 100) for the valuation formula.
+**Note**: The `val_cap_rate_pct` must be converted from percentage to decimal (divide by 100) for the valuation formula.
 
 **Post-ODCV Valuation**:
 ```
@@ -133,11 +133,11 @@ post_odcv_valuation_usd = current_valuation_usd + odcv_valuation_impact_usd
 
 Four columns related to valuation in the dataset:
 
-1. **odcv_dollar_savings**: Annual utility cost savings from ODCV ($)
-2. **total_annual_opex_avoidance**: Combined utility savings + BPS fine avoidance ($)
-3. **current_valuation_usd**: Estimated current property value based on energy costs and cap rate
-4. **post_odcv_valuation_usd**: Estimated property value after ODCV implementation
-5. **odcv_valuation_impact_usd**: Dollar increase in property value from total annual benefit
+1. **odcv_hvac_savings_annual_usd**: Annual utility cost savings from ODCV ($)
+2. **savings_opex_avoided_annual_usd**: Combined utility savings + BPS fine avoidance ($)
+3. **val_current_usd**: Estimated current property value based on energy costs and cap rate
+4. **val_post_odcv_usd**: Estimated property value after ODCV implementation
+5. **val_odcv_impact_usd**: Dollar increase in property value from total annual benefit
 
 ## Results Summary
 
