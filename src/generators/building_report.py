@@ -19,7 +19,8 @@ from src.data.loader import load_csv, extract_filename
 from src.config import (
     BUILDING_DATA_PATH, BUILDINGS_OUTPUT_DIR,
     IMAGES_DIR as CONFIG_IMAGES_DIR,
-    AWS_BASE_URL
+    AWS_BASE_URL,
+    PORTFOLIO_ORGS_PATH
 )
 
 # Configuration - use centralized config
@@ -27,6 +28,18 @@ CSV_PATH = str(BUILDING_DATA_PATH)
 OUTPUT_DIR = str(BUILDINGS_OUTPUT_DIR) + '/'
 IMAGES_DIR = str(CONFIG_IMAGES_DIR)
 AWS_BUCKET = AWS_BASE_URL
+
+# Load organization display names mapping
+ORG_DISPLAY_NAMES = {}
+try:
+    orgs_df = pd.read_csv(str(PORTFOLIO_ORGS_PATH))
+    for _, org_row in orgs_df.iterrows():
+        org_name = org_row.get('organization', '')
+        display_name = org_row.get('display_name', '')
+        if org_name and display_name and pd.notna(display_name) and str(display_name).strip():
+            ORG_DISPLAY_NAMES[str(org_name).strip().lower()] = str(display_name).strip()
+except Exception as e:
+    print(f"Warning: Could not load organization display names: {e}")
 
 #===============================================================================
 # CITY & BUILDING TYPE CLASSIFICATIONS
@@ -175,6 +188,13 @@ def entities_match(a, b):
     if pd.isna(a) or pd.isna(b):
         return False
     return str(a).strip().lower() == str(b).strip().lower()
+
+def get_org_display_name(org_name):
+    """Get the display name for an organization, falling back to original name."""
+    if not org_name or pd.isna(org_name):
+        return org_name
+    org_key = str(org_name).strip().lower()
+    return ORG_DISPLAY_NAMES.get(org_key, org_name)
 
 def safe_num(row, column, default=None):
     """Extract number safely, return None if not available"""

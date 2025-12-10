@@ -584,7 +584,7 @@ body.all-buildings-active .city-filter-bar {
 .vertical-btn.selected, .building-type-btn.selected {
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
-.building-type-btn.selected, .city-btn.selected {
+.building-type-btn.selected {
     outline: 3px solid #FFD700;
     outline-offset: 2px;
     box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
@@ -1146,10 +1146,7 @@ body.all-buildings-active .main-tabs {
 }
 
 .city-filter-card.selected {
-    outline: 3px solid #FFD700;
-    outline-offset: 2px;
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
-    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .city-filter-card strong {
@@ -4258,6 +4255,10 @@ function applyFilters() {{
 }}
 
 function selectVertical(v) {{
+    // Toggle behavior: clicking same vertical deselects it (returns to 'all')
+    if (activeVertical === v && v !== 'all') {{
+        v = 'all';
+    }}
     activeVertical = v;
     document.querySelectorAll('.vertical-btn').forEach(b => {{
         b.classList.toggle('selected', b.dataset.vertical === v);
