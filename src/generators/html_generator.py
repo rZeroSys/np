@@ -6015,7 +6015,7 @@ if __name__ == '__main__':
     config = {
         'aws_bucket': 'https://nationwide-odcv-images.s3.us-east-2.amazonaws.com',
         'mapbox_token': 'pk.eyJ1IjoiZm1pbGxlcnJ6ZXJvIiwiYSI6ImNtY2NnZGl6dTAxMzkya29qeHl6c2tibDgifQ.8h1GAYRfrv-fldoXorqFlw',
-        'google_api_key': 'AIzaSyDvGee7gI4jQO3OjGXhtkMmWRP865F2kAU',
+        'google_api_key': 'AIzaSyBera6nSw1pvNai6iQlVhk1c7VpWKMRN1Y',
         'firebase_config': {
             'apiKey': 'AIzaSyDJlvljO528jQV30jUofDYLqWo9zSY46JY',
             'authDomain': 'nyc-odcv-prospector.firebaseapp.com',
