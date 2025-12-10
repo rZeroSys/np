@@ -584,7 +584,7 @@ body.all-buildings-active .city-filter-bar {
 .vertical-btn.selected, .building-type-btn.selected {
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
-.building-type-btn.selected {
+.building-type-btn.selected, .city-btn.selected {
     outline: 3px solid #FFD700;
     outline-offset: 2px;
     box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
@@ -1146,9 +1146,10 @@ body.all-buildings-active .main-tabs {
 }
 
 .city-filter-card.selected {
-    background: #dbeafe;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    transform: scale(1.05);
 }
 
 .city-filter-card strong {
@@ -3351,13 +3352,13 @@ tr.pin-highlight {
 <div class="portfolio-section" style="padding: 200px 32px 20px 32px;">
     <div class="portfolio-sort-header">
         <span class="sort-col">Portfolio</span>
-        <span class="sort-col" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
+        <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
         <span class="sort-col" onclick="sortPortfolios('classification')" style="cursor:pointer">Type</span>
-        <span class="sort-col" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
+        <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
         <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
-        <span class="sort-col" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
-        <span class="sort-col" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
-        <span class="sort-col" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
+        <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
+        <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
+        <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
     </div>
     <div class="portfolios-list" id="portfolios-list">
         {''.join(portfolio_cards)}
@@ -4014,23 +4015,21 @@ function doFilterAllBuildings() {{
 
 function filterByCity(city) {{
     // Check if this city is already selected - click to deselect
-    const currentlySelected = document.querySelector('.city-filter-card.selected');
+    const currentlySelected = document.querySelector('.city-btn.selected');
     const isAlreadySelected = currentlySelected &&
-        currentlySelected.querySelector('strong')?.textContent === city;
+        currentlySelected.dataset.city === city;
 
     if (isAlreadySelected) {{
         // Deselect - show all buildings
-        selectedCityFilter = null;
-        document.querySelectorAll('.city-filter-card').forEach(c => c.classList.remove('selected'));
-        doFilterAllBuildings();
+        clearCityFilter();
         return;
     }}
 
     // Select this city
     selectedCityFilter = city;
-    document.querySelectorAll('.city-filter-card').forEach(c => {{
+    document.querySelectorAll('.city-btn').forEach(c => {{
         c.classList.remove('selected');
-        if (c.querySelector('strong')?.textContent === city) {{
+        if (c.dataset.city === city) {{
             c.classList.add('selected');
         }}
     }});
@@ -4038,13 +4037,15 @@ function filterByCity(city) {{
     doFilterAllBuildings();
 }}
 
+function clearCityFilter() {{
+    selectedCityFilter = null;
+    document.querySelectorAll('.city-btn').forEach(c => c.classList.remove('selected'));
+    doFilterAllBuildings();
+}}
+
 function clearAllBuildingsFilters() {{
     // Clear city card selection (but keep global search)
-    selectedCityFilter = null;
-    document.querySelectorAll('.city-filter-card').forEach(c => c.classList.remove('selected'));
-
-    // Re-filter (will still respect global search)
-    doFilterAllBuildings();
+    clearCityFilter();
 }}
 
 function sortAllBuildings(column) {{
@@ -4142,6 +4143,8 @@ function applyFilters() {{
     let totalOpex = 0;
     let totalValuation = 0;
     let totalCarbon = 0;
+    let totalBuildings = 0;
+    let totalSqft = 0;
 
     cards.forEach(card => {{
         const idx = parseInt(card.dataset.idx);
@@ -4195,6 +4198,8 @@ function applyFilters() {{
             totalOpex += opex;
             totalValuation += valuation;
             totalCarbon += carbon;
+            totalBuildings += count;
+            totalSqft += sqft;
         }}
     }});
 
@@ -4213,6 +4218,18 @@ function applyFilters() {{
     if (rollupValEl) rollupValEl.textContent = formatMoneyJS(totalValuation);
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
+
+    // Update header tooltips with filtered totals
+    const headerBuildings = document.getElementById('header-buildings');
+    const headerSqft = document.getElementById('header-sqft');
+    const headerValuation = document.getElementById('header-valuation');
+    const headerCarbon = document.getElementById('header-carbon');
+    const headerOpex = document.getElementById('header-opex');
+    if (headerBuildings) headerBuildings.dataset.total = totalBuildings.toLocaleString() + ' Total Buildings';
+    if (headerSqft) headerSqft.dataset.total = formatSqftJS(totalSqft) + ' Total Sq Ft';
+    if (headerValuation) headerValuation.dataset.total = formatMoneyJS(totalValuation) + ' Total Val. Impact';
+    if (headerCarbon) headerCarbon.dataset.total = formatCarbonJS(totalCarbon) + ' Total tCO2e/yr';
+    if (headerOpex) headerOpex.dataset.total = formatMoneyJS(totalOpex) + ' Total Savings/yr';
 
     // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
     const expanded = document.querySelector('.portfolio-card.expanded');
