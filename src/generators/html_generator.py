@@ -3186,7 +3186,7 @@ tr.pin-highlight {
 .tutorial-launch-btn {
     position: fixed;
     bottom: 20px;
-    right: 8px;
+    right: 24px;
     z-index: 9998;
     background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
     color: white;
@@ -3314,11 +3314,11 @@ tr.pin-highlight {
     transform: rotate(45deg);
 }
 
-/* Arrow positions */
-.tutorial-tooltip.arrow-top::before { top: -8px; left: 30px; }
-.tutorial-tooltip.arrow-bottom::before { bottom: -8px; left: 30px; }
-.tutorial-tooltip.arrow-left::before { left: -8px; top: 30px; }
-.tutorial-tooltip.arrow-right::before { right: -8px; top: 30px; }
+/* Arrow positions - use CSS variable for dynamic positioning */
+.tutorial-tooltip.arrow-top::before { top: -8px; left: var(--arrow-offset, 190px); transform: rotate(45deg); }
+.tutorial-tooltip.arrow-bottom::before { bottom: -8px; left: var(--arrow-offset, 190px); transform: rotate(45deg); }
+.tutorial-tooltip.arrow-left::before { left: -8px; top: var(--arrow-offset, 100px); transform: rotate(45deg); }
+.tutorial-tooltip.arrow-right::before { right: -8px; top: var(--arrow-offset, 100px); transform: rotate(45deg); }
 
 .tutorial-step-indicator {
     font-size: 12px;
@@ -4009,7 +4009,7 @@ tr.pin-highlight {
             if n >= 1_000_000_000:
                 return f'${n/1_000_000_000:.1f}B'
             if n >= 1_000_000:
-                return f'${int(n/1_000_000)}M'
+                return f'${n/1_000_000:.1f}M'
             if n >= 1_000:
                 return f'${int(n/1_000)}K'
             return f'${int(n):,}'
@@ -4020,7 +4020,7 @@ tr.pin-highlight {
 
         def fmt_valuation(n):
             if n >= 1e9: return f'${n/1e9:.1f}B'
-            if n >= 1e6: return f'${int(n/1e6)}M'
+            if n >= 1e6: return f'${n/1e6:.1f}M'
             return f'${int(n):,}'
 
         def fmt_carbon(n):
@@ -4106,7 +4106,7 @@ tr.pin-highlight {
             if n >= 1_000_000_000:
                 return f'${n/1_000_000_000:.1f}B'
             if n >= 1_000_000:
-                return f'${int(n/1_000_000)}M'
+                return f'${n/1_000_000:.1f}M'
             if n >= 1_000:
                 return f'${int(n/1_000)}K'
             return f'${int(n):,}'
@@ -4259,7 +4259,7 @@ tr.pin-highlight {
             if n >= 1_000_000_000:
                 return f'${n/1_000_000_000:.1f}B'
             if n >= 1_000_000:
-                return f'${int(n/1_000_000)}M'
+                return f'${n/1_000_000:.1f}M'
             if n >= 1_000:
                 return f'${int(n/1_000)}K'
             return f'${int(n):,}'
@@ -4375,7 +4375,7 @@ tr.pin-highlight {
             if n >= 1_000_000_000:
                 return f'${n/1_000_000_000:.1f}B'
             if n >= 1_000_000:
-                return f'${int(n/1_000_000)}M'
+                return f'${n/1_000_000:.1f}M'
             if n >= 1_000:
                 return f'${int(n/1_000)}K'
             return f'${int(n):,}'
@@ -4889,7 +4889,7 @@ function updateAllBuildingsStats() {{
 function formatMoney(n) {{
     n = parseFloat(n) || 0;
     if (n >= 1000000000) return '$' + (n / 1000000000).toFixed(1) + 'B';
-    if (n >= 1000000) return '$' + Math.round(n / 1000000) + 'M';
+    if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
     if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
     return '$' + Math.round(n);
 }}
@@ -5170,7 +5170,7 @@ function updatePortfolioStats() {{
 
 function formatMoneyJS(n) {{
     if (n >= 1000000000) return '$' + (n/1000000000).toFixed(1) + 'B';
-    if (n >= 1000000) return '$' + Math.round(n/1000000) + 'M';
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
     if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
     return '$' + Math.round(n);
 }}
@@ -7220,6 +7220,26 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
+        target: '.portfolio-card:first-child .stat-valuation',
+        title: 'Valuation Impact',
+        content: 'This column shows the total valuation lift potential for the entire portfolio. It represents how much property value could increase through energy efficiency improvements across all buildings.',
+        position: 'left',
+        action: function() {{
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        }}
+    }},
+    {{
+        target: '.portfolio-card:first-child .stat-savings',
+        title: 'Portfolio Savings',
+        content: 'This is the total annual OpEx savings for the portfolio - the sum of ALL building savings. Only the first 10 buildings are shown initially. Click the down arrow at the bottom of the 10th building row to load more buildings and see the full list.',
+        position: 'left',
+        action: function() {{
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        }}
+    }},
+    {{
         target: '#euiFilterWrapper',
         title: 'EUI Filter (Important!)',
         content: 'This is the EUI (Energy Use Intensity) filter - look for the bouncing DOWN ARROW! Click it to filter buildings by energy efficiency: Good (green), OK (orange), or Bad (red). A blue dot appears when filtering is active.',
@@ -7403,33 +7423,52 @@ function positionTooltip(tooltip, targetRect, position) {{
     tooltip.classList.remove('arrow-top', 'arrow-bottom', 'arrow-left', 'arrow-right');
 
     var top, left;
+    var targetCenterX = targetRect.left + (targetRect.width / 2);
+    var targetCenterY = targetRect.top + (targetRect.height / 2);
 
     switch (position) {{
         case 'bottom':
             top = targetRect.bottom + padding;
-            left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
+            left = targetCenterX - (tooltipWidth / 2);
             tooltip.classList.add('arrow-top');
             break;
         case 'top':
             top = targetRect.top - tooltipHeight - padding;
-            left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
+            left = targetCenterX - (tooltipWidth / 2);
             tooltip.classList.add('arrow-bottom');
             break;
         case 'left':
-            top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
+            top = targetCenterY - (tooltipHeight / 2);
             left = targetRect.left - tooltipWidth - padding;
             tooltip.classList.add('arrow-right');
             break;
         case 'right':
-            top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
+            top = targetCenterY - (tooltipHeight / 2);
             left = targetRect.right + padding;
             tooltip.classList.add('arrow-left');
             break;
     }}
 
     // Keep tooltip on screen
+    var originalLeft = left;
+    var originalTop = top;
     left = Math.max(20, Math.min(left, window.innerWidth - tooltipWidth - 20));
     top = Math.max(20, Math.min(top, window.innerHeight - tooltipHeight - 20));
+
+    // Calculate arrow offset to point at target center
+    var arrowOffset;
+    if (position === 'bottom' || position === 'top') {{
+        // Horizontal arrow - calculate where target center is relative to tooltip
+        arrowOffset = targetCenterX - left;
+        // Clamp to stay within tooltip bounds (with padding)
+        arrowOffset = Math.max(24, Math.min(arrowOffset, tooltipWidth - 24));
+        tooltip.style.setProperty('--arrow-offset', arrowOffset + 'px');
+    }} else {{
+        // Vertical arrow - calculate where target center is relative to tooltip
+        arrowOffset = targetCenterY - top;
+        arrowOffset = Math.max(24, Math.min(arrowOffset, tooltipHeight - 24));
+        tooltip.style.setProperty('--arrow-offset', arrowOffset + 'px');
+    }}
 
     tooltip.style.top = top + 'px';
     tooltip.style.left = left + 'px';
