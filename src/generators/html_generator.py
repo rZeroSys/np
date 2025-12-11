@@ -3689,7 +3689,6 @@ tr.pin-highlight {
             <p id="tutorial-content" class="tutorial-content"></p>
             <div class="tutorial-actions">
                 <div class="tutorial-nav">
-                    <button id="tutorial-prev" class="tutorial-btn-secondary" onclick="prevTutorialStep()">Back</button>
                     <button id="tutorial-next" class="tutorial-btn-primary" onclick="nextTutorialStep()">Next</button>
                 </div>
             </div>
