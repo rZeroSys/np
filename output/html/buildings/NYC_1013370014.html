@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 02:23:26 EST -->
+<!-- Generated: 2025-12-11 02:37:22 EST -->
 <!-- Last Updated: September 17, 2025 - Simplified Salesify Email (Utility Only) -->
-<!-- Building Report Version: 1765437703 -->
+<!-- Building Report Version: 1765438539 -->
 <html>
 <head>
-    <title>2 United Nations Plaza - ODCV Analysis (v1765437703)</title>
+    <title>2 United Nations Plaza - ODCV Analysis (v1765438539)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2111,7 +2111,7 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
         // Handle 3D model initialization
         if (slideType === '3d') {
             const containerEl = document.getElementById(`model-container-${bbl}`);
-            if (containerEl && !containerEl._threeInitialized) {
+            if (containerEl && !containerEl._threeInitialized && !containerEl._loadingInProgress) {
                 // Initialize 3D model when user navigates to it
                 window.init3DModel1013370014();
             }
@@ -3401,29 +3401,9 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
 
         // Don't initialize immediately if video exists - wait for user to navigate to panorama slide
 
-        // Check network connectivity
+        // Check network connectivity - just use navigator.onLine
         function checkNetworkConnectivity() {
-            return new Promise((resolve) => {
-                // First check if browser is online
-                if (!navigator.onLine) {
-                    resolve(false);
-                    return;
-                }
-
-                // Try to fetch a small resource to verify actual connectivity
-                const testUrl = 'https://nyc-odcv-images.s3.us-east-2.amazonaws.com/test.txt?' + Date.now();
-                const timeout = setTimeout(() => resolve(false), 5000);
-
-                fetch(testUrl, { method: 'HEAD', cache: 'no-cache' })
-                    .then(() => {
-                        clearTimeout(timeout);
-                        resolve(true);
-                    })
-                    .catch(() => {
-                        clearTimeout(timeout);
-                        resolve(false);
-                    });
-            });
+            return Promise.resolve(navigator.onLine);
         }
 
         // Preload model data
@@ -3591,13 +3571,25 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
                 }
             }
 
+            // Wait for container to have valid dimensions
+            if (containerEl.clientWidth === 0 || containerEl.clientHeight === 0) {
+                console.log('Container has 0 dimensions, waiting...');
+                setTimeout(() => {
+                    containerEl._loadingInProgress = false;
+                    window.init3DModel1013370014(retryCount);
+                }, 100);
+                return;
+            }
+
             try {
                 // Scene setup
                 const scene = new THREE.Scene();
                 scene.background = new THREE.Color(0xffffff);
 
-                // Camera setup
-                const camera = new THREE.PerspectiveCamera(45, containerEl.clientWidth / containerEl.clientHeight, 0.1, 100);
+                // Camera setup - use valid dimensions
+                const width = containerEl.clientWidth || 600;
+                const height = containerEl.clientHeight || 400;
+                const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
                 camera.position.set(5, 5, 5);
 
                 // Renderer setup
@@ -3737,6 +3729,18 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
                         containerEl._camera = camera;
                         containerEl._controls = controls;
                         containerEl._model = currentModel;
+                        containerEl._handleResize = function() {
+                            camera.aspect = containerEl.clientWidth / containerEl.clientHeight;
+                            camera.updateProjectionMatrix();
+                            renderer.setSize(containerEl.clientWidth, containerEl.clientHeight);
+                        };
+
+                        // Force resize after short delay to ensure container is visible
+                        setTimeout(() => {
+                            if (containerEl.clientWidth > 0 && containerEl.clientHeight > 0) {
+                                containerEl._handleResize();
+                            }
+                        }, 100);
                     },
                     function(xhr) {
                         // Enhanced progress callback with visual feedback
@@ -3897,7 +3901,7 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
     </div><!-- End of container -->
     
     <div style="text-align: center; color: black; font-size: 14px; padding: 20px 0; font-family: 'Inter', sans-serif; border: none !important; box-shadow: none !important; background: transparent;">
-        Build: 11 Dec 2025 01:23:26 AM CST | --batch-file
+        Build: 11 Dec 2025 01:37:22 AM CST | --batch-file
         <div style="margin-top: 10px;">
             <a href="https://docs.google.com/spreadsheets/d/1efvF54Fy_155wnrN0lcAUJhCPoosX9bAHzt-W1HDRBI/edit?gid=0#gid=0" target="_blank" style="color: #0066cc; text-decoration: none; margin: 0 10px;">Report an issue</a> |
             <a href="https://docs.google.com/spreadsheets/d/1efvF54Fy_155wnrN0lcAUJhCPoosX9bAHzt-W1HDRBI/edit?gid=2092445270#gid=2092445270" target="_blank" style="color: #0066cc; text-decoration: none; margin: 0 10px;">Request a feature</a>
