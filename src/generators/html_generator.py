@@ -198,7 +198,11 @@ class NationwideHTMLGenerator:
             'type': b.get('radio_type', ''),
             'bldg_vertical': b['bldg_vertical'],
             'opex': b['total_opex'],
-            'image': b['image']
+            'image': b['image'],
+            'owner': self._get_org_display_name(b.get('owner', '')),
+            'tenant': self._get_org_display_name(b.get('org_tenant', '')),
+            'manager': self._get_org_display_name(b.get('manager', '')),
+            'property_name': self._get_display_name(b)
         } for b in self.all_buildings if b['lat'] and b['lon']]
 
         # Export data - all buildings with full details for CSV export and All Buildings tab
@@ -629,86 +633,80 @@ body.all-buildings-active .city-filter-bar {
     color: #111827;
 }
 
-/* FILTER DRAWER - slides out from left */
-.filter-drawer {
-    position: fixed;
-    top: 185px;
-    left: 0;
-    width: 300px;
-    height: calc(100vh - 185px);
-    background: #f5f5f5;
-    z-index: 2000;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.1);
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.filter-drawer.open {
-    transform: translateX(0);
-}
-
-/* Filter drawer toggle button */
-.filter-drawer-toggle {
-    position: fixed;
-    left: 0;
-    top: 205px;
-    z-index: 1999;
-    background: var(--rzero-blue);
-    color: white;
-    border: none;
-    border-radius: 0 8px 8px 0;
-    padding: 16px 10px;
-    cursor: pointer;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-    transition: background 0.2s, padding-left 0.2s, left 0.3s ease;
-}
-
-.filter-drawer-toggle:hover {
-    background: #004499;
-    padding-left: 14px;
-}
-
-.filter-drawer.open + .filter-drawer-toggle,
-body.filter-drawer-open .filter-drawer-toggle {
-    left: 300px;
-    background: #1e3a5f;
-}
-
-.filter-drawer-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.filter-drawer-close {
+/* VERTICAL DROPDOWN FILTERS */
+.vertical-btn-wrapper {
+    position: relative;
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 6px 12px;
-    background: white;
-    border: 1px solid #cbd5e1;
     border-radius: 6px;
+    overflow: visible;
+}
+.vertical-btn-wrapper .vertical-btn {
+    border-radius: 6px 0 0 6px;
+    padding-right: 12px;
+}
+.vertical-dropdown-arrow {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-left: 1px solid rgba(255,255,255,0.3);
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 0 6px 6px 0;
+    color: white;
+    transition: background 0.2s;
+}
+.vertical-dropdown-arrow:hover {
+    background: rgba(255,255,255,0.35);
+}
+.vertical-dropdown-arrow svg {
+    transition: transform 0.2s;
+}
+.vertical-dropdown-arrow.open svg {
+    transform: rotate(180deg);
+}
+.vertical-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    min-width: 220px;
+    z-index: 2000;
+    display: none;
+    padding: 8px 0;
+    max-height: 320px;
+    overflow-y: auto;
+}
+.vertical-dropdown.show {
+    display: block;
+}
+.vertical-dropdown label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    color: #3b82f6;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    transition: all 0.15s;
+    color: var(--gray-700);
+    transition: background 0.15s;
 }
-
-.filter-drawer-close:hover {
-    background: #dbeafe;
-    border-color: #3b82f6;
-    box-shadow: 0 2px 4px rgba(59,130,246,0.2);
+.vertical-dropdown label:hover {
+    background: var(--gray-50);
+}
+.vertical-dropdown label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+.vertical-dropdown .dropdown-count {
+    margin-left: auto;
+    color: var(--gray-400);
+    font-size: 12px;
 }
 
 /* Leaderboard list styling */
@@ -886,25 +884,28 @@ body.filter-drawer-open .filter-drawer-toggle {
 }
 
 .main-tab {
-    padding: 14px 24px;
+    padding: 14px 28px;
     border: none;
     background: none;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--gray-500);
     cursor: pointer;
     border-bottom: 3px solid transparent;
     margin-bottom: -1px;
-    transition: color 0.2s, border-color 0.2s;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    border-radius: 8px 8px 0 0;
 }
 
 .main-tab:hover {
     color: var(--gray-700);
+    background: var(--gray-50);
 }
 
 .main-tab.active {
     color: var(--rzero-blue);
     border-bottom: 3px solid var(--rzero-blue);
+    background: rgba(0, 102, 204, 0.05);
 }
 
 /* Tab Content */
@@ -919,9 +920,7 @@ body.filter-drawer-open .filter-drawer-toggle {
     display: block;
 }
 
-/* Hide sidebar/filters when All Buildings tab is active */
-body.all-buildings-active .filter-drawer,
-body.all-buildings-active .filter-drawer-toggle,
+/* Hide filters when All Buildings tab is active */
 body.all-buildings-active .vertical-filter-bar {
     display: none !important;
 }
@@ -1178,8 +1177,8 @@ body.all-buildings-active .main-tabs {
 /* Cities tab - blue header bar like Portfolios tab */
 .cities-header {
     display: grid;
-    grid-template-columns: 60px minmax(180px, 2.5fr) 85px 70px 60px minmax(120px, 1.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr) 85px;
-    gap: 8px;
+    grid-template-columns: 60px 24px 1.3fr 110px 70px 55px 1.2fr 1.2fr 85px;
+    gap: 12px;
     padding: 12px 16px;
     background: var(--rzero-blue);
     border-radius: 12px;
@@ -1194,13 +1193,13 @@ body.all-buildings-active .main-tabs {
     top: 133px;
     z-index: 100;
 }
-.cities-header span { cursor: pointer; }
+.cities-header span { cursor: pointer; white-space: nowrap; }
 .cities-header span:hover { color: rgba(255,255,255,0.8); }
 
 .cities-row {
     display: grid;
-    grid-template-columns: 60px minmax(180px, 2.5fr) 85px 70px 60px minmax(120px, 1.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr) 85px;
-    gap: 8px;
+    grid-template-columns: 60px 24px 1.3fr 110px 70px 55px 1.2fr 1.2fr 85px;
+    gap: 12px;
     padding: 8px 16px;
     border-bottom: 1px solid #e5e7eb;
     cursor: pointer;
@@ -1215,7 +1214,10 @@ body.all-buildings-active .main-tabs {
     white-space: nowrap;
     min-width: 0;
 }
-.cities-row .addr { display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.cities-row .ext-link-cell {
+    margin-left: -4px;
+}
+.cities-row .addr { display: flex; flex-direction: column; overflow: hidden; min-width: 0; margin-left: 16px; }
 .cities-row .addr-main { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cities-row .addr-sub { font-size: 11px; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -1850,9 +1852,9 @@ body.all-buildings-active .main-tabs {
 .portfolio-sort-header,
 .portfolio-header {
     display: grid;
-    grid-template-columns: 120px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 132px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 12px;
-    padding: 8px 20px;
+    padding: 8px 16px 8px 0;
     align-items: center;
 }
 
@@ -2021,6 +2023,11 @@ body.all-buildings-active .main-tabs {
     justify-content: center;
 }
 
+.stat-cell:has(.addr-main) {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .stat-cell.building-count {
     justify-content: center;
 }
@@ -2088,6 +2095,166 @@ body.all-buildings-active .main-tabs {
 .classification-cell.classification-owner-occupier { color: var(--gray-600); }
 .classification-cell.classification-owner-operator { color: var(--gray-800); }
 
+/* TYPE column filter dropdown */
+.type-filter-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.type-filter-wrapper:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+.type-filter-icon {
+    margin-left: 6px;
+    opacity: 1;
+    transition: transform 0.2s;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    padding: 2px;
+}
+.type-filter-wrapper:hover .type-filter-icon {
+    background: rgba(255,255,255,0.5);
+}
+.type-filter-wrapper.active .type-filter-icon {
+    transform: rotate(180deg);
+}
+.type-filter-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 180px;
+    z-index: 1000;
+    display: none;
+    padding: 8px 0;
+}
+.type-filter-dropdown.show {
+    display: block;
+}
+.type-filter-option {
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: background 0.15s;
+}
+.type-filter-option:hover {
+    background: var(--gray-50);
+}
+.type-filter-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+.type-filter-option label {
+    cursor: pointer;
+    flex: 1;
+}
+.type-filter-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 6px 0;
+}
+.type-active-indicator {
+    display: none;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin-left: 4px;
+}
+.type-filter-wrapper.filtering .type-active-indicator {
+    display: inline-block;
+}
+
+/* EUI Filter - reuses type-filter styles */
+.eui-filter-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.eui-filter-wrapper:hover {
+    background: rgba(0,0,0,0.05);
+}
+.eui-filter-icon {
+    margin-left: 6px;
+    opacity: 1;
+    transition: transform 0.2s;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    padding: 2px;
+}
+.eui-filter-wrapper:hover .eui-filter-icon {
+    background: rgba(255,255,255,0.5);
+}
+.eui-filter-wrapper.active .eui-filter-icon {
+    transform: rotate(180deg);
+}
+.eui-filter-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 140px;
+    z-index: 1000;
+    display: none;
+    padding: 8px 0;
+}
+.eui-filter-dropdown.show {
+    display: block;
+}
+.eui-filter-option {
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: background 0.15s;
+}
+.eui-filter-option:hover {
+    background: var(--gray-50);
+}
+.eui-filter-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+.eui-active-indicator {
+    display: none;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin-left: 4px;
+}
+.eui-filter-wrapper.filtering .eui-active-indicator {
+    display: inline-block;
+}
+
 .expand-arrow {
     position: absolute;
     right: -30px;
@@ -2143,12 +2310,12 @@ body.all-buildings-active .main-tabs {
     background: var(--gray-50);
 }
 
-/* Grid-based building rows - 8 columns: same as portfolio-header */
+/* Grid-based building rows - 9 columns: thumb, extLink, address, type, sqft, eui, val, carbon, opex */
 .building-grid-row {
     display: grid;
-    grid-template-columns: 120px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 96px 24px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 12px;
-    padding: 8px 20px 8px 28px;
+    padding: 8px 16px 8px 0;
     border-bottom: 1px solid #d4e5f7;
     cursor: pointer;
     align-items: center;
@@ -2160,10 +2327,19 @@ body.all-buildings-active .main-tabs {
     background: #dbeafe;
     border-left-color: #2563eb;
 }
+.building-grid-row .ext-link-cell {
+    margin-left: -4px;
+}
 .building-grid-row > div:first-child {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+}
+.building-grid-row .stat-cell:not(:first-of-type) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
 }
 .building-grid-row .stat-cell:first-of-type {
     display: flex;
@@ -2172,9 +2348,12 @@ body.all-buildings-active .main-tabs {
     justify-content: center;
     overflow: hidden;
     min-width: 0;
+    white-space: normal;
+    margin-left: 16px;
 }
 
 .addr-main {
+    display: block;
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
@@ -2183,6 +2362,7 @@ body.all-buildings-active .main-tabs {
 }
 
 .addr-sub {
+    display: block;
     font-size: 12px;
     color: #888;
     white-space: nowrap;
@@ -2229,7 +2409,57 @@ body.all-buildings-active .main-tabs {
 }
 
 .building-rows-container {
-    display: contents;
+    display: block;
+}
+
+/* Building sort header - inside expanded portfolio */
+.building-sort-header {
+    display: grid;
+    grid-template-columns: 96px 24px 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 16px 10px 0;
+    background: #e0ecf8;
+    border-bottom: 1px solid #bfdbfe;
+    font-size: 11px;
+    font-weight: 600;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-left: 4px solid #60a5fa;
+    position: sticky;
+    top: 242px;
+    z-index: 10;
+}
+
+.building-sort-header .l2-org-name {
+    grid-column: span 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.building-sort-header .sort-col {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+    color: #0f172a;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.building-sort-header .sort-col:hover {
+    color: #2563eb;
+}
+
+.building-sort-header .sort-col.sorted-asc::after {
+    content: ' ▲';
+    font-size: 9px;
+}
+
+.building-sort-header .sort-col.sorted-desc::after {
+    content: ' ▼';
+    font-size: 9px;
 }
 
 .building-thumb {
@@ -2272,13 +2502,19 @@ body.all-buildings-active .main-tabs {
 }
 
 .external-link {
-    color: var(--gray-400);
+    color: var(--primary);
     margin-left: 6px;
-    font-size: 11px;
+    font-size: 14px;
+    font-weight: bold;
+    background: rgba(0, 102, 204, 0.15);
+    padding: 1px 5px;
+    border-radius: 3px;
+    text-decoration: none;
 }
 
 .external-link:hover {
-    color: var(--primary);
+    color: white;
+    background: var(--primary);
 }
 
 .city-state {
@@ -2527,6 +2763,43 @@ body.all-buildings-active .main-tabs {
     height: calc(100% - 130px);
 }
 
+/* Climate Zone Legend */
+.climate-legend {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    background: rgba(255,255,255,0.85);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 9px;
+    color: #666;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+.climate-legend-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #888;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.climate-legend-items {
+    display: flex;
+    gap: 6px;
+}
+.climate-legend-items span {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.climate-legend-items i {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
 /* Pin Highlight on Table Row */
 tr.pin-highlight {
     background: rgba(0, 118, 157, 0.15) !important;
@@ -2547,6 +2820,13 @@ tr.pin-highlight {
     padding: 0;
     border-radius: 12px;
     overflow: hidden;
+}
+
+/* Pin hover popup styling */
+.pin-popup .mapboxgl-popup-content {
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .popup-content {
@@ -2614,11 +2894,6 @@ tr.pin-highlight {
 }
 
 @media (max-width: 600px) {
-    /* Hide filter drawer toggle on small screens */
-    .filter-drawer-toggle {
-        display: none;
-    }
-
     /* Header stays compact */
     .header {
         padding: 12px 16px;
@@ -2953,41 +3228,41 @@ tr.pin-highlight {
             'Healthcare': '#5ba3d9', # light blue
         }
 
-        # Vertical buttons HTML (for top bar)
-        vertical_html = []
-        for v in ['Commercial', 'Education', 'Healthcare']:
-            count = by_vertical.get(v, {}).get('building_count', 0)
-            vertical_html.append(
-                f'<button class="vertical-btn" data-vertical="{v}" '
-                f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
-                f'{v} <span class="btn-count">({count:,})</span>'
-                f'<span class="btn-x" onclick="event.stopPropagation(); selectVertical(\'all\')">✕</span></button>'
-            )
-
         # Map building types to their vertical
         type_to_vertical = {}
         for vertical, types in types_by_vertical.items():
             for t in types:
                 type_to_vertical[t] = vertical
 
-        # Sort building types: by vertical order, then by count descending
-        vertical_order = {'Commercial': 0, 'Education': 1, 'Healthcare': 2}
-        sorted_types = sorted(
-            radio_counts.items(),
-            key=lambda x: (vertical_order.get(type_to_vertical.get(x[0], 'Commercial'), 99), -x[1])
-        )
-
-        # Building type buttons HTML (for sidebar)
-        building_html = []
-        for btype, count in sorted_types:
+        # Build dropdown options for each vertical (sorted by count descending)
+        dropdown_options = {v: [] for v in ['Commercial', 'Education', 'Healthcare']}
+        for btype, count in sorted(radio_counts.items(), key=lambda x: -x[1]):
             if not btype or btype == 'bldg_type_filter':
                 continue
             v = type_to_vertical.get(btype, 'Commercial')
-            bg = colors.get(v, colors['Commercial'])
-            building_html.append(
-                f'<button class="building-type-btn" data-type="{attr_escape(btype)}" '
-                f'data-vertical="{v}" onclick="toggleBuildingType(this)" '
-                f'style="background:{bg}">{escape(btype)} <span>({count:,})</span></button>'
+            if v in dropdown_options:
+                dropdown_options[v].append(
+                    f'<label><input type="checkbox" data-type="{attr_escape(btype)}" '
+                    f'onchange="selectBuildingTypeFromDropdown(\'{attr_escape(btype)}\', \'{v}\')">'
+                    f'{escape(btype)} <span class="dropdown-count">({count:,})</span></label>'
+                )
+
+        # Vertical buttons HTML (with dropdown arrows)
+        vertical_html = []
+        for v in ['Commercial', 'Education', 'Healthcare']:
+            count = by_vertical.get(v, {}).get('building_count', 0)
+            dropdown_content = ''.join(dropdown_options.get(v, []))
+            vertical_html.append(
+                f'<div class="vertical-btn-wrapper">'
+                f'<button class="vertical-btn" data-vertical="{v}" '
+                f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
+                f'{v} <span class="btn-count">({count:,})</span>'
+                f'<span class="btn-x" onclick="event.stopPropagation(); selectVertical(\'all\')">✕</span></button>'
+                f'<button class="vertical-dropdown-arrow" data-vertical="{v}" '
+                f'onclick="toggleVerticalDropdown(event, \'{v}\')" style="background:{colors[v]}">'
+                f'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>'
+                f'<div class="vertical-dropdown" id="dropdown-{v}">{dropdown_content}</div>'
+                f'</div>'
             )
 
         # Return BOTH the vertical filter bar AND the filter drawer
@@ -3029,13 +3304,7 @@ tr.pin-highlight {
             </div>
         </div>
     </div>
-</div>
-<div class="filter-drawer" id="filter-drawer">
-    <div class="building-type-filters">
-        {''.join(building_html)}
-    </div>
-</div>
-<button class="filter-drawer-toggle" id="filter-drawer-toggle" onclick="toggleFilterDrawer()">Filters</button>'''
+</div>'''
 
     def _generate_body_end(self):
         """Generate closing body and html tags with auth functions and visitor leaderboard."""
@@ -3290,8 +3559,8 @@ tr.pin-highlight {
 </header>
 <div class="main-tabs" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 1002; background: white; border-bottom: 1px solid var(--gray-200); padding: 0 32px;">
     <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: center;">
-        <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')">Portfolios</button>
-        <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')">Cities</button>
+        <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>Portfolios</button>
+        <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>Cities</button>
     </div>
 </div>
 <div id="mainContent" style="display: none;">'''
@@ -3346,11 +3615,23 @@ tr.pin-highlight {
 
         return f'''
 <div id="portfolios-tab" class="tab-content active">
-<div class="portfolio-section" style="padding: 200px 32px 20px 32px;">
+<div class="portfolio-section" style="padding: 200px 0 20px 0;">
     <div class="portfolio-sort-header">
         <span class="sort-col">Portfolio</span>
         <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
-        <span class="sort-col" onclick="sortPortfolios('classification')" style="cursor:pointer">Type</span>
+        <div class="sort-col type-filter-wrapper" id="typeFilterWrapper" onclick="toggleTypeFilter(event)">
+            <span>Type</span>
+            <span class="type-active-indicator"></span>
+            <svg class="type-filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            <div class="type-filter-dropdown" id="typeFilterDropdown" onclick="event.stopPropagation()">
+                <label class="type-filter-option"><input type="checkbox" data-type="owner" checked onchange="applyTypeFilter()"> Owner</label>
+                <label class="type-filter-option"><input type="checkbox" data-type="owner/occupier" checked onchange="applyTypeFilter()"> Owner/Occupier</label>
+                <label class="type-filter-option"><input type="checkbox" data-type="owner/operator" checked onchange="applyTypeFilter()"> Owner/Operator</label>
+                <label class="type-filter-option"><input type="checkbox" data-type="tenant" checked onchange="applyTypeFilter()"> Tenant</label>
+                <label class="type-filter-option"><input type="checkbox" data-type="tenant_sub_org" checked onchange="applyTypeFilter()"> Tenant Sub-Org</label>
+                <label class="type-filter-option"><input type="checkbox" data-type="property manager" checked onchange="applyTypeFilter()"> Prop Manager</label>
+            </div>
+        </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
         <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
         <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
@@ -3435,9 +3716,10 @@ tr.pin-highlight {
     </div>
 </div>
 <div id="all-buildings-tab" class="tab-content">
-<div class="all-buildings-section" style="padding: 190px 32px 20px 32px;">
+<div class="all-buildings-section" style="padding: 190px 0 20px 0;">
     <!-- Cities Table -->
     <div class="cities-header">
+        <span></span>
         <span></span>
         <span onclick="sortAllBuildings('address')">Address</span>
         <span onclick="sortAllBuildings('type')">Type</span>
@@ -3445,7 +3727,6 @@ tr.pin-highlight {
         <span onclick="sortAllBuildings('eui')">EUI</span>
         <span onclick="sortAllBuildings('owner')">Owner</span>
         <span onclick="sortAllBuildings('tenant')">Tenant</span>
-        <span onclick="sortAllBuildings('manager')">Prop Mgr</span>
         <span onclick="sortAllBuildings('opex')">OpEx <span id="cities-total-opex" style="font-weight:700;color:#059669;"></span></span>
     </div>
     <div class="cities-container" id="cities-container">
@@ -3566,8 +3847,20 @@ tr.pin-highlight {
         median_eui_benchmark = p.get('median_eui_benchmark')
         if median_eui:
             eui_display = eui_rating(median_eui, median_eui_benchmark)
+            # Calculate EUI rating category for filtering
+            if median_eui_benchmark and median_eui_benchmark > 0:
+                ratio = median_eui / median_eui_benchmark
+                if ratio <= 1.0:
+                    eui_rating_cat = 'good'
+                elif ratio <= 1.2:
+                    eui_rating_cat = 'ok'
+                else:
+                    eui_rating_cat = 'bad'
+            else:
+                eui_rating_cat = 'ok'
         else:
             eui_display = '-'
+            eui_rating_cat = 'ok'
 
         # Format median sqft
         def fmt_sqft(sqft):
@@ -3597,7 +3890,7 @@ tr.pin-highlight {
             full_title = f"{display_name} ({parent_display} Owned)"
 
         return f'''
-<div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-displayname="{attr_escape(display_name)}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
+<div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-displayname="{attr_escape(display_name)}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-eui-rating="{eui_rating_cat}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="{attr_escape(full_title)}">{escape(display_name)}{parent_html}</span>
@@ -3753,6 +4046,16 @@ tr.pin-highlight {
         <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
     </div>
     <div id="full-map"></div>
+    <div class="climate-legend">
+        <div class="climate-legend-title">Climate</div>
+        <div class="climate-legend-items">
+            <span><i style="background:#ff4444"></i>Hot</span>
+            <span><i style="background:#ffcc44"></i>Warm</span>
+            <span><i style="background:#88cc44"></i>Mild</span>
+            <span><i style="background:#44cc88"></i>Cool</span>
+            <span><i style="background:#4488cc"></i>Cold</span>
+        </div>
+    </div>
 </div>'''
 
     # =========================================================================
@@ -3799,6 +4102,14 @@ function initTabs() {{
             document.getElementById(tabId + '-tab').classList.add('active');
         }});
     }});
+
+    // Check URL hash and switch to correct tab on page load
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'all-buildings' || hash === 'cities') {{
+        switchMainTab('all-buildings');
+    }} else if (hash === 'portfolios') {{
+        switchMainTab('portfolios');
+    }}
 }}
 
 // Switch main tab (called from tab buttons)
@@ -3905,7 +4216,7 @@ function renderAllBuildingsBatch() {{
 function createAllBuildingsRow(b) {{
     const row = document.createElement('div');
     row.className = 'cities-row';
-    row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html'; }};
+    row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html?from=cities'; }};
 
     const thumb = b.image
         ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" alt="" class="building-thumb" loading="lazy" onerror="this.style.display='none'">`
@@ -3932,15 +4243,17 @@ function createAllBuildingsRow(b) {{
     // Combine street + formatted city
     const addrLine = cityDisplay ? addrClean + ', ' + cityDisplay : addrClean;
 
+    const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
+
     row.innerHTML = `
         <div>${{thumb}}</div>
-        <div class="addr"><span class="addr-main">${{escapeHtml(addrLine)}}${{b.url ? ` <a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" class="external-link" title="View source">↗</a>` : ''}}</span><span class="addr-sub">${{escapeHtml(propertyName)}}</span></div>
+        <span class="ext-link-cell">${{extLink}}</span>
+        <div class="addr"><span class="addr-main">${{escapeHtml(addrLine)}}</span><span class="addr-sub">${{escapeHtml(propertyName)}}</span></div>
         <div class="cell">${{escapeHtml(b.type || '-')}}</div>
         <div class="cell">${{sqft}}</div>
         <div class="cell">${{eui}}</div>
         <div class="cell">${{escapeHtml(b.owner || '-')}}</div>
         <div class="cell">${{escapeHtml(b.tenant || '-')}}</div>
-        <div class="cell">${{escapeHtml(b.property_manager || '-')}}</div>
         <div class="cell">${{opex}}</div>
     `;
 
@@ -4098,6 +4411,7 @@ function updateAllBuildingsStats() {{
 }}
 
 function formatMoney(n) {{
+    n = parseFloat(n) || 0;
     if (n >= 1000000000) return '$' + (n / 1000000000).toFixed(1) + 'B';
     if (n >= 1000000) return '$' + Math.round(n / 1000000) + 'M';
     if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
@@ -4300,15 +4614,6 @@ function toggleBuildingType(btn) {{
             chip.classList.remove('visible');
         }}
     }}
-
-    // Auto-close drawer after selection with brief delay to show feedback
-    setTimeout(() => {{
-        const drawer = document.getElementById('filter-drawer');
-        if (drawer && drawer.classList.contains('open')) {{
-            drawer.classList.remove('open');
-            document.body.classList.remove('filter-drawer-open');
-        }}
-    }}, 400);
 }}
 
 function clearBuildingTypeFilter() {{
@@ -4796,16 +5101,111 @@ window.sortPortfolios = function(col) {{
 }};
 
 // =============================================================================
-// FILTER DRAWER TOGGLE
+// BUILDING ROW SORTING (within expanded portfolio)
 // =============================================================================
 
-function toggleFilterDrawer() {{
-    const drawer = document.getElementById('filter-drawer');
-    const toggle = document.getElementById('filter-drawer-toggle');
-    drawer.classList.toggle('open');
-    document.body.classList.toggle('filter-drawer-open');
-    toggle.textContent = drawer.classList.contains('open') ? 'Close ◀' : 'Filters';
+let buildingSortDir = {{}};
+window.sortBuildingRows = function(headerEl, col) {{
+    event.stopPropagation();  // Prevent portfolio collapse
+
+    const card = headerEl.closest('.portfolio-card');
+    const container = card.querySelector('.building-rows-container');
+    const rows = Array.from(container.querySelectorAll('.building-grid-row'));
+
+    // Toggle sort direction per portfolio+column
+    const key = card.dataset.idx + '_' + col;
+    buildingSortDir[key] = !buildingSortDir[key];
+    const asc = buildingSortDir[key];
+
+    rows.sort((a, b) => {{
+        let aVal, bVal;
+        if (col === 'address') {{
+            aVal = a.querySelector('.stat-cell')?.textContent?.toLowerCase() || '';
+            bVal = b.querySelector('.stat-cell')?.textContent?.toLowerCase() || '';
+        }} else if (col === 'type') {{
+            aVal = (a.dataset.radioType || '').toLowerCase();
+            bVal = (b.dataset.radioType || '').toLowerCase();
+        }} else if (col === 'sqft') {{
+            aVal = parseFloat(a.dataset.sqft) || 0;
+            bVal = parseFloat(b.dataset.sqft) || 0;
+        }} else if (col === 'eui') {{
+            aVal = parseFloat(a.dataset.eui) || 0;
+            bVal = parseFloat(b.dataset.eui) || 0;
+        }} else if (col === 'valuation') {{
+            aVal = parseFloat(a.dataset.valuation) || 0;
+            bVal = parseFloat(b.dataset.valuation) || 0;
+        }} else if (col === 'carbon') {{
+            aVal = parseFloat(a.dataset.carbon) || 0;
+            bVal = parseFloat(b.dataset.carbon) || 0;
+        }} else if (col === 'opex') {{
+            aVal = parseFloat(a.dataset.opex) || 0;
+            bVal = parseFloat(b.dataset.opex) || 0;
+        }}
+
+        if (typeof aVal === 'string') {{
+            return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }}
+        return asc ? aVal - bVal : bVal - aVal;
+    }});
+
+    // Re-append sorted rows (preserve sort header and controls)
+    const sortHeader = container.querySelector('.building-sort-header');
+    const controls = container.querySelector('.row-controls');
+    rows.forEach(row => container.insertBefore(row, controls));
+
+    // Update header arrows
+    card.querySelectorAll('.building-sort-header .sort-col').forEach(el => {{
+        el.classList.remove('sorted-asc', 'sorted-desc');
+    }});
+    headerEl.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+}};
+
+// =============================================================================
+// VERTICAL DROPDOWN FILTERS
+// =============================================================================
+
+function toggleVerticalDropdown(event, vertical) {{
+    event.stopPropagation();
+    const dropdown = document.getElementById('dropdown-' + vertical);
+    const arrow = event.currentTarget;
+
+    // Close all other dropdowns first
+    document.querySelectorAll('.vertical-dropdown').forEach(d => {{
+        if (d.id !== 'dropdown-' + vertical) {{
+            d.classList.remove('show');
+        }}
+    }});
+    document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => {{
+        if (a !== arrow) a.classList.remove('open');
+    }});
+
+    // Toggle this dropdown
+    dropdown.classList.toggle('show');
+    arrow.classList.toggle('open');
 }}
+
+function selectBuildingTypeFromDropdown(buildingType, vertical) {{
+    // Close all dropdowns
+    document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
+    document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
+
+    // Switch to that vertical
+    selectVertical(vertical);
+
+    // Apply the building type filter
+    const fakeBtn = document.createElement('button');
+    fakeBtn.dataset.type = buildingType;
+    fakeBtn.dataset.vertical = vertical;
+    toggleBuildingType(fakeBtn);
+}}
+
+// Close vertical dropdowns when clicking outside
+document.addEventListener('click', function(e) {{
+    if (!e.target.closest('.vertical-btn-wrapper')) {{
+        document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
+        document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
+    }}
+}});
 
 function toggleLeaderboardMenu(event) {{
     event.stopPropagation();
@@ -4823,6 +5223,169 @@ document.addEventListener('click', function(e) {{
     if (!e.target.closest('.leaderboard-dropdown')) {{
         const menu = document.getElementById('leaderboard-menu');
         if (menu) menu.classList.remove('show');
+    }}
+}});
+
+// =============================================================================
+// TYPE FILTER DROPDOWN
+// =============================================================================
+
+function toggleTypeFilter(event) {{
+    event.stopPropagation();
+    const dropdown = document.getElementById('typeFilterDropdown');
+    const wrapper = document.getElementById('typeFilterWrapper');
+    dropdown.classList.toggle('show');
+    wrapper.classList.toggle('active');
+}}
+
+function toggleTypeAll(checkbox) {{
+    const isChecked = checkbox.checked;
+    document.querySelectorAll('#typeFilterDropdown input[data-type]').forEach(cb => {{
+        cb.checked = isChecked;
+    }});
+    applyTypeFilter();
+}}
+
+function applyTypeFilter() {{
+    const checkboxes = document.querySelectorAll('#typeFilterDropdown input[data-type]');
+    const activeTypes = new Set();
+
+    checkboxes.forEach(cb => {{
+        if (cb.checked) {{
+            activeTypes.add(cb.dataset.type);
+        }}
+    }});
+
+    // Update filter indicator
+    const wrapper = document.getElementById('typeFilterWrapper');
+    if (activeTypes.size === 6 || activeTypes.size === 0) {{
+        wrapper.classList.remove('filtering');
+    }} else {{
+        wrapper.classList.add('filtering');
+    }}
+
+    // Apply combined filters
+    applyAllFilters();
+}}
+
+function applyAllFilters() {{
+    // Get active type filters
+    const typeCheckboxes = document.querySelectorAll('#typeFilterDropdown input[data-type]');
+    const activeTypes = new Set();
+    typeCheckboxes.forEach(cb => {{ if (cb.checked) activeTypes.add(cb.dataset.type); }});
+
+    // Filter portfolio cards by Type only (EUI is now L2 filter)
+    document.querySelectorAll('.portfolio-card').forEach(card => {{
+        const classification = card.dataset.classification || '';
+        const passesType = activeTypes.size === 0 || activeTypes.has(classification);
+
+        if (passesType) {{
+            card.style.display = '';
+        }} else {{
+            card.style.display = 'none';
+        }}
+    }});
+
+    // Update visible counts
+    updatePortfolioVisibleCounts();
+}}
+
+function updatePortfolioVisibleCounts() {{
+    const visibleCards = document.querySelectorAll('.portfolio-card:not([style*="display: none"])');
+    let totalBuildings = 0;
+    let totalSqft = 0;
+    let totalOpex = 0;
+    let totalCarbon = 0;
+    let totalValuation = 0;
+
+    visibleCards.forEach(card => {{
+        totalBuildings += parseInt(card.dataset.buildings || 0);
+        totalSqft += parseFloat(card.dataset.sqft || 0);
+        totalOpex += parseFloat(card.dataset.opex || 0);
+        totalCarbon += parseFloat(card.dataset.carbon || 0);
+        totalValuation += parseFloat(card.dataset.valuation || 0);
+    }});
+
+    // Update header tooltips with filtered totals
+    const buildingsHeader = document.getElementById('header-buildings');
+    const sqftHeader = document.getElementById('header-sqft');
+    const opexHeader = document.getElementById('header-opex');
+    const carbonHeader = document.getElementById('header-carbon');
+    const valuationHeader = document.getElementById('header-valuation');
+
+    if (buildingsHeader) buildingsHeader.title = `${{totalBuildings.toLocaleString()}} buildings shown`;
+    if (sqftHeader) sqftHeader.title = `${{(totalSqft/1e6).toFixed(1)}}M sq ft shown`;
+    if (opexHeader) opexHeader.title = `$${{(totalOpex/1e6).toFixed(1)}}M savings shown`;
+    if (carbonHeader) carbonHeader.title = `${{Math.round(totalCarbon/1000)}}K tCO2e shown`;
+    if (valuationHeader) valuationHeader.title = `$${{(totalValuation/1e9).toFixed(2)}}B val. impact shown`;
+}}
+
+// Close type filter dropdown when clicking outside
+document.addEventListener('click', function(e) {{
+    if (!e.target.closest('.type-filter-wrapper')) {{
+        const dropdown = document.getElementById('typeFilterDropdown');
+        const wrapper = document.getElementById('typeFilterWrapper');
+        if (dropdown) dropdown.classList.remove('show');
+        if (wrapper) wrapper.classList.remove('active');
+    }}
+}});
+
+// =============================================================================
+// EUI FILTER DROPDOWN
+// =============================================================================
+
+function toggleEuiFilter(event) {{
+    event.stopPropagation();
+    const dropdown = document.getElementById('euiFilterDropdown');
+    const wrapper = document.getElementById('euiFilterWrapper');
+    dropdown.classList.toggle('show');
+    wrapper.classList.toggle('active');
+}}
+
+function toggleEuiAll(checkbox) {{
+    const isChecked = checkbox.checked;
+    document.querySelectorAll('#euiFilterDropdown input[data-eui]').forEach(cb => {{
+        cb.checked = isChecked;
+    }});
+    applyEuiFilter();
+}}
+
+function applyEuiFilter() {{
+    const checkboxes = document.querySelectorAll('#euiFilterDropdown input[data-eui]');
+    const activeEui = new Set();
+
+    checkboxes.forEach(cb => {{
+        if (cb.checked) {{
+            activeEui.add(cb.dataset.eui);
+        }}
+    }});
+
+    // Update filter indicator
+    const wrapper = document.getElementById('euiFilterWrapper');
+    if (activeEui.size === 3 || activeEui.size === 0) {{
+        wrapper.classList.remove('filtering');
+    }} else {{
+        wrapper.classList.add('filtering');
+    }}
+
+    // Filter building rows (L2) by EUI rating
+    document.querySelectorAll('.building-grid-row').forEach(row => {{
+        const euiRating = row.dataset.euiRating || 'ok';
+        if (activeEui.size === 0 || activeEui.has(euiRating)) {{
+            row.style.display = '';
+        }} else {{
+            row.style.display = 'none';
+        }}
+    }});
+}}
+
+// Close EUI filter dropdown when clicking outside
+document.addEventListener('click', function(e) {{
+    if (!e.target.closest('.eui-filter-wrapper')) {{
+        const dropdown = document.getElementById('euiFilterDropdown');
+        const wrapper = document.getElementById('euiFilterWrapper');
+        if (dropdown) dropdown.classList.remove('show');
+        if (wrapper) wrapper.classList.remove('active');
     }}
 }});
 
@@ -4846,6 +5409,14 @@ function togglePortfolio(header) {{
         // Capture the portfolio logo URL for map popups
         const logoImg = card.querySelector('.portfolio-header .org-logo');
         expandedPortfolioLogo = logoImg ? logoImg.src : null;
+
+        // Scroll to show full portfolio data row below sticky header
+        setTimeout(() => {{
+            const rect = card.getBoundingClientRect();
+            const headerOffset = 250; // sticky headers height
+            const targetY = window.scrollY + rect.top - headerOffset;
+            window.scrollTo({{ top: targetY, behavior: 'smooth' }});
+        }}, 50);
     }} else {{
         expandedPortfolioLogo = null;
     }}
@@ -5111,6 +5682,7 @@ function toRad(deg) {{
 }}
 
 function savingsColor(amount) {{
+    amount = parseFloat(amount) || 0;
     // Green gradient: darker = more savings
     if (amount >= 500000) return '#166534';  // dark green
     if (amount >= 100000) return '#22c55e';  // medium green
@@ -5208,10 +5780,12 @@ function buildingsGeoJSON(buildings = null) {{
                     city: b.city,
                     state: b.state,
                     type: b.type,
-                    vertical: b.vertical,
-                    opex: b.total_opex,
+                    vertical: b.bldg_vertical,
+                    opex: b.opex,
                     image: b.image,
-                    url: b.url,
+                    owner: b.owner || '',
+                    manager: b.manager || '',
+                    property_name: b.property_name || '',
                     stackCount: stack.length,
                     stackKey: key
                 }},
@@ -5502,7 +6076,8 @@ function spiderfyStack(stackKey, centerLng, centerLat, map) {{
         // Click to navigate
         el.addEventListener('click', (e) => {{
             e.stopPropagation();
-            window.location.href = `buildings/${{b.id}}.html`;
+            const fromTab = document.querySelector('.main-tab.active')?.dataset.tab === 'all-buildings' ? 'cities' : 'portfolios';
+            window.location.href = `buildings/${{b.id}}.html?from=${{fromTab}}`;
         }});
 
         spiderfiedMarkers.push(marker);
@@ -5527,7 +6102,8 @@ function setupMapInteractions(map) {{
         closeButton: false,
         closeOnClick: false,
         offset: [0, -12],
-        maxWidth: '280px'
+        maxWidth: '280px',
+        className: 'pin-popup'
     }});
 
     // Track hovered building to avoid redundant updates
@@ -5554,19 +6130,22 @@ function setupMapInteractions(map) {{
             : '';
 
         const imgHtml = props.image
-            ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{props.image}}" style="width:100%;height:100px;object-fit:cover;${{expandedPortfolioLogo ? '' : 'border-radius:6px 6px 0 0;'}}">`
+            ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{props.image}}" style="width:100%;height:100px;object-fit:cover;${{expandedPortfolioLogo ? '' : 'border-radius:6px 6px 0 0;'}}" onerror="this.style.display='none'">`
             : '';
 
         popup.setLngLat(coords)
             .setHTML(`
-                <div style="min-width:220px;cursor:pointer;" onclick="window.location.href='buildings/${{props.id}}.html'">
+                <div style="min-width:250px;cursor:pointer;" onclick="window.location.href='buildings/${{props.id}}.html?from=' + (document.querySelector('.main-tab.active')?.dataset.tab === 'all-buildings' ? 'cities' : 'portfolios')">
                     ${{logoHtml}}
                     ${{imgHtml}}
                     <div style="padding:12px;">
                         <div style="font-weight:600;font-size:14px;margin-bottom:4px;color:#0066cc;">${{props.address}}</div>
+                        ${{props.property_name ? `<div style="font-size:12px;color:#333;margin-bottom:4px;">${{props.property_name}}</div>` : ''}}
                         <div style="color:#666;font-size:12px;margin-bottom:8px;">${{props.city}}, ${{props.state}} &bull; ${{props.type}}</div>
-                        <div style="color:${{savingsColor(props.opex)}};font-weight:600;font-size:14px;padding-top:8px;border-top:1px solid #eee;">
-                            ${{formatMoney(props.opex)}}/yr savings
+                        ${{props.owner ? `<div style="font-size:13px;color:#666;margin-bottom:4px;"><strong>Owner:</strong> ${{props.owner}}</div>` : ''}}
+                        ${{props.manager ? `<div style="font-size:13px;color:#666;margin-bottom:4px;"><strong>Manager:</strong> ${{props.manager}}</div>` : ''}}
+                        <div style="color:${{savingsColor(props.opex)}};font-weight:600;font-size:14px;margin-top:8px;padding-top:8px;border-top:1px solid #eee;">
+                            Savings: ${{formatMoney(props.opex)}}/yr
                         </div>
                         <div style="font-size:11px;color:#999;margin-top:6px;text-align:center;">Click for details &rarr;</div>
                     </div>
@@ -5601,7 +6180,8 @@ function setupMapInteractions(map) {{
         }}
 
         // Single building → navigate
-        window.location.href = `buildings/${{props.id}}.html`;
+        const fromTab = document.querySelector('.main-tab.active')?.dataset.tab === 'all-buildings' ? 'cities' : 'portfolios';
+        window.location.href = `buildings/${{props.id}}.html?from=${{fromTab}}`;
     }});
 
     // Click elsewhere on map → clear spiderfied markers
@@ -5846,16 +6426,24 @@ function loadPortfolioRows(card, loadMore = false) {{
         const cityState = b.city && b.state ? `${{b.city}}, ${{b.state}}` : '';
         const sqft = b.sqft >= 1000000 ? `${{(b.sqft/1000000).toFixed(1)}}M` : b.sqft >= 10000 ? `${{Math.round(b.sqft/1000)}}K` : b.sqft > 0 ? Math.round(b.sqft).toLocaleString() : '-';
         const eui = formatEuiRating(b.eui, b.eui_benchmark);
+        let euiRating = 'ok';
+        if (b.eui && b.eui_benchmark && b.eui_benchmark > 0) {{
+            const ratio = b.eui / b.eui_benchmark;
+            if (ratio <= 1.0) euiRating = 'good';
+            else if (ratio <= 1.2) euiRating = 'ok';
+            else euiRating = 'bad';
+        }}
         const opex = b.opex >= 1000000000 ? `$${{(b.opex/1000000000).toFixed(1)}}B` : b.opex >= 1000000 ? `$${{Math.round(b.opex/1000000)}}M` : b.opex >= 1000 ? `$${{Math.round(b.opex/1000)}}K` : `$${{Math.round(b.opex)}}`;
         const val = b.valuation >= 1000000000 ? `$${{(b.valuation/1000000000).toFixed(1)}}B` : b.valuation >= 1000000 ? `$${{Math.round(b.valuation/1000000)}}M` : b.valuation >= 1000 ? `$${{Math.round(b.valuation/1000)}}K` : `$${{Math.round(b.valuation)}}`;
         const carbon = b.carbon >= 1000000 ? `${{(b.carbon/1000000).toFixed(1)}}M` : b.carbon >= 1000 ? `${{Math.round(b.carbon/1000)}}K` : Math.round(b.carbon || 0);
 
-        const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="margin-left:4px;color:var(--primary)">↗</a>` : '';
+        const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
         const addrLine1 = b.property_name ? `${{addrClean}}, ${{cityState}}` : addrClean;
         const addrLine2 = b.property_name ? b.property_name : cityState;
-        return `<div class="building-grid-row" data-radio-type="${{b.type}}" data-vertical="${{b.vertical}}" data-sqft="${{b.sqft}}" data-opex="${{b.opex}}" data-valuation="${{b.valuation}}" data-carbon="${{b.carbon}}" onclick="window.location='buildings/${{b.id}}.html'">
+        return `<div class="building-grid-row" data-radio-type="${{b.type}}" data-vertical="${{b.vertical}}" data-sqft="${{b.sqft}}" data-eui="${{b.eui || 0}}" data-eui-rating="${{euiRating}}" data-opex="${{b.opex}}" data-valuation="${{b.valuation}}" data-carbon="${{b.carbon}}" onclick="window.location='buildings/${{b.id}}.html'">
             <div>${{thumb}}</div>
-            <span class="stat-cell"><span class="addr-main">${{addrLine1}}${{extLink}}</span><span class="addr-sub">${{addrLine2}}</span></span>
+            <span class="ext-link-cell">${{extLink}}</span>
+            <span class="stat-cell"><span class="addr-main">${{addrLine1}}</span><span class="addr-sub">${{addrLine2}}</span></span>
             <span class="stat-cell">${{b.type || '-'}}</span>
             <span class="stat-cell">${{sqft}}</span>
             <span class="stat-cell">${{eui}}</span>
@@ -5867,6 +6455,28 @@ function loadPortfolioRows(card, loadMore = false) {{
 
     const remaining = buildings.length - showCount;
 
+    // Sort header for building rows (only shown inside expanded portfolio)
+    const orgName = card.dataset.displayname || card.dataset.org || '';
+    const sortHeader = `<div class="building-sort-header">
+        <span class="l2-org-name">${{orgName}}</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'address')">Building</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'type')">Type</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'sqft')">Sq Ft</span>
+        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper" onclick="toggleEuiFilter(event)">
+            <span>EUI</span>
+            <span class="eui-active-indicator"></span>
+            <svg class="eui-filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
+                <label class="eui-filter-option"><input type="checkbox" data-eui="bad" checked onchange="applyEuiFilter()"> Bad</label>
+                <label class="eui-filter-option"><input type="checkbox" data-eui="ok" checked onchange="applyEuiFilter()"> OK</label>
+                <label class="eui-filter-option"><input type="checkbox" data-eui="good" checked onchange="applyEuiFilter()"> Good</label>
+            </div>
+        </div>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'valuation')">Val. Impact</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'carbon')">tCO2e/yr</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'opex')">Savings/yr</span>
+    </div>`;
+
     // Simple control bar: ▲ (collapse) and ▼ (show more)
     const showLess = `<span class="row-arrow" onclick="event.stopPropagation(); showLessBuildings(this.closest('.portfolio-card'))">▲</span>`;
     const showMore = remaining > 0
@@ -5874,7 +6484,7 @@ function loadPortfolioRows(card, loadMore = false) {{
         : `<span class="row-arrow disabled">▼</span>`;
     const controlBar = `<div class="row-controls">${{showLess}}${{showMore}}</div>`;
 
-    container.innerHTML = html + controlBar;
+    container.innerHTML = sortHeader + html + controlBar;
     loadedPortfolios.add(idx);
     console.log('[Portfolio] idx=' + idx + ' showing ' + buildingsToShow.length + '/' + buildings.length + ' buildings' + (loadMore ? ' (ALL)' : ''));
 }}

@@ -7,12 +7,23 @@ import pandas as pd
 import sys
 import os
 import traceback
+import subprocess
 from pathlib import Path
 from datetime import datetime
 import pytz
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 import multiprocessing
+
+# NYC special buildings - use NYC building.py for these
+NYC_BUILDING_SCRIPT = "/Users/forrestmiller/Desktop/New/Scripts/building.py"
+NYC_BBLS = set()
+try:
+    nyc_df = pd.read_csv("/Users/forrestmiller/Desktop/New/data/10_year_savings_by_building.csv")
+    NYC_BBLS = set(str(bbl) for bbl in nyc_df['bbl'].dropna())
+    print(f"✓ Loaded {len(NYC_BBLS)} special NYC BBLs")
+except Exception as e:
+    print(f"Warning: Could not load NYC BBLs: {e}")
 
 # Import functions from modules
 from src.data.loader import load_csv, extract_filename
@@ -308,19 +319,24 @@ def generate_hero(row):
     state = safe_val(row, 'loc_state', '')
     zip_code = safe_val(row, 'loc_zip', '')
 
-    # Build full address: street, city, state zip
-    address_parts = [street]
-    if city and state:
-        address_parts.append(f"{city}, {state}")
-    if zip_code:
-        address_parts[-1] = address_parts[-1] + f" {zip_code}" if len(address_parts) > 1 else zip_code
-    address = ', '.join(address_parts) if len(address_parts) > 1 else street
+    # Build full address - only append city/state/zip if not already in loc_address
+    if city and city in street:
+        # Address already contains city, use as-is
+        address = street
+    else:
+        # Address is just street, append city/state/zip
+        address_parts = [street]
+        if city and state:
+            address_parts.append(f"{city}, {state}")
+        if zip_code:
+            address_parts[-1] = address_parts[-1] + f" {zip_code}" if len(address_parts) > 1 else zip_code
+        address = ', '.join(address_parts) if len(address_parts) > 1 else street
 
     building_url = safe_val(row, 'id_source_url')
     has_url = building_url and str(building_url).lower() != 'nan'
 
-    # Back button - big clickable area
-    back_btn = '''<a href="../index.html" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    # Back button - big clickable area, uses JS to check 'from' param and return to correct tab
+    back_btn = '''<a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>'''
@@ -329,7 +345,7 @@ def generate_hero(row):
         html = f"""
     <div class="hero" style="position:relative;text-align:center;">
         {back_btn}
-        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.5em; opacity: 0.7;">↗</span></a></h1>
+        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
     </div>
 """
     else:
@@ -1333,6 +1349,63 @@ def generate_single_report(args):
         return (building_id, False, str(e))
 
 
+def run_nyc_batch_chunk(args):
+    """Run a chunk of NYC buildings - MAX SPEED"""
+    chunk_id, bbls, output_dir = args
+    batch_file = f'/tmp/nyc_batch_{chunk_id}.txt'
+    with open(batch_file, 'w') as f:
+        f.write('\n'.join(bbls))
+
+    try:
+        result = subprocess.run(
+            ['python3', '-u', NYC_BUILDING_SCRIPT, '--batch-file', batch_file, output_dir],
+            capture_output=True,
+            text=True,
+            timeout=900
+        )
+        success_count = result.stdout.count('✓')
+        return (chunk_id, success_count, len(bbls) - success_count)
+    except Exception as e:
+        return (chunk_id, 0, len(bbls))
+
+
+def generate_nyc_special_reports(nyc_building_ids, output_dir):
+    """Generate NYC reports - MAX PARALLEL SPEED"""
+    if not nyc_building_ids:
+        return 0, 0
+
+    # MAX WORKERS - 2x CPU for I/O bound work
+    num_chunks = multiprocessing.cpu_count() * 2
+
+    print(f"\n{'='*70}")
+    print(f"NYC TURBO - {num_chunks} PARALLEL PROCESSES")
+    print(f"{'='*70}")
+
+    start_time = time.time()
+
+    bbls = [bid.replace('NYC_', '') for bid in nyc_building_ids]
+    chunk_size = max(1, (len(bbls) + num_chunks - 1) // num_chunks)
+    chunks = [(i, bbls[i*chunk_size:(i+1)*chunk_size], output_dir)
+              for i in range(num_chunks) if bbls[i*chunk_size:(i+1)*chunk_size]]
+
+    print(f"{len(bbls)} buildings → {len(chunks)} chunks of ~{chunk_size}\n")
+
+    generated = 0
+    errors = 0
+
+    # ThreadPool better for subprocess I/O
+    with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
+        futures = [executor.submit(run_nyc_batch_chunk, c) for c in chunks]
+        for future in as_completed(futures):
+            cid, ok, fail = future.result()
+            generated += ok
+            errors += fail
+            print(f"  Chunk {cid+1} done | {generated}/{len(bbls)} total | {time.time()-start_time:.0f}s")
+
+    print(f"\n✓ NYC: {generated} ok, {errors} err in {time.time()-start_time:.0f}s\n")
+    return generated, errors
+
+
 def main():
     """Main execution with parallel processing - OPTIMIZED FOR SPEED"""
     print("=" * 70)
@@ -1363,6 +1436,19 @@ def main():
         if len(df_to_process) == 0:
             print(f"\n✗ Building ID '{building_id}' not found in dataset")
             sys.exit(1)
+
+        # Check if it's a NYC special building
+        if building_id.startswith('NYC_'):
+            bbl = building_id.replace('NYC_', '')
+            if bbl in NYC_BBLS:
+                print(f"Generating NYC special report for: {building_id}\n")
+                nyc_gen, nyc_err = generate_nyc_special_reports([building_id], output_dir)
+                if nyc_gen > 0:
+                    print(f"✓ Generated NYC special report for {building_id}")
+                else:
+                    print(f"✗ Error generating NYC special report for {building_id}")
+                return
+
         print(f"Generating report for single building: {building_id}\n")
         for idx, row in df_to_process.iterrows():
             result = generate_single_report((row.to_dict(), idx, output_dir))
@@ -1374,30 +1460,45 @@ def main():
 
     df_to_process = df_clean
     total = len(df_to_process)
-    print(f"Generating reports for all {total} buildings\n")
+    print(f"Total buildings to process: {total}\n")
 
-    # Use 2x CPU count for I/O bound work (file writing)
+    # Separate NYC special buildings from the rest
+    def is_nyc_special(building_id):
+        if not building_id.startswith('NYC_'):
+            return False
+        bbl = building_id.replace('NYC_', '')
+        return bbl in NYC_BBLS
+
+    nyc_special_ids = [row['id_building'] for _, row in df_to_process.iterrows()
+                       if is_nyc_special(row['id_building'])]
+    df_regular = df_to_process[~df_to_process['id_building'].apply(is_nyc_special)]
+
+    print(f"  - {len(nyc_special_ids)} NYC special buildings (using NYC building.py)")
+    print(f"  - {len(df_regular)} regular buildings (using generic template)\n")
+
+    # MAX SPEED MODE
     num_workers = multiprocessing.cpu_count() * 2
-    # Batch size: process multiple buildings per task to reduce IPC overhead
-    batch_size = 50
-    print(f"🚀 Using {num_workers} parallel workers, batch size {batch_size}\n")
+    batch_size = 100  # Larger batches = less overhead
 
-    # Convert to list of (dict, idx) tuples
-    all_rows = [(row.to_dict(), idx) for idx, row in df_to_process.iterrows()]
+    print(f"🚀 TURBO MODE: NYC batch + {num_workers} regular workers\n")
 
-    # Split into batches
+    start_time = time.time()
+
+    # NYC batch (single call, CSVs load once)
+    nyc_generated, nyc_errors = generate_nyc_special_reports(nyc_special_ids, output_dir)
+
+    # Regular reports in parallel
+    print(f"Generating {len(df_regular)} regular building reports...\n")
+
+    all_rows = [(row.to_dict(), idx) for idx, row in df_regular.iterrows()]
     batches = []
     for i in range(0, len(all_rows), batch_size):
         batch = all_rows[i:i + batch_size]
         batches.append((batch, output_dir))
 
-    print(f"Split into {len(batches)} batches\n")
-
-    start_time = time.time()
     generated = 0
     errors = 0
 
-    # Process batches in parallel
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
         futures = [executor.submit(generate_batch_reports, batch) for batch in batches]
 
@@ -1411,30 +1512,33 @@ def main():
                     generated += 1
                 else:
                     errors += 1
-                    print(f"✗ Error for {building_id}: {error}")
+                    print(f"✗ {building_id}: {error}")
 
-            # Progress update every 10 batches (500 buildings)
-            if batches_done % 10 == 0:
+            # Progress every 5 batches for speed
+            if batches_done % 5 == 0:
                 elapsed = time.time() - start_time
-                rate = (generated + errors) / elapsed
-                remaining = (total - generated - errors) / rate if rate > 0 else 0
-                print(f"  Progress: {generated + errors}/{total} ({generated} ok, {errors} errors) "
-                      f"- {rate:.1f} reports/sec - ~{remaining:.0f}s remaining")
+                rate = generated / elapsed if elapsed > 0 else 0
+                print(f"  {generated}/{len(df_regular)} | {rate:.0f}/sec | {(len(df_regular)-generated)/rate:.0f}s left" if rate > 0 else f"  {generated}/{len(df_regular)}")
 
     # Summary
     elapsed = time.time() - start_time
     minutes = int(elapsed // 60)
     seconds = int(elapsed % 60)
-    rate = generated / elapsed if elapsed > 0 else 0
+    rate = (generated + nyc_generated) / elapsed if elapsed > 0 else 0
+
+    total_generated = generated + nyc_generated
+    total_errors = errors + nyc_errors
 
     print()
     print("=" * 70)
     print("Generation Complete!")
     print("=" * 70)
-    print(f"Total reports generated: {generated}")
-    print(f"Errors encountered: {errors}")
+    print(f"NYC special reports: {nyc_generated}")
+    print(f"Regular reports: {generated}")
+    print(f"Total reports generated: {total_generated}")
+    print(f"Total errors: {total_errors}")
     print(f"Time elapsed: {minutes}m {seconds}s")
-    print(f"Rate: {rate:.1f} reports/second")
+    print(f"Rate: {rate:.1f} reports/second (regular only)")
     print(f"Output directory: {output_dir}")
     print("=" * 70)
 
