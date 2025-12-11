@@ -7379,7 +7379,6 @@ function showTutorialStep(stepIndex) {{
             document.getElementById('tutorial-content').textContent = step.content;
 
             // Update buttons
-            document.getElementById('tutorial-prev').disabled = stepIndex === 0;
             document.getElementById('tutorial-next').textContent =
                 stepIndex === TUTORIAL_STEPS.length - 1 ? 'Finish' : 'Next';
 
