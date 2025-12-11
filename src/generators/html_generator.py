@@ -3244,7 +3244,7 @@ tr.pin-highlight {
     max-width: 380px;
     min-width: 320px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    pointer-events: auto;
+    pointer-events: none;
     transition: opacity 0.15s ease, top 0.15s ease, left 0.15s ease;
     font-family: 'Inter', sans-serif;
     opacity: 0;
@@ -3252,6 +3252,7 @@ tr.pin-highlight {
 
 .tutorial-tooltip.visible {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .tutorial-tooltip::before {
