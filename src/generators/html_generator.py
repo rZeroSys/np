@@ -7135,13 +7135,6 @@ const TUTORIAL_STEPS = [
         action: function() {{ switchMainTab('portfolios'); }}
     }},
     {{
-        target: '#city-building-search',
-        title: 'Building Name Search',
-        content: 'Search for any building by name! Try typing "One Vanderbilt" or "Empire State" to find specific buildings in the database.',
-        position: 'bottom',
-        action: function() {{ switchMainTab('all-buildings'); }}
-    }},
-    {{
         target: '.vertical-buttons-group',
         title: 'Vertical Filters',
         content: 'Filter portfolios by sector: Commercial (blue), Education (green), or Healthcare (purple). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
