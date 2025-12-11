@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 16:03:36 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 16:12:27 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5393,7 +5393,7 @@ function renderAllBuildingsBatch() {
 
     for (let i = abCurrentIndex; i < endIndex; i++) {
         const b = filteredBuildingsData[i];
-        const row = createAllBuildingsRow(b);
+        const row = createAllBuildingsRow(b, i);
         fragment.appendChild(row);
     }
 
@@ -5411,13 +5411,14 @@ function renderAllBuildingsBatch() {
     }
 }
 
-function createAllBuildingsRow(b) {
+function createAllBuildingsRow(b, index) {
     const row = document.createElement('div');
     row.className = 'cities-row';
     row.onclick = function() { window.location = 'buildings/' + b.id + '.html?from=cities'; };
 
+    const loadingAttr = index < 1000 ? 'eager' : 'lazy';
     const thumb = b.image
-        ? `<img src="${CONFIG.awsBucket}/thumbnails/${b.image}" alt="" class="building-thumb" loading="lazy" onerror="this.style.display='none'">`
+        ? `<img src="${CONFIG.awsBucket}/thumbnails/${b.image}" alt="" class="building-thumb" loading="${loadingAttr}" onerror="this.style.display='none'">`
         : '<div class="building-thumb-placeholder">🏢</div>';
 
     const sqft = formatNumber(b.sqft || 0);
@@ -8208,7 +8209,7 @@ window.addEventListener('resize', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-11 16:03:36 EST
+        Build: 2025-12-11 16:12:28 EST
       </div>
     </footer>
 

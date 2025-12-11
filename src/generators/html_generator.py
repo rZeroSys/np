@@ -4644,7 +4644,7 @@ function renderAllBuildingsBatch() {{
 
     for (let i = abCurrentIndex; i < endIndex; i++) {{
         const b = filteredBuildingsData[i];
-        const row = createAllBuildingsRow(b);
+        const row = createAllBuildingsRow(b, i);
         fragment.appendChild(row);
     }}
 
@@ -4662,13 +4662,14 @@ function renderAllBuildingsBatch() {{
     }}
 }}
 
-function createAllBuildingsRow(b) {{
+function createAllBuildingsRow(b, index) {{
     const row = document.createElement('div');
     row.className = 'cities-row';
     row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html?from=cities'; }};
 
+    const loadingAttr = index < 1000 ? 'eager' : 'lazy';
     const thumb = b.image
-        ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" alt="" class="building-thumb" loading="lazy" onerror="this.style.display='none'">`
+        ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" alt="" class="building-thumb" loading="${{loadingAttr}}" onerror="this.style.display='none'">`
         : '<div class="building-thumb-placeholder">🏢</div>';
 
     const sqft = formatNumber(b.sqft || 0);
