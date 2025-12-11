@@ -546,7 +546,7 @@ body {
     background: white;
     border-bottom: 1px solid #ccc;
     padding: 15px 32px;
-    z-index: 1000;
+    z-index: 1003;
 }
 
 /* City filter bar - identical to vertical filter bar, for Cities tab */
@@ -558,7 +558,7 @@ body {
     background: white;
     border-bottom: 1px solid #ccc;
     padding: 15px 32px;
-    z-index: 1000;
+    z-index: 1003;
     display: none;
 }
 
