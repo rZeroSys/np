@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-10 19:00:09 EST -->
+<!-- Generated: 2025-12-10 21:49:01 EST -->
 <!-- Last Updated: September 17, 2025 - Simplified Salesify Email (Utility Only) -->
-<!-- Building Report Version: 1765411192 -->
+<!-- Building Report Version: 1765421092 -->
 <html>
 <head>
-    <title>Rockefeller Center - ODCV Analysis (v1765411192)</title>
+    <title>Rockefeller Center - ODCV Analysis (v1765421092)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -849,7 +849,7 @@
 
     // Essential variables
     const buildingHasFloorplan = false;
-    const buildingHas3D = false;
+    const buildingHas3D = true;
     let carouselIndex = {};
     let hiddenSlides = {};
     let interactiveIndex = 0;
@@ -1091,7 +1091,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="index.html" style="text-decoration: none; display: block; position: absolute; top: 0; left: 0; z-index: 10;">
+                <a href="../index.html" style="text-decoration: none; display: block; position: absolute; top: 0; left: 0; z-index: 10;">
                     <div style="padding: 15px 40px; display: flex; align-items: center; gap: 10px; color: white; cursor: pointer; transition: all 0.3s ease;"
                          onmouseover="this.style.background='rgba(255,255,255,0.1)'"
                          onmouseout="this.style.background='transparent'">
@@ -1100,11 +1100,10 @@
                              onmouseout="this.style.transform='translateX(0)'">
                             <path d="M19 12H5M12 19l-7-7 7-7"/>
                         </svg>
-                        <span style="font-size: 16px; font-weight: 500; opacity: 0.9;">Back to Rankings</span>
+                        <span style="font-size: 16px; font-weight: 500; opacity: 0.9;">Back</span>
                     </div>
                 </a>
                 <div style="flex: 1; display: flex; justify-content: center; align-items: center; white-space: nowrap; margin: 0 20px;">
-                    <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 25px; font-size: 1.6em; font-weight: 700; margin-right: 20px;">#162</span>
                     <span style="font-size: 2.2em; font-weight: 700; color: white; line-height: 1.2;">Rockefeller Center • Midtown East</span>
                 </div>
             </div>
@@ -1232,13 +1231,13 @@
             </div>
 
             <div class="page">
-                <h3 class="page-title" id="interactive-views-title-1012640030">Dynamic: <span style="color: #555;">Drone Footage</span>
+                <h3 class="page-title" id="interactive-views-title-1012640030">Dynamic: <span style="color: #555;">3D Model</span>
 
                 </h3>
                 <div class="page-content">
                 <div class="carousel-container">
                     <div class="carousel-track" id="interactive-carousel-1012640030">
-                        
+                        <div class="carousel-slide" data-type="3d"><div id="model-viewer-1012640030" style="width: 100%; height: 675px; background: #ffffff; position: relative;"><div id="model-container-1012640030" style="width: 100%; height: 100%;"></div><div id="model-loading-1012640030" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Inter, sans-serif; color: #333; font-size: 18px; font-weight: 500; background: rgba(255, 255, 255, 0.95); padding: 20px 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); z-index: 1000;">Loading 3D Model...</div></div></div>
                         <div class="carousel-slide" data-type="video"><div id="aerial-video-1012640030" style="width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; position: relative;">
                     <video controls autoplay loop muted preload="auto" style="width: 100%; height: 100%; object-fit: contain;"
                            onerror="this.style.display='none'; document.getElementById('video-error-1012640030').style.display='flex';">
@@ -1267,7 +1266,7 @@
 
                     <!-- Navigation arrows --><button class="carousel-btn carousel-prev" onclick="moveInteractiveCarousel('1012640030', -1)">‹</button><button class="carousel-btn carousel-next" onclick="moveInteractiveCarousel('1012640030', 1)">›</button>
 
-                    <!-- Navigation Controls --><!-- Dot Navigation with Labels --><div class="carousel-dots"><span class="dot active" onclick="goToInteractiveSlide('1012640030', 0)" title="Aerial Video"></span><span class="dot" onclick="goToInteractiveSlide('1012640030', 1)" title="360° Virtual Tour"></span></div>
+                    <!-- Navigation Controls --><!-- Dot Navigation with Labels --><div class="carousel-dots"><span class="dot active" onclick="goToInteractiveSlide('1012640030', 0)" title="3D Model"></span><span class="dot" onclick="goToInteractiveSlide('1012640030', 1)" title="Aerial Video"></span><span class="dot" onclick="goToInteractiveSlide('1012640030', 2)" title="360° Virtual Tour"></span></div>
                 </div>
                 </div>
                 </div>
@@ -3407,7 +3406,7 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
         
         // Initialize based on whether video exists
         const hasVideo = true;
-        const has3D = false;
+        const has3D = true;
         if (!hasVideo && !has3D) {
             setTimeout(window.initPanorama, 500);
         }
@@ -3908,7 +3907,7 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
     </div><!-- End of container -->
     
     <div style="text-align: center; color: black; font-size: 14px; padding: 20px 0; font-family: 'Inter', sans-serif; border: none !important; box-shadow: none !important; background: transparent;">
-        Build: 10 Dec 2025 06:00:09 PM CST | 1012640030
+        Build: 10 Dec 2025 08:49:01 PM CST | --batch-file
         <div style="margin-top: 10px;">
             <a href="https://docs.google.com/spreadsheets/d/1efvF54Fy_155wnrN0lcAUJhCPoosX9bAHzt-W1HDRBI/edit?gid=0#gid=0" target="_blank" style="color: #0066cc; text-decoration: none; margin: 0 10px;">Report an issue</a> |
             <a href="https://docs.google.com/spreadsheets/d/1efvF54Fy_155wnrN0lcAUJhCPoosX9bAHzt-W1HDRBI/edit?gid=2092445270#gid=2092445270" target="_blank" style="color: #0066cc; text-decoration: none; margin: 0 10px;">Request a feature</a>
