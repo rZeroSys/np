@@ -575,6 +575,14 @@ body.all-buildings-active .city-filter-bar {
     min-width: 170px;
 }
 
+.city-btn .btn-count {
+    display: none;
+}
+
+.city-btn:hover .btn-count {
+    display: inline;
+}
+
 .vertical-filter-inner {
     max-width: 1272px;
     margin: 0 auto;
