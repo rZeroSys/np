@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-10 22:15:21 EST -->
+<!-- Generated: 2025-12-11 01:50:29 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -269,6 +269,39 @@
             visibility: visible;
         }
 
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .org-logo::after {
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }
+
+        .org-logo:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
@@ -316,7 +349,7 @@
 <tr><td>Size</td><td>161,339 sqft</td></tr>
 <tr><td>Type</td><td>Office</td></tr>
 <tr><td>Year Built</td><td>1893</td></tr>
-<tr><td>Manager</td><td>Madison LaSalle Partners, LLC <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Madison_LaSalle_Partners,_LLC.png" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display='none'"></td></tr><tr><td>Tenant</td><td>South Lasalle <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/South_Lasalle.png" style="height:25px;" onerror="this.style.display='none'"></td></tr>
+<tr><td>Manager</td><td><div style=""><span class="org-logo" data-org-name="Madison LaSalle Partners, LLC"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Madison_LaSalle_Partners,_LLC.png" alt="Madison LaSalle Partners, LLC" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Madison LaSalle Partners, LLC</span></span></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="South Lasalle"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/South_Lasalle.png" alt="South Lasalle" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">South Lasalle</span></span></div></td></tr>
         </table>
     </div>
 

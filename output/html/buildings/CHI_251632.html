@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-10 22:14:10 EST -->
+<!-- Generated: 2025-12-11 01:49:14 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -269,6 +269,39 @@
             visibility: visible;
         }
 
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .org-logo::after {
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }
+
+        .org-logo:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
@@ -315,7 +348,7 @@
 <tr><td>Size</td><td>103,610 sqft</td></tr>
 <tr><td>Type</td><td>K-12 School</td></tr>
 <tr><td>Year Built</td><td>1893</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>Chicago Public Schools <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Chicago_Public_Schools.png" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display='none'"></td></tr><tr><td>Tenant</td><td>Curtis Elementary School (Chicago) <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Curtis_Elementary_School_Chicago.png" style="height:25px;" onerror="this.style.display='none'"></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.cps.edu" target="_blank" class="org-logo" data-org-name="Chicago Public Schools"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Chicago_Public_Schools.png" alt="Chicago Public Schools" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Chicago Public Schools</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Curtis Elementary School (Chicago)"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Curtis_Elementary_School_Chicago.png" alt="Curtis Elementary School (Chicago)" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Curtis Elementary School (Chicago)</span></span></div></td></tr>
         </table>
     </div>
 

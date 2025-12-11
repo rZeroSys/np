@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-10 22:15:06 EST -->
+<!-- Generated: 2025-12-11 01:50:18 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -269,6 +269,39 @@
             visibility: visible;
         }
 
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .org-logo::after {
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }
+
+        .org-logo:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
@@ -316,7 +349,7 @@
 <tr><td>Size</td><td>106,255 sqft</td></tr>
 <tr><td>Type</td><td>Theater</td></tr>
 <tr><td>Year Built</td><td>1999</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td>Century 25 Union Landing <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Century_25_Union_Landing.png" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display='none'"></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Century 25 Union Landing"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Century_25_Union_Landing.png" alt="Century 25 Union Landing" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Century 25 Union Landing</span></span></div></td></tr>
         </table>
     </div>
 

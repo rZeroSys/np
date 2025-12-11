@@ -40,17 +40,23 @@ OUTPUT_DIR = str(BUILDINGS_OUTPUT_DIR) + '/'
 IMAGES_DIR = str(CONFIG_IMAGES_DIR)
 AWS_BUCKET = AWS_BASE_URL
 
-# Load organization display names mapping
+# Load organization display names and URLs mapping
 ORG_DISPLAY_NAMES = {}
+ORG_URLS = {}
 try:
     orgs_df = pd.read_csv(str(PORTFOLIO_ORGS_PATH))
     for _, org_row in orgs_df.iterrows():
         org_name = org_row.get('organization', '')
         display_name = org_row.get('display_name', '')
-        if org_name and display_name and pd.notna(display_name) and str(display_name).strip():
-            ORG_DISPLAY_NAMES[str(org_name).strip().lower()] = str(display_name).strip()
+        org_url = org_row.get('org_url', '')
+        if org_name:
+            org_key = str(org_name).strip().lower()
+            if display_name and pd.notna(display_name) and str(display_name).strip():
+                ORG_DISPLAY_NAMES[org_key] = str(display_name).strip()
+            if org_url and pd.notna(org_url) and str(org_url).strip():
+                ORG_URLS[org_key] = str(org_url).strip()
 except Exception as e:
-    print(f"Warning: Could not load organization display names: {e}")
+    print(f"Warning: Could not load organization data: {e}")
 
 # Load post-ODCV EUI lookup
 EUI_POST_ODCV = {}
@@ -218,6 +224,13 @@ def get_org_display_name(org_name):
         return org_name
     org_key = str(org_name).strip().lower()
     return ORG_DISPLAY_NAMES.get(org_key, org_name)
+
+def get_org_url(org_name):
+    """Get the website URL for an organization."""
+    if not org_name or pd.isna(org_name):
+        return None
+    org_key = str(org_name).strip().lower()
+    return ORG_URLS.get(org_key)
 
 def safe_num(row, column, default=None):
     """Extract number safely, return None if not available"""
@@ -399,51 +412,60 @@ def generate_building_info(row):
     tenant = tenant if tenant and str(tenant).lower() != 'nan' else None
     tenant_sub = tenant_sub if tenant_sub and str(tenant_sub).lower() != 'nan' else None
 
-    # Helper to build org - logo and name on same row (uses display name)
+    # Helper to build org - logo only with hover showing display name
     def build_org_with_logo(name):
         if not name:
             return ""
-        display_name = get_org_display_name(name)
-        logo_filename = get_logo_filename(name)  # Logo lookup uses original name
-        if logo_filename:
-            logo_url = f"{AWS_BUCKET}/logos/{logo_filename}.png"
-            return f'{escape(display_name)} <img src="{logo_url}" style="height:25px;vertical-align:middle;margin-left:8px;" onerror="this.style.display=\'none\'">'
-        return f'{escape(display_name)}'
+        logo = build_logo_img(name, 60)
+        if logo:
+            return f'<div style="">{logo}</div>'
+        return f'{escape(get_org_display_name(name))}'
 
-    # Helper for logo only (returns just the img tag)
-    def build_logo_img(name, height=30):
+    # Helper for logo only (returns img tag, wrapped in link if org has website)
+    # Falls back to org name text (hyperlinked if URL exists) when no logo or logo fails to load
+    def build_logo_img(name, height=60):
         if not name:
             return ""
+        display_name = get_org_display_name(name)
         logo_filename = get_logo_filename(name)
+        org_url = get_org_url(name)
         if logo_filename:
             logo_url = f"{AWS_BUCKET}/logos/{logo_filename}.png"
-            return f'<img src="{logo_url}" style="height:{height}px;" onerror="this.style.display=\'none\'">'
-        return ""
+            # onerror: hide wrapper, show fallback text (no hover since text is visible)
+            fallback_text = f'<span style="display:none;">{escape(display_name)}</span>'
+            if org_url:
+                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
+                return f'<a href="{escape(org_url)}" target="_blank" class="org-logo" data-org-name="{escape(display_name)}">{img_tag}{fallback_text}</a>'
+            else:
+                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
+                return f'<span class="org-logo" data-org-name="{escape(display_name)}">{img_tag}{fallback_text}</span>'
+        # No logo filename - just text (hyperlinked if URL exists), no hover
+        if org_url:
+            return f'<a href="{escape(org_url)}" target="_blank">{escape(display_name)}</a>'
+        return f'{escape(display_name)}'
 
-    # Build tenant with sub-org - logos only, centered
+    # Build tenant with sub-org - logos centered, text fallback with hyperlinks
     def build_tenant_with_sub(tenant_name, sub_name):
         if not tenant_name:
             return ""
-        tenant_display = get_org_display_name(tenant_name)
 
         if sub_name:
-            sub_logo = build_logo_img(sub_name, 30)
-            tenant_logo = build_logo_img(tenant_name, 30)
-            # Logos centered using margin:auto on block element
+            sub_logo = build_logo_img(sub_name, 60)
+            tenant_logo = build_logo_img(tenant_name, 60)
+            # Both have content (logo or text fallback)
             if sub_logo and tenant_logo and sub_logo != tenant_logo:
                 return f"<div style=''>{tenant_logo} &nbsp; {sub_logo}</div>"
             elif sub_logo:
                 return f"<div style=''>{sub_logo}</div>"
             elif tenant_logo:
                 return f"<div style=''>{tenant_logo}</div>"
-            # Fallback to text if no logos
-            return f'{escape(tenant_display)} ({escape(get_org_display_name(sub_name))})'
+            return ""
         else:
-            # No sub-org, show tenant name with logo inline
-            tenant_logo = build_logo_img(tenant_name, 25)
+            # No sub-org
+            tenant_logo = build_logo_img(tenant_name, 60)
             if tenant_logo:
-                return f'{escape(tenant_display)} {tenant_logo}'
-            return f'{escape(tenant_display)}'
+                return f'<div style="">{tenant_logo}</div>'
+            return ""
 
     tenant_sub_html = ""  # No longer used separately
 
@@ -1246,6 +1268,39 @@ def generate_html_report(row):
         }}
 
         .info-tooltip:hover::before {{
+            opacity: 1;
+            visibility: visible;
+        }}
+
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {{
+            position: relative;
+            display: inline-block;
+        }}
+
+        .org-logo::after {{
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }}
+
+        .org-logo:hover::after {{
             opacity: 1;
             visibility: visible;
         }}
