@@ -567,8 +567,8 @@ body.all-buildings-active .city-filter-bar {
 }
 
 .city-filter-bar .vertical-filter-inner {
-    justify-content: space-evenly;
-    gap: 40px;
+    justify-content: center;
+    gap: 32px;
 }
 
 .city-btn {
