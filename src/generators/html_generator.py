@@ -566,6 +566,11 @@ body.all-buildings-active .city-filter-bar {
     display: block;
 }
 
+.city-filter-bar .vertical-filter-inner {
+    justify-content: space-evenly;
+    gap: 40px;
+}
+
 .vertical-filter-inner {
     max-width: 1272px;
     margin: 0 auto;
