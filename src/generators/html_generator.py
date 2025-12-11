@@ -7202,8 +7202,8 @@ const TUTORIAL_STEPS = [
     }},
     {{
         target: '#euiFilterWrapper',
-        title: 'EUI Filter (Important!)',
-        content: 'This is the EUI (Energy Use Intensity) filter - look for the bouncing DOWN ARROW! Click it to filter buildings by energy efficiency: Good (green), OK (orange), or Bad (red). A blue dot appears when filtering is active.',
+        title: 'EUI Filter',
+        content: 'Filter buildings by Energy Use Intensity (EUI). Click the dropdown arrow to select efficiency ratings: Good (green), OK (orange), or Bad (red). When a filter is active, a blue indicator dot appears next to the column header.',
         position: 'left',
         highlight: true,
         action: function() {{
