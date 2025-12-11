@@ -49,3 +49,6 @@ output/html/test_*.html
 # Claude settings (local)
 .claude/settings.json
 .claude/plans/
+
+# Scripts with hardcoded API keys (not the homepage - Google Maps key is protected)
+scripts/images/fetch_and_validate_missing.py
