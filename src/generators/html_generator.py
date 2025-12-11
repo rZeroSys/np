@@ -571,6 +571,10 @@ body.all-buildings-active .city-filter-bar {
     gap: 40px;
 }
 
+.city-btn {
+    min-width: 170px;
+}
+
 .vertical-filter-inner {
     max-width: 1272px;
     margin: 0 auto;
