@@ -635,6 +635,12 @@ body.all-buildings-active .city-filter-bar {
 }
 
 /* VERTICAL DROPDOWN FILTERS */
+.vertical-buttons-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
 .vertical-btn-wrapper {
     position: relative;
     display: inline-flex;
@@ -1259,6 +1265,7 @@ body.all-buildings-active .main-tabs {
 .ab-table th {
     padding: 14px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     font-size: 12px;
     color: white;
@@ -1468,6 +1475,7 @@ body.all-buildings-active .main-tabs {
     background: none;
     border: none;
     text-align: left;
+    text-transform: none;
     font-size: 14px;
     color: var(--gray-700);
     cursor: pointer;
@@ -1759,6 +1767,7 @@ body.all-buildings-active .main-tabs {
     color: white;
     padding: 12px 10px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -1866,6 +1875,68 @@ body.all-buildings-active .main-tabs {
     position: sticky;
     top: 200px;
     z-index: 100;
+}
+
+/* Info Tooltip - blue circle i icon */
+.info-tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: #64748b;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+}
+.info-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1e293b;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    width: 280px;
+    text-align: left;
+    text-transform: none;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.info-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+.info-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: #1e293b;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+.info-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
 }
 
 .sort-col {
@@ -2302,6 +2373,7 @@ body.all-buildings-active .main-tabs {
     background: var(--gray-200);
     padding: 8px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 500;
     font-size: 11px;
     color: var(--gray-700);
@@ -2665,6 +2737,7 @@ body.all-buildings-active .main-tabs {
     background: var(--gray-100);
     padding: 10px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     color: var(--gray-600);
     position: sticky;
@@ -2980,6 +3053,7 @@ tr.pin-highlight {
         grid-row: 2;
         font-size: 12px;
         text-align: left;
+    text-transform: none;
     }
 
 }
@@ -3008,6 +3082,31 @@ tr.pin-highlight {
     to { transform: rotate(360deg); }
 }
 
+/* Shimmer loading animation - polished skeleton UI */
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Image skeleton while loading */
+.building-thumb.img-loading {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.org-logo.img-loading {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
 /* Hidden */
 .hidden {
     display: none !important;
@@ -3022,61 +3121,44 @@ tr.pin-highlight {
    TUTORIAL SYSTEM - WalkMe-style Interactive Guide
    ============================================================================= */
 
-/* Tutorial Launch Button - UNMISSABLE */
+/* Tutorial Launch Button - Compact ? icon in gutter */
 .tutorial-launch-btn {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 20px;
+    right: 8px;
     z-index: 9998;
     background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
     color: white;
     border: none;
-    border-radius: 50px;
-    padding: 14px 24px;
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
     transition: transform 0.2s, box-shadow 0.2s;
     font-family: 'Inter', sans-serif;
 }
 
 .tutorial-launch-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(0, 102, 204, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 3px 12px rgba(0, 102, 204, 0.5);
 }
 
 .tutorial-icon {
-    width: 24px;
-    height: 24px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
 }
 
+.tutorial-text,
 .tutorial-pulse {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50px;
-    background: rgba(0, 102, 204, 0.4);
-    animation: tutorial-pulse 2s infinite;
-    pointer-events: none;
-}
-
-@keyframes tutorial-pulse {
-    0% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.15); opacity: 0; }
-    100% { transform: scale(1); opacity: 0; }
+    display: none;
 }
 
 /* Tutorial Overlay System */
@@ -3153,8 +3235,13 @@ tr.pin-highlight {
     min-width: 320px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     pointer-events: auto;
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease, top 0.3s ease, left 0.3s ease;
     font-family: 'Inter', sans-serif;
+    opacity: 0;
+}
+
+.tutorial-tooltip.visible {
+    opacity: 1;
 }
 
 .tutorial-tooltip::before {
@@ -3522,7 +3609,7 @@ tr.pin-highlight {
         # Return BOTH the vertical filter bar AND the filter drawer
         return f'''<div class="vertical-filter-bar">
     <div class="vertical-filter-inner">
-        {''.join(vertical_html)}
+        <div class="vertical-buttons-group">{''.join(vertical_html)}</div>
         <div id="building-type-chip" class="building-type-chip">
             <span class="chip-x" onclick="clearBuildingTypeFilter()">&times;</span>
             <span class="chip-text"></span>
@@ -3577,7 +3664,7 @@ tr.pin-highlight {
         <div class="tutorial-backdrop"></div>
         <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
         <div class="tutorial-tooltip" id="tutorial-tooltip">
-            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">15</span></div>
+            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">12</span></div>
             <h3 id="tutorial-title" class="tutorial-title"></h3>
             <p id="tutorial-content" class="tutorial-content"></p>
             <div class="tutorial-actions">
@@ -3911,7 +3998,7 @@ tr.pin-highlight {
             </div>
         </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
-        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
+        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI<span class="info-tooltip" data-tooltip="Median EUI across all buildings in portfolio. Median is used (not average) because it's not skewed by outliers. Buildings shown first have highest savings potential. Click 'See More' to view all buildings.">i</span></span>
         <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
         <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
         <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
@@ -4183,7 +4270,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">{p['building_count']}</span></span>
         <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
         <span class="stat-cell sqft-value">{sqft_display}</span>
-        <span class="stat-cell eui-value">{eui_display}</span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
         <span class="stat-cell valuation-value">{fmt_money(p['total_valuation_impact'])}</span>
         <span class="stat-cell carbon-value">{format_carbon(p['total_carbon_reduction'])}</span>
         <span class="stat-cell opex-value">{fmt_money(p['total_opex_avoidance'])}</span>
@@ -4365,6 +4452,47 @@ const CONFIG = {{
     mapboxToken: '{self.config["mapbox_token"]}'
 }};
 
+// =============================================================================
+// RELIABLE SCRIPT LOADER WITH RETRY + TIMEOUT
+// =============================================================================
+
+function loadScript(url, opts = {{}}) {{
+    const {{ maxRetries = 3, timeout = 15000 }} = opts;
+    return new Promise((resolve, reject) => {{
+        let attempts = 0;
+        function tryLoad() {{
+            attempts++;
+            const script = document.createElement('script');
+            // Cache bust on retry to avoid cached failures
+            script.src = attempts > 1 ? url + '?v=' + Date.now() : url;
+
+            const timer = setTimeout(() => {{
+                script.remove();
+                if (attempts < maxRetries) {{
+                    console.log('[loadScript] Timeout, retry', attempts + 1, url);
+                    setTimeout(tryLoad, 500);
+                }} else {{
+                    reject(new Error('Timeout after ' + maxRetries + ' attempts'));
+                }}
+            }}, timeout);
+
+            script.onload = () => {{ clearTimeout(timer); resolve(); }};
+            script.onerror = () => {{
+                clearTimeout(timer);
+                script.remove();
+                if (attempts < maxRetries) {{
+                    console.log('[loadScript] Error, retry', attempts + 1, url);
+                    setTimeout(tryLoad, 500);
+                }} else {{
+                    reject(new Error('Failed after ' + maxRetries + ' attempts'));
+                }}
+            }};
+            document.head.appendChild(script);
+        }}
+        tryLoad();
+    }});
+}}
+
 // Track which portfolios have had rows rendered
 const loadedPortfolios = new Set();
 
@@ -4441,18 +4569,21 @@ let selectedCityFilter = null;
 
 function initAllBuildingsTable() {{
     const container = document.getElementById('cities-list');
-    container.innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Loading buildings...</div>';
+    container.innerHTML = '<div class="loading-shimmer" style="text-align:center;padding:40px;border-radius:4px;">Loading buildings...</div>';
 
     if (EXPORT_DATA && EXPORT_DATA.length > 0) {{
         onAllBuildingsDataLoaded();
     }} else {{
-        const script = document.createElement('script');
-        script.src = 'data/export_data.js';
-        script.onload = onAllBuildingsDataLoaded;
-        script.onerror = function() {{
-            container.innerHTML = '<div style="text-align:center;padding:40px;color:#c00;">Failed to load building data</div>';
-        }};
-        document.head.appendChild(script);
+        // Large file - use 30s timeout with retry
+        loadScript('data/export_data.js', {{ timeout: 30000 }})
+            .then(onAllBuildingsDataLoaded)
+            .catch(err => {{
+                console.error('[AllBuildings] Failed to load:', err);
+                container.innerHTML = `<div style="text-align:center;padding:40px;color:#c00;">
+                    Failed to load building data.
+                    <a href="#" onclick="event.preventDefault();initAllBuildingsTable()" style="color:#0066cc;text-decoration:underline;margin-left:8px;">Try again</a>
+                </div>`;
+            }});
     }}
 }}
 
@@ -5243,23 +5374,14 @@ function toggleExportMenu(event) {{
 let EXPORT_DATA = null;
 
 function loadAllBuildingsForExport() {{
-    return new Promise((resolve) => {{
-        if (EXPORT_DATA) {{
-            resolve(EXPORT_DATA);
-            return;
-        }}
-
-        // Load via script tag (works with file:// protocol)
-        const script = document.createElement('script');
-        script.src = 'data/export_data.js';
-        script.onload = () => {{
-            resolve(EXPORT_DATA);
-        }};
-        script.onerror = () => {{
-            resolve([]);
-        }};
-        document.head.appendChild(script);
-    }});
+    if (EXPORT_DATA) return Promise.resolve(EXPORT_DATA);
+    // Large file - use 30s timeout with retry
+    return loadScript('data/export_data.js', {{ timeout: 30000 }})
+        .then(() => EXPORT_DATA)
+        .catch(err => {{
+            console.error('[Export] Failed to load export data:', err);
+            return []; // Return empty array on failure
+        }});
 }}
 
 // Helper: Download CSV
@@ -5996,24 +6118,13 @@ function savingsColor(amount) {{
 let MAP_DATA = null;
 
 function loadMapData() {{
-    return new Promise((resolve) => {{
-        if (MAP_DATA) {{
-            resolve();
-            return;
-        }}
-
-        // Load via script tag (works with file:// protocol)
-        const script = document.createElement('script');
-        script.src = 'data/map_data.js';
-        script.onload = () => {{
-            resolve();
-        }};
-        script.onerror = () => {{
-            MAP_DATA = [];
-            resolve();
-        }};
-        document.head.appendChild(script);
-    }});
+    if (MAP_DATA) return Promise.resolve();
+    // Larger file needs longer timeout (30s)
+    return loadScript('data/map_data.js', {{ timeout: 30000 }})
+        .catch(err => {{
+            console.error('[Map] Failed to load map data:', err);
+            MAP_DATA = []; // Graceful fallback to empty
+        }});
 }}
 
 let fullMap = null;
@@ -6672,12 +6783,16 @@ function loadPortfolioRows(card, loadMore = false) {{
     if (!container) return;
 
     if (!PORTFOLIO_BUILDINGS[idx]) {{
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#666;">Loading...</div>';
-        const script = document.createElement('script');
-        script.src = `data/portfolios/p_${{idx}}.js`;
-        script.onload = () => loadPortfolioRows(card, loadMore);
-        script.onerror = () => container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>';
-        document.head.appendChild(script);
+        container.innerHTML = '<div class="loading-shimmer" style="padding:20px;text-align:center;border-radius:4px;">Loading buildings...</div>';
+        loadScript(`data/portfolios/p_${{idx}}.js`)
+            .then(() => loadPortfolioRows(card, loadMore))
+            .catch(err => {{
+                console.error('[Portfolio] Failed to load portfolio', idx, ':', err);
+                container.innerHTML = `<div style="padding:20px;color:#c00;text-align:center;">
+                    Failed to load buildings.
+                    <a href="#" onclick="event.preventDefault();loadPortfolioRows(this.closest('.portfolio-card'))" style="color:#0066cc;text-decoration:underline;margin-left:8px;">Try again</a>
+                </div>`;
+            }});
         return;
     }}
 
@@ -6847,7 +6962,7 @@ function renderPortfolioCard(p) {{
             <span class="stat-cell building-count"><span class="building-count-value">${{p.building_count}}</span></span>
             <span class="stat-cell classification-cell">${{(p.classification || '-').replace(/\\//g, '<br>').replace(/ /g, '<br>')}}</span>
             <span class="stat-cell sqft-value">${{formatSqftJS(p.total_sqft)}}</span>
-            <span class="stat-cell eui-value">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
+            <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
             <span class="stat-cell valuation-value">${{formatMoney(p.total_valuation)}}</span>
             <span class="stat-cell carbon-value">${{formatCarbon(p.total_carbon)}}</span>
             <span class="stat-cell opex-value">${{formatMoney(p.total_opex)}}</span>
@@ -6892,20 +7007,40 @@ function loadMorePortfolios() {{
     applyFilters();
 }}
 
+// =============================================================================
+// OFFLINE DETECTION
+// =============================================================================
+
+window.addEventListener('offline', () => {{
+    console.log('[Network] Went offline');
+    document.body.classList.add('is-offline');
+}});
+
+window.addEventListener('online', () => {{
+    console.log('[Network] Back online');
+    document.body.classList.remove('is-offline');
+}});
+
+// =============================================================================
+// PAGE INITIALIZATION
+// =============================================================================
+
 document.addEventListener('DOMContentLoaded', function() {{
     console.log('[DOMContentLoaded] FILTER_DATA portfolios:', Object.keys(FILTER_DATA).length);
     console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
     console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
 
-    // Load export_data.js immediately for header tooltips
-    const exportScript = document.createElement('script');
-    exportScript.src = 'data/export_data.js';
-    exportScript.onload = function() {{
-        allBuildingsData = EXPORT_DATA;
-        console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
-        applyFilters(); // Re-run to update header tooltips
-    }};
-    document.head.appendChild(exportScript);
+    // Load export_data.js immediately for header tooltips (with retry)
+    loadScript('data/export_data.js', {{ timeout: 30000 }})
+        .then(() => {{
+            allBuildingsData = EXPORT_DATA;
+            console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
+            applyFilters(); // Re-run to update header tooltips
+        }})
+        .catch(err => {{
+            console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
+            // Non-critical - page still works without header tooltips
+        }});
 
     initTabs();
     selectVertical('all');
@@ -6965,22 +7100,10 @@ document.addEventListener('DOMContentLoaded', function() {{
 
 const TUTORIAL_STEPS = [
     {{
-        target: '.header h1 a',
-        title: 'R-Zero Logo',
-        content: 'Click the R-Zero logo to visit rzero.com in a new tab. This is your quick link back to the main R-Zero website.',
-        position: 'bottom'
-    }},
-    {{
         target: '#global-search',
         title: 'Search Bar',
         content: 'Search for any owner, tenant, or brand name. Results filter instantly as you type. Try searching for "CBRE" or "Marriott".',
         position: 'bottom'
-    }},
-    {{
-        target: '#userInfo',
-        title: 'Your Profile',
-        content: 'Your logged-in profile appears here. Click "Log out" to sign out of your R-Zero account.',
-        position: 'left'
     }},
     {{
         target: '.main-tab[data-tab="portfolios"]',
@@ -6996,17 +7119,11 @@ const TUTORIAL_STEPS = [
         position: 'bottom'
     }},
     {{
-        target: '.vertical-filter-bar',
+        target: '.vertical-buttons-group',
         title: 'Vertical Filters',
         content: 'Filter portfolios by sector: Commercial (blue), Education (green), or Healthcare (purple). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
         position: 'bottom',
         action: function() {{ switchMainTab('portfolios'); }}
-    }},
-    {{
-        target: '#building-type-chip',
-        title: 'Active Filter Chip',
-        content: 'When you select a building type, it appears as a chip here. Click the X to clear the filter and show all building types again.',
-        position: 'bottom'
     }},
     {{
         target: '.portfolio-card:first-child .org-logo-link',
@@ -7038,7 +7155,6 @@ const TUTORIAL_STEPS = [
         position: 'left',
         highlight: true,
         action: function() {{
-            // Make sure a portfolio is expanded so EUI filter is visible
             var expanded = document.querySelector('.portfolio-card.expanded');
             if (!expanded) {{
                 var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
@@ -7068,14 +7184,14 @@ const TUTORIAL_STEPS = [
     }},
     {{
         target: '.export-dropdown',
-        title: 'Export Options',
+        title: 'Export Data',
         content: 'Export data to CSV files. Choose to export all buildings, just the filtered results, or portfolio summaries for further analysis.',
         position: 'bottom'
     }},
     {{
         target: 'button[onclick*="openMapPanel"]',
         title: 'Map View',
-        content: 'Open the interactive map to see all buildings geographically. Search for addresses and explore buildings by region and climate zone.',
+        content: 'Search for a specific address to check if that building is in our dataset. See all buildings plotted geographically by climate zone.',
         position: 'bottom'
     }},
     {{
@@ -7140,6 +7256,10 @@ function prevTutorialStep() {{
 
 function showTutorialStep(stepIndex) {{
     var step = TUTORIAL_STEPS[stepIndex];
+    var tooltip = document.getElementById('tutorial-tooltip');
+
+    // Hide tooltip while repositioning
+    tooltip.classList.remove('visible');
 
     // Execute any action for this step (like switching tabs, expanding cards)
     if (step.action) {{
@@ -7184,7 +7304,6 @@ function showTutorialStep(stepIndex) {{
             }}
 
             // Position tooltip
-            var tooltip = document.getElementById('tutorial-tooltip');
             positionTooltip(tooltip, rect, step.position);
 
             // Update content
@@ -7196,6 +7315,9 @@ function showTutorialStep(stepIndex) {{
             document.getElementById('tutorial-prev').disabled = stepIndex === 0;
             document.getElementById('tutorial-next').textContent =
                 stepIndex === TUTORIAL_STEPS.length - 1 ? 'Finish' : 'Next';
+
+            // Show tooltip after positioning
+            tooltip.classList.add('visible');
         }}, 400);
 
     }}, step.action ? 500 : 100);
@@ -7206,8 +7328,8 @@ function positionTooltip(tooltip, targetRect, position) {{
     var tooltipWidth = 380;
     var tooltipHeight = tooltip.offsetHeight || 200;
 
-    // Remove all arrow classes
-    tooltip.className = 'tutorial-tooltip';
+    // Remove arrow classes but keep base class
+    tooltip.classList.remove('arrow-top', 'arrow-bottom', 'arrow-left', 'arrow-right');
 
     var top, left;
 

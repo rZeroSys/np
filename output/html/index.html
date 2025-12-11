@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 12:55:31 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 13:23:30 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -317,6 +317,12 @@ body.all-buildings-active .city-filter-bar {
 }
 
 /* VERTICAL DROPDOWN FILTERS */
+.vertical-buttons-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
 .vertical-btn-wrapper {
     position: relative;
     display: inline-flex;
@@ -941,6 +947,7 @@ body.all-buildings-active .main-tabs {
 .ab-table th {
     padding: 14px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     font-size: 12px;
     color: white;
@@ -1150,6 +1157,7 @@ body.all-buildings-active .main-tabs {
     background: none;
     border: none;
     text-align: left;
+    text-transform: none;
     font-size: 14px;
     color: var(--gray-700);
     cursor: pointer;
@@ -1441,6 +1449,7 @@ body.all-buildings-active .main-tabs {
     color: white;
     padding: 12px 10px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -1548,6 +1557,68 @@ body.all-buildings-active .main-tabs {
     position: sticky;
     top: 200px;
     z-index: 100;
+}
+
+/* Info Tooltip - blue circle i icon */
+.info-tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: #64748b;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+}
+.info-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1e293b;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    width: 280px;
+    text-align: left;
+    text-transform: none;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.info-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+.info-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: #1e293b;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+.info-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
 }
 
 .sort-col {
@@ -1984,6 +2055,7 @@ body.all-buildings-active .main-tabs {
     background: var(--gray-200);
     padding: 8px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 500;
     font-size: 11px;
     color: var(--gray-700);
@@ -2347,6 +2419,7 @@ body.all-buildings-active .main-tabs {
     background: var(--gray-100);
     padding: 10px 12px;
     text-align: left;
+    text-transform: none;
     font-weight: 600;
     color: var(--gray-600);
     position: sticky;
@@ -2662,6 +2735,7 @@ tr.pin-highlight {
         grid-row: 2;
         font-size: 12px;
         text-align: left;
+    text-transform: none;
     }
 
 }
@@ -2690,6 +2764,31 @@ tr.pin-highlight {
     to { transform: rotate(360deg); }
 }
 
+/* Shimmer loading animation - polished skeleton UI */
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Image skeleton while loading */
+.building-thumb.img-loading {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.org-logo.img-loading {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
 /* Hidden */
 .hidden {
     display: none !important;
@@ -2704,61 +2803,44 @@ tr.pin-highlight {
    TUTORIAL SYSTEM - WalkMe-style Interactive Guide
    ============================================================================= */
 
-/* Tutorial Launch Button - UNMISSABLE */
+/* Tutorial Launch Button - Compact ? icon in gutter */
 .tutorial-launch-btn {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 20px;
+    right: 8px;
     z-index: 9998;
     background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
     color: white;
     border: none;
-    border-radius: 50px;
-    padding: 14px 24px;
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
     transition: transform 0.2s, box-shadow 0.2s;
     font-family: 'Inter', sans-serif;
 }
 
 .tutorial-launch-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(0, 102, 204, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 3px 12px rgba(0, 102, 204, 0.5);
 }
 
 .tutorial-icon {
-    width: 24px;
-    height: 24px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
 }
 
+.tutorial-text,
 .tutorial-pulse {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50px;
-    background: rgba(0, 102, 204, 0.4);
-    animation: tutorial-pulse 2s infinite;
-    pointer-events: none;
-}
-
-@keyframes tutorial-pulse {
-    0% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.15); opacity: 0; }
-    100% { transform: scale(1); opacity: 0; }
+    display: none;
 }
 
 /* Tutorial Overlay System */
@@ -2835,8 +2917,13 @@ tr.pin-highlight {
     min-width: 320px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     pointer-events: auto;
-    transition: all 0.4s ease;
+    transition: opacity 0.3s ease, top 0.3s ease, left 0.3s ease;
     font-family: 'Inter', sans-serif;
+    opacity: 0;
+}
+
+.tutorial-tooltip.visible {
+    opacity: 1;
 }
 
 .tutorial-tooltip::before {
@@ -3142,7 +3229,7 @@ tr.pin-highlight {
 
 <div class="vertical-filter-bar">
     <div class="vertical-filter-inner">
-        <div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Commercial" onclick="selectVertical('Commercial')" style="background:#1e3a5f">Commercial <span class="btn-count">(16,892)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Commercial" onclick="toggleVerticalDropdown(event, 'Commercial')" style="background:#1e3a5f"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Commercial"><label><input type="radio" name="building-type-filter" data-type="Office" onchange="selectBuildingTypeFromDropdown('Office', 'Commercial')">Office <span class="dropdown-count">(9,979)</span></label><label><input type="radio" name="building-type-filter" data-type="Hotel" onchange="selectBuildingTypeFromDropdown('Hotel', 'Commercial')">Hotel <span class="dropdown-count">(2,471)</span></label><label><input type="radio" name="building-type-filter" data-type="Retail" onchange="selectBuildingTypeFromDropdown('Retail', 'Commercial')">Retail <span class="dropdown-count">(2,124)</span></label><label><input type="radio" name="building-type-filter" data-type="Supermarket" onchange="selectBuildingTypeFromDropdown('Supermarket', 'Commercial')">Supermarket <span class="dropdown-count">(1,162)</span></label><label><input type="radio" name="building-type-filter" data-type="Mixed Use" onchange="selectBuildingTypeFromDropdown('Mixed Use', 'Commercial')">Mixed Use <span class="dropdown-count">(526)</span></label><label><input type="radio" name="building-type-filter" data-type="Venue" onchange="selectBuildingTypeFromDropdown('Venue', 'Commercial')">Venue <span class="dropdown-count">(494)</span></label><label><input type="radio" name="building-type-filter" data-type="Mall" onchange="selectBuildingTypeFromDropdown('Mall', 'Commercial')">Mall <span class="dropdown-count">(151)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Education" onclick="selectVertical('Education')" style="background:#0077cc">Education <span class="btn-count">(4,103)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Education" onclick="toggleVerticalDropdown(event, 'Education')" style="background:#0077cc"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Education"><label><input type="radio" name="building-type-filter" data-type="K-12" onchange="selectBuildingTypeFromDropdown('K-12', 'Education')">K-12 <span class="dropdown-count">(2,591)</span></label><label><input type="radio" name="building-type-filter" data-type="Higher Ed" onchange="selectBuildingTypeFromDropdown('Higher Ed', 'Education')">Higher Ed <span class="dropdown-count">(1,311)</span></label><label><input type="radio" name="building-type-filter" data-type="Library/Museum" onchange="selectBuildingTypeFromDropdown('Library/Museum', 'Education')">Library/Museum <span class="dropdown-count">(203)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Healthcare" onclick="selectVertical('Healthcare')" style="background:#5ba3d9">Healthcare <span class="btn-count">(2,887)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Healthcare" onclick="toggleVerticalDropdown(event, 'Healthcare')" style="background:#5ba3d9"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Healthcare"><label><input type="radio" name="building-type-filter" data-type="Hospital/Clinic" onchange="selectBuildingTypeFromDropdown('Hospital/Clinic', 'Healthcare')">Hospital/Clinic <span class="dropdown-count">(1,112)</span></label><label><input type="radio" name="building-type-filter" data-type="Senior Care" onchange="selectBuildingTypeFromDropdown('Senior Care', 'Healthcare')">Senior Care <span class="dropdown-count">(959)</span></label><label><input type="radio" name="building-type-filter" data-type="Medical Office" onchange="selectBuildingTypeFromDropdown('Medical Office', 'Healthcare')">Medical Office <span class="dropdown-count">(799)</span></label></div></div>
+        <div class="vertical-buttons-group"><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Commercial" onclick="selectVertical('Commercial')" style="background:#1e3a5f">Commercial <span class="btn-count">(16,892)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Commercial" onclick="toggleVerticalDropdown(event, 'Commercial')" style="background:#1e3a5f"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Commercial"><label><input type="radio" name="building-type-filter" data-type="Office" onchange="selectBuildingTypeFromDropdown('Office', 'Commercial')">Office <span class="dropdown-count">(9,979)</span></label><label><input type="radio" name="building-type-filter" data-type="Hotel" onchange="selectBuildingTypeFromDropdown('Hotel', 'Commercial')">Hotel <span class="dropdown-count">(2,471)</span></label><label><input type="radio" name="building-type-filter" data-type="Retail" onchange="selectBuildingTypeFromDropdown('Retail', 'Commercial')">Retail <span class="dropdown-count">(2,124)</span></label><label><input type="radio" name="building-type-filter" data-type="Supermarket" onchange="selectBuildingTypeFromDropdown('Supermarket', 'Commercial')">Supermarket <span class="dropdown-count">(1,162)</span></label><label><input type="radio" name="building-type-filter" data-type="Mixed Use" onchange="selectBuildingTypeFromDropdown('Mixed Use', 'Commercial')">Mixed Use <span class="dropdown-count">(526)</span></label><label><input type="radio" name="building-type-filter" data-type="Venue" onchange="selectBuildingTypeFromDropdown('Venue', 'Commercial')">Venue <span class="dropdown-count">(494)</span></label><label><input type="radio" name="building-type-filter" data-type="Mall" onchange="selectBuildingTypeFromDropdown('Mall', 'Commercial')">Mall <span class="dropdown-count">(151)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Education" onclick="selectVertical('Education')" style="background:#0077cc">Education <span class="btn-count">(4,103)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Education" onclick="toggleVerticalDropdown(event, 'Education')" style="background:#0077cc"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Education"><label><input type="radio" name="building-type-filter" data-type="K-12" onchange="selectBuildingTypeFromDropdown('K-12', 'Education')">K-12 <span class="dropdown-count">(2,591)</span></label><label><input type="radio" name="building-type-filter" data-type="Higher Ed" onchange="selectBuildingTypeFromDropdown('Higher Ed', 'Education')">Higher Ed <span class="dropdown-count">(1,311)</span></label><label><input type="radio" name="building-type-filter" data-type="Library/Museum" onchange="selectBuildingTypeFromDropdown('Library/Museum', 'Education')">Library/Museum <span class="dropdown-count">(203)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Healthcare" onclick="selectVertical('Healthcare')" style="background:#5ba3d9">Healthcare <span class="btn-count">(2,887)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Healthcare" onclick="toggleVerticalDropdown(event, 'Healthcare')" style="background:#5ba3d9"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Healthcare"><label><input type="radio" name="building-type-filter" data-type="Hospital/Clinic" onchange="selectBuildingTypeFromDropdown('Hospital/Clinic', 'Healthcare')">Hospital/Clinic <span class="dropdown-count">(1,112)</span></label><label><input type="radio" name="building-type-filter" data-type="Senior Care" onchange="selectBuildingTypeFromDropdown('Senior Care', 'Healthcare')">Senior Care <span class="dropdown-count">(959)</span></label><label><input type="radio" name="building-type-filter" data-type="Medical Office" onchange="selectBuildingTypeFromDropdown('Medical Office', 'Healthcare')">Medical Office <span class="dropdown-count">(799)</span></label></div></div></div>
         <div id="building-type-chip" class="building-type-chip">
             <span class="chip-x" onclick="clearBuildingTypeFilter()">&times;</span>
             <span class="chip-text"></span>
@@ -3236,7 +3323,7 @@ tr.pin-highlight {
             </div>
         </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="3.7B Total Sq Ft">Sq Ft</span>
-        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
+        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI<span class="info-tooltip" data-tooltip="Median EUI across all buildings in portfolio. Median is used (not average) because it's not skewed by outliers. Buildings shown first have highest savings potential. Click 'See More' to view all buildings.">i</span></span>
         <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="$36.1B Total Val. Impact">Val. Impact</span>
         <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="3.3M Total tCO2e/yr">tCO2e/yr</span>
         <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="$4.3B Total Savings/yr">Savings/yr</span>
@@ -3252,7 +3339,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">295</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">135.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">51 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">51 (Good)</span></span>
         <span class="stat-cell valuation-value">$1.7B</span>
         <span class="stat-cell carbon-value">109.9K</span>
         <span class="stat-cell opex-value">$125M</span>
@@ -3270,7 +3357,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">537</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">108.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">66 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">66 (OK)</span></span>
         <span class="stat-cell valuation-value">$1.1B</span>
         <span class="stat-cell carbon-value">59.2K</span>
         <span class="stat-cell opex-value">$86M</span>
@@ -3288,7 +3375,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">272</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">73.0M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">50 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">50 (Good)</span></span>
         <span class="stat-cell valuation-value">$1.1B</span>
         <span class="stat-cell carbon-value">56.4K</span>
         <span class="stat-cell opex-value">$80M</span>
@@ -3306,7 +3393,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">192</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">57.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">85 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">85 (Bad)</span></span>
         <span class="stat-cell valuation-value">$493M</span>
         <span class="stat-cell carbon-value">75.4K</span>
         <span class="stat-cell opex-value">$75M</span>
@@ -3324,7 +3411,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">191</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">82.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">48 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">48 (Good)</span></span>
         <span class="stat-cell valuation-value">$940M</span>
         <span class="stat-cell carbon-value">90.4K</span>
         <span class="stat-cell opex-value">$72M</span>
@@ -3342,7 +3429,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">82</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">78.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">49 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">49 (Good)</span></span>
         <span class="stat-cell valuation-value">$462M</span>
         <span class="stat-cell carbon-value">71.0K</span>
         <span class="stat-cell opex-value">$71M</span>
@@ -3360,7 +3447,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">24</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">10.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">82 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">82 (Bad)</span></span>
         <span class="stat-cell valuation-value">$374M</span>
         <span class="stat-cell carbon-value">20.5K</span>
         <span class="stat-cell opex-value">$66M</span>
@@ -3378,7 +3465,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">206</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">61.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">46 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">46 (Good)</span></span>
         <span class="stat-cell valuation-value">$874M</span>
         <span class="stat-cell carbon-value">41.6K</span>
         <span class="stat-cell opex-value">$64M</span>
@@ -3396,7 +3483,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">140</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">66.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">45 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">45 (Good)</span></span>
         <span class="stat-cell valuation-value">$816M</span>
         <span class="stat-cell carbon-value">50.6K</span>
         <span class="stat-cell opex-value">$62M</span>
@@ -3414,7 +3501,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">162</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">43.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">102 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">102 (OK)</span></span>
         <span class="stat-cell valuation-value">$51M</span>
         <span class="stat-cell carbon-value">69.0K</span>
         <span class="stat-cell opex-value">$57M</span>
@@ -3432,7 +3519,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">96</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">72.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">53 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">53 (Good)</span></span>
         <span class="stat-cell valuation-value">$767M</span>
         <span class="stat-cell carbon-value">43.9K</span>
         <span class="stat-cell opex-value">$55M</span>
@@ -3450,7 +3537,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">112</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">48.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">53 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">53 (Good)</span></span>
         <span class="stat-cell valuation-value">$672M</span>
         <span class="stat-cell carbon-value">30.4K</span>
         <span class="stat-cell opex-value">$48M</span>
@@ -3468,7 +3555,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">286</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">41.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">88 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">88 (Bad)</span></span>
         <span class="stat-cell valuation-value">$748M</span>
         <span class="stat-cell carbon-value">34.0K</span>
         <span class="stat-cell opex-value">$43M</span>
@@ -3486,7 +3573,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">349</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">63.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">64 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">64 (OK)</span></span>
         <span class="stat-cell valuation-value">$507M</span>
         <span class="stat-cell carbon-value">28.7K</span>
         <span class="stat-cell opex-value">$40M</span>
@@ -3504,7 +3591,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">23</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">52.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">58 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">58 (Good)</span></span>
         <span class="stat-cell valuation-value">$1M</span>
         <span class="stat-cell carbon-value">45.9K</span>
         <span class="stat-cell opex-value">$35M</span>
@@ -3522,7 +3609,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">166</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">35.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">39 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">39 (Good)</span></span>
         <span class="stat-cell valuation-value">$383M</span>
         <span class="stat-cell carbon-value">33.5K</span>
         <span class="stat-cell opex-value">$35M</span>
@@ -3540,7 +3627,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">167</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">18.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">81 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">81 (Good)</span></span>
         <span class="stat-cell valuation-value">$40M</span>
         <span class="stat-cell carbon-value">41.3K</span>
         <span class="stat-cell opex-value">$35M</span>
@@ -3558,7 +3645,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">18</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">14.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">65 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">65 (OK)</span></span>
         <span class="stat-cell valuation-value">$500M</span>
         <span class="stat-cell carbon-value">23.8K</span>
         <span class="stat-cell opex-value">$34M</span>
@@ -3576,7 +3663,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">43</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">23.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">77 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">77 (Bad)</span></span>
         <span class="stat-cell valuation-value">$444M</span>
         <span class="stat-cell carbon-value">31.9K</span>
         <span class="stat-cell opex-value">$34M</span>
@@ -3594,7 +3681,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">67</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">41.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">41 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">41 (Good)</span></span>
         <span class="stat-cell valuation-value">$452M</span>
         <span class="stat-cell carbon-value">40.5K</span>
         <span class="stat-cell opex-value">$33M</span>
@@ -3612,7 +3699,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">26.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">45 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">45 (Good)</span></span>
         <span class="stat-cell valuation-value">$445M</span>
         <span class="stat-cell carbon-value">18.2K</span>
         <span class="stat-cell opex-value">$32M</span>
@@ -3630,7 +3717,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">148</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">21.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">125 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">125 (Bad)</span></span>
         <span class="stat-cell valuation-value">$562M</span>
         <span class="stat-cell carbon-value">24.1K</span>
         <span class="stat-cell opex-value">$32M</span>
@@ -3648,7 +3735,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">96</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">11.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">178 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">178 (Bad)</span></span>
         <span class="stat-cell valuation-value">$67M</span>
         <span class="stat-cell carbon-value">46.3K</span>
         <span class="stat-cell opex-value">$32M</span>
@@ -3666,7 +3753,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">94</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">22.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">63 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">63 (OK)</span></span>
         <span class="stat-cell valuation-value">$374M</span>
         <span class="stat-cell carbon-value">19.5K</span>
         <span class="stat-cell opex-value">$30M</span>
@@ -3684,7 +3771,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">306</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">42.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">49 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">49 (Good)</span></span>
         <span class="stat-cell valuation-value">$491M</span>
         <span class="stat-cell carbon-value">21.5K</span>
         <span class="stat-cell opex-value">$30M</span>
@@ -3702,7 +3789,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">36</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">17.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">48 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">48 (Good)</span></span>
         <span class="stat-cell valuation-value">$20M</span>
         <span class="stat-cell carbon-value">30.7K</span>
         <span class="stat-cell opex-value">$27M</span>
@@ -3720,7 +3807,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">78</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">33.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">74 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">74 (Bad)</span></span>
         <span class="stat-cell valuation-value">$386M</span>
         <span class="stat-cell carbon-value">26.8K</span>
         <span class="stat-cell opex-value">$26M</span>
@@ -3738,7 +3825,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">233</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">25.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">93 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">93 (Bad)</span></span>
         <span class="stat-cell valuation-value">$422M</span>
         <span class="stat-cell carbon-value">27.8K</span>
         <span class="stat-cell opex-value">$26M</span>
@@ -3756,7 +3843,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">107</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">32.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">69 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">69 (OK)</span></span>
         <span class="stat-cell valuation-value">$320M</span>
         <span class="stat-cell carbon-value">14.4K</span>
         <span class="stat-cell opex-value">$25M</span>
@@ -3774,7 +3861,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">56</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">13.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">65 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">65 (Good)</span></span>
         <span class="stat-cell valuation-value">$30M</span>
         <span class="stat-cell carbon-value">31.3K</span>
         <span class="stat-cell opex-value">$25M</span>
@@ -3792,7 +3879,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">3</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">2.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">43 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">43 (Good)</span></span>
         <span class="stat-cell valuation-value">$345M</span>
         <span class="stat-cell carbon-value">15.7K</span>
         <span class="stat-cell opex-value">$24M</span>
@@ -3810,7 +3897,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">100</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">22.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">39 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">39 (Good)</span></span>
         <span class="stat-cell valuation-value">$295M</span>
         <span class="stat-cell carbon-value">13.1K</span>
         <span class="stat-cell opex-value">$23M</span>
@@ -3828,7 +3915,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">16.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">64 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">64 (Good)</span></span>
         <span class="stat-cell valuation-value">$41M</span>
         <span class="stat-cell carbon-value">24.2K</span>
         <span class="stat-cell opex-value">$21M</span>
@@ -3846,7 +3933,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">39</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">18.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">58 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">58 (OK)</span></span>
         <span class="stat-cell valuation-value">$242M</span>
         <span class="stat-cell carbon-value">19.8K</span>
         <span class="stat-cell opex-value">$21M</span>
@@ -3864,7 +3951,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">105</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">29.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">36 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">36 (Good)</span></span>
         <span class="stat-cell valuation-value">$292M</span>
         <span class="stat-cell carbon-value">10.0K</span>
         <span class="stat-cell opex-value">$21M</span>
@@ -3882,7 +3969,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">31</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">12.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">129 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">129 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">29.7K</span>
         <span class="stat-cell opex-value">$20M</span>
@@ -3900,7 +3987,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">10.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">300 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">300 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">28.0K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -3918,7 +4005,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">10.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">62 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">62 (Good)</span></span>
         <span class="stat-cell valuation-value">$166K</span>
         <span class="stat-cell carbon-value">22.0K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -3936,7 +4023,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">189</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">20.0M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">66 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">66 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">15.7K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -3954,7 +4041,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">22</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">11.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">83 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">83 (Bad)</span></span>
         <span class="stat-cell valuation-value">$245M</span>
         <span class="stat-cell carbon-value">15.5K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -3972,7 +4059,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">36</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">12.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">82 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">82 (Good)</span></span>
         <span class="stat-cell valuation-value">$12M</span>
         <span class="stat-cell carbon-value">18.0K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -3990,7 +4077,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">31</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">6.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">152 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">152 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">9.9K</span>
         <span class="stat-cell opex-value">$18M</span>
@@ -4008,7 +4095,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">28.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">50 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">50 (Good)</span></span>
         <span class="stat-cell valuation-value">$230M</span>
         <span class="stat-cell carbon-value">18.1K</span>
         <span class="stat-cell opex-value">$17M</span>
@@ -4026,7 +4113,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">38</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">25.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">57 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">57 (OK)</span></span>
         <span class="stat-cell valuation-value">$223M</span>
         <span class="stat-cell carbon-value">23.9K</span>
         <span class="stat-cell opex-value">$16M</span>
@@ -4044,7 +4131,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">19.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">87 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">87 (Bad)</span></span>
         <span class="stat-cell valuation-value">$220M</span>
         <span class="stat-cell carbon-value">10.5K</span>
         <span class="stat-cell opex-value">$16M</span>
@@ -4062,7 +4149,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">14.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">46 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">46 (Good)</span></span>
         <span class="stat-cell valuation-value">$220M</span>
         <span class="stat-cell carbon-value">12.2K</span>
         <span class="stat-cell opex-value">$16M</span>
@@ -4080,7 +4167,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">3.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">32 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">32 (Good)</span></span>
         <span class="stat-cell valuation-value">$211M</span>
         <span class="stat-cell carbon-value">7.4K</span>
         <span class="stat-cell opex-value">$16M</span>
@@ -4098,7 +4185,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">7</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">2.0M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">97 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">97 (Bad)</span></span>
         <span class="stat-cell valuation-value">$207M</span>
         <span class="stat-cell carbon-value">6.4K</span>
         <span class="stat-cell opex-value">$15M</span>
@@ -4116,7 +4203,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">52</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">27.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">72 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">72 (Bad)</span></span>
         <span class="stat-cell valuation-value">$205M</span>
         <span class="stat-cell carbon-value">17.8K</span>
         <span class="stat-cell opex-value">$15M</span>
@@ -4134,7 +4221,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">17.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">61 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">61 (Good)</span></span>
         <span class="stat-cell valuation-value">$186M</span>
         <span class="stat-cell carbon-value">8.1K</span>
         <span class="stat-cell opex-value">$14M</span>
@@ -4152,7 +4239,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">33</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">13.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">53 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">53 (OK)</span></span>
         <span class="stat-cell valuation-value">$182M</span>
         <span class="stat-cell carbon-value">9.9K</span>
         <span class="stat-cell opex-value">$14M</span>
@@ -4170,7 +4257,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">42</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">15.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">101 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">101 (Bad)</span></span>
         <span class="stat-cell valuation-value">$106M</span>
         <span class="stat-cell carbon-value">11.3K</span>
         <span class="stat-cell opex-value">$14M</span>
@@ -4188,7 +4275,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">22</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">11.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">78 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">78 (Bad)</span></span>
         <span class="stat-cell valuation-value">$208M</span>
         <span class="stat-cell carbon-value">14.1K</span>
         <span class="stat-cell opex-value">$14M</span>
@@ -4206,7 +4293,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">48</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">11.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">56 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">56 (OK)</span></span>
         <span class="stat-cell valuation-value">$173M</span>
         <span class="stat-cell carbon-value">10.1K</span>
         <span class="stat-cell opex-value">$13M</span>
@@ -4224,7 +4311,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">12</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">8.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">107 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">107 (Bad)</span></span>
         <span class="stat-cell valuation-value">$18M</span>
         <span class="stat-cell carbon-value">28.7K</span>
         <span class="stat-cell opex-value">$13M</span>
@@ -4242,7 +4329,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">11.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">68 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">68 (Bad)</span></span>
         <span class="stat-cell valuation-value">$168M</span>
         <span class="stat-cell carbon-value">14.3K</span>
         <span class="stat-cell opex-value">$13M</span>
@@ -4260,7 +4347,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">214</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">31.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">72 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">72 (Bad)</span></span>
         <span class="stat-cell valuation-value">$2M</span>
         <span class="stat-cell carbon-value">49.7K</span>
         <span class="stat-cell opex-value">$13M</span>
@@ -4278,7 +4365,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">99</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">25.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">27 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">27 (Good)</span></span>
         <span class="stat-cell valuation-value">$217M</span>
         <span class="stat-cell carbon-value">9.3K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4296,7 +4383,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">49</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">12.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">43 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">43 (Good)</span></span>
         <span class="stat-cell valuation-value">$155M</span>
         <span class="stat-cell carbon-value">9.4K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4314,7 +4401,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">45</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">9.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">104 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">104 (OK)</span></span>
         <span class="stat-cell valuation-value">$3M</span>
         <span class="stat-cell carbon-value">14.6K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4332,7 +4419,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">42</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">12.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">49 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">49 (Good)</span></span>
         <span class="stat-cell valuation-value">$158M</span>
         <span class="stat-cell carbon-value">14.6K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4350,7 +4437,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">54</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">6.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">78 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">78 (Good)</span></span>
         <span class="stat-cell valuation-value">$100K</span>
         <span class="stat-cell carbon-value">9.9K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4368,7 +4455,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">64</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">14.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">40 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">40 (Good)</span></span>
         <span class="stat-cell valuation-value">$156M</span>
         <span class="stat-cell carbon-value">7.9K</span>
         <span class="stat-cell opex-value">$12M</span>
@@ -4386,7 +4473,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">38</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">21.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">37 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">37 (Good)</span></span>
         <span class="stat-cell valuation-value">$156M</span>
         <span class="stat-cell carbon-value">9.7K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4404,7 +4491,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">5.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">229 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">229 (Good)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">13.5K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4422,7 +4509,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">40</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">18.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">46 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">46 (Good)</span></span>
         <span class="stat-cell valuation-value">$164M</span>
         <span class="stat-cell carbon-value">10.0K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4440,7 +4527,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">200</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">11.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">170 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">170 (Good)</span></span>
         <span class="stat-cell valuation-value">$183M</span>
         <span class="stat-cell carbon-value">8.3K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4458,7 +4545,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">24</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">12.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">63 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">63 (OK)</span></span>
         <span class="stat-cell valuation-value">$149M</span>
         <span class="stat-cell carbon-value">12.7K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4476,7 +4563,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">29</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">10.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">117 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">117 (OK)</span></span>
         <span class="stat-cell valuation-value">$1M</span>
         <span class="stat-cell carbon-value">15.3K</span>
         <span class="stat-cell opex-value">$11M</span>
@@ -4494,7 +4581,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">25</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
         <span class="stat-cell sqft-value">7.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">78 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">78 (Bad)</span></span>
         <span class="stat-cell valuation-value">$128M</span>
         <span class="stat-cell carbon-value">5.7K</span>
         <span class="stat-cell opex-value">$10M</span>
@@ -4512,7 +4599,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">5</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">3.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">121 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">121 (Bad)</span></span>
         <span class="stat-cell valuation-value">$3M</span>
         <span class="stat-cell carbon-value">16.7K</span>
         <span class="stat-cell opex-value">$10M</span>
@@ -4530,7 +4617,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">68</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">14.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">56 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">56 (OK)</span></span>
         <span class="stat-cell valuation-value">$128M</span>
         <span class="stat-cell carbon-value">10.2K</span>
         <span class="stat-cell opex-value">$10M</span>
@@ -4548,7 +4635,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">3</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">2.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">209 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">209 (Good)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">4.4K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4566,7 +4653,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">21</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">3.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">181 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">181 (Bad)</span></span>
         <span class="stat-cell valuation-value">$39M</span>
         <span class="stat-cell carbon-value">14.6K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4584,7 +4671,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">3.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">124 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">124 (Bad)</span></span>
         <span class="stat-cell valuation-value">$114M</span>
         <span class="stat-cell carbon-value">8.2K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4602,7 +4689,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">51</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">15.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">50 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">50 (Good)</span></span>
         <span class="stat-cell valuation-value">$130M</span>
         <span class="stat-cell carbon-value">6.2K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4620,7 +4707,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">30</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">7.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">52 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">52 (Good)</span></span>
         <span class="stat-cell valuation-value">$41M</span>
         <span class="stat-cell carbon-value">7.5K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4638,7 +4725,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">4.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">278 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">278 (OK)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">16.7K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4656,7 +4743,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">53</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">9.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">51 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">51 (Good)</span></span>
         <span class="stat-cell valuation-value">$32M</span>
         <span class="stat-cell carbon-value">12.2K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4674,7 +4761,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">45</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">13.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">43 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">43 (Good)</span></span>
         <span class="stat-cell valuation-value">$115M</span>
         <span class="stat-cell carbon-value">9.9K</span>
         <span class="stat-cell opex-value">$9M</span>
@@ -4692,7 +4779,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">108</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">8.0M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">147 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">147 (Good)</span></span>
         <span class="stat-cell valuation-value">$141M</span>
         <span class="stat-cell carbon-value">4.9K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4710,7 +4797,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">28</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">5.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">45 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">45 (Good)</span></span>
         <span class="stat-cell valuation-value">$36M</span>
         <span class="stat-cell carbon-value">8.5K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4728,7 +4815,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">1.5M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">83 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">83 (Good)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">2.2K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4746,7 +4833,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">8</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">4.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">41 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">41 (Good)</span></span>
         <span class="stat-cell valuation-value">$123M</span>
         <span class="stat-cell carbon-value">5.5K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4764,7 +4851,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">13</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">8.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">49 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">49 (Good)</span></span>
         <span class="stat-cell valuation-value">$125M</span>
         <span class="stat-cell carbon-value">6.3K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4782,7 +4869,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">11</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">10.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">47 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">47 (Good)</span></span>
         <span class="stat-cell valuation-value">$115M</span>
         <span class="stat-cell carbon-value">4.9K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4800,7 +4887,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">12</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">3.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">157 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">157 (Good)</span></span>
         <span class="stat-cell valuation-value">$338K</span>
         <span class="stat-cell carbon-value">8.5K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4818,7 +4905,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">1.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">360 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">360 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">11.9K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4836,7 +4923,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">16</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
         <span class="stat-cell sqft-value">6.3M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">117 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">117 (OK)</span></span>
         <span class="stat-cell valuation-value">$1M</span>
         <span class="stat-cell carbon-value">11.7K</span>
         <span class="stat-cell opex-value">$8M</span>
@@ -4854,7 +4941,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">2.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">140 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">140 (Bad)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">8.3K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4872,7 +4959,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">8</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
         <span class="stat-cell sqft-value">3.0M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">220 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">220 (Bad)</span></span>
         <span class="stat-cell valuation-value">$698K</span>
         <span class="stat-cell carbon-value">11.5K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4890,7 +4977,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">28</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
         <span class="stat-cell sqft-value">10.6M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">72 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">72 (OK)</span></span>
         <span class="stat-cell valuation-value">$96M</span>
         <span class="stat-cell carbon-value">5.4K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4908,7 +4995,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">17</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
         <span class="stat-cell sqft-value">10.8M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">61 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">61 (Good)</span></span>
         <span class="stat-cell valuation-value">$91M</span>
         <span class="stat-cell carbon-value">3.7K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4926,7 +5013,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">7.1M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">44 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">44 (Good)</span></span>
         <span class="stat-cell valuation-value">$104M</span>
         <span class="stat-cell carbon-value">5.2K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4944,7 +5031,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">19</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">5.7M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">56 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">56 (OK)</span></span>
         <span class="stat-cell valuation-value">$99M</span>
         <span class="stat-cell carbon-value">4.2K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4962,7 +5049,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">20</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">10.4M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">90 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">90 (Bad)</span></span>
         <span class="stat-cell valuation-value">$95M</span>
         <span class="stat-cell carbon-value">8.6K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4980,7 +5067,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">20</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
         <span class="stat-cell sqft-value">11.9M</span>
-        <span class="stat-cell eui-value"><span class="eui-ok">53 (OK)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-ok">53 (OK)</span></span>
         <span class="stat-cell valuation-value">$93M</span>
         <span class="stat-cell carbon-value">8.3K</span>
         <span class="stat-cell opex-value">$7M</span>
@@ -4998,7 +5085,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
         <span class="stat-cell sqft-value">2.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-good">114 (Good)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">114 (Good)</span></span>
         <span class="stat-cell valuation-value">$0</span>
         <span class="stat-cell carbon-value">5.7K</span>
         <span class="stat-cell opex-value">$6M</span>
@@ -5016,7 +5103,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">16</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
         <span class="stat-cell sqft-value">8.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">71 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">71 (Bad)</span></span>
         <span class="stat-cell valuation-value">$22M</span>
         <span class="stat-cell carbon-value">7.2K</span>
         <span class="stat-cell opex-value">$6M</span>
@@ -5034,7 +5121,7 @@ tr.pin-highlight {
         <span class="stat-cell building-count"><span class="building-count-value">14</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
         <span class="stat-cell sqft-value">9.2M</span>
-        <span class="stat-cell eui-value"><span class="eui-bad">71 (Bad)</span></span>
+        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-bad">71 (Bad)</span></span>
         <span class="stat-cell valuation-value">$93M</span>
         <span class="stat-cell carbon-value">6.5K</span>
         <span class="stat-cell opex-value">$6M</span>
@@ -5116,6 +5203,47 @@ const CONFIG = {
     mapboxToken: 'pk.eyJ1IjoiZm1pbGxlcnJ6ZXJvIiwiYSI6ImNtY2NnZGl6dTAxMzkya29qeHl6c2tibDgifQ.8h1GAYRfrv-fldoXorqFlw'
 };
 
+// =============================================================================
+// RELIABLE SCRIPT LOADER WITH RETRY + TIMEOUT
+// =============================================================================
+
+function loadScript(url, opts = {}) {
+    const { maxRetries = 3, timeout = 15000 } = opts;
+    return new Promise((resolve, reject) => {
+        let attempts = 0;
+        function tryLoad() {
+            attempts++;
+            const script = document.createElement('script');
+            // Cache bust on retry to avoid cached failures
+            script.src = attempts > 1 ? url + '?v=' + Date.now() : url;
+
+            const timer = setTimeout(() => {
+                script.remove();
+                if (attempts < maxRetries) {
+                    console.log('[loadScript] Timeout, retry', attempts + 1, url);
+                    setTimeout(tryLoad, 500);
+                } else {
+                    reject(new Error('Timeout after ' + maxRetries + ' attempts'));
+                }
+            }, timeout);
+
+            script.onload = () => { clearTimeout(timer); resolve(); };
+            script.onerror = () => {
+                clearTimeout(timer);
+                script.remove();
+                if (attempts < maxRetries) {
+                    console.log('[loadScript] Error, retry', attempts + 1, url);
+                    setTimeout(tryLoad, 500);
+                } else {
+                    reject(new Error('Failed after ' + maxRetries + ' attempts'));
+                }
+            };
+            document.head.appendChild(script);
+        }
+        tryLoad();
+    });
+}
+
 // Track which portfolios have had rows rendered
 const loadedPortfolios = new Set();
 
@@ -5192,18 +5320,21 @@ let selectedCityFilter = null;
 
 function initAllBuildingsTable() {
     const container = document.getElementById('cities-list');
-    container.innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Loading buildings...</div>';
+    container.innerHTML = '<div class="loading-shimmer" style="text-align:center;padding:40px;border-radius:4px;">Loading buildings...</div>';
 
     if (EXPORT_DATA && EXPORT_DATA.length > 0) {
         onAllBuildingsDataLoaded();
     } else {
-        const script = document.createElement('script');
-        script.src = 'data/export_data.js';
-        script.onload = onAllBuildingsDataLoaded;
-        script.onerror = function() {
-            container.innerHTML = '<div style="text-align:center;padding:40px;color:#c00;">Failed to load building data</div>';
-        };
-        document.head.appendChild(script);
+        // Large file - use 30s timeout with retry
+        loadScript('data/export_data.js', { timeout: 30000 })
+            .then(onAllBuildingsDataLoaded)
+            .catch(err => {
+                console.error('[AllBuildings] Failed to load:', err);
+                container.innerHTML = `<div style="text-align:center;padding:40px;color:#c00;">
+                    Failed to load building data.
+                    <a href="#" onclick="event.preventDefault();initAllBuildingsTable()" style="color:#0066cc;text-decoration:underline;margin-left:8px;">Try again</a>
+                </div>`;
+            });
     }
 }
 
@@ -5994,23 +6125,14 @@ function toggleExportMenu(event) {
 let EXPORT_DATA = null;
 
 function loadAllBuildingsForExport() {
-    return new Promise((resolve) => {
-        if (EXPORT_DATA) {
-            resolve(EXPORT_DATA);
-            return;
-        }
-
-        // Load via script tag (works with file:// protocol)
-        const script = document.createElement('script');
-        script.src = 'data/export_data.js';
-        script.onload = () => {
-            resolve(EXPORT_DATA);
-        };
-        script.onerror = () => {
-            resolve([]);
-        };
-        document.head.appendChild(script);
-    });
+    if (EXPORT_DATA) return Promise.resolve(EXPORT_DATA);
+    // Large file - use 30s timeout with retry
+    return loadScript('data/export_data.js', { timeout: 30000 })
+        .then(() => EXPORT_DATA)
+        .catch(err => {
+            console.error('[Export] Failed to load export data:', err);
+            return []; // Return empty array on failure
+        });
 }
 
 // Helper: Download CSV
@@ -6747,24 +6869,13 @@ function savingsColor(amount) {
 let MAP_DATA = null;
 
 function loadMapData() {
-    return new Promise((resolve) => {
-        if (MAP_DATA) {
-            resolve();
-            return;
-        }
-
-        // Load via script tag (works with file:// protocol)
-        const script = document.createElement('script');
-        script.src = 'data/map_data.js';
-        script.onload = () => {
-            resolve();
-        };
-        script.onerror = () => {
-            MAP_DATA = [];
-            resolve();
-        };
-        document.head.appendChild(script);
-    });
+    if (MAP_DATA) return Promise.resolve();
+    // Larger file needs longer timeout (30s)
+    return loadScript('data/map_data.js', { timeout: 30000 })
+        .catch(err => {
+            console.error('[Map] Failed to load map data:', err);
+            MAP_DATA = []; // Graceful fallback to empty
+        });
 }
 
 let fullMap = null;
@@ -7423,12 +7534,16 @@ function loadPortfolioRows(card, loadMore = false) {
     if (!container) return;
 
     if (!PORTFOLIO_BUILDINGS[idx]) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#666;">Loading...</div>';
-        const script = document.createElement('script');
-        script.src = `data/portfolios/p_${idx}.js`;
-        script.onload = () => loadPortfolioRows(card, loadMore);
-        script.onerror = () => container.innerHTML = '<div style="padding:20px;color:red;">Failed to load data</div>';
-        document.head.appendChild(script);
+        container.innerHTML = '<div class="loading-shimmer" style="padding:20px;text-align:center;border-radius:4px;">Loading buildings...</div>';
+        loadScript(`data/portfolios/p_${idx}.js`)
+            .then(() => loadPortfolioRows(card, loadMore))
+            .catch(err => {
+                console.error('[Portfolio] Failed to load portfolio', idx, ':', err);
+                container.innerHTML = `<div style="padding:20px;color:#c00;text-align:center;">
+                    Failed to load buildings.
+                    <a href="#" onclick="event.preventDefault();loadPortfolioRows(this.closest('.portfolio-card'))" style="color:#0066cc;text-decoration:underline;margin-left:8px;">Try again</a>
+                </div>`;
+            });
         return;
     }
 
@@ -7598,7 +7713,7 @@ function renderPortfolioCard(p) {
             <span class="stat-cell building-count"><span class="building-count-value">${p.building_count}</span></span>
             <span class="stat-cell classification-cell">${(p.classification || '-').replace(/\//g, '<br>').replace(/ /g, '<br>')}</span>
             <span class="stat-cell sqft-value">${formatSqftJS(p.total_sqft)}</span>
-            <span class="stat-cell eui-value">${formatEuiRating(p.median_eui, p.median_eui_benchmark)}</span>
+            <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">${formatEuiRating(p.median_eui, p.median_eui_benchmark)}</span>
             <span class="stat-cell valuation-value">${formatMoney(p.total_valuation)}</span>
             <span class="stat-cell carbon-value">${formatCarbon(p.total_carbon)}</span>
             <span class="stat-cell opex-value">${formatMoney(p.total_opex)}</span>
@@ -7643,20 +7758,40 @@ function loadMorePortfolios() {
     applyFilters();
 }
 
+// =============================================================================
+// OFFLINE DETECTION
+// =============================================================================
+
+window.addEventListener('offline', () => {
+    console.log('[Network] Went offline');
+    document.body.classList.add('is-offline');
+});
+
+window.addEventListener('online', () => {
+    console.log('[Network] Back online');
+    document.body.classList.remove('is-offline');
+});
+
+// =============================================================================
+// PAGE INITIALIZATION
+// =============================================================================
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('[DOMContentLoaded] FILTER_DATA portfolios:', Object.keys(FILTER_DATA).length);
     console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
     console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
 
-    // Load export_data.js immediately for header tooltips
-    const exportScript = document.createElement('script');
-    exportScript.src = 'data/export_data.js';
-    exportScript.onload = function() {
-        allBuildingsData = EXPORT_DATA;
-        console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
-        applyFilters(); // Re-run to update header tooltips
-    };
-    document.head.appendChild(exportScript);
+    // Load export_data.js immediately for header tooltips (with retry)
+    loadScript('data/export_data.js', { timeout: 30000 })
+        .then(() => {
+            allBuildingsData = EXPORT_DATA;
+            console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
+            applyFilters(); // Re-run to update header tooltips
+        })
+        .catch(err => {
+            console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
+            // Non-critical - page still works without header tooltips
+        });
 
     initTabs();
     selectVertical('all');
@@ -7716,22 +7851,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const TUTORIAL_STEPS = [
     {
-        target: '.header h1 a',
-        title: 'R-Zero Logo',
-        content: 'Click the R-Zero logo to visit rzero.com in a new tab. This is your quick link back to the main R-Zero website.',
-        position: 'bottom'
-    },
-    {
         target: '#global-search',
         title: 'Search Bar',
         content: 'Search for any owner, tenant, or brand name. Results filter instantly as you type. Try searching for "CBRE" or "Marriott".',
         position: 'bottom'
-    },
-    {
-        target: '#userInfo',
-        title: 'Your Profile',
-        content: 'Your logged-in profile appears here. Click "Log out" to sign out of your R-Zero account.',
-        position: 'left'
     },
     {
         target: '.main-tab[data-tab="portfolios"]',
@@ -7747,17 +7870,11 @@ const TUTORIAL_STEPS = [
         position: 'bottom'
     },
     {
-        target: '.vertical-filter-bar',
+        target: '.vertical-buttons-group',
         title: 'Vertical Filters',
         content: 'Filter portfolios by sector: Commercial (blue), Education (green), or Healthcare (purple). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
         position: 'bottom',
         action: function() { switchMainTab('portfolios'); }
-    },
-    {
-        target: '#building-type-chip',
-        title: 'Active Filter Chip',
-        content: 'When you select a building type, it appears as a chip here. Click the X to clear the filter and show all building types again.',
-        position: 'bottom'
     },
     {
         target: '.portfolio-card:first-child .org-logo-link',
@@ -7789,7 +7906,6 @@ const TUTORIAL_STEPS = [
         position: 'left',
         highlight: true,
         action: function() {
-            // Make sure a portfolio is expanded so EUI filter is visible
             var expanded = document.querySelector('.portfolio-card.expanded');
             if (!expanded) {
                 var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
@@ -7819,14 +7935,14 @@ const TUTORIAL_STEPS = [
     },
     {
         target: '.export-dropdown',
-        title: 'Export Options',
+        title: 'Export Data',
         content: 'Export data to CSV files. Choose to export all buildings, just the filtered results, or portfolio summaries for further analysis.',
         position: 'bottom'
     },
     {
         target: 'button[onclick*="openMapPanel"]',
         title: 'Map View',
-        content: 'Open the interactive map to see all buildings geographically. Search for addresses and explore buildings by region and climate zone.',
+        content: 'Search for a specific address to check if that building is in our dataset. See all buildings plotted geographically by climate zone.',
         position: 'bottom'
     },
     {
@@ -7891,6 +8007,10 @@ function prevTutorialStep() {
 
 function showTutorialStep(stepIndex) {
     var step = TUTORIAL_STEPS[stepIndex];
+    var tooltip = document.getElementById('tutorial-tooltip');
+
+    // Hide tooltip while repositioning
+    tooltip.classList.remove('visible');
 
     // Execute any action for this step (like switching tabs, expanding cards)
     if (step.action) {
@@ -7935,7 +8055,6 @@ function showTutorialStep(stepIndex) {
             }
 
             // Position tooltip
-            var tooltip = document.getElementById('tutorial-tooltip');
             positionTooltip(tooltip, rect, step.position);
 
             // Update content
@@ -7947,6 +8066,9 @@ function showTutorialStep(stepIndex) {
             document.getElementById('tutorial-prev').disabled = stepIndex === 0;
             document.getElementById('tutorial-next').textContent =
                 stepIndex === TUTORIAL_STEPS.length - 1 ? 'Finish' : 'Next';
+
+            // Show tooltip after positioning
+            tooltip.classList.add('visible');
         }, 400);
 
     }, step.action ? 500 : 100);
@@ -7957,8 +8079,8 @@ function positionTooltip(tooltip, targetRect, position) {
     var tooltipWidth = 380;
     var tooltipHeight = tooltip.offsetHeight || 200;
 
-    // Remove all arrow classes
-    tooltip.className = 'tutorial-tooltip';
+    // Remove arrow classes but keep base class
+    tooltip.classList.remove('arrow-top', 'arrow-bottom', 'arrow-left', 'arrow-right');
 
     var top, left;
 
@@ -8010,7 +8132,7 @@ window.addEventListener('resize', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-11 12:55:31 EST
+        Build: 2025-12-11 13:23:30 EST
       </div>
     </footer>
 
@@ -8021,7 +8143,7 @@ window.addEventListener('resize', function() {
         <div class="tutorial-backdrop"></div>
         <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
         <div class="tutorial-tooltip" id="tutorial-tooltip">
-            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">15</span></div>
+            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">12</span></div>
             <h3 id="tutorial-title" class="tutorial-title"></h3>
             <p id="tutorial-content" class="tutorial-content"></p>
             <div class="tutorial-actions">
