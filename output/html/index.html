@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 01:23:32 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-11 02:11:41 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@ function initMap() {
     trySetup();
 }
 </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvGee7gI4jQO3OjGXhtkMmWRP865F2kAU&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=REMOVED_GOOGLE_KEY&libraries=places&callback=initMap" async defer></script>
 
     <!-- Google Sign-In -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -380,7 +380,7 @@ body.all-buildings-active .city-filter-bar {
 .vertical-dropdown label:hover {
     background: var(--gray-50);
 }
-.vertical-dropdown label input[type="checkbox"] {
+.vertical-dropdown label input[type="radio"] {
     width: 16px;
     height: 16px;
     accent-color: var(--primary);
@@ -2889,7 +2889,7 @@ tr.pin-highlight {
 
 <div class="vertical-filter-bar">
     <div class="vertical-filter-inner">
-        <div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Commercial" onclick="selectVertical('Commercial')" style="background:#1e3a5f">Commercial <span class="btn-count">(16,903)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Commercial" onclick="toggleVerticalDropdown(event, 'Commercial')" style="background:#1e3a5f"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Commercial"><label><input type="checkbox" data-type="Office" onchange="selectBuildingTypeFromDropdown('Office', 'Commercial')">Office <span class="dropdown-count">(9,979)</span></label><label><input type="checkbox" data-type="Hotel" onchange="selectBuildingTypeFromDropdown('Hotel', 'Commercial')">Hotel <span class="dropdown-count">(2,471)</span></label><label><input type="checkbox" data-type="Retail" onchange="selectBuildingTypeFromDropdown('Retail', 'Commercial')">Retail <span class="dropdown-count">(2,124)</span></label><label><input type="checkbox" data-type="Supermarket" onchange="selectBuildingTypeFromDropdown('Supermarket', 'Commercial')">Supermarket <span class="dropdown-count">(1,162)</span></label><label><input type="checkbox" data-type="Mixed Use" onchange="selectBuildingTypeFromDropdown('Mixed Use', 'Commercial')">Mixed Use <span class="dropdown-count">(526)</span></label><label><input type="checkbox" data-type="Venue" onchange="selectBuildingTypeFromDropdown('Venue', 'Commercial')">Venue <span class="dropdown-count">(494)</span></label><label><input type="checkbox" data-type="Mall" onchange="selectBuildingTypeFromDropdown('Mall', 'Commercial')">Mall <span class="dropdown-count">(151)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Education" onclick="selectVertical('Education')" style="background:#0077cc">Education <span class="btn-count">(4,109)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Education" onclick="toggleVerticalDropdown(event, 'Education')" style="background:#0077cc"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Education"><label><input type="checkbox" data-type="K-12" onchange="selectBuildingTypeFromDropdown('K-12', 'Education')">K-12 <span class="dropdown-count">(2,591)</span></label><label><input type="checkbox" data-type="Higher Ed" onchange="selectBuildingTypeFromDropdown('Higher Ed', 'Education')">Higher Ed <span class="dropdown-count">(1,311)</span></label><label><input type="checkbox" data-type="Library/Museum" onchange="selectBuildingTypeFromDropdown('Library/Museum', 'Education')">Library/Museum <span class="dropdown-count">(203)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Healthcare" onclick="selectVertical('Healthcare')" style="background:#5ba3d9">Healthcare <span class="btn-count">(2,870)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Healthcare" onclick="toggleVerticalDropdown(event, 'Healthcare')" style="background:#5ba3d9"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Healthcare"><label><input type="checkbox" data-type="Hospital/Clinic" onchange="selectBuildingTypeFromDropdown('Hospital/Clinic', 'Healthcare')">Hospital/Clinic <span class="dropdown-count">(1,112)</span></label><label><input type="checkbox" data-type="Senior Care" onchange="selectBuildingTypeFromDropdown('Senior Care', 'Healthcare')">Senior Care <span class="dropdown-count">(959)</span></label><label><input type="checkbox" data-type="Medical Office" onchange="selectBuildingTypeFromDropdown('Medical Office', 'Healthcare')">Medical Office <span class="dropdown-count">(799)</span></label></div></div>
+        <div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Commercial" onclick="selectVertical('Commercial')" style="background:#1e3a5f">Commercial <span class="btn-count">(16,903)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Commercial" onclick="toggleVerticalDropdown(event, 'Commercial')" style="background:#1e3a5f"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Commercial"><label><input type="radio" name="building-type-filter" data-type="Office" onchange="selectBuildingTypeFromDropdown('Office', 'Commercial')">Office <span class="dropdown-count">(9,979)</span></label><label><input type="radio" name="building-type-filter" data-type="Hotel" onchange="selectBuildingTypeFromDropdown('Hotel', 'Commercial')">Hotel <span class="dropdown-count">(2,471)</span></label><label><input type="radio" name="building-type-filter" data-type="Retail" onchange="selectBuildingTypeFromDropdown('Retail', 'Commercial')">Retail <span class="dropdown-count">(2,124)</span></label><label><input type="radio" name="building-type-filter" data-type="Supermarket" onchange="selectBuildingTypeFromDropdown('Supermarket', 'Commercial')">Supermarket <span class="dropdown-count">(1,162)</span></label><label><input type="radio" name="building-type-filter" data-type="Mixed Use" onchange="selectBuildingTypeFromDropdown('Mixed Use', 'Commercial')">Mixed Use <span class="dropdown-count">(526)</span></label><label><input type="radio" name="building-type-filter" data-type="Venue" onchange="selectBuildingTypeFromDropdown('Venue', 'Commercial')">Venue <span class="dropdown-count">(494)</span></label><label><input type="radio" name="building-type-filter" data-type="Mall" onchange="selectBuildingTypeFromDropdown('Mall', 'Commercial')">Mall <span class="dropdown-count">(151)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Education" onclick="selectVertical('Education')" style="background:#0077cc">Education <span class="btn-count">(4,109)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Education" onclick="toggleVerticalDropdown(event, 'Education')" style="background:#0077cc"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Education"><label><input type="radio" name="building-type-filter" data-type="K-12" onchange="selectBuildingTypeFromDropdown('K-12', 'Education')">K-12 <span class="dropdown-count">(2,591)</span></label><label><input type="radio" name="building-type-filter" data-type="Higher Ed" onchange="selectBuildingTypeFromDropdown('Higher Ed', 'Education')">Higher Ed <span class="dropdown-count">(1,311)</span></label><label><input type="radio" name="building-type-filter" data-type="Library/Museum" onchange="selectBuildingTypeFromDropdown('Library/Museum', 'Education')">Library/Museum <span class="dropdown-count">(203)</span></label></div></div><div class="vertical-btn-wrapper"><button class="vertical-btn" data-vertical="Healthcare" onclick="selectVertical('Healthcare')" style="background:#5ba3d9">Healthcare <span class="btn-count">(2,870)</span><span class="btn-x" onclick="event.stopPropagation(); selectVertical('all')">✕</span></button><button class="vertical-dropdown-arrow" data-vertical="Healthcare" onclick="toggleVerticalDropdown(event, 'Healthcare')" style="background:#5ba3d9"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button><div class="vertical-dropdown" id="dropdown-Healthcare"><label><input type="radio" name="building-type-filter" data-type="Hospital/Clinic" onchange="selectBuildingTypeFromDropdown('Hospital/Clinic', 'Healthcare')">Hospital/Clinic <span class="dropdown-count">(1,112)</span></label><label><input type="radio" name="building-type-filter" data-type="Senior Care" onchange="selectBuildingTypeFromDropdown('Senior Care', 'Healthcare')">Senior Care <span class="dropdown-count">(959)</span></label><label><input type="radio" name="building-type-filter" data-type="Medical Office" onchange="selectBuildingTypeFromDropdown('Medical Office', 'Healthcare')">Medical Office <span class="dropdown-count">(799)</span></label></div></div>
         <div id="building-type-chip" class="building-type-chip">
             <span class="chip-x" onclick="clearBuildingTypeFilter()">&times;</span>
             <span class="chip-text"></span>
@@ -2988,7 +2988,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="CBRE">CBRE</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/CBRE_Group_CBRE.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.cbre.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/CBRE_Group_CBRE.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">295</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -3006,7 +3006,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Marriott">Marriott</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Marriott.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div>
+            <a href="https://www.marriott.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Marriott.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">537</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3024,7 +3024,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Cushman &amp; Wakefield">Cushman &amp; Wakefield</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cushman_Wakefield.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.cushmanwakefield.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cushman_Wakefield.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">272</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -3042,7 +3042,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NYC Gov">NYC Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_Of_New_York.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.nyc.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_Of_New_York.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">192</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3060,7 +3060,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="JLL Real Estate">JLL Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Jones_Lang_LaSalle_JLL.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div>
+            <a href="https://www.jll.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Jones_Lang_LaSalle_JLL.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">191</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -3078,7 +3078,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Principal Real Estate">Principal Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Principal_Real_Estate_Investors.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div>
+            <a href="https://www.principalglobal.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Principal_Real_Estate_Investors.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">82</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3096,7 +3096,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Denver City Gov">Denver City Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_of_Denver.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.denvergov.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_of_Denver.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">24</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3114,7 +3114,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="GSA Federal">GSA Federal</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/General_Services_Administration_GSA.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div>
+            <a href="https://www.gsa.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/General_Services_Administration_GSA.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">206</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3132,7 +3132,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Hines Real Estate">Hines Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hines.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hines.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hines.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">140</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3150,7 +3150,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Kaiser Permanente">Kaiser Permanente</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kaiser_Permanente.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div>
+            <a href="https://www.kaiserpermanente.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kaiser_Permanente.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">162</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3168,7 +3168,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Brookfield">Brookfield</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brookfield.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.brookfield.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brookfield.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">96</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3186,7 +3186,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Boston Properties">Boston Properties</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_Properties_BXP.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.bxp.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_Properties_BXP.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">112</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3204,7 +3204,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Walmart">Walmart</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Walmart.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div>
+            <a href="https://www.walmart.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Walmart.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">286</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3222,7 +3222,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Hilton">Hilton</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hilton.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">349</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3240,7 +3240,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Cal State">Cal State</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/California_State_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.calstate.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/California_State_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">23</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3258,7 +3258,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Irvine Company">Irvine Company</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Irvine_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.irvinecompany.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Irvine_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">166</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3276,7 +3276,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Harvard">Harvard</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Harvard_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.harvard.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Harvard_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">167</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3294,7 +3294,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Apollo Capital">Apollo Capital</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Apollo_Global_Management.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.apollo.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Apollo_Global_Management.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">18</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3312,7 +3312,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NY State Gov">NY State Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/State_Of_New_York.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.ny.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/State_Of_New_York.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">43</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3330,7 +3330,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Tishman Speyer">Tishman Speyer</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Tishman_Speyer.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.tishmanspeyer.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Tishman_Speyer.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">67</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3348,7 +3348,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Lincoln Property">Lincoln Property</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Lincoln_Property_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">L</div>
+            <a href="https://www.lpc.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Lincoln_Property_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">L</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -3366,7 +3366,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Costco">Costco</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Costco.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.costco.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Costco.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">148</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3384,7 +3384,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="MIT">MIT</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Massachusetts_Institute_Of_Technology.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div>
+            <a href="https://www.mit.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Massachusetts_Institute_Of_Technology.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">96</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3402,7 +3402,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="DC Gov">DC Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div>
+            <a href="https://dc.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">94</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3420,7 +3420,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Target">Target</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Target.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.target.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Target.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">306</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3438,7 +3438,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="UC System">UC System</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_of_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div>
+            <a href="https://www.universityofcalifornia.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_of_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">36</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3456,7 +3456,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Vornado Realty">Vornado Realty</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Vornado_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">V</div>
+            <a href="https://www.vno.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Vornado_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">V</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">78</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3474,7 +3474,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Home Depot">Home Depot</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Home_Depot.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.homedepot.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Home_Depot.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">233</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3492,7 +3492,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Hyatt">Hyatt</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hyatt.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hyatt.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hyatt.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">107</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3510,7 +3510,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NYU">NYU</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_University_NYU.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div>
+            <a href="https://www.nyu.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_University_NYU.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">56</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3528,7 +3528,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Intel">Intel</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Intel.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">I</div>
+            <a href="https://www.intel.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Intel.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">I</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">3</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3546,7 +3546,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Kilroy Realty">Kilroy Realty</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kilroy_Realty.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div>
+            <a href="https://www.kilroyrealty.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kilroy_Realty.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">100</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3564,7 +3564,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="CUNY NYC University">CUNY NYC University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_University_of_New_York_CUNY.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.cuny.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_University_of_New_York_CUNY.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3582,7 +3582,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Alexandria Real Estate">Alexandria Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Alexandria_Real_Estate_Equities.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.are.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Alexandria_Real_Estate_Equities.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">39</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3600,7 +3600,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Douglas Emmett">Douglas Emmett</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Douglas_Emmett.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div>
+            <a href="https://www.douglasemmett.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Douglas_Emmett.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">105</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3618,7 +3618,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Georgetown University">Georgetown University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Georgetown_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div>
+            <a href="https://www.georgetown.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Georgetown_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">31</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3636,7 +3636,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Washington Hospital">Washington Hospital</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Washington_Hospital_Healthcare.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div>
+            <a href="https://www.whhs.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Washington_Hospital_Healthcare.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3654,7 +3654,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Howard University">Howard University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Howard_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://howard.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Howard_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3672,7 +3672,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="DC Public Schools">DC Public Schools</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia_Public_Schools.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div>
+            <a href="https://dcps.dc.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia_Public_Schools.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">D</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">189</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3690,7 +3690,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Apple">Apple</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Apple_Inc.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.apple.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Apple_Inc.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">22</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3708,7 +3708,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="GW University">GW University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/George_Washington_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div>
+            <a href="https://www.gwu.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/George_Washington_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">36</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3726,7 +3726,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Adventist Hospital">Adventist Hospital</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Adventist_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.adventisthospital.com/" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Adventist_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">31</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3744,7 +3744,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Newmark Real Estate">Newmark Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Newmark.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div>
+            <a href="https://www.nmrk.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Newmark.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -3762,7 +3762,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Blackstone">Blackstone</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Blackstone.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.blackstone.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Blackstone.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">38</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3780,7 +3780,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Host Hotels">Host Hotels</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Host_Hotels_Resorts.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hosthotels.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Host_Hotels_Resorts.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3798,7 +3798,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Beacon Capital Partners">Beacon Capital Partners</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Beacon_Capital_Partners.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.beaconcapital.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Beacon_Capital_Partners.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">34</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3816,7 +3816,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Oracle">Oracle</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Oracle.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">O</div>
+            <a href="https://www.oracle.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Oracle.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">O</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3834,7 +3834,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Qualcomm">Qualcomm</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Qualcomm.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">Q</div>
+            <a href="https://www.qualcomm.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Qualcomm.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">Q</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">7</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3852,7 +3852,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="SL Green">SL Green</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/SL_Green.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.slgreen.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/SL_Green.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">52</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3870,7 +3870,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="IHG Hotels">IHG Hotels</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/InterContinental_Hotels_Group_IHG.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">I</div>
+            <a href="https://www.ihg.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/InterContinental_Hotels_Group_IHG.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">I</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">134</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -3888,7 +3888,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="JBG Smith">JBG Smith</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/JBG_Smith_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div>
+            <a href="https://www.jbgsmith.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/JBG_Smith_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">33</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3906,7 +3906,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="LA City Gov">LA City Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_Of_Los_Angeles.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.lacity.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/City_Of_Los_Angeles.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">42</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3924,7 +3924,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Related Companies">Related Companies</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Related_Companies.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">R</div>
+            <a href="https://www.related.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Related_Companies.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">R</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">22</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -3942,7 +3942,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Google">Google</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Google.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div>
+            <a href="https://www.google.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Google.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">G</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">48</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -3960,7 +3960,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="UChicago">UChicago</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Chicago.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div>
+            <a href="https://www.uchicago.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Chicago.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">12</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3978,7 +3978,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Brandywine Realty">Brandywine Realty</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brandywine_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.brandywinerealty.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brandywine_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -3996,7 +3996,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Chicago Public Schools">Chicago Public Schools</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Chicago_Public_Schools.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.cps.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Chicago_Public_Schools.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">214</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4014,7 +4014,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Macy&#x27;s">Macy&#x27;s</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Macy_s.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div>
+            <a href="https://www.macysinc.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Macy_s.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">99</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4032,7 +4032,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="CA State Gov">CA State Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/State_of_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.ca.gov" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/State_of_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">49</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4050,7 +4050,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Sutter Health">Sutter Health</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Sutter_Health.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.sutterhealth.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Sutter_Health.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">45</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4068,7 +4068,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Transwestern Real Estate">Transwestern Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Transwestern.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://transwestern.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Transwestern.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">42</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -4086,7 +4086,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Boston University">Boston University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.bu.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">54</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4104,7 +4104,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Hudson Pacific">Hudson Pacific</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hudson_Pacific_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hudsonpacificproperties.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hudson_Pacific_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">64</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4122,7 +4122,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Shorenstein Properties">Shorenstein Properties</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Shorenstein_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.shorenstein.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Shorenstein_Properties.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">38</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4140,7 +4140,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NY Presbyterian">NY Presbyterian</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_Presbyterian_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div>
+            <a href="https://www.nyp.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_Presbyterian_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4158,7 +4158,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Paramount Group">Paramount Group</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Paramount_Group.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div>
+            <a href="https://www.paramount-group.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Paramount_Group.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">40</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4176,7 +4176,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Albertsons">Albertsons</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Albertsons_Companies.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.albertsonscompanies.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Albertsons_Companies.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">200</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4194,7 +4194,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="JPMorgan Chase">JPMorgan Chase</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/JPMorgan_Chase.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div>
+            <a href="https://www.jpmorganchase.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/JPMorgan_Chase.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">J</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">24</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4212,7 +4212,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Providence Health">Providence Health</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Providence_Health.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div>
+            <a href="https://www.providence.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Providence_Health.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">29</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4230,7 +4230,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Sheraton">Sheraton</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Sheraton.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.marriott.com/sheraton" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Sheraton.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">25</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
@@ -4248,7 +4248,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Santa Clara County Gov">Santa Clara County Gov</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Santa_Clara_County.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.sccgov.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Santa_Clara_County.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4266,7 +4266,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Cornell University">Cornell University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cornell_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.cornell.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cornell_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">5</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4284,7 +4284,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Colliers Real Estate">Colliers Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Colliers.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.colliers.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Colliers.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">68</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -4302,7 +4302,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="St. Joseph Hospital">St. Joseph Hospital</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/St_Joseph_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.sjo.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/St_Joseph_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">3</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4320,7 +4320,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Temple University">Temple University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Temple_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.temple.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Temple_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">21</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4338,7 +4338,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Citigroup">Citigroup</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Citigroup.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.citigroup.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Citigroup.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4356,7 +4356,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Amazon">Amazon</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Amazon.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.amazon.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Amazon.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">51</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4374,7 +4374,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="USC">USC</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Southern_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div>
+            <a href="https://www.usc.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Southern_California.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">30</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4392,7 +4392,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="St. Luke&#x27;s Hospital">St. Luke&#x27;s Hospital</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/St_Luke_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.saintlukeskc.org/" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/St_Luke_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4410,7 +4410,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Ventas Healthcare REIT">Ventas Healthcare REIT</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ventas.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">V</div>
+            <a href="https://www.ventasreit.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ventas.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">V</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">53</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4428,7 +4428,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Avison Young">Avison Young</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Avison_Young.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.avisonyoung.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Avison_Young.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">45</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -4446,7 +4446,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Kroger">Kroger</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kroger.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div>
+            <a href="https://www.thekrogerco.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kroger.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">K</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">108</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4464,7 +4464,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Stanford University">Stanford University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Stanford_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div>
+            <a href="https://www.stanford.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Stanford_University.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">S</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">28</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4482,7 +4482,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Denver University">Denver University</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Denver.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div>
+            <a href="https://www.du.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Denver.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4500,7 +4500,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Warner Bros">Warner Bros</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Warner_Bros.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div>
+            <a href="https://www.warnerbros.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Warner_Bros.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">8</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4518,7 +4518,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="MetLife">MetLife</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/MetLife.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div>
+            <a href="https://www.metlife.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/MetLife.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">M</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">13</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4536,7 +4536,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="CommonWealth Partners">CommonWealth Partners</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/CommonWealth_Partners.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div>
+            <a href="https://www.commonwealth-partners.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/CommonWealth_Partners.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">C</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">11</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4554,7 +4554,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Beth Israel">Beth Israel</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Beth_Israel_Deaconess_Medical_Center.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.bidmc.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Beth_Israel_Deaconess_Medical_Center.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">12</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4572,7 +4572,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Einstein Medicine">Einstein Medicine</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Albert_Einstein_College_Of_Medicine.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div>
+            <a href="https://www.einsteinmed.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Albert_Einstein_College_Of_Medicine.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">A</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4590,7 +4590,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Providence">Providence</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Providence.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div>
+            <a href="https://www.providence.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Providence.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">16</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
@@ -4608,7 +4608,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Boston Children&#x27;s">Boston Children&#x27;s</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_Children_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.childrenshospital.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_Children_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">4</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4626,7 +4626,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Penn">Penn</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Pennsylvania.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div>
+            <a href="https://www.upenn.edu" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/University_Of_Pennsylvania.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">U</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">8</span></span>
         <span class="stat-cell classification-cell classification-owner">owner</span>
@@ -4644,7 +4644,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Westin">Westin</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Westin.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div>
+            <a href="https://www.marriott.com/westin" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Westin.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">W</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">28</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
@@ -4662,7 +4662,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Hyatt Regency">Hyatt Regency</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hyatt_Regency.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div>
+            <a href="https://www.hyatt.com/hyatt-regency" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hyatt_Regency.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">H</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">17</span></span>
         <span class="stat-cell classification-cell classification-tenant_sub_org">tenant_sub_org</span>
@@ -4680,7 +4680,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Piedmont Office Realty">Piedmont Office Realty</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Piedmont_Office_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div>
+            <a href="https://www.piedmontreit.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Piedmont_Office_Realty_Trust.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">P</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">15</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4698,7 +4698,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NY Life">NY Life</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_Life_Insurance_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div>
+            <a href="https://www.newyorklife.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/New_York_Life_Insurance_Company.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">19</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4716,7 +4716,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Durst Org">Durst Org</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Durst_Organization.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div>
+            <a href="https://www.durst.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Durst_Organization.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">T</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">20</span></span>
         <span class="stat-cell classification-cell classification-owner-operator">owner<br>operator</span>
@@ -4734,7 +4734,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Bank of America">Bank of America</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Bank_of_America.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.bankofamerica.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Bank_of_America.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">20</span></span>
         <span class="stat-cell classification-cell classification-tenant">tenant</span>
@@ -4752,7 +4752,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Brigham &amp; Women&#x27;s">Brigham &amp; Women&#x27;s</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brigham_And_Women_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div>
+            <a href="https://www.brighamandwomens.org" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Brigham_And_Women_s_Hospital.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">B</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">6</span></span>
         <span class="stat-cell classification-cell classification-owner-occupier">owner<br>occupier</span>
@@ -4770,7 +4770,7 @@ tr.pin-highlight {
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="NAI Real Estate">NAI Real Estate</span>
-            <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/NAI_Global.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div>
+            <a href="https://www.naiglobal.com" target="_blank" onclick="event.stopPropagation()" class="org-logo-link"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/NAI_Global.png" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">N</div></a>
         </div>
         <span class="stat-cell building-count"><span class="building-count-value">16</span></span>
         <span class="stat-cell classification-cell classification-property-manager">property<br>manager</span>
@@ -5366,6 +5366,14 @@ function selectVertical(v) {
     // Clear building type if it was hidden
     const selected = document.querySelector('.building-type-btn.selected:not(.hidden)');
     selectedBuildingType = selected ? selected.dataset.type : null;
+
+    // Clear dropdown radio buttons and chip if building type was cleared
+    if (!selectedBuildingType) {
+        document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
+        const chip = document.getElementById('building-type-chip');
+        if (chip) chip.classList.remove('visible');
+    }
+
     applyFilters();
 }
 
@@ -5394,6 +5402,7 @@ function toggleBuildingType(btn) {
 
 function clearBuildingTypeFilter() {
     document.querySelectorAll('.building-type-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
     selectedBuildingType = null;
     const chip = document.getElementById('building-type-chip');
     if (chip) chip.classList.remove('visible');
@@ -5683,11 +5692,12 @@ function clearAllFilters() {
     // Reset vertical buttons
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     document.querySelector('.vertical-btn[data-vertical="all"]')?.classList.add('selected');
-    // Reset building type buttons
+    // Reset building type buttons and radio buttons
     document.querySelectorAll('.building-type-btn').forEach(b => {
         b.classList.remove('selected');
         b.classList.remove('hidden');
     });
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
 
     const cityFilter = document.getElementById('city-filter');
     const typeFilter = document.getElementById('type-filter');
@@ -5961,6 +5971,11 @@ function toggleVerticalDropdown(event, vertical) {
 }
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {
+    // Ensure only this radio is selected (clear all others explicitly)
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {
+        r.checked = (r.dataset.type === buildingType);
+    });
+
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
@@ -7306,9 +7321,12 @@ let isLoadingMore = false;
 function renderPortfolioCard(p) {
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${bucket}/logos/${p.logo_file}` : '');
-    const logoHtml = logoUrl
+    const logoInner = logoUrl
         ? `<img src="${logoUrl}" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${p.org_name[0].toUpperCase()}</div>`
         : `<div class="org-logo-placeholder">${p.org_name[0].toUpperCase()}</div>`;
+    const logoHtml = p.org_url
+        ? `<a href="${p.org_url}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${logoInner}</a>`
+        : logoInner;
     const parentHtml = p.parent_owned ? `<span class="parent-owned">${p.parent_owned}</span>` : '';
     const fullTitle = p.parent_owned ? `${p.display_name || p.org_name} (${p.parent_owned})` : (p.display_name || p.org_name);
 
@@ -7318,7 +7336,7 @@ function renderPortfolioCard(p) {
                 <span class="org-name-small" title="${fullTitle}">${p.display_name || p.org_name}${parentHtml}</span>
                 ${logoHtml}
             </div>
-            <span class="stat-cell building-count">${p.building_count}</span>
+            <span class="stat-cell building-count"><span class="building-count-value">${p.building_count}</span></span>
             <span class="stat-cell classification-cell">${(p.classification || '-').replace(/\//g, '<br>').replace(/ /g, '<br>')}</span>
             <span class="stat-cell sqft-value">${formatSqftJS(p.total_sqft)}</span>
             <span class="stat-cell eui-value">${formatEuiRating(p.median_eui, p.median_eui_benchmark)}</span>
@@ -7436,7 +7454,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-11 01:23:32 EST
+        Build: 2025-12-11 02:11:41 EST
       </div>
     </footer>
 

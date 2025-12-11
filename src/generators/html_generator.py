@@ -254,6 +254,7 @@ class NationwideHTMLGenerator:
                 'parent_owned': parent_owned,
                 'logo_file': p.get('logo_file', ''),
                 'aws_logo_url': p.get('aws_logo_url', ''),
+                'org_url': p.get('org_url', ''),
                 'building_count': p['building_count'],
                 'total_sqft': total_sqft,
                 'median_eui': p.get('median_eui', 0) or 0,
@@ -697,7 +698,7 @@ body.all-buildings-active .city-filter-bar {
 .vertical-dropdown label:hover {
     background: var(--gray-50);
 }
-.vertical-dropdown label input[type="checkbox"] {
+.vertical-dropdown label input[type="radio"] {
     width: 16px;
     height: 16px;
     accent-color: var(--primary);
@@ -3242,7 +3243,7 @@ tr.pin-highlight {
             v = type_to_vertical.get(btype, 'Commercial')
             if v in dropdown_options:
                 dropdown_options[v].append(
-                    f'<label><input type="checkbox" data-type="{attr_escape(btype)}" '
+                    f'<label><input type="radio" name="building-type-filter" data-type="{attr_escape(btype)}" '
                     f'onchange="selectBuildingTypeFromDropdown(\'{attr_escape(btype)}\', \'{v}\')">'
                     f'{escape(btype)} <span class="dropdown-count">({count:,})</span></label>'
                 )
@@ -3815,11 +3816,17 @@ tr.pin-highlight {
         classification = p.get('classification', '')
         parent_tenant = p.get('parent_tenant', '')
 
+        org_url = p.get('org_url', '')
         if logo_url:
             # Always eager load logos - they're small and critical for UX
-            logo_html = f'<img src="{attr_escape(logo_url)}" alt="" class="org-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
+            logo_inner = f'<img src="{attr_escape(logo_url)}" alt="" class="org-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
         else:
-            logo_html = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
+            logo_inner = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
+
+        if org_url:
+            logo_html = f'<a href="{attr_escape(org_url)}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">{logo_inner}</a>'
+        else:
+            logo_html = logo_inner
 
 
         # Stats
@@ -4590,6 +4597,14 @@ function selectVertical(v) {{
     // Clear building type if it was hidden
     const selected = document.querySelector('.building-type-btn.selected:not(.hidden)');
     selectedBuildingType = selected ? selected.dataset.type : null;
+
+    // Clear dropdown radio buttons and chip if building type was cleared
+    if (!selectedBuildingType) {{
+        document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
+        const chip = document.getElementById('building-type-chip');
+        if (chip) chip.classList.remove('visible');
+    }}
+
     applyFilters();
 }}
 
@@ -4618,6 +4633,7 @@ function toggleBuildingType(btn) {{
 
 function clearBuildingTypeFilter() {{
     document.querySelectorAll('.building-type-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
     selectedBuildingType = null;
     const chip = document.getElementById('building-type-chip');
     if (chip) chip.classList.remove('visible');
@@ -4907,11 +4923,12 @@ function clearAllFilters() {{
     // Reset vertical buttons
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     document.querySelector('.vertical-btn[data-vertical="all"]')?.classList.add('selected');
-    // Reset building type buttons
+    // Reset building type buttons and radio buttons
     document.querySelectorAll('.building-type-btn').forEach(b => {{
         b.classList.remove('selected');
         b.classList.remove('hidden');
     }});
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
 
     const cityFilter = document.getElementById('city-filter');
     const typeFilter = document.getElementById('type-filter');
@@ -5185,6 +5202,11 @@ function toggleVerticalDropdown(event, vertical) {{
 }}
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {{
+    // Ensure only this radio is selected (clear all others explicitly)
+    document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {{
+        r.checked = (r.dataset.type === buildingType);
+    }});
+
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
@@ -6530,9 +6552,12 @@ let isLoadingMore = false;
 function renderPortfolioCard(p) {{
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
-    const logoHtml = logoUrl
+    const logoInner = logoUrl
         ? `<img src="${{logoUrl}}" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${{p.org_name[0].toUpperCase()}}</div>`
         : `<div class="org-logo-placeholder">${{p.org_name[0].toUpperCase()}}</div>`;
+    const logoHtml = p.org_url
+        ? `<a href="${{p.org_url}}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${{logoInner}}</a>`
+        : logoInner;
     const parentHtml = p.parent_owned ? `<span class="parent-owned">${{p.parent_owned}}</span>` : '';
     const fullTitle = p.parent_owned ? `${{p.display_name || p.org_name}} (${{p.parent_owned}})` : (p.display_name || p.org_name);
 
@@ -6542,7 +6567,7 @@ function renderPortfolioCard(p) {{
                 <span class="org-name-small" title="${{fullTitle}}">${{p.display_name || p.org_name}}${{parentHtml}}</span>
                 ${{logoHtml}}
             </div>
-            <span class="stat-cell building-count">${{p.building_count}}</span>
+            <span class="stat-cell building-count"><span class="building-count-value">${{p.building_count}}</span></span>
             <span class="stat-cell classification-cell">${{(p.classification || '-').replace(/\\//g, '<br>').replace(/ /g, '<br>')}}</span>
             <span class="stat-cell sqft-value">${{formatSqftJS(p.total_sqft)}}</span>
             <span class="stat-cell eui-value">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
