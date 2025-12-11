@@ -932,8 +932,10 @@ body.all-buildings-active .city-filter-bar {
 
 .main-tab.active {
     color: var(--rzero-blue);
-    border: 2px solid var(--rzero-blue);
-    background: rgba(0, 102, 204, 0.05);
+    border: none;
+    border-bottom: 3px solid var(--rzero-blue);
+    border-radius: 0;
+    background: transparent;
 }
 
 /* Tab Content */
@@ -2211,24 +2213,18 @@ body.all-buildings-active .main-tabs {
     position: relative;
     display: inline-flex;
     align-items: center;
-    cursor: pointer;
     padding: 4px 8px;
     border-radius: 4px;
-    transition: background 0.2s;
-}
-.type-filter-wrapper:hover {
-    background: rgba(255,255,255,0.15);
-    color: white;
 }
 .type-filter-icon {
     margin-left: 6px;
     opacity: 1;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
     background: rgba(255,255,255,0.3);
     border-radius: 4px;
     padding: 2px;
 }
-.type-filter-wrapper:hover .type-filter-icon {
+.type-filter-icon:hover {
     background: rgba(255,255,255,0.5);
 }
 .type-filter-wrapper.active .type-filter-icon {
@@ -2281,11 +2277,20 @@ body.all-buildings-active .main-tabs {
 }
 .type-active-indicator {
     display: none;
-    width: 6px;
-    height: 6px;
-    background: var(--primary);
+    margin-left: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background: rgba(255,255,255,0.3);
     border-radius: 50%;
-    margin-left: 4px;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+.type-active-indicator:hover {
+    background: rgba(255,255,255,0.5);
 }
 .type-filter-wrapper.filtering .type-active-indicator {
     display: inline-block;
@@ -2296,24 +2301,20 @@ body.all-buildings-active .main-tabs {
     position: relative;
     display: inline-flex;
     align-items: center;
-    cursor: pointer;
     padding: 4px 8px;
     border-radius: 4px;
-    transition: background 0.2s;
-}
-.eui-filter-wrapper:hover {
-    background: rgba(0,0,0,0.05);
 }
 .eui-filter-icon {
     margin-left: 6px;
     opacity: 1;
     transition: transform 0.2s, background 0.2s;
-    background: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.15);
     border-radius: 4px;
-    padding: 2px;
+    padding: 4px;
+    color: #333;
 }
-.eui-filter-wrapper:hover .eui-filter-icon {
-    background: rgba(255,255,255,0.5);
+.eui-filter-icon:hover {
+    background: rgba(0,0,0,0.25);
 }
 .eui-filter-wrapper.active .eui-filter-icon {
     transform: rotate(180deg);
@@ -2357,11 +2358,20 @@ body.all-buildings-active .main-tabs {
 }
 .eui-active-indicator {
     display: none;
-    width: 6px;
-    height: 6px;
-    background: var(--primary);
+    margin-left: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background: rgba(0,0,0,0.15);
     border-radius: 50%;
-    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+.eui-active-indicator:hover {
+    background: rgba(0,0,0,0.25);
 }
 .eui-filter-wrapper.filtering .eui-active-indicator {
     display: inline-block;
@@ -3209,16 +3219,29 @@ tr.pin-highlight {
 }
 
 .tutorial-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
     display: none;
+}
+
+.tutorial-backdrop.active {
+    display: block;
 }
 
 .tutorial-spotlight {
     position: absolute;
     border-radius: 8px;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75);
     transition: all 0.2s ease;
     pointer-events: none;
     background: transparent;
+}
+
+.tutorial-spotlight.single-target {
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75);
 }
 
 /* Spotlight glow effect */
@@ -3622,14 +3645,17 @@ tr.pin-highlight {
         icons = {'Commercial': '¢', 'Education': '✎', 'Healthcare': '✚'}
         for v in ['Commercial', 'Education', 'Healthcare']:
             count = by_vertical.get(v, {}).get('building_count', 0)
-            dropdown_content = ''.join(dropdown_options.get(v, []))
+            # Add "All" option at top of each dropdown
+            all_option = f'<label><input type="radio" name="building-type-filter" data-type="all-{v.lower()}" onchange="selectBuildingTypeFromDropdown(\'all\', \'{v}\')">All <span class="dropdown-count">({count:,})</span></label>'
+            dropdown_content = all_option + ''.join(dropdown_options.get(v, []))
             icon = icons.get(v, '')
             vertical_html.append(
                 f'<div class="vertical-btn-wrapper">'
                 f'<button class="vertical-btn" data-vertical="{v}" '
                 f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
                 f'<span style="font-size: 14px; margin-right: 4px;">{icon}</span> {v}'
-                f'<span class="btn-x" onclick="event.stopPropagation(); selectVertical(\'all\')">✕</span></button>'
+                f'<span class="btn-x" onclick="event.stopPropagation(); clearVerticalBuildingTypeFilter(\'{v}\')">✕</span>'
+                f'</button>'
                 f'<button class="vertical-dropdown-arrow" data-vertical="{v}" '
                 f'onclick="toggleVerticalDropdown(event, \'{v}\')" style="background:{colors[v]}">'
                 f'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>'
@@ -3696,8 +3722,9 @@ tr.pin-highlight {
     <div id="tutorial-overlay" class="tutorial-overlay">
         <div class="tutorial-backdrop"></div>
         <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
+        <div class="tutorial-spotlight" id="tutorial-spotlight-2"></div>
         <div class="tutorial-tooltip" id="tutorial-tooltip">
-            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">13</span></div>
+            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">8</span></div>
             <h3 id="tutorial-title" class="tutorial-title"></h3>
             <button class="tutorial-close" onclick="endTutorial()">&times;</button>
             <p id="tutorial-content" class="tutorial-content"></p>
@@ -4016,12 +4043,11 @@ tr.pin-highlight {
     <div class="portfolio-sort-header">
         <span class="sort-col">Portfolio</span>
         <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
-        <div class="sort-col type-filter-wrapper" id="typeFilterWrapper" onclick="toggleTypeFilter(event)">
-            <span>Type</span>
-            <span class="type-active-indicator"></span>
-            <svg class="type-filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+        <div class="sort-col type-filter-wrapper" id="typeFilterWrapper">
+            <span onclick="sortPortfolios('type')" style="cursor:pointer">Type</span>
+            <span class="type-active-indicator" onclick="event.stopPropagation(); clearTypeFilter()">×</span>
+            <svg class="type-filter-icon" onclick="toggleTypeFilter(event)" style="cursor:pointer" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             <div class="type-filter-dropdown" id="typeFilterDropdown" onclick="event.stopPropagation()">
-                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="all" checked onchange="applyTypeFilter()"> All</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner" onchange="applyTypeFilter()"> Owner</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/occupier" onchange="applyTypeFilter()"> Owner/Occupier</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/operator" onchange="applyTypeFilter()"> Owner/Operator</label>
@@ -4031,19 +4057,9 @@ tr.pin-highlight {
             </div>
         </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
-        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper" onclick="toggleEuiFilter(event)">
-            <span>EUI</span>
-            <span class="eui-active-indicator"></span>
-            <svg class="eui-filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="all" checked onchange="applyEuiFilter()"> All</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"> Bad</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"> OK</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"> Good</label>
-            </div>
-        </div>
-        <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
+        <span class="sort-col" id="header-eui" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
         <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
+        <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
         <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
     </div>
     <div class="portfolios-list" id="portfolios-list">
@@ -4081,6 +4097,7 @@ tr.pin-highlight {
         city_display_names = {
             'New York': 'NYC',
             'Washington': 'D.C.',
+            'Los Angeles': 'LA',
         }
 
         # Format functions
@@ -4181,6 +4198,7 @@ tr.pin-highlight {
 
             address = escape(b.get('loc_address', 'Unknown'))
             city = escape(b.get('loc_city', ''))
+            city_display = {'New York': 'NYC', 'Washington': 'D.C.', 'Los Angeles': 'LA'}.get(city, city)
             state = escape(b.get('loc_state', ''))
             btype = escape(b.get('bldg_type', ''))
             owner_raw = b.get('owner', '') or b.get('org_name', '')
@@ -4197,8 +4215,8 @@ tr.pin-highlight {
             row = f'''<tr class="building-row" data-id="{attr_escape(building_id)}" data-city="{attr_escape(city)}" data-type="{attr_escape(btype)}" data-owner="{attr_escape(owner)}" data-manager="{attr_escape(manager)}" data-tenant="{attr_escape(tenant)}" data-sub-org="{attr_escape(sub_org)}" data-vertical="{attr_escape(vertical)}" data-opex="{opex}" data-rank="{rank}" {row_click}>
     <td>{thumb}</td>
     <td><span class="rank-badge">#{rank}</span></td>
-    <td><span class="building-address">{address}</span><br><span class="city-state">{city}, {state}</span></td>
-    <td><a href="javascript:void(0)" onclick="event.stopPropagation(); filterPortfoliosByCity('{js_escape(city)}')" class="clickable-link">{city}</a></td>
+    <td><span class="building-address">{address}</span><br><span class="city-state">{city_display}, {state}</span></td>
+    <td><a href="javascript:void(0)" onclick="event.stopPropagation(); filterPortfoliosByCity('{js_escape(city)}')" class="clickable-link">{city_display}</a></td>
     <td><a href="javascript:void(0)" onclick="event.stopPropagation(); filterByType('{js_escape(btype)}')" class="clickable-link">{btype}</a></td>
     <td><a href="javascript:void(0)" onclick="event.stopPropagation(); filterByOwner('{js_escape(owner)}')" class="clickable-link">{owner}</a></td>
     <td class="money-cell positive">{opex_str}</td>
@@ -4314,8 +4332,8 @@ tr.pin-highlight {
         <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
         <span class="stat-cell sqft-value">{sqft_display}</span>
         <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
-        <span class="stat-cell valuation-value">{fmt_money(p['total_valuation_impact'])}</span>
         <span class="stat-cell carbon-value">{format_carbon(p['total_carbon_reduction'])}</span>
+        <span class="stat-cell valuation-value">{fmt_money(p['total_valuation_impact'])}</span>
         <span class="stat-cell opex-value">{fmt_money(p['total_opex_avoidance'])}</span>
     </div>
     <div class="portfolio-buildings">
@@ -4440,8 +4458,8 @@ tr.pin-highlight {
     <span class="stat-cell">{type_badge}</span>
     <span class="stat-cell">{sqft_display}</span>
     <span class="stat-cell">{eui_display}</span>
-    <span class="stat-cell valuation-value">{fmt_money(valuation_value)}</span>
     <span class="stat-cell carbon-value">{format_carbon(carbon_value)}</span>
+    <span class="stat-cell valuation-value">{fmt_money(valuation_value)}</span>
     <span class="stat-cell opex-value">{fmt_money(opex_value)}</span>
 </div>'''
 
@@ -4705,6 +4723,7 @@ function createAllBuildingsRow(b, index) {{
     let cityDisplay = b.city || '';
     if (cityDisplay === 'New York') cityDisplay = 'NYC';
     else if (cityDisplay === 'Washington') cityDisplay = 'D.C.';
+    else if (cityDisplay === 'Los Angeles') cityDisplay = 'LA';
 
     // Combine street + formatted city
     const addrLine = cityDisplay ? addrClean + ', ' + cityDisplay : addrClean;
@@ -5092,10 +5111,30 @@ function toggleBuildingType(btn) {{
 
 function clearBuildingTypeFilter() {{
     document.querySelectorAll('.building-type-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
     selectedBuildingType = null;
     const chip = document.getElementById('building-type-chip');
     if (chip) chip.classList.remove('visible');
+    applyFilters();
+}}
+
+function clearVerticalBuildingTypeFilter(vertical) {{
+    // Remove selected class from the vertical button
+    const verticalBtn = document.querySelector(`.vertical-btn[data-vertical="${{vertical}}"]`);
+    if (verticalBtn) {{
+        verticalBtn.classList.remove('selected');
+    }}
+
+    // Clear the radio selection for this vertical's dropdown
+    const dropdown = document.getElementById('dropdown-' + vertical);
+    if (dropdown) {{
+        dropdown.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    }}
+
+    // Clear the building type filter
+    selectedBuildingType = null;
+
     applyFilters();
 }}
 
@@ -5529,42 +5568,47 @@ function exportCSV() {{ exportPortfolioCSV(); }}
 
 let portfolioSortDir = {{}};
 window.sortPortfolios = function(col) {{
-    const container = document.getElementById('portfolios-list');
-    const cards = Array.from(container.querySelectorAll('.portfolio-card'));
     portfolioSortDir[col] = !portfolioSortDir[col];
+    const asc = portfolioSortDir[col];
 
-    cards.sort((a, b) => {{
+    // Sort the PORTFOLIO_CARDS array (all portfolio data, not just rendered DOM)
+    PORTFOLIO_CARDS.sort((a, b) => {{
         let aVal, bVal;
         if (col === 'name') {{
-            aVal = (a.getAttribute('data-org') || '').toLowerCase();
-            bVal = (b.getAttribute('data-org') || '').toLowerCase();
+            aVal = (a.org_name || '').toLowerCase();
+            bVal = (b.org_name || '').toLowerCase();
         }} else if (col === 'buildings') {{
-            aVal = parseInt(a.getAttribute('data-buildings')) || 0;
-            bVal = parseInt(b.getAttribute('data-buildings')) || 0;
+            aVal = a.building_count || 0;
+            bVal = b.building_count || 0;
         }} else if (col === 'sqft') {{
-            aVal = parseFloat(a.getAttribute('data-sqft')) || 0;
-            bVal = parseFloat(b.getAttribute('data-sqft')) || 0;
+            aVal = a.total_sqft || 0;
+            bVal = b.total_sqft || 0;
         }} else if (col === 'eui') {{
-            aVal = parseFloat(a.getAttribute('data-eui')) || 0;
-            bVal = parseFloat(b.getAttribute('data-eui')) || 0;
+            aVal = a.median_eui || 0;
+            bVal = b.median_eui || 0;
         }} else if (col === 'opex') {{
-            aVal = parseFloat(a.getAttribute('data-opex')) || 0;
-            bVal = parseFloat(b.getAttribute('data-opex')) || 0;
+            aVal = a.total_opex || 0;
+            bVal = b.total_opex || 0;
         }} else if (col === 'valuation') {{
-            aVal = parseFloat(a.getAttribute('data-valuation')) || 0;
-            bVal = parseFloat(b.getAttribute('data-valuation')) || 0;
+            aVal = a.total_valuation || 0;
+            bVal = b.total_valuation || 0;
         }} else if (col === 'carbon') {{
-            aVal = parseFloat(a.getAttribute('data-carbon')) || 0;
-            bVal = parseFloat(b.getAttribute('data-carbon')) || 0;
-        }} else if (col === 'classification') {{
-            aVal = (a.getAttribute('data-classification') || '').toLowerCase();
-            bVal = (b.getAttribute('data-classification') || '').toLowerCase();
+            aVal = a.total_carbon || 0;
+            bVal = b.total_carbon || 0;
+        }} else if (col === 'type' || col === 'classification') {{
+            aVal = (a.classification || '').toLowerCase();
+            bVal = (b.classification || '').toLowerCase();
         }}
-        return portfolioSortDir[col] ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+        return asc ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
     }});
 
+    // Clear DOM and reset infinite scroll counter
+    const container = document.getElementById('portfolios-list');
     container.innerHTML = '';
-    cards.forEach(card => container.appendChild(card));
+    loadedCardCount = 0;
+
+    // Re-render first batch from sorted data
+    loadMorePortfolios();
 }};
 
 // =============================================================================
@@ -5652,23 +5696,42 @@ function toggleVerticalDropdown(event, vertical) {{
 }}
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {{
+    // Close all dropdowns
+    document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
+    document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
+
+    // If "all" selected, clear the building type filter and just show the vertical
+    if (buildingType === 'all') {{
+        // Uncheck all radios
+        document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
+        // Clear building type filter
+        selectedBuildingType = null;
+        // Remove selected class from all vertical buttons
+        document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
+        // Switch to that vertical
+        selectVertical(vertical);
+        return;
+    }}
+
     // Ensure only this radio is selected (clear all others explicitly)
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {{
         r.checked = (r.dataset.type === buildingType);
     }});
 
-    // Close all dropdowns
-    document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
-    document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
-
     // Switch to that vertical
     selectVertical(vertical);
 
-    // Apply the building type filter
-    const fakeBtn = document.createElement('button');
-    fakeBtn.dataset.type = buildingType;
-    fakeBtn.dataset.vertical = vertical;
-    toggleBuildingType(fakeBtn);
+    // Apply the building type filter directly (no chip)
+    selectedBuildingType = buildingType;
+
+    // Add selected class to the vertical button (shows shadow + X)
+    document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
+    const verticalBtn = document.querySelector(`.vertical-btn[data-vertical="${{vertical}}"]`);
+    if (verticalBtn) {{
+        verticalBtn.classList.add('selected');
+    }}
+
+    applyFilters();
 }}
 
 // Close vertical dropdowns when clicking outside
@@ -5710,6 +5773,14 @@ function toggleTypeFilter(event) {{
     wrapper.classList.toggle('active');
 }}
 
+function clearTypeFilter() {{
+    // Uncheck all radio buttons
+    document.querySelectorAll('#typeFilterDropdown input[name="type-filter"]').forEach(r => r.checked = false);
+    const wrapper = document.getElementById('typeFilterWrapper');
+    wrapper.classList.remove('filtering');
+    applyAllFilters();
+}}
+
 
 function applyTypeFilter() {{
     const selected = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
@@ -5722,6 +5793,10 @@ function applyTypeFilter() {{
     }} else {{
         wrapper.classList.add('filtering');
     }}
+
+    // Close the dropdown after selection
+    document.getElementById('typeFilterDropdown').classList.remove('show');
+    wrapper.classList.remove('active');
 
     // Apply combined filters
     applyAllFilters();
@@ -5796,8 +5871,20 @@ function toggleEuiFilter(event) {{
     event.stopPropagation();
     const dropdown = document.getElementById('euiFilterDropdown');
     const wrapper = document.getElementById('euiFilterWrapper');
-    dropdown.classList.toggle('show');
-    wrapper.classList.toggle('active');
+    if (dropdown) dropdown.classList.toggle('show');
+    if (wrapper) wrapper.classList.toggle('active');
+}}
+
+function clearEuiFilter() {{
+    // Uncheck all radio buttons (if dropdown exists)
+    document.querySelectorAll('#euiFilterDropdown input[name="eui-filter"]').forEach(r => r.checked = false);
+    const wrapper = document.getElementById('euiFilterWrapper');
+    if (wrapper) wrapper.classList.remove('filtering');
+    // Re-show all building rows in expanded portfolio
+    const expanded = document.querySelector('.portfolio-card.expanded');
+    if (expanded) {{
+        expanded.querySelectorAll('.building-grid-row').forEach(row => row.style.display = '');
+    }}
 }}
 
 function toggleEuiAll(checkbox) {{
@@ -5814,14 +5901,24 @@ function applyEuiFilter() {{
 
     // Update filter indicator
     const wrapper = document.getElementById('euiFilterWrapper');
-    if (activeEui === 'all') {{
-        wrapper.classList.remove('filtering');
-    }} else {{
-        wrapper.classList.add('filtering');
+    if (wrapper) {{
+        if (activeEui === 'all') {{
+            wrapper.classList.remove('filtering');
+        }} else {{
+            wrapper.classList.add('filtering');
+        }}
     }}
 
-    // Filter building rows (L2) by EUI rating
-    document.querySelectorAll('.building-grid-row').forEach(row => {{
+    // Close the dropdown after selection
+    const dropdown = document.getElementById('euiFilterDropdown');
+    if (dropdown) dropdown.classList.remove('show');
+    if (wrapper) wrapper.classList.remove('active');
+
+    // Filter building rows ONLY in the currently expanded portfolio
+    const expanded = document.querySelector('.portfolio-card.expanded');
+    if (!expanded) return;
+
+    expanded.querySelectorAll('.building-grid-row').forEach(row => {{
         const euiRating = row.dataset.euiRating || 'ok';
         if (activeEui === 'all' || activeEui === euiRating) {{
             row.style.display = '';
@@ -5852,6 +5949,9 @@ function togglePortfolio(header) {{
     document.querySelectorAll('.portfolio-card.expanded').forEach(c => {{
         if (c !== card) c.classList.remove('expanded');
     }});
+
+    // Clear EUI filter when any collapse happens (switching portfolios or collapsing)
+    clearEuiFilter();
 
     card.classList.toggle('expanded');
 
@@ -6892,8 +6992,8 @@ function loadPortfolioRows(card, loadMore = false) {{
             <span class="stat-cell">${{b.type || '-'}}</span>
             <span class="stat-cell">${{sqft}}</span>
             <span class="stat-cell">${{eui}}</span>
-            <span class="stat-cell valuation-value">${{val}}</span>
             <span class="stat-cell carbon-value">${{carbon}}</span>
+            <span class="stat-cell valuation-value">${{val}}</span>
             <span class="stat-cell opex-value">${{opex}}</span>
         </div>`;
     }}).join('');
@@ -6907,9 +7007,18 @@ function loadPortfolioRows(card, loadMore = false) {{
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'address')">Building</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'type')">Type</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'sqft')">Sq Ft</span>
-        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'eui')">EUI</span>
-        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'valuation')">Val. Impact</span>
+        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper">
+            <span onclick="event.stopPropagation(); sortBuildingRows(this, 'eui')" style="cursor:pointer">EUI</span>
+            <span class="eui-active-indicator" onclick="event.stopPropagation(); clearEuiFilter()">×</span>
+            <svg class="eui-filter-icon" onclick="event.stopPropagation(); toggleEuiFilter(event)" style="cursor:pointer" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"> Bad</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"> OK</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"> Good</label>
+            </div>
+        </div>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'carbon')">tCO2e/yr</span>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'valuation')">Val. Impact</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'opex')">Savings/yr</span>
     </div>`;
 
@@ -6927,6 +7036,7 @@ function loadPortfolioRows(card, loadMore = false) {{
 
 // Show less - ALWAYS collapse the portfolio (hide all building rows)
 function showLessBuildings(card) {{
+    clearEuiFilter();  // Clear EUI filter when collapsing
     card.classList.remove('expanded');
     expandedPortfolioLogo = null;
     if (document.getElementById('map-panel').classList.contains('open')) {{
@@ -6985,8 +7095,8 @@ function renderPortfolioCard(p) {{
             <span class="stat-cell classification-cell">${{(p.classification || '-').replace(/\\//g, '<br>').replace(/ /g, '<br>')}}</span>
             <span class="stat-cell sqft-value">${{formatSqftJS(p.total_sqft)}}</span>
             <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
-            <span class="stat-cell valuation-value">${{formatMoney(p.total_valuation)}}</span>
             <span class="stat-cell carbon-value">${{formatCarbon(p.total_carbon)}}</span>
+            <span class="stat-cell valuation-value">${{formatMoney(p.total_valuation)}}</span>
             <span class="stat-cell opex-value">${{formatMoney(p.total_opex)}}</span>
         </div>
         <div class="portfolio-buildings">
@@ -7142,24 +7252,23 @@ const TUTORIAL_STEPS = [
         action: function() {{ switchMainTab('portfolios'); }}
     }},
     {{
-        target: '.portfolio-card:first-child .org-logo-link',
-        title: 'Organization Logo Links',
-        content: 'Click any organization logo to visit their website in a new tab. This is a quick way to research potential prospects!',
-        position: 'right',
-        action: function() {{
-            switchMainTab('portfolios');
-            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-        }}
+        target: 'button[onclick*="openMapPanel"]',
+        title: 'Map View',
+        content: 'Search for a specific address to check if that building is in our dataset. See all buildings plotted geographically by climate zone.',
+        position: 'bottom'
     }},
     {{
-        target: '.portfolio-sort-header .info-tooltip',
-        title: 'Info Tooltips',
-        content: 'Hover over the (i) icons throughout the page to see helpful explanations of metrics like EUI, valuation impact, and more.',
+        target: '#typeFilterWrapper',
+        title: 'Type Filter',
+        content: 'Filter portfolios by relationship type: Owner, Tenant, Property Manager, etc. Click the dropdown arrow to see options.',
         position: 'bottom',
+        highlight: true,
         action: function() {{
             switchMainTab('portfolios');
-            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+            setTimeout(function() {{
+                var typeWrapper = document.getElementById('typeFilterWrapper');
+                if (typeWrapper) typeWrapper.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}, 300);
         }}
     }},
     {{
@@ -7175,41 +7284,21 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
-        target: '.portfolio-card:first-child .stat-valuation',
-        title: 'Valuation Impact',
-        content: 'This column shows the total valuation lift potential for the entire portfolio. It represents how much property value could increase through energy efficiency improvements across all buildings.',
-        position: 'left',
-        action: function() {{
-            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-        }}
-    }},
-    {{
-        target: '.portfolio-card:first-child .stat-savings',
-        title: 'Portfolio Savings',
-        content: 'This is the total annual OpEx savings for the portfolio - the sum of ALL building savings. Only the first 10 buildings are shown initially. Click the down arrow at the bottom of the 10th building row to load more buildings and see the full list.',
-        position: 'left',
-        action: function() {{
-            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-        }}
-    }},
-    {{
         target: '#euiFilterWrapper',
         title: 'EUI Filter',
-        content: 'Filter buildings by Energy Use Intensity (EUI). Click the dropdown arrow to select efficiency ratings: Good (green), OK (orange), or Bad (red).',
-        position: 'left',
+        content: 'Filter buildings by energy efficiency rating: Good (green), OK (orange), or Bad (red). This filter only applies to buildings in the currently expanded portfolio.',
+        position: 'bottom',
         highlight: true,
         action: function() {{
-            var expanded = document.querySelector('.portfolio-card.expanded');
-            if (!expanded) {{
-                var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-                if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            // Ensure a portfolio is expanded first
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard && !firstCard.classList.contains('expanded')) {{
+                togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }}
             setTimeout(function() {{
                 var euiWrapper = document.getElementById('euiFilterWrapper');
                 if (euiWrapper) euiWrapper.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-            }}, 300);
+            }}, 400);
         }}
     }},
     {{
@@ -7232,28 +7321,21 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
-        target: '.building-grid-row:first-child',
-        title: 'Building Details',
-        content: 'Click any building row to view its detailed report page with comprehensive energy data, savings calculations, and property information.',
-        position: 'top'
-    }},
-    {{
-        target: '.export-dropdown',
-        title: 'Export Data',
-        content: 'Export data to CSV files. Choose to export all buildings, just the filtered results, or portfolio summaries for further analysis.',
-        position: 'bottom'
-    }},
-    {{
-        target: 'button[onclick*="openMapPanel"]',
-        title: 'Map View',
-        content: 'Search for a specific address to check if that building is in our dataset. See all buildings plotted geographically by climate zone.',
-        position: 'bottom'
-    }},
-    {{
-        target: '.leaderboard-dropdown',
-        title: 'Leaderboard',
-        content: 'See which team members are most active in the prospector. Stay competitive and track engagement across your organization!',
-        position: 'bottom'
+        target: '.row-controls',
+        title: 'Show More / Collapse',
+        content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
+        position: 'top',
+        action: function() {{
+            var expanded = document.querySelector('.portfolio-card.expanded');
+            if (!expanded) {{
+                var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+                if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            }}
+            setTimeout(function() {{
+                var controls = document.querySelector('.row-controls');
+                if (controls) controls.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}, 300);
+        }}
     }}
 ];
 
@@ -7342,20 +7424,71 @@ function showTutorialStep(stepIndex) {{
 
         // Wait for scroll to complete, then position spotlight
         setTimeout(function() {{
-            var rect = targetEl.getBoundingClientRect();
             var spotlight = document.getElementById('tutorial-spotlight');
+            var spotlight2 = document.getElementById('tutorial-spotlight-2');
             var padding = 8;
+            var rect;
 
-            spotlight.style.top = (rect.top - padding) + 'px';
-            spotlight.style.left = (rect.left - padding) + 'px';
-            spotlight.style.width = (rect.width + padding * 2) + 'px';
-            spotlight.style.height = (rect.height + padding * 2) + 'px';
+            var backdrop = document.querySelector('.tutorial-backdrop');
 
-            // Add special highlight class for EUI filter step
+            // Handle multi-target spotlight (separate boxes for each target)
+            if (step.multiTarget && step.multiTarget.length > 1) {{
+                var el1 = document.querySelector(step.multiTarget[0]);
+                var el2 = document.querySelector(step.multiTarget[1]);
+                if (el1 && el2) {{
+                    var rect1 = el1.getBoundingClientRect();
+                    var rect2 = el2.getBoundingClientRect();
+                    // Position first spotlight
+                    spotlight.style.top = (rect1.top - padding) + 'px';
+                    spotlight.style.left = (rect1.left - padding) + 'px';
+                    spotlight.style.width = (rect1.width + padding * 2) + 'px';
+                    spotlight.style.height = (rect1.height + padding * 2) + 'px';
+                    spotlight.classList.remove('single-target');
+                    // Position second spotlight
+                    spotlight2.style.top = (rect2.top - padding) + 'px';
+                    spotlight2.style.left = (rect2.left - padding) + 'px';
+                    spotlight2.style.width = (rect2.width + padding * 2) + 'px';
+                    spotlight2.style.height = (rect2.height + padding * 2) + 'px';
+                    spotlight2.style.display = 'block';
+                    // Create clip-path with two cutouts for backdrop
+                    var vw = window.innerWidth, vh = window.innerHeight;
+                    var r1 = {{ x: rect1.left - padding, y: rect1.top - padding, w: rect1.width + padding * 2, h: rect1.height + padding * 2 }};
+                    var r2 = {{ x: rect2.left - padding, y: rect2.top - padding, w: rect2.width + padding * 2, h: rect2.height + padding * 2 }};
+                    var clipPath = 'polygon(0% 0%, 0% 100%, ' + (r1.x/vw*100) + '% 100%, ' + (r1.x/vw*100) + '% ' + (r1.y/vh*100) + '%, ' + ((r1.x+r1.w)/vw*100) + '% ' + (r1.y/vh*100) + '%, ' + ((r1.x+r1.w)/vw*100) + '% ' + ((r1.y+r1.h)/vh*100) + '%, ' + (r1.x/vw*100) + '% ' + ((r1.y+r1.h)/vh*100) + '%, ' + (r1.x/vw*100) + '% 100%, ' + (r2.x/vw*100) + '% 100%, ' + (r2.x/vw*100) + '% ' + (r2.y/vh*100) + '%, ' + ((r2.x+r2.w)/vw*100) + '% ' + (r2.y/vh*100) + '%, ' + ((r2.x+r2.w)/vw*100) + '% ' + ((r2.y+r2.h)/vh*100) + '%, ' + (r2.x/vw*100) + '% ' + ((r2.y+r2.h)/vh*100) + '%, ' + (r2.x/vw*100) + '% 100%, 100% 100%, 100% 0%)';
+                    backdrop.style.clipPath = clipPath;
+                    backdrop.classList.add('active');
+                    // Use combined rect for tooltip positioning
+                    rect = {{ left: rect1.left, top: rect1.top, right: rect2.right, bottom: rect1.bottom, width: rect2.right - rect1.left, height: rect1.height }};
+                }} else {{
+                    rect = targetEl.getBoundingClientRect();
+                    spotlight.style.top = (rect.top - padding) + 'px';
+                    spotlight.style.left = (rect.left - padding) + 'px';
+                    spotlight.style.width = (rect.width + padding * 2) + 'px';
+                    spotlight.style.height = (rect.height + padding * 2) + 'px';
+                    spotlight.classList.add('single-target');
+                    spotlight2.style.display = 'none';
+                    backdrop.classList.remove('active');
+                    backdrop.style.clipPath = '';
+                }}
+            }} else {{
+                rect = targetEl.getBoundingClientRect();
+                spotlight.style.top = (rect.top - padding) + 'px';
+                spotlight.style.left = (rect.left - padding) + 'px';
+                spotlight.style.width = (rect.width + padding * 2) + 'px';
+                spotlight.style.height = (rect.height + padding * 2) + 'px';
+                spotlight.classList.add('single-target');
+                spotlight2.style.display = 'none';
+                backdrop.classList.remove('active');
+                backdrop.style.clipPath = '';
+            }}
+
+            // Add special highlight class for filter steps
             if (step.highlight) {{
                 spotlight.classList.add('extra-highlight');
+                spotlight2.classList.add('extra-highlight');
             }} else {{
                 spotlight.classList.remove('extra-highlight');
+                spotlight2.classList.remove('extra-highlight');
             }}
 
             // Position tooltip
