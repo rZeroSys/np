@@ -1349,60 +1349,66 @@ def generate_single_report(args):
         return (building_id, False, str(e))
 
 
-def run_nyc_batch_chunk(args):
-    """Run a chunk of NYC buildings - MAX SPEED"""
-    chunk_id, bbls, output_dir = args
-    batch_file = f'/tmp/nyc_batch_{chunk_id}.txt'
+def run_nyc_batch_live(bbls, output_dir):
+    """Run NYC buildings with LIVE streaming output"""
+    if not bbls:
+        return 0, 0
+
+    batch_file = '/tmp/nyc_batch_all.txt'
     with open(batch_file, 'w') as f:
         f.write('\n'.join(bbls))
 
+    success_count = 0
+    error_count = 0
+
     try:
-        result = subprocess.run(
+        # Use Popen for live streaming output
+        process = subprocess.Popen(
             ['python3', '-u', NYC_BUILDING_SCRIPT, '--batch-file', batch_file, output_dir],
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
             text=True,
-            timeout=900
+            bufsize=1  # Line buffered
         )
-        success_count = result.stdout.count('✓')
-        return (chunk_id, success_count, len(bbls) - success_count)
+
+        # Stream output in real-time
+        for line in iter(process.stdout.readline, ''):
+            line = line.rstrip()
+            if line:
+                print(f"  [NYC] {line}", flush=True)
+                # Count building completions (✓ N/M NYC_BBL pattern)
+                if '✓' in line and 'NYC_' in line:
+                    success_count += 1
+                elif '❌' in line or 'Error' in line:
+                    error_count += 1
+
+        process.wait()
+        return success_count, error_count
+
     except Exception as e:
-        return (chunk_id, 0, len(bbls))
+        print(f"  [NYC] Error: {e}")
+        return success_count, len(bbls) - success_count
 
 
 def generate_nyc_special_reports(nyc_building_ids, output_dir):
-    """Generate NYC reports - MAX PARALLEL SPEED"""
+    """Generate NYC reports with LIVE streaming output"""
     if not nyc_building_ids:
         return 0, 0
 
-    # MAX WORKERS - 2x CPU for I/O bound work
-    num_chunks = multiprocessing.cpu_count() * 2
-
     print(f"\n{'='*70}")
-    print(f"NYC TURBO - {num_chunks} PARALLEL PROCESSES")
+    print(f"NYC BUILDINGS - LIVE PROGRESS")
     print(f"{'='*70}")
 
     start_time = time.time()
-
     bbls = [bid.replace('NYC_', '') for bid in nyc_building_ids]
-    chunk_size = max(1, (len(bbls) + num_chunks - 1) // num_chunks)
-    chunks = [(i, bbls[i*chunk_size:(i+1)*chunk_size], output_dir)
-              for i in range(num_chunks) if bbls[i*chunk_size:(i+1)*chunk_size]]
+    print(f"Processing {len(bbls)} NYC buildings...\n")
 
-    print(f"{len(bbls)} buildings → {len(chunks)} chunks of ~{chunk_size}\n")
+    # Single batch with live streaming - no chunking overhead
+    generated, errors = run_nyc_batch_live(bbls, output_dir)
 
-    generated = 0
-    errors = 0
-
-    # ThreadPool better for subprocess I/O
-    with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
-        futures = [executor.submit(run_nyc_batch_chunk, c) for c in chunks]
-        for future in as_completed(futures):
-            cid, ok, fail = future.result()
-            generated += ok
-            errors += fail
-            print(f"  Chunk {cid+1} done | {generated}/{len(bbls)} total | {time.time()-start_time:.0f}s")
-
-    print(f"\n✓ NYC: {generated} ok, {errors} err in {time.time()-start_time:.0f}s\n")
+    elapsed = time.time() - start_time
+    rate = generated / elapsed if elapsed > 0 else 0
+    print(f"\n✓ NYC: {generated} ok, {errors} err in {elapsed:.0f}s ({rate:.1f}/sec)\n")
     return generated, errors
 
 
@@ -1488,8 +1494,12 @@ def main():
     nyc_generated, nyc_errors = generate_nyc_special_reports(nyc_special_ids, output_dir)
 
     # Regular reports in parallel
-    print(f"Generating {len(df_regular)} regular building reports...\n")
+    print(f"\n{'='*70}")
+    print(f"REGULAR BUILDINGS - {len(df_regular)} total")
+    print(f"{'='*70}\n")
 
+    # Smaller batches = more frequent updates
+    batch_size = 25
     all_rows = [(row.to_dict(), idx) for idx, row in df_regular.iterrows()]
     batches = []
     for i in range(0, len(all_rows), batch_size):
@@ -1498,27 +1508,25 @@ def main():
 
     generated = 0
     errors = 0
+    regular_start = time.time()
 
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
         futures = [executor.submit(generate_batch_reports, batch) for batch in batches]
 
-        batches_done = 0
         for future in as_completed(futures):
             batch_results = future.result()
-            batches_done += 1
 
             for building_id, success, error in batch_results:
                 if success:
                     generated += 1
+                    # Show progress every building
+                    elapsed = time.time() - regular_start
+                    rate = generated / elapsed if elapsed > 0 else 0
+                    remaining = (len(df_regular) - generated) / rate if rate > 0 else 0
+                    print(f"  ✓ {generated}/{len(df_regular)} | {rate:.0f}/sec | {remaining:.0f}s left | {building_id}", flush=True)
                 else:
                     errors += 1
-                    print(f"✗ {building_id}: {error}")
-
-            # Progress every 5 batches for speed
-            if batches_done % 5 == 0:
-                elapsed = time.time() - start_time
-                rate = generated / elapsed if elapsed > 0 else 0
-                print(f"  {generated}/{len(df_regular)} | {rate:.0f}/sec | {(len(df_regular)-generated)/rate:.0f}s left" if rate > 0 else f"  {generated}/{len(df_regular)}")
+                    print(f"  ✗ {building_id}: {error}", flush=True)
 
     # Summary
     elapsed = time.time() - start_time
