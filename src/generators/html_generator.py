@@ -175,7 +175,7 @@ class NationwideHTMLGenerator:
                 'property_name': self._get_display_name(b),
                 'type': b.get('radio_type', ''),
                 'bldg_type': b.get('bldg_type', ''),
-                'bldg_vertical': b.get('bldg_vertical', ''),
+                'vertical': b.get('bldg_vertical', ''),
                 'sqft': b.get('sqft', 0) or 0,
                 'opex': b.get('total_opex', 0) or 0,
                 'valuation': b.get('valuation_impact', 0) or 0,
@@ -2197,16 +2197,27 @@ body.all-buildings-active .main-tabs {
 .eui-filter-icon {
     margin-left: 6px;
     opacity: 1;
-    transition: transform 0.2s;
-    background: rgba(255,255,255,0.3);
+    transition: transform 0.2s, background 0.2s;
+    background: rgba(0, 102, 204, 0.25);
     border-radius: 4px;
-    padding: 2px;
+    padding: 3px;
+    animation: eui-arrow-bounce 2s ease-in-out infinite;
 }
+
+/* EUI Arrow UNMISSABLE bouncing animation */
+@keyframes eui-arrow-bounce {
+    0%, 70%, 100% { transform: translateY(0); }
+    80% { transform: translateY(3px); }
+    90% { transform: translateY(0); }
+}
+
 .eui-filter-wrapper:hover .eui-filter-icon {
-    background: rgba(255,255,255,0.5);
+    background: rgba(0, 102, 204, 0.4);
+    animation: none;
 }
 .eui-filter-wrapper.active .eui-filter-icon {
     transform: rotate(180deg);
+    animation: none;
 }
 .eui-filter-dropdown {
     position: absolute;
@@ -3006,6 +3017,248 @@ tr.pin-highlight {
 .filtered-out {
     display: none !important;
 }
+
+/* =============================================================================
+   TUTORIAL SYSTEM - WalkMe-style Interactive Guide
+   ============================================================================= */
+
+/* Tutorial Launch Button - UNMISSABLE */
+.tutorial-launch-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9998;
+    background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.tutorial-launch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0, 102, 204, 0.5);
+}
+
+.tutorial-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.tutorial-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    background: rgba(0, 102, 204, 0.4);
+    animation: tutorial-pulse 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes tutorial-pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* Tutorial Overlay System */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tutorial-overlay.active {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.tutorial-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.tutorial-spotlight {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75);
+    transition: all 0.4s ease;
+    pointer-events: none;
+    background: transparent;
+}
+
+/* Spotlight glow effect */
+.tutorial-spotlight::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 3px solid #0066cc;
+    border-radius: 12px;
+    animation: spotlight-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes spotlight-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 102, 204, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(0, 102, 204, 0.8); }
+}
+
+.tutorial-spotlight.extra-highlight::after {
+    border-color: #ff6600;
+    animation: spotlight-glow-orange 1s ease-in-out infinite;
+}
+
+@keyframes spotlight-glow-orange {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 102, 0, 0.6); }
+    50% { box-shadow: 0 0 35px rgba(255, 102, 0, 0.9); }
+}
+
+/* Tutorial Tooltip */
+.tutorial-tooltip {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    max-width: 380px;
+    min-width: 320px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.tutorial-tooltip::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    transform: rotate(45deg);
+}
+
+/* Arrow positions */
+.tutorial-tooltip.arrow-top::before { top: -8px; left: 30px; }
+.tutorial-tooltip.arrow-bottom::before { bottom: -8px; left: 30px; }
+.tutorial-tooltip.arrow-left::before { left: -8px; top: 30px; }
+.tutorial-tooltip.arrow-right::before { right: -8px; top: 30px; }
+
+.tutorial-step-indicator {
+    font-size: 12px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.tutorial-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin: 0 0 10px 0;
+}
+
+.tutorial-content {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+.tutorial-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tutorial-skip {
+    background: none;
+    border: none;
+    color: var(--gray-500);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 8px;
+    font-family: 'Inter', sans-serif;
+}
+
+.tutorial-skip:hover {
+    color: var(--gray-700);
+    text-decoration: underline;
+}
+
+.tutorial-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.tutorial-btn-primary {
+    background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.tutorial-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.tutorial-btn-secondary {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.tutorial-btn-secondary:hover {
+    background: var(--gray-200);
+}
+
+.tutorial-btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 </style>'''
 
     # =========================================================================
@@ -3319,6 +3572,24 @@ tr.pin-highlight {
 
     </div><!-- close mainContent -->
 
+    <!-- Tutorial Overlay System -->
+    <div id="tutorial-overlay" class="tutorial-overlay">
+        <div class="tutorial-backdrop"></div>
+        <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
+        <div class="tutorial-tooltip" id="tutorial-tooltip">
+            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">15</span></div>
+            <h3 id="tutorial-title" class="tutorial-title"></h3>
+            <p id="tutorial-content" class="tutorial-content"></p>
+            <div class="tutorial-actions">
+                <button class="tutorial-skip" onclick="endTutorial()">Skip Tutorial</button>
+                <div class="tutorial-nav">
+                    <button id="tutorial-prev" class="tutorial-btn-secondary" onclick="prevTutorialStep()">Back</button>
+                    <button id="tutorial-next" class="tutorial-btn-primary" onclick="nextTutorialStep()">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Auth and User Management JavaScript -->
     <script>
     function checkAuth() {{
@@ -3564,7 +3835,13 @@ tr.pin-highlight {
         <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>Cities</button>
     </div>
 </div>
-<div id="mainContent" style="display: none;">'''
+<div id="mainContent" style="display: none;">
+<!-- Tutorial Button - UNMISSABLE -->
+<button id="tutorial-btn" onclick="startTutorial()" class="tutorial-launch-btn">
+    <span class="tutorial-icon">?</span>
+    <span class="tutorial-text">Tutorial</span>
+    <span class="tutorial-pulse"></span>
+</button>'''
 
     # =========================================================================
     # PORTFOLIO SECTION
@@ -6679,6 +6956,303 @@ document.addEventListener('DOMContentLoaded', function() {{
             if (entries[0].isIntersecting) loadMorePortfolios();
         }}, {{ rootMargin: '500px' }});
         observer.observe(trigger);
+    }}
+}});
+
+// =============================================================================
+// TUTORIAL SYSTEM - WalkMe-style Interactive Guide
+// =============================================================================
+
+const TUTORIAL_STEPS = [
+    {{
+        target: '.header h1 a',
+        title: 'R-Zero Logo',
+        content: 'Click the R-Zero logo to visit rzero.com in a new tab. This is your quick link back to the main R-Zero website.',
+        position: 'bottom'
+    }},
+    {{
+        target: '#global-search',
+        title: 'Search Bar',
+        content: 'Search for any owner, tenant, or brand name. Results filter instantly as you type. Try searching for "CBRE" or "Marriott".',
+        position: 'bottom'
+    }},
+    {{
+        target: '#userInfo',
+        title: 'Your Profile',
+        content: 'Your logged-in profile appears here. Click "Log out" to sign out of your R-Zero account.',
+        position: 'left'
+    }},
+    {{
+        target: '.main-tab[data-tab="portfolios"]',
+        title: 'Portfolios Tab',
+        content: 'View all portfolios ranked by OpEx savings potential. Each card represents an organization with one or more buildings.',
+        position: 'bottom',
+        action: function() {{ switchMainTab('portfolios'); }}
+    }},
+    {{
+        target: '.main-tab[data-tab="all-buildings"]',
+        title: 'Cities Tab',
+        content: 'Browse all 23,000+ buildings organized by city. Filter by top cities using the buttons below.',
+        position: 'bottom'
+    }},
+    {{
+        target: '.vertical-filter-bar',
+        title: 'Vertical Filters',
+        content: 'Filter portfolios by sector: Commercial (blue), Education (green), or Healthcare (purple). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
+        position: 'bottom',
+        action: function() {{ switchMainTab('portfolios'); }}
+    }},
+    {{
+        target: '#building-type-chip',
+        title: 'Active Filter Chip',
+        content: 'When you select a building type, it appears as a chip here. Click the X to clear the filter and show all building types again.',
+        position: 'bottom'
+    }},
+    {{
+        target: '.portfolio-card:first-child .org-logo-link',
+        title: 'Organization Logo Links',
+        content: 'Click any organization logo to visit their website in a new tab. This is a quick way to research potential prospects!',
+        position: 'right',
+        action: function() {{
+            switchMainTab('portfolios');
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard) firstCard.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        }}
+    }},
+    {{
+        target: '.portfolio-card:first-child .portfolio-header',
+        title: 'Expand Portfolio',
+        content: 'Click any portfolio row to expand it and see individual buildings. Each building shows address, type, square footage, EUI rating, and savings potential.',
+        position: 'bottom',
+        action: function() {{
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard && !firstCard.classList.contains('expanded')) {{
+                togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            }}
+        }}
+    }},
+    {{
+        target: '#euiFilterWrapper',
+        title: 'EUI Filter (Important!)',
+        content: 'This is the EUI (Energy Use Intensity) filter - look for the bouncing DOWN ARROW! Click it to filter buildings by energy efficiency: Good (green), OK (orange), or Bad (red). A blue dot appears when filtering is active.',
+        position: 'left',
+        highlight: true,
+        action: function() {{
+            // Make sure a portfolio is expanded so EUI filter is visible
+            var expanded = document.querySelector('.portfolio-card.expanded');
+            if (!expanded) {{
+                var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+                if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            }}
+            setTimeout(function() {{
+                var euiWrapper = document.getElementById('euiFilterWrapper');
+                if (euiWrapper) euiWrapper.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}, 300);
+        }}
+    }},
+    {{
+        target: '.building-grid-row .ext-link-cell a, .building-grid-row .external-link',
+        title: 'Source Link',
+        content: 'Click the arrow icon to view the original data source for this building. This opens the source website in a new tab for verification.',
+        position: 'left',
+        action: function() {{
+            var link = document.querySelector('.building-grid-row .ext-link-cell a, .building-grid-row .external-link');
+            if (link) link.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+        }}
+    }},
+    {{
+        target: '.building-grid-row:first-child',
+        title: 'Building Details',
+        content: 'Click any building row to view its detailed report page with comprehensive energy data, savings calculations, and property information.',
+        position: 'top'
+    }},
+    {{
+        target: '.export-dropdown',
+        title: 'Export Options',
+        content: 'Export data to CSV files. Choose to export all buildings, just the filtered results, or portfolio summaries for further analysis.',
+        position: 'bottom'
+    }},
+    {{
+        target: 'button[onclick*="openMapPanel"]',
+        title: 'Map View',
+        content: 'Open the interactive map to see all buildings geographically. Search for addresses and explore buildings by region and climate zone.',
+        position: 'bottom'
+    }},
+    {{
+        target: '.leaderboard-dropdown',
+        title: 'Leaderboard',
+        content: 'See which team members are most active in the prospector. Stay competitive and track engagement across your organization!',
+        position: 'bottom'
+    }}
+];
+
+let currentTutorialStep = 0;
+let tutorialActive = false;
+
+function startTutorial() {{
+    tutorialActive = true;
+    currentTutorialStep = 0;
+
+    var overlay = document.getElementById('tutorial-overlay');
+    overlay.style.display = 'block';
+    setTimeout(function() {{ overlay.classList.add('active'); }}, 10);
+
+    document.getElementById('tutorial-total-steps').textContent = TUTORIAL_STEPS.length;
+
+    // Hide tutorial button during tutorial
+    var btn = document.getElementById('tutorial-btn');
+    if (btn) btn.style.display = 'none';
+
+    showTutorialStep(0);
+}}
+
+function endTutorial() {{
+    tutorialActive = false;
+    var overlay = document.getElementById('tutorial-overlay');
+    overlay.classList.remove('active');
+    setTimeout(function() {{
+        overlay.style.display = 'none';
+    }}, 300);
+
+    // Show tutorial button again
+    var btn = document.getElementById('tutorial-btn');
+    if (btn) btn.style.display = 'flex';
+
+    // Remember that user has seen tutorial
+    localStorage.setItem('tutorialCompleted', 'true');
+}}
+
+function nextTutorialStep() {{
+    if (currentTutorialStep < TUTORIAL_STEPS.length - 1) {{
+        currentTutorialStep++;
+        showTutorialStep(currentTutorialStep);
+    }} else {{
+        endTutorial();
+    }}
+}}
+
+function prevTutorialStep() {{
+    if (currentTutorialStep > 0) {{
+        currentTutorialStep--;
+        showTutorialStep(currentTutorialStep);
+    }}
+}}
+
+function showTutorialStep(stepIndex) {{
+    var step = TUTORIAL_STEPS[stepIndex];
+
+    // Execute any action for this step (like switching tabs, expanding cards)
+    if (step.action) {{
+        step.action();
+    }}
+
+    // Small delay to let DOM update after actions
+    setTimeout(function() {{
+        var targetEl = document.querySelector(step.target);
+
+        if (!targetEl) {{
+            console.warn('[Tutorial] Target not found:', step.target);
+            // Skip to next step if target doesn't exist
+            if (stepIndex < TUTORIAL_STEPS.length - 1) {{
+                currentTutorialStep++;
+                showTutorialStep(currentTutorialStep);
+            }} else {{
+                endTutorial();
+            }}
+            return;
+        }}
+
+        // Scroll target into view first
+        targetEl.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+
+        // Wait for scroll to complete, then position spotlight
+        setTimeout(function() {{
+            var rect = targetEl.getBoundingClientRect();
+            var spotlight = document.getElementById('tutorial-spotlight');
+            var padding = 8;
+
+            spotlight.style.top = (rect.top - padding) + 'px';
+            spotlight.style.left = (rect.left - padding) + 'px';
+            spotlight.style.width = (rect.width + padding * 2) + 'px';
+            spotlight.style.height = (rect.height + padding * 2) + 'px';
+
+            // Add special highlight class for EUI filter step
+            if (step.highlight) {{
+                spotlight.classList.add('extra-highlight');
+            }} else {{
+                spotlight.classList.remove('extra-highlight');
+            }}
+
+            // Position tooltip
+            var tooltip = document.getElementById('tutorial-tooltip');
+            positionTooltip(tooltip, rect, step.position);
+
+            // Update content
+            document.getElementById('tutorial-step-num').textContent = stepIndex + 1;
+            document.getElementById('tutorial-title').textContent = step.title;
+            document.getElementById('tutorial-content').textContent = step.content;
+
+            // Update buttons
+            document.getElementById('tutorial-prev').disabled = stepIndex === 0;
+            document.getElementById('tutorial-next').textContent =
+                stepIndex === TUTORIAL_STEPS.length - 1 ? 'Finish' : 'Next';
+        }}, 400);
+
+    }}, step.action ? 500 : 100);
+}}
+
+function positionTooltip(tooltip, targetRect, position) {{
+    var padding = 20;
+    var tooltipWidth = 380;
+    var tooltipHeight = tooltip.offsetHeight || 200;
+
+    // Remove all arrow classes
+    tooltip.className = 'tutorial-tooltip';
+
+    var top, left;
+
+    switch (position) {{
+        case 'bottom':
+            top = targetRect.bottom + padding;
+            left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
+            tooltip.classList.add('arrow-top');
+            break;
+        case 'top':
+            top = targetRect.top - tooltipHeight - padding;
+            left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
+            tooltip.classList.add('arrow-bottom');
+            break;
+        case 'left':
+            top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
+            left = targetRect.left - tooltipWidth - padding;
+            tooltip.classList.add('arrow-right');
+            break;
+        case 'right':
+            top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
+            left = targetRect.right + padding;
+            tooltip.classList.add('arrow-left');
+            break;
+    }}
+
+    // Keep tooltip on screen
+    left = Math.max(20, Math.min(left, window.innerWidth - tooltipWidth - 20));
+    top = Math.max(20, Math.min(top, window.innerHeight - tooltipHeight - 20));
+
+    tooltip.style.top = top + 'px';
+    tooltip.style.left = left + 'px';
+}}
+
+// Handle escape key to close tutorial
+document.addEventListener('keydown', function(e) {{
+    if (e.key === 'Escape' && tutorialActive) {{
+        endTutorial();
+    }}
+}});
+
+// Handle window resize - reposition spotlight and tooltip
+window.addEventListener('resize', function() {{
+    if (tutorialActive) {{
+        showTutorialStep(currentTutorialStep);
     }}
 }});
 </script>'''
