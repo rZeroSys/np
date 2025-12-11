@@ -589,6 +589,8 @@ body.all-buildings-active .city-filter-bar {
     cursor: pointer;
     border: none;
     color: white;
+    min-width: 140px;
+    text-align: center;
 }
 
 .vertical-btn.selected, .building-type-btn.selected {
