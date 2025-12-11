@@ -4007,12 +4007,13 @@ tr.pin-highlight {
             <span class="type-active-indicator"></span>
             <svg class="type-filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             <div class="type-filter-dropdown" id="typeFilterDropdown" onclick="event.stopPropagation()">
-                <label class="type-filter-option"><input type="checkbox" data-type="owner" checked onchange="applyTypeFilter()"> Owner</label>
-                <label class="type-filter-option"><input type="checkbox" data-type="owner/occupier" checked onchange="applyTypeFilter()"> Owner/Occupier</label>
-                <label class="type-filter-option"><input type="checkbox" data-type="owner/operator" checked onchange="applyTypeFilter()"> Owner/Operator</label>
-                <label class="type-filter-option"><input type="checkbox" data-type="tenant" checked onchange="applyTypeFilter()"> Tenant</label>
-                <label class="type-filter-option"><input type="checkbox" data-type="tenant_sub_org" checked onchange="applyTypeFilter()"> Tenant Sub-Org</label>
-                <label class="type-filter-option"><input type="checkbox" data-type="property manager" checked onchange="applyTypeFilter()"> Prop Manager</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="all" checked onchange="applyTypeFilter()"> All</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner" onchange="applyTypeFilter()"> Owner</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/occupier" onchange="applyTypeFilter()"> Owner/Occupier</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/operator" onchange="applyTypeFilter()"> Owner/Operator</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant" onchange="applyTypeFilter()"> Tenant</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant_sub_org" onchange="applyTypeFilter()"> Tenant Sub-Org</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="property manager" onchange="applyTypeFilter()"> Prop Manager</label>
             </div>
         </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
@@ -5695,27 +5696,14 @@ function toggleTypeFilter(event) {{
     wrapper.classList.toggle('active');
 }}
 
-function toggleTypeAll(checkbox) {{
-    const isChecked = checkbox.checked;
-    document.querySelectorAll('#typeFilterDropdown input[data-type]').forEach(cb => {{
-        cb.checked = isChecked;
-    }});
-    applyTypeFilter();
-}}
 
 function applyTypeFilter() {{
-    const checkboxes = document.querySelectorAll('#typeFilterDropdown input[data-type]');
-    const activeTypes = new Set();
-
-    checkboxes.forEach(cb => {{
-        if (cb.checked) {{
-            activeTypes.add(cb.dataset.type);
-        }}
-    }});
+    const selected = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
+    const selectedType = selected ? selected.dataset.type : 'all';
 
     // Update filter indicator
     const wrapper = document.getElementById('typeFilterWrapper');
-    if (activeTypes.size === 6 || activeTypes.size === 0) {{
+    if (selectedType === 'all') {{
         wrapper.classList.remove('filtering');
     }} else {{
         wrapper.classList.add('filtering');
@@ -5726,15 +5714,14 @@ function applyTypeFilter() {{
 }}
 
 function applyAllFilters() {{
-    // Get active type filters
-    const typeCheckboxes = document.querySelectorAll('#typeFilterDropdown input[data-type]');
-    const activeTypes = new Set();
-    typeCheckboxes.forEach(cb => {{ if (cb.checked) activeTypes.add(cb.dataset.type); }});
+    // Get selected type filter (radio button)
+    const selected = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
+    const selectedType = selected ? selected.dataset.type : 'all';
 
     // Filter portfolio cards by Type only (EUI is now L2 filter)
     document.querySelectorAll('.portfolio-card').forEach(card => {{
         const classification = card.dataset.classification || '';
-        const passesType = activeTypes.size === 0 || activeTypes.has(classification);
+        const passesType = selectedType === 'all' || classification === selectedType;
 
         if (passesType) {{
             card.style.display = '';
