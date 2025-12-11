@@ -3107,6 +3107,67 @@ tr.pin-highlight {
     animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Info Tooltip - circle i icon */
+.info-tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: #64748b;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: help;
+    position: relative;
+}
+.info-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1e293b;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    width: 280px;
+    text-align: left;
+    text-transform: none;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.info-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+.info-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: #1e293b;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+.info-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Hidden */
 .hidden {
     display: none !important;
@@ -3192,7 +3253,7 @@ tr.pin-highlight {
     position: absolute;
     border-radius: 8px;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75);
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
     pointer-events: none;
     background: transparent;
 }
@@ -3235,7 +3296,7 @@ tr.pin-highlight {
     min-width: 320px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     pointer-events: auto;
-    transition: opacity 0.3s ease, top 0.3s ease, left 0.3s ease;
+    transition: opacity 0.15s ease, top 0.15s ease, left 0.15s ease;
     font-family: 'Inter', sans-serif;
     opacity: 0;
 }
@@ -3664,7 +3725,7 @@ tr.pin-highlight {
         <div class="tutorial-backdrop"></div>
         <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
         <div class="tutorial-tooltip" id="tutorial-tooltip">
-            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">12</span></div>
+            <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">13</span></div>
             <h3 id="tutorial-title" class="tutorial-title"></h3>
             <p id="tutorial-content" class="tutorial-content"></p>
             <div class="tutorial-actions">
@@ -7137,6 +7198,16 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
+        target: '.portfolio-sort-header .info-tooltip',
+        title: 'Info Tooltips',
+        content: 'Hover over the (i) icons throughout the page to see helpful explanations of metrics like EUI, valuation impact, and more.',
+        position: 'bottom',
+        action: function() {{
+            switchMainTab('portfolios');
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
+    }},
+    {{
         target: '.portfolio-card:first-child .portfolio-header',
         title: 'Expand Portfolio',
         content: 'Click any portfolio row to expand it and see individual buildings. Each building shows address, type, square footage, EUI rating, and savings potential.',
@@ -7167,12 +7238,12 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
-        target: '.building-grid-row .ext-link-cell a, .building-grid-row .external-link',
+        target: '.building-grid-row .ext-link-cell a[href]',
         title: 'Source Link',
-        content: 'Click the arrow icon to view the original data source for this building. This opens the source website in a new tab for verification.',
+        content: 'Click the arrow icon (↗) to view the original data source for this building in a new tab.',
         position: 'left',
         action: function() {{
-            var link = document.querySelector('.building-grid-row .ext-link-cell a, .building-grid-row .external-link');
+            var link = document.querySelector('.building-grid-row .ext-link-cell a[href]');
             if (link) link.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
         }}
     }},
@@ -7318,9 +7389,9 @@ function showTutorialStep(stepIndex) {{
 
             // Show tooltip after positioning
             tooltip.classList.add('visible');
-        }}, 400);
+        }}, 200);
 
-    }}, step.action ? 500 : 100);
+    }}, step.action ? 250 : 50);
 }}
 
 function positionTooltip(tooltip, targetRect, position) {{
