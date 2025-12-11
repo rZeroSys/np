@@ -1902,6 +1902,7 @@ body.all-buildings-active .main-tabs {
 .info-tooltip:hover {
     transform: scale(1.1);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+    z-index: 9999;
 }
 .info-tooltip::after {
     content: attr(data-tooltip);
