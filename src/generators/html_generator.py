@@ -540,7 +540,7 @@ body {
 /* VERTICAL FILTER BAR - horizontal bar below header */
 .vertical-filter-bar {
     position: fixed;
-    top: 133px;
+    top: 155px;
     left: 0;
     right: 0;
     background: white;
@@ -552,7 +552,7 @@ body {
 /* City filter bar - identical to vertical filter bar, for Cities tab */
 .city-filter-bar {
     position: fixed;
-    top: 133px;
+    top: 155px;
     left: 0;
     right: 0;
     background: white;
@@ -880,7 +880,7 @@ body.all-buildings-active .city-filter-bar {
 /* Main Tabs */
 .main-tabs {
     background: white;
-    padding: 0 32px;
+    padding: 12px 32px;
 }
 
 .tabs-container {
@@ -892,16 +892,18 @@ body.all-buildings-active .city-filter-bar {
 
 .main-tab {
     padding: 14px 28px;
-    border: none;
+    border: 2px solid transparent;
     background: none;
     font-size: 16px;
     font-weight: 700;
     color: var(--gray-500);
     cursor: pointer;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -1px;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
-    border-radius: 8px 8px 0 0;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .main-tab:hover {
@@ -911,7 +913,7 @@ body.all-buildings-active .city-filter-bar {
 
 .main-tab.active {
     color: var(--rzero-blue);
-    border-bottom: 3px solid var(--rzero-blue);
+    border: 2px solid var(--rzero-blue);
     background: rgba(0, 102, 204, 0.05);
 }
 
@@ -942,9 +944,10 @@ body.all-buildings-active .main-tabs {
 
 /* All Buildings Tab Styles */
 .all-buildings-section {
-    padding: 175px 32px 32px 32px;
+    padding: 185px 32px 32px 32px;
     max-width: 1400px;
     margin: 0 auto;
+    background: var(--gray-50);
 }
 
 .all-buildings-stats {
@@ -1186,7 +1189,7 @@ body.all-buildings-active .main-tabs {
     display: grid;
     grid-template-columns: 60px 24px 1.3fr 110px 70px 55px 1.2fr 1.2fr 85px;
     gap: 12px;
-    padding: 12px 16px;
+    padding: 8px 16px 8px 0;
     background: var(--rzero-blue);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -1194,11 +1197,10 @@ body.all-buildings-active .main-tabs {
     font-weight: 600;
     color: white;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
     align-items: center;
     position: sticky;
-    top: 133px;
-    z-index: 100;
+    top: 222px;
+    z-index: 1002;
 }
 .cities-header span { cursor: pointer; white-space: nowrap; }
 .cities-header span:hover { color: rgba(255,255,255,0.8); }
@@ -1873,8 +1875,8 @@ body.all-buildings-active .main-tabs {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     position: sticky;
-    top: 200px;
-    z-index: 100;
+    top: 225px;
+    z-index: 1002;
 }
 
 /* Info Tooltip - blue circle i icon */
@@ -1882,17 +1884,24 @@ body.all-buildings-active .main-tabs {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 4px;
-    width: 14px;
-    height: 14px;
-    background-color: #64748b;
+    margin-left: 6px;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
     color: white;
     border-radius: 50%;
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     cursor: help;
     position: relative;
     flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-transform: lowercase;
+}
+.info-tooltip:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
 }
 .info-tooltip::after {
     content: attr(data-tooltip);
@@ -1921,6 +1930,16 @@ body.all-buildings-active .main-tabs {
 .info-tooltip:hover::after {
     opacity: 1;
     visibility: visible;
+}
+/* Right-aligned tooltip for elements near right edge */
+.info-tooltip.tooltip-right::after {
+    left: auto;
+    right: 0;
+    transform: none;
+}
+.info-tooltip.tooltip-right::before {
+    left: auto;
+    right: 10px;
 }
 .info-tooltip::before {
     content: "";
@@ -2269,22 +2288,12 @@ body.all-buildings-active .main-tabs {
     margin-left: 6px;
     opacity: 1;
     transition: transform 0.2s, background 0.2s;
-    background: rgba(0, 102, 204, 0.25);
+    background: rgba(255,255,255,0.3);
     border-radius: 4px;
-    padding: 3px;
-    animation: eui-arrow-bounce 2s ease-in-out infinite;
+    padding: 2px;
 }
-
-/* EUI Arrow UNMISSABLE bouncing animation */
-@keyframes eui-arrow-bounce {
-    0%, 70%, 100% { transform: translateY(0); }
-    80% { transform: translateY(3px); }
-    90% { transform: translateY(0); }
-}
-
 .eui-filter-wrapper:hover .eui-filter-icon {
-    background: rgba(0, 102, 204, 0.4);
-    animation: none;
+    background: rgba(255,255,255,0.5);
 }
 .eui-filter-wrapper.active .eui-filter-icon {
     transform: rotate(180deg);
@@ -2320,7 +2329,7 @@ body.all-buildings-active .main-tabs {
 .eui-filter-option:hover {
     background: var(--gray-50);
 }
-.eui-filter-option input[type="checkbox"] {
+.eui-filter-option input[type="radio"] {
     width: 16px;
     height: 16px;
     accent-color: var(--primary);
@@ -2511,8 +2520,8 @@ body.all-buildings-active .main-tabs {
     letter-spacing: 0.3px;
     border-left: 4px solid #60a5fa;
     position: sticky;
-    top: 242px;
-    z-index: 10;
+    top: 269px;
+    z-index: 1001;
 }
 
 .building-sort-header .l2-org-name {
@@ -2851,9 +2860,9 @@ body.all-buildings-active .main-tabs {
 /* Climate Zone Legend */
 .climate-legend {
     position: absolute;
-    bottom: 24px;
-    left: 16px;
-    background: rgba(255,255,255,0.85);
+    bottom: 4px;
+    left: 4px;
+    background: rgba(255,255,255,0.95);
     padding: 6px 10px;
     border-radius: 4px;
     font-size: 9px;
@@ -3107,67 +3116,6 @@ tr.pin-highlight {
     animation: shimmer 1.5s ease-in-out infinite;
 }
 
-/* Info Tooltip - circle i icon */
-.info-tooltip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 4px;
-    width: 14px;
-    height: 14px;
-    background-color: #64748b;
-    color: white;
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: 600;
-    cursor: help;
-    position: relative;
-}
-.info-tooltip::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #1e293b;
-    color: white;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-    white-space: normal;
-    width: 280px;
-    text-align: left;
-    text-transform: none;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-    pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.info-tooltip:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
-.info-tooltip::before {
-    content: "";
-    position: absolute;
-    top: 115%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-bottom-color: #1e293b;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-}
-.info-tooltip:hover::before {
-    opacity: 1;
-    visibility: visible;
-}
-
 /* Hidden */
 .hidden {
     display: none !important;
@@ -3345,23 +3293,27 @@ tr.pin-highlight {
 
 .tutorial-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
-.tutorial-skip {
+.tutorial-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
     background: none;
     border: none;
-    color: var(--gray-500);
-    font-size: 13px;
+    color: var(--gray-400);
+    font-size: 20px;
     cursor: pointer;
-    padding: 8px;
-    font-family: 'Inter', sans-serif;
+    padding: 4px 8px;
+    line-height: 1;
+    border-radius: 4px;
 }
 
-.tutorial-skip:hover {
-    color: var(--gray-700);
-    text-decoration: underline;
+.tutorial-close:hover {
+    color: var(--gray-600);
+    background: var(--gray-100);
 }
 
 .tutorial-nav {
@@ -3651,14 +3603,16 @@ tr.pin-highlight {
 
         # Vertical buttons HTML (with dropdown arrows)
         vertical_html = []
+        icons = {'Commercial': '¢', 'Education': '✎', 'Healthcare': '✚'}
         for v in ['Commercial', 'Education', 'Healthcare']:
             count = by_vertical.get(v, {}).get('building_count', 0)
             dropdown_content = ''.join(dropdown_options.get(v, []))
+            icon = icons.get(v, '')
             vertical_html.append(
                 f'<div class="vertical-btn-wrapper">'
                 f'<button class="vertical-btn" data-vertical="{v}" '
                 f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
-                f'{v} <span class="btn-count">({count:,})</span>'
+                f'<span style="font-size: 14px; margin-right: 4px;">{icon}</span> {v}'
                 f'<span class="btn-x" onclick="event.stopPropagation(); selectVertical(\'all\')">✕</span></button>'
                 f'<button class="vertical-dropdown-arrow" data-vertical="{v}" '
                 f'onclick="toggleVerticalDropdown(event, \'{v}\')" style="background:{colors[v]}">'
@@ -3671,6 +3625,7 @@ tr.pin-highlight {
         return f'''<div class="vertical-filter-bar">
     <div class="vertical-filter-inner">
         <div class="vertical-buttons-group">{''.join(vertical_html)}</div>
+        <span class="info-tooltip" style="margin-left: 2px;" data-tooltip="Click the arrow on each button to see building type filters specific to that industry vertical.">i</span>
         <div id="building-type-chip" class="building-type-chip">
             <span class="chip-x" onclick="clearBuildingTypeFilter()">&times;</span>
             <span class="chip-text"></span>
@@ -3685,9 +3640,6 @@ tr.pin-highlight {
                 <button onclick="exportPortfolioCSV()">Portfolio Summaries</button>
             </div>
         </div>
-        <button class="export-btn" onclick="openMapPanel()" style="margin-left: 8px; background: #0077cc;">
-            <span style="font-size: 14px;">&#9678;</span> Map
-        </button>
         <div class="leaderboard-dropdown" style="margin-left: 8px;">
             <button class="export-btn" onclick="toggleLeaderboardMenu(event)" style="background: #5ba3d9;">
                 <span style="font-size: 14px;">&#9733;</span> Leaderboard
@@ -3705,6 +3657,10 @@ tr.pin-highlight {
                 </ul>
             </div>
         </div>
+        <button class="export-btn" onclick="openMapPanel()" style="margin-left: 8px; background: #0077cc;">
+            <span style="font-size: 14px;">&#9678;</span> Map
+        </button>
+        <span class="info-tooltip tooltip-right" style="margin-left: 2px; z-index: 1010;" data-tooltip="Use the map to see the geographic distribution of a selected portfolio, or check if we have a specific building by searching its address.">i</span>
     </div>
 </div>'''
 
@@ -3727,9 +3683,9 @@ tr.pin-highlight {
         <div class="tutorial-tooltip" id="tutorial-tooltip">
             <div class="tutorial-step-indicator">Step <span id="tutorial-step-num">1</span> of <span id="tutorial-total-steps">13</span></div>
             <h3 id="tutorial-title" class="tutorial-title"></h3>
+            <button class="tutorial-close" onclick="endTutorial()">&times;</button>
             <p id="tutorial-content" class="tutorial-content"></p>
             <div class="tutorial-actions">
-                <button class="tutorial-skip" onclick="endTutorial()">Skip Tutorial</button>
                 <div class="tutorial-nav">
                     <button id="tutorial-prev" class="tutorial-btn-secondary" onclick="prevTutorialStep()">Back</button>
                     <button id="tutorial-next" class="tutorial-btn-primary" onclick="nextTutorialStep()">Next</button>
@@ -3977,7 +3933,7 @@ tr.pin-highlight {
         <div id="filter-chips" class="filter-chips"></div>
     </div>
 </header>
-<div class="main-tabs" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 1002; background: white; border-bottom: 1px solid var(--gray-200); padding: 0 32px;">
+<div class="main-tabs" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 1002; background: white; border-bottom: 1px solid var(--gray-200); padding: 12px 32px;">
     <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: center;">
         <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>Portfolios</button>
         <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>Cities</button>
@@ -4041,7 +3997,7 @@ tr.pin-highlight {
 
         return f'''
 <div id="portfolios-tab" class="tab-content active">
-<div class="portfolio-section" style="padding: 200px 0 20px 0;">
+<div class="portfolio-section" style="padding: 210px 0 20px 0;">
     <div class="portfolio-sort-header">
         <span class="sort-col">Portfolio</span>
         <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
@@ -4059,7 +4015,17 @@ tr.pin-highlight {
             </div>
         </div>
         <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
-        <span class="sort-col" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI<span class="info-tooltip" data-tooltip="Median EUI across all buildings in portfolio. Median is used (not average) because it's not skewed by outliers. Buildings shown first have highest savings potential. Click 'See More' to view all buildings.">i</span></span>
+        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper" onclick="toggleEuiFilter(event)">
+            <span>EUI</span>
+            <span class="eui-active-indicator"></span>
+            <svg class="eui-filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="all" checked onchange="applyEuiFilter()"> All</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"> Bad</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"> OK</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"> Good</label>
+            </div>
+        </div>
         <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
         <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
         <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
@@ -4142,7 +4108,7 @@ tr.pin-highlight {
     </div>
 </div>
 <div id="all-buildings-tab" class="tab-content">
-<div class="all-buildings-section" style="padding: 190px 0 20px 0;">
+<div class="all-buildings-section" style="padding: 210px 0 20px 0;">
     <!-- Cities Table -->
     <div class="cities-header">
         <span></span>
@@ -4468,14 +4434,15 @@ tr.pin-highlight {
         return '''
 <div id="map-panel" class="map-panel">
     <div class="map-panel-header">
-        <div id="map-panel-title" style="display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;">All Buildings Map</div>
+        <div id="map-panel-title" style="display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;">All Buildings</div>
         <div class="map-panel-actions">
             <button class="map-panel-reset" onclick="resetMap()" title="Reset map to default view">Reset</button>
             <button class="map-panel-close" onclick="closeMapPanel()">&times;</button>
         </div>
     </div>
-    <div style="padding: 12px 20px;">
-        <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+    <div style="padding: 12px 20px; display: flex; align-items: center; gap: 8px;">
+        <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+        <span class="info-tooltip" data-tooltip="Search for a specific building by entering its address. Select from the suggested addresses that appear below to navigate directly to that building on the map.">i</span>
     </div>
     <div id="full-map"></div>
     <div class="climate-legend">
@@ -4611,6 +4578,12 @@ function switchMainTab(tabId) {{
     if (tabId === 'all-buildings' && !window.allBuildingsInitialized) {{
         initAllBuildingsTable();
         window.allBuildingsInitialized = true;
+    }}
+
+    // Show/hide tutorial button - only on portfolios tab
+    var tutorialBtn = document.getElementById('tutorial-btn');
+    if (tutorialBtn) {{
+        tutorialBtn.style.display = tabId === 'portfolios' ? 'flex' : 'none';
     }}
 }}
 
@@ -5833,18 +5806,12 @@ function toggleEuiAll(checkbox) {{
 }}
 
 function applyEuiFilter() {{
-    const checkboxes = document.querySelectorAll('#euiFilterDropdown input[data-eui]');
-    const activeEui = new Set();
-
-    checkboxes.forEach(cb => {{
-        if (cb.checked) {{
-            activeEui.add(cb.dataset.eui);
-        }}
-    }});
+    const selected = document.querySelector('#euiFilterDropdown input[name="eui-filter"]:checked');
+    const activeEui = selected ? selected.dataset.eui : 'all';
 
     // Update filter indicator
     const wrapper = document.getElementById('euiFilterWrapper');
-    if (activeEui.size === 3 || activeEui.size === 0) {{
+    if (activeEui === 'all') {{
         wrapper.classList.remove('filtering');
     }} else {{
         wrapper.classList.add('filtering');
@@ -5853,7 +5820,7 @@ function applyEuiFilter() {{
     // Filter building rows (L2) by EUI rating
     document.querySelectorAll('.building-grid-row').forEach(row => {{
         const euiRating = row.dataset.euiRating || 'ok';
-        if (activeEui.size === 0 || activeEui.has(euiRating)) {{
+        if (activeEui === 'all' || activeEui === euiRating) {{
             row.style.display = '';
         }} else {{
             row.style.display = 'none';
@@ -6799,7 +6766,7 @@ function updateMapTitle() {{
         const orgName = expandedPortfolio.getAttribute('data-org');
         titleEl.innerHTML = `<span>${{orgName}} Buildings</span>`;
     }} else {{
-        titleEl.innerHTML = 'All Buildings Map';
+        titleEl.innerHTML = 'All Buildings';
     }}
 }}
 
@@ -6908,8 +6875,8 @@ function loadPortfolioRows(card, loadMore = false) {{
             else if (ratio <= 1.2) euiRating = 'ok';
             else euiRating = 'bad';
         }}
-        const opex = b.opex >= 1000000000 ? `$${{(b.opex/1000000000).toFixed(1)}}B` : b.opex >= 1000000 ? `$${{Math.round(b.opex/1000000)}}M` : b.opex >= 1000 ? `$${{Math.round(b.opex/1000)}}K` : `$${{Math.round(b.opex)}}`;
-        const val = b.valuation >= 1000000000 ? `$${{(b.valuation/1000000000).toFixed(1)}}B` : b.valuation >= 1000000 ? `$${{Math.round(b.valuation/1000000)}}M` : b.valuation >= 1000 ? `$${{Math.round(b.valuation/1000)}}K` : `$${{Math.round(b.valuation)}}`;
+        const opex = b.opex >= 1000000000 ? `$${{(b.opex/1000000000).toFixed(1)}}B` : b.opex >= 1000000 ? `$${{(b.opex/1000000).toFixed(1)}}M` : b.opex >= 1000 ? `$${{Math.round(b.opex/1000)}}K` : `$${{Math.round(b.opex)}}`;
+        const val = b.valuation >= 1000000000 ? `$${{(b.valuation/1000000000).toFixed(1)}}B` : b.valuation >= 1000000 ? `$${{(b.valuation/1000000).toFixed(1)}}M` : b.valuation >= 1000 ? `$${{Math.round(b.valuation/1000)}}K` : `$${{Math.round(b.valuation)}}`;
         const carbon = b.carbon >= 1000000 ? `${{(b.carbon/1000000).toFixed(1)}}M` : b.carbon >= 1000 ? `${{Math.round(b.carbon/1000)}}K` : Math.round(b.carbon || 0);
 
         const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
@@ -6937,16 +6904,7 @@ function loadPortfolioRows(card, loadMore = false) {{
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'address')">Building</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'type')">Type</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'sqft')">Sq Ft</span>
-        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper" onclick="toggleEuiFilter(event)">
-            <span>EUI</span>
-            <span class="eui-active-indicator"></span>
-            <svg class="eui-filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
-                <label class="eui-filter-option"><input type="checkbox" data-eui="bad" checked onchange="applyEuiFilter()"> Bad</label>
-                <label class="eui-filter-option"><input type="checkbox" data-eui="ok" checked onchange="applyEuiFilter()"> OK</label>
-                <label class="eui-filter-option"><input type="checkbox" data-eui="good" checked onchange="applyEuiFilter()"> Good</label>
-            </div>
-        </div>
+        <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'eui')">EUI</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'valuation')">Val. Impact</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'carbon')">tCO2e/yr</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'opex')">Savings/yr</span>
@@ -7174,10 +7132,11 @@ const TUTORIAL_STEPS = [
         action: function() {{ switchMainTab('portfolios'); }}
     }},
     {{
-        target: '.main-tab[data-tab="all-buildings"]',
-        title: 'Cities Tab',
-        content: 'Browse all 23,000+ buildings organized by city. Filter by top cities using the buttons below.',
-        position: 'bottom'
+        target: '#city-building-search',
+        title: 'Building Name Search',
+        content: 'Search for any building by name! Try typing "One Vanderbilt" or "Empire State" to find specific buildings in the database.',
+        position: 'bottom',
+        action: function() {{ switchMainTab('all-buildings'); }}
     }},
     {{
         target: '.vertical-buttons-group',
@@ -7260,11 +7219,20 @@ const TUTORIAL_STEPS = [
     {{
         target: '.building-grid-row .ext-link-cell a[href]',
         title: 'Source Link',
-        content: 'Click the arrow icon (↗) to view the original data source for this building in a new tab.',
-        position: 'left',
+        content: 'Click the arrow icon (↗) next to the building thumbnail to view the original data source for this building in a new tab.',
+        position: 'right',
         action: function() {{
-            var link = document.querySelector('.building-grid-row .ext-link-cell a[href]');
-            if (link) link.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            // Ensure a portfolio is expanded
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard && !firstCard.classList.contains('expanded')) {{
+                togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            }}
+            setTimeout(function() {{
+                var link = document.querySelector('.building-grid-row .ext-link-cell a[href]');
+                if (link) {{
+                    link.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+                }}
+            }}, 300);
         }}
     }},
     {{
