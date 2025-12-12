@@ -24,7 +24,11 @@ from scipy import stats
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH
+
+INPUT_FILE = str(PORTFOLIO_DATA_PATH)
 
 # Gamma distribution parameters by building type (from EPA technical references)
 # Format: {'building_type': (shape, scale)}

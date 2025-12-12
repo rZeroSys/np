@@ -23,7 +23,11 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
+
+BACKUP_DIR = str(CONFIG_BACKUP_DIR)
 
 def create_backup(input_file):
     """Create timestamped backup before any changes."""
@@ -50,9 +54,7 @@ def safe_float(val, default=0.0):
 # CONFIGURATION
 # =============================================================================
 
-INPUT_CSVS = [
-    "/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv",
-]
+INPUT_CSVS = [str(PORTFOLIO_DATA_PATH)]
 
 # Default HVAC percentages if not in CSV
 DEFAULT_ELEC_HVAC = 0.45

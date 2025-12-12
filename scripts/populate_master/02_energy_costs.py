@@ -43,15 +43,20 @@ Usage: python3 00_energy_costs.py
 import pandas as pd
 import numpy as np
 import shutil
+import sys
 from pathlib import Path
 from datetime import datetime
+
+# Add project root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR
 
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+INPUT_FILE = str(PORTFOLIO_DATA_PATH)
+BACKUP_DIR = str(BACKUP_DIR)
 
 # Conversion factors
 KBTU_PER_THERM = 100

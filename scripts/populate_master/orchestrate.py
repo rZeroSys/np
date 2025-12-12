@@ -27,8 +27,11 @@ import shutil
 # =============================================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+sys.path.insert(0, str(os.path.join(SCRIPT_DIR, '..', '..')))
+from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
+
+DATA_FILE = str(PORTFOLIO_DATA_PATH)
+BACKUP_DIR = str(CONFIG_BACKUP_DIR)
 
 SCRIPTS = [
     ('01_hvac_pct.py',           'HVAC % by fuel type'),

@@ -54,10 +54,10 @@ STATE_FILE = STAGING_DIR / "pipeline_state.json"
 # API KEYS
 # =============================================================================
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
-SERPAPI_KEY = "***REMOVED***"
-YELP_API_KEY = "T-ehGPV5rpTT6KHJQyGL6Y-RC5sRLJsoK7VEKjUGbWq-XpzohwXKx8F18-D7N1nsIg6qRD2npjrtD8MI4ZgThO9lHAeKBCdxogNeE_LYQcxN3deD9em0agfl0UhaXYx"
-MAPILLARY_TOKEN = "MLY|24446972978221887|b4cfeab54b3caaa6f735d4cfc48aba90"
-BING_KEY = "6GWSav0JV7dSRuwOb76TZCE5bA7hhvODjXno8TJvanQ9SXD5Eg2WJQQJ99BGACYeBjFXJ3w3AAAEACOGQ20x"
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
+YELP_API_KEY = os.environ.get("YELP_API_KEY", "")
+MAPILLARY_TOKEN = os.environ.get("MAPILLARY_TOKEN", "")
+BING_KEY = os.environ.get("BING_KEY", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 

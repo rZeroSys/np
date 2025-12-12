@@ -61,6 +61,25 @@ STAGING_DIR = PROJECT_ROOT / 'staging'
 MISSING_IMAGES_DIR = STAGING_DIR / 'missing_images'
 
 # =============================================================================
+# BACKUP PATHS
+# =============================================================================
+
+BACKUP_DIR = PROJECT_ROOT / 'BACKUPS_GO_HERE' / 'csv_backups'
+
+# =============================================================================
+# CBECS DATA
+# =============================================================================
+
+CBECS_DIR = DATA_DIR / 'cbecs'
+CBECS_DATA_PATH = CBECS_DIR / 'cbecs2018_final_public.csv'
+
+# =============================================================================
+# DERIVED DATA FILES
+# =============================================================================
+
+EUI_POST_ODCV_PATH = SOURCE_DATA_DIR / 'eui_post_odcv.csv'
+
+# =============================================================================
 # AWS S3 CONFIGURATION
 # =============================================================================
 
@@ -85,16 +104,3 @@ def get_image_url(filename: str) -> str:
 
 MAX_UPLOAD_WORKERS = 20
 
-# =============================================================================
-# LEGACY PATH MAPPING (for reference during migration)
-# =============================================================================
-
-LEGACY_PATHS = {
-    'BUILDING_DATA': '/Users/forrestmiller/Desktop/nationwide propector/FINAL FILE/ANALYSIS STEP II merged_property_matches_updated.csv',
-    'PORTFOLIO_ORGS': '/Users/forrestmiller/Desktop/nationwide propector/FINAL FILE/portfolio_organizations.csv',
-    'LOGO_BACKGROUNDS': '/Users/forrestmiller/Desktop/nationwide propector/logo_backgrounds.csv',
-    'IMAGES': '/Users/forrestmiller/Desktop/nationwide propector/good images',
-    'LOGOS': '/Users/forrestmiller/Desktop/nationwide propector/Logos',
-    'BUILDINGS_OUTPUT': '/Users/forrestmiller/Desktop/nationwide propector/buildings/',
-    'INDEX_HTML': '/Users/forrestmiller/Desktop/nationwide propector/nationwide_index.html',
-}

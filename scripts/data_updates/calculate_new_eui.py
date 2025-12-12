@@ -5,9 +5,13 @@ Output: id_building, energy_site_eui_post_odcv
 """
 
 import pandas as pd
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, EUI_POST_ODCV_PATH
 
-INPUT = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-OUTPUT = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/eui_post_odcv.csv'
+INPUT = str(PORTFOLIO_DATA_PATH)
+OUTPUT = str(EUI_POST_ODCV_PATH)
 
 df = pd.read_csv(INPUT, low_memory=False)
 

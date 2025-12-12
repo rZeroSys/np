@@ -6,6 +6,11 @@ This makes search REALLY GOOD so CAL, USC, U of C, MIT, NYC, etc. all work!
 
 import pandas as pd
 import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_ORGS_PATH
 
 # =============================================================================
 # COMPREHENSIVE MANUAL ALIASES - THE BIG LIST!
@@ -683,7 +688,7 @@ def generate_auto_aliases(org_name, display_name):
 
 def main():
     # Load existing CSV
-    csv_path = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_organizations.csv'
+    csv_path = str(PORTFOLIO_ORGS_PATH)
     df = pd.read_csv(csv_path)
 
     print(f"Loaded {len(df)} organizations")

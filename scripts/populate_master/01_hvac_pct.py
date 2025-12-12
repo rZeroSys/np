@@ -24,17 +24,22 @@ Sources:
 
 import pandas as pd
 import numpy as np
+import sys
 from pathlib import Path
 from datetime import datetime
 import shutil
+
+# Add project root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, CBECS_DATA_PATH, BACKUP_DIR
 
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-CBECS_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/cbecs/cbecs2018_final_public.csv'
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+INPUT_FILE = str(PORTFOLIO_DATA_PATH)
+CBECS_FILE = str(CBECS_DATA_PATH)
+BACKUP_DIR = str(BACKUP_DIR)
 
 # Building type to CBECS PBA mapping
 BUILDING_TYPE_TO_PBA = {

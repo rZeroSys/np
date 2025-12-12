@@ -32,9 +32,13 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
+
 # Paths
-INPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+INPUT_FILE = str(PORTFOLIO_DATA_PATH)
+BACKUP_DIR = str(CONFIG_BACKUP_DIR)
 
 # Higher Ed utilization by state
 # Based on: academic calendar length, climate (affects break patterns),

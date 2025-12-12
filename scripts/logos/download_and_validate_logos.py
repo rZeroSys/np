@@ -9,10 +9,15 @@ import os
 import sys
 import urllib.request
 import urllib.error
+from pathlib import Path
 from datetime import datetime
 
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_ORGS_PATH
+
 # Config
-CSV_PATH = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_organizations.csv'
+CSV_PATH = str(PORTFOLIO_ORGS_PATH)
+# Output folders are external to project - intentionally hardcoded
 OUTPUT_FOLDER = '/Users/forrestmiller/Desktop/downloaded_logos'
 BROKEN_CSV = '/Users/forrestmiller/Desktop/broken_logos.csv'
 

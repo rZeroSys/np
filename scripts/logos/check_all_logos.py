@@ -5,13 +5,19 @@ Saves results to CSV as it goes.
 """
 
 import os
+import sys
 import csv
 import base64
 import time
+from pathlib import Path
 from openai import OpenAI
 
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import LOGOS_DIR as CONFIG_LOGOS_DIR
+
 # CONFIG
-LOGOS_DIR = "/Users/forrestmiller/Desktop/nationwide-prospector/assets/logos"
+LOGOS_DIR = str(CONFIG_LOGOS_DIR)
+# Output folder is external to project - intentionally hardcoded
 OUTPUT_DIR = "/Users/forrestmiller/Desktop/new logos"
 OUTPUT_CSV = os.path.join(OUTPUT_DIR, "bad_logos.csv")
 PROGRESS_CSV = os.path.join(OUTPUT_DIR, "check_progress.csv")

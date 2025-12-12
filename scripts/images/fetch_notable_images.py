@@ -21,18 +21,22 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH
+
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
-DATA_PATH = "/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv"
+DATA_PATH = str(PORTFOLIO_DATA_PATH)
+# Output is external to project - intentionally hardcoded
 OUTPUT_DIR = Path("/Users/forrestmiller/Desktop/notable_building_images")
 
 # API Keys
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
-SERPAPI_KEY = "***REMOVED***"
-BING_KEY = "6GWSav0JV7dSRuwOb76TZCE5bA7hhvODjXno8TJvanQ9SXD5Eg2WJQQJ99BGACYeBjFXJ3w3AAAEACOGQ20x"
-YELP_API_KEY = "T-ehGPV5rpTT6KHJQyGL6Y-RC5sRLJsoK7VEKjUGbWq-XpzohwXKx8F18-D7N1nsIg6qRD2npjrtD8MI4ZgThO9lHAeKBCdxogNeE_LYQcxN3deD9em0agfl0UhaXYx"
-MAPILLARY_TOKEN = "MLY|24446972978221887|b4cfeab54b3caaa6f735d4cfc48aba90"
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
+BING_KEY = os.environ.get("BING_KEY", "")
+YELP_API_KEY = os.environ.get("YELP_API_KEY", "")
+MAPILLARY_TOKEN = os.environ.get("MAPILLARY_TOKEN", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 # Validation threshold

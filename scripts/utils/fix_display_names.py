@@ -4,8 +4,13 @@ Fix confusing display names - make government entities clear
 """
 
 import csv
+import sys
+from pathlib import Path
 
-CSV_PATH = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_organizations.csv'
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_ORGS_PATH
+
+CSV_PATH = str(PORTFOLIO_ORGS_PATH)
 
 # Explicit mappings for cities/counties/districts
 DISPLAY_NAME_FIXES = {

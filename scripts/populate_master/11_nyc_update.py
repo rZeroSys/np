@@ -34,13 +34,18 @@ NYC_HVAC = NYC_DATA_PATH + 'hvac_office_energy_BIG.csv'
 NYC_OFFICE = NYC_DATA_PATH + 'office_energy_BIG.csv'
 NYC_VALUATION = NYC_DATA_PATH + 'odcv_noi_value_impact_analysis.csv'
 
+import sys
+from pathlib import Path as PathLib
+sys.path.insert(0, str(PathLib(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR, BACKUP_DIR as CONFIG_BACKUP_DIR
+
 # Nationwide prospector target files
-PROSPECTOR_PATH = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/'
-PORTFOLIO_DATA = PROSPECTOR_PATH + 'portfolio_data.csv'
+PROSPECTOR_PATH = str(SOURCE_DATA_DIR) + '/'
+PORTFOLIO_DATA = str(PORTFOLIO_DATA_PATH)
 BUILDINGS_TAB_DATA = PROSPECTOR_PATH + 'buildings_tab_data.csv'
 
 # Backup paths
-BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
+BACKUP_DIR = str(CONFIG_BACKUP_DIR)
 BACKUP_SUFFIX = datetime.now().strftime('%Y%m%d_%H%M%S')
 
 # ============================================================================

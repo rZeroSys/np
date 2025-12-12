@@ -5,9 +5,15 @@ TEST the search functionality to make sure it ACTUALLY WORKS!
 
 import json
 import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import DATA_OUTPUT_DIR
 
 # Load the generated portfolio_cards.js
-with open('/Users/forrestmiller/Desktop/nationwide-prospector/output/html/data/portfolio_cards.js', 'r') as f:
+portfolio_cards_path = DATA_OUTPUT_DIR / 'portfolio_cards.js'
+with open(str(portfolio_cards_path), 'r') as f:
     content = f.read()
 
 # Extract the JSON array

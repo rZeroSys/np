@@ -9,6 +9,7 @@ import csv
 import asyncio
 import aiohttp
 import time
+import os
 from pathlib import Path
 from urllib.parse import urlparse
 from datetime import datetime
@@ -22,7 +23,7 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
 PROGRESS_CSV = OUTPUT_DIR / f"url_fix_progress_{TIMESTAMP}.csv"
 FINAL_CSV = OUTPUT_DIR / f"url_fix_recommendations_{TIMESTAMP}.csv"
 
-SERPAPI_KEY = "***REMOVED***"
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
 TIMEOUT = 10
 
 # Only match REAL parked domain indicators (not generic text)

@@ -4,12 +4,17 @@ Check logos for wrong colors by comparing against known brand colors.
 """
 
 import os
+import sys
+from pathlib import Path
 from PIL import Image
 import numpy as np
 from collections import Counter
 import math
 
-LOGOS_DIR = "/Users/forrestmiller/Desktop/nationwide-prospector/assets/logos"
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import LOGOS_DIR as CONFIG_LOGOS_DIR
+
+LOGOS_DIR = str(CONFIG_LOGOS_DIR)
 
 # Brand colors from brandcolors.net - hex codes for major brands
 # Format: 'Brand_Name': ['#hex1', '#hex2', ...]  (primary colors first)
