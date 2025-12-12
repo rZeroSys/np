@@ -1023,52 +1023,52 @@ def get_odcv_savings_tooltip(row):
         return f"Mixed-use buildings save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. These properties—typically office towers with ground-floor retail—run centralized HVAC controlled by the landlord. Vacant floors still get ventilated, and the office floors face the same hybrid-work utilization gap as pure office buildings. The retail and residential portions have their own occupancy patterns layered on top. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Wholesale Club':
-        return "Large warehouse and stock areas have minimal occupancy compared to sales floor—back-of-house conditioning waste is the main opportunity. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Wholesale clubs have large back-of-house warehouse areas with minimal staff—most of the building has very low occupancy compared to the sales floor. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type in ['Library', 'Museum', 'Library/Museum']:
-        return "Limited public hours with variable visitor traffic. Reading rooms and galleries designed for crowds often have sparse attendance. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Libraries and museums have limited public hours with variable visitor traffic. Reading rooms and exhibit halls designed for crowds often have sparse attendance. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Outpatient Clinic':
-        return "Exam rooms sit empty between appointments. Patients occupy them briefly, then they're vacant until the next scheduled visit. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Outpatient clinics have exam rooms that sit empty between appointments. Patients occupy them briefly, then they're vacant until the next visit. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Enclosed Mall':
-        return "Anchor closures create vacancy, yet common areas get fully conditioned regardless of traffic. Weekday mornings sparse, weekend afternoons busy. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Enclosed malls have high vacancy from anchor store closures. Common areas stay empty on weekday mornings while packed on weekend afternoons. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Strip Mall':
-        return "Individual tenant turnover leaves spaces empty, and occupied stores follow retail traffic patterns—busy evenings/weekends, slow weekday mornings. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Strip malls have tenant turnover leaving spaces vacant. Occupied stores see busy evenings and weekends but slow weekday mornings. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type in ['Preschool/Daycare', 'Preschool', 'Daycare']:
-        return "Limited operating hours with rolling drop-off/pickup throughout the day. Rooms designed for full capacity rarely have all children present at once. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Daycares have limited hours with rolling drop-off and pickup. Rooms designed for full enrollment rarely have all children present at once. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Bank Branch':
-        return "Limited hours as banking shifts digital. Minimal foot traffic in spaces designed for queues that rarely form. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Bank branches have limited hours as banking shifts digital. Spaces designed for queues see minimal foot traffic. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Vehicle Dealership':
-        return "Showrooms follow retail traffic patterns. Service bays have controlled utilization from scheduled appointments only. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Dealerships have showrooms with variable customer traffic and service bays that only fill during scheduled appointments. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Courthouse':
-        return "Limited opportunity. Security requirements and unpredictable docket schedules constrain flexibility. Courtrooms may sit empty between cases. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Courthouses have limited savings opportunity—courtrooms sit empty between cases but unpredictable docket schedules make occupancy hard to predict. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Public Service':
-        return "DMVs and permit centers operate business hours with variable traffic. Waiting areas designed for peak crowds often have a fraction present. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Public service buildings have variable traffic during business hours. Waiting areas designed for peak crowds often have a fraction of that present. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Event Space':
-        return "Event spaces sit empty most of the week—bookings are periodic. Between events, large rooms designed for hundreds have zero occupancy. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Event spaces sit empty most of the week—bookings are periodic. Between events, rooms designed for hundreds have zero occupancy. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type in ['Arts & Culture', 'Arts and Culture']:
-        return "Performances and exhibitions are periodic—spaces sit empty between shows. Auditoriums and rehearsal spaces have low utilization outside of scheduled programming. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Arts and cultural venues have periodic performances—auditoriums and rehearsal spaces sit empty between scheduled shows. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type in ['Sports/Gaming Center', 'Sports Center', 'Gaming Center']:
-        return "Sports and gaming facilities have sharp traffic peaks—weekend afternoons packed, weekday mornings nearly empty. Predictable league and open-play schedules. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Sports and gaming centers have sharp traffic peaks—weekend afternoons packed, weekday mornings nearly empty. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Public Transit':
-        return "Limited opportunity. Rush hour packed, overnight nearly empty. Predictable commute patterns but 24/7 operations limit flexibility. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Transit stations have limited savings opportunity—rush hour packed, overnight nearly empty, but 24/7 operations limit flexibility. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Police Station':
-        return "Limited opportunity. 24/7 staffing means occupancy never drops to zero. Admin and training areas have off-hours vacancy but operational spaces stay occupied. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Police stations have limited savings opportunity—24/7 staffing means occupancy never drops to zero across operational areas. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     elif bldg_type == 'Fire Station':
-        return "Limited opportunity. 24/7 staffing with always-ready facilities. Cannot reduce conditioning because occupancy never drops to zero and response must be immediate. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return "Fire stations have limited savings opportunity—crews are always present and response-ready, so occupancy never drops. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
     else:
         # Generic fallback
