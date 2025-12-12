@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 15:19:47 EST -->
+<!-- Generated: 2025-12-12 17:03:54 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -227,22 +227,23 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }
 
@@ -268,7 +269,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -325,16 +326,12 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1 style="margin-bottom:0;"><a href="https://property.phila.gov/?p=883087200" target="_blank" style="color: inherit; text-decoration: none;">4101 Frankford Avenue, Philadelphia, PA, 19124 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>
+        <h1 style="margin-bottom:0;">4101 Frankford Avenue, Philadelphia, PA, 19124</h1>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,64 +346,82 @@
     </div>
 
     <div class="section">
-        <h2>Property</h2>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://property.phila.gov/?p=883087200" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
         <table>
 <tr><td>Size</td><td>69,364 sqft</td></tr>
 <tr><td>Type</td><td>Inpatient Hospital</td></tr>
 <tr><td>Year Built</td><td>1970</td></tr>
-<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Sources: <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR Portfolio Manager</a>, city benchmarking filings, <a href="https://www.costar.com/" target="_blank" rel="noopener">CoStar</a>, SEC 10-K, corporate websites.</span></span></td><td><div style=""><a href="https://www.phila.gov" target="_blank" class="org-logo" data-org-name="Philadelphia County Gov"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Philadelphia_County.png" alt="Philadelphia County Gov" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Philadelphia County Gov</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Mbc Carlisle"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Mbc_Carlisle.png" alt="Mbc Carlisle" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Mbc Carlisle</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://www.phila.gov" target="_blank" class="org-logo" data-org-name="Philadelphia County Gov"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Philadelphia_County.png" alt="Philadelphia County Gov" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Philadelphia County Gov</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Mbc Carlisle"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Mbc_Carlisle.png" alt="Mbc Carlisle" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Mbc Carlisle</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From Philadelphia Benchmarking benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
-                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://www.aha.org/statistics-trends-reports" target="_blank" rel="noopener">AHA</a> bed occupancy data. <a href="https://www.ashrae.org/technical-resources/standards-and-guidelines" target="_blank" rel="noopener">ASHRAE 170</a> limits applied.</span></span></th>
-                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Limited opportunity. Savings from admin areas, not clinical spaces.</span></span></th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From Philadelphia Benchmarking benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th style="width:22%;">New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a> fuel splits, <a href='https://www.aha.org/' target='_blank'><a href="https://www.aha.org/statistics-trends-reports" target="_blank" rel="noopener">AHA</a></a> bed occupancy data. <a href='https://www.ashrae.org/' target='_blank'><a href="https://www.ashrae.org/technical-resources/standards-and-guidelines" target="_blank" rel="noopener">ASHRAE 170</a></a> limits applied.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Limited opportunity. Savings from admin areas, not clinical spaces.</span></span></th>
             </tr>
 
-            <tr>
-                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 53% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems. ODCV savings come from non-clinical areas—waiting rooms, admin offices, cafeterias.</span></span></td>
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 53% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>669,350 kWh</td>
                 <td>561,043 kWh</td>
-                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -108,306 kWh</td>
+                <td><span style="color:#15803d;font-weight:700;">↓108,306 kWh</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
-            <tr>
-                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. Hospitals have high EUIs due to 24/7 operation and medical equipment. HVAC is 53% of electric—savings come from non-clinical areas.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Inpatient Hospital median: ~200 kBtu/sq ft/year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>32.9 kBtu/sqft</td>
                 <td>30.2 kBtu/sqft</td>
-                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -2.7 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓2.7 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 
-            <tr>
-                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">70% utilization from <a href="https://www.aha.org/statistics-trends-reports" target="_blank" rel="noopener">AHA Hospital Statistics</a>—hospital-specific data, not office assumptions. 40% non-clinical: waiting rooms, admin, cafeterias. All ventilated at medical-grade 24/7.</span></span></td>
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from non-clinical areas: waiting rooms, admin offices, cafeterias. Clinical areas have fixed ventilation requirements under <a href="https://www.ashrae.org/technical-resources/standards-and-guidelines" target="_blank" rel="noopener">ASHRAE 170</a>. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>, <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a>)</span></span></td>
                 <td>$124K/yr</td>
                 <td>$104K/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$20K/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓$20K/yr</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—Philadelphia's actual utility grid, not a national average. Using EPA eGRID regional factor for PA. Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor for Philadelphia's utility grid. Using regional factor for PA. (Source: <a href='https://www.epa.gov/egrid' target='_blank'><a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a></a>)</span></span></td>
                 <td>210.6 tCO2e/yr</td>
                 <td>176.5 tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -34.1 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓34.1 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
         </table>

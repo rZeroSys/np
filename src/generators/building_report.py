@@ -8,6 +8,7 @@ import sys
 import os
 import traceback
 import subprocess
+import math
 from pathlib import Path
 from datetime import datetime
 import pytz
@@ -111,6 +112,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '0.00758 tCO2e/sqft',
         'min_sqft': 25000,
         'source': 'NYC Dept of Buildings',
+        'source_url': 'https://www.nyc.gov/site/sustainablebuildings/ll97/local-law-97.page',
+        'effective': '2024-2029 (stricter limits 2030+)',
+        'note': 'Current cap applies through 2029. In 2030, caps tighten ~50% making compliance harder.',
         'exempt_types': ['K-12 School', 'Government'],
         'exempt_reason': 'have alternative compliance pathways under Article 321'
     },
@@ -121,6 +125,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '0.0053 tCO2e/sqft',
         'min_sqft': 20000,
         'source': 'City of Boston',
+        'source_url': 'https://www.boston.gov/departments/environment/berdo',
+        'effective': '2025 (first compliance year)',
+        'note': 'Emissions caps decrease every 5 years through 2050, requiring ongoing improvements.',
         'exempt_types': [],
         'exempt_reason': ''
     },
@@ -131,6 +138,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '0.0053 tCO2e/sqft',
         'min_sqft': 25000,
         'source': 'City of Cambridge',
+        'source_url': 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainablebldgs/beudo',
+        'effective': '2025 (aligned with Boston BERDO)',
+        'note': 'Uses same penalty structure as Boston. Caps tighten through 2050.',
         'exempt_types': [],
         'exempt_reason': ''
     },
@@ -141,6 +151,9 @@ BPS_TOOLTIP_INFO = {
         'cap': 'ENERGY STAR 71 target',
         'min_sqft': 50000,
         'source': 'DC DOEE',
+        'source_url': 'https://doee.dc.gov/service/building-energy-performance-standards',
+        'effective': '2026 (first compliance deadline)',
+        'note': 'Unlike emission-based laws, DC uses Energy Star scores. Buildings scoring below 71 pay prorated fines.',
         'exempt_types': [],
         'exempt_reason': ''
     },
@@ -151,6 +164,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '48.3 kBtu/sqft EUI',
         'min_sqft': 25000,
         'source': 'City of Denver',
+        'source_url': 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-Resiliency/Energize-Denver',
+        'effective': '2024-2027 (current compliance period)',
+        'note': 'Penalties scale with how far over target. A building 10 kBtu over pays ~$3/sqft annually.',
         'exempt_types': ['K-12 School', 'Government'],
         'exempt_reason': 'have different compliance pathways'
     },
@@ -161,6 +177,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '0.00081 tCO2e/sqft',
         'min_sqft': 20000,
         'source': 'City of Seattle',
+        'source_url': 'https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards',
+        'effective': '2027-2031 (first compliance cycle)',
+        'note': 'Lower penalty rate but applies to entire building. Seattle\'s hydro grid (98% clean) makes this achievable.',
         'exempt_types': [],
         'exempt_reason': ''
     },
@@ -171,6 +190,9 @@ BPS_TOOLTIP_INFO = {
         'cap': '71.7 kBtu/sqft EUI',
         'min_sqft': 50000,
         'source': 'City of St. Louis',
+        'source_url': 'https://www.stlouis-mo.gov/government/departments/mayor/initiatives/sustainability/building-energy-performance-standard.cfm',
+        'effective': '2025 (reporting begins)',
+        'note': 'Daily fines accumulate quickly—$182,500/year if non-compliant. Smaller cities often have aggressive enforcement.',
         'exempt_types': [],
         'exempt_reason': ''
     },
@@ -607,35 +629,35 @@ ENERGY_COLUMN_TOOLTIPS = {
 
 # NEW column: Methodology + data sources by building type
 NEW_COLUMN_SOURCES = {
-    'Office': "HVAC reduced using CBECS fuel splits, CBRE/Cushman vacancy rates, Kastle badge-swipe occupancy data.",
-    'Medical Office': "HVAC reduced using CBECS fuel splits, CBRE vacancy data, MGMA exam room utilization benchmarks.",
-    'Hotel': "HVAC reduced using CBECS fuel splits, STR room occupancy data, guest presence patterns.",
-    'K-12 School': "HVAC reduced using CBECS fuel splits, NCES instructional day requirements, state calendar data.",
-    'Higher Ed': "HVAC reduced using CBECS fuel splits, NCES data, semester and break schedules.",
-    'Retail Store': "HVAC reduced using CBECS fuel splits, Placer.ai foot traffic data.",
-    'Supermarket/Grocery': "HVAC reduced using CBECS fuel splits, Placer.ai traffic patterns.",
-    'Restaurant/Bar': "HVAC reduced using CBECS fuel splits. Kitchen exhaust excluded—only dining area HVAC.",
-    'Inpatient Hospital': "HVAC reduced using CBECS fuel splits, AHA bed occupancy data. ASHRAE 170 limits applied.",
-    'Specialty Hospital': "HVAC reduced using CBECS fuel splits, AHA bed occupancy data. ASHRAE 170 limits applied.",
-    'Residential Care': "HVAC reduced using CBECS fuel splits, NIC MAP Vision occupancy data.",
-    'Residential Care Facility': "HVAC reduced using CBECS fuel splits, NIC MAP Vision occupancy data.",
-    'Mixed Use': "HVAC reduced using CBECS fuel splits, CBRE vacancy, Kastle occupancy for office portion.",
+    'Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>/Cushman vacancy rates, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> badge-swipe occupancy data.",
+    'Medical Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a> vacancy data, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> exam room utilization benchmarks.",
+    'Hotel': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://str.com/' target='_blank'>STR</a> room occupancy data, guest presence patterns.",
+    'K-12 School': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> instructional day requirements, state calendar data.",
+    'Higher Ed': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> data, semester and break schedules.",
+    'Retail Store': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> foot traffic data.",
+    'Supermarket/Grocery': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> traffic patterns.",
+    'Restaurant/Bar': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits. Kitchen exhaust excluded—only dining area HVAC.",
+    'Inpatient Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data. <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a> limits applied.",
+    'Specialty Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data. <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a> limits applied.",
+    'Residential Care': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.nic.org/' target='_blank'>NIC MAP Vision</a> occupancy data.",
+    'Residential Care Facility': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.nic.org/' target='_blank'>NIC MAP Vision</a> occupancy data.",
+    'Mixed Use': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a> vacancy, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> occupancy for office portion.",
     'Data Center': "No ODCV reduction. Cooling is for equipment heat, not people.",
     'Venue': "HVAC reduced using event schedules, industry utilization data.",
     'Theater': "HVAC reduced using performance schedules, Broadway/regional theater utilization data.",
-    'Gym': "HVAC reduced using IHRSA traffic patterns, peak/off-peak utilization data.",
+    'Gym': "HVAC reduced using <a href='https://www.ihrsa.org/' target='_blank'>IHRSA</a> traffic patterns, peak/off-peak utilization data.",
     'Library/Museum': "HVAC reduced using visitor traffic data, collection preservation requirements.",
-    'Outpatient Clinic': "HVAC reduced using CBECS fuel splits, MGMA provider productivity benchmarks.",
-    'Bank Branch': "HVAC reduced using FDIC transaction trends, branch traffic patterns.",
-    'Enclosed Mall': "HVAC reduced using ICSC and Placer.ai traffic data, inline vacancy rates.",
-    'Strip Mall': "HVAC reduced using CBRE/CoStar vacancy, retail traffic patterns.",
+    'Outpatient Clinic': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> provider productivity benchmarks.",
+    'Bank Branch': "HVAC reduced using <a href='https://www.fdic.gov/' target='_blank'>FDIC</a> transaction trends, branch traffic patterns.",
+    'Enclosed Mall': "HVAC reduced using <a href='https://www.icsc.com/' target='_blank'>ICSC</a> and <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> traffic data, inline vacancy rates.",
+    'Strip Mall': "HVAC reduced using <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>/CoStar vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
-    'Vehicle Dealership': "HVAC reduced using NADA traffic data, showroom vs service bay weighting.",
+    'Vehicle Dealership': "HVAC reduced using <a href='https://www.nada.org/' target='_blank'>NADA</a> traffic data, showroom vs service bay weighting.",
     'Event Space': "HVAC reduced using event booking schedules, setup/teardown patterns.",
-    'Preschool/Daycare': "HVAC reduced using state licensing data, NAEYC capacity standards.",
-    'Laboratory': "HVAC reduced using CBECS fuel splits. Fume hood makeup air limits ODCV opportunity.",
+    'Preschool/Daycare': "HVAC reduced using state licensing data, <a href='https://www.naeyc.org/' target='_blank'>NAEYC</a> capacity standards.",
+    'Laboratory': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits. Fume hood makeup air limits ODCV opportunity.",
     'Courthouse': "HVAC reduced using court administration docket data, public area patterns.",
-    'default': "HVAC reduced using CBECS fuel splits, building type utilization benchmarks.",
+    'default': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, building type utilization benchmarks.",
 }
 
 # CHANGE column: Key insight (WHY) by building type - short punchlines
@@ -701,7 +723,7 @@ def get_change_column_tooltip(row):
 # Static tooltips - for items that don't need building-specific data
 # NOTE: fuel_oil, district_steam, pct_hvac_elec are now DYNAMIC (see DYNAMIC_TOOLTIPS)
 TOOLTIPS = {
-    'owner': "Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites.",
+    'owner': "Building ownership from public records and regulatory filings.",
     # 'energy_site_eui' is now a DYNAMIC tooltip - see get_site_eui_tooltip()
     'carbon_reduction': "Less energy used means less carbon emitted. Emissions calculated from your actual electricity, gas, and steam use—converted using EPA's regional grid emission factors.",
     # Electricity Details section (static explanations)
@@ -942,103 +964,66 @@ def get_odcv_savings_tooltip(row):
 
     # Building-type specific explanation
     if bldg_type == 'Office' or bldg_type == 'Medical Office':
-        lines.append(f"Offices save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        if vacancy > 0 and utilization > 0:
-            lines.append(f"This one's {vacancy*100:.0f}% vacant and only {utilization*100:.0f}%")
-            lines.append("occupied when leased - that's hybrid work.")
-        lines.append("Vacant floors still get full ventilation")
-        lines.append("due to fire code and BMS limits.")
-        lines.append("ODCV adjusts to actual occupancy.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a>)"
+        return f"Offices save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Office buildings face a double problem: vacant floors with no tenant, plus leased floors where hybrid work means most desks sit empty on any given day. Fire codes and BMS defaults keep ventilation running at full capacity in both—conditioning space for people who aren't there. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'K-12 School':
-        lines.append(f"Schools save {floor_pct:.0f}-{ceiling_pct:.0f}% - highest of any")
-        lines.append("building type. Empty after 3pm, weekends")
-        lines.append("off, 10+ weeks summer. That's over half")
-        lines.append("the year with no one inside but HVAC")
-        lines.append("still running at full capacity.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://nces.ed.gov/' target='_blank'>NCES</a>)"
+        return f"Schools save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC—often the highest of any building type. Schools operate roughly 180 days per year for about 7 hours each day. Add summer break, weekends, and holidays, and the building sits empty over half the year—yet HVAC often keeps running at full capacity for maintenance setpoints. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Higher Ed':
-        lines.append(f"Universities save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Semester breaks, variable class schedules,")
-        lines.append("summer sessions. Buildings sit empty while")
-        lines.append("HVAC runs at design capacity.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://nces.ed.gov/' target='_blank'>NCES</a>)"
+        return f"Universities save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Campus buildings have dramatic swings: lecture halls designed for 300 often have 50, classrooms sit empty between periods, and entire buildings clear out for semester breaks and summers. Yet HVAC keeps running at design capacity regardless. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Hotel':
-        lines.append(f"Hotels save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Room-level controls adjust to actual guests -")
-        lines.append("typically 65-75% occupancy. Note: only 20%")
-        lines.append("of gas is HVAC here. Rest is hot water (42%)")
-        lines.append("and kitchen (33%).")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://str.com/' target='_blank'>STR</a>)"
+        return f"Hotels save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Most rooms sit empty on any given night, and even checked-in guests spend much of their day out—at meetings, sightseeing, or dining. That means ventilation is conditioning empty rooms most of the time. Also, most hotel gas goes to hot water and kitchens, not HVAC. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Retail Store':
-        lines.append(f"Retail saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Intra-day variability: opening/closing with")
-        lines.append("staff only, mid-morning lulls, lunch and")
-        lines.append("evening rushes. ODCV modulates to actual")
-        lines.append("customer traffic.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a>)"
+        return f"Retail saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Customer traffic varies wildly throughout the day—staff-only during opening and closing, quiet mid-mornings, then lunch and evening rushes. ODCV modulates airflow to match actual foot traffic instead of running at peak capacity all day. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Restaurant/Bar':
-        lines.append(f"Restaurants save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Predictable meal-time peaks but kitchen")
-        lines.append("runs constant regardless. Note: only 18%")
-        lines.append("of gas is HVAC - 72% is cooking.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return f"Restaurants save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Dining rooms have predictable meal-time peaks with quiet periods between, but kitchen exhaust runs constantly regardless. Most restaurant gas goes to cooking, not HVAC—so the opportunity is in the dining area ventilation. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Supermarket/Grocery':
-        lines.append(f"Supermarkets save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Long hours with steady traffic limits empty-")
-        lines.append("space opportunity. Note: ~40% of electricity")
-        lines.append("is refrigeration, not HVAC.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a>)"
+        return f"Supermarkets save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Long hours and steady customer traffic limit the empty-space opportunity compared to other building types. Also, a large share of grocery store electricity goes to refrigeration, not HVAC—so the savings focus on the sales floor ventilation. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        lines.append(f"Hospitals are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
-        lines.append("Clinical areas need constant high airflow")
-        lines.append("for infection control (ASHRAE 170). Savings")
-        lines.append("come from lobbies, offices, and admin spaces.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.aha.org/' target='_blank'>AHA</a>, <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a>)"
+        return f"Hospitals are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings. ASHRAE 170 mandates high air changes in clinical areas for infection control—those rates can't be reduced regardless of occupancy. But hospitals have large non-clinical areas over-ventilated at medical-grade rates around the clock: waiting rooms empty overnight, exam rooms idle between appointments, admin offices with business-hours-only staff. That's where the opportunity lives. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type in ['Residential Care', 'Residential Care Facility']:
-        lines.append(f"Residential care: {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
-        lines.append("Residents live here 24/7 - unlike offices")
-        lines.append("that empty at night. Savings come from")
-        lines.append("common areas with variable occupancy.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.nic.org/' target='_blank'>NIC MAP Vision</a>)"
+        return f"Residential care facilities save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Unlike offices that empty at night, residents live here around the clock—so the empty-space opportunity is limited. Savings come from common areas like dining rooms and activity spaces where occupancy varies throughout the day. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Laboratory':
-        lines.append(f"Labs are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
-        lines.append("Fume hoods require constant exhaust. Many")
-        lines.append("labs maintain negative pressure. Safety")
-        lines.append("requirements override occupancy sensing.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return f"Labs are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings. Fume hoods require constant exhaust, and many labs maintain negative pressure for safety. These requirements limit how much ventilation can be reduced based on occupancy—safety overrides energy savings. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type in ['Theater', 'Venue']:
-        lines.append(f"Venues save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("Extreme variability - empty for hours or")
-        lines.append("days, then full capacity for events.")
-        lines.append("High opportunity during non-event periods.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return f"Venues save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Arenas and theaters are empty most of the time—a typical venue hosts maybe 60-80 events per year, leaving the space unused thousands of hours annually. Yet HVAC often runs at or near capacity for maintenance, pre-event conditioning, and building preservation. The opportunity is massive during all that non-event time. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Gym':
         lines.append(f"Gyms save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
         lines.append("Extreme peak/off-peak: 6-8am packed,")
         lines.append("10am-4pm empty, 5-7pm packed again.")
         lines.append("Dead hours at full ventilation = waste.")
+        lines.append("")
+        lines.append(f"This building: {odcv_pct*100:.0f}% savings")
+        return '\n'.join(lines)
 
     elif bldg_type == 'Mixed Use':
-        lines.append(f"Mixed-use saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        if vacancy > 0:
-            lines.append(f"Currently {vacancy*100:.0f}% vacant. Combination of")
-        else:
-            lines.append("Combination of office, retail, residential.")
-        lines.append("Savings vary by tenant mix but centralized")
-        lines.append("systems still ventilate vacant spaces.")
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>)"
+        return f"Mixed-use buildings save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. These properties—typically office towers with ground-floor retail—run centralized HVAC controlled by the landlord. Vacant floors still get ventilated, and the office floors face the same hybrid-work utilization gap as pure office buildings. The retail and residential portions have their own occupancy patterns layered on top. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     else:
         # Generic fallback
-        lines.append(f"{bldg_type}s save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
-        lines.append("ODCV adjusts ventilation to actual")
-        lines.append("occupancy instead of design capacity.")
-
-    # Add this building's result
-    lines.append("")
-    lines.append(f"This building: {odcv_pct*100:.0f}% savings")
-
-    return '\n'.join(lines)
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        return f"{bldg_type}s save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Most buildings are ventilated at design capacity regardless of how many people are actually inside. ODCV adjusts airflow to match real occupancy, reducing waste during low-traffic periods. This building: {odcv_pct*100:.0f}% savings.{src}"
 
 
 def get_annual_savings_tooltip(row):
@@ -1064,241 +1049,157 @@ def get_property_value_tooltip(row):
     return story
 
 def get_energy_star_tooltip(row):
-    """SALESPERSON TALKING POINTS - data sources for Energy Star score."""
-    bldg_type = safe_val(row, 'bldg_type', '')
+    """Brief explanation of Energy Star score."""
     current_score = safe_num(row, 'energy_star_score', 0) or 0
-    eui = safe_num(row, 'energy_site_eui', 0) or 0
-    benchmark = safe_num(row, 'energy_eui_benchmark', 0) or 0
-
-    story = f"Score from EPA Portfolio Manager—percentile rank vs all {bldg_type}s nationally. "
-    story += f"Benchmark EUI ({benchmark:.0f} kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. "
+    post_score = safe_num(row, 'energy_star_score_post_odcv', 0) or 0
 
     if current_score >= 75:
-        story += f"At {current_score:.0f}, already ENERGY STAR certified territory. Pitch: 'Maintain or improve your competitive position.' "
+        status = "Eligible for ENERGY STAR certification."
     elif current_score >= 50:
-        story += f"At {current_score:.0f}, above median but 25 points from certification. Pitch: 'ODCV could get you there—that's a marketing asset.' "
+        gap = 75 - current_score
+        status = f"{gap:.0f} points from certification (75)."
     else:
-        story += f"At {current_score:.0f}, below median. Pitch: 'Every competitor {bldg_type} scores higher—tenants notice.' "
+        status = "Below national median."
 
-    story += "ODCV improves score by lowering source energy, which is what EPA's regression model weighs."
+    # Add post-ODCV context if it would cross a threshold
+    post_note = ""
+    if post_score and current_score < 75 and post_score >= 75:
+        post_note = " With ODCV, would qualify for certification."
+    elif post_score and current_score < 50 and post_score >= 50:
+        post_note = " With ODCV, would move above national median."
 
-    return story
+    return f"Percentile rank vs. similar buildings. {status}{post_note} (Source: <a href='https://www.energystar.gov/buildings/benchmark' target='_blank'>EPA Portfolio Manager</a>)"
+
+def get_energy_star_threshold_upgrade(current, post):
+    """Return upgrade message if post-ODCV score crosses a ranking threshold."""
+    if current is None or post is None:
+        return None
+    # Certification threshold (75)
+    if current < 75 and post >= 75:
+        return ('<span style="color:#15803d;font-size:0.85em;display:block;margin-top:4px;">'
+                '&#9733; Qualifies for certification!</span>')
+    # Median threshold (50)
+    if current < 50 and post >= 50:
+        return ('<span style="color:#0891b2;font-size:0.85em;display:block;margin-top:4px;">'
+                '&#8593; Now above median!</span>')
+    return None
 
 def get_electricity_kwh_tooltip(row):
-    """ROW tooltip - explains what % of electricity is HVAC (the saveable portion)."""
+    """ROW tooltip - explains what % of electricity is HVAC."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     hvac_pct = safe_num(row, 'hvac_pct_elec', 0) or 0
     non_hvac = 100 - (hvac_pct * 100)
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
 
     if bldg_type == 'Data Center':
-        return f"HVAC is only {hvac_pct*100:.0f}% of electricity here—the rest ({non_hvac:.0f}%) powers servers and IT equipment. Cooling is driven by server heat loads, not human occupancy. No ODCV opportunity."
+        return f"HVAC is only {hvac_pct*100:.0f}% of electricity—the rest ({non_hvac:.0f}%) powers servers. Cooling is driven by server heat loads, not occupancy.{src}"
     elif bldg_type in ['Supermarket/Grocery']:
-        return f"HVAC drives {hvac_pct*100:.0f}% of electricity. The other {non_hvac:.0f}% is refrigeration cases (run 24/7 regardless of shoppers), lighting, and checkout equipment. ODCV only affects the HVAC portion."
+        return f"HVAC drives {hvac_pct*100:.0f}% of electricity. The other {non_hvac:.0f}% is refrigeration, lighting, and equipment.{src}"
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return f"HVAC accounts for {hvac_pct*100:.0f}% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems. ODCV savings come from non-clinical areas—waiting rooms, admin offices, cafeterias."
+        return f"HVAC accounts for {hvac_pct*100:.0f}% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems.{src}"
     elif bldg_type == 'Hotel':
-        return f"HVAC drives {hvac_pct*100:.0f}% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment."
+        return f"HVAC drives {hvac_pct*100:.0f}% of electricity. The rest is lighting, elevators, laundry, and kitchen equipment.{src}"
     elif bldg_type in ['Restaurant/Bar']:
-        return f"HVAC is {hvac_pct*100:.0f}% of electricity. Kitchen equipment, walk-in refrigeration, and lighting take the rest. ODCV affects dining area HVAC—not kitchen exhaust hoods, which must run at full blast during cooking."
+        return f"HVAC is {hvac_pct*100:.0f}% of electricity. Kitchen equipment, refrigeration, and lighting take the rest.{src}"
     elif bldg_type in ['K-12 School', 'Higher Ed']:
-        return f"HVAC drives {hvac_pct*100:.0f}% of electricity—cooling classrooms, gyms, auditoriums, and cafeterias. The rest is lighting, computers, and food service. Big savings potential because schools sit empty 70-80% of the year."
+        return f"HVAC drives {hvac_pct*100:.0f}% of electricity. The rest is lighting, computers, and food service.{src}"
     else:
-        return f"HVAC accounts for {hvac_pct*100:.0f}% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining {non_hvac:.0f}% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy."
+        return f"HVAC accounts for {hvac_pct*100:.0f}% of electricity. The remaining {non_hvac:.0f}% goes to lighting, plug loads, and equipment.{src}"
 
 def get_natural_gas_tooltip(row):
     """ROW tooltip - explains what % of gas is HVAC (heating) vs other uses."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     hvac_pct = safe_num(row, 'hvac_pct_gas', 0) or 0
     non_hvac = 100 - (hvac_pct * 100)
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
 
     if bldg_type == 'Hotel':
-        return f"Only {hvac_pct*100:.0f}% of hotel gas goes to HVAC (space heating). The other {non_hvac:.0f}% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion."
+        return f"Only {hvac_pct*100:.0f}% of hotel gas goes to HVAC. The other {non_hvac:.0f}% heats hot water and kitchen cooking.{src}"
     elif bldg_type in ['Restaurant/Bar']:
-        return f"Just {hvac_pct*100:.0f}% of gas is HVAC here. The bulk ({non_hvac:.0f}%) fires cooking equipment—ranges, ovens, grills, fryers. Kitchen gas isn't occupancy-driven; ODCV only affects space heating."
+        return f"Just {hvac_pct*100:.0f}% of gas is HVAC. The bulk ({non_hvac:.0f}%) fires cooking equipment.{src}"
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return f"HVAC accounts for {hvac_pct*100:.0f}% of gas. The rest goes to sterilization equipment, domestic hot water, and cafeteria kitchens—all running regardless of patient census."
+        return f"HVAC accounts for {hvac_pct*100:.0f}% of gas. The rest goes to sterilization, hot water, and cafeteria.{src}"
     elif bldg_type in ['K-12 School', 'Higher Ed']:
-        return f"Heating drives {hvac_pct*100:.0f}% of gas use. The rest is cafeteria cooking and domestic hot water. With buildings empty 70-80% of the year (nights, weekends, summer), heating empty classrooms is pure waste."
+        return f"Heating drives {hvac_pct*100:.0f}% of gas use. The rest is cafeteria cooking and hot water.{src}"
     elif bldg_type in ['Supermarket/Grocery']:
-        return f"HVAC is {hvac_pct*100:.0f}% of gas. Some stores use gas for heating; the rest goes to bakery ovens and deli equipment. Refrigeration is electric, not gas."
+        return f"HVAC is {hvac_pct*100:.0f}% of gas. The rest goes to bakery ovens and deli equipment.{src}"
     else:
-        return f"Heating accounts for {hvac_pct*100:.0f}% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining {non_hvac:.0f}% typically goes to domestic hot water and any process loads."
+        return f"Heating accounts for {hvac_pct*100:.0f}% of gas use. The remaining {non_hvac:.0f}% goes to hot water and process loads.{src}"
 
 def get_fuel_oil_tooltip(row):
-    """ROW tooltip - explains what % of fuel oil is HVAC (nearly all of it)."""
+    """ROW tooltip - explains what % of fuel oil is HVAC."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     hvac_pct = safe_num(row, 'hvac_pct_fuel_oil', 0) or 0
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
 
-    # Fuel oil is almost entirely heating - unlike gas which has cooking/DHW competition
     if hvac_pct >= 0.90:
-        return f"Fuel oil is almost pure heating fuel—{hvac_pct*100:.0f}% goes directly to HVAC. Unlike natural gas, there's no cooking or hot water competing for it. When you reduce ventilation, you reduce heating load dollar-for-dollar."
+        return f"Fuel oil is almost pure heating fuel—{hvac_pct*100:.0f}% goes directly to HVAC.{src}"
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return f"In hospitals, {hvac_pct*100:.0f}% of fuel oil is HVAC. The rest runs backup generators and sterilization. Clinical areas have fixed ventilation requirements, but lobbies and admin spaces can reduce heating when empty."
+        return f"In hospitals, {hvac_pct*100:.0f}% of fuel oil is HVAC. The rest runs backup generators and sterilization.{src}"
     elif bldg_type == 'Hotel':
-        return f"Hotels use {hvac_pct*100:.0f}% of fuel oil for HVAC. Some older hotels still use oil-fired boilers for both heating and domestic hot water—guest showers run regardless of ODCV."
+        return f"Hotels use {hvac_pct*100:.0f}% of fuel oil for HVAC. Some goes to hot water.{src}"
     else:
-        return f"Fuel oil is a heating-only fuel—{hvac_pct*100:.0f}% goes to HVAC in this building. No cooking, no process loads competing. Every CFM of outdoor air you don't heat is oil you don't burn."
+        return f"Fuel oil is a heating-only fuel—{hvac_pct*100:.0f}% goes to HVAC in this building.{src}"
 
 def get_district_steam_tooltip(row):
-    """ROW tooltip - explains that district steam is almost entirely HVAC (heating)."""
+    """ROW tooltip - explains that district steam is almost entirely HVAC."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     city = safe_val(row, 'loc_city', '')
     hvac_pct = safe_num(row, 'hvac_pct_steam', 0) or 0
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
 
-    # NYC has the largest district steam system in the US
     if 'New York' in city or city == 'NYC':
-        return f"District steam is {hvac_pct*100:.0f}% HVAC—a heating-only fuel piped from Con Edison's central plants (the largest district steam system in the US). No cooking, no process loads. When you ventilate less, you heat less outdoor air."
+        return f"District steam is {hvac_pct*100:.0f}% HVAC—piped from Con Edison's central plants.{src}"
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return f"In hospitals, {hvac_pct*100:.0f}% of district steam goes to HVAC. Some steam may also run sterilization equipment—but the vast majority heats ventilation air and building spaces."
+        return f"In hospitals, {hvac_pct*100:.0f}% of district steam goes to HVAC. Some may run sterilization.{src}"
     else:
-        return f"District steam is {hvac_pct*100:.0f}% HVAC—a heating-only fuel piped from central utility plants. Unlike gas, there's no cooking or hot water competing. Reduce ventilation and you reduce heating load directly."
+        return f"District steam is {hvac_pct*100:.0f}% HVAC—a heating-only fuel from central plants.{src}"
 
 def get_site_eui_tooltip(row):
-    """ROW tooltip - explains what EUI is and what drives it for this building type."""
+    """EUI tooltip - explains what EUI is and provides benchmark context."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    hvac_pct_elec = safe_num(row, 'hvac_pct_elec', 0) or 0
-    hvac_pct_gas = safe_num(row, 'hvac_pct_gas', 0) or 0
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
-    # EUI = total energy / sqft - the universal efficiency metric
-    if bldg_type == 'Data Center':
-        return "EUI (Energy Use Intensity) = total energy per square foot. Data centers have high EUIs driven by server cooling, not occupancy. ODCV doesn't affect equipment heat loads."
-    elif bldg_type in ['K-12 School', 'Higher Ed']:
-        return f"EUI (Energy Use Intensity) = total energy per square foot. Schools have moderate EUIs with high HVAC share ({hvac_pct_elec*100:.0f}% of electric, {hvac_pct_gas*100:.0f}% of gas). Buildings empty 70-80% of the year—HVAC runs anyway."
-    elif bldg_type == 'Hotel':
-        return f"EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only {hvac_pct_gas*100:.0f}% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services."
-    elif bldg_type in ['Restaurant/Bar']:
-        return f"EUI (Energy Use Intensity) = total energy per square foot. Restaurants have high EUIs driven by kitchen equipment—72% of gas is cooking. ODCV affects dining area HVAC ({hvac_pct_elec*100:.0f}% of electric), not kitchen exhaust."
-    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return f"EUI (Energy Use Intensity) = total energy per square foot. Hospitals have high EUIs due to 24/7 operation and medical equipment. HVAC is {hvac_pct_elec*100:.0f}% of electric—savings come from non-clinical areas."
-    elif bldg_type in ['Office', 'Medical Office']:
-        return f"EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles ({hvac_pct_elec*100:.0f}% of electric, {hvac_pct_gas*100:.0f}% of gas). Big EUI impact when you stop ventilating empty space."
-    else:
-        return f"EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for {hvac_pct_elec*100:.0f}% of electricity and {hvac_pct_gas*100:.0f}% of gas—when you reduce ventilation to empty spaces, EUI drops."
+    # Building type median EUIs from CBECS 2018
+    benchmarks = {
+        'Office': 70, 'Medical Office': 85, 'Hotel': 95, 'K-12 School': 55,
+        'Higher Ed': 90, 'Retail Store': 50, 'Restaurant/Bar': 250,
+        'Supermarket/Grocery': 180, 'Inpatient Hospital': 200, 'Specialty Hospital': 180,
+        'Data Center': 800, 'Warehouse': 25, 'Residential Care': 100,
+        'Residential Care Facility': 100, 'Mixed Use': 75, 'default': 70
+    }
+    type_benchmark = benchmarks.get(bldg_type, benchmarks['default'])
+
+    return f"Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. {bldg_type} median: ~{type_benchmark} kBtu/sq ft/year.{src}"
 
 def get_hvac_pct_tooltip(row):
-    """Comprehensive dynamic tooltip explaining HOW HVAC percentage is determined."""
+    """Brief tooltip for HVAC percentage."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-
-    # Get HVAC percentages
-    hvac_pct_elec = safe_num(row, 'hvac_pct_elec', 0) or 0
-    hvac_pct_gas = safe_num(row, 'hvac_pct_gas', 0) or 0
-
-    # Get building type info
-    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
-    type_notes = BUILDING_TYPE_ENERGY_NOTES.get(bldg_type, DEFAULT_ENERGY_NOTES)
-
-    typical_elec = type_info.get('elec_hvac_typical', 0.50) * 100
-    typical_gas = type_info.get('gas_hvac_typical', 0.80) * 100
-
-    lines = []
-    lines.append("HOW HVAC % IS DETERMINED")
-    lines.append("=" * 25)
-
-    lines.append("")
-    lines.append(f"BUILDING TYPE: {bldg_type}")
-
-    lines.append("")
-    lines.append("BASE VALUES (EIA CBECS 2018):")
-    lines.append(f"  Electricity: {typical_elec:.0f}% typical")
-    lines.append(f"  Natural Gas: {typical_gas:.0f}% typical")
-
-    lines.append("")
-    lines.append("THIS BUILDING:")
-    if hvac_pct_elec > 0:
-        lines.append(f"  Electricity HVAC: {hvac_pct_elec*100:.0f}%")
-    if hvac_pct_gas > 0:
-        lines.append(f"  Natural Gas HVAC: {hvac_pct_gas*100:.0f}%")
-
-    lines.append("")
-    lines.append("ADJUSTMENTS APPLIED:")
-    lines.append("  • Building age (newer = more efficient)")
-    lines.append("  • Energy Star score (higher = less waste)")
-    lines.append("  • EUI vs. peer median")
-    lines.append("  • Climate zone")
-
-    # Building-type specific note
-    elec_note = type_notes.get('elec_note', '')
-    gas_note = type_notes.get('gas_note', '')
-
-    if elec_note or gas_note:
-        lines.append("")
-        lines.append(f"NOTE FOR {bldg_type.upper()}:")
-        if elec_note:
-            # Word wrap
-            words = elec_note.split()
-            line = ""
-            for word in words:
-                if len(line) + len(word) + 1 <= 40:
-                    line = line + " " + word if line else word
-                else:
-                    lines.append(f"  {line}")
-                    line = word
-            if line:
-                lines.append(f"  {line}")
-
-    lines.append("")
-    lines.append("Source: EIA CBECS 2018 (6,436 buildings)")
-
-    return '\n'.join(lines)
+    return f"% of energy used by HVAC for {bldg_type}s. Adjusted for age, efficiency, and climate. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
 
 def get_load_factor_tooltip(row):
-    """Comprehensive dynamic tooltip explaining load factor."""
+    """Load factor tooltip - concise explanation with building-specific context."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-
-    # Get values
     load_factor = safe_num(row, 'cost_elec_load_factor', 0) or 0
-    kwh = safe_num(row, 'energy_elec_kwh', 0) or 0
-    peak_kw = safe_num(row, 'cost_elec_peak_kw', 0) or 0
-
-    # Get building type info
     type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
-    type_notes = BUILDING_TYPE_ENERGY_NOTES.get(bldg_type, DEFAULT_ENERGY_NOTES)
     typical_lf = type_info.get('load_factor', 0.45) * 100
+    src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
-    lines = []
-    lines.append("WHAT IS LOAD FACTOR?")
-    lines.append("=" * 21)
+    # Building type context
+    context = {
+        'Data Center': "constant 24/7 server loads",
+        'Inpatient Hospital': "24/7 medical operations",
+        'Specialty Hospital': "24/7 medical operations",
+        'Supermarket/Grocery': "long hours, refrigeration loads",
+        'Office': "9-5 peaks, nights and weekends low",
+        'K-12 School': "empty summers and evenings",
+        'Higher Ed': "semester schedules, breaks empty",
+        'Hotel': "guest patterns, variable occupancy",
+        'default': "operating schedule patterns"
+    }
+    type_context = context.get(bldg_type, context['default'])
 
-    lines.append("")
-    lines.append("Load Factor = Avg Load ÷ Peak Load")
-
-    lines.append("")
-    lines.append("TYPICAL VALUES:")
-    lines.append("  • 80% = Data centers (constant 24/7)")
-    lines.append("  • 65% = Hospitals/Supermarkets (24/7)")
-    lines.append("  • 45% = Offices (9-5 peaks)")
-    lines.append("  • 35% = Schools (summers empty)")
-
-    lines.append("")
-    lines.append(f"THIS BUILDING: {load_factor*100:.0f}%")
-    lines.append(f"({bldg_type}s typically: {typical_lf:.0f}%)")
-
-    if kwh > 0 and load_factor > 0:
-        lines.append("")
-        lines.append("HOW PEAK DEMAND IS ESTIMATED:")
-        avg_kw = kwh / 8760
-        lines.append(f"  Avg Load = {kwh:,.0f} kWh ÷ 8,760 hrs")
-        lines.append(f"           = {avg_kw:,.0f} kW average")
-        lines.append(f"  Peak kW = {avg_kw:,.0f} ÷ {load_factor:.2f}")
-        lines.append(f"          = {peak_kw:,.0f} kW")
-
-    # Building-type note
-    lf_note = type_notes.get('load_factor_note', '')
-    if lf_note:
-        lines.append("")
-        lines.append(f"WHY {bldg_type.upper()}S:")
-        words = lf_note.split()
-        line = ""
-        for word in words:
-            if len(line) + len(word) + 1 <= 40:
-                line = line + " " + word if line else word
-            else:
-                lines.append(f"  {line}")
-                line = word
-        if line:
-            lines.append(f"  {line}")
-
-    return '\n'.join(lines)
+    return f"Load factor measures how consistently a building uses electricity (average load ÷ peak load). Higher values mean steadier usage. This building: {load_factor*100:.0f}% ({bldg_type}s typically {typical_lf:.0f}% due to {type_context}). Used to estimate peak demand for utility billing.{src}"
 
 def get_total_ghg_tooltip(row):
     """Dynamic tooltip explaining total GHG emissions calculation."""
@@ -1332,7 +1233,7 @@ def get_total_ghg_tooltip(row):
         lines.append(f"THIS BUILDING: {ghg:,.1f} tCO2e/yr")
 
     lines.append("")
-    lines.append("Source: EPA eGRID 2023")
+    lines.append("(Source: <a href='https://www.epa.gov/egrid' target='_blank'>EPA eGRID 2023</a>)")
 
     return '\n'.join(lines)
 
@@ -1355,21 +1256,20 @@ def get_carbon_reduction_tooltip(row):
         'Washington': ('0.33 kg CO2/kWh', 'PJM regional grid'),
     }
 
-    story = f"Grid emission factor from EPA eGRID 2023—{city}'s actual utility grid, not a national average. "
+    story = f"Grid emission factor for {city}'s utility grid. "
 
     if city in grid_info:
         factor, desc = grid_info[city]
         story += f"{city}: {factor} ({desc}). "
     else:
-        story += f"Using EPA eGRID regional factor for {state}. "
+        story += f"Using regional factor for {state}. "
 
-    story += "Natural gas: 5.3 kg CO2/therm (EIA standard). "
-    story += "Pitch: 'These are auditable numbers—same methodology NYC uses for LL97 compliance.'"
+    story += "(Source: <a href='https://www.epa.gov/egrid' target='_blank'>EPA eGRID 2023</a>)"
 
     return story
 
 def get_fine_avoidance_tooltip(row):
-    """SALESPERSON TALKING POINTS - data sources for BPS fine calculations."""
+    """Brief tooltip for BPS fine avoidance."""
     city = safe_val(row, 'loc_city', '')
     bldg_type = safe_val(row, 'bldg_type', '')
     bldg_vertical = safe_val(row, 'bldg_vertical', '')
@@ -1382,111 +1282,60 @@ def get_fine_avoidance_tooltip(row):
     bps_info = BPS_TOOLTIP_INFO.get(city)
 
     if not bps_info:
-        return "No BPS law here yet. 40+ cities considering them. Pitch: 'NYC was first in 2019, Boston and Denver followed. Get ahead now—savings today are pure utility cost reduction, no regulatory risk.'"
+        return "No Building Performance Standard law in this city yet."
 
     law = bps_info['law']
     min_sqft = bps_info.get('min_sqft', 0)
 
     exempt_types = bps_info.get('exempt_types', [])
     if bldg_type in exempt_types or bldg_vertical in exempt_types:
-        return f"{law} gives {bldg_type}s alternative compliance pathways. No standard fines, but ODCV still cuts utility bills. Pitch: 'Even without regulatory pressure, the energy savings are real money.'"
+        return f"{law} provides {bldg_type}s alternative compliance pathways."
 
     if sqft > 0 and sqft < min_sqft:
-        return f"{law} currently covers buildings over {min_sqft:,} sqft—this one's below threshold. Pitch: 'NYC started at 25,000 sqft, cities keep lowering limits. Get ahead now.'"
+        return f"{law} covers buildings over {min_sqft:,} sqft—this one's below threshold."
 
     if fine_avoided > 0:
         if city == 'New York':
-            story = "LL97 fine formula: excess tCO2e × $268/ton (NYC Mayor's Office, Local Law 97 of 2019). "
-            story += f"Building's {carbon:.0f} tCO2e exceeds its cap. "
-            story += "Pitch: 'This isn't a projection—$268/ton is in the law. No appeals, no exemptions for commercial buildings.'"
-            return story
-
+            return f"LL97: excess tCO2e × $268/ton. Building's {carbon:.0f} tCO2e exceeds cap. (Source: <a href='https://www.nyc.gov/site/sustainablebuildings/ll97/local-law-97.page' target='_blank'>NYC LL97</a>)"
         elif city == 'Boston':
-            story = "BERDO 2.0 fine formula: excess tCO2e × $234/ton (City of Boston Environment Dept). "
-            story += f"Current: {carbon:.0f} tCO2e for {sqft:,.0f} sqft exceeds threshold. "
-            story += "Pitch: 'Caps tighten every 5 years to net-zero by 2050. Early action = compliance runway.'"
-            return story
-
+            return f"BERDO 2.0: excess tCO2e × $234/ton. Building at {carbon:.0f} tCO2e exceeds threshold. (Source: <a href='https://www.boston.gov/departments/environment/berdo' target='_blank'>Boston BERDO</a>)"
         elif city == 'Cambridge':
-            story = "Cambridge BEUDO uses same $234/ton formula as Boston (Cambridge Community Development). "
-            story += f"Building at {carbon:.0f} tCO2e exceeds limit. "
-            story += "Pitch: 'MIT and Harvard set the sustainability bar here—Cambridge buildings face extra scrutiny.'"
-            return story
-
+            return f"BEUDO: $234/ton formula. Building at {carbon:.0f} tCO2e exceeds limit. (Source: <a href='https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainablebldgs/beudo' target='_blank'>Cambridge BEUDO</a>)"
         elif city == 'Washington':
-            story = "DC BEPS uses Energy Star score (DC DOEE), not emissions. Threshold: 71. "
-            story += f"Building scores {es_score:.0f}. Penalty: up to $10/sqft. "
-            story += "Pitch: 'DC is score-based, not carbon-based. ODCV improves the score by lowering energy use.'"
-            return story
-
+            return f"DC BEPS: Energy Star threshold 71. Building scores {es_score:.0f}. Penalty up to $10/sqft. (Source: <a href='https://doee.dc.gov/service/building-energy-performance-standards-beps' target='_blank'>DC BEPS</a>)"
         elif city == 'Denver':
-            story = "Energize Denver fine formula: (EUI - target) × sqft × $0.30 (Denver CASR Office). "
-            story += f"Target: 48.3 kBtu/sqft. Building: {eui:.0f} kBtu/sqft. "
-            story += "Pitch: 'EUI-based law. ODCV directly lowers EUI by cutting HVAC waste.'"
-            return story
-
+            return f"Energize Denver: (EUI - target) × sqft × $0.30. Building at {eui:.0f} kBtu/sqft. (Source: <a href='https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-Resiliency/Energize-Denver' target='_blank'>Energize Denver</a>)"
         elif city == 'Seattle':
-            story = "Seattle Clean Buildings: emissions intensity targets with $10/sqft penalties (Seattle OSE). "
-            story += f"Building at {carbon:.0f} tCO2e for {sqft:,.0f} sqft exceeds threshold. "
-            story += "Pitch: 'Seattle also does public disclosure of non-compliance—reputational risk.'"
-            return story
-
+            return f"Clean Buildings: emissions targets with $10/sqft penalties. Building at {carbon:.0f} tCO2e exceeds threshold. (Source: <a href='https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards' target='_blank'>Seattle OSE</a>)"
         elif city == 'St. Louis':
-            story = "St. Louis BEPS: EUI targets by building type, $500/day fines (City of St. Louis). "
-            story += f"Building at {eui:.0f} kBtu/sqft. "
-            story += "Pitch: 'Daily fines add up fast—$182,500/year if you don't fix it.'"
-            return story
+            return f"St. Louis BEPS: EUI targets, $500/day fines. Building at {eui:.0f} kBtu/sqft. (Source: City of St. Louis)"
 
-    return f"Currently compliant with {law}. Pitch: 'Caps tighten over time. Today's compliance is tomorrow's violation. Lock in savings now for margin against future standards.'"
+    return f"Currently compliant with {law}."
 
 
 def get_utility_cost_savings_tooltip(row):
-    """SALESPERSON TALKING POINTS - data sources to cite when prospect asks 'where did you get these numbers?'"""
+    """Brief tooltip for utility cost savings - concept-focused, not stat-heavy."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    city = safe_val(row, 'loc_city', '')
-    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
-    utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
 
-    # Help salesperson explain data credibility - WHERE it comes from, WHY it's specific
+    # Concept-focused explanations by building type
     if bldg_type in ['Office', 'Medical Office', 'Mixed Use']:
-        story = f"{vacancy*100:.0f}% vacancy from CBRE Q4 2024 {city} office market report—actual market data, not a national average. "
-        story += f"{utilization*100:.0f}% desk utilization from Kastle Systems badge swipes for {city}—they track 2,600+ buildings. "
-        story += "BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste."
-
+        return f"Annual savings from not heating and cooling empty space. We take your actual energy costs, apply CBECS data for how much goes to HVAC, then factor in vacancy and hybrid-work patterns from CBRE and Kastle. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
     elif bldg_type == 'Hotel':
-        story = f"{utilization*100:.0f}% occupancy from STR {city} market data—the hotel industry's standard tracking. "
-        story += "Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned."
-
+        return f"Annual savings from conditioning rooms based on actual guest presence. Most hotel gas goes to hot water and kitchens—ODCV targets the HVAC portion. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://str.com/' target='_blank'>STR</a>)"
     elif bldg_type in ['K-12 School', 'Higher Ed']:
-        empty_pct = (1 - utilization) * 100 if utilization else 70
-        story = f"{empty_pct:.0f}% empty time from NCES instructional day data—actual academic calendar requirements. "
-        story += "After 3pm, weekends, summer, holidays—but HVAC runs at design capacity."
-
+        return f"Annual savings from matching ventilation to the school calendar. Buildings empty nights, weekends, summers, and holidays—yet HVAC often keeps running. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://nces.ed.gov/' target='_blank'>NCES</a>)"
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        story = f"{utilization*100:.0f}% utilization from AHA Hospital Statistics—hospital-specific data, not office assumptions. "
-        story += "40% non-clinical: waiting rooms, admin, cafeterias. All ventilated at medical-grade 24/7."
-
+        return f"Annual savings from non-clinical areas: waiting rooms, admin offices, cafeterias. Clinical areas have fixed ventilation requirements under ASHRAE 170. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a>)"
     elif bldg_type in ['Theater', 'Venue']:
-        story = f"{utilization*100:.0f}% utilization from event schedule data. Venues empty 80%+ of time. "
-        story += "~80 events/year = 400 hours out of 8,760. HVAC conditions for full crowd around the clock."
-
+        return f"Annual savings from the vast majority of time when venues sit empty between events. A typical arena hosts 60-80 events per year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
     elif bldg_type in ['Retail Store', 'Supermarket/Grocery', 'Wholesale Club']:
-        story = f"{utilization*100:.0f}% average traffic from Placer.ai {city} foot traffic analytics—real location data. "
-        story += "20% weekday mornings, 80% Saturday afternoons. HVAC runs at peak all day."
-
+        return f"Annual savings from matching ventilation to actual foot traffic instead of running at peak capacity all day. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a>)"
     elif bldg_type == 'Restaurant/Bar':
-        story = f"{utilization*100:.0f}% utilization based on meal patterns. Empty at 3pm, packed at 7pm. "
-        story += "Kitchen exhaust is code-required. Dining area ventilation is the variable piece."
-
-    elif bldg_type == 'Library/Museum':
-        story = f"{utilization*100:.0f}% visitor presence. Collections need 24/7 climate control for preservation. "
-        story += "Galleries get full ventilation around the clock for a fraction of visitors."
-
+        return f"Annual savings from dining area ventilation during off-peak hours. Kitchen exhaust must run constantly regardless—savings come from the dining room. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+    elif bldg_type == 'Laboratory':
+        return f"Annual savings from office and admin areas. Lab spaces have fixed ventilation for fume hoods and safety—limited ODCV opportunity there. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
     else:
-        story = f"{utilization*100:.0f}% utilization. Building conditions empty space most of the time. "
-        story += "BMS runs at design capacity. Doesn't know when people leave."
-
-    return story
+        return f"Annual savings from matching ventilation to actual occupancy instead of running at design capacity. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
 
 
 def get_odcv_methodology_tooltip(row):
@@ -1707,6 +1556,7 @@ def get_logo_filename(name):
     name = name.replace('&', '')      # Remove any remaining ampersands
     name = name.replace('.', '_')     # Periods to underscores
     name = name.replace("'", '_')     # Apostrophes to underscores
+    name = name.replace('-', '')      # Remove hyphens (Ritz-Carlton -> RitzCarlton)
     name = name.replace(' ', '_')     # Spaces to underscores
     name = name.replace('(', '')      # Remove opening parentheses
     name = name.replace(')', '')      # Remove closing parentheses
@@ -1762,38 +1612,39 @@ def generate_hero(row):
     has_url = building_url and str(building_url).lower() != 'nan'
 
     # Back button - big clickable area, uses JS to check 'from' param and return to correct tab
-    back_btn = '''<a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    back_btn = '''<a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>'''
 
-    # Methodology link - below address, centered
-    methodology_link = '''<a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>'''
-
-    if has_url:
-        html = f"""
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        {back_btn}
-        <h1 style="margin-bottom:0;"><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        {methodology_link}
-    </div>
-"""
-    else:
-        html = f"""
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
+    html = f"""
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
         {back_btn}
         <h1 style="margin-bottom:0;">{escape(address)}</h1>
-        {methodology_link}
     </div>
 """
     return html
 
 def generate_building_info(row):
     """Property information table (merged from Building Info + Property Metrics)"""
-    html = """
+    building_url = safe_val(row, 'id_source_url')
+    has_url = building_url and str(building_url).lower() != 'nan'
+
+    if has_url:
+        more_info_link = f'''<a href="{escape(building_url)}" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>'''
+        html = f"""
+    <div class="section">
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            {more_info_link}
+        </h2>
+        <table>
+"""
+    else:
+        html = """
     <div class="section">
         <h2>Property</h2>
         <table>
@@ -2229,15 +2080,42 @@ def generate_energy_section(row):
         html_text = inject_source_links(text)
         return f'<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">{html_text}</span></span>'
 
+    # Helper for change cell with absolute value + % in parens
+    def change_cell(abs_val, pct, unit='', is_reduction=True):
+        """Create styled change cell: absolute value with arrow, % in parens. Distinct colors for each tier."""
+        if is_reduction:
+            if pct >= 15: color = '#15803d'  # Dark green - great
+            elif pct >= 8: color = '#0891b2'  # Teal/cyan - good
+            else: color = '#3b82f6'  # Indigo - ok (still positive but modest)
+            arrow = '↓'
+        else:
+            if pct >= 10: color = '#15803d'  # Dark green - great
+            elif pct >= 5: color = '#0891b2'  # Teal/cyan - good
+            else: color = '#3b82f6'  # Indigo - ok (still positive but modest)
+            arrow = '↑'
+        return f'<span style="color:{color};font-weight:700;">{arrow}{abs_val}{unit}</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span>'
+
+    row_num = 0
+    def row_bg():
+        nonlocal row_num
+        row_num += 1
+        return 'background:#f9fafb;' if row_num % 2 == 0 else ''
+
     html = f"""
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current{col_tooltip(current_tooltip)}</th>
-                <th>New{col_tooltip(new_tooltip)}</th>
-                <th>Change{col_tooltip(change_tooltip)}</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current{col_tooltip(current_tooltip)}</th>
+                <th style="width:22%;">New{col_tooltip(new_tooltip)}</th>
+                <th style="width:21%;">Change{col_tooltip(change_tooltip)}</th>
             </tr>
 """
 
@@ -2249,12 +2127,13 @@ def generate_energy_section(row):
         new_str = f"{format_number(new_val)} kWh" if new_val else "—"
         if new_val and current_val:
             change = current_val - new_val
-            change_str = f'<td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -{format_number(change)} kWh</td>'
+            pct = (change / current_val) * 100
+            change_str = f'<td>{change_cell(format_number(change), pct, " kWh")}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>Electricity{tooltip('energy_elec_kwh', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Electricity</strong>{tooltip('energy_elec_kwh', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2269,12 +2148,13 @@ def generate_energy_section(row):
         new_str = f"{format_number(gas_therms_post)} therms" if gas_therms_post else "—"
         if gas_therms_post:
             change = gas_therms - gas_therms_post
-            change_str = f'<td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -{format_number(change)} therms</td>'
+            pct = (change / gas_therms) * 100
+            change_str = f'<td>{change_cell(format_number(change), pct, " therms")}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>Natural Gas{tooltip('natural_gas', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Natural Gas</strong>{tooltip('natural_gas', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2289,12 +2169,13 @@ def generate_energy_section(row):
         new_str = f"{format_number(fuel_gal_post)} gallons" if fuel_gal_post else "—"
         if fuel_gal_post:
             change = fuel_gal - fuel_gal_post
-            change_str = f'<td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🛢️ -{format_number(change)} gallons</td>'
+            pct = (change / fuel_gal) * 100
+            change_str = f'<td>{change_cell(format_number(change), pct, " gal")}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>Fuel Oil{tooltip('fuel_oil', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Fuel Oil</strong>{tooltip('fuel_oil', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2309,12 +2190,13 @@ def generate_energy_section(row):
         new_str = f"{format_number(steam_mlb_post, 2)} Mlb" if steam_mlb_post else "—"
         if steam_mlb_post:
             change = steam_mlb - steam_mlb_post
-            change_str = f'<td style="color: #6366f1; font-weight: 600; background: rgba(99,102,241,0.08);">💨 -{format_number(change, 2)} Mlb</td>'
+            pct = (change / steam_mlb) * 100
+            change_str = f'<td>{change_cell(format_number(change, 2), pct, " Mlb")}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>District Steam{tooltip('district_steam', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>District Steam</strong>{tooltip('district_steam', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2327,12 +2209,13 @@ def generate_energy_section(row):
         new_str = f"{format_number(new_eui, 1)} kBtu/sqft" if new_eui else "—"
         if new_eui:
             change = current_eui - new_eui
-            change_str = f'<td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -{format_number(change, 1)} kBtu/sqft</td>'
+            pct = (change / current_eui) * 100
+            change_str = f'<td>{change_cell(format_number(change, 1), pct, " kBtu/sqft")}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>Site EUI{tooltip('energy_site_eui', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Site EUI</strong>{tooltip('energy_site_eui', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2366,84 +2249,140 @@ def generate_impact_section(row):
     # Calculate new values
     new_utility_cost = total_energy_cost - odcv_savings if total_energy_cost else None
 
+    # Helper for change cell with absolute value + % in parens
+    def change_cell(abs_val, pct, unit='', is_reduction=True):
+        """Create styled change cell: absolute value with arrow, % in parens. Distinct colors for each tier."""
+        if is_reduction:
+            if pct >= 15: color = '#15803d'  # Dark green - great
+            elif pct >= 8: color = '#0891b2'  # Teal/cyan - good
+            else: color = '#3b82f6'  # Indigo - ok (still positive but modest)
+            arrow = '↓'
+        else:
+            if pct >= 10: color = '#15803d'  # Dark green - great
+            elif pct >= 5: color = '#0891b2'  # Teal/cyan - good
+            else: color = '#3b82f6'  # Indigo - ok (still positive but modest)
+            arrow = '↑'
+        return f'<span style="color:{color};font-weight:700;">{arrow}{abs_val}{unit}</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span>'
+
+    row_num = 0
+    def row_bg():
+        nonlocal row_num
+        row_num += 1
+        return 'background:#f9fafb;' if row_num % 2 == 0 else ''
+
     html = """
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 """
 
-    # Utility Cost row - uses utility_cost_savings tooltip (SALES CALL READY)
+    # Utility Cost row
     if total_energy_cost and odcv_savings:
+        pct = (odcv_savings / total_energy_cost) * 100
         html += f"""
-            <tr>
-                <td>Utility Cost{tooltip('utility_cost_savings', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Utility Cost</strong>{tooltip('utility_cost_savings', row)}</td>
                 <td>{format_currency(total_energy_cost)}/yr</td>
                 <td>{format_currency(new_utility_cost)}/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -{format_currency(odcv_savings)}/yr</td>
+                <td>{change_cell(format_currency(odcv_savings), pct, "/yr")}</td>
             </tr>
 """
 
-    # Fine Avoidance row - only show for buildings with fine avoidance
+    # Fine Avoidance row
     fine_baseline = safe_num(row, 'bps_fine_baseline_yr1_usd')
     fine_post_odcv = safe_num(row, 'bps_fine_post_odcv_yr1_usd')
     fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd')
 
-    if fine_avoided and fine_avoided > 0:
+    if fine_avoided and fine_avoided > 0 and fine_baseline and fine_baseline > 0:
+        pct = (fine_avoided / fine_baseline) * 100
         html += f"""
-            <tr>
-                <td>Fine Avoidance{tooltip('fine_avoidance', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Fine Avoidance</strong>{tooltip('fine_avoidance', row)}</td>
                 <td>{format_currency(fine_baseline)}/yr</td>
                 <td>{format_currency(fine_post_odcv)}/yr</td>
-                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -{format_currency(fine_avoided)}/yr</td>
+                <td>{change_cell(format_currency(fine_avoided), pct, "/yr")}</td>
             </tr>
 """
 
-    # Property Value row - only show impact, not current/new values
+    # Property Value row
     if val_impact and val_impact > 0:
         html += f"""
-            <tr>
-                <td>Property Value{tooltip('property_value_increase', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Property Value</strong>{tooltip('property_value_increase', row)}</td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +{format_currency(val_impact)}</td>
+                <td><span style="color:#15803d;font-weight:700;">↑{format_currency(val_impact)}</span></td>
             </tr>
 """
 
-    # Energy Star Score row
+    # Energy Star Score row with simple gauge showing green fill based on score
     current_es = safe_num(row, 'energy_star_score')
     post_es = safe_num(row, 'energy_star_score_post_odcv')
     if current_es:
-        current_str = f"{int(current_es)}"
-        new_str = f"{int(post_es)}" if post_es else "—"
+        # Color based on score
+        def es_color(score):
+            if score < 50: return '#b91c1c'  # Dark red
+            elif score < 75: return '#a16207'  # Dark gold
+            else: return '#15803d'  # Dark green
+
+        # Simple gauge - gray background arc, colored fill based on score
+        def mini_gauge(score):
+            color = es_color(score)
+            # Score determines how much of the arc is filled (0-100 maps to arc)
+            # Full arc is 180 degrees, score% of that
+            fill_pct = score / 100
+            return f'''<div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="{fill_pct * 126} 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:{color};">{int(score)}</span>
+            </div>'''
+
+        current_str = mini_gauge(current_es)
+        new_str = mini_gauge(post_es) if post_es else '<span style="color:#999;">—</span>'
+
         if post_es and post_es > current_es:
             change = int(post_es - current_es)
-            change_str = f'<td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +{change}</td>'
+            pct = (change / current_es) * 100
+            color = '#15803d' if pct >= 10 else '#0891b2' if pct >= 5 else '#3b82f6'
+            upgrade_msg = get_energy_star_threshold_upgrade(current_es, post_es) or ''
+            change_str = f'<td><span style="color:{color};font-weight:700;">↑{change} pts</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span>{upgrade_msg}</td>'
         else:
             change_str = '<td>—</td>'
         html += f"""
-            <tr>
-                <td>Energy Star Score{tooltip('energy_star_score', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>ENERGY STAR</strong>{tooltip('energy_star_score', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
             </tr>
 """
 
-    # Carbon Emissions row (last)
+    # Carbon Emissions row
     if carbon_current and carbon_post:
         carbon_reduction = carbon_current - carbon_post
+        pct = (carbon_reduction / carbon_current) * 100
         html += f"""
-            <tr>
-                <td>Carbon Emissions{tooltip('carbon_reduction', row)}</td>
+            <tr style="{row_bg()}">
+                <td><strong>Carbon Emissions</strong>{tooltip('carbon_reduction', row)}</td>
                 <td>{format_number(carbon_current, 1)} tCO2e/yr</td>
                 <td>{format_number(carbon_post, 1)} tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -{format_number(carbon_reduction, 1)} tCO2e/yr</td>
+                <td>{change_cell(format_number(carbon_reduction, 1), pct, " tCO2e")}</td>
             </tr>
 """
 
@@ -2691,22 +2630,23 @@ def generate_html_report(row):
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }}
 
@@ -2732,7 +2672,7 @@ def generate_html_report(row):
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }}
 
         /* Org Logo Tooltip - instant, visible */

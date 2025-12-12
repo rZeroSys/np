@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 15:19:38 EST -->
+<!-- Generated: 2025-12-12 17:03:46 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -227,22 +227,23 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }
 
@@ -268,7 +269,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -325,16 +326,12 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1 style="margin-bottom:0;"><a href="https://propertyinformationportal.nyc.gov/parcels/parcel/4092620095" target="_blank" style="color: inherit; text-decoration: none;">11711 Myrtle Avenue, New York, NY, 11418 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>
+        <h1 style="margin-bottom:0;">11711 Myrtle Avenue, New York, NY, 11418</h1>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,86 +346,120 @@
     </div>
 
     <div class="section">
-        <h2>Property</h2>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://propertyinformationportal.nyc.gov/parcels/parcel/4092620095" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
         <table>
 <tr><td>Name</td><td>Administration Office</td></tr>
 <tr><td>Size</td><td>27,000 sqft</td></tr>
 <tr><td>Type</td><td>Medical Office</td></tr>
 <tr><td>Year Built</td><td>1925</td></tr>
-<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Sources: <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR Portfolio Manager</a>, city benchmarking filings, <a href="https://www.costar.com/" target="_blank" rel="noopener">CoStar</a>, SEC 10-K, corporate websites.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Outreach Development CORP."><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Outreach_Development_CORP.png" alt="Outreach Development CORP." style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Outreach Development CORP.</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Outreach Development CORP."><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Outreach_Development_CORP.png" alt="Outreach Development CORP." style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Outreach Development CORP.</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
-                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE</a> vacancy data, <a href="https://www.mgma.com/" target="_blank" rel="noopener">MGMA</a> exam room utilization benchmarks.</span></span></th>
-                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Exam rooms get 2-3x airflow but sit empty between appointments.</span></span></th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th style="width:22%;">New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE</a></a> vacancy data, <a href='https://www.mgma.com/' target='_blank'><a href="https://www.mgma.com/" target="_blank" rel="noopener">MGMA</a></a> exam room utilization benchmarks.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Exam rooms get 2-3x airflow but sit empty between appointments.</span></span></th>
             </tr>
 
-            <tr>
-                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 51% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 49% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy.</span></span></td>
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 51% of electricity. The remaining 49% goes to lighting, plug loads, and equipment. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>299,505 kWh</td>
                 <td>259,612 kWh</td>
-                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -39,893 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓39,893 kWh</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
             </tr>
 
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Heating accounts for 98% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining 2% typically goes to domestic hot water and any process loads.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Heating accounts for 98% of gas use. The remaining 2% goes to hot water and process loads. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>15,918 therms</td>
                 <td>11,861 therms</td>
-                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -4,057 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓4,057 therms</span> <span style="color:#64748b;font-size:0.9em;">(25%)</span></td>
             </tr>
 
-            <tr>
-                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles (51% of electric, 98% of gas). Big EUI impact when you stop ventilating empty space.</span></span></td>
+            <tr style="">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Medical Office median: ~85 kBtu/sq ft/year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>96.8 kBtu/sqft</td>
                 <td>76.7 kBtu/sqft</td>
-                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -20.1 kBtu/sqft</td>
+                <td><span style="color:#15803d;font-weight:700;">↓20.1 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(21%)</span></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 
-            <tr>
-                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">7% vacancy from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE Q4 2024</a> New York office market report—actual market data, not a national average. 80% desk utilization from <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" rel="noopener">Kastle Systems</a> badge swipes for New York—they track 2,600+ buildings. BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste.</span></span></td>
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from not heating and cooling empty space. We take your actual energy costs, apply <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> data for how much goes to HVAC, then factor in vacancy and hybrid-work patterns from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE</a> and <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" rel="noopener">Kastle</a>. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>$183K/yr</td>
                 <td>$156K/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$27K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$27K/yr</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
             </tr>
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Medical Offices in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Medical Offices in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$355K</td>
+                <td><span style="color:#15803d;font-weight:700;">↑$355K</span></td>
             </tr>
 
-            <tr>
-                <td>Energy Star Score<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Score from <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a>—percentile rank vs all Medical Offices nationally. Benchmark EUI (98 kBtu/sqft median) from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a> Commercial Buildings Survey by building type. At 51, above median but 25 points from certification. Pitch: 'ODCV could get you there—that's a marketing asset.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs.</span></span></td>
-                <td>51</td>
-                <td>63</td>
-                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +12</td>
+            <tr style="">
+                <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Percentile rank vs. similar buildings. 24 points from certification (75). (Source: <a href='https://www.energystar.gov/buildings/benchmark' target='_blank'><a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a></a>)</span></span></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#a16207" stroke-width="8" stroke-linecap="round" stroke-dasharray="64.26 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#a16207;">51</span>
+            </div></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#a16207" stroke-width="8" stroke-linecap="round" stroke-dasharray="79.38 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#a16207;">63</span>
+            </div></td>
+                <td><span style="color:#15803d;font-weight:700;">↑12 pts</span> <span style="color:#64748b;font-size:0.9em;">(24%)</span></td>
             </tr>
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—New York's actual utility grid, not a national average. New York: 0.29 kg CO2/kWh (ConEd NYC grid). Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor for New York's utility grid. New York: 0.29 kg CO2/kWh (ConEd NYC grid). (Source: <a href='https://www.epa.gov/egrid' target='_blank'><a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a></a>)</span></span></td>
                 <td>171.1 tCO2e/yr</td>
                 <td>138.0 tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -33.1 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓33.1 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(19%)</span></td>
             </tr>
 
         </table>

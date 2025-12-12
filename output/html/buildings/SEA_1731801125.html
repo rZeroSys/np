@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 15:19:55 EST -->
+<!-- Generated: 2025-12-12 17:04:01 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -227,22 +227,23 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }
 
@@ -268,7 +269,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -325,16 +326,12 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1 style="margin-bottom:0;"><a href="https://www.google.com/maps/search/?api=1&amp;query=223%20W%20Galer%20St%2C%20Seattle%2C%20WA%2C%2098119" target="_blank" style="color: inherit; text-decoration: none;">223 W Galer St, Seattle, WA, 98119 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>
+        <h1 style="margin-bottom:0;">223 W Galer St, Seattle, WA, 98119</h1>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,7 +346,13 @@
     </div>
 
     <div class="section">
-        <h2>Property</h2>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=223%20W%20Galer%20St%2C%20Seattle%2C%20WA%2C%2098119" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
         <table>
 <tr><td>Name</td><td>Aegis Living at Galer</td></tr>
 <tr><td>Size</td><td>41,010 sqft</td></tr>
@@ -360,75 +363,103 @@
     </div>
 
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From Seattle Benchmarking Ordinance benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
-                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://www.nic.org/nic-map-vision/" target="_blank" rel="noopener">NIC MAP Vision</a> occupancy data.</span></span></th>
-                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Residents present 24/7 (~95%). Limited empty-space opportunity.</span></span></th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From Seattle Benchmarking Ordinance benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th style="width:22%;">New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a> fuel splits, <a href='https://www.nic.org/' target='_blank'><a href="https://www.nic.org/nic-map-vision/" target="_blank" rel="noopener">NIC MAP Vision</a></a> occupancy data.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Residents present 24/7 (~95%). Limited empty-space opportunity.</span></span></th>
             </tr>
 
-            <tr>
-                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 38% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 62% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy.</span></span></td>
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 38% of electricity. The remaining 62% goes to lighting, plug loads, and equipment. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>440,383 kWh</td>
                 <td>406,694 kWh</td>
-                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -33,689 kWh</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓33,689 kWh</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
             </tr>
 
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Heating accounts for 55% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining 45% typically goes to domestic hot water and any process loads.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Heating accounts for 55% of gas use. The remaining 45% goes to hot water and process loads. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>7,447 therms</td>
                 <td>6,629 therms</td>
-                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -817 therms</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓817 therms</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
             </tr>
 
-            <tr>
-                <td>Fuel Oil<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fuel oil is almost pure heating fuel—93% goes directly to HVAC. Unlike natural gas, there's no cooking or hot water competing for it. When you reduce ventilation, you reduce heating load dollar-for-dollar.</span></span></td>
+            <tr style="">
+                <td><strong>Fuel Oil</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fuel oil is almost pure heating fuel—93% goes directly to HVAC. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>0 gallons</td>
                 <td>0 gallons</td>
-                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🛢️ -0 gallons</td>
+                <td><span style="color:#15803d;font-weight:700;">↓0 gal</span> <span style="color:#64748b;font-size:0.9em;">(19%)</span></td>
             </tr>
 
-            <tr>
-                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for 38% of electricity and 55% of gas—when you reduce ventilation to empty spaces, EUI drops.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Residential Care median: ~100 kBtu/sq ft/year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>54.8 kBtu/sqft</td>
                 <td>50.0 kBtu/sqft</td>
-                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -4.8 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓4.8 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(9%)</span></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 
-            <tr>
-                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">0% utilization. Building conditions empty space most of the time. BMS runs at design capacity. Doesn't know when people leave.</span></span></td>
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to actual occupancy instead of running at design capacity. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>$91K/yr</td>
                 <td>$83K/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$7K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$7K/yr</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
             </tr>
 
-            <tr>
-                <td>Energy Star Score<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Score from <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a>—percentile rank vs all Residential Cares nationally. Benchmark EUI (99 kBtu/sqft median) from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a> Commercial Buildings Survey by building type. At 99, already <a href="https://www.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR</a> certified territory. Pitch: 'Maintain or improve your competitive position.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs.</span></span></td>
-                <td>99</td>
-                <td>99</td>
+            <tr style="background:#f9fafb;">
+                <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Percentile rank vs. similar buildings. Eligible for <a href="https://www.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR</a> certification. (Source: <a href='https://www.energystar.gov/buildings/benchmark' target='_blank'><a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a></a>)</span></span></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round" stroke-dasharray="124.74 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#15803d;">99</span>
+            </div></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round" stroke-dasharray="124.74 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#15803d;">99</span>
+            </div></td>
                 <td>—</td>
             </tr>
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—Seattle's actual utility grid, not a national average. Seattle: 0.08 kg CO2/kWh (hydro-powered—cleanest major US grid). Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+            <tr style="">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor for Seattle's utility grid. Seattle: 0.08 kg CO2/kWh (hydro-powered—cleanest major US grid). (Source: <a href='https://www.epa.gov/egrid' target='_blank'><a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a></a>)</span></span></td>
                 <td>43.8 tCO2e/yr</td>
                 <td>39.2 tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -4.7 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓4.7 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
             </tr>
 
         </table>

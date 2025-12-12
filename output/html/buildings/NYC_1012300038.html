@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 15:19:22 EST -->
+<!-- Generated: 2025-12-12 17:03:29 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -227,22 +227,23 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }
 
@@ -268,7 +269,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -325,16 +326,12 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1 style="margin-bottom:0;"><a href="https://propertyinformationportal.nyc.gov/parcels/parcel/1012300038" target="_blank" style="color: inherit; text-decoration: none;">212 West 83 Street, New York, NY, 10024 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>
+        <h1 style="margin-bottom:0;">212 West 83 Street, New York, NY, 10024</h1>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,72 +346,90 @@
     </div>
 
     <div class="section">
-        <h2>Property</h2>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://propertyinformationportal.nyc.gov/parcels/parcel/1012300038" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
         <table>
 <tr><td>Name</td><td>Childrens Museum of Manhattan</td></tr>
 <tr><td>Size</td><td>33,000 sqft</td></tr>
 <tr><td>Type</td><td>Library/Museum</td></tr>
 <tr><td>Year Built</td><td>2006</td></tr>
-<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Sources: <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR Portfolio Manager</a>, city benchmarking filings, <a href="https://www.costar.com/" target="_blank" rel="noopener">CoStar</a>, SEC 10-K, corporate websites.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Holy Trinity School"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Holy_Trinity_School.png" alt="Holy Trinity School" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Holy Trinity School</span></span></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Childrens Museum Of Manhattan"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Childrens_Museum_Of_Manhattan.png" alt="Childrens Museum Of Manhattan" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Childrens Museum Of Manhattan</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Holy Trinity School"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Holy_Trinity_School.png" alt="Holy Trinity School" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Holy Trinity School</span></span></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Childrens Museum Of Manhattan"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Childrens_Museum_Of_Manhattan.png" alt="Childrens Museum Of Manhattan" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Childrens Museum Of Manhattan</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
-                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using visitor traffic data, collection preservation requirements.</span></span></th>
-                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Preservation HVAC runs 24/7 but visitors occupy space just 10-15%.</span></span></th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th style="width:22%;">New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using visitor traffic data, collection preservation requirements.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Preservation HVAC runs 24/7 but visitors occupy space just 10-15%.</span></span></th>
             </tr>
 
-            <tr>
-                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 55% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 45% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy.</span></span></td>
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 55% of electricity. The remaining 45% goes to lighting, plug loads, and equipment. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>588,915 kWh</td>
                 <td>524,252 kWh</td>
-                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -64,662 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓64,662 kWh</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
             </tr>
 
-            <tr>
-                <td>Fuel Oil<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fuel oil is almost pure heating fuel—93% goes directly to HVAC. Unlike natural gas, there's no cooking or hot water competing for it. When you reduce ventilation, you reduce heating load dollar-for-dollar.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Fuel Oil</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fuel oil is almost pure heating fuel—93% goes directly to HVAC. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>6,622 gallons</td>
                 <td>5,390 gallons</td>
-                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🛢️ -1,231 gallons</td>
+                <td><span style="color:#15803d;font-weight:700;">↓1,231 gal</span> <span style="color:#64748b;font-size:0.9em;">(19%)</span></td>
             </tr>
 
-            <tr>
-                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for 55% of electricity and 0% of gas—when you reduce ventilation to empty spaces, EUI drops.</span></span></td>
+            <tr style="">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Library/Museum median: ~70 kBtu/sq ft/year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>88.7 kBtu/sqft</td>
                 <td>76.8 kBtu/sqft</td>
-                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -11.9 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓11.9 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 
-            <tr>
-                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">55% visitor presence. Collections need 24/7 climate control for preservation. Galleries get full ventilation around the clock for a fraction of visitors.</span></span></td>
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to actual occupancy instead of running at design capacity. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>$314K/yr</td>
                 <td>$278K/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$36K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$36K/yr</span> <span style="color:#64748b;font-size:0.9em;">(12%)</span></td>
             </tr>
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—New York's actual utility grid, not a national average. New York: 0.29 kg CO2/kWh (ConEd NYC grid). Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor for New York's utility grid. New York: 0.29 kg CO2/kWh (ConEd NYC grid). (Source: <a href='https://www.epa.gov/egrid' target='_blank'><a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a></a>)</span></span></td>
                 <td>237.3 tCO2e/yr</td>
                 <td>206.1 tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -31.2 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓31.2 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
             </tr>
 
         </table>

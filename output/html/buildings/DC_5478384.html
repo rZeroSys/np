@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 15:18:40 EST -->
+<!-- Generated: 2025-12-12 17:02:48 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -227,22 +227,23 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #1a1a2e;
-            color: #e8e8e8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            white-space: pre-line;
-            width: 420px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
             max-width: 90vw;
-            font-size: 11px;
-            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
-            line-height: 1.6;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
         }
 
@@ -268,7 +269,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #1a1a2e;
+            border-top-color: #1e293b;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -325,16 +326,12 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;padding:20px;">
-        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1 style="margin-bottom:0;"><a href="https://www.google.com/maps/search/?api=1&amp;query=1001%2016th%20St%20NW%2C%20Washington%2C%20DC%2020036" target="_blank" style="color: inherit; text-decoration: none;">1001 16th St NW, Washington, DC 20036 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
-        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        View Technical Methodology
-    </a>
+        <h1 style="margin-bottom:0;">1001 16th St NW, Washington, DC 20036</h1>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,93 +346,127 @@
     </div>
 
     <div class="section">
-        <h2>Property</h2>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=1001%2016th%20St%20NW%2C%20Washington%2C%20DC%2020036" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
         <table>
 <tr><td>Name</td><td>Sofitel Washington DC Lafayette Square</td></tr>
 <tr><td>Size</td><td>582,678 sqft</td></tr>
 <tr><td>Type</td><td>Hotel</td></tr>
 <tr><td>Year Built</td><td>1944</td></tr>
-<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Sources: <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR Portfolio Manager</a>, city benchmarking filings, <a href="https://www.costar.com/" target="_blank" rel="noopener">CoStar</a>, SEC 10-K, corporate websites.</span></span></td><td><div style=""><a href="https://www.pkhotelsandresorts.com" target="_blank" class="org-logo" data-org-name="Park Hotels"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Park_Hotels_Resorts.png" alt="Park Hotels" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Park Hotels</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><a href="https://www.hilton.com" target="_blank" class="org-logo" data-org-name="Hilton"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="Hilton" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton</span></a></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://www.pkhotelsandresorts.com" target="_blank" class="org-logo" data-org-name="Park Hotels"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Park_Hotels_Resorts.png" alt="Park Hotels" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Park Hotels</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><a href="https://www.hilton.com" target="_blank" class="org-logo" data-org-name="Hilton"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="Hilton" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <h2>Energy</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#energy" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" target="_blank" rel="noopener">DC BEPS</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
-                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://str.com/" target="_blank" rel="noopener">STR</a> room occupancy data, guest presence patterns.</span></span></th>
-                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">63% room occupancy × 45% guest presence = 72% of ventilation wasted.</span></span></th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" target="_blank" rel="noopener">DC BEPS</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th style="width:22%;">New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a> fuel splits, <a href='https://str.com/' target='_blank'><a href="https://str.com/" target="_blank" rel="noopener">STR</a></a> room occupancy data, guest presence patterns.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">63% room occupancy × 45% guest presence = 72% of ventilation wasted.</span></span></th>
             </tr>
 
-            <tr>
-                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC drives 49% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment.</span></span></td>
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC drives 49% of electricity. The rest is lighting, elevators, laundry, and kitchen equipment. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>8,938,529 kWh</td>
                 <td>7,873,839 kWh</td>
-                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -1,064,689 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓1,064,689 kWh</span> <span style="color:#64748b;font-size:0.9em;">(12%)</span></td>
             </tr>
 
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Only 34% of hotel gas goes to HVAC (space heating). The other 66% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion.</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Only 34% of hotel gas goes to HVAC. The other 66% heats hot water and kitchen cooking. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">EIA CBECS 2018</a></a>)</span></span></td>
                 <td>327,968 therms</td>
                 <td>300,983 therms</td>
-                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -26,985 therms</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓26,985 therms</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
             </tr>
 
-            <tr>
-                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 34% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services.</span></span></td>
+            <tr style="">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Hotel median: ~95 kBtu/sq ft/year. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>)</span></span></td>
                 <td>108.6 kBtu/sqft</td>
                 <td>97.8 kBtu/sqft</td>
-                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -10.8 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓10.8 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Impact</h2>
-        <table>
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#opex" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
             <tr>
-                <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current</th>
+                <th style="width:22%;">New</th>
+                <th style="width:21%;">Change</th>
             </tr>
 
-            <tr>
-                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">67% occupancy from <a href="https://str.com/" target="_blank" rel="noopener">STR</a> Washington market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned.</span></span></td>
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from conditioning rooms based on actual guest presence. Most hotel gas goes to hot water and kitchens—ODCV targets the HVAC portion. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'><a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a></a>, <a href='https://str.com/' target='_blank'><a href="https://str.com/" target="_blank" rel="noopener">STR</a></a>)</span></span></td>
                 <td>$3.9M/yr</td>
                 <td>$3.5M/yr</td>
-                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$449K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$449K/yr</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
             </tr>
 
-            <tr>
-                <td>Fine Avoidance<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content"><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" target="_blank" rel="noopener">DC BEPS</a> uses Energy Star score (<a href="https://doee.dc.gov/" target="_blank" rel="noopener">DC DOEE</a>), not emissions. Threshold: 71. Building scores 37. Penalty: up to $10/sqft. Pitch: 'DC is score-based, not carbon-based. ODCV improves the score by lowering energy use.'</span></span></td>
+            <tr style="background:#f9fafb;">
+                <td><strong>Fine Avoidance</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content"><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" target="_blank" rel="noopener">DC BEPS</a>: Energy Star threshold 71. Building scores 37. Penalty up to $10/sqft. (Source: <a href='https://doee.dc.gov/service/building-energy-performance-standards-beps' target='_blank'>DC BEPS</a>)</span></span></td>
                 <td>$2.9M/yr</td>
                 <td>$2.7M/yr</td>
-                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$208K/yr</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓$208K/yr</span> <span style="color:#64748b;font-size:0.9em;">(7%)</span></td>
             </tr>
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Hotels in Washington. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Avoided BPS fines count the same way—they reduce operating expenses, which increases NOI. Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
+            <tr style="">
+                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Hotels in Washington. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Avoided BPS fines count the same way—they reduce operating expenses, which increases NOI. Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$8.8M</td>
+                <td><span style="color:#15803d;font-weight:700;">↑$8.8M</span></td>
             </tr>
 
-            <tr>
-                <td>Energy Star Score<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Score from <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a>—percentile rank vs all Hotels nationally. Benchmark EUI (63 kBtu/sqft median) from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a> Commercial Buildings Survey by building type. At 37, below median. Pitch: 'Every competitor Hotel scores higher—tenants notice.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs.</span></span></td>
-                <td>37</td>
-                <td>42</td>
-                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +5</td>
+            <tr style="background:#f9fafb;">
+                <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Percentile rank vs. similar buildings. Below national median. (Source: <a href='https://www.energystar.gov/buildings/benchmark' target='_blank'><a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a></a>)</span></span></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#b91c1c" stroke-width="8" stroke-linecap="round" stroke-dasharray="46.62 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#b91c1c;">37</span>
+            </div></td>
+                <td><div style="display:inline-flex;align-items:center;gap:6px;">
+                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#b91c1c" stroke-width="8" stroke-linecap="round" stroke-dasharray="52.919999999999995 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.1em;color:#b91c1c;">42</span>
+            </div></td>
+                <td><span style="color:#15803d;font-weight:700;">↑5 pts</span> <span style="color:#64748b;font-size:0.9em;">(14%)</span></td>
             </tr>
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—Washington's actual utility grid, not a national average. Washington: 0.33 kg CO2/kWh (PJM regional grid). Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+            <tr style="">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor for Washington's utility grid. Washington: 0.33 kg CO2/kWh (PJM regional grid). (Source: <a href='https://www.epa.gov/egrid' target='_blank'><a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a></a>)</span></span></td>
                 <td>4,163.4 tCO2e/yr</td>
                 <td>3,731.7 tCO2e/yr</td>
-                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -431.8 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓431.8 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
             </tr>
 
         </table>
