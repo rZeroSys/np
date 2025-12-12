@@ -14,6 +14,7 @@ Output columns:
 - energy_steam_kbtu_post_odcv: District steam after ODCV (kBtu)
 - energy_fuel_oil_kbtu_post_odcv: Fuel oil after ODCV (kBtu)
 - energy_total_kbtu_post_odcv: Total energy after ODCV (kBtu)
+- carbon_emissions_post_odcv_mt: Carbon emissions after ODCV (metric tons)
 
 Requires (from previous scripts):
 - hvac_pct_elec, hvac_pct_gas, hvac_pct_steam, hvac_pct_fuel_oil (from 01_hvac_pct.py)
@@ -81,6 +82,7 @@ def calculate_post_odcv_energy(row):
         'energy_steam_kbtu_post_odcv': None,
         'energy_fuel_oil_kbtu_post_odcv': None,
         'energy_total_kbtu_post_odcv': None,
+        'carbon_emissions_post_odcv_mt': None,
     }
 
     # If no ODCV savings, post-ODCV = current
@@ -90,6 +92,7 @@ def calculate_post_odcv_energy(row):
         result['energy_gas_kbtu_post_odcv'] = safe_float(row.get('energy_gas_kbtu'))
         result['energy_steam_kbtu_post_odcv'] = safe_float(row.get('energy_steam_kbtu'))
         result['energy_fuel_oil_kbtu_post_odcv'] = safe_float(row.get('energy_fuel_oil_kbtu'))
+        result['carbon_emissions_post_odcv_mt'] = safe_float(row.get('carbon_emissions_total_mt'))
         # Calculate total
         total = 0.0
         for key in ['energy_elec_kbtu_post_odcv', 'energy_gas_kbtu_post_odcv',
@@ -142,6 +145,12 @@ def calculate_post_odcv_energy(row):
         post_odcv = oil_kbtu * reduction_factor
         result['energy_fuel_oil_kbtu_post_odcv'] = round(post_odcv, 2)
         total_post_odcv_kbtu += post_odcv
+
+    # Carbon emissions (metric tons)
+    carbon_total = safe_float(row.get('carbon_emissions_total_mt'))
+    carbon_reduction = safe_float(row.get('odcv_carbon_reduction_yr1_mt'), 0.0)
+    if carbon_total is not None:
+        result['carbon_emissions_post_odcv_mt'] = round(carbon_total - carbon_reduction, 2)
 
     # Total
     if total_post_odcv_kbtu > 0:

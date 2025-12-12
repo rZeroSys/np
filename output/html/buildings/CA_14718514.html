@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 13:33:39 EST -->
+<!-- Generated: 2025-12-12 14:00:11 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -222,8 +222,7 @@
             position: relative;
         }
 
-        .info-tooltip::after {
-            content: attr(data-tooltip);
+        .tooltip-content {
             position: absolute;
             bottom: 125%;
             left: 50%;
@@ -244,30 +243,32 @@
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            pointer-events: none;
+            pointer-events: auto;
         }
 
-        .info-tooltip:hover::after {
+        .info-tooltip:hover .tooltip-content {
             opacity: 1;
             visibility: visible;
         }
 
-        .info-tooltip::before {
+        .tooltip-content a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        .tooltip-content a:hover {
+            color: #93c5fd;
+        }
+
+        /* Tooltip arrow */
+        .tooltip-content::before {
             content: "";
             position: absolute;
-            bottom: 115%;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
             border-top-color: #1a1a2e;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-
-        .info-tooltip:hover::before {
-            opacity: 1;
-            visibility: visible;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -305,7 +306,7 @@
 
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
-            .info-tooltip::after {
+            .tooltip-content {
                 width: 320px;
                 font-size: 10px;
                 left: auto;
@@ -313,7 +314,7 @@
                 transform: none;
             }
 
-            .info-tooltip::before {
+            .tooltip-content::before {
                 left: auto;
                 right: 10px;
                 transform: none;
@@ -324,12 +325,16 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px;">
         <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1><a href="https://www.google.com/maps/search/?api=1&amp;query=5355%20Orangethorpe%20Avenue%2C%20La%20Palma%2C%20CA%2C%2090623" target="_blank" style="color: inherit; text-decoration: none;">5355 Orangethorpe Avenue, La Palma, CA, 90623 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        <h1 style="margin-bottom:0;"><a href="https://www.google.com/maps/search/?api=1&amp;query=5355%20Orangethorpe%20Avenue%2C%20La%20Palma%2C%20CA%2C%2090623" target="_blank" style="color: inherit; text-decoration: none;">5355 Orangethorpe Avenue, La Palma, CA, 90623 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Technical Methodology
+    </a>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -358,27 +363,27 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current<span class="info-tooltip" data-tooltip="From California AB 802 disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, CBRE/Cushman vacancy rates, Kastle badge-swipe occupancy data." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-                <th>Change<span class="info-tooltip" data-tooltip="Hybrid work + vacancy = 50-60% of ventilation goes to empty space." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program" target="_blank" rel="noopener">California AB 802</a> disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE/Cushman</a> vacancy rates, <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" rel="noopener">Kastle</a> badge-swipe occupancy data.</span></span></th>
+                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Hybrid work + vacancy = 50-60% of ventilation goes to empty space.</span></span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 50% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 50% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC accounts for 50% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 50% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy.</span></span></td>
                 <td>498,934 kWh</td>
                 <td>405,477 kWh</td>
                 <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -93,456 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Heating accounts for 95% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining 5% typically goes to domestic hot water and any process loads." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Heating accounts for 95% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining 5% typically goes to domestic hot water and any process loads.</span></span></td>
                 <td>270,608 therms</td>
                 <td>173,953 therms</td>
                 <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -96,655 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles (50% of electric, 95% of gas). Big EUI impact when you stop ventilating empty space." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles (50% of electric, 95% of gas). Big EUI impact when you stop ventilating empty space.</span></span></td>
                 <td>198.4 kBtu/sqft</td>
                 <td>130.7 kBtu/sqft</td>
                 <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -67.7 kBtu/sqft</td>
@@ -398,24 +403,31 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="20% vacancy from CBRE Q4 2024 La Palma office market report—actual market data, not a national average. 45% desk utilization from Kastle Systems badge swipes for La Palma—they track 2,600+ buildings. BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">20% vacancy from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE Q4 2024</a> La Palma office market report—actual market data, not a national average. 45% desk utilization from <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" rel="noopener">Kastle Systems</a> badge swipes for La Palma—they track 2,600+ buildings. BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste.</span></span></td>
                 <td>$803K/yr</td>
                 <td>$557K/yr</td>
                 <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$246K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.5% for Offices in La Palma. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Offices in La Palma. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$3.3M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Offices nationally. Benchmark EUI (53 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 50, above median but 25 points from certification. Pitch: 'ODCV could get you there—that's a marketing asset.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Score from <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a>—percentile rank vs all Offices nationally. Benchmark EUI (53 kBtu/sqft median) from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a> Commercial Buildings Survey by building type. At 50, above median but 25 points from certification. Pitch: 'ODCV could get you there—that's a marketing asset.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs.</span></span></td>
                 <td>50</td>
                 <td>70</td>
                 <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +20</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—La Palma's actual utility grid, not a national average. Using EPA eGRID regional factor for CA. Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+                <td>1,594.2 tCO2e/yr</td>
+                <td>1,051.4 tCO2e/yr</td>
+                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -542.7 tCO2e/yr</td>
             </tr>
 
         </table>

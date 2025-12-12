@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 13:35:09 EST -->
+<!-- Generated: 2025-12-12 14:02:21 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -222,8 +222,7 @@
             position: relative;
         }
 
-        .info-tooltip::after {
-            content: attr(data-tooltip);
+        .tooltip-content {
             position: absolute;
             bottom: 125%;
             left: 50%;
@@ -244,30 +243,32 @@
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            pointer-events: none;
+            pointer-events: auto;
         }
 
-        .info-tooltip:hover::after {
+        .info-tooltip:hover .tooltip-content {
             opacity: 1;
             visibility: visible;
         }
 
-        .info-tooltip::before {
+        .tooltip-content a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        .tooltip-content a:hover {
+            color: #93c5fd;
+        }
+
+        /* Tooltip arrow */
+        .tooltip-content::before {
             content: "";
             position: absolute;
-            bottom: 115%;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
             border-top-color: #1a1a2e;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-
-        .info-tooltip:hover::before {
-            opacity: 1;
-            visibility: visible;
         }
 
         /* Org Logo Tooltip - instant, visible */
@@ -305,7 +306,7 @@
 
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
-            .info-tooltip::after {
+            .tooltip-content {
                 width: 320px;
                 font-size: 10px;
                 left: auto;
@@ -313,7 +314,7 @@
                 transform: none;
             }
 
-            .info-tooltip::before {
+            .tooltip-content::before {
                 left: auto;
                 right: 10px;
                 transform: none;
@@ -324,12 +325,16 @@
 <body>
     <div class="container">
 
-    <div class="hero" style="position:relative;text-align:center;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px;">
         <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back
     </a>
-        <h1><a href="https://propertyinformationportal.nyc.gov/parcels/parcel/1012610054" target="_blank" style="color: inherit; text-decoration: none;">30 W 46 St, New York, NY, 10036 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        <h1 style="margin-bottom:0;"><a href="https://propertyinformationportal.nyc.gov/parcels/parcel/1012610054" target="_blank" style="color: inherit; text-decoration: none;">30 W 46 St, New York, NY, 10036 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        <a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Technical Methodology
+    </a>
     </div>
 
     <div class="section" style="margin: 0; padding: 0;">
@@ -349,7 +354,7 @@
 <tr><td>Size</td><td>126,000 sqft</td></tr>
 <tr><td>Type</td><td>Hotel</td></tr>
 <tr><td>Year Built</td><td>2013</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Ny 46 LLC"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ny_46_LLC.png" alt="Ny 46 LLC" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Ny 46 LLC</span></span></div></td></tr><tr><td>Tenant</td><td><div style=''><a href="https://www.hilton.com" target="_blank" class="org-logo" data-org-name="Hilton"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="Hilton" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton</span></a> &nbsp; <a href="https://www.hilton.com/hilton-garden-inn" target="_blank" class="org-logo" data-org-name="Hilton Garden Inn"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton_Garden_Inn.png" alt="Hilton Garden Inn" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton Garden Inn</span></a></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Sources: <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR Portfolio Manager</a>, city benchmarking filings, <a href="https://www.costar.com/" target="_blank" rel="noopener">CoStar</a>, SEC 10-K, corporate websites.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Ny 46 LLC"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ny_46_LLC.png" alt="Ny 46 LLC" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Ny 46 LLC</span></span></div></td></tr><tr><td>Tenant</td><td><div style=''><a href="https://www.hilton.com" target="_blank" class="org-logo" data-org-name="Hilton"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton.png" alt="Hilton" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton</span></a> &nbsp; <a href="https://www.hilton.com/hilton-garden-inn" target="_blank" class="org-logo" data-org-name="Hilton Garden Inn"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Hilton_Garden_Inn.png" alt="Hilton Garden Inn" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Hilton Garden Inn</span></a></div></td></tr>
         </table>
     </div>
 
@@ -358,27 +363,27 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current<span class="info-tooltip" data-tooltip="From LL84 benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, STR room occupancy data, guest presence patterns." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-                <th>Change<span class="info-tooltip" data-tooltip="63% room occupancy × 45% guest presence = 72% of ventilation wasted." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">From <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> benchmarking disclosure. Actual metered energy reported by the building.</span></span></th>
+                <th>New<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC reduced using <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS</a> fuel splits, <a href="https://str.com/" target="_blank" rel="noopener">STR</a> room occupancy data, guest presence patterns.</span></span></th>
+                <th>Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">63% room occupancy × 45% guest presence = 72% of ventilation wasted.</span></span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC drives 32% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">HVAC drives 32% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment.</span></span></td>
                 <td>1,337,658 kWh</td>
                 <td>1,248,141 kWh</td>
                 <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -89,517 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Only 16% of hotel gas goes to HVAC (space heating). The other 84% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Only 16% of hotel gas goes to HVAC (space heating). The other 84% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion.</span></span></td>
                 <td>33,572 therms</td>
                 <td>32,491 therms</td>
                 <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -1,080 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 16% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 16% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services.</span></span></td>
                 <td>62.9 kBtu/sqft</td>
                 <td>59.6 kBtu/sqft</td>
                 <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -3.3 kBtu/sqft</td>
@@ -398,24 +403,31 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="84% occupancy from STR New York market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">84% occupancy from <a href="https://str.com/" target="_blank" rel="noopener">STR</a> New York market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned.</span></span></td>
                 <td>$719K/yr</td>
                 <td>$672K/yr</td>
                 <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$47K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.0% for Hotels in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.0% for Hotels in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$668K</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Hotels nationally. Benchmark EUI (63 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 80, already ENERGY STAR certified territory. Pitch: 'Maintain or improve your competitive position.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Score from <a href="https://portfoliomanager.energystar.gov/" target="_blank" rel="noopener">EPA Portfolio Manager</a>—percentile rank vs all Hotels nationally. Benchmark EUI (63 kBtu/sqft median) from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a> Commercial Buildings Survey by building type. At 80, already <a href="https://www.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR</a> certified territory. Pitch: 'Maintain or improve your competitive position.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs.</span></span></td>
                 <td>80</td>
                 <td>81</td>
                 <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +1</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grid emission factor from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>—New York's actual utility grid, not a national average. New York: 0.29 kg CO2/kWh (ConEd NYC grid). Natural gas: 5.3 kg CO2/therm (<a href="https://www.eia.gov/environment/emissions/co2_vol_mass.php" target="_blank" rel="noopener">EIA standard</a>). Pitch: 'These are auditable numbers—same methodology NYC uses for <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page" target="_blank" rel="noopener">LL97</a> compliance.'</span></span></td>
+                <td>564.9 tCO2e/yr</td>
+                <td>533.3 tCO2e/yr</td>
+                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -31.6 tCO2e/yr</td>
             </tr>
 
         </table>

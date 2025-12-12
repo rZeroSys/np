@@ -711,6 +711,111 @@ TOOLTIPS = {
     'utility_provider': "Electric utility serving this building's location. Rates from NREL utility rate database by ZIP code.",
 }
 
+# Source text to URL mapping for tooltip hyperlinks
+# Order matters - longer/more specific patterns first to avoid partial matches
+SOURCE_TEXT_TO_URL = [
+    # EPA / EIA Sources
+    ('EPA eGRID 2023', 'https://www.epa.gov/egrid'),
+    ('EPA eGRID', 'https://www.epa.gov/egrid'),
+    ('EIA CBECS 2018', 'https://www.eia.gov/consumption/commercial/'),
+    ('CBECS 2018', 'https://www.eia.gov/consumption/commercial/'),
+    ('CBECS', 'https://www.eia.gov/consumption/commercial/'),
+    ('EIA standard', 'https://www.eia.gov/environment/emissions/co2_vol_mass.php'),
+
+    # Real Estate / Occupancy Sources
+    ('CBRE Cap Rate Survey Q4 2024', 'https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025'),
+    ('CBRE Q4 2024', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
+    ('CBRE/Cushman', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
+    ('CBRE', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
+    ('Cushman', 'https://www.cushmanwakefield.com/en/insights'),
+    ('Kastle Systems', 'https://www.kastle.com/safety-wellness/getting-america-back-to-work/'),
+    ('Kastle', 'https://www.kastle.com/safety-wellness/getting-america-back-to-work/'),
+
+    # Industry-Specific Sources
+    ('STR', 'https://str.com/'),
+    ('NCES', 'https://nces.ed.gov/'),
+    ('AHA Hospital Statistics', 'https://www.aha.org/statistics-trends-reports'),
+    ('AHA', 'https://www.aha.org/statistics-trends-reports'),
+    ('Placer.ai', 'https://www.placer.ai/'),
+    ('MGMA', 'https://www.mgma.com/'),
+    ('NIC MAP Vision', 'https://www.nic.org/nic-map-vision/'),
+    ('IHRSA', 'https://www.ihrsa.org/'),
+    ('ICSC', 'https://www.icsc.com/'),
+    ('CoStar', 'https://www.costar.com/'),
+    ('NADA', 'https://www.nada.org/'),
+    ('NAEYC', 'https://www.naeyc.org/'),
+
+    # ENERGY STAR / Portfolio Manager
+    ('ENERGY STAR Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
+    ('EPA Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
+    ('Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
+    ('ENERGY STAR', 'https://www.energystar.gov/'),
+
+    # BPS Laws - NYC
+    ('NYC Local Law 97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
+    ('Local Law 97 of 2019', 'https://www.nyc.gov/assets/buildings/local_laws/ll97of2019.pdf'),
+    ('Local Law 97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
+    ('LL97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
+    ('LL84', 'https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page'),
+
+    # BPS Laws - Boston
+    ('BERDO 2.0', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
+    ('BERDO', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
+
+    # BPS Laws - Other Cities
+    ('Cambridge BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabilityandresilienceprograms/beudo'),
+    ('BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabilityandresilienceprograms/beudo'),
+    ('DC BEPS', 'https://doee.dc.gov/service/building-energy-performance-standards-beps'),
+    ('DC DOEE', 'https://doee.dc.gov/'),
+    ('Energize Denver', 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Climate-Action-Sustainability-Resiliency/Energize-Denver'),
+    ('Seattle BEPS', 'https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards'),
+    ('St. Louis BEPS', 'https://www.stlouis-mo.gov/government/departments/public-safety/building/building-performance/'),
+    ('California AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
+    ('AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
+
+    # ASHRAE Standards
+    ('ASHRAE 170', 'https://www.ashrae.org/technical-resources/standards-and-guidelines'),
+    ('ASHRAE', 'https://www.ashrae.org/'),
+
+    # Other
+    ('NREL utility rate database', 'https://openei.org/wiki/Utility_Rate_Database'),
+    ('NREL', 'https://www.nrel.gov/'),
+    ('Con Edison', 'https://www.coned.com/'),
+]
+
+def inject_source_links(text):
+    """Replace source references with hyperlinks. Uses list to preserve order."""
+    # Track which positions have been linked to avoid nested links
+    linked_ranges = []
+
+    for source_text, url in SOURCE_TEXT_TO_URL:
+        start = text.find(source_text)
+        if start == -1:
+            continue
+
+        # Check if this position overlaps with an already-linked range
+        end = start + len(source_text)
+        overlaps = False
+        for linked_start, linked_end in linked_ranges:
+            if start < linked_end and end > linked_start:
+                overlaps = True
+                break
+
+        if overlaps:
+            continue
+
+        # Create the link
+        link = f'<a href="{url}" target="_blank" rel="noopener">{source_text}</a>'
+        text = text[:start] + link + text[end:]
+
+        # Update linked ranges - the link is longer than the original text
+        len_diff = len(link) - len(source_text)
+        linked_ranges = [(s + len_diff if s > start else s, e + len_diff if e > start else e)
+                        for s, e in linked_ranges]
+        linked_ranges.append((start, start + len(link)))
+
+    return text
+
 #===============================================================================
 # CORE UTILITY FUNCTIONS (needed by dynamic tooltips)
 #===============================================================================
@@ -1250,7 +1355,7 @@ def get_carbon_reduction_tooltip(row):
         'Washington': ('0.33 kg CO2/kWh', 'PJM regional grid'),
     }
 
-    story = f"Grid emission factor from EPA eGRID 2022—{city}'s actual utility grid, not a national average. "
+    story = f"Grid emission factor from EPA eGRID 2023—{city}'s actual utility grid, not a national average. "
 
     if city in grid_info:
         factor, desc = grid_info[city]
@@ -1623,7 +1728,11 @@ def tooltip(key, row=None):
 
     if not text:
         return ''
-    return f'<span class="info-tooltip" data-tooltip="{escape(text)}" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span>'
+
+    # Inject hyperlinks into source references
+    html_text = inject_source_links(text)
+
+    return f'<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">{html_text}</span></span>'
 
 #===============================================================================
 # HTML SECTIONS
@@ -1658,26 +1767,26 @@ def generate_hero(row):
         Back
     </a>'''
 
-    # Methodology link - right side of hero
-    methodology_btn = '''<a href="../methodology.html" style="position:absolute;right:10px;top:10px;color:white;text-decoration:none;font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;opacity:0.85;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        Methodology
+    # Methodology link - below address, centered
+    methodology_link = '''<a href="../methodology.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;font-weight:500;margin-top:12px;padding:6px 14px;background:rgba(255,255,255,0.15);border-radius:20px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.85)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Technical Methodology
     </a>'''
 
     if has_url:
         html = f"""
-    <div class="hero" style="position:relative;text-align:center;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px;">
         {back_btn}
-        {methodology_btn}
-        <h1><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        <h1 style="margin-bottom:0;"><a href="{escape(building_url)}" target="_blank" style="color: inherit; text-decoration: none;">{escape(address)} <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+        {methodology_link}
     </div>
 """
     else:
         html = f"""
-    <div class="hero" style="position:relative;text-align:center;">
+    <div class="hero" style="position:relative;text-align:center;padding:20px;">
         {back_btn}
-        {methodology_btn}
-        <h1>{escape(address)}</h1>
+        <h1 style="margin-bottom:0;">{escape(address)}</h1>
+        {methodology_link}
     </div>
 """
     return html
@@ -2117,7 +2226,8 @@ def generate_energy_section(row):
 
     # Column header tooltip styling (same as row tooltips)
     def col_tooltip(text):
-        return f'<span class="info-tooltip" data-tooltip="{escape(text)}" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span>'
+        html_text = inject_source_links(text)
+        return f'<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">{html_text}</span></span>'
 
     html = f"""
     <div class="section">
@@ -2576,8 +2686,7 @@ def generate_html_report(row):
             position: relative;
         }}
 
-        .info-tooltip::after {{
-            content: attr(data-tooltip);
+        .tooltip-content {{
             position: absolute;
             bottom: 125%;
             left: 50%;
@@ -2598,30 +2707,32 @@ def generate_html_report(row):
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            pointer-events: none;
+            pointer-events: auto;
         }}
 
-        .info-tooltip:hover::after {{
+        .info-tooltip:hover .tooltip-content {{
             opacity: 1;
             visibility: visible;
         }}
 
-        .info-tooltip::before {{
+        .tooltip-content a {{
+            color: #60a5fa;
+            text-decoration: underline;
+        }}
+
+        .tooltip-content a:hover {{
+            color: #93c5fd;
+        }}
+
+        /* Tooltip arrow */
+        .tooltip-content::before {{
             content: "";
             position: absolute;
-            bottom: 115%;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
             border-top-color: #1a1a2e;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }}
-
-        .info-tooltip:hover::before {{
-            opacity: 1;
-            visibility: visible;
         }}
 
         /* Org Logo Tooltip - instant, visible */
@@ -2659,7 +2770,7 @@ def generate_html_report(row):
 
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {{
-            .info-tooltip::after {{
+            .tooltip-content {{
                 width: 320px;
                 font-size: 10px;
                 left: auto;
@@ -2667,7 +2778,7 @@ def generate_html_report(row):
                 transform: none;
             }}
 
-            .info-tooltip::before {{
+            .tooltip-content::before {{
                 left: auto;
                 right: 10px;
                 transform: none;
