@@ -7247,8 +7247,8 @@ const TUTORIAL_STEPS = [
         position: 'bottom'
     }},
     {{
-        target: '.main-tab[data-tab="cities"]',
-        multiTarget: ['.main-tab[data-tab="cities"]', '.main-tab[data-tab="portfolios"]'],
+        target: '.main-tab[data-tab="portfolios"]',
+        multiTarget: ['.main-tab[data-tab="portfolios"]', '.main-tab[data-tab="all-buildings"]'],
         title: 'Cities & Portfolios Tabs',
         content: 'Switch between views: Portfolios tab shows buildings grouped by organization (owner, tenant, property manager). Cities tab shows buildings grouped by metro area.',
         position: 'bottom',
