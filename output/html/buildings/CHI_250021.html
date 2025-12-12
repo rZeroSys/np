@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:30 EST -->
+<!-- Generated: 2025-12-12 01:56:19 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  942,294 kWh × $0.1338/kWh × 1.10
-  = $138,635/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 430 kW
-  430 kW × $35.00/kW × 12 mo × 1.265
-  = $228,603/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 25%
-  (Venues typically: 35%)
-  Peak = (942,294 ÷ 8,760 hrs) ÷ 0.25
-       = 430 kW
-
-TOTAL: $367,238/yr
-
-HVAC PORTION: 70%
-  = $257,067/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Venues typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 942,294 kWh/yr
+After ODCV: 719,611 kWh/yr
+Change: -222,683 kWh/yr
+How: HVAC is 70% of electric; ODCV cuts 34% of that.
+Why believable: 48% utilized.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>942,294 kWh</td>
                 <td>719,611 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-222,682 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 129.7 kBtu/sqft
+After ODCV: 117.1 kBtu/sqft
+Change: -12.6 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 34% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Chicago Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>129.7 kBtu/sqft</td>
                 <td>117.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-12.6 kBtu/sqft</td>
@@ -431,64 +404,29 @@ Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 34% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Venue
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Convention centers, banquet halls have most
-extreme occupancy variability—empty for
-days/weeks then full capacity for single
-events.
-
-FORMULA: 1 - Utilization
-  Utilization: 48%
-  Opportunity: 52%
-
-MODIFIERS:
-  Automation: 0.25 (built 1914, 60K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 33.8% of HVAC costs
-(Range: 20-45% for Venue)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $367,238/yr
+  (Electric: $367,238)
+HVAC portion of that: $257,067/yr
+ODCV saves 34% of HVAC = $86,786/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$367K/yr</td>
                 <td>$280K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$87K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $367,238 x 70% = $257,067
-Total HVAC Cost: $257,067/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $86,786/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Venue
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 48%
-Savings Range: 20-45%
-This Building: 33.8%
-Annual Savings: $86,786
+Cap rate: 7.5% (Venue typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$86,786 / 7.50% = $1,157,143
+$86,786/yr ÷ 7.5%
+= $1,157,143 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.2M</td>

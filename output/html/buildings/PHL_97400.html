@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:14 EST -->
+<!-- Generated: 2025-12-12 01:57:05 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  737,301 kWh × $0.1490/kWh × 1.10
-  = $120,834/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 187 kW
-  187 kW × $35.00/kW × 12 mo × 1.265
-  = $99,373/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Offices typically: 45%)
-  Peak = (737,301 ÷ 8,760 hrs) ÷ 0.45
-       = 187 kW
-
-TOTAL: $220,207/yr
-
-HVAC PORTION: 48%
-  = $104,885/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Central
-  systems condition entire floors even
-  when partially occupied.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Philadelphia Benchmarking, PECO Energy Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 737,301 kWh/yr
+After ODCV: 629,455 kWh/yr
+Change: -107,846 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 31% of that.
+Why believable: 19% vacant, 44% utilized — underused space = wasted conditioning.
+Sources: Philadelphia Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>737,300 kWh</td>
                 <td>629,454 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-107,846 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  1,961,292 kBtu ÷ 100 = 19,613 therms
-  19,613 × $1.434/therm × 1.10
-  = $30,946/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OFFICE: 98%
-  = $30,327/yr for heating
-
-  87.5% of gas is HVAC - primarily heating.
-  High percentage due to minimal
-  cooking/DHW.
-  (Based on EIA CBECS 2018)
-
-Source: Philadelphia Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 19,613 therms/yr
+After ODCV: 13,710 therms/yr
+Change: -5,903 therms/yr
+How: HVAC is 98% of gas; ODCV cuts 31% of that.
+Why believable: 19% vacant, 44% utilized; 98% of gas is heating.
+Sources: Philadelphia Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>19,612 therms</td>
                 <td>13,710 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-5,902 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 81.4 kBtu/sqft
+After ODCV: 64.0 kBtu/sqft
+Change: -17.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 31% savings).
+Why believable: elec HVAC 48%, gas HVAC 98%; 19% vacant, 44% utilized.
+Sources: Philadelphia Benchmarking, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>81.4 kBtu/sqft</td>
                 <td>64.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-17.4 kBtu/sqft</td>
@@ -457,67 +417,32 @@ Source: Philadelphia Benchmarking, NREL rates" style="display: inline-block; mar
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 31% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Centralized HVAC ventilates vacant floors at
-design capacity. Hybrid work (avg 52%
-utilization) + vacancy creates 50-60%
-opportunity in typical buildings.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 19%
-  Utilization: 44%
-  Opportunity: 64%
-
-MODIFIERS:
-  Automation: 0.25 (built 1923, 55K sqft)
-  Efficiency: 1.05 (ES 36, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 30.7% of HVAC costs
-(Range: 20-40% for Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $251,153/yr
+  (Electric: $220,207, Gas: $30,946)
+HVAC portion of that: $135,212/yr
+ODCV saves 31% of HVAC = $41,523/yr
+OFFICE NOTE:
+This building is 19% vacant - paying to condition empty space.
+Hybrid work means only 44% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$251K/yr</td>
                 <td>$210K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$42K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $220,207 x 48% = $104,885
-Gas: $30,946 x 98% = $30,327
-Total HVAC Cost: $135,212/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $41,523/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 19%
-Utilization Rate: 44%
-Savings Range: 20-40%
-This Building: 30.7%
-Annual Savings: $41,523
+Cap rate: 8.0% (Office typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$41,523 / 8.00% = $519,044
+$41,523/yr ÷ 8.0%
+= $519,044 value increase
 
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$519K</td>

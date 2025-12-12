@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:21 EST -->
+<!-- Generated: 2025-12-12 01:53:58 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,77 +363,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  130,176 kWh × $0.3116/kWh × 1.10
-  = $44,618/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 42 kW
-  42 kW × $8.00/kW × 12 mo × 1.265
-  = $5,156/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Higher Eds typically: 35%)
-  Peak = (130,176 ÷ 8,760 hrs) ÷ 0.35
-       = 42 kW
-
-TOTAL: $49,774/yr
-
-HVAC PORTION: 45%
-  = $22,458/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Higher Eds typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Campus
-  buildings have diverse usage patterns.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 130,176 kWh/yr
+After ODCV: 113,701 kWh/yr
+Change: -16,475 kWh/yr
+How: HVAC is 45% of electric; ODCV cuts 28% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>130,176 kWh</td>
                 <td>113,701 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-16,475 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  2,576,597 kBtu ÷ 100 = 25,766 therms
-  25,766 × $1.727/therm × 1.10
-  = $48,948/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR HIGHER ED: 82%
-  = $40,225/yr for heating
-
-  80% of gas is HVAC. Research buildings may
-  have higher due to fume hood makeup air.
-  (Based on EIA CBECS 2018)
-
-Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 25,766 therms/yr
+After ODCV: 19,827 therms/yr
+Change: -5,939 therms/yr
+How: HVAC is 82% of gas; ODCV cuts 28% of that.
+Why believable: 82% of gas is heating; empty half the year.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>25,765 therms</td>
                 <td>19,826 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-5,939 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 66.1 kBtu/sqft
+After ODCV: 51.8 kBtu/sqft
+Change: -14.3 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 28% savings).
+Why believable: elec HVAC 45%, gas HVAC 82% — high HVAC share.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>66.1 kBtu/sqft</td>
                 <td>51.8 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-14.3 kBtu/sqft</td>
@@ -453,31 +415,12 @@ Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 28% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Higher Ed
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Semester breaks (winter, spring, summer),
-variable class schedules, evening/weekend
-classes in some buildings. Similar to K-12
-but more diverse usage patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 60%
-  Opportunity: 40%
-
-MODIFIERS:
-  Automation: 0.12
-  Efficiency: 0.95 (below avg EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 28.1% of HVAC costs
-(Range: 20-45% for Higher Ed)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $98,721/yr
+  (Electric: $49,774, Gas: $48,948)
+HVAC portion of that: $62,683/yr
+ODCV saves 28% of HVAC = $17,583/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$99K/yr</td>
                 <td>$81K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$18K/yr</td>

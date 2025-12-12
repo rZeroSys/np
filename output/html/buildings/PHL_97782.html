@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:16 EST -->
+<!-- Generated: 2025-12-12 01:57:07 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,921,806 kWh × $0.1490/kWh × 1.10
-  = $314,959/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 627 kW
-  627 kW × $8.00/kW × 12 mo × 1.265
-  = $76,120/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Higher Eds typically: 35%)
-  Peak = (1,921,806 ÷ 8,760 hrs) ÷ 0.35
-       = 627 kW
-
-TOTAL: $391,079/yr
-
-HVAC PORTION: 46%
-  = $181,030/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Higher Eds typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Campus
-  buildings have diverse usage patterns.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Philadelphia Benchmarking, PECO Energy Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,921,806 kWh/yr
+After ODCV: 1,645,940 kWh/yr
+Change: -275,866 kWh/yr
+How: HVAC is 46% of electric; ODCV cuts 31% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: Philadelphia Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,921,806 kWh</td>
                 <td>1,645,939 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-275,866 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
-======================================
-
-FORMULA: Mlb × rate
-(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
-
-THIS BUILDING:
-  13,891,044 kBtu ÷ 909 kBtu/Mlb
-  = 15,281.7 Mlb
-  × $28.00/Mlb
-  = $427,887/yr
-  (No adder - steam rates all-inclusive)
-
-HVAC PORTION: 100%
-  = $427,887/yr for space heating
-  District steam typically 85-100% heating.
-  (Based on EIA CBECS 2018)
-
-PROVIDER: Vicinity Energy
-
-Source: Philadelphia Benchmarking" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
+Current (disclosed): 11,634.04 Mlb/yr
+After ODCV: 8,026.32 Mlb/yr
+Change: -3,607.72 Mlb/yr
+How: HVAC is 100% of steam; ODCV cuts 31% of that.
+Why believable: district steam is almost entirely for heating.
+Sources: Philadelphia Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>11,634.04 Mlb</td>
                 <td>8,026.32 Mlb</td>
                 <td style="color: #16a34a; font-weight: 600;">-3,607.72 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 390.3 kBtu/sqft
+After ODCV: 290.1 kBtu/sqft
+Change: -100.2 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 31% savings).
+Why believable: elec HVAC 46%, gas HVAC 0% — high HVAC share.
+Sources: Philadelphia Benchmarking, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>390.3 kBtu/sqft</td>
                 <td>290.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-100.2 kBtu/sqft</td>
@@ -457,31 +417,12 @@ Source: Philadelphia Benchmarking" style="display: inline-block; margin-left: 5p
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 31% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Higher Ed
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Semester breaks (winter, spring, summer),
-variable class schedules, evening/weekend
-classes in some buildings. Similar to K-12
-but more diverse usage patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 62%
-  Opportunity: 38%
-
-MODIFIERS:
-  Automation: 0.25 (built 1963, 52K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 31.0% of HVAC costs
-(Range: 20-45% for Higher Ed)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $818,966/yr
+  (Electric: $391,079, Steam: $427,887)
+HVAC portion of that: $608,917/yr
+ODCV saves 31% of HVAC = $188,825/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$819K/yr</td>
                 <td>$630K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$189K/yr</td>

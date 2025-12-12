@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:54 EST -->
+<!-- Generated: 2025-12-12 01:54:35 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  14,740,784 kWh × $0.2474/kWh × 1.10
-  = $4,012,157/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 2,404 kW
-  2,404 kW × $35.00/kW × 12 mo × 1.265
-  = $1,277,198/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 70%
-  (Inpatient Hospitals typically: 65%)
-  Peak = (14,740,784 ÷ 8,760 hrs) ÷ 0.70
-       = 2,404 kW
-
-TOTAL: $5,289,355/yr
-
-HVAC PORTION: 57%
-  = $3,014,932/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Inpatient Hospitals typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  54% of electricity is HVAC. Strict
-  ventilation codes (ASHRAE 170) require
-  high air change rates.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: EBEWE, Los Angeles Department of Water &amp; Power" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 14,740,784 kWh/yr
+After ODCV: 13,060,335 kWh/yr
+Change: -1,680,449 kWh/yr
+How: HVAC is 57% of electric; ODCV cuts 20% of that.
+Why believable: savings from non-clinical areas only (clinical has code requirements).
+Sources: EBEWE, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>14,740,784 kWh</td>
                 <td>13,060,334 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,680,449 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 252.0 kBtu/sqft
+After ODCV: 240.5 kBtu/sqft
+Change: -11.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>252.0 kBtu/sqft</td>
                 <td>240.5 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-11.5 kBtu/sqft</td>
@@ -431,32 +404,15 @@ Source: EBEWE, Los Angeles Department of Water &amp; Power" style="display: inli
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Inpatient Hospital
-Category: Constrained
-
-WHY 5-15% RANGE:
-ASHRAE 170 mandates 15-25 air changes/hour in
-ORs regardless of occupancy. 24/7 operation,
-infection control requirements. Only ~30% of
-theoretical savings achievable in
-non-clinical areas.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 76%
-  Opportunity: 7%
-
-MODIFIERS:
-  Automation: 0.50 (built 1968, 500K sqft)
-  Efficiency: 1.10 (ES 22, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Inpatient Hospital)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $5,289,355/yr
+  (Electric: $5,289,355)
+HVAC portion of that: $3,014,932/yr
+ODCV saves 20% of HVAC = $602,986/yr
+HOSPITAL NOTE:
+Savings limited to non-clinical areas (lobbies, offices, cafeteria).
+Clinical areas need constant airflow by code.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$5.3M/yr</td>
                 <td>$4.7M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$603K/yr</td>

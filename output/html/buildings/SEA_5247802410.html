@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:26 EST -->
+<!-- Generated: 2025-12-12 01:57:17 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,75 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  73,876 kWh × $0.1240/kWh × 1.10
-  = $10,073/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Not applicable or included in energy rate
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Restaurant/Bars typically: 45%)
-  Peak = (73,876 ÷ 8,760 hrs) ÷ 0.35
-       = 24 kW
-
-TOTAL: $10,073/yr
-
-HVAC PORTION: 30%
-  = $3,060/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Restaurant/Bars typically 45%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  45% of electricity is HVAC. Kitchen
-  exhaust fans are a significant electric
-  load.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Seattle Benchmarking Ordinance, City of Seattle - (WA)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 73,876 kWh/yr
+After ODCV: 69,387 kWh/yr
+Change: -4,489 kWh/yr
+How: HVAC is 30% of electric; ODCV cuts 20% of that.
+Why believable: 14% vacant, 63% utilized.
+Sources: Seattle Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>73,875 kWh</td>
                 <td>69,387 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-4,488 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  332,266 kBtu ÷ 100 = 3,323 therms
-  3,323 × $1.407/therm × 1.10
-  = $5,142/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR RESTAURANT/BAR: 18%
-  = $926/yr for heating
-
-  Only 18% of gas is HVAC. Kitchen cooking
-  consumes 72% of natural gas.
-  (Based on EIA CBECS 2018)
-
-Source: Seattle Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 3,323 therms/yr
+After ODCV: 3,203 therms/yr
+Change: -120 therms/yr
+How: HVAC is 18% of gas; ODCV cuts 20% of that.
+Why believable: only 18% of gas is HVAC (rest is cooking).
+Sources: Seattle Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,322 therms</td>
                 <td>3,203 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-119 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 20.3 kBtu/sqft
+After ODCV: 19.3 kBtu/sqft
+Change: -1.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Seattle Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>20.3 kBtu/sqft</td>
                 <td>19.3 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-1.0 kBtu/sqft</td>
@@ -453,65 +417,31 @@ Source: Seattle Benchmarking Ordinance, NREL rates" style="display: inline-block
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Restaurant/Bar
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Predictable meal-time peaks, but kitchen runs
-at constant ventilation regardless of dining
-room occupancy. Note: Only 18% of gas is HVAC
-(72% is cooking).
-
-FORMULA: 1 - Utilization
-  Utilization: 63%
-  Opportunity: 37%
-
-MODIFIERS:
-  Automation: 0.12 (built 1913, 29K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Restaurant/Bar)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $15,215/yr
+  (Electric: $10,073, Gas: $5,142)
+HVAC portion of that: $3,986/yr
+ODCV saves 20% of HVAC = $797/yr
+RESTAURANT NOTE:
+Gas savings limited - 72% of gas is kitchen cooking.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$15K/yr</td>
                 <td>$14K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$797/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $10,073 x 30% = $3,060
-Gas: $5,142 x 18% = $926
-Total HVAC Cost: $3,986/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $797/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Restaurant/Bar
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 63%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $797
+Cap rate: 7.0% (Restaurant/Bar typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$797 / 7.00% = $11,388
+$797/yr ÷ 7.0%
+= $11,388 value increase
 
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$11K</td>

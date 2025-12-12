@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:44 EST -->
+<!-- Generated: 2025-12-12 01:56:33 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  558,738 kWh × $0.1351/kWh × 1.10
-  = $83,051/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 142 kW
-  142 kW × $35.00/kW × 12 mo × 1.265
-  = $75,306/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Offices typically: 45%)
-  Peak = (558,738 ÷ 8,760 hrs) ÷ 0.45
-       = 142 kW
-
-TOTAL: $158,357/yr
-
-HVAC PORTION: 58%
-  = $92,180/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Central
-  systems condition entire floors even
-  when partially occupied.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Energize Denver, Public Service Co of Colorado" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 558,738 kWh/yr
+After ODCV: 460,677 kWh/yr
+Change: -98,060 kWh/yr
+How: HVAC is 58% of electric; ODCV cuts 30% of that.
+Why believable: 24% vacant, 39% utilized — underused space = wasted conditioning.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>558,737 kWh</td>
                 <td>460,677 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-98,060 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  1,861,371 kBtu ÷ 100 = 18,614 therms
-  18,614 × $1.137/therm × 1.10
-  = $23,288/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OFFICE: 98%
-  = $22,823/yr for heating
-
-  87.5% of gas is HVAC - primarily heating.
-  High percentage due to minimal
-  cooking/DHW.
-  (Based on EIA CBECS 2018)
-
-Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 18,614 therms/yr
+After ODCV: 13,114 therms/yr
+Change: -5,500 therms/yr
+How: HVAC is 98% of gas; ODCV cuts 30% of that.
+Why believable: 24% vacant, 39% utilized; 98% of gas is heating.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>18,613 therms</td>
                 <td>13,113 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-5,499 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 93.5 kBtu/sqft
+After ODCV: 71.6 kBtu/sqft
+Change: -21.9 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 30% savings).
+Why believable: elec HVAC 58%, gas HVAC 98%; 24% vacant, 39% utilized.
+Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>93.5 kBtu/sqft</td>
                 <td>71.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-21.9 kBtu/sqft</td>
@@ -456,88 +416,49 @@ Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 30% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Centralized HVAC ventilates vacant floors at
-design capacity. Hybrid work (avg 52%
-utilization) + vacancy creates 50-60%
-opportunity in typical buildings.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 24%
-  Utilization: 39%
-  Opportunity: 70%
-
-MODIFIERS:
-  Automation: 0.12 (built 1968, 40K sqft)
-  Efficiency: 1.05 (ES 44, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 30.1% of HVAC costs
-(Range: 20-40% for Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $181,645/yr
+  (Electric: $158,357, Gas: $23,288)
+HVAC portion of that: $115,002/yr
+ODCV saves 30% of HVAC = $34,673/yr
+OFFICE NOTE:
+This building is 24% vacant - paying to condition empty space.
+Hybrid work means only 39% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$182K/yr</td>
                 <td>$147K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$35K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver: $0.30/kBtu over target (target: 48.3 kBtu/sqft EUI). ODCV reduces EUI, avoiding $265,368/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ENERGIZE DENVER
+
+EUI target: 48.3 kBtu/sqft
+This building: 93.5 kBtu/sqft
+Over by: 45.2 kBtu/sqft
+
+Fine: $0.30/kBtu over target
+ODCV reduces EUI 30%
+Fine avoided: $265,368/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$546K/yr</td>
                 <td>$281K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$265K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $158,357 x 58% = $92,180
-Gas: $23,288 x 98% = $22,823
-Total HVAC Cost: $115,002/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $34,673/yr
+  Fine avoidance: $265,368/yr
+  Total: $300,041/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 24%
-Utilization Rate: 39%
-Savings Range: 20-40%
-This Building: 30.1%
-Annual Savings: $34,673
+Cap rate: 8.0% (Office typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: Energize Denver
-Method: EUI target
-Penalty: $0.30/kBtu over target
-Fine Avoided: $265,368/yr
-Source: City of Denver
+$300,041/yr ÷ 8.0%
+= $3,750,517 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $34,673
-+ Fine Avoidance: $265,368
-= Total: $300,041/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$300,041 / 8.00% = $3,750,517
-
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.8M</td>

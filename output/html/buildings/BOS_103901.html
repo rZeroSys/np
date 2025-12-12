@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:23 EST -->
+<!-- Generated: 2025-12-12 01:54:00 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  2,476,085 kWh × $0.3116/kWh × 1.10
-  = $848,673/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 808 kW
-  808 kW × $35.00/kW × 12 mo × 1.265
-  = $429,075/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Library/Museums typically: 35%)
-  Peak = (2,476,085 ÷ 8,760 hrs) ÷ 0.35
-       = 808 kW
-
-TOTAL: $1,277,748/yr
-
-HVAC PORTION: 61%
-  = $782,621/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Library/Museums typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 2,476,085 kWh/yr
+After ODCV: 2,149,712 kWh/yr
+Change: -326,373 kWh/yr
+How: HVAC is 61% of electric; ODCV cuts 22% of that.
+Why believable: 53% utilized.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,476,084 kWh</td>
                 <td>2,149,712 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-326,372 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  2,484,594 kBtu ÷ 100 = 24,846 therms
-  24,846 × $1.727/therm × 1.10
-  = $47,200/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR LIBRARY/MUSEUM: 77%
-  = $36,448/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 24,846 therms/yr
+After ODCV: 20,717 therms/yr
+Change: -4,129 therms/yr
+How: HVAC is 77% of gas; ODCV cuts 22% of that.
+Why believable: 77% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>24,845 therms</td>
                 <td>20,717 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-4,128 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 153.9 kBtu/sqft
+After ODCV: 132.4 kBtu/sqft
+Change: -21.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 22% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>153.9 kBtu/sqft</td>
                 <td>132.4 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-21.5 kBtu/sqft</td>
@@ -456,38 +416,27 @@ Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 22% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Library/Museum
-Category: Single-Tenant
-
-WHY 12-28% RANGE:
-Fixed operating hours with relatively steady
-occupancy during open hours. Collection
-preservation may require stable conditions.
-Savings primarily from nights/weekends.
-
-FORMULA: 1 - Utilization
-  Utilization: 53%
-  Opportunity: 47%
-
-MODIFIERS:
-  Automation: 0.25
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 21.5% of HVAC costs
-(Range: 12-28% for Library/Museum)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $1,324,948/yr
+  (Electric: $1,277,748, Gas: $47,200)
+HVAC portion of that: $819,068/yr
+ODCV saves 22% of HVAC = $176,264/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.3M/yr</td>
                 <td>$1.1M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$176K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $27,280/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
+
+Cap: 71,030 sqft × 0.0053
+   = 376 tCO2e/yr allowed
+This building: 738 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 22%
+Fine avoided: $27,280/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$111K/yr</td>
                 <td>$84K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$27K/yr</td>

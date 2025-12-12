@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:18 EST -->
+<!-- Generated: 2025-12-12 01:57:09 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -353,79 +353,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  798,598 kWh × $0.1240/kWh × 1.10
-  = $108,892/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 260 kW
-  260 kW × $22.00/kW × 12 mo × 1.265
-  = $86,986/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Library/Museums typically: 35%)
-  Peak = (798,598 ÷ 8,760 hrs) ÷ 0.35
-       = 260 kW
-
-TOTAL: $195,878/yr
-
-HVAC PORTION: 61%
-  = $119,975/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Library/Museums typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Seattle Benchmarking Ordinance, City of Seattle - (WA)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 798,598 kWh/yr
+After ODCV: 693,335 kWh/yr
+Change: -105,263 kWh/yr
+How: HVAC is 61% of electric; ODCV cuts 22% of that.
+Why believable: 53% utilized.
+Sources: Seattle Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>798,597 kWh</td>
                 <td>693,334 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-105,263 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  2,971,950 kBtu ÷ 100 = 29,720 therms
-  29,720 × $1.407/therm × 1.10
-  = $45,994/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR LIBRARY/MUSEUM: 77%
-  = $35,516/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: Seattle Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 29,720 therms/yr
+After ODCV: 24,781 therms/yr
+Change: -4,939 therms/yr
+How: HVAC is 77% of gas; ODCV cuts 22% of that.
+Why believable: 77% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: Seattle Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>29,719 therms</td>
                 <td>24,780 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-4,938 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 186.6 kBtu/sqft
+After ODCV: 158.6 kBtu/sqft
+Change: -28.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 22% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Seattle Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>186.6 kBtu/sqft</td>
                 <td>158.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-28.0 kBtu/sqft</td>
@@ -445,31 +405,12 @@ Source: Seattle Benchmarking Ordinance, NREL rates" style="display: inline-block
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 22% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Library/Museum
-Category: Single-Tenant
-
-WHY 12-28% RANGE:
-Fixed operating hours with relatively steady
-occupancy during open hours. Collection
-preservation may require stable conditions.
-Savings primarily from nights/weekends.
-
-FORMULA: 1 - Utilization
-  Utilization: 53%
-  Opportunity: 47%
-
-MODIFIERS:
-  Automation: 0.38 (built 1998, 31K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 21.5% of HVAC costs
-(Range: 12-28% for Library/Museum)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $241,872/yr
+  (Electric: $195,878, Gas: $45,994)
+HVAC portion of that: $155,492/yr
+ODCV saves 22% of HVAC = $33,462/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$242K/yr</td>
                 <td>$208K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$33K/yr</td>

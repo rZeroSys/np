@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:17 EST -->
+<!-- Generated: 2025-12-12 01:55:01 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,78 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  3,689,879 kWh × $0.1338/kWh × 1.10
-  = $542,873/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,404 kW
-  1,404 kW × $4.00/kW × 12 mo × 1.265
-  = $85,255/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (K-12 Schools typically: 35%)
-  Peak = (3,689,879 ÷ 8,760 hrs) ÷ 0.30
-       = 1,404 kW
-
-TOTAL: $628,128/yr
-
-HVAC PORTION: 52%
-  = $327,380/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: K-12 Schools typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Large
-  spaces, older systems, extreme seasonal
-  variability.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 3,689,879 kWh/yr
+After ODCV: 3,011,002 kWh/yr
+Change: -678,877 kWh/yr
+How: HVAC is 52% of electric; ODCV cuts 35% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,689,878 kWh</td>
                 <td>3,011,001 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-678,877 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  1,655,348 kBtu ÷ 100 = 16,553 therms
-  16,553 × $1.090/therm × 1.10
-  = $19,849/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR K-12 SCHOOL: 89%
-  = $17,702/yr for heating
-
-  80% of gas is HVAC - mostly heating in
-  cooler months. Minimal cooking/DHW.
-  (Based on EIA CBECS 2018)
-
-Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 16,553 therms/yr
+After ODCV: 11,342 therms/yr
+Change: -5,211 therms/yr
+How: HVAC is 89% of gas; ODCV cuts 35% of that.
+Why believable: 89% of gas is heating; empty half the year.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>16,553 therms</td>
                 <td>11,342 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-5,211 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 61.1 kBtu/sqft
+After ODCV: 49.0 kBtu/sqft
+Change: -12.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 35% savings).
+Why believable: elec HVAC 52%, gas HVAC 89% — high HVAC share.
+Sources: Chicago Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>61.1 kBtu/sqft</td>
                 <td>49.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-12.1 kBtu/sqft</td>
@@ -455,31 +416,14 @@ Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 35% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: K-12 School
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Schools empty after 3pm daily, all weekends,
-10+ weeks summer. Total &quot;empty&quot; time exceeds
-55% of year. Highest ceiling (45%) reflects
-extreme schedule-driven opportunity.
-
-FORMULA: 1 - Utilization
-  Utilization: 65%
-  Opportunity: 35%
-
-MODIFIERS:
-  Automation: 0.62 (built 2000, 233K sqft)
-  Efficiency: 1.05 (ES 35, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 35.3% of HVAC costs
-(Range: 20-45% for K-12 School)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $647,978/yr
+  (Electric: $628,128, Gas: $19,849)
+HVAC portion of that: $345,082/yr
+ODCV saves 35% of HVAC = $121,814/yr
+SCHOOL NOTE:
+Schools have highest savings - empty after 3pm, weekends, summer.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$648K/yr</td>
                 <td>$526K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$122K/yr</td>

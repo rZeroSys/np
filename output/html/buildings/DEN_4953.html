@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:46 EST -->
+<!-- Generated: 2025-12-12 01:56:35 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,537,740 kWh × $0.1351/kWh × 1.10
-  = $228,569/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 502 kW
-  502 kW × $35.00/kW × 12 mo × 1.265
-  = $266,471/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Restaurant/Bars typically: 45%)
-  Peak = (1,537,740 ÷ 8,760 hrs) ÷ 0.35
-       = 502 kW
-
-TOTAL: $495,041/yr
-
-HVAC PORTION: 49%
-  = $244,451/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Restaurant/Bars typically 45%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  45% of electricity is HVAC. Kitchen
-  exhaust fans are a significant electric
-  load.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Energize Denver, Public Service Co of Colorado" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,537,740 kWh/yr
+After ODCV: 1,385,873 kWh/yr
+Change: -151,867 kWh/yr
+How: HVAC is 49% of electric; ODCV cuts 20% of that.
+Why believable: 14% vacant, 63% utilized.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,537,740 kWh</td>
                 <td>1,385,872 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-151,867 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 77.7 kBtu/sqft
+After ODCV: 70.1 kBtu/sqft
+Change: -7.6 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>77.7 kBtu/sqft</td>
                 <td>70.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-7.6 kBtu/sqft</td>
@@ -430,85 +403,48 @@ Source: Energize Denver, Public Service Co of Colorado" style="display: inline-b
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Restaurant/Bar
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Predictable meal-time peaks, but kitchen runs
-at constant ventilation regardless of dining
-room occupancy. Note: Only 18% of gas is HVAC
-(72% is cooking).
-
-FORMULA: 1 - Utilization
-  Utilization: 63%
-  Opportunity: 37%
-
-MODIFIERS:
-  Automation: 0.25 (built 1960, 68K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Restaurant/Bar)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $495,041/yr
+  (Electric: $495,041)
+HVAC portion of that: $244,451/yr
+ODCV saves 20% of HVAC = $48,890/yr
+RESTAURANT NOTE:
+Gas savings limited - 72% of gas is kitchen cooking.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$495K/yr</td>
                 <td>$446K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$49K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver: $0.30/kBtu over target (target: 48.3 kBtu/sqft EUI). ODCV reduces EUI, avoiding $155,451/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ENERGIZE DENVER
+
+EUI target: 48.3 kBtu/sqft
+This building: 77.7 kBtu/sqft
+Over by: 29.4 kBtu/sqft
+
+Fine: $0.30/kBtu over target
+ODCV reduces EUI 20%
+Fine avoided: $155,451/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$596K/yr</td>
                 <td>$441K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$155K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $495,041 x 49% = $244,451
-Total HVAC Cost: $244,451/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $48,890/yr
+  Fine avoidance: $155,451/yr
+  Total: $204,341/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Restaurant/Bar
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 63%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $48,890
+Cap rate: 7.0% (Restaurant/Bar typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: Energize Denver
-Method: EUI target
-Penalty: $0.30/kBtu over target
-Fine Avoided: $155,451/yr
-Source: City of Denver
+$204,341/yr ÷ 7.0%
+= $2,919,164 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $48,890
-+ Fine Avoidance: $155,451
-= Total: $204,341/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$204,341 / 7.00% = $2,919,164
-
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$2.9M</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:47 EST -->
+<!-- Generated: 2025-12-12 01:54:26 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,443,888 kWh × $0.2234/kWh × 1.10
-  = $354,869/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 366 kW
-  366 kW × $41.93/kW × 12 mo × 1.265
-  = $233,111/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Offices typically: 45%)
-  Peak = (1,443,888 ÷ 8,760 hrs) ÷ 0.45
-       = 366 kW
-
-TOTAL: $587,979/yr
-
-HVAC PORTION: 38%
-  = $221,257/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Central
-  systems condition entire floors even
-  when partially occupied.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,443,888 kWh/yr
+After ODCV: 1,266,435 kWh/yr
+Change: -177,453 kWh/yr
+How: HVAC is 38% of electric; ODCV cuts 33% of that.
+Why believable: 20% vacant, 34% utilized — underused space = wasted conditioning.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,443,888 kWh</td>
                 <td>1,266,434 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-177,453 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  773,744 kBtu ÷ 100 = 7,737 therms
-  7,737 × $1.570/therm × 1.10
-  = $13,360/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OFFICE: 93%
-  = $12,454/yr for heating
-
-  87.5% of gas is HVAC - primarily heating.
-  High percentage due to minimal
-  cooking/DHW.
-  (Based on EIA CBECS 2018)
-
-Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 7,737 therms/yr
+After ODCV: 5,382 therms/yr
+Change: -2,356 therms/yr
+How: HVAC is 93% of gas; ODCV cuts 33% of that.
+Why believable: 20% vacant, 34% utilized; 93% of gas is heating.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>7,737 therms</td>
                 <td>5,381 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-2,355 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 48.9 kBtu/sqft
+After ODCV: 41.6 kBtu/sqft
+Change: -7.3 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 33% savings).
+Why believable: elec HVAC 38%, gas HVAC 93%; 20% vacant, 34% utilized.
+Sources: DC BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>48.9 kBtu/sqft</td>
                 <td>41.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-7.3 kBtu/sqft</td>
@@ -457,88 +417,48 @@ Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 33% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Centralized HVAC ventilates vacant floors at
-design capacity. Hybrid work (avg 52%
-utilization) + vacancy creates 50-60%
-opportunity in typical buildings.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 20%
-  Utilization: 34%
-  Opportunity: 73%
-
-MODIFIERS:
-  Automation: 0.50 (built 1970, 117K sqft)
-  Efficiency: 0.95 (ES 83, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 32.7% of HVAC costs
-(Range: 20-40% for Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $601,339/yr
+  (Electric: $587,979, Gas: $13,360)
+HVAC portion of that: $233,711/yr
+ODCV saves 33% of HVAC = $76,330/yr
+OFFICE NOTE:
+This building is 20% vacant - paying to condition empty space.
+Hybrid work means only 34% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$601K/yr</td>
                 <td>$525K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$76K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS: $10/sqft (prorated) based on ENERGY STAR compliance gap. ODCV improves score, avoiding $43,021/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS
+
+Target: ENERGY STAR score 71+
+This building: 83
+
+Below 71 = $10/sqft fine
+ODCV improves efficiency → higher score
+Fine avoided: $43,021/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$583K/yr</td>
                 <td>$540K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$43K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $587,979 x 38% = $221,257
-Gas: $13,360 x 93% = $12,454
-Total HVAC Cost: $233,711/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $76,330/yr
+  Fine avoidance: $43,021/yr
+  Total: $119,351/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 20%
-Utilization Rate: 34%
-Savings Range: 20-40%
-This Building: 32.7%
-Annual Savings: $76,330
+Cap rate: 7.0% (Office typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: DC BEPS
-Method: Energy Star score
-Penalty: $10/sqft (prorated)
-Fine Avoided: $43,021/yr
-Source: DC DOEE
+$119,351/yr ÷ 7.0%
+= $1,705,017 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $76,330
-+ Fine Avoidance: $43,021
-= Total: $119,351/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$119,351 / 7.00% = $1,705,017
-
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.7M</td>

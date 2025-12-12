@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:48 EST -->
+<!-- Generated: 2025-12-12 01:54:28 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,673,915 kWh × $0.2474/kWh × 1.10
-  = $455,607/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 546 kW
-  546 kW × $58.04/kW × 12 mo × 1.265
-  = $480,995/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Restaurant/Bars typically: 45%)
-  Peak = (1,673,915 ÷ 8,760 hrs) ÷ 0.35
-       = 546 kW
-
-TOTAL: $936,602/yr
-
-HVAC PORTION: 48%
-  = $450,787/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Restaurant/Bars typically 45%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  45% of electricity is HVAC. Kitchen
-  exhaust fans are a significant electric
-  load.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: EBEWE, Los Angeles Department of Water &amp; Power" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,673,915 kWh/yr
+After ODCV: 1,512,784 kWh/yr
+Change: -161,131 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 20% of that.
+Why believable: 15% vacant, 60% utilized.
+Sources: EBEWE, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,673,915 kWh</td>
                 <td>1,512,784 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-161,131 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 109.3 kBtu/sqft
+After ODCV: 98.7 kBtu/sqft
+Change: -10.6 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>109.3 kBtu/sqft</td>
                 <td>98.7 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-10.6 kBtu/sqft</td>
@@ -430,64 +403,31 @@ Source: EBEWE, Los Angeles Department of Water &amp; Power" style="display: inli
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Restaurant/Bar
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Predictable meal-time peaks, but kitchen runs
-at constant ventilation regardless of dining
-room occupancy. Note: Only 18% of gas is HVAC
-(72% is cooking).
-
-FORMULA: 1 - Utilization
-  Utilization: 60%
-  Opportunity: 40%
-
-MODIFIERS:
-  Automation: 0.25 (built 1946, 52K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Restaurant/Bar)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $936,602/yr
+  (Electric: $936,602)
+HVAC portion of that: $450,787/yr
+ODCV saves 20% of HVAC = $90,157/yr
+RESTAURANT NOTE:
+Gas savings limited - 72% of gas is kitchen cooking.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$937K/yr</td>
                 <td>$846K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$90K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $936,602 x 48% = $450,787
-Total HVAC Cost: $450,787/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $90,157/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Restaurant/Bar
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 60%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $90,157
+Cap rate: 7.0% (Restaurant/Bar typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$90,157 / 7.00% = $1,287,962
+$90,157/yr ÷ 7.0%
+= $1,287,962 value increase
 
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.3M</td>

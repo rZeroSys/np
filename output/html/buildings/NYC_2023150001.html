@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:04 EST -->
+<!-- Generated: 2025-12-12 01:54:47 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,78 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  376,535 kWh × $0.2926/kWh × 1.10
-  = $121,198/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 96 kW
-  96 kW × $59.06/kW × 12 mo × 1.265
-  = $85,636/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Medical Offices typically: 45%)
-  Peak = (376,535 ÷ 8,760 hrs) ÷ 0.45
-       = 96 kW
-
-TOTAL: $206,833/yr
-
-HVAC PORTION: 48%
-  = $99,714/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Medical Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Similar to
-  office but with additional ventilation
-  requirements.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 376,535 kWh/yr
+After ODCV: 331,679 kWh/yr
+Change: -44,855 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 25% of that.
+Why believable: 7% vacant, 80% utilized — underused space = wasted conditioning.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>376,534 kWh</td>
                 <td>331,679 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-44,855 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  1,156,823 kBtu ÷ 100 = 11,568 therms
-  11,568 × $1.060/therm × 1.10
-  = $13,494/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR MEDICAL OFFICE: 96%
-  = $12,992/yr for heating
-
-  85% of gas is HVAC. Medical sterilization
-  and DHW use the remaining 15%.
-  (Based on EIA CBECS 2018)
-
-Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 11,568 therms/yr
+After ODCV: 8,816 therms/yr
+Change: -2,752 therms/yr
+How: HVAC is 96% of gas; ODCV cuts 25% of that.
+Why believable: 7% vacant, 80% utilized; 96% of gas is heating.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>11,568 therms</td>
                 <td>8,816 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-2,752 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 79.5 kBtu/sqft
+After ODCV: 65.5 kBtu/sqft
+Change: -14.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 25% savings).
+Why believable: elec HVAC 48%, gas HVAC 96%; 7% vacant, 80% utilized.
+Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>79.5 kBtu/sqft</td>
                 <td>65.5 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-14.0 kBtu/sqft</td>
@@ -455,67 +416,32 @@ Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width:
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 25% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Medical Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Like office buildings, medical offices have
-centralized systems that condition empty exam
-rooms and suites. ODCV adjusts ventilation to
-actual patient presence.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 7%
-  Utilization: 80%
-  Opportunity: 26%
-
-MODIFIERS:
-  Automation: 0.12 (built 1913, 31K sqft)
-  Efficiency: 0.95 (ES 75, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 24.7% of HVAC costs
-(Range: 20-40% for Medical Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $220,327/yr
+  (Electric: $206,833, Gas: $13,494)
+HVAC portion of that: $112,706/yr
+ODCV saves 25% of HVAC = $27,850/yr
+OFFICE NOTE:
+This building is 7% vacant - paying to condition empty space.
+Hybrid work means only 80% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$220K/yr</td>
                 <td>$192K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$28K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $206,833 x 48% = $99,714
-Gas: $13,494 x 96% = $12,992
-Total HVAC Cost: $112,706/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $27,850/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Medical Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 7%
-Utilization Rate: 80%
-Savings Range: 20-40%
-This Building: 24.7%
-Annual Savings: $27,850
+Cap rate: 7.5% (Medical Office typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$27,850 / 7.50% = $371,329
+$27,850/yr ÷ 7.5%
+= $371,329 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$371K</td>

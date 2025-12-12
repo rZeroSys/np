@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:51 EST -->
+<!-- Generated: 2025-12-12 01:54:30 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  5,237,397 kWh × $0.2632/kWh × 1.10
-  = $1,516,481/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,087 kW
-  1,087 kW × $6.00/kW × 12 mo × 1.265
-  = $99,008/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Mixed Uses typically: 45%)
-  Peak = (5,237,397 ÷ 8,760 hrs) ÷ 0.55
-       = 1,087 kW
-
-TOTAL: $1,615,489/yr
-
-HVAC PORTION: 33%
-  = $529,073/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Mixed Uses typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: EBEWE, Southern California Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 5,237,397 kWh/yr
+After ODCV: 4,718,878 kWh/yr
+Change: -518,519 kWh/yr
+How: HVAC is 33% of electric; ODCV cuts 30% of that.
+Why believable: 60% utilized.
+Sources: EBEWE, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,237,397 kWh</td>
                 <td>4,718,877 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-518,519 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 106.8 kBtu/sqft
+After ODCV: 99.3 kBtu/sqft
+Change: -7.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 30% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>106.8 kBtu/sqft</td>
                 <td>99.3 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-7.5 kBtu/sqft</td>
@@ -430,32 +403,12 @@ Source: EBEWE, Southern California Edison Co" style="display: inline-block; marg
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 30% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Mixed Use
-Category: Multi-Tenant
-
-WHY 18-38% RANGE:
-Combination of office, retail, residential
-uses. Savings vary by tenant mix but
-centralized systems still ventilate vacant
-spaces.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 0%
-  Utilization: 60%
-  Opportunity: 40%
-
-MODIFIERS:
-  Automation: 0.50 (built 1962, 331K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 30.2% of HVAC costs
-(Range: 18-38% for Mixed Use)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $1,615,489/yr
+  (Electric: $1,615,489)
+HVAC portion of that: $529,073/yr
+ODCV saves 30% of HVAC = $159,939/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.6M/yr</td>
                 <td>$1.5M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$160K/yr</td>

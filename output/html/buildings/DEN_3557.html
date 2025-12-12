@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:44 EST -->
+<!-- Generated: 2025-12-12 01:56:34 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  290,676 kWh × $0.1351/kWh × 1.10
-  = $43,206/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 51 kW
-  51 kW × $15.00/kW × 12 mo × 1.265
-  = $11,624/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Specialty Hospitals typically: 65%)
-  Peak = (290,676 ÷ 8,760 hrs) ÷ 0.65
-       = 51 kW
-
-TOTAL: $54,830/yr
-
-HVAC PORTION: 42%
-  = $23,029/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Specialty Hospitals typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Energize Denver, Public Service Co of Colorado" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 290,676 kWh/yr
+After ODCV: 266,259 kWh/yr
+Change: -24,417 kWh/yr
+How: HVAC is 42% of electric; ODCV cuts 20% of that.
+Why believable: savings from non-clinical areas only (clinical has code requirements).
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>290,675 kWh</td>
                 <td>266,259 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-24,416 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  2,087,683 kBtu ÷ 100 = 20,877 therms
-  20,877 × $1.137/therm × 1.10
-  = $26,120/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR SPECIALTY HOSPITAL: 77%
-  = $20,112/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 20,877 therms/yr
+After ODCV: 17,662 therms/yr
+Change: -3,215 therms/yr
+How: HVAC is 77% of gas; ODCV cuts 20% of that.
+Why believable: 77% HVAC; rest is sterilization/hot water.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>20,876 therms</td>
                 <td>17,661 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-3,215 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 62.0 kBtu/sqft
+After ODCV: 53.8 kBtu/sqft
+Change: -8.2 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>62.0 kBtu/sqft</td>
                 <td>53.8 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-8.2 kBtu/sqft</td>
@@ -456,37 +416,30 @@ Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Specialty Hospital
-Category: Constrained
-
-WHY 5-15% RANGE:
-Similar constraints to inpatient hospitals.
-Procedure-specific ventilation requirements,
-24/7 operation in most cases.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 75%
-  Opportunity: 8%
-
-MODIFIERS:
-  Automation: 0.12 (built 1965, 50K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Specialty Hospital)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $80,950/yr
+  (Electric: $54,830, Gas: $26,120)
+HVAC portion of that: $43,141/yr
+ODCV saves 20% of HVAC = $8,628/yr
+HOSPITAL NOTE:
+Savings limited to non-clinical areas (lobbies, offices, cafeteria).
+Clinical areas need constant airflow by code.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$81K/yr</td>
                 <td>$72K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$9K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver: $0.30/kBtu over target (target: 48.3 kBtu/sqft EUI). ODCV reduces EUI, avoiding $121,444/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ENERGIZE DENVER
+
+EUI target: 48.3 kBtu/sqft
+This building: 62.0 kBtu/sqft
+Over by: 13.7 kBtu/sqft
+
+Fine: $0.30/kBtu over target
+ODCV reduces EUI 20%
+Fine avoided: $121,444/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$204K/yr</td>
                 <td>$82K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$121K/yr</td>

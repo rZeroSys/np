@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:21 EST -->
+<!-- Generated: 2025-12-12 01:53:58 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,80 +363,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,444,757 kWh × $0.3116/kWh × 1.10
-  = $495,187/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 236 kW
-  236 kW × $35.00/kW × 12 mo × 1.265
-  = $125,179/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 70%
-  (Inpatient Hospitals typically: 65%)
-  Peak = (1,444,757 ÷ 8,760 hrs) ÷ 0.70
-       = 236 kW
-
-TOTAL: $620,367/yr
-
-HVAC PORTION: 31%
-  = $192,314/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Inpatient Hospitals typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  54% of electricity is HVAC. Strict
-  ventilation codes (ASHRAE 170) require
-  high air change rates.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,444,757 kWh/yr
+After ODCV: 1,355,182 kWh/yr
+Change: -89,575 kWh/yr
+How: HVAC is 31% of electric; ODCV cuts 20% of that.
+Why believable: savings from non-clinical areas only (clinical has code requirements).
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,444,756 kWh</td>
                 <td>1,355,181 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-89,574 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
-======================================
-
-FORMULA: Mlb × rate
-(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
-
-THIS BUILDING:
-  2,601,650 kBtu ÷ 909 kBtu/Mlb
-  = 2,862.1 Mlb
-  × $22.57/Mlb
-  = $64,592/yr
-  (No adder - steam rates all-inclusive)
-
-HVAC PORTION: 82%
-  = $53,159/yr for space heating
-  District steam typically 85-100% heating.
-  (Based on EIA CBECS 2018)
-
-PROVIDER: Vicinity Energy
-
-Source: BERDO" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
+Current (disclosed): 2,178.94 Mlb/yr
+After ODCV: 1,820.28 Mlb/yr
+Change: -358.65 Mlb/yr
+How: HVAC is 82% of steam; ODCV cuts 20% of that.
+Why believable: district steam is almost entirely for heating.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,178.94 Mlb</td>
                 <td>1,820.28 Mlb</td>
                 <td style="color: #16a34a; font-weight: 600;">-358.65 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 87.7 kBtu/sqft
+After ODCV: 79.2 kBtu/sqft
+Change: -8.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>87.7 kBtu/sqft</td>
                 <td>79.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-8.5 kBtu/sqft</td>
@@ -456,39 +415,30 @@ Source: BERDO" style="display: inline-block; margin-left: 5px; width: 16px; heig
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Inpatient Hospital
-Category: Constrained
-
-WHY 5-15% RANGE:
-ASHRAE 170 mandates 15-25 air changes/hour in
-ORs regardless of occupancy. 24/7 operation,
-infection control requirements. Only ~30% of
-theoretical savings achievable in
-non-clinical areas.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 82%
-  Opportunity: 5%
-
-MODIFIERS:
-  Automation: 0.25
-  Efficiency: 0.85 (ES 100, very efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Inpatient Hospital)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $684,959/yr
+  (Electric: $620,367, Steam: $64,592)
+HVAC portion of that: $245,473/yr
+ODCV saves 20% of HVAC = $49,095/yr
+HOSPITAL NOTE:
+Savings limited to non-clinical areas (lobbies, offices, cafeteria).
+Clinical areas need constant airflow by code.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$685K/yr</td>
                 <td>$636K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$49K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $12,733/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
+
+Cap: 85,848 sqft × 0.0053
+   = 455 tCO2e/yr allowed
+This building: 470 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 20%
+Fine avoided: $12,733/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$32K/yr</td>
                 <td>$19K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$13K/yr</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:27 EST -->
+<!-- Generated: 2025-12-12 01:55:12 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -353,53 +353,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  3,901,664 kWh × $0.1490/kWh × 1.10
-  = $639,431/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,485 kW
-  1,485 kW × $4.00/kW × 12 mo × 1.265
-  = $90,148/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (K-12 Schools typically: 35%)
-  Peak = (3,901,664 ÷ 8,760 hrs) ÷ 0.30
-       = 1,485 kW
-
-TOTAL: $729,579/yr
-
-HVAC PORTION: 63%
-  = $461,751/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: K-12 Schools typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Large
-  spaces, older systems, extreme seasonal
-  variability.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Philadelphia Benchmarking, PECO Energy Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 3,901,664 kWh/yr
+After ODCV: 3,110,233 kWh/yr
+Change: -791,431 kWh/yr
+How: HVAC is 63% of electric; ODCV cuts 32% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: Philadelphia Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,901,663 kWh</td>
                 <td>3,110,232 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-791,430 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 198.9 kBtu/sqft
+After ODCV: 183.9 kBtu/sqft
+Change: -15.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 32% savings).
+Why believable: elec HVAC 63%, gas HVAC 0% — high HVAC share.
+Sources: Philadelphia Benchmarking, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>198.9 kBtu/sqft</td>
                 <td>183.9 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-15.0 kBtu/sqft</td>
@@ -419,31 +392,14 @@ Source: Philadelphia Benchmarking, PECO Energy Co" style="display: inline-block;
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 32% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: K-12 School
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Schools empty after 3pm daily, all weekends,
-10+ weeks summer. Total &quot;empty&quot; time exceeds
-55% of year. Highest ceiling (45%) reflects
-extreme schedule-driven opportunity.
-
-FORMULA: 1 - Utilization
-  Utilization: 75%
-  Opportunity: 25%
-
-MODIFIERS:
-  Automation: 0.50 (built 1972, 180K sqft)
-  Efficiency: 1.10 (ES 4, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 32.0% of HVAC costs
-(Range: 20-45% for K-12 School)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $729,579/yr
+  (Electric: $729,579)
+HVAC portion of that: $461,751/yr
+ODCV saves 32% of HVAC = $147,991/yr
+SCHOOL NOTE:
+Schools have highest savings - empty after 3pm, weekends, summer.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$730K/yr</td>
                 <td>$582K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$148K/yr</td>

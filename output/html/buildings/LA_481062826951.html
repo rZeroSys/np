@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:48 EST -->
+<!-- Generated: 2025-12-12 01:54:28 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  5,222,924 kWh × $0.2632/kWh × 1.10
-  = $1,512,290/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,192 kW
-  1,192 kW × $49.39/kW × 12 mo × 1.265
-  = $894,073/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 50%
-  (Wholesale Clubs typically: 60%)
-  Peak = (5,222,924 ÷ 8,760 hrs) ÷ 0.50
-       = 1,192 kW
-
-TOTAL: $2,406,363/yr
-
-HVAC PORTION: 62%
-  = $1,492,908/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Wholesale Clubs typically 35%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: EBEWE, Southern California Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 5,222,924 kWh/yr
+After ODCV: 4,574,863 kWh/yr
+Change: -648,060 kWh/yr
+How: HVAC is 62% of electric; ODCV cuts 20% of that.
+Why believable: 4% vacant, 70% utilized.
+Sources: EBEWE, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,222,923 kWh</td>
                 <td>4,574,863 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-648,060 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 289.5 kBtu/sqft
+After ODCV: 267.1 kBtu/sqft
+Change: -22.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>289.5 kBtu/sqft</td>
                 <td>267.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-22.4 kBtu/sqft</td>
@@ -430,63 +403,29 @@ Source: EBEWE, Southern California Edison Co" style="display: inline-block; marg
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Wholesale Club
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Similar to supermarkets—high ceilings,
-refrigeration load, steady traffic. Lower
-HVAC % due to large refrigerated sections.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.25 (built 1940, 99K sqft)
-  Efficiency: 1.10 (ES 1, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Wholesale Club)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $2,406,363/yr
+  (Electric: $2,406,363)
+HVAC portion of that: $1,492,908/yr
+ODCV saves 20% of HVAC = $298,582/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.4M/yr</td>
                 <td>$2.1M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$299K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $2,406,363 x 62% = $1,492,908
-Total HVAC Cost: $1,492,908/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $298,582/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Wholesale Club
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 70%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $298,582
+Cap rate: 5.8% (Wholesale Club typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 5.75%
-$298,582 / 5.75% = $5,192,722
+$298,582/yr ÷ 5.8%
+= $5,192,722 value increase
 
-$1 saved = $17 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $17 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$5.2M</td>

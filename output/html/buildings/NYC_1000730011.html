@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:05 EST -->
+<!-- Generated: 2025-12-12 01:56:55 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  4,103,176 kWh × $0.2926/kWh × 1.10
-  = $1,320,716/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,041 kW
-  1,041 kW × $68.63/kW × 12 mo × 1.265
-  = $1,084,462/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Enclosed Malls typically: 45%)
-  Peak = (4,103,176 ÷ 8,760 hrs) ÷ 0.45
-       = 1,041 kW
-
-TOTAL: $2,405,178/yr
-
-HVAC PORTION: 43%
-  = $1,034,227/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Enclosed Malls typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 4,103,176 kWh/yr
+After ODCV: 3,677,611 kWh/yr
+Change: -425,565 kWh/yr
+How: HVAC is 43% of electric; ODCV cuts 24% of that.
+Why believable: 10% vacant, 60% utilized.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>4,103,175 kWh</td>
                 <td>3,677,610 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-425,564 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  19,572,510 kBtu ÷ 100 = 195,725 therms
-  195,725 × $1.060/therm × 1.10
-  = $228,302/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR ENCLOSED MALL: 78%
-  = $178,075/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 195,725 therms/yr
+After ODCV: 158,902 therms/yr
+Change: -36,823 therms/yr
+How: HVAC is 78% of gas; ODCV cuts 24% of that.
+Why believable: 78% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>195,725 therms</td>
                 <td>158,902 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-36,822 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 568.8 kBtu/sqft
+After ODCV: 481.8 kBtu/sqft
+Change: -87.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>568.8 kBtu/sqft</td>
                 <td>481.8 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-87.0 kBtu/sqft</td>
@@ -457,84 +417,47 @@ Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width:
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 24% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Enclosed Mall
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Standard commercial building. Savings depend
-on operating hours and occupancy patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 60%
-  Opportunity: 40%
-
-MODIFIERS:
-  Automation: 0.75 (built 2020, 59K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 24.1% of HVAC costs
-(Range: 15-35% for Enclosed Mall)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $2,633,480/yr
+  (Electric: $2,405,178, Gas: $228,302)
+HVAC portion of that: $1,212,302/yr
+ODCV saves 24% of HVAC = $292,407/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.6M/yr</td>
                 <td>$2.3M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$292K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC Local Law 97: $268/tCO2e over cap (cap: 0.00758 tCO2e/sqft). ODCV reduces emissions, avoiding $85,372/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
+
+Cap: 59,020 sqft × 0.00758
+   = 447 tCO2e/yr allowed
+This building: 2,225 tCO2e/yr
+Over cap by: 1,778 tCO2e
+
+Fine without ODCV: $476,485/yr
+ODCV cuts emissions 24%
+Fine avoided: $85,372/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$476K/yr</td>
                 <td>$391K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$85K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $2,405,178 x 43% = $1,034,227
-Gas: $228,302 x 78% = $178,075
-Total HVAC Cost: $1,212,302/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $292,407/yr
+  Fine avoidance: $85,372/yr
+  Total: $377,779/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Enclosed Mall
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 60%
-Savings Range: 15-35%
-This Building: 24.1%
-Annual Savings: $292,407
+Cap rate: 7.5% (Enclosed Mall typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: NYC Local Law 97
-Method: emission cap
-Penalty: $268/tCO2e over cap
-Fine Avoided: $85,372/yr
-Source: NYC Dept of Buildings
+$377,779/yr ÷ 7.5%
+= $5,037,060 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $292,407
-+ Fine Avoidance: $85,372
-= Total: $377,779/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$377,779 / 7.50% = $5,037,060
-
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$5.0M</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:09 EST -->
+<!-- Generated: 2025-12-12 01:55:57 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  938,708 kWh × $0.3979/kWh × 1.10
-  = $410,892/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 357 kW
-  357 kW × $70.00/kW × 12 mo × 1.265
-  = $379,555/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (Theaters typically: 35%)
-  Peak = (938,708 ÷ 8,760 hrs) ÷ 0.30
-       = 357 kW
-
-TOTAL: $790,447/yr
-
-HVAC PORTION: 52%
-  = $414,590/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Theaters typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Pacific Gas &amp; Electric Co." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 938,708 kWh/yr
+After ODCV: 799,865 kWh/yr
+Change: -138,843 kWh/yr
+How: HVAC is 52% of electric; ODCV cuts 28% of that.
+Why believable: 50% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>938,708 kWh</td>
                 <td>799,864 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-138,843 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  575,000 kBtu ÷ 100 = 5,750 therms
-  5,750 × $1.893/therm × 1.10
-  = $11,974/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR THEATER: 85%
-  = $10,144/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 5,750 therms/yr
+After ODCV: 4,376 therms/yr
+Change: -1,374 therms/yr
+How: HVAC is 85% of gas; ODCV cuts 28% of that.
+Why believable: 85% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,750 therms</td>
                 <td>4,376 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,373 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 63.4 kBtu/sqft
+After ODCV: 53.1 kBtu/sqft
+Change: -10.3 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 28% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>63.4 kBtu/sqft</td>
                 <td>53.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-10.3 kBtu/sqft</td>
@@ -456,65 +416,29 @@ Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 28% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Theater
-Category: Single-Tenant
-
-WHY 18-40% RANGE:
-Performance schedules create extreme
-variability—completely empty for hours then
-full capacity for shows. High opportunity
-during non-show periods.
-
-FORMULA: 1 - Utilization
-  Utilization: 50%
-  Opportunity: 50%
-
-MODIFIERS:
-  Automation: 0.50 (built 2001, 60K sqft)
-  Efficiency: 1.00 (avg EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 28.2% of HVAC costs
-(Range: 18-40% for Theater)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $802,421/yr
+  (Electric: $790,447, Gas: $11,974)
+HVAC portion of that: $424,734/yr
+ODCV saves 28% of HVAC = $119,775/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$802K/yr</td>
                 <td>$683K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$120K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $790,447 x 52% = $414,590
-Gas: $11,974 x 85% = $10,144
-Total HVAC Cost: $424,734/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $119,775/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Theater
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 50%
-Savings Range: 18-40%
-This Building: 28.2%
-Annual Savings: $119,775
+Cap rate: 8.0% (Theater typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$119,775 / 8.00% = $1,497,187
+$119,775/yr ÷ 8.0%
+= $1,497,187 value increase
 
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.5M</td>

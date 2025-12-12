@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:23 EST -->
+<!-- Generated: 2025-12-12 01:55:08 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,78 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  841,136 kWh × $0.2234/kWh × 1.10
-  = $206,729/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 320 kW
-  320 kW × $4.00/kW × 12 mo × 1.265
-  = $19,434/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (K-12 Schools typically: 35%)
-  Peak = (841,136 ÷ 8,760 hrs) ÷ 0.30
-       = 320 kW
-
-TOTAL: $226,163/yr
-
-HVAC PORTION: 48%
-  = $109,214/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: K-12 Schools typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Large
-  spaces, older systems, extreme seasonal
-  variability.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 841,136 kWh/yr
+After ODCV: 719,728 kWh/yr
+Change: -121,409 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 30% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>841,136 kWh</td>
                 <td>719,727 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-121,408 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  3,237,713 kBtu ÷ 100 = 32,377 therms
-  32,377 × $1.570/therm × 1.10
-  = $55,905/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR K-12 SCHOOL: 94%
-  = $52,780/yr for heating
-
-  80% of gas is HVAC - mostly heating in
-  cooler months. Minimal cooking/DHW.
-  (Based on EIA CBECS 2018)
-
-Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 32,377 therms/yr
+After ODCV: 23,241 therms/yr
+Change: -9,137 therms/yr
+How: HVAC is 94% of gas; ODCV cuts 30% of that.
+Why believable: 94% of gas is heating; empty half the year.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>32,377 therms</td>
                 <td>23,240 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-9,136 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 115.3 kBtu/sqft
+After ODCV: 90.2 kBtu/sqft
+Change: -25.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 30% savings).
+Why believable: elec HVAC 48%, gas HVAC 94% — high HVAC share.
+Sources: DC BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>115.3 kBtu/sqft</td>
                 <td>90.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-25.1 kBtu/sqft</td>
@@ -455,38 +416,28 @@ Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 30% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: K-12 School
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Schools empty after 3pm daily, all weekends,
-10+ weeks summer. Total &quot;empty&quot; time exceeds
-55% of year. Highest ceiling (45%) reflects
-extreme schedule-driven opportunity.
-
-FORMULA: 1 - Utilization
-  Utilization: 75%
-  Opportunity: 25%
-
-MODIFIERS:
-  Automation: 0.25 (built 1906, 53K sqft)
-  Efficiency: 1.10 (ES 7, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 29.9% of HVAC costs
-(Range: 20-45% for K-12 School)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $282,068/yr
+  (Electric: $226,163, Gas: $55,905)
+HVAC portion of that: $161,994/yr
+ODCV saves 30% of HVAC = $48,420/yr
+SCHOOL NOTE:
+Schools have highest savings - empty after 3pm, weekends, summer.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$282K/yr</td>
                 <td>$234K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$48K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS: $10/sqft (prorated) based on ENERGY STAR compliance gap. ODCV improves score, avoiding $22,947/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS
+
+Target: ENERGY STAR score 71+
+This building: 7
+
+Below 71 = $10/sqft fine
+ODCV improves efficiency → higher score
+Fine avoided: $22,947/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$265K/yr</td>
                 <td>$242K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$23K/yr</td>

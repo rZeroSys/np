@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:06 EST -->
+<!-- Generated: 2025-12-12 01:56:57 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,674,240 kWh × $0.2926/kWh × 1.10
-  = $538,899/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 319 kW
-  319 kW × $35.00/kW × 12 mo × 1.265
-  = $169,240/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 60%
-  (Residential Cares typically: 65%)
-  Peak = (1,674,240 ÷ 8,760 hrs) ÷ 0.60
-       = 319 kW
-
-TOTAL: $708,138/yr
-
-HVAC PORTION: 55%
-  = $386,785/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Residential Cares typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,674,240 kWh/yr
+After ODCV: 1,491,346 kWh/yr
+Change: -182,894 kWh/yr
+How: HVAC is 55% of electric; ODCV cuts 20% of that.
+Why believable: 12% vacant.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,674,240 kWh</td>
                 <td>1,491,346 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-182,893 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  7,023,442 kBtu ÷ 100 = 70,234 therms
-  70,234 × $1.060/therm × 1.10
-  = $81,924/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR RESIDENTIAL CARE: 75%
-  = $61,050/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 70,234 therms/yr
+After ODCV: 59,767 therms/yr
+Change: -10,468 therms/yr
+How: HVAC is 75% of gas; ODCV cuts 20% of that.
+Why believable: 75% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>70,234 therms</td>
                 <td>59,766 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-10,467 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 193.3 kBtu/sqft
+After ODCV: 168.0 kBtu/sqft
+Change: -25.3 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>193.3 kBtu/sqft</td>
                 <td>168.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-25.3 kBtu/sqft</td>
@@ -457,38 +417,28 @@ Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width:
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Residential Care
-Category: Constrained
-
-WHY 5-15% RANGE:
-Residents live there 24/7—unlike offices that
-empty at night. Common areas have some
-variability, but overall building load is
-relatively constant.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 0%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.38 (built 1974, 66K sqft)
-  Efficiency: 1.10 (ES 5, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Residential Care)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $790,062/yr
+  (Electric: $708,138, Gas: $81,924)
+HVAC portion of that: $447,835/yr
+ODCV saves 20% of HVAC = $89,567/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$790K/yr</td>
                 <td>$700K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$90K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC Local Law 97: $268/tCO2e over cap (cap: 0.00758 tCO2e/sqft). ODCV reduces emissions, avoiding $29,065/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
+
+Cap: 65,874 sqft × 0.00758
+   = 499 tCO2e/yr allowed
+This building: 857 tCO2e/yr
+Over cap by: 358 tCO2e
+
+Fine without ODCV: $95,821/yr
+ODCV cuts emissions 20%
+Fine avoided: $29,065/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$96K/yr</td>
                 <td>$67K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$29K/yr</td>

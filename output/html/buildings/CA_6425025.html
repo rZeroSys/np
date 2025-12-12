@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:46 EST -->
+<!-- Generated: 2025-12-12 01:55:31 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  958,521 kWh × $0.2632/kWh × 1.10
-  = $277,538/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 168 kW
-  168 kW × $61.74/kW × 12 mo × 1.265
-  = $157,771/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Supermarket/Grocerys typically: 65%)
-  Peak = (958,521 ÷ 8,760 hrs) ÷ 0.65
-       = 168 kW
-
-TOTAL: $435,310/yr
-
-HVAC PORTION: 15%
-  = $66,951/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Supermarket/Grocerys typically 32%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Only 32% of electricity is HVAC. ~40% is
-  refrigeration for food cases and
-  freezers.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Southern California Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 958,521 kWh/yr
+After ODCV: 929,037 kWh/yr
+Change: -29,484 kWh/yr
+How: HVAC is 15% of electric; ODCV cuts 20% of that.
+Why believable: 5% vacant, 70% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>958,521 kWh</td>
                 <td>929,037 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-29,484 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 48.5 kBtu/sqft
+After ODCV: 47.0 kBtu/sqft
+Change: -1.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>48.5 kBtu/sqft</td>
                 <td>47.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-1.5 kBtu/sqft</td>
@@ -431,64 +404,32 @@ Source: AB 802, Southern California Edison Co" style="display: inline-block; mar
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Supermarket/Grocery
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Long hours (often 6am-midnight or 24/7) with
-steady traffic reduce empty-space
-opportunity. Note: ~40% of electricity is
-refrigeration, not HVAC.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.62 (built 2006, 67K sqft)
-  Efficiency: 0.85 (ES 100, very efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Supermarket/Grocery)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $435,310/yr
+  (Electric: $435,310)
+HVAC portion of that: $66,951/yr
+ODCV saves 20% of HVAC = $13,390/yr
+GROCERY NOTE:
+40% of electric is refrigeration - those cases run 24/7.
+ODCV only saves on the HVAC portion.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$435K/yr</td>
                 <td>$422K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$13K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $435,310 x 15% = $66,951
-Total HVAC Cost: $66,951/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $13,390/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Supermarket/Grocery
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 70%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $13,390
+Cap rate: 6.0% (Supermarket/Grocery typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 6.00%
-$13,390 / 6.00% = $223,169
+$13,390/yr ÷ 6.0%
+= $223,169 value increase
 
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$223K</td>

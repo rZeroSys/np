@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:20 EST -->
+<!-- Generated: 2025-12-12 01:53:56 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  2,184,415 kWh × $0.1271/kWh × 1.10
-  = $305,288/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 554 kW
-  554 kW × $35.00/kW × 12 mo × 1.265
-  = $294,414/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Hotels typically: 55%)
-  Peak = (2,184,415 ÷ 8,760 hrs) ÷ 0.45
-       = 554 kW
-
-TOTAL: $599,702/yr
-
-HVAC PORTION: 57%
-  = $341,890/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Hotels typically 47%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  47% of electricity is HVAC - cooling and
-  ventilation for guest rooms and common
-  areas.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, Georgia Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 2,184,415 kWh/yr
+After ODCV: 1,867,477 kWh/yr
+Change: -316,938 kWh/yr
+How: HVAC is 57% of electric; ODCV cuts 25% of that.
+Why believable: 48% occupancy means empty rooms get conditioned.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,184,414 kWh</td>
                 <td>1,867,477 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-316,937 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 71.5 kBtu/sqft
+After ODCV: 62.5 kBtu/sqft
+Change: -9.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 25% savings).
+Why believable: gas HVAC only 0% (rest is hot water/kitchen) — smaller EUI impact.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>71.5 kBtu/sqft</td>
                 <td>62.5 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-9.0 kBtu/sqft</td>
@@ -431,64 +404,32 @@ Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, Georgia Power 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 25% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Hotel
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Room-level variability: 60-80% occupancy
-typical, plus guests out during day. Note:
-Only 20% of gas goes to HVAC (rest is hot
-water 42%, cooking 33%).
-
-FORMULA: 1 - Utilization
-  Utilization: 48%
-  Opportunity: 52%
-
-MODIFIERS:
-  Automation: 0.50 (built 1988, 174K sqft)
-  Efficiency: 1.05 (ES 45, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 25.4% of HVAC costs
-(Range: 15-35% for Hotel)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $599,702/yr
+  (Electric: $599,702)
+HVAC portion of that: $341,890/yr
+ODCV saves 25% of HVAC = $87,011/yr
+HOTEL NOTE:
+Gas savings are smaller because only 20% of gas is HVAC.
+Rest goes to hot water and kitchens - can't save there.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$600K/yr</td>
                 <td>$513K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$87K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $599,702 x 57% = $341,890
-Total HVAC Cost: $341,890/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $87,011/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Hotel
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 48%
-Savings Range: 15-35%
-This Building: 25.4%
-Annual Savings: $87,011
+Cap rate: 8.0% (Hotel typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$87,011 / 8.00% = $1,087,637
+$87,011/yr ÷ 8.0%
+= $1,087,637 value increase
 
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.1M</td>

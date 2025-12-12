@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:21 EST -->
+<!-- Generated: 2025-12-12 01:53:58 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  4,886,084 kWh × $0.1271/kWh × 1.10
-  = $682,865/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,014 kW
-  1,014 kW × $22.00/kW × 12 mo × 1.265
-  = $338,679/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Outpatient Clinics typically: 50%)
-  Peak = (4,886,084 ÷ 8,760 hrs) ÷ 0.55
-       = 1,014 kW
-
-TOTAL: $1,021,545/yr
-
-HVAC PORTION: 58%
-  = $596,378/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Outpatient Clinics typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, Georgia Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 4,886,084 kWh/yr
+After ODCV: 4,201,200 kWh/yr
+Change: -684,884 kWh/yr
+How: HVAC is 58% of electric; ODCV cuts 24% of that.
+Why believable: 70% utilized.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>4,886,084 kWh</td>
                 <td>4,201,199 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-684,884 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 222.4 kBtu/sqft
+After ODCV: 207.4 kBtu/sqft
+Change: -15.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>222.4 kBtu/sqft</td>
                 <td>207.4 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-15.0 kBtu/sqft</td>
@@ -431,31 +404,12 @@ Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, Georgia Power 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 24% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Outpatient Clinic
-Category: Single-Tenant
-
-WHY 15-32% RANGE:
-Appointment-driven occupancy with clear
-operating hours. Less stringent than
-inpatient hospitals—no 24/7 operation or
-strict infection control in most areas.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.62 (built 2003, 156K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 24.0% of HVAC costs
-(Range: 15-32% for Outpatient Clinic)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $1,021,545/yr
+  (Electric: $1,021,545)
+HVAC portion of that: $596,378/yr
+ODCV saves 24% of HVAC = $143,190/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.0M/yr</td>
                 <td>$878K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$143K/yr</td>

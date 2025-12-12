@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:24 EST -->
+<!-- Generated: 2025-12-12 01:54:02 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,78 +363,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,118,141 kWh × $0.3116/kWh × 1.10
-  = $383,240/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 284 kW
-  284 kW × $55.00/kW × 12 mo × 1.265
-  = $236,818/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Restaurant/Bars typically: 45%)
-  Peak = (1,118,141 ÷ 8,760 hrs) ÷ 0.45
-       = 284 kW
-
-TOTAL: $620,058/yr
-
-HVAC PORTION: 33%
-  = $206,975/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Restaurant/Bars typically 45%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  45% of electricity is HVAC. Kitchen
-  exhaust fans are a significant electric
-  load.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,118,141 kWh/yr
+After ODCV: 1,043,494 kWh/yr
+Change: -74,647 kWh/yr
+How: HVAC is 33% of electric; ODCV cuts 20% of that.
+Why believable: 16% vacant, 42% utilized.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,118,140 kWh</td>
                 <td>1,043,493 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-74,647 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  4,923,600 kBtu ÷ 100 = 49,236 therms
-  49,236 × $1.727/therm × 1.10
-  = $93,534/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR RESTAURANT/BAR: 20%
-  = $18,239/yr for heating
-
-  Only 18% of gas is HVAC. Kitchen cooking
-  consumes 72% of natural gas.
-  (Based on EIA CBECS 2018)
-
-Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 49,236 therms/yr
+After ODCV: 47,316 therms/yr
+Change: -1,920 therms/yr
+How: HVAC is 20% of gas; ODCV cuts 20% of that.
+Why believable: only 20% of gas is HVAC (rest is cooking).
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>49,236 therms</td>
                 <td>47,315 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,920 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 81.3 kBtu/sqft
+After ODCV: 77.2 kBtu/sqft
+Change: -4.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>81.3 kBtu/sqft</td>
                 <td>77.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-4.1 kBtu/sqft</td>
@@ -454,86 +415,48 @@ Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Restaurant/Bar
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Predictable meal-time peaks, but kitchen runs
-at constant ventilation regardless of dining
-room occupancy. Note: Only 18% of gas is HVAC
-(72% is cooking).
-
-FORMULA: 1 - Utilization
-  Utilization: 42%
-  Opportunity: 58%
-
-MODIFIERS:
-  Automation: 0.38
-  Efficiency: 1.00 (ES 68, average)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Restaurant/Bar)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $713,592/yr
+  (Electric: $620,058, Gas: $93,534)
+HVAC portion of that: $225,214/yr
+ODCV saves 20% of HVAC = $45,043/yr
+RESTAURANT NOTE:
+Gas savings limited - 72% of gas is kitchen cooking.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$714K/yr</td>
                 <td>$669K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$45K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $3,834/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
+
+Cap: 107,432 sqft × 0.0053
+   = 569 tCO2e/yr allowed
+This building: 535 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 20%
+Fine avoided: $3,834/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$4K/yr</td>
                 <td>$0/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$4K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $620,058 x 33% = $206,975
-Gas: $93,534 x 20% = $18,239
-Total HVAC Cost: $225,214/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $45,043/yr
+  Fine avoidance: $3,834/yr
+  Total: $48,877/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Restaurant/Bar
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 42%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $45,043
+Cap rate: 7.0% (Restaurant/Bar typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: BERDO 2.0
-Method: emission cap
-Penalty: $234/tCO2e over cap
-Fine Avoided: $3,834/yr
-Source: City of Boston
+$48,877/yr ÷ 7.0%
+= $698,246 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $45,043
-+ Fine Avoidance: $3,834
-= Total: $48,877/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$48,877 / 7.00% = $698,246
-
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$698K</td>

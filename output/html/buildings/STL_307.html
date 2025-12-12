@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:29 EST -->
+<!-- Generated: 2025-12-12 01:57:21 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,53 +363,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  788,435 kWh × $0.1103/kWh × 1.10
-  = $95,682/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 200 kW
-  200 kW × $35.00/kW × 12 mo × 1.265
-  = $106,265/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Mixed Uses typically: 45%)
-  Peak = (788,435 ÷ 8,760 hrs) ÷ 0.45
-       = 200 kW
-
-TOTAL: $201,946/yr
-
-HVAC PORTION: 44%
-  = $89,139/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Mixed Uses typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 788,435 kWh/yr
+After ODCV: 693,253 kWh/yr
+Change: -95,182 kWh/yr
+How: HVAC is 44% of electric; ODCV cuts 27% of that.
+Why believable: 8% vacant, 70% utilized.
+Sources: St. Louis BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>788,435 kWh</td>
                 <td>693,253 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-95,182 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 72.3 kBtu/sqft
+After ODCV: 66.2 kBtu/sqft
+Change: -6.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 27% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: St. Louis BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>72.3 kBtu/sqft</td>
                 <td>66.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-6.1 kBtu/sqft</td>
@@ -429,87 +402,45 @@ Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 27% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Mixed Use
-Category: Multi-Tenant
-
-WHY 18-38% RANGE:
-Combination of office, retail, residential
-uses. Savings vary by tenant mix but
-centralized systems still ventilate vacant
-spaces.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 8%
-  Utilization: 70%
-  Opportunity: 36%
-
-MODIFIERS:
-  Automation: 0.25
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 27.4% of HVAC costs
-(Range: 18-38% for Mixed Use)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $201,946/yr
+  (Electric: $201,946)
+HVAC portion of that: $89,139/yr
+ODCV saves 27% of HVAC = $24,380/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$202K/yr</td>
                 <td>$178K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$24K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="St. Louis BEPS: $500/day non-compliance (target: 71.7 kBtu/sqft EUI). ODCV brings building into compliance, avoiding $182,500/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ST. LOUIS BEPS
+
+EUI target: 71.7 kBtu/sqft
+This building: 72.3 kBtu/sqft
+
+Non-compliance: $500/day
+ODCV reduces EUI 27%
+Fine avoided: $182,500/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$182K/yr</td>
                 <td>$0/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$182K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $201,946 x 44% = $89,139
-Total HVAC Cost: $89,139/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $24,380/yr
+  Fine avoidance: $182,500/yr
+  Total: $206,880/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Mixed Use
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 8%
-Utilization Rate: 70%
-Savings Range: 18-38%
-This Building: 27.4%
-Annual Savings: $24,380
+Cap rate: 7.0% (Mixed Use typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: St. Louis BEPS
-Method: EUI target
-Penalty: $500/day non-compliance
-Fine Avoided: $182,500/yr
-Source: City of St. Louis
+$206,880/yr ÷ 7.0%
+= $2,955,422 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $24,380
-+ Fine Avoidance: $182,500
-= Total: $206,880/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$206,880 / 7.00% = $2,955,422
-
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.0M</td>

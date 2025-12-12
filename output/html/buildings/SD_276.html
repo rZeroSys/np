@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:18 EST -->
+<!-- Generated: 2025-12-12 01:57:09 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  11,411,168 kWh × $0.4569/kWh × 1.10
-  = $5,735,327/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 3,257 kW
-  3,257 kW × $70.00/kW × 12 mo × 1.265
-  = $3,460,476/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 40%
-  (Mixed Uses typically: 45%)
-  Peak = (11,411,168 ÷ 8,760 hrs) ÷ 0.40
-       = 3,257 kW
-
-TOTAL: $9,195,803/yr
-
-HVAC PORTION: 19%
-  = $1,724,213/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Mixed Uses typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, San Diego Gas &amp; Electric Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 11,411,168 kWh/yr
+After ODCV: 10,858,083 kWh/yr
+Change: -553,085 kWh/yr
+How: HVAC is 19% of electric; ODCV cuts 26% of that.
+Why believable: 7% vacant, 65% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>11,411,168 kWh</td>
                 <td>10,858,083 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-553,085 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 24.4 kBtu/sqft
+After ODCV: 21.5 kBtu/sqft
+Change: -2.9 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 26% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>24.4 kBtu/sqft</td>
                 <td>21.5 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-2.9 kBtu/sqft</td>
@@ -431,66 +404,29 @@ Source: AB 802, San Diego Gas &amp; Electric Co" style="display: inline-block; m
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 26% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Mixed Use
-Category: Multi-Tenant
-
-WHY 18-38% RANGE:
-Combination of office, retail, residential
-uses. Savings vary by tenant mix but
-centralized systems still ventilate vacant
-spaces.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 7%
-  Utilization: 65%
-  Opportunity: 40%
-
-MODIFIERS:
-  Automation: 0.75 (built 2004, 1600K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 25.9% of HVAC costs
-(Range: 18-38% for Mixed Use)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $9,195,803/yr
+  (Electric: $9,195,803)
+HVAC portion of that: $1,724,213/yr
+ODCV saves 26% of HVAC = $445,709/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$9.2M/yr</td>
                 <td>$8.8M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$446K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $9,195,803 x 19% = $1,724,213
-Total HVAC Cost: $1,724,213/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $445,709/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Mixed Use
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 7%
-Utilization Rate: 65%
-Savings Range: 18-38%
-This Building: 25.9%
-Annual Savings: $445,709
+Cap rate: 6.2% (Mixed Use typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 6.25%
-$445,709 / 6.25% = $7,131,345
+$445,709/yr ÷ 6.2%
+= $7,131,345 value increase
 
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$7.1M</td>

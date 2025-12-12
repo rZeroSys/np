@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:45 EST -->
+<!-- Generated: 2025-12-12 01:55:32 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  5,542,268 kWh × $0.2632/kWh × 1.10
-  = $1,604,756/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,406 kW
-  1,406 kW × $61.74/kW × 12 mo × 1.265
-  = $1,317,693/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Enclosed Malls typically: 45%)
-  Peak = (5,542,268 ÷ 8,760 hrs) ÷ 0.45
-       = 1,406 kW
-
-TOTAL: $2,922,449/yr
-
-HVAC PORTION: 46%
-  = $1,344,326/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Enclosed Malls typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Southern California Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 5,542,268 kWh/yr
+After ODCV: 5,032,379 kWh/yr
+Change: -509,889 kWh/yr
+How: HVAC is 46% of electric; ODCV cuts 20% of that.
+Why believable: 12% vacant, 55% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,542,267 kWh</td>
                 <td>5,032,379 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-509,888 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 14.6 kBtu/sqft
+After ODCV: 13.2 kBtu/sqft
+Change: -1.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>14.6 kBtu/sqft</td>
                 <td>13.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-1.4 kBtu/sqft</td>
@@ -431,62 +404,29 @@ Source: AB 802, Southern California Edison Co" style="display: inline-block; mar
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Enclosed Mall
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Standard commercial building. Savings depend
-on operating hours and occupancy patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 55%
-  Opportunity: 45%
-
-MODIFIERS:
-  Automation: 0.62 (built 1971, 1298K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 15-35% for Enclosed Mall)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $2,922,449/yr
+  (Electric: $2,922,449)
+HVAC portion of that: $1,344,326/yr
+ODCV saves 20% of HVAC = $268,865/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.9M/yr</td>
                 <td>$2.7M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$269K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $2,922,449 x 46% = $1,344,326
-Total HVAC Cost: $1,344,326/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $268,865/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Enclosed Mall
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 55%
-Savings Range: 15-35%
-This Building: 20.0%
-Annual Savings: $268,865
+Cap rate: 7.5% (Enclosed Mall typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$268,865 / 7.50% = $3,584,871
+$268,865/yr ÷ 7.5%
+= $3,584,871 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.6M</td>

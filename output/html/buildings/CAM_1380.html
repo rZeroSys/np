@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:27 EST -->
+<!-- Generated: 2025-12-12 01:54:05 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,436,399 kWh × $0.3116/kWh × 1.10
-  = $492,323/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 364 kW
-  364 kW × $70.00/kW × 12 mo × 1.265
-  = $387,194/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Offices typically: 45%)
-  Peak = (1,436,399 ÷ 8,760 hrs) ÷ 0.45
-       = 364 kW
-
-TOTAL: $879,516/yr
-
-HVAC PORTION: 70%
-  = $615,661/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Central
-  systems condition entire floors even
-  when partially occupied.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BEUDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,436,399 kWh/yr
+After ODCV: 1,072,315 kWh/yr
+Change: -364,084 kWh/yr
+How: HVAC is 70% of electric; ODCV cuts 36% of that.
+Why believable: 19% vacant, 42% utilized — underused space = wasted conditioning.
+Sources: BEUDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,436,398 kWh</td>
                 <td>1,072,314 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-364,083 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 100.2 kBtu/sqft
+After ODCV: 74.8 kBtu/sqft
+Change: -25.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 36% savings).
+Why believable: elec HVAC 70%; 19% vacant, 42% utilized.
+Sources: BEUDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>100.2 kBtu/sqft</td>
                 <td>74.8 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-25.4 kBtu/sqft</td>
@@ -431,90 +404,52 @@ Source: BEUDO, NSTAR Electric Company" style="display: inline-block; margin-left
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 36% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Centralized HVAC ventilates vacant floors at
-design capacity. Hybrid work (avg 52%
-utilization) + vacancy creates 50-60%
-opportunity in typical buildings.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 19%
-  Utilization: 42%
-  Opportunity: 66%
-
-MODIFIERS:
-  Automation: 0.38 (built 2001, 49K sqft)
-  Efficiency: 1.10 (ES 17, inefficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 36.2% of HVAC costs
-(Range: 20-40% for Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $879,516/yr
+  (Electric: $879,516)
+HVAC portion of that: $615,661/yr
+ODCV saves 36% of HVAC = $222,931/yr
+OFFICE NOTE:
+This building is 19% vacant - paying to condition empty space.
+Hybrid work means only 42% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$880K/yr</td>
                 <td>$657K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$223K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Cambridge BEUDO: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $24,708/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="CAMBRIDGE BEUDO
+
+Cap: 48,930 sqft × 0.0053
+   = 259 tCO2e/yr allowed
+This building: 351 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 36%
+Fine avoided: $24,708/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$37K/yr</td>
                 <td>$12K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$25K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $879,516 x 70% = $615,661
-Total HVAC Cost: $615,661/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $222,931/yr
+  Fine avoidance: $24,708/yr
+  Total: $247,639/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 19%
-Utilization Rate: 42%
-Savings Range: 20-40%
-This Building: 36.2%
-Annual Savings: $222,931
+Cap rate: 7.0% (Office typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: Cambridge BEUDO
-Method: emission cap
-Penalty: $234/tCO2e over cap
-Fine Avoided: $24,708/yr
-Source: City of Cambridge
+$247,639/yr ÷ 7.0%
+= $3,537,706 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $222,931
-+ Fine Avoidance: $24,708
-= Total: $222,931/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.00%
-$222,931 / 7.00% = $3,184,728
-
-$1 saved = $14 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$3.2M</td>
+                <td style="color: #16a34a; font-weight: 600;">+$3.5M</td>
             </tr>
 
             <tr>

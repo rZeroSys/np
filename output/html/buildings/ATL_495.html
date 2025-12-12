@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:03:39 EST -->
+<!-- Generated: 2025-12-12 01:55:24 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  303,494 kWh × $0.1431/kWh × 1.10
-  = $47,787/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 77 kW
-  77 kW × $15.00/kW × 12 mo × 1.265
-  = $17,531/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Medical Offices typically: 45%)
-  Peak = (303,494 ÷ 8,760 hrs) ÷ 0.45
-       = 77 kW
-
-TOTAL: $65,318/yr
-
-HVAC PORTION: 43%
-  = $28,335/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Medical Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Similar to
-  office but with additional ventilation
-  requirements.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, GreyStone Power Corporation" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 303,494 kWh/yr
+After ODCV: 273,437 kWh/yr
+Change: -30,057 kWh/yr
+How: HVAC is 43% of electric; ODCV cuts 23% of that.
+Why believable: 9% vacant, 75% utilized — underused space = wasted conditioning.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>303,493 kWh</td>
                 <td>273,436 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-30,056 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 27.5 kBtu/sqft
+After ODCV: 25.0 kBtu/sqft
+Change: -2.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 23% savings).
+Why believable: elec HVAC 43%; 9% vacant, 75% utilized.
+Sources: Atlanta Commercial Buildings Energy Efficiency Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>27.5 kBtu/sqft</td>
                 <td>25.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-2.5 kBtu/sqft</td>
@@ -430,66 +403,32 @@ Source: Atlanta Commercial Buildings Energy Efficiency Ordinance, GreyStone Powe
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 23% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Medical Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Like office buildings, medical offices have
-centralized systems that condition empty exam
-rooms and suites. ODCV adjusts ventilation to
-actual patient presence.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 9%
-  Utilization: 75%
-  Opportunity: 32%
-
-MODIFIERS:
-  Automation: 0.38 (built 2000, 40K sqft)
-  Efficiency: 0.85 (ES 90, very efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 22.8% of HVAC costs
-(Range: 20-40% for Medical Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $65,318/yr
+  (Electric: $65,318)
+HVAC portion of that: $28,335/yr
+ODCV saves 23% of HVAC = $6,469/yr
+OFFICE NOTE:
+This building is 9% vacant - paying to condition empty space.
+Hybrid work means only 75% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$65K/yr</td>
                 <td>$59K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$6K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $65,318 x 43% = $28,335
-Total HVAC Cost: $28,335/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $6,469/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Medical Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 9%
-Utilization Rate: 75%
-Savings Range: 20-40%
-This Building: 22.8%
-Annual Savings: $6,469
+Cap rate: 7.5% (Medical Office typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$6,469 / 7.50% = $86,251
+$6,469/yr ÷ 7.5%
+= $86,251 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$86K</td>

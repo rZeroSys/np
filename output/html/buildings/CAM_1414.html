@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:28 EST -->
+<!-- Generated: 2025-12-12 01:54:06 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  5,271,064 kWh × $0.3116/kWh × 1.10
-  = $1,806,646/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,094 kW
-  1,094 kW × $55.00/kW × 12 mo × 1.265
-  = $913,410/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Hotels typically: 55%)
-  Peak = (5,271,064 ÷ 8,760 hrs) ÷ 0.55
-       = 1,094 kW
-
-TOTAL: $2,720,056/yr
-
-HVAC PORTION: 56%
-  = $1,517,247/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Hotels typically 47%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  47% of electricity is HVAC - cooling and
-  ventilation for guest rooms and common
-  areas.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BEUDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 5,271,064 kWh/yr
+After ODCV: 4,522,783 kWh/yr
+Change: -748,281 kWh/yr
+How: HVAC is 56% of electric; ODCV cuts 25% of that.
+Why believable: 73% occupancy means empty rooms get conditioned.
+Sources: BEUDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,271,063 kWh</td>
                 <td>4,522,782 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-748,280 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  24,156,165 kBtu ÷ 100 = 241,562 therms
-  241,562 × $1.727/therm × 1.10
-  = $458,895/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR HOTEL: 34%
-  = $156,024/yr for heating
-
-  Only 20% of gas goes to HVAC. 42% is
-  domestic hot water, 33% is
-  cooking/kitchens.
-  (Based on EIA CBECS 2018)
-
-Source: BEUDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 241,562 therms/yr
+After ODCV: 220,659 therms/yr
+Change: -20,902 therms/yr
+How: HVAC is 34% of gas; ODCV cuts 25% of that.
+Why believable: only 34% of hotel gas is HVAC (rest is hot water/kitchen).
+Sources: BEUDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>241,561 therms</td>
                 <td>220,659 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-20,902 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 121.4 kBtu/sqft
+After ODCV: 108.1 kBtu/sqft
+Change: -13.3 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 25% savings).
+Why believable: gas HVAC only 34% (rest is hot water/kitchen) — smaller EUI impact.
+Sources: BEUDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>121.4 kBtu/sqft</td>
                 <td>108.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-13.3 kBtu/sqft</td>
@@ -457,89 +417,52 @@ Source: BEUDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 25% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Hotel
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Room-level variability: 60-80% occupancy
-typical, plus guests out during day. Note:
-Only 20% of gas goes to HVAC (rest is hot
-water 42%, cooking 33%).
-
-FORMULA: 1 - Utilization
-  Utilization: 73%
-  Opportunity: 27%
-
-MODIFIERS:
-  Automation: 0.62 (built 1976, 347K sqft)
-  Efficiency: 1.05 (ES 37, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 25.4% of HVAC costs
-(Range: 15-35% for Hotel)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $3,178,951/yr
+  (Electric: $2,720,056, Gas: $458,895)
+HVAC portion of that: $1,673,272/yr
+ODCV saves 25% of HVAC = $425,848/yr
+HOTEL NOTE:
+Gas savings are smaller because only 20% of gas is HVAC.
+Rest goes to hot water and kitchens - can't save there.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$3.2M/yr</td>
                 <td>$2.8M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$426K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Cambridge BEUDO: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $76,759/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="CAMBRIDGE BEUDO
+
+Cap: 347,000 sqft × 0.0053
+   = 1,839 tCO2e/yr allowed
+This building: 2,572 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 25%
+Fine avoided: $76,759/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$228K/yr</td>
                 <td>$151K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$77K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $2,720,056 x 56% = $1,517,247
-Gas: $458,895 x 34% = $156,024
-Total HVAC Cost: $1,673,272/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $425,848/yr
+  Fine avoidance: $76,759/yr
+  Total: $502,606/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Hotel
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 73%
-Savings Range: 15-35%
-This Building: 25.4%
-Annual Savings: $425,848
+Cap rate: 7.5% (Hotel typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: Cambridge BEUDO
-Method: emission cap
-Penalty: $234/tCO2e over cap
-Fine Avoided: $76,759/yr
-Source: City of Cambridge
+$502,606/yr ÷ 7.5%
+= $6,701,418 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $425,848
-+ Fine Avoidance: $76,759
-= Total: $425,848/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$425,848 / 7.50% = $5,677,968
-
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$5.7M</td>
+                <td style="color: #16a34a; font-weight: 600;">+$6.7M</td>
             </tr>
 
             <tr>

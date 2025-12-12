@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:21 EST -->
+<!-- Generated: 2025-12-12 01:56:10 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  4,012,622 kWh × $0.3979/kWh × 1.10
-  = $1,756,408/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 916 kW
-  916 kW × $70.00/kW × 12 mo × 1.265
-  = $973,473/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 50%
-  (Wholesale Clubs typically: 60%)
-  Peak = (4,012,622 ÷ 8,760 hrs) ÷ 0.50
-       = 916 kW
-
-TOTAL: $2,729,881/yr
-
-HVAC PORTION: 42%
-  = $1,147,642/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Wholesale Clubs typically 35%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Pacific Gas &amp; Electric Co." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 4,012,622 kWh/yr
+After ODCV: 3,675,241 kWh/yr
+Change: -337,381 kWh/yr
+How: HVAC is 42% of electric; ODCV cuts 20% of that.
+Why believable: 4% vacant, 70% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>4,012,622 kWh</td>
                 <td>3,675,240 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-337,381 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  3,129,138 kBtu ÷ 100 = 31,291 therms
-  31,291 × $1.893/therm × 1.10
-  = $65,161/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR WHOLESALE CLUB: 74%
-  = $48,226/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 31,291 therms/yr
+After ODCV: 26,660 therms/yr
+Change: -4,632 therms/yr
+How: HVAC is 74% of gas; ODCV cuts 20% of that.
+Why believable: 74% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>31,291 therms</td>
                 <td>26,659 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-4,631 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 82.1 kBtu/sqft
+After ODCV: 74.2 kBtu/sqft
+Change: -7.9 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>82.1 kBtu/sqft</td>
                 <td>74.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-7.9 kBtu/sqft</td>
@@ -457,64 +417,29 @@ Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Wholesale Club
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Similar to supermarkets—high ceilings,
-refrigeration load, steady traffic. Lower
-HVAC % due to large refrigerated sections.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.75 (built 2006, 205K sqft)
-  Efficiency: 0.95 (ES 83, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Wholesale Club)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $2,795,043/yr
+  (Electric: $2,729,881, Gas: $65,161)
+HVAC portion of that: $1,195,868/yr
+ODCV saves 20% of HVAC = $239,174/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.8M/yr</td>
                 <td>$2.6M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$239K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $2,729,881 x 42% = $1,147,642
-Gas: $65,161 x 74% = $48,226
-Total HVAC Cost: $1,195,868/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $239,174/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Wholesale Club
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 70%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $239,174
+Cap rate: 5.8% (Wholesale Club typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 5.75%
-$239,174 / 5.75% = $4,159,541
+$239,174/yr ÷ 5.8%
+= $4,159,541 value increase
 
-$1 saved = $17 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $17 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$4.2M</td>

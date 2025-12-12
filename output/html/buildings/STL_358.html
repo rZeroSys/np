@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:30 EST -->
+<!-- Generated: 2025-12-12 01:57:23 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,52 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,623,163 kWh × $0.1103/kWh × 1.10
-  = $196,981/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 529 kW
-  529 kW × $8.00/kW × 12 mo × 1.265
-  = $64,291/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 35%
-  (Higher Eds typically: 35%)
-  Peak = (1,623,163 ÷ 8,760 hrs) ÷ 0.35
-       = 529 kW
-
-TOTAL: $261,273/yr
-
-HVAC PORTION: 54%
-  = $141,845/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Higher Eds typically 55%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  55% of electricity is HVAC. Campus
-  buildings have diverse usage patterns.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,623,163 kWh/yr
+After ODCV: 1,348,489 kWh/yr
+Change: -274,675 kWh/yr
+How: HVAC is 54% of electric; ODCV cuts 31% of that.
+Why believable: empty after 3pm, weekends, summer — over half the year.
+Sources: St. Louis BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,623,163 kWh</td>
                 <td>1,348,488 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-274,674 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 102.9 kBtu/sqft
+After ODCV: 94.7 kBtu/sqft
+Change: -8.2 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 31% savings).
+Why believable: elec HVAC 54%, gas HVAC 0% — high HVAC share.
+Sources: St. Louis BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>102.9 kBtu/sqft</td>
                 <td>94.7 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-8.2 kBtu/sqft</td>
@@ -429,31 +403,12 @@ Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 31% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Higher Ed
-Category: Single-Tenant
-
-WHY 20-45% RANGE:
-Semester breaks (winter, spring, summer),
-variable class schedules, evening/weekend
-classes in some buildings. Similar to K-12
-but more diverse usage patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 62%
-  Opportunity: 38%
-
-MODIFIERS:
-  Automation: 0.38
-  Efficiency: 1.05 (above avg EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 31.2% of HVAC costs
-(Range: 20-45% for Higher Ed)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $261,273/yr
+  (Electric: $261,273)
+HVAC portion of that: $141,845/yr
+ODCV saves 31% of HVAC = $44,213/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$261K/yr</td>
                 <td>$217K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$44K/yr</td>

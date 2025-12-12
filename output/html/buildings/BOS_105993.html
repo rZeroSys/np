@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:25 EST -->
+<!-- Generated: 2025-12-12 01:54:02 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,78 +363,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  116,165 kWh × $0.3116/kWh × 1.10
-  = $39,815/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 33 kW
-  33 kW × $54.35/kW × 12 mo × 1.265
-  = $27,352/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 40%
-  (Retail Stores typically: 40%)
-  Peak = (116,165 ÷ 8,760 hrs) ÷ 0.40
-       = 33 kW
-
-TOTAL: $67,167/yr
-
-HVAC PORTION: 38%
-  = $25,389/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Retail Stores typically 56%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  56% of electricity is HVAC. Open floor
-  plans require high airflow for customer
-  comfort.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 116,165 kWh/yr
+After ODCV: 107,089 kWh/yr
+Change: -9,076 kWh/yr
+How: HVAC is 38% of electric; ODCV cuts 21% of that.
+Why believable: 6% vacant, 68% utilized.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>116,164 kWh</td>
                 <td>107,088 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-9,076 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  381,901 kBtu ÷ 100 = 3,819 therms
-  3,819 × $1.727/therm × 1.10
-  = $7,255/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR RETAIL STORE: 64%
-  = $4,655/yr for heating
-
-  78% of gas is HVAC. Retail has minimal
-  cooking or process loads.
-  (Based on EIA CBECS 2018)
-
-Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 3,819 therms/yr
+After ODCV: 3,313 therms/yr
+Change: -506 therms/yr
+How: HVAC is 64% of gas; ODCV cuts 21% of that.
+Why believable: 64% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,819 therms</td>
                 <td>3,312 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-506 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 22.6 kBtu/sqft
+After ODCV: 20.2 kBtu/sqft
+Change: -2.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 21% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>22.6 kBtu/sqft</td>
                 <td>20.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-2.4 kBtu/sqft</td>
@@ -454,66 +415,29 @@ Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 21% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Retail Store
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Significant intra-day variability:
-opening/closing with staff only, mid-morning
-lulls, lunch/evening rushes. Opportunity
-comes from modulating to actual customer
-traffic.
-
-FORMULA: 1 - Utilization
-  Utilization: 68%
-  Opportunity: 32%
-
-MODIFIERS:
-  Automation: 0.12
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.7% of HVAC costs
-(Range: 15-35% for Retail Store)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $74,422/yr
+  (Electric: $67,167, Gas: $7,255)
+HVAC portion of that: $30,044/yr
+ODCV saves 21% of HVAC = $6,210/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$74K/yr</td>
                 <td>$68K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$6K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $67,167 x 38% = $25,389
-Gas: $7,255 x 64% = $4,655
-Total HVAC Cost: $30,044/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $6,210/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Retail Store
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 68%
-Savings Range: 15-35%
-This Building: 20.7%
-Annual Savings: $6,210
+Cap rate: 5.5% (Retail Store typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 5.50%
-$6,210 / 5.50% = $112,910
+$6,210/yr ÷ 5.5%
+= $112,910 value increase
 
-$1 saved = $18 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $18 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$113K</td>

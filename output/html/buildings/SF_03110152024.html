@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:28 EST -->
+<!-- Generated: 2025-12-12 01:57:19 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,82 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  3,134,554 kWh × $0.2005/kWh × 1.10
-  = $691,416/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 795 kW
-  795 kW × $47.03/kW × 12 mo × 1.265
-  = $567,733/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Offices typically: 45%)
-  Peak = (3,134,554 ÷ 8,760 hrs) ÷ 0.45
-       = 795 kW
-
-TOTAL: $1,259,148/yr
-
-HVAC PORTION: 48%
-  = $604,769/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Offices typically 60%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  60% of electricity is HVAC. Central
-  systems condition entire floors even
-  when partially occupied.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: SF Environment Code, City &amp; County of San Francisco" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 3,134,554 kWh/yr
+After ODCV: 2,667,841 kWh/yr
+Change: -466,713 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 31% of that.
+Why believable: 26% vacant, 38% utilized — underused space = wasted conditioning.
+Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,134,554 kWh</td>
                 <td>2,667,841 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-466,713 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
-======================================
-
-FORMULA: Mlb × rate
-(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
-
-THIS BUILDING:
-  6,252,033 kBtu ÷ 909 kBtu/Mlb
-  = 6,877.9 Mlb
-  × $33.60/Mlb
-  = $231,098/yr
-  (No adder - steam rates all-inclusive)
-
-HVAC PORTION: 98%
-  = $226,384/yr for space heating
-  District steam typically 85-100% heating.
-  (Based on EIA CBECS 2018)
-
-AVAILABILITY:
-  NYC, Boston, DC, Philadelphia, and other
-  dense urban areas with steam infrastructure.
-
-Source: SF Environment Code" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
+Current (disclosed): 5,236.21 Mlb/yr
+After ODCV: 3,646.10 Mlb/yr
+Change: -1,590.11 Mlb/yr
+How: HVAC is 98% of steam; ODCV cuts 31% of that.
+Why believable: district steam is almost entirely for heating.
+Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>5,236.21 Mlb</td>
                 <td>3,646.10 Mlb</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,590.11 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 36.2 kBtu/sqft
+After ODCV: 28.7 kBtu/sqft
+Change: -7.5 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 31% savings).
+Why believable: elec HVAC 48%; 26% vacant, 38% utilized.
+Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>36.2 kBtu/sqft</td>
                 <td>28.7 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-7.5 kBtu/sqft</td>
@@ -460,67 +417,32 @@ Source: SF Environment Code" style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 31% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Office
-Category: Multi-Tenant
-
-WHY 20-40% RANGE:
-Centralized HVAC ventilates vacant floors at
-design capacity. Hybrid work (avg 52%
-utilization) + vacancy creates 50-60%
-opportunity in typical buildings.
-
-FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
-  Vacancy: 26%
-  Utilization: 38%
-  Opportunity: 72%
-
-MODIFIERS:
-  Automation: 0.50 (built 1969, 469K sqft)
-  Efficiency: 0.95 (ES 81, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 31.0% of HVAC costs
-(Range: 20-40% for Office)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $1,490,247/yr
+  (Electric: $1,259,148, Steam: $231,098)
+HVAC portion of that: $831,153/yr
+ODCV saves 31% of HVAC = $257,657/yr
+OFFICE NOTE:
+This building is 26% vacant - paying to condition empty space.
+Hybrid work means only 38% of occupied space is actually used.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.5M/yr</td>
                 <td>$1.2M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$258K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $1,259,148 x 48% = $604,769
-Steam: $231,098 x 98% = $226,384
-Total HVAC Cost: $831,153/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $257,657/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Office
-Category: Multi-Tenant
-Formula: Vacancy + (1-Vacancy) × (1-Utilization)
-Vacancy Rate: 26%
-Utilization Rate: 38%
-Savings Range: 20-40%
-This Building: 31.0%
-Annual Savings: $257,657
+Cap rate: 7.5% (Office typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$257,657 / 7.50% = $3,435,432
+$257,657/yr ÷ 7.5%
+= $3,435,432 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.4M</td>

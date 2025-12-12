@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:41 EST -->
+<!-- Generated: 2025-12-12 01:56:31 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  701,363 kWh × $0.2234/kWh × 1.10
-  = $172,376/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 123 kW
-  123 kW × $41.93/kW × 12 mo × 1.265
-  = $78,392/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Supermarket/Grocerys typically: 65%)
-  Peak = (701,363 ÷ 8,760 hrs) ÷ 0.65
-       = 123 kW
-
-TOTAL: $250,768/yr
-
-HVAC PORTION: 25%
-  = $62,542/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Supermarket/Grocerys typically 32%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Only 32% of electricity is HVAC. ~40% is
-  refrigeration for food cases and
-  freezers.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 701,363 kWh/yr
+After ODCV: 666,379 kWh/yr
+Change: -34,984 kWh/yr
+How: HVAC is 25% of electric; ODCV cuts 20% of that.
+Why believable: 3% vacant, 75% utilized.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>701,362 kWh</td>
                 <td>666,378 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-34,983 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 25.3 kBtu/sqft
+After ODCV: 24.1 kBtu/sqft
+Change: -1.2 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: DC BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>25.3 kBtu/sqft</td>
                 <td>24.1 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-1.2 kBtu/sqft</td>
@@ -430,85 +403,48 @@ Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Supermarket/Grocery
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Long hours (often 6am-midnight or 24/7) with
-steady traffic reduce empty-space
-opportunity. Note: ~40% of electricity is
-refrigeration, not HVAC.
-
-FORMULA: 1 - Utilization
-  Utilization: 75%
-  Opportunity: 25%
-
-MODIFIERS:
-  Automation: 0.25 (built 1940, 94K sqft)
-  Efficiency: 0.85 (ES 100, very efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Supermarket/Grocery)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $250,768/yr
+  (Electric: $250,768)
+HVAC portion of that: $62,542/yr
+ODCV saves 20% of HVAC = $12,508/yr
+GROCERY NOTE:
+40% of electric is refrigeration - those cases run 24/7.
+ODCV only saves on the HVAC portion.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$251K/yr</td>
                 <td>$238K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$13K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS: $10/sqft (prorated) based on ENERGY STAR compliance gap. ODCV improves score, avoiding $14,131/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS
+
+Target: ENERGY STAR score 71+
+This building: 100
+
+Below 71 = $10/sqft fine
+ODCV improves efficiency → higher score
+Fine avoided: $14,131/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$472K/yr</td>
                 <td>$458K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$14K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $250,768 x 25% = $62,542
-Total HVAC Cost: $62,542/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $12,508/yr
+  Fine avoidance: $14,131/yr
+  Total: $26,639/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Supermarket/Grocery
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 75%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $12,508
+Cap rate: 6.0% (Supermarket/Grocery typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: DC BEPS
-Method: Energy Star score
-Penalty: $10/sqft (prorated)
-Fine Avoided: $14,131/yr
-Source: DC DOEE
+$26,639/yr ÷ 6.0%
+= $443,988 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $12,508
-+ Fine Avoidance: $14,131
-= Total: $26,639/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 6.00%
-$26,639 / 6.00% = $443,988
-
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$444K</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:28 EST -->
+<!-- Generated: 2025-12-12 01:57:20 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  403,420 kWh × $0.2005/kWh × 1.10
-  = $88,986/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 77 kW
-  77 kW × $15.00/kW × 12 mo × 1.265
-  = $17,477/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 60%
-  (Residential Cares typically: 65%)
-  Peak = (403,420 ÷ 8,760 hrs) ÷ 0.60
-       = 77 kW
-
-TOTAL: $106,463/yr
-
-HVAC PORTION: 58%
-  = $61,440/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Residential Cares typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: SF Environment Code, City &amp; County of San Francisco" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 403,420 kWh/yr
+After ODCV: 356,857 kWh/yr
+Change: -46,563 kWh/yr
+How: HVAC is 58% of electric; ODCV cuts 20% of that.
+Why believable: 12% vacant.
+Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>403,419 kWh</td>
                 <td>356,857 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-46,562 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  2,002,013 kBtu ÷ 100 = 20,020 therms
-  20,020 × $1.893/therm × 1.10
-  = $41,690/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR RESIDENTIAL CARE: 46%
-  = $19,177/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: SF Environment Code, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 20,020 therms/yr
+After ODCV: 18,178 therms/yr
+Change: -1,842 therms/yr
+How: HVAC is 46% of gas; ODCV cuts 20% of that.
+Why believable: 46% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>20,020 therms</td>
                 <td>18,178 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,841 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 47.4 kBtu/sqft
+After ODCV: 42.6 kBtu/sqft
+Change: -4.8 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>47.4 kBtu/sqft</td>
                 <td>42.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-4.8 kBtu/sqft</td>
@@ -456,31 +416,12 @@ Source: SF Environment Code, NREL rates" style="display: inline-block; margin-le
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Residential Care
-Category: Constrained
-
-WHY 5-15% RANGE:
-Residents live there 24/7—unlike offices that
-empty at night. Common areas have some
-variability, but overall building load is
-relatively constant.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 0%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.25 (built 1936, 71K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Residential Care)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $148,153/yr
+  (Electric: $106,463, Gas: $41,690)
+HVAC portion of that: $80,617/yr
+ODCV saves 20% of HVAC = $16,123/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$148K/yr</td>
                 <td>$132K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$16K/yr</td>

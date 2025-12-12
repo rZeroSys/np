@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:31 EST -->
+<!-- Generated: 2025-12-12 01:57:25 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  2,217,446 kWh × $0.1103/kWh × 1.10
-  = $269,101/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 422 kW
-  422 kW × $22.00/kW × 12 mo × 1.265
-  = $140,894/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 60%
-  (Residential Cares typically: 65%)
-  Peak = (2,217,446 ÷ 8,760 hrs) ÷ 0.60
-       = 422 kW
-
-TOTAL: $409,995/yr
-
-HVAC PORTION: 54%
-  = $219,839/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Residential Cares typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 2,217,446 kWh/yr
+After ODCV: 1,979,647 kWh/yr
+Change: -237,799 kWh/yr
+How: HVAC is 54% of electric; ODCV cuts 20% of that.
+Why believable: 16% vacant.
+Sources: St. Louis BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,217,446 kWh</td>
                 <td>1,979,647 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-237,798 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 45.1 kBtu/sqft
+After ODCV: 42.2 kBtu/sqft
+Change: -2.9 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: St. Louis BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>45.1 kBtu/sqft</td>
                 <td>42.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-2.9 kBtu/sqft</td>
@@ -430,31 +403,12 @@ Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Residential Care
-Category: Constrained
-
-WHY 5-15% RANGE:
-Residents live there 24/7—unlike offices that
-empty at night. Common areas have some
-variability, but overall building load is
-relatively constant.
-
-FORMULA: (1 - Utilization) × 0.3
-  Utilization: 0%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.50
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 5-15% for Residential Care)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $409,995/yr
+  (Electric: $409,995)
+HVAC portion of that: $219,839/yr
+ODCV saves 20% of HVAC = $43,968/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$410K/yr</td>
                 <td>$366K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$44K/yr</td>

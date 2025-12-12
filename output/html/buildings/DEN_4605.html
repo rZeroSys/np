@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:44 EST -->
+<!-- Generated: 2025-12-12 01:56:33 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,78 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  699,988 kWh × $0.1351/kWh × 1.10
-  = $104,046/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 123 kW
-  123 kW × $35.00/kW × 12 mo × 1.265
-  = $65,315/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Supermarket/Grocerys typically: 65%)
-  Peak = (699,988 ÷ 8,760 hrs) ÷ 0.65
-       = 123 kW
-
-TOTAL: $169,361/yr
-
-HVAC PORTION: 15%
-  = $25,404/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Supermarket/Grocerys typically 32%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Only 32% of electricity is HVAC. ~40% is
-  refrigeration for food cases and
-  freezers.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Energize Denver, Public Service Co of Colorado" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 699,988 kWh/yr
+After ODCV: 678,989 kWh/yr
+Change: -21,000 kWh/yr
+How: HVAC is 15% of electric; ODCV cuts 20% of that.
+Why believable: 4% vacant, 73% utilized.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>699,988 kWh</td>
                 <td>678,988 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-20,999 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  3,080,600 kBtu ÷ 100 = 30,806 therms
-  30,806 × $1.137/therm × 1.10
-  = $38,543/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR SUPERMARKET/GROCERY: 46%
-  = $17,907/yr for heating
-
-  75% of gas used for HVAC - higher than
-  average due to makeup air for exhaust.
-  (Based on EIA CBECS 2018)
-
-Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 30,806 therms/yr
+After ODCV: 27,944 therms/yr
+Change: -2,862 therms/yr
+How: HVAC is 46% of gas; ODCV cuts 20% of that.
+Why believable: 46% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>30,805 therms</td>
                 <td>27,943 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-2,862 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 198.2 kBtu/sqft
+After ODCV: 185.2 kBtu/sqft
+Change: -13.0 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>198.2 kBtu/sqft</td>
                 <td>185.2 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-13.0 kBtu/sqft</td>
@@ -455,86 +416,49 @@ Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Supermarket/Grocery
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Long hours (often 6am-midnight or 24/7) with
-steady traffic reduce empty-space
-opportunity. Note: ~40% of electricity is
-refrigeration, not HVAC.
-
-FORMULA: 1 - Utilization
-  Utilization: 73%
-  Opportunity: 27%
-
-MODIFIERS:
-  Automation: 0.38 (built 2003, 28K sqft)
-  Efficiency: 0.95 (ES 79, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Supermarket/Grocery)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $207,904/yr
+  (Electric: $169,361, Gas: $38,543)
+HVAC portion of that: $43,311/yr
+ODCV saves 20% of HVAC = $8,662/yr
+GROCERY NOTE:
+40% of electric is refrigeration - those cases run 24/7.
+ODCV only saves on the HVAC portion.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$208K/yr</td>
                 <td>$199K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$9K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver: $0.30/kBtu over target (target: 48.3 kBtu/sqft EUI). ODCV reduces EUI, avoiding $107,370/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ENERGIZE DENVER
+
+EUI target: 48.3 kBtu/sqft
+This building: 198.2 kBtu/sqft
+Over by: 149.9 kBtu/sqft
+
+Fine: $0.30/kBtu over target
+ODCV reduces EUI 20%
+Fine avoided: $107,370/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.2M/yr</td>
                 <td>$1.1M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$107K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $169,361 x 15% = $25,404
-Gas: $38,543 x 46% = $17,907
-Total HVAC Cost: $43,311/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $8,662/yr
+  Fine avoidance: $107,370/yr
+  Total: $116,032/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Supermarket/Grocery
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 73%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $8,662
+Cap rate: 6.0% (Supermarket/Grocery typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: Energize Denver
-Method: EUI target
-Penalty: $0.30/kBtu over target
-Fine Avoided: $107,370/yr
-Source: City of Denver
+$116,032/yr ÷ 6.0%
+= $1,933,871 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $8,662
-+ Fine Avoidance: $107,370
-= Total: $116,032/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 6.00%
-$116,032 / 6.00% = $1,933,871
-
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.9M</td>

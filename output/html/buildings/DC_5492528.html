@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:40 EST -->
+<!-- Generated: 2025-12-12 01:56:29 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,78 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  2,092,444 kWh × $0.2234/kWh × 1.10
-  = $514,266/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 367 kW
-  367 kW × $41.93/kW × 12 mo × 1.265
-  = $233,874/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Supermarket/Grocerys typically: 65%)
-  Peak = (2,092,444 ÷ 8,760 hrs) ÷ 0.65
-       = 367 kW
-
-TOTAL: $748,140/yr
-
-HVAC PORTION: 15%
-  = $112,221/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Supermarket/Grocerys typically 32%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Only 32% of electricity is HVAC. ~40% is
-  refrigeration for food cases and
-  freezers.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 2,092,444 kWh/yr
+After ODCV: 2,029,670 kWh/yr
+Change: -62,773 kWh/yr
+How: HVAC is 15% of electric; ODCV cuts 20% of that.
+Why believable: 3% vacant, 75% utilized.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,092,443 kWh</td>
                 <td>2,029,670 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-62,773 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  1,408,076 kBtu ÷ 100 = 14,081 therms
-  14,081 × $1.570/therm × 1.10
-  = $24,313/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR SUPERMARKET/GROCERY: 56%
-  = $13,681/yr for heating
-
-  75% of gas used for HVAC - higher than
-  average due to makeup air for exhaust.
-  (Based on EIA CBECS 2018)
-
-Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 14,081 therms/yr
+After ODCV: 12,496 therms/yr
+Change: -1,585 therms/yr
+How: HVAC is 56% of gas; ODCV cuts 20% of that.
+Why believable: 56% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>14,080 therms</td>
                 <td>12,496 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,584 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 201.3 kBtu/sqft
+After ODCV: 192.5 kBtu/sqft
+Change: -8.8 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: DC BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>201.3 kBtu/sqft</td>
                 <td>192.5 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-8.8 kBtu/sqft</td>
@@ -456,65 +417,32 @@ Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Supermarket/Grocery
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Long hours (often 6am-midnight or 24/7) with
-steady traffic reduce empty-space
-opportunity. Note: ~40% of electricity is
-refrigeration, not HVAC.
-
-FORMULA: 1 - Utilization
-  Utilization: 75%
-  Opportunity: 25%
-
-MODIFIERS:
-  Automation: 0.50 (built 2013, 42K sqft)
-  Efficiency: 0.95 (ES 82, efficient)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Supermarket/Grocery)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $772,453/yr
+  (Electric: $748,140, Gas: $24,313)
+HVAC portion of that: $125,902/yr
+ODCV saves 20% of HVAC = $25,180/yr
+GROCERY NOTE:
+40% of electric is refrigeration - those cases run 24/7.
+ODCV only saves on the HVAC portion.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$772K/yr</td>
                 <td>$747K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$25K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $748,140 x 15% = $112,221
-Gas: $24,313 x 56% = $13,681
-Total HVAC Cost: $125,902/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $25,180/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Supermarket/Grocery
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 75%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $25,180
+Cap rate: 6.0% (Supermarket/Grocery typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 6.00%
-$25,180 / 6.00% = $419,673
+$25,180/yr ÷ 6.0%
+= $419,673 value increase
 
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$420K</td>

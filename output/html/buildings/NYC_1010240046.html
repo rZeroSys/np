@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:05:00 EST -->
+<!-- Generated: 2025-12-12 01:56:51 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,81 +364,40 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  785,335 kWh × $0.2926/kWh × 1.10
-  = $252,781/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 299 kW
-  299 kW × $68.63/kW × 12 mo × 1.265
-  = $311,344/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (Theaters typically: 35%)
-  Peak = (785,335 ÷ 8,760 hrs) ÷ 0.30
-       = 299 kW
-
-TOTAL: $564,125/yr
-
-HVAC PORTION: 50%
-  = $281,498/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Theaters typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 785,335 kWh/yr
+After ODCV: 680,859 kWh/yr
+Change: -104,476 kWh/yr
+How: HVAC is 50% of electric; ODCV cuts 27% of that.
+Why believable: 55% utilized.
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>785,334 kWh</td>
                 <td>680,859 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-104,475 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
-======================================
-
-FORMULA: Mlb × rate
-(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
-
-THIS BUILDING:
-  1,377,398 kBtu ÷ 909 kBtu/Mlb
-  = 1,515.3 Mlb
-  × $39.20/Mlb
-  = $59,399/yr
-  (No adder - steam rates all-inclusive)
-
-HVAC PORTION: 100%
-  = $59,399/yr for space heating
-  District steam typically 85-100% heating.
-  (Based on EIA CBECS 2018)
-
-PROVIDER: Con Edison Steam
-  Largest US district steam system (105 mi)
-
-Source: LL84" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
+Current (disclosed): 1,153.60 Mlb/yr
+After ODCV: 846.05 Mlb/yr
+Change: -307.55 Mlb/yr
+How: HVAC is 100% of steam; ODCV cuts 27% of that.
+Why believable: district steam is almost entirely for heating.
+(NYC Con Edison steam — largest district steam in US)
+Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,153.60 Mlb</td>
                 <td>846.05 Mlb</td>
                 <td style="color: #16a34a; font-weight: 600;">-307.55 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 112.7 kBtu/sqft
+After ODCV: 92.6 kBtu/sqft
+Change: -20.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 27% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>112.7 kBtu/sqft</td>
                 <td>92.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-20.1 kBtu/sqft</td>
@@ -458,86 +417,47 @@ Source: LL84" style="display: inline-block; margin-left: 5px; width: 16px; heigh
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 27% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Theater
-Category: Single-Tenant
-
-WHY 18-40% RANGE:
-Performance schedules create extreme
-variability—completely empty for hours then
-full capacity for shows. High opportunity
-during non-show periods.
-
-FORMULA: 1 - Utilization
-  Utilization: 55%
-  Opportunity: 45%
-
-MODIFIERS:
-  Automation: 0.12 (built 1924, 36K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 26.7% of HVAC costs
-(Range: 18-40% for Theater)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $623,524/yr
+  (Electric: $564,125, Steam: $59,399)
+HVAC portion of that: $340,898/yr
+ODCV saves 27% of HVAC = $90,883/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$624K/yr</td>
                 <td>$533K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$91K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC Local Law 97: $268/tCO2e over cap (cap: 0.00758 tCO2e/sqft). ODCV reduces emissions, avoiding $4,279/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
+
+Cap: 36,000 sqft × 0.00758
+   = 273 tCO2e/yr allowed
+This building: 289 tCO2e/yr
+Over cap by: 16 tCO2e
+
+Fine without ODCV: $4,279/yr
+ODCV cuts emissions 27%
+Fine avoided: $4,279/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$4K/yr</td>
                 <td>$0/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$4K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $564,125 x 50% = $281,498
-Steam: $59,399 x 100% = $59,399
-Total HVAC Cost: $340,898/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $90,883/yr
+  Fine avoidance: $4,279/yr
+  Total: $95,162/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Theater
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 55%
-Savings Range: 18-40%
-This Building: 26.7%
-Annual Savings: $90,883
+Cap rate: 8.0% (Theater typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: NYC Local Law 97
-Method: emission cap
-Penalty: $268/tCO2e over cap
-Fine Avoided: $4,279/yr
-Source: NYC Dept of Buildings
+$95,162/yr ÷ 8.0%
+= $1,189,526 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $90,883
-+ Fine Avoidance: $4,279
-= Total: $95,162/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$95,162 / 8.00% = $1,189,526
-
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.2M</td>

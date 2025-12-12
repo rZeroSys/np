@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!-- Generated: 2025-12-12 01:57:25 EST -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Report - BERK_7470</title>
+    <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f9fafb;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            position: relative;
+        }
+
+        .page-header .back-link {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .back-link:hover {
+            color: white;
+        }
+
+        .page-header .header-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .header-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .page-header .header-branding a {
+            display: block;
+        }
+
+        /* Hero */
+        .hero {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 1.3em;
+            margin-bottom: 3px;
+        }
+
+        .hero .address {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .hero .building-info {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .hero .opportunity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .hero .metric {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .hero .metric-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .hero .metric-value {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section {
+            margin: 40px 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #1a202c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0066cc;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        /* Chart */
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .hero .opportunity {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        /* Tooltip Styles */
+        .info-tooltip {
+            display: inline-block;
+            margin-left: 5px;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 12px;
+            cursor: help;
+            position: relative;
+        }
+
+        .info-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
+            max-width: 90vw;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
+            text-align: left;
+            z-index: 2147483647;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+        }
+
+        .info-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-tooltip::before {
+            content: "";
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1a1a2e;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .info-tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .org-logo::after {
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }
+
+        .org-logo:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile tooltip adjustments */
+        @media (max-width: 768px) {
+            .info-tooltip::after {
+                width: 320px;
+                font-size: 10px;
+                left: auto;
+                right: 0;
+                transform: none;
+            }
+
+            .info-tooltip::before {
+                left: auto;
+                right: 10px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <div class="hero" style="position:relative;text-align:center;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:10px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+    </a>
+        <h1><a href="https://data.cityofberkeley.info/resource/5vy5-rwja.json?pm_property_id=7470" target="_blank" style="color: inherit; text-decoration: none;">2640 COLLEGE AVE, Berkeley, CA <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
+    </div>
+
+    <div class="section" style="margin: 0; padding: 0;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/BERK_7470_streetview.jpg" alt="Building BERK_7470" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
+    </div>
+
+    <div class="section">
+        <h2>Property</h2>
+        <table>
+<tr><td>Name</td><td>Berkeley Playhouse</td></tr>
+<tr><td>Size</td><td>22,332 sqft</td></tr>
+<tr><td>Type</td><td>Office</td></tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Energy</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 8,400 kWh/yr
+After ODCV: 7,463 kWh/yr
+Change: -937 kWh/yr
+How: HVAC is 46% of electric; ODCV cuts 24% of that.
+Why believable: offices over-ventilate for hybrid/vacant space.
+Sources: BESO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>8,399 kWh</td>
+                <td>7,462 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-937 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 1,412 therms/yr
+After ODCV: 1,121 therms/yr
+Change: -291 therms/yr
+How: HVAC is 85% of gas; ODCV cuts 24% of that.
+Why believable: 85% of gas is heating; offices over-condition empty space.
+Sources: BESO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,411 therms</td>
+                <td>1,120 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-290 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 7.6 kBtu/sqft
+After ODCV: —
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
+Why believable: elec HVAC 46%, gas HVAC 85% — high HVAC share = big EUI impact.
+Sources: BESO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>7.6 kBtu/sqft</td>
+                <td>—</td>
+                <td>—</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $6,009/yr
+  (Electric: $3,070, Gas: $2,939)
+HVAC portion of that: $3,911/yr
+ODCV saves 24% of HVAC = $948/yr
+OFFICE NOTE:
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$6K/yr</td>
+                <td>$5K/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$948/yr</td>
+            </tr>
+
+            <tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
+
+Annual benefit:
+  Utility savings: $948/yr
+
+Cap rate: 6.5% (Office typical)
+
+$948/yr ÷ 6.5%
+= $14,590 value increase
+
+Every $1 saved = $15 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>—</td>
+                <td>—</td>
+                <td style="color: #16a34a; font-weight: 600;">+$15K</td>
+            </tr>
+
+        </table>
+    </div>
+
+    </div>
+</body>
+</html>

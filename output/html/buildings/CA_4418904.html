@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:11 EST -->
+<!-- Generated: 2025-12-12 01:55:59 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  12,074,097 kWh × $0.3979/kWh × 1.10
-  = $5,285,083/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 3,063 kW
-  3,063 kW × $70.00/kW × 12 mo × 1.265
-  = $3,254,677/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Enclosed Malls typically: 45%)
-  Peak = (12,074,097 ÷ 8,760 hrs) ÷ 0.45
-       = 3,063 kW
-
-TOTAL: $8,539,760/yr
-
-HVAC PORTION: 48%
-  = $4,099,085/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Enclosed Malls typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Pacific Gas &amp; Electric Co." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 12,074,097 kWh/yr
+After ODCV: 10,828,050 kWh/yr
+Change: -1,246,047 kWh/yr
+How: HVAC is 48% of electric; ODCV cuts 22% of that.
+Why believable: 12% vacant, 55% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>12,074,096 kWh</td>
                 <td>10,828,049 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,246,046 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  314,306 kBtu ÷ 100 = 3,143 therms
-  3,143 × $1.893/therm × 1.10
-  = $6,545/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR ENCLOSED MALL: 83%
-  = $5,432/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 3,143 therms/yr
+After ODCV: 2,582 therms/yr
+Change: -561 therms/yr
+How: HVAC is 83% of gas; ODCV cuts 22% of that.
+Why believable: 83% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,143 therms</td>
                 <td>2,582 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-560 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 61.7 kBtu/sqft
+After ODCV: 55.3 kBtu/sqft
+Change: -6.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 22% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>61.7 kBtu/sqft</td>
                 <td>55.3 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-6.4 kBtu/sqft</td>
@@ -457,63 +417,29 @@ Source: AB 802, NREL rates" style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 22% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Enclosed Mall
-Category: Single-Tenant
-
-WHY 15-35% RANGE:
-Standard commercial building. Savings depend
-on operating hours and occupancy patterns.
-
-FORMULA: 1 - Utilization
-  Utilization: 55%
-  Opportunity: 45%
-
-MODIFIERS:
-  Automation: 0.62 (built 1981, 673K sqft)
-  Efficiency: 1.00 (avg EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 21.5% of HVAC costs
-(Range: 15-35% for Enclosed Mall)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $8,546,305/yr
+  (Electric: $8,539,760, Gas: $6,545)
+HVAC portion of that: $4,104,517/yr
+ODCV saves 22% of HVAC = $882,471/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$8.5M/yr</td>
                 <td>$7.7M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$882K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $8,539,760 x 48% = $4,099,085
-Gas: $6,545 x 83% = $5,432
-Total HVAC Cost: $4,104,517/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $882,471/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Enclosed Mall
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 55%
-Savings Range: 15-35%
-This Building: 21.5%
-Annual Savings: $882,471
+Cap rate: 7.5% (Enclosed Mall typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 7.50%
-$882,471 / 7.50% = $11,766,282
+$882,471/yr ÷ 7.5%
+= $11,766,282 value increase
 
-$1 saved = $13 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$11.8M</td>

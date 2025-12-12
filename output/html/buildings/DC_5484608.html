@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:40 EST -->
+<!-- Generated: 2025-12-12 01:54:19 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,79 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  10,178,450 kWh × $0.2234/kWh × 1.10
-  = $2,501,588/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 2,113 kW
-  2,113 kW × $22.00/kW × 12 mo × 1.265
-  = $705,520/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Outpatient Clinics typically: 50%)
-  Peak = (10,178,450 ÷ 8,760 hrs) ÷ 0.55
-       = 2,113 kW
-
-TOTAL: $3,207,108/yr
-
-HVAC PORTION: 54%
-  = $1,738,573/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Outpatient Clinics typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 10,178,450 kWh/yr
+After ODCV: 8,836,536 kWh/yr
+Change: -1,341,914 kWh/yr
+How: HVAC is 54% of electric; ODCV cuts 24% of that.
+Why believable: 70% utilized.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>10,178,449 kWh</td>
                 <td>8,836,536 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-1,341,913 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  128,958,358 kBtu ÷ 100 = 1,289,584 therms
-  1,289,584 × $1.570/therm × 1.10
-  = $2,226,685/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OUTPATIENT CLINIC: 98%
-  = $2,182,152/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 1,289,584 therms/yr
+After ODCV: 982,229 therms/yr
+Change: -307,354 therms/yr
+How: HVAC is 98% of gas; ODCV cuts 24% of that.
+Why believable: 98% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: DC BEPS, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,289,583 therms</td>
                 <td>982,229 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-307,354 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 199.7 kBtu/sqft
+After ODCV: 156.6 kBtu/sqft
+Change: -43.1 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: DC BEPS, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>199.7 kBtu/sqft</td>
                 <td>156.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-43.1 kBtu/sqft</td>
@@ -456,38 +416,25 @@ Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 24% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Outpatient Clinic
-Category: Single-Tenant
-
-WHY 15-32% RANGE:
-Appointment-driven occupancy with clear
-operating hours. Less stringent than
-inpatient hospitals—no 24/7 operation or
-strict infection control in most areas.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.50 (built 1922, 820K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 24.3% of HVAC costs
-(Range: 15-32% for Outpatient Clinic)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $5,433,793/yr
+  (Electric: $3,207,108, Gas: $2,226,685)
+HVAC portion of that: $3,920,725/yr
+ODCV saves 24% of HVAC = $953,520/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$5.4M/yr</td>
                 <td>$4.5M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$954K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS: $10/sqft (prorated) based on ENERGY STAR compliance gap. ODCV improves score, avoiding $324,156/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS
+
+Target: ENERGY STAR score 71+
+
+Below 71 = $10/sqft fine
+ODCV improves efficiency → higher score
+Fine avoided: $324,156/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$4.1M/yr</td>
                 <td>$3.8M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$324K/yr</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:21 EST -->
+<!-- Generated: 2025-12-12 01:53:59 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,78 +363,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  7,355,604 kWh × $0.3116/kWh × 1.10
-  = $2,521,118/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 1,292 kW
-  1,292 kW × $55.00/kW × 12 mo × 1.265
-  = $1,078,538/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 65%
-  (Supermarket/Grocerys typically: 65%)
-  Peak = (7,355,604 ÷ 8,760 hrs) ÷ 0.65
-       = 1,292 kW
-
-TOTAL: $3,599,655/yr
-
-HVAC PORTION: 15%
-  = $539,948/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Supermarket/Grocerys typically 32%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Only 32% of electricity is HVAC. ~40% is
-  refrigeration for food cases and
-  freezers.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 7,355,604 kWh/yr
+After ODCV: 7,134,936 kWh/yr
+Change: -220,668 kWh/yr
+How: HVAC is 15% of electric; ODCV cuts 20% of that.
+Why believable: 4% vacant, 73% utilized.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>7,355,603 kWh</td>
                 <td>7,134,935 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-220,668 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  3,556,766 kBtu ÷ 100 = 35,568 therms
-  35,568 × $1.727/therm × 1.10
-  = $67,568/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR SUPERMARKET/GROCERY: 47%
-  = $32,068/yr for heating
-
-  75% of gas used for HVAC - higher than
-  average due to makeup air for exhaust.
-  (Based on EIA CBECS 2018)
-
-Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 35,568 therms/yr
+After ODCV: 32,192 therms/yr
+Change: -3,376 therms/yr
+How: HVAC is 47% of gas; ODCV cuts 20% of that.
+Why believable: 47% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>35,567 therms</td>
                 <td>32,191 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-3,376 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 121.3 kBtu/sqft
+After ODCV: 116.7 kBtu/sqft
+Change: -4.6 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>121.3 kBtu/sqft</td>
                 <td>116.7 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-4.6 kBtu/sqft</td>
@@ -454,86 +415,49 @@ Source: BERDO, NREL rates" style="display: inline-block; margin-left: 5px; width
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Supermarket/Grocery
-Category: Single-Tenant
-
-WHY 10-25% RANGE:
-Long hours (often 6am-midnight or 24/7) with
-steady traffic reduce empty-space
-opportunity. Note: ~40% of electricity is
-refrigeration, not HVAC.
-
-FORMULA: 1 - Utilization
-  Utilization: 73%
-  Opportunity: 27%
-
-MODIFIERS:
-  Automation: 0.38
-  Efficiency: 1.05 (ES 33, below avg)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 10-25% for Supermarket/Grocery)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $3,667,223/yr
+  (Electric: $3,599,655, Gas: $67,568)
+HVAC portion of that: $572,016/yr
+ODCV saves 20% of HVAC = $114,403/yr
+GROCERY NOTE:
+40% of electric is refrigeration - those cases run 24/7.
+ODCV only saves on the HVAC portion.
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$3.7M/yr</td>
                 <td>$3.6M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$114K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0: $234/tCO2e over cap (cap: 0.0053 tCO2e/sqft). ODCV reduces emissions, avoiding $19,171/yr in fines." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
+
+Cap: 236,236 sqft × 0.0053
+   = 1,252 tCO2e/yr allowed
+This building: 1,988 tCO2e/yr
+
+Fine: $234/tCO2e over cap
+ODCV cuts emissions 20%
+Fine avoided: $19,171/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$250K/yr</td>
                 <td>$231K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$19K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $3,599,655 x 15% = $539,948
-Gas: $67,568 x 47% = $32,068
-Total HVAC Cost: $572,016/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $114,403/yr
+  Fine avoidance: $19,171/yr
+  Total: $133,574/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Supermarket/Grocery
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 73%
-Savings Range: 10-25%
-This Building: 20.0%
-Annual Savings: $114,403
+Cap rate: 6.0% (Supermarket/Grocery typical)
 
-STEP 3: BPS Fine Avoidance
--------------------------
-Law: BERDO 2.0
-Method: emission cap
-Penalty: $234/tCO2e over cap
-Fine Avoided: $19,171/yr
-Source: City of Boston
+$133,574/yr ÷ 6.0%
+= $2,226,241 value increase
 
-STEP 4: Total OpEx Avoidance
--------------------------
-Utility Savings: $114,403
-+ Fine Avoidance: $19,171
-= Total: $133,574/yr
-
-STEP 5: Valuation Impact
--------------------------
-Cap Rate: 6.00%
-$133,574 / 6.00% = $2,226,241
-
-$1 saved = $16 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$2.2M</td>

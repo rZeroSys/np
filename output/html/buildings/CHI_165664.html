@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:33 EST -->
+<!-- Generated: 2025-12-12 01:56:22 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,53 +365,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  160,959 kWh × $0.1338/kWh × 1.10
-  = $23,681/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 41 kW
-  41 kW × $15.00/kW × 12 mo × 1.265
-  = $9,297/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 45%
-  (Library/Museums typically: 35%)
-  Peak = (160,959 ÷ 8,760 hrs) ÷ 0.45
-       = 41 kW
-
-TOTAL: $32,978/yr
-
-HVAC PORTION: 65%
-  = $21,436/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Library/Museums typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 160,959 kWh/yr
+After ODCV: 140,034 kWh/yr
+Change: -20,925 kWh/yr
+How: HVAC is 65% of electric; ODCV cuts 20% of that.
+Why believable: 9% vacant, 68% utilized.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>160,958 kWh</td>
                 <td>140,034 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-20,924 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 9.0 kBtu/sqft
+After ODCV: 8.6 kBtu/sqft
+Change: -0.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Chicago Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>9.0 kBtu/sqft</td>
                 <td>8.6 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-0.4 kBtu/sqft</td>
@@ -431,31 +404,12 @@ Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Library/Museum
-Category: Single-Tenant
-
-WHY 12-28% RANGE:
-Fixed operating hours with relatively steady
-occupancy during open hours. Collection
-preservation may require stable conditions.
-Savings primarily from nights/weekends.
-
-FORMULA: 1 - Utilization
-  Utilization: 68%
-  Opportunity: 32%
-
-MODIFIERS:
-  Automation: 0.25 (built 1927, 61K sqft)
-  Efficiency: 0.90 (low EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 20.0% of HVAC costs
-(Range: 12-28% for Library/Museum)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $32,978/yr
+  (Electric: $32,978)
+HVAC portion of that: $21,436/yr
+ODCV saves 20% of HVAC = $4,287/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$33K/yr</td>
                 <td>$29K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$4K/yr</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:53 EST -->
+<!-- Generated: 2025-12-12 01:54:33 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,53 +364,26 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  779,771 kWh × $0.2474/kWh × 1.10
-  = $212,239/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 297 kW
-  297 kW × $58.04/kW × 12 mo × 1.265
-  = $261,409/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 30%
-  (Theaters typically: 35%)
-  Peak = (779,771 ÷ 8,760 hrs) ÷ 0.30
-       = 297 kW
-
-TOTAL: $473,648/yr
-
-HVAC PORTION: 55%
-  = $260,506/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Theaters typically 50%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: AB 802, Los Angeles Department of Water &amp; Power" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 779,771 kWh/yr
+After ODCV: 652,782 kWh/yr
+Change: -126,990 kWh/yr
+How: HVAC is 55% of electric; ODCV cuts 30% of that.
+Why believable: 50% utilized.
+Sources: AB 802, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>779,771 kWh</td>
                 <td>652,781 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-126,989 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 87.1 kBtu/sqft
+After ODCV: 73.9 kBtu/sqft
+Change: -13.2 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 30% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: AB 802, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>87.1 kBtu/sqft</td>
                 <td>73.9 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-13.2 kBtu/sqft</td>
@@ -430,64 +403,29 @@ Source: AB 802, Los Angeles Department of Water &amp; Power" style="display: inl
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 30% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Theater
-Category: Single-Tenant
-
-WHY 18-40% RANGE:
-Performance schedules create extreme
-variability—completely empty for hours then
-full capacity for shows. High opportunity
-during non-show periods.
-
-FORMULA: 1 - Utilization
-  Utilization: 50%
-  Opportunity: 50%
-
-MODIFIERS:
-  Automation: 0.50 (built 2012, 33K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 29.6% of HVAC costs
-(Range: 18-40% for Theater)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $473,648/yr
+  (Electric: $473,648)
+HVAC portion of that: $260,506/yr
+ODCV saves 30% of HVAC = $77,136/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$474K/yr</td>
                 <td>$397K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$77K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
-===================================
+                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
 
-STEP 1: Annual HVAC Cost
--------------------------
-Elec: $473,648 x 55% = $260,506
-Total HVAC Cost: $260,506/yr
-(HVAC % from EIA CBECS 2018)
+Annual benefit:
+  Utility savings: $77,136/yr
 
-STEP 2: ODCV Savings
--------------------------
-Type: Theater
-Category: Single-Tenant
-Formula: 1 - Utilization
-Utilization Rate: 50%
-Savings Range: 18-40%
-This Building: 29.6%
-Annual Savings: $77,136
+Cap rate: 8.0% (Theater typical)
 
-STEP 3: Valuation Impact
--------------------------
-Cap Rate: 8.00%
-$77,136 / 8.00% = $964,199
+$77,136/yr ÷ 8.0%
+= $964,199 value increase
 
-$1 saved = $12 higher value
-
-Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+Every $1 saved = $12 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$964K</td>

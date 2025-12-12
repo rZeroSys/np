@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:02:41 EST -->
+<!-- Generated: 2025-12-12 01:54:20 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -365,79 +365,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  16,866,987 kWh × $0.1338/kWh × 1.10
-  = $2,481,555/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 3,501 kW
-  3,501 kW × $22.00/kW × 12 mo × 1.265
-  = $1,169,136/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Outpatient Clinics typically: 50%)
-  Peak = (16,866,987 ÷ 8,760 hrs) ÷ 0.55
-       = 3,501 kW
-
-TOTAL: $3,650,692/yr
-
-HVAC PORTION: 47%
-  = $1,722,761/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Outpatient Clinics typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 16,866,987 kWh/yr
+After ODCV: 14,543,600 kWh/yr
+Change: -2,323,387 kWh/yr
+How: HVAC is 47% of electric; ODCV cuts 29% of that.
+Why believable: 70% utilized.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>16,866,986 kWh</td>
                 <td>14,543,599 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-2,323,387 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
-===================================
-
-FORMULA: therms × rate × 1.10
-
-THIS BUILDING:
-  97,785,890 kBtu ÷ 100 = 977,859 therms
-  977,859 × $1.090/therm × 1.10
-  = $1,172,560/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OUTPATIENT CLINIC: 91%
-  = $1,069,258/yr for heating
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type and
-  climate.
-  (Based on EIA CBECS 2018)
-
-Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
+Current (disclosed): 977,859 therms/yr
+After ODCV: 717,569 therms/yr
+Change: -260,290 therms/yr
+How: HVAC is 91% of gas; ODCV cuts 29% of that.
+Why believable: 91% of gas is HVAC; ODCV cuts when unoccupied.
+Sources: Chicago Benchmarking Ordinance, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>977,858 therms</td>
                 <td>717,568 therms</td>
                 <td style="color: #16a34a; font-weight: 600;">-260,290 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 176.9 kBtu/sqft
+After ODCV: 138.3 kBtu/sqft
+Change: -38.6 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 29% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: Chicago Benchmarking Ordinance, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>176.9 kBtu/sqft</td>
                 <td>138.3 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-38.6 kBtu/sqft</td>
@@ -457,31 +417,12 @@ Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 29% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Outpatient Clinic
-Category: Single-Tenant
-
-WHY 15-32% RANGE:
-Appointment-driven occupancy with clear
-operating hours. Less stringent than
-inpatient hospitals—no 24/7 operation or
-strict infection control in most areas.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 1.00 (built 2016, 878K sqft)
-  Efficiency: 1.10 (high EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 29.2% of HVAC costs
-(Range: 15-32% for Outpatient Clinic)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $4,823,252/yr
+  (Electric: $3,650,692, Gas: $1,172,560)
+HVAC portion of that: $2,792,019/yr
+ODCV saves 29% of HVAC = $814,990/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$4.8M/yr</td>
                 <td>$4.0M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$815K/yr</td>

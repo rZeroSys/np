@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 00:04:49 EST -->
+<!-- Generated: 2025-12-12 01:56:38 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -364,77 +364,39 @@
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
-===================================
-
-ENERGY CHARGES (usage-based):
-  1,911,049 kWh × $0.1100/kWh × 1.10
-  = $231,237/yr
-  (×1.10 = taxes, fees, distribution)
-
-DEMAND CHARGES (peak capacity):
-  Peak: 397 kW
-  397 kW × $22.00/kW × 12 mo × 1.265
-  = $132,465/yr
-  (×1.265 = ratchet clauses, seasonal peaks)
-
-HOW PEAK DEMAND IS ESTIMATED:
-  Load Factor: 55%
-  (Outpatient Clinics typically: 50%)
-  Peak = (1,911,049 ÷ 8,760 hrs) ÷ 0.55
-       = 397 kW
-
-TOTAL: $363,701/yr
-
-HVAC PORTION: 57%
-  = $208,074/yr for heating/cooling
-
-HOW HVAC % IS DERIVED:
-  Baseline: Outpatient Clinics typically 54%
-  Adjustments applied:
-    • Building age (newer = more efficient)
-    • Energy Star score (higher = less waste)
-    • EUI vs. peer median
-    • Climate zone
-
-  Based on EIA CBECS 2018 survey of 6,436
-  buildings, adjusted for building type
-  and climate.
-
-  Source: EIA CBECS 2018 (6,436 buildings)
-
-Source: KC Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
+Current (disclosed): 1,911,049 kWh/yr
+After ODCV: 1,681,345 kWh/yr
+Change: -229,705 kWh/yr
+How: HVAC is 57% of electric; ODCV cuts 21% of that.
+Why believable: 70% utilized.
+Sources: KC Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,911,049 kWh</td>
                 <td>1,681,344 kWh</td>
                 <td style="color: #16a34a; font-weight: 600;">-229,704 kWh</td>
             </tr>
 
             <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
-================================
-
-FORMULA: MMBtu × rate × 1.10
-
-THIS BUILDING:
-  8,694,000 kBtu ÷ 1,000
-  = 8,694.0 MMBtu
-  × $13.00/MMBtu × 1.10
-  = $124,324/yr
-  (×1.10 = taxes, fees, delivery)
-
-HVAC PORTION FOR OUTPATIENT CLINIC: 93%
-  = $115,622/yr for space heating
-  Fuel oil: fixed 93% HVAC (heating only)
-  (Based on EIA CBECS 2018)
-
-Source: KC Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="FUEL OIL SAVINGS
+Current (disclosed): 62,773 gallons/yr
+After ODCV: 50,507 gallons/yr
+Change: -12,265 gallons/yr
+How: HVAC is 93% of fuel oil; ODCV cuts 21% of that.
+Why believable: fuel oil is almost entirely for heating (no cooking/hot water).
+Sources: KC Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>62,772 gallons</td>
                 <td>50,507 gallons</td>
                 <td style="color: #16a34a; font-weight: 600;">-12,265 gallons</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
+Current (disclosed): 64.4 kBtu/sqft
+After ODCV: 46.0 kBtu/sqft
+Change: -18.4 kBtu/sqft
+How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 21% savings).
+Why believable: HVAC portion drives EUI reduction.
+Sources: KC Benchmarking, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>64.4 kBtu/sqft</td>
                 <td>46.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-18.4 kBtu/sqft</td>
@@ -454,31 +416,12 @@ Source: KC Benchmarking, NREL rates" style="display: inline-block; margin-left: 
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 21% HVAC SAVINGS IS ESTIMATED
-======================================
-
-BUILDING TYPE: Outpatient Clinic
-Category: Single-Tenant
-
-WHY 15-32% RANGE:
-Appointment-driven occupancy with clear
-operating hours. Less stringent than
-inpatient hospitals—no 24/7 operation or
-strict infection control in most areas.
-
-FORMULA: 1 - Utilization
-  Utilization: 70%
-  Opportunity: 30%
-
-MODIFIERS:
-  Automation: 0.38
-  Efficiency: 1.00 (avg EUI)
-  Climate: 1.00 (Moderate)
-
-RESULT: 21.0% of HVAC costs
-(Range: 15-32% for Outpatient Clinic)
-
-Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
+Total energy bill: $488,026/yr
+  (Electric: $363,701, Oil: $124,324)
+HVAC portion of that: $323,695/yr
+ODCV saves 21% of HVAC = $68,008/yr
+Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$488K/yr</td>
                 <td>$420K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$68K/yr</td>

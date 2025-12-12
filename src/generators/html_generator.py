@@ -5081,16 +5081,16 @@ function selectVertical(v) {{
             btn.classList.remove('selected');
         }}
     }});
-    // Clear building type if it was hidden
-    const selected = document.querySelector('.building-type-btn.selected:not(.hidden)');
-    selectedBuildingType = selected ? selected.dataset.type : null;
-
-    // Clear dropdown radio buttons and chip if building type was cleared
-    if (!selectedBuildingType) {{
+    // Only clear building type if it's from a chip button that got hidden
+    const selectedChipBtn = document.querySelector('.building-type-btn.selected');
+    if (selectedChipBtn && selectedChipBtn.classList.contains('hidden')) {{
+        // The selected chip button is now hidden, so clear the filter
+        selectedBuildingType = null;
         document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
         const chip = document.getElementById('building-type-chip');
         if (chip) chip.classList.remove('visible');
     }}
+    // Don't touch selectedBuildingType if it was set from dropdown radio
 
     applyFilters();
 }}
@@ -5722,6 +5722,9 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
         return;
     }}
 
+    // Set building type BEFORE calling selectVertical (so it doesn't get cleared)
+    selectedBuildingType = buildingType;
+
     // Ensure only this radio is selected (clear all others explicitly)
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {{
         r.checked = (r.dataset.type === buildingType);
@@ -5729,9 +5732,6 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
 
     // Switch to that vertical
     selectVertical(vertical);
-
-    // Apply the building type filter directly (no chip)
-    selectedBuildingType = buildingType;
 
     // Add selected class to the vertical button (shows shadow + X)
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
@@ -7330,7 +7330,8 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
-        target: '.row-controls',
+        target: '.portfolio-card.expanded .row-controls',
+        multiTarget: ['.portfolio-card.expanded .row-arrow:first-child', '.portfolio-card.expanded .row-arrow:last-child'],
         title: 'Show More / Collapse',
         content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
         position: 'top',
@@ -7341,9 +7342,9 @@ const TUTORIAL_STEPS = [
                 if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }}
             setTimeout(function() {{
-                var controls = document.querySelector('.row-controls');
+                var controls = document.querySelector('.portfolio-card.expanded .row-controls');
                 if (controls) controls.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-            }}, 300);
+            }}, 400);
         }}
     }}
 ];
