@@ -7315,18 +7315,14 @@ const TUTORIAL_STEPS = [
         title: 'Source Link',
         content: 'Click the arrow icon (↗) next to the building thumbnail to view the original data source for this building in a new tab.',
         position: 'right',
+        waitForTarget: true,
+        waitForTargetTimeoutMs: 2000,
         action: function() {{
             // Ensure a portfolio is expanded
             var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
             if (firstCard && !firstCard.classList.contains('expanded')) {{
                 togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }}
-            setTimeout(function() {{
-                var link = document.querySelector('.building-grid-row .ext-link-cell a[href]');
-                if (link) {{
-                    link.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-                }}
-            }}, 300);
         }}
     }},
     {{
@@ -7350,13 +7346,20 @@ const TUTORIAL_STEPS = [
 function waitForTutorialTarget(step, maxWaitMs, cb) {{
     var start = Date.now();
     (function tick() {{
-        // For row-controls, must be inside expanded card
+        // Look for element inside expanded card first
         var expanded = document.querySelector('.portfolio-card.expanded');
         if (expanded) {{
-            var el = expanded.querySelector('.row-controls');
+            // Try to find target inside expanded card
+            var selector = step.target.replace('.portfolio-card.expanded ', '');
+            var el = expanded.querySelector(selector) || expanded.querySelector('.row-controls');
             if (el && el.getBoundingClientRect().width > 0) {{
                 return cb(el);
             }}
+        }}
+        // Fallback: try global querySelector
+        var globalEl = document.querySelector(step.target);
+        if (globalEl && globalEl.getBoundingClientRect().width > 0) {{
+            return cb(globalEl);
         }}
         if (Date.now() - start >= maxWaitMs) return cb(null);
         requestAnimationFrame(tick);
@@ -7442,9 +7445,8 @@ function showTutorialStep(stepIndex) {{
         // Scroll target into view first
         targetEl.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 
-        // Wait for scroll, then measure with requestAnimationFrame for accurate coords
-        requestAnimationFrame(function() {{
-            requestAnimationFrame(function() {{
+        // Wait for smooth scroll to complete (400ms), then measure
+        setTimeout(function() {{
             var spotlight = document.getElementById('tutorial-spotlight');
             var spotlight2 = document.getElementById('tutorial-spotlight-2');
             var padding = 8;
@@ -7526,8 +7528,7 @@ function showTutorialStep(stepIndex) {{
 
             // Show tooltip after positioning
             tooltip.classList.add('visible');
-            }});
-        }});
+        }}, 600);
     }};
 
     // If step needs to wait for dynamic element (step 9), use waitForTutorialTarget
