@@ -7247,9 +7247,10 @@ const TUTORIAL_STEPS = [
         position: 'bottom'
     }},
     {{
-        target: '.main-tab[data-tab="portfolios"]',
-        title: 'Portfolios Tab',
-        content: 'View all portfolios ranked by OpEx savings potential. Each card represents an organization with one or more buildings.',
+        target: '.main-tab[data-tab="cities"]',
+        multiTarget: ['.main-tab[data-tab="cities"]', '.main-tab[data-tab="portfolios"]'],
+        title: 'Cities & Portfolios Tabs',
+        content: 'Switch between views: Portfolios tab shows buildings grouped by organization (owner, tenant, property manager). Cities tab shows buildings grouped by metro area.',
         position: 'bottom',
         action: function() {{ switchMainTab('portfolios'); }}
     }},
