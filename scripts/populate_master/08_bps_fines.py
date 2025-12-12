@@ -83,6 +83,13 @@ BOSTON_FACTORS = {
     'steam': 0.0000664,         # tCO2e/kBtu
 }
 
+# Cambridge BEUDO factors (same grid as Boston - EPA eGRID NEWE)
+CAMBRIDGE_FACTORS = {
+    'electricity': 0.000085,    # tCO2e/kBtu (same as Boston)
+    'gas': 0.00005311,          # tCO2e/kBtu
+    'steam': 0.0000664,         # tCO2e/kBtu
+}
+
 # DC BEPS - Not emissions-based, uses Energy Star score
 # Using standard factors for carbon reduction calc only
 DC_FACTORS = {
@@ -136,6 +143,15 @@ BPS_LAWS = {
         'emission_cap': 0.0053,  # tCO2e/sqft (5.3 kgCO2e = 0.0053 tCO2e)
         'min_sqft': 20000,
         'factors': BOSTON_FACTORS,
+    },
+    'Cambridge': {
+        'loc_state': 'MA',
+        'law_name': 'Cambridge BEUDO',
+        'type': 'emission',
+        'fine_rate': 234,  # $/tCO2e (same ACP as Boston)
+        'emission_cap': 0.0053,  # tCO2e/sqft (same as Boston)
+        'min_sqft': 25000,
+        'factors': CAMBRIDGE_FACTORS,
     },
     'Washington': {
         'loc_state': 'DC',
@@ -328,6 +344,49 @@ def calc_fine_nyc(row):
 def calc_fine_boston(row):
     """Boston BERDO - Emission-based, $234/tCO2e over cap."""
     params = BPS_LAWS['Boston']
+    factors = params['factors']
+
+    # Use safe_float to handle NaN properly
+    sqft = safe_float(row.get('bldg_sqft'), 0)
+    elec = safe_float(row.get('energy_elec_kbtu'), 0)
+    gas = safe_float(row.get('energy_gas_kbtu'), 0)
+    steam = safe_float(row.get('energy_steam_kbtu'), 0)
+    odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
+
+    # HVAC percentages - use default only if energy exists but pct is NaN
+    elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
+    gas_hvac = safe_float(row.get('hvac_pct_gas'), DEFAULT_GAS_HVAC) if gas > 0 else 0
+    steam_hvac = safe_float(row.get('hvac_pct_steam'), DEFAULT_STEAM_HVAC) if steam > 0 else 0
+
+    if sqft < params['min_sqft']:
+        return 0, 0, 0
+
+    # Baseline emissions
+    baseline_emissions = calc_emissions_from_energy(elec, gas, steam, factors)
+
+    # With ODCV emissions
+    net_elec, net_gas, net_steam = apply_odcv_to_energy(
+        elec, gas, steam, odcv_pct, elec_hvac, gas_hvac, steam_hvac
+    )
+    with_odcv_emissions = calc_emissions_from_energy(net_elec, net_gas, net_steam, factors)
+
+    # Carbon reduction
+    carbon_reduction = baseline_emissions - with_odcv_emissions
+
+    # Fine calculation (cap is in tCO2e/sqft)
+    cap = sqft * params['emission_cap']
+    baseline_overage = max(0, baseline_emissions - cap)
+    with_odcv_overage = max(0, with_odcv_emissions - cap)
+
+    baseline_fine = baseline_overage * params['fine_rate']
+    post_odcv_fine = with_odcv_overage * params['fine_rate']
+
+    return carbon_reduction, baseline_fine, post_odcv_fine
+
+
+def calc_fine_cambridge(row):
+    """Cambridge BEUDO - Emission-based, $234/tCO2e over cap (same as Boston)."""
+    params = BPS_LAWS['Cambridge']
     factors = params['factors']
 
     # Use safe_float to handle NaN properly
@@ -634,6 +693,7 @@ def calc_non_bps(row):
 FINE_CALCULATORS = {
     'New York': calc_fine_nyc,
     'Boston': calc_fine_boston,
+    'Cambridge': calc_fine_cambridge,
     'Washington': calc_fine_dc,
     'Denver': calc_fine_denver,
     'Seattle': calc_fine_seattle,
@@ -677,18 +737,30 @@ def process_csv(input_csv):
     print("\nCalculating fines by city...")
     bps_stats = {}
 
-    # Cities that EXEMPT K-12 and Government buildings
+    # ==========================================================================
+    # BPS EXEMPTIONS BY CITY (based on official law research Dec 2025)
+    # ==========================================================================
+    # NYC LL97: Houses of worship fully exempt; affordable housing & city buildings
+    #           have alternative compliance under Article 321 (not standard fines)
+    # Denver:   K-12 schools and government buildings have different compliance pathways
+    # Cambridge: Only non-residential buildings subject to emission reduction fines
+    #           (residential buildings exempt from emission reduction per 2023 amendment)
+    # Boston, DC, Seattle, St. Louis: No K-12/govt exemptions - all building types fined
+    # ==========================================================================
+
+    # Cities that EXEMPT K-12 and Government buildings from standard BPS fines
     EXEMPT_K12_GOV = ['New York', 'Denver']
 
     for city_name, calc_func in FINE_CALCULATORS.items():
         # Base mask: buildings in this city
         city_base_mask = df['loc_city'] == city_name
 
-        # Apply K-12/Government exemptions only for NYC and Denver
+        # Apply exemptions based on city-specific rules
         if city_name in EXEMPT_K12_GOV:
-            city_mask = city_base_mask & (df['bldg_vertical'] != 'Government') & (df['bldg_type'] != 'K-12')
+            # NYC & Denver: K-12 schools and government buildings have alternative compliance
+            city_mask = city_base_mask & (df['bldg_vertical'] != 'Government') & (df['bldg_vertical'] != 'K-12 School')
         else:
-            # Boston, DC, Seattle, St. Louis - include ALL buildings
+            # Boston, Cambridge, DC, Seattle, St. Louis - include ALL commercial building types
             city_mask = city_base_mask
 
         city_count = city_mask.sum()

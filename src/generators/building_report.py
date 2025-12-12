@@ -101,48 +101,77 @@ CITY_DISCLOSURE_LAWS = {
 BPS_CITIES = ['New York', 'Boston', 'Cambridge', 'Washington', 'Denver', 'Seattle', 'St. Louis']
 
 # BPS law details for tooltips - explains fine avoidance calculation method
+# Includes exemption info for dynamic tooltip generation
 BPS_TOOLTIP_INFO = {
     'New York': {
         'law': 'NYC Local Law 97',
         'method': 'emission cap',
         'penalty': '$268/tCO2e over cap',
-        'source': 'NYC Dept of Buildings'
+        'cap': '0.00758 tCO2e/sqft',
+        'min_sqft': 25000,
+        'source': 'NYC Dept of Buildings',
+        'exempt_types': ['K-12 School', 'Government'],
+        'exempt_reason': 'have alternative compliance pathways under Article 321'
     },
     'Boston': {
         'law': 'BERDO 2.0',
         'method': 'emission cap',
         'penalty': '$234/tCO2e over cap',
-        'source': 'City of Boston'
+        'cap': '0.0053 tCO2e/sqft',
+        'min_sqft': 20000,
+        'source': 'City of Boston',
+        'exempt_types': [],
+        'exempt_reason': ''
     },
     'Cambridge': {
         'law': 'Cambridge BEUDO',
         'method': 'emission cap',
         'penalty': '$234/tCO2e over cap',
-        'source': 'City of Cambridge'
+        'cap': '0.0053 tCO2e/sqft',
+        'min_sqft': 25000,
+        'source': 'City of Cambridge',
+        'exempt_types': [],
+        'exempt_reason': ''
     },
     'Washington': {
         'law': 'DC BEPS',
         'method': 'Energy Star score',
         'penalty': '$10/sqft (prorated)',
-        'source': 'DC DOEE'
+        'cap': 'ENERGY STAR 71 target',
+        'min_sqft': 50000,
+        'source': 'DC DOEE',
+        'exempt_types': [],
+        'exempt_reason': ''
     },
     'Denver': {
         'law': 'Energize Denver',
         'method': 'EUI target',
         'penalty': '$0.30/kBtu over target',
-        'source': 'City of Denver'
+        'cap': '48.3 kBtu/sqft EUI',
+        'min_sqft': 25000,
+        'source': 'City of Denver',
+        'exempt_types': ['K-12 School', 'Government'],
+        'exempt_reason': 'have different compliance pathways'
     },
     'Seattle': {
         'law': 'Seattle BEPS',
         'method': 'emission cap',
         'penalty': '$10/sqft per 5yr cycle',
-        'source': 'City of Seattle'
+        'cap': '0.00081 tCO2e/sqft',
+        'min_sqft': 20000,
+        'source': 'City of Seattle',
+        'exempt_types': [],
+        'exempt_reason': ''
     },
     'St. Louis': {
         'law': 'St. Louis BEPS',
         'method': 'EUI target',
         'penalty': '$500/day non-compliance',
-        'source': 'City of St. Louis'
+        'cap': '71.7 kBtu/sqft EUI',
+        'min_sqft': 50000,
+        'source': 'City of St. Louis',
+        'exempt_types': [],
+        'exempt_reason': ''
     },
 }
 
@@ -1290,27 +1319,75 @@ def get_total_ghg_tooltip(row):
     return '\n'.join(lines)
 
 def get_fine_avoidance_tooltip(row):
-    """Dynamic tooltip for Fine Avoidance based on city's BPS law."""
+    """Dynamic tooltip for Fine Avoidance based on city's BPS law.
+
+    Explains why a building may or may not have fine avoidance:
+    - Building in non-BPS city
+    - Building below min sqft threshold
+    - Building type exempt (K-12, Government in NYC/Denver)
+    - Building already under emission cap
+    - Fine avoided through ODCV
+    """
     law_name = safe_val(row, 'bps_law_name', '')
     city = safe_val(row, 'loc_city', '')
+    bldg_type = safe_val(row, 'bldg_vertical', '')
+    sqft = safe_num(row, 'bldg_sqft', 0)
+    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0)
 
-    # City-specific methodology descriptions
-    if 'LL97' in law_name or city == 'New York':
-        return "NYC Local Law 97: $268/tCO2e over emission cap (0.00758 tCO2e/sqft). ODCV reduces emissions below cap."
-    elif 'BERDO' in law_name or city == 'Boston':
-        return "Boston BERDO 2.0: $234/tCO2e over emission cap (0.0053 tCO2e/sqft). ODCV reduces emissions below cap."
-    elif 'BEUDO' in law_name or city == 'Cambridge':
-        return "Cambridge BEUDO: $234/tCO2e over emission cap (0.0053 tCO2e/sqft). ODCV reduces emissions below cap."
-    elif 'DC' in law_name or city == 'Washington':
-        return "DC BEPS: $10/sqft penalty prorated by Energy Star compliance gap. ODCV improves score toward target."
-    elif 'Denver' in law_name or city == 'Denver':
-        return "Energize Denver: $0.30/kBtu over EUI target (48.3 kBtu/sqft). ODCV reduces EUI below target."
-    elif 'Seattle' in law_name or city == 'Seattle':
-        return "Seattle BEPS: $10/sqft per 5-year cycle for exceeding emission cap (0.00081 tCO2e/sqft). ODCV reduces emissions below cap."
-    elif 'St. Louis' in law_name or city == 'St. Louis':
-        return "St. Louis BEPS: $500/day for non-compliance with EUI target (~65 kBtu/sqft). ODCV brings building into compliance."
-    else:
-        return "Building Performance Standard fine avoided through ODCV energy reduction. See docs/methodology/NATIONAL_BPS_METHODOLOGY.md"
+    # Get BPS info for this city
+    bps_info = BPS_TOOLTIP_INFO.get(city)
+
+    # Case 1: Not in a BPS city
+    if not bps_info:
+        return f"No Building Performance Standard applies in {city or 'this city'}. BPS fines currently exist in: NYC, Boston, Cambridge, DC, Denver, Seattle, and St. Louis."
+
+    # Case 2: Check if building type is exempt
+    exempt_types = bps_info.get('exempt_types', [])
+    if bldg_type in exempt_types:
+        exempt_reason = bps_info.get('exempt_reason', 'are exempt from standard fines')
+        return f"No fine avoidance: {bldg_type} buildings in {city} {exempt_reason} under {bps_info['law']}."
+
+    # Case 3: Building below minimum sqft threshold
+    min_sqft = bps_info.get('min_sqft', 0)
+    if sqft > 0 and sqft < min_sqft:
+        return f"No fine avoidance: Building is {sqft:,.0f} sqft, below {bps_info['law']}'s {min_sqft:,} sqft minimum threshold."
+
+    # Case 4: Building has fine avoidance - explain the law
+    law = bps_info['law']
+    penalty = bps_info['penalty']
+    cap = bps_info.get('cap', '')
+
+    if fine_avoided > 0:
+        # Building has fine avoidance - give full explanation
+        if city == 'New York':
+            return f"{law}: {penalty} over emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+        elif city in ['Boston', 'Cambridge']:
+            return f"{law}: {penalty} over emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+        elif city == 'Washington':
+            return f"{law}: {penalty} based on ENERGY STAR compliance gap. ODCV improves score, avoiding ${fine_avoided:,.0f}/yr in fines."
+        elif city == 'Denver':
+            return f"{law}: {penalty} ({cap}). ODCV reduces EUI, avoiding ${fine_avoided:,.0f}/yr in fines."
+        elif city == 'Seattle':
+            return f"{law}: {penalty} for exceeding emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+        elif city == 'St. Louis':
+            return f"{law}: {penalty} ({cap}). ODCV brings building into compliance, avoiding ${fine_avoided:,.0f}/yr in fines."
+
+    # Case 5: In BPS city but $0 fine avoided - building is already compliant
+    if city == 'New York':
+        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
+    elif city in ['Boston', 'Cambridge']:
+        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
+    elif city == 'Washington':
+        return f"{law} applies but building already meets ENERGY STAR target. No fines to avoid."
+    elif city == 'Denver':
+        return f"{law} applies but building is already below EUI target ({cap}). No fines to avoid."
+    elif city == 'Seattle':
+        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
+    elif city == 'St. Louis':
+        return f"{law} applies but building is already below EUI target ({cap}). No fines to avoid."
+
+    # Default fallback
+    return f"{law}: {penalty}. See docs/methodology/NATIONAL_BPS_METHODOLOGY.md for details."
 
 # Map of dynamic tooltip keys to their generator functions
 DYNAMIC_TOOLTIPS = {

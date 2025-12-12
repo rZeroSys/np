@@ -1604,6 +1604,14 @@ body.all-buildings-active .main-tabs {
     border-bottom: none;
 }
 
+.leaderboard-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
 .clear-btn {
     padding: 8px 12px;
     background: transparent;
@@ -3852,10 +3860,10 @@ tr.pin-highlight {
                 userNameElement.textContent = userName;
                 const localPic = getProfilePicture(userEmail);
                 console.log("[Auth] Local profile pic:", localPic, "Google pic:", authData.picture);
-                userProfilePic.src = localPic || authData.picture || 'profile-pics/default.jpg';
+                userProfilePic.src = localPic || authData.picture || 'profile-pics/rzero_default.png';
                 userProfilePic.onerror = function() {{
-                    console.log("[Auth] Profile pic load error, using default");
-                    this.src = 'profile-pics/default.jpg';
+                    console.log("[Auth] Profile pic load error, using R-Zero logo");
+                    this.src = 'profile-pics/rzero_default.png';
                 }};
                 userInfoElement.style.display = "block";
                 console.log("[Auth] User info displayed successfully");
@@ -3900,7 +3908,8 @@ tr.pin-highlight {
           const name = [r.firstName, r.lastName].filter(Boolean).join(' ') || r.displayName || r.email || 'Anonymous';
           const n = r.visitCount || 0;
           const pretty = n >= 1000 ? (Math.round(n/100)/10)+'k' : String(n);
-          return `<li class="leaderboard-item"><span class="leaderboard-name">${{i+1}}. ${{name}}</span><span class="leaderboard-count">${{pretty}} visits</span></li>`;
+          const avatarSrc = getProfilePicture(r.email) || r.photoURL || 'profile-pics/rzero_default.png';
+          return `<li class="leaderboard-item"><img src="${{avatarSrc}}" class="leaderboard-avatar" onerror="this.src='profile-pics/rzero_default.png'"><span class="leaderboard-name">${{i+1}}. ${{name}}</span><span class="leaderboard-count">${{pretty}} visits</span></li>`;
         }}).join('');
       }}
 
