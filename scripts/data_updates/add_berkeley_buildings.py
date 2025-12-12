@@ -32,13 +32,13 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # =============================================================================
-# API KEYS
+# API KEYS (from environment variables)
 # =============================================================================
 
-GOOGLE_MAPS_API_KEY = 'REMOVED_GOOGLE_KEY'
+GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY', '')
 
-AWS_ACCESS_KEY = 'REMOVED_AWS_KEY'
-AWS_SECRET_KEY = 'REMOVED_AWS_SECRET'
+AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_BUCKET = 'nationwide-odcv-images'
 AWS_REGION = 'us-east-2'
 

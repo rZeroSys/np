@@ -12,7 +12,7 @@ from src.config import BUILDING_DATA_PATH
 
 CSV_PATH = str(BUILDING_DATA_PATH)
 OUTPUT_PATH = '/Users/forrestmiller/Desktop/new data/building_names.csv'  # External output location
-GOOGLE_API_KEY = 'REMOVED_GOOGLE_KEY'
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
 
 # Create output directory if needed
 os.makedirs('/Users/forrestmiller/Desktop/new data', exist_ok=True)

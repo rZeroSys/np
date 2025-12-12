@@ -11,7 +11,7 @@ IMAGE_DIR = '/Users/forrestmiller/Desktop/Final real/good images'
 MASTER_CSV = '/Users/forrestmiller/Desktop/Final real/merged_property_matches_updated.csv'
 PREVIOUS_REVIEWS = '/Users/forrestmiller/Desktop/final images/identified_tenants.csv'
 OUTPUT_CSV = '/Users/forrestmiller/Desktop/Final real/good images/identified_tenants.csv'
-API_KEY = os.environ.get('OPENAI_API_KEY', 'REMOVED_OPENAI_KEY')
+API_KEY = os.environ.get('OPENAI_API_KEY', '')
 
 client = OpenAI(api_key=API_KEY)
 

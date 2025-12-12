@@ -27,7 +27,7 @@ from PIL import Image
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
-ANTHROPIC_API_KEY = "REMOVED_ANTHROPIC_KEY"
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 WATCH_DIR = Path("/Users/forrestmiller/Desktop/notable_building_images")
 REJECTED_DIR = WATCH_DIR / "_rejected"
 CHECK_INTERVAL = 2  # seconds between checks

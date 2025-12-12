@@ -28,12 +28,12 @@ DATA_PATH = "/Users/forrestmiller/Desktop/nationwide-prospector/data/source/port
 OUTPUT_DIR = Path("/Users/forrestmiller/Desktop/notable_building_images")
 
 # API Keys
-GOOGLE_API_KEY = "REMOVED_GOOGLE_KEY"
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
 SERPAPI_KEY = "***REMOVED***"
 BING_KEY = "6GWSav0JV7dSRuwOb76TZCE5bA7hhvODjXno8TJvanQ9SXD5Eg2WJQQJ99BGACYeBjFXJ3w3AAAEACOGQ20x"
 YELP_API_KEY = "T-ehGPV5rpTT6KHJQyGL6Y-RC5sRLJsoK7VEKjUGbWq-XpzohwXKx8F18-D7N1nsIg6qRD2npjrtD8MI4ZgThO9lHAeKBCdxogNeE_LYQcxN3deD9em0agfl0UhaXYx"
 MAPILLARY_TOKEN = "MLY|24446972978221887|b4cfeab54b3caaa6f735d4cfc48aba90"
-OPENAI_API_KEY = "REMOVED_OPENAI_KEY"
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 # Validation threshold
 AI_ACCEPT_THRESHOLD = 50
