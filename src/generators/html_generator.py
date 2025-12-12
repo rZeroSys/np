@@ -3133,6 +3133,12 @@ tr.pin-highlight {
     }
 }
 
+@media (max-width: 980px) {
+    #userInfo {
+        display: none !important;
+    }
+}
+
 /* Responsive: below 768px - simplified layout */
 @media (max-width: 767px) {
     .portfolio-sort-header,
