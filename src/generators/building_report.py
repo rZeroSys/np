@@ -94,6 +94,7 @@ CITY_DISCLOSURE_LAWS = {
     'Austin': 'Austin ECAD',
     'Minneapolis': 'Minneapolis Energy Disclosure',
     'Montgomery County': 'Montgomery County Benchmarking',
+    'Berkeley': 'BESO',  # Berkeley Energy Saving Ordinance
     'default_ca': 'AB 802',
 }
 
@@ -537,7 +538,7 @@ DEFAULT_ENERGY_NOTES = {
 # NOTE: fuel_oil, district_steam, pct_hvac_elec are now DYNAMIC (see DYNAMIC_TOOLTIPS)
 TOOLTIPS = {
     'owner': "Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites.",
-    'energy_site_eui': "Energy use per square foot. Office average: 70-90. Source: city benchmarking law.",
+    # 'energy_site_eui' is now a DYNAMIC tooltip - see get_site_eui_tooltip()
     'carbon_reduction': "Source: EPA eGRID grid emission factors.",
     # Electricity Details section (static explanations)
     'energy_rate': "Cost per kWh of electricity. Varies by utility and rate class. Source: NREL utility rate database.",
@@ -646,235 +647,180 @@ def get_climate_modifier(climate_zone):
         return 0.95, "Hot"
     return 1.00, "Moderate"
 
-def get_annual_savings_tooltip(row):
+def get_odcv_savings_tooltip(row):
     """
-    Comprehensive dynamic tooltip explaining ODCV savings methodology
-    for this specific building type.
+    Chad-readable ODCV savings explanation.
+    Dynamic by building type - explains WHY this building has its specific %.
+    Short enough to read aloud, technical enough to sound legit.
     """
-    # Get building info
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
 
-    # Get values from row
     odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
     vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
     utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
-    year_built = safe_num(row, 'bldg_year_built', 0)
-    sqft = safe_num(row, 'bldg_sqft', 0)
-    energy_star = safe_num(row, 'energy_star_score', 0)
-    eui = safe_num(row, 'energy_site_eui', 0)
-    benchmark = safe_num(row, 'energy_eui_benchmark', 0)
-    climate_zone = safe_val(row, 'energy_climate_zone', '')
 
-    # Get type info
-    category = type_info.get('category', 'Single-Tenant')
-    formula = type_info.get('formula', '1 - Utilization')
-    floor_pct = type_info.get('floor', 0.15)
-    ceiling_pct = type_info.get('ceiling', 0.35)
-    explanation = type_info.get('explanation', '')
-    uses_vacancy = type_info.get('uses_vacancy', False)
-
-    # Calculate scores
-    automation = get_automation_score(year_built, sqft)
-    eff_mod, eff_desc = get_efficiency_modifier(energy_star, eui, benchmark)
-    clim_mod, clim_desc = get_climate_modifier(climate_zone)
-
-    # Calculate opportunity score
-    if bldg_type == 'Data Center':
-        opportunity = 0
-    elif uses_vacancy:
-        opportunity = vacancy + (1 - vacancy) * (1 - utilization)
-    elif category == 'Constrained':
-        opportunity = (1 - utilization) * 0.3
-    else:
-        opportunity = 1 - utilization
-
-    # Build tooltip
-    lines = []
-    lines.append(f"HOW {odcv_pct*100:.0f}% HVAC SAVINGS IS ESTIMATED")
-    lines.append("=" * 38)
-
-    lines.append("")
-    lines.append(f"BUILDING TYPE: {bldg_type}")
-    lines.append(f"Category: {category}")
-
-    lines.append("")
-    lines.append(f"WHY {floor_pct*100:.0f}-{ceiling_pct*100:.0f}% RANGE:")
-    # Word wrap the explanation at ~45 chars
-    words = explanation.split()
-    line = ""
-    for word in words:
-        if len(line) + len(word) + 1 <= 45:
-            line = line + " " + word if line else word
-        else:
-            lines.append(line)
-            line = word
-    if line:
-        lines.append(line)
-
-    lines.append("")
-    lines.append(f"FORMULA: {formula}")
-    if uses_vacancy:
-        lines.append(f"  Vacancy: {vacancy*100:.0f}%")
-    lines.append(f"  Utilization: {utilization*100:.0f}%")
-    lines.append(f"  Opportunity: {opportunity*100:.0f}%")
-
-    lines.append("")
-    lines.append("MODIFIERS:")
-    if year_built:
-        lines.append(f"  Automation: {automation:.2f} (built {int(year_built)}, {sqft/1000:.0f}K sqft)")
-    else:
-        lines.append(f"  Automation: {automation:.2f}")
-    if energy_star:
-        lines.append(f"  Efficiency: {eff_mod:.2f} (ES {int(energy_star)}, {eff_desc})")
-    else:
-        lines.append(f"  Efficiency: {eff_mod:.2f} ({eff_desc})")
-    lines.append(f"  Climate: {clim_mod:.2f} ({clim_desc})")
-
-    lines.append("")
-    lines.append(f"RESULT: {odcv_pct*100:.1f}% of HVAC costs")
-    lines.append(f"(Range: {floor_pct*100:.0f}-{ceiling_pct*100:.0f}% for {bldg_type})")
-
-    lines.append("")
-    lines.append("Sources: EIA CBECS 2018, ASHRAE standards")
-
-    return '\n'.join(lines)
-
-def get_property_value_tooltip(row):
-    """
-    Generate comprehensive valuation impact tooltip with step-by-step calculation.
-    Adapts dynamically based on building type, region, and actual data values.
-    """
-    # Extract building info
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    city = safe_val(row, 'loc_city', '')
-
-    # Get building type info (uses existing BUILDING_TYPE_INFO dictionary)
-    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
-
-    # Extract cost data
-    elec_cost = safe_num(row, 'cost_elec_total_annual', 0) or 0
-    gas_cost = safe_num(row, 'cost_gas_annual', 0) or 0
-    steam_cost = safe_num(row, 'cost_steam_annual', 0) or 0
-    fuel_oil_cost = safe_num(row, 'cost_fuel_oil_annual', 0) or 0
-
-    # Extract HVAC percentages
-    hvac_pct_elec = safe_num(row, 'hvac_pct_elec', 0) or 0
-    hvac_pct_gas = safe_num(row, 'hvac_pct_gas', 0) or 0
-    hvac_pct_steam = safe_num(row, 'hvac_pct_steam', 0) or 0
-    hvac_pct_fuel = safe_num(row, 'hvac_pct_fuel_oil', 0) or 0
-
-    # Extract calculated values
-    hvac_total = safe_num(row, 'hvac_cost_total_annual', 0) or 0
-    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
-    odcv_savings = safe_num(row, 'odcv_hvac_savings_annual_usd', 0) or 0
-
-    # Extract occupancy data
-    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
-    utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
-
-    # Extract BPS and valuation data
-    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0) or 0
-    cap_rate = safe_num(row, 'val_cap_rate_pct', 0) or 0
-    opex_avoided = safe_num(row, 'savings_opex_avoided_annual_usd', 0) or 0
-    val_impact = safe_num(row, 'val_odcv_impact_usd', 0) or 0
-
-    # Build tooltip lines
-    lines = []
-    lines.append("HOW VALUATION IMPACT IS CALCULATED")
-    lines.append("=" * 35)
-
-    # STEP 1: HVAC Cost breakdown
-    lines.append("")
-    lines.append("STEP 1: Annual HVAC Cost")
-    lines.append("-" * 25)
-
-    if elec_cost > 0 and hvac_pct_elec > 0:
-        elec_hvac = elec_cost * hvac_pct_elec
-        lines.append(f"Elec: ${elec_cost:,.0f} x {hvac_pct_elec*100:.0f}% = ${elec_hvac:,.0f}")
-    if gas_cost > 0 and hvac_pct_gas > 0:
-        gas_hvac = gas_cost * hvac_pct_gas
-        lines.append(f"Gas: ${gas_cost:,.0f} x {hvac_pct_gas*100:.0f}% = ${gas_hvac:,.0f}")
-    if steam_cost > 0 and hvac_pct_steam > 0:
-        steam_hvac = steam_cost * hvac_pct_steam
-        lines.append(f"Steam: ${steam_cost:,.0f} x {hvac_pct_steam*100:.0f}% = ${steam_hvac:,.0f}")
-    if fuel_oil_cost > 0 and hvac_pct_fuel > 0:
-        fuel_hvac = fuel_oil_cost * hvac_pct_fuel
-        lines.append(f"Fuel Oil: ${fuel_oil_cost:,.0f} x {hvac_pct_fuel*100:.0f}% = ${fuel_hvac:,.0f}")
-
-    lines.append(f"Total HVAC Cost: ${hvac_total:,.0f}/yr")
-    lines.append("(HVAC % from EIA CBECS 2018)")
-
-    # STEP 2: ODCV Savings
-    lines.append("")
-    lines.append("STEP 2: ODCV Savings")
-    lines.append("-" * 25)
-
-    # Get building type category info
-    category = type_info.get('category', 'Single-Tenant')
-    formula = type_info.get('formula', '1 - Utilization')
     floor_pct = type_info.get('floor', 0.15) * 100
     ceiling_pct = type_info.get('ceiling', 0.35) * 100
     uses_vacancy = type_info.get('uses_vacancy', False)
+    category = type_info.get('category', 'Single-Tenant')
 
-    lines.append(f"Type: {bldg_type}")
-    lines.append(f"Category: {category}")
-    lines.append(f"Formula: {formula}")
+    # Data Center - special case, no savings
+    if bldg_type == 'Data Center':
+        return "Data centers: no occupancy-driven savings.\nCooling removes heat from servers, not people.\nA data center at 3am with one tech has the\nsame cooling load as 3pm - occupancy doesn't\nmatter here."
 
-    if uses_vacancy and vacancy > 0:
-        lines.append(f"Vacancy Rate: {vacancy*100:.0f}%")
-    if utilization > 0:
-        lines.append(f"Utilization Rate: {utilization*100:.0f}%")
+    lines = []
 
-    lines.append(f"Savings Range: {floor_pct:.0f}-{ceiling_pct:.0f}%")
-    lines.append(f"This Building: {odcv_pct*100:.1f}%")
-    lines.append(f"Annual Savings: ${odcv_savings:,.0f}")
+    # Building-type specific explanation
+    if bldg_type == 'Office' or bldg_type == 'Medical Office':
+        lines.append(f"Offices save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        if vacancy > 0 and utilization > 0:
+            lines.append(f"This one's {vacancy*100:.0f}% vacant and only {utilization*100:.0f}%")
+            lines.append("occupied when leased - that's hybrid work.")
+        lines.append("Vacant floors still get full ventilation")
+        lines.append("due to fire code and BMS limits.")
+        lines.append("ODCV adjusts to actual occupancy.")
 
-    # STEP 3: BPS Fine Avoidance (if applicable)
-    bps_info = BPS_TOOLTIP_INFO.get(city)
-    if bps_info and fine_avoided > 0:
-        lines.append("")
-        lines.append("STEP 3: BPS Fine Avoidance")
-        lines.append("-" * 25)
-        lines.append(f"Law: {bps_info['law']}")
-        lines.append(f"Method: {bps_info['method']}")
-        lines.append(f"Penalty: {bps_info['penalty']}")
-        lines.append(f"Fine Avoided: ${fine_avoided:,.0f}/yr")
-        lines.append(f"Source: {bps_info['source']}")
-        step_num = 4
+    elif bldg_type == 'K-12 School':
+        lines.append(f"Schools save {floor_pct:.0f}-{ceiling_pct:.0f}% - highest of any")
+        lines.append("building type. Empty after 3pm, weekends")
+        lines.append("off, 10+ weeks summer. That's over half")
+        lines.append("the year with no one inside but HVAC")
+        lines.append("still running at full capacity.")
+
+    elif bldg_type == 'Higher Ed':
+        lines.append(f"Universities save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Semester breaks, variable class schedules,")
+        lines.append("summer sessions. Buildings sit empty while")
+        lines.append("HVAC runs at design capacity.")
+
+    elif bldg_type == 'Hotel':
+        lines.append(f"Hotels save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Room-level controls adjust to actual guests -")
+        lines.append("typically 65-75% occupancy. Note: only 20%")
+        lines.append("of gas is HVAC here. Rest is hot water (42%)")
+        lines.append("and kitchen (33%).")
+
+    elif bldg_type == 'Retail Store':
+        lines.append(f"Retail saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Intra-day variability: opening/closing with")
+        lines.append("staff only, mid-morning lulls, lunch and")
+        lines.append("evening rushes. ODCV modulates to actual")
+        lines.append("customer traffic.")
+
+    elif bldg_type == 'Restaurant/Bar':
+        lines.append(f"Restaurants save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Predictable meal-time peaks but kitchen")
+        lines.append("runs constant regardless. Note: only 18%")
+        lines.append("of gas is HVAC - 72% is cooking.")
+
+    elif bldg_type == 'Supermarket/Grocery':
+        lines.append(f"Supermarkets save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Long hours with steady traffic limits empty-")
+        lines.append("space opportunity. Note: ~40% of electricity")
+        lines.append("is refrigeration, not HVAC.")
+
+    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
+        lines.append(f"Hospitals are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
+        lines.append("Clinical areas need constant high airflow")
+        lines.append("for infection control (ASHRAE 170). Savings")
+        lines.append("come from lobbies, offices, and admin spaces.")
+
+    elif bldg_type in ['Residential Care', 'Residential Care Facility']:
+        lines.append(f"Residential care: {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
+        lines.append("Residents live here 24/7 - unlike offices")
+        lines.append("that empty at night. Savings come from")
+        lines.append("common areas with variable occupancy.")
+
+    elif bldg_type == 'Laboratory':
+        lines.append(f"Labs are constrained to {floor_pct:.0f}-{ceiling_pct:.0f}% savings.")
+        lines.append("Fume hoods require constant exhaust. Many")
+        lines.append("labs maintain negative pressure. Safety")
+        lines.append("requirements override occupancy sensing.")
+
+    elif bldg_type in ['Theater', 'Venue']:
+        lines.append(f"Venues save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Extreme variability - empty for hours or")
+        lines.append("days, then full capacity for events.")
+        lines.append("High opportunity during non-event periods.")
+
+    elif bldg_type == 'Gym':
+        lines.append(f"Gyms save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("Extreme peak/off-peak: 6-8am packed,")
+        lines.append("10am-4pm empty, 5-7pm packed again.")
+        lines.append("Dead hours at full ventilation = waste.")
+
+    elif bldg_type == 'Mixed Use':
+        lines.append(f"Mixed-use saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        if vacancy > 0:
+            lines.append(f"Currently {vacancy*100:.0f}% vacant. Combination of")
+        else:
+            lines.append("Combination of office, retail, residential.")
+        lines.append("Savings vary by tenant mix but centralized")
+        lines.append("systems still ventilate vacant spaces.")
+
     else:
-        step_num = 3
+        # Generic fallback
+        lines.append(f"{bldg_type}s save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC.")
+        lines.append("ODCV adjusts ventilation to actual")
+        lines.append("occupancy instead of design capacity.")
 
-    # Total OpEx (if BPS applies)
-    if fine_avoided > 0:
-        lines.append("")
-        lines.append(f"STEP {step_num}: Total OpEx Avoidance")
-        lines.append("-" * 25)
-        lines.append(f"Utility Savings: ${odcv_savings:,.0f}")
-        lines.append(f"+ Fine Avoidance: ${fine_avoided:,.0f}")
-        lines.append(f"= Total: ${opex_avoided:,.0f}/yr")
-        step_num += 1
-
-    # Valuation Impact
+    # Add this building's result
     lines.append("")
-    lines.append(f"STEP {step_num}: Valuation Impact")
-    lines.append("-" * 25)
+    lines.append(f"This building: {odcv_pct*100:.0f}% savings")
 
+    return '\n'.join(lines)
+
+
+def get_annual_savings_tooltip(row):
+    """Alias for backward compatibility - redirects to new function."""
+    return get_odcv_savings_tooltip(row)
+
+def get_property_value_tooltip(row):
+    """SALES CALL READY tooltip for Property Value row.
+
+    Simple cap rate formula - Chad can explain this to anyone.
+    """
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+
+    # Get the key values
+    odcv_savings = safe_num(row, 'odcv_hvac_savings_annual_usd', 0) or 0
+    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0) or 0
+    cap_rate = safe_num(row, 'val_cap_rate_pct', 0) or 0
+    val_impact = safe_num(row, 'val_odcv_impact_usd', 0) or 0
+    opex_avoided = safe_num(row, 'savings_opex_avoided_annual_usd', 0) or 0
+
+    lines = []
+    lines.append("PROPERTY VALUE INCREASE")
+    lines.append("")
+
+    # Annual benefit breakdown
+    lines.append("Annual benefit:")
+    lines.append(f"  Utility savings: ${odcv_savings:,.0f}/yr")
+    if fine_avoided > 0:
+        lines.append(f"  Fine avoidance: ${fine_avoided:,.0f}/yr")
+        total = opex_avoided
+    else:
+        total = odcv_savings
+
+    if fine_avoided > 0:
+        lines.append(f"  Total: ${total:,.0f}/yr")
+
+    lines.append("")
+
+    # Cap rate explanation
     if cap_rate > 0:
         cap_pct = cap_rate * 100
         multiplier = int(100 / cap_pct) if cap_pct > 0 else 14
-        annual_benefit = opex_avoided if fine_avoided > 0 else odcv_savings
-        lines.append(f"Cap Rate: {cap_pct:.2f}%")
-        lines.append(f"${annual_benefit:,.0f} / {cap_pct:.2f}% = ${val_impact:,.0f}")
+        lines.append(f"Cap rate: {cap_pct:.1f}% ({bldg_type} typical)")
         lines.append("")
-        lines.append(f"$1 saved = ${multiplier} higher value")
+        lines.append(f"${total:,.0f}/yr ÷ {cap_pct:.1f}%")
+        lines.append(f"= ${val_impact:,.0f} value increase")
+        lines.append("")
+        lines.append(f"Every $1 saved = ${multiplier} higher value")
     else:
-        lines.append("Cap rate not available")
+        lines.append("Cap rate not available for this building.")
 
-    lines.append("")
-    lines.append("Sources: EIA CBECS, NREL, caprateindex.com")
-
-    # Join with actual newlines - CSS white-space: pre-line will render them
     return '\n'.join(lines)
 
 def get_energy_star_tooltip(row):
@@ -883,278 +829,206 @@ def get_energy_star_tooltip(row):
     return f"1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from {law_name}. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md"
 
 def get_electricity_kwh_tooltip(row):
-    """Comprehensive dynamic tooltip explaining HOW electricity cost is calculated."""
-    law_name = get_law_name(row)
+    """ENERGY tooltip - anchored to exact table values."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    law_name = get_law_name(row)
 
-    # Get actual values
-    kwh = safe_num(row, 'energy_elec_kwh', 0) or 0
-    total_cost = safe_num(row, 'cost_elec_total_annual', 0) or 0
-    energy_cost = safe_num(row, 'cost_elec_energy_annual', 0) or 0
-    demand_cost = safe_num(row, 'cost_elec_demand_annual', 0) or 0
-    energy_rate = safe_num(row, 'cost_elec_rate_kwh', 0) or 0
-    demand_rate = safe_num(row, 'cost_elec_rate_demand_kw', 0) or 0
-    peak_kw = safe_num(row, 'cost_elec_peak_kw', 0) or 0
-    load_factor = safe_num(row, 'cost_elec_load_factor', 0) or 0
+    # Use exact same values as table
+    current_kwh = safe_num(row, 'energy_elec_kwh', 0) or 0
+    post_kwh = safe_num(row, 'energy_elec_kwh_post_odcv', 0) or 0
     hvac_pct = safe_num(row, 'hvac_pct_elec', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
 
-    # Get building-type specific notes
-    type_notes = BUILDING_TYPE_ENERGY_NOTES.get(bldg_type, DEFAULT_ENERGY_NOTES)
-    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
-    typical_lf = type_info.get('load_factor', 0.45) * 100
-
-    # Get utility provider for dynamic content
-    utility = safe_val(row, 'cost_utility_name', '')
-    city = safe_val(row, 'loc_city', '')
-    state = safe_val(row, 'loc_state', '')
-
-    lines = []
-    lines.append("HOW ELECTRICITY COST IS CALCULATED")
-    lines.append("=" * 35)
-
-    # Energy charges with 1.10 multiplier explanation
-    lines.append("")
-    lines.append("ENERGY CHARGES (usage-based):")
-    if kwh > 0 and energy_rate > 0:
-        lines.append(f"  {kwh:,.0f} kWh × ${energy_rate:.4f}/kWh × 1.10")
-        lines.append(f"  = ${energy_cost:,.0f}/yr")
-        lines.append("  (×1.10 = taxes, fees, distribution)")
+    lines = ["ELECTRICITY SAVINGS"]
+    lines.append(f"Current (disclosed): {current_kwh:,.0f} kWh/yr")
+    if post_kwh > 0:
+        delta = current_kwh - post_kwh
+        lines.append(f"After ODCV: {post_kwh:,.0f} kWh/yr")
+        lines.append(f"Change: -{delta:,.0f} kWh/yr")
     else:
-        lines.append(f"  ${energy_cost:,.0f}/yr")
+        lines.append("After ODCV: —")
+    lines.append(f"How: HVAC is {hvac_pct*100:.0f}% of electric; ODCV cuts {odcv_pct*100:.0f}% of that.")
 
-    # Demand charges with 1.265 multiplier explanation
-    lines.append("")
-    lines.append("DEMAND CHARGES (peak capacity):")
-    if peak_kw > 0 and demand_rate > 0:
-        lines.append(f"  Peak: {peak_kw:,.0f} kW")
-        lines.append(f"  {peak_kw:,.0f} kW × ${demand_rate:.2f}/kW × 12 mo × 1.265")
-        lines.append(f"  = ${demand_cost:,.0f}/yr")
-        lines.append("  (×1.265 = ratchet clauses, seasonal peaks)")
-    elif demand_cost > 0:
-        lines.append(f"  ${demand_cost:,.0f}/yr")
+    # Vertical context using ONLY real row values
+    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
+    util = safe_num(row, 'occ_utilization_rate', 0) or 0
+    if bldg_type in ['Office', 'Medical Office']:
+        if vacancy > 0 or util > 0:
+            parts = []
+            if vacancy > 0: parts.append(f"{vacancy*100:.0f}% vacant")
+            if util > 0: parts.append(f"{util*100:.0f}% utilized")
+            lines.append(f"Why believable: {', '.join(parts)} — underused space = wasted conditioning.")
+        else:
+            lines.append("Why believable: offices over-ventilate for hybrid/vacant space.")
+    elif bldg_type == 'Hotel':
+        if util > 0:
+            lines.append(f"Why believable: {util*100:.0f}% occupancy means empty rooms get conditioned.")
+        else:
+            lines.append("Why believable: rooms conditioned whether occupied or not.")
+    elif bldg_type in ['K-12 School', 'Higher Ed']:
+        lines.append("Why believable: empty after 3pm, weekends, summer — over half the year.")
+    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
+        lines.append("Why believable: savings from non-clinical areas only (clinical has code requirements).")
+    elif bldg_type == 'Data Center':
+        lines.append("Why believable: cooling is for servers not people; minimal occupancy-driven savings.")
     else:
-        lines.append("  Not applicable or included in energy rate")
+        if vacancy > 0 or util > 0:
+            parts = []
+            if vacancy > 0: parts.append(f"{vacancy*100:.0f}% vacant")
+            if util > 0: parts.append(f"{util*100:.0f}% utilized")
+            lines.append(f"Why believable: {', '.join(parts)}.")
+        else:
+            lines.append("Why believable: ODCV adjusts ventilation to actual occupancy.")
 
-    # Peak demand estimation
-    if load_factor > 0 and kwh > 0:
-        lines.append("")
-        lines.append("HOW PEAK DEMAND IS ESTIMATED:")
-        lines.append(f"  Load Factor: {load_factor*100:.0f}%")
-        lines.append(f"  ({bldg_type}s typically: {typical_lf:.0f}%)")
-        lines.append(f"  Peak = ({kwh:,.0f} ÷ 8,760 hrs) ÷ {load_factor:.2f}")
-        lines.append(f"       = {peak_kw:,.0f} kW")
-
-    # Total
-    lines.append("")
-    lines.append(f"TOTAL: ${total_cost:,.0f}/yr")
-
-    # HVAC portion with full disaggregation method
-    if hvac_pct > 0:
-        hvac_cost = total_cost * hvac_pct
-        typical_hvac = type_info.get('elec_hvac_typical', 0.50) * 100
-        lines.append("")
-        lines.append(f"HVAC PORTION: {hvac_pct*100:.0f}%")
-        lines.append(f"  = ${hvac_cost:,.0f}/yr for heating/cooling")
-        lines.append("")
-        lines.append("HOW HVAC % IS DERIVED:")
-        lines.append(f"  Baseline: {bldg_type}s typically {typical_hvac:.0f}%")
-        lines.append("  Adjustments applied:")
-        lines.append("    • Building age (newer = more efficient)")
-        lines.append("    • Energy Star score (higher = less waste)")
-        lines.append("    • EUI vs. peer median")
-        lines.append("    • Climate zone")
-        elec_note = type_notes.get('elec_note', '')
-        if elec_note:
-            lines.append("")
-            # Word wrap the note
-            words = elec_note.split()
-            line = ""
-            for word in words:
-                if len(line) + len(word) + 1 <= 40:
-                    line = line + " " + word if line else word
-                else:
-                    lines.append(f"  {line}")
-                    line = word
-            if line:
-                lines.append(f"  {line}")
-        lines.append("")
-        lines.append("  Source: EIA CBECS 2018 (6,436 buildings)")
-
-    lines.append("")
-    # Dynamic source line with utility if available
-    if utility:
-        lines.append(f"Source: {law_name}, {utility}")
-    else:
-        lines.append(f"Source: {law_name}, NREL rates")
-
+    lines.append(f"Sources: {law_name}, CBECS HVAC shares, ODCV model.")
     return '\n'.join(lines)
 
 def get_natural_gas_tooltip(row):
-    """Comprehensive dynamic tooltip explaining HOW natural gas cost is calculated."""
-    law_name = get_law_name(row)
+    """ENERGY tooltip - anchored to exact table values."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    law_name = get_law_name(row)
 
-    # Get actual values
+    # Use exact same values as table (kBtu → therms)
     gas_kbtu = safe_num(row, 'energy_gas_kbtu', 0) or 0
-    gas_therms = gas_kbtu / 100 if gas_kbtu > 0 else 0
-    gas_cost = safe_num(row, 'cost_gas_annual', 0) or 0
-    gas_rate = safe_num(row, 'cost_gas_rate_therm', 0) or 0
+    gas_kbtu_post = safe_num(row, 'energy_gas_kbtu_post_odcv', 0) or 0
+    current_therms = gas_kbtu / 100 if gas_kbtu > 0 else 0
+    post_therms = gas_kbtu_post / 100 if gas_kbtu_post > 0 else 0
     hvac_pct = safe_num(row, 'hvac_pct_gas', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
 
-    # Get building-type specific notes
-    type_notes = BUILDING_TYPE_ENERGY_NOTES.get(bldg_type, DEFAULT_ENERGY_NOTES)
-
-    # Get location for dynamic content
-    city = safe_val(row, 'loc_city', '')
-    climate = safe_val(row, 'energy_climate_zone', '')
-
-    lines = []
-    lines.append("HOW NATURAL GAS COST IS CALCULATED")
-    lines.append("=" * 35)
-
-    lines.append("")
-    lines.append("FORMULA: therms × rate × 1.10")
-
-    if gas_therms > 0 and gas_rate > 0:
-        lines.append("")
-        lines.append("THIS BUILDING:")
-        lines.append(f"  {gas_kbtu:,.0f} kBtu ÷ 100 = {gas_therms:,.0f} therms")
-        lines.append(f"  {gas_therms:,.0f} × ${gas_rate:.3f}/therm × 1.10")
-        lines.append(f"  = ${gas_cost:,.0f}/yr")
-        lines.append("  (×1.10 = taxes, fees, delivery)")
+    lines = ["NATURAL GAS SAVINGS"]
+    lines.append(f"Current (disclosed): {current_therms:,.0f} therms/yr")
+    if post_therms > 0:
+        delta = current_therms - post_therms
+        lines.append(f"After ODCV: {post_therms:,.0f} therms/yr")
+        lines.append(f"Change: -{delta:,.0f} therms/yr")
     else:
-        lines.append("")
-        lines.append(f"TOTAL: ${gas_cost:,.0f}/yr")
+        lines.append("After ODCV: —")
+    lines.append(f"How: HVAC is {hvac_pct*100:.0f}% of gas; ODCV cuts {odcv_pct*100:.0f}% of that.")
 
-    # HVAC portion with building-type explanation
-    if hvac_pct > 0:
-        hvac_cost = gas_cost * hvac_pct
-        lines.append("")
-        lines.append(f"HVAC PORTION FOR {bldg_type.upper()}: {hvac_pct*100:.0f}%")
-        lines.append(f"  = ${hvac_cost:,.0f}/yr for heating")
-        gas_note = type_notes.get('gas_note', '')
-        if gas_note:
-            lines.append("")
-            # Word wrap the note
-            words = gas_note.split()
-            line = ""
-            for word in words:
-                if len(line) + len(word) + 1 <= 42:
-                    line = line + " " + word if line else word
-                else:
-                    lines.append(f"  {line}")
-                    line = word
-            if line:
-                lines.append(f"  {line}")
-        lines.append("  (Based on EIA CBECS 2018)")
+    # Vertical context using ONLY real row values
+    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
+    util = safe_num(row, 'occ_utilization_rate', 0) or 0
+    if bldg_type == 'Hotel':
+        lines.append(f"Why believable: only {hvac_pct*100:.0f}% of hotel gas is HVAC (rest is hot water/kitchen).")
+    elif bldg_type == 'Restaurant/Bar':
+        lines.append(f"Why believable: only {hvac_pct*100:.0f}% of gas is HVAC (rest is cooking).")
+    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
+        lines.append(f"Why believable: {hvac_pct*100:.0f}% HVAC; rest is sterilization/hot water.")
+    elif bldg_type in ['Office', 'Medical Office']:
+        if vacancy > 0 or util > 0:
+            parts = []
+            if vacancy > 0: parts.append(f"{vacancy*100:.0f}% vacant")
+            if util > 0: parts.append(f"{util*100:.0f}% utilized")
+            lines.append(f"Why believable: {', '.join(parts)}; {hvac_pct*100:.0f}% of gas is heating.")
+        else:
+            lines.append(f"Why believable: {hvac_pct*100:.0f}% of gas is heating; offices over-condition empty space.")
+    elif bldg_type in ['K-12 School', 'Higher Ed']:
+        lines.append(f"Why believable: {hvac_pct*100:.0f}% of gas is heating; empty half the year.")
+    else:
+        lines.append(f"Why believable: {hvac_pct*100:.0f}% of gas is HVAC; ODCV cuts when unoccupied.")
 
-    lines.append("")
-    lines.append(f"Source: {law_name}, NREL rates")
-
+    lines.append(f"Sources: {law_name}, CBECS HVAC shares, ODCV model.")
     return '\n'.join(lines)
 
 def get_fuel_oil_tooltip(row):
-    """Comprehensive dynamic tooltip explaining HOW fuel oil cost is calculated."""
-    law_name = get_law_name(row)
+    """ENERGY tooltip - anchored to exact table values."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    law_name = get_law_name(row)
 
-    # Get actual values
+    # Use exact same values as table (kBtu → gallons)
     fuel_kbtu = safe_num(row, 'energy_fuel_oil_kbtu', 0) or 0
-    fuel_mmbtu = fuel_kbtu / 1000 if fuel_kbtu > 0 else 0
-    fuel_cost = safe_num(row, 'cost_fuel_oil_annual', 0) or 0
-    fuel_rate = safe_num(row, 'cost_fuel_oil_rate_mmbtu', 0) or 0
+    fuel_kbtu_post = safe_num(row, 'energy_fuel_oil_kbtu_post_odcv', 0) or 0
+    current_gal = fuel_kbtu / 138.5 if fuel_kbtu > 0 else 0
+    post_gal = fuel_kbtu_post / 138.5 if fuel_kbtu_post > 0 else 0
     hvac_pct = safe_num(row, 'hvac_pct_fuel_oil', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
 
-    lines = []
-    lines.append("HOW FUEL OIL COST IS CALCULATED")
-    lines.append("=" * 32)
-
-    lines.append("")
-    lines.append("FORMULA: MMBtu × rate × 1.10")
-
-    if fuel_mmbtu > 0:
-        lines.append("")
-        lines.append("THIS BUILDING:")
-        lines.append(f"  {fuel_kbtu:,.0f} kBtu ÷ 1,000")
-        lines.append(f"  = {fuel_mmbtu:,.1f} MMBtu")
-        if fuel_rate > 0:
-            lines.append(f"  × ${fuel_rate:.2f}/MMBtu × 1.10")
-        lines.append(f"  = ${fuel_cost:,.0f}/yr")
-        lines.append("  (×1.10 = taxes, fees, delivery)")
-
-    # HVAC portion with building type context
-    if hvac_pct > 0:
-        hvac_cost = fuel_cost * hvac_pct
-        lines.append("")
-        lines.append(f"HVAC PORTION FOR {bldg_type.upper()}: {hvac_pct*100:.0f}%")
-        lines.append(f"  = ${hvac_cost:,.0f}/yr for space heating")
-        lines.append("  Fuel oil: fixed 93% HVAC (heating only)")
-        lines.append("  (Based on EIA CBECS 2018)")
-
-    lines.append("")
-    lines.append(f"Source: {law_name}, NREL rates")
-
+    lines = ["FUEL OIL SAVINGS"]
+    lines.append(f"Current (disclosed): {current_gal:,.0f} gallons/yr")
+    if post_gal > 0:
+        delta = current_gal - post_gal
+        lines.append(f"After ODCV: {post_gal:,.0f} gallons/yr")
+        lines.append(f"Change: -{delta:,.0f} gallons/yr")
+    else:
+        lines.append("After ODCV: —")
+    lines.append(f"How: HVAC is {hvac_pct*100:.0f}% of fuel oil; ODCV cuts {odcv_pct*100:.0f}% of that.")
+    lines.append("Why believable: fuel oil is almost entirely for heating (no cooking/hot water).")
+    lines.append(f"Sources: {law_name}, CBECS HVAC shares, ODCV model.")
     return '\n'.join(lines)
 
 def get_district_steam_tooltip(row):
-    """Comprehensive dynamic tooltip explaining HOW district steam cost is calculated."""
-    law_name = get_law_name(row)
+    """ENERGY tooltip - anchored to exact table values."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    law_name = get_law_name(row)
     city = safe_val(row, 'loc_city', '')
 
-    # Get actual values
+    # Use exact same values as table (kBtu → Mlb, /1194 matches table)
     steam_kbtu = safe_num(row, 'energy_steam_kbtu', 0) or 0
-    steam_mlb = steam_kbtu / 909 if steam_kbtu > 0 else 0  # 909 kBtu/Mlb
-    steam_cost = safe_num(row, 'cost_steam_annual', 0) or 0
-    steam_rate = safe_num(row, 'cost_steam_rate_mlb', 0) or 0
+    steam_kbtu_post = safe_num(row, 'energy_steam_kbtu_post_odcv', 0) or 0
+    current_mlb = steam_kbtu / 1194 if steam_kbtu > 0 else 0
+    post_mlb = steam_kbtu_post / 1194 if steam_kbtu_post > 0 else 0
     hvac_pct = safe_num(row, 'hvac_pct_steam', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
 
-    lines = []
-    lines.append("HOW DISTRICT STEAM COST IS CALCULATED")
-    lines.append("=" * 38)
-
-    lines.append("")
-    lines.append("FORMULA: Mlb × rate")
-    lines.append("(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)")
-
-    if steam_mlb > 0:
-        lines.append("")
-        lines.append("THIS BUILDING:")
-        lines.append(f"  {steam_kbtu:,.0f} kBtu ÷ 909 kBtu/Mlb")
-        lines.append(f"  = {steam_mlb:,.1f} Mlb")
-        if steam_rate > 0:
-            lines.append(f"  × ${steam_rate:.2f}/Mlb")
-        lines.append(f"  = ${steam_cost:,.0f}/yr")
-        lines.append("  (No adder - steam rates all-inclusive)")
-
-    # HVAC portion
-    if hvac_pct > 0:
-        hvac_cost = steam_cost * hvac_pct
-        lines.append("")
-        lines.append(f"HVAC PORTION: {hvac_pct*100:.0f}%")
-        lines.append(f"  = ${hvac_cost:,.0f}/yr for space heating")
-        lines.append("  District steam typically 85-100% heating.")
-        lines.append("  (Based on EIA CBECS 2018)")
-
-    lines.append("")
-    # Dynamic provider info based on city
-    if 'New York' in city or city == 'NYC':
-        lines.append("PROVIDER: Con Edison Steam")
-        lines.append("  Largest US district steam system (105 mi)")
-    elif 'Boston' in city:
-        lines.append("PROVIDER: Vicinity Energy")
-    elif city in ['Washington', 'DC']:
-        lines.append("PROVIDER: Vicinity Energy")
-    elif 'Philadelphia' in city:
-        lines.append("PROVIDER: Vicinity Energy")
+    lines = ["DISTRICT STEAM SAVINGS"]
+    lines.append(f"Current (disclosed): {current_mlb:,.2f} Mlb/yr")
+    if post_mlb > 0:
+        delta = current_mlb - post_mlb
+        lines.append(f"After ODCV: {post_mlb:,.2f} Mlb/yr")
+        lines.append(f"Change: -{delta:,.2f} Mlb/yr")
     else:
-        lines.append("AVAILABILITY:")
-        lines.append("  NYC, Boston, DC, Philadelphia, and other")
-        lines.append("  dense urban areas with steam infrastructure.")
+        lines.append("After ODCV: —")
+    lines.append(f"How: HVAC is {hvac_pct*100:.0f}% of steam; ODCV cuts {odcv_pct*100:.0f}% of that.")
+    lines.append("Why believable: district steam is almost entirely for heating.")
+    if 'New York' in city or city == 'NYC':
+        lines.append("(NYC Con Edison steam — largest district steam in US)")
+    lines.append(f"Sources: {law_name}, CBECS HVAC shares, ODCV model.")
+    return '\n'.join(lines)
 
-    lines.append("")
-    lines.append(f"Source: {law_name}")
+def get_site_eui_tooltip(row):
+    """ENERGY tooltip - anchored to exact table values."""
+    current_eui = safe_num(row, 'energy_site_eui', 0) or 0
+    building_id = safe_val(row, 'id_building', '')
+    new_eui = EUI_POST_ODCV.get(building_id)  # Same dict as table uses
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    law_name = get_law_name(row)
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
+    hvac_pct_elec = safe_num(row, 'hvac_pct_elec', 0) or 0
+    hvac_pct_gas = safe_num(row, 'hvac_pct_gas', 0) or 0
 
+    lines = ["SITE EUI SAVINGS"]
+    lines.append(f"Current (disclosed): {current_eui:.1f} kBtu/sqft")
+    if new_eui:
+        delta = current_eui - new_eui
+        lines.append(f"After ODCV: {new_eui:.1f} kBtu/sqft")
+        lines.append(f"Change: -{delta:.1f} kBtu/sqft")
+    else:
+        lines.append("After ODCV: —")
+    lines.append(f"How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × {odcv_pct*100:.0f}% savings).")
+
+    # Vertical context using actual row values
+    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
+    util = safe_num(row, 'occ_utilization_rate', 0) or 0
+    if bldg_type in ['Office', 'Medical Office']:
+        parts = []
+        if hvac_pct_elec > 0: parts.append(f"elec HVAC {hvac_pct_elec*100:.0f}%")
+        if hvac_pct_gas > 0: parts.append(f"gas HVAC {hvac_pct_gas*100:.0f}%")
+        if vacancy > 0 or util > 0:
+            occ_parts = []
+            if vacancy > 0: occ_parts.append(f"{vacancy*100:.0f}% vacant")
+            if util > 0: occ_parts.append(f"{util*100:.0f}% utilized")
+            lines.append(f"Why believable: {', '.join(parts)}; {', '.join(occ_parts)}.")
+        else:
+            lines.append(f"Why believable: {', '.join(parts)} — high HVAC share = big EUI impact.")
+    elif bldg_type in ['K-12 School', 'Higher Ed']:
+        lines.append(f"Why believable: elec HVAC {hvac_pct_elec*100:.0f}%, gas HVAC {hvac_pct_gas*100:.0f}% — high HVAC share.")
+    elif bldg_type == 'Hotel':
+        lines.append(f"Why believable: gas HVAC only {hvac_pct_gas*100:.0f}% (rest is hot water/kitchen) — smaller EUI impact.")
+    else:
+        lines.append(f"Why believable: HVAC portion drives EUI reduction.")
+
+    lines.append(f"Sources: {law_name}, ODCV model.")
     return '\n'.join(lines)
 
 def get_hvac_pct_tooltip(row):
@@ -1319,88 +1193,337 @@ def get_total_ghg_tooltip(row):
     return '\n'.join(lines)
 
 def get_fine_avoidance_tooltip(row):
-    """Dynamic tooltip for Fine Avoidance based on city's BPS law.
+    """SALES CALL READY tooltip for Fine Avoidance.
 
-    Explains why a building may or may not have fine avoidance:
-    - Building in non-BPS city
-    - Building below min sqft threshold
-    - Building type exempt (K-12, Government in NYC/Denver)
-    - Building already under emission cap
-    - Fine avoided through ODCV
+    Chad can read this to an energy nerd and sound credible.
+    Shows the actual math for THIS building in THIS city.
     """
-    law_name = safe_val(row, 'bps_law_name', '')
     city = safe_val(row, 'loc_city', '')
-    bldg_type = safe_val(row, 'bldg_vertical', '')
-    sqft = safe_num(row, 'bldg_sqft', 0)
-    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0)
+    bldg_type = safe_val(row, 'bldg_type', '')
+    bldg_vertical = safe_val(row, 'bldg_vertical', '')
+    sqft = safe_num(row, 'bldg_sqft', 0) or 0
+    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0) or 0
+    fine_baseline = safe_num(row, 'bps_fine_baseline_yr1_usd', 0) or 0
+
+    # Get carbon/energy data for showing the math
+    emissions = safe_num(row, 'carbon_emissions_total_mt', 0) or 0
+    eui = safe_num(row, 'energy_site_eui', 0) or 0
+    energy_star = safe_num(row, 'energy_star_score', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
 
     # Get BPS info for this city
     bps_info = BPS_TOOLTIP_INFO.get(city)
 
     # Case 1: Not in a BPS city
     if not bps_info:
-        return f"No Building Performance Standard applies in {city or 'this city'}. BPS fines currently exist in: NYC, Boston, Cambridge, DC, Denver, Seattle, and St. Louis."
+        lines = []
+        lines.append(f"No building performance law in {city or 'this city'}.")
+        lines.append("")
+        lines.append("Cities with fines: NYC, Boston, Cambridge,")
+        lines.append("DC, Denver, Seattle, St. Louis.")
+        lines.append("")
+        lines.append("Savings here are pure utility cost reduction.")
+        return '\n'.join(lines)
 
-    # Case 2: Check if building type is exempt
-    exempt_types = bps_info.get('exempt_types', [])
-    if bldg_type in exempt_types:
-        exempt_reason = bps_info.get('exempt_reason', 'are exempt from standard fines')
-        return f"No fine avoidance: {bldg_type} buildings in {city} {exempt_reason} under {bps_info['law']}."
-
-    # Case 3: Building below minimum sqft threshold
-    min_sqft = bps_info.get('min_sqft', 0)
-    if sqft > 0 and sqft < min_sqft:
-        return f"No fine avoidance: Building is {sqft:,.0f} sqft, below {bps_info['law']}'s {min_sqft:,} sqft minimum threshold."
-
-    # Case 4: Building has fine avoidance - explain the law
     law = bps_info['law']
-    penalty = bps_info['penalty']
-    cap = bps_info.get('cap', '')
+    min_sqft = bps_info.get('min_sqft', 0)
 
+    # Case 2: Building type exempt
+    exempt_types = bps_info.get('exempt_types', [])
+    if bldg_type in exempt_types or bldg_vertical in exempt_types:
+        lines = []
+        lines.append(f"{bldg_type} buildings in {city} have")
+        lines.append(f"alternative compliance under {law}.")
+        lines.append("")
+        lines.append("No standard fines apply.")
+        return '\n'.join(lines)
+
+    # Case 3: Below size threshold
+    if sqft > 0 and sqft < min_sqft:
+        lines = []
+        lines.append(f"{law} applies to {min_sqft:,}+ sqft buildings.")
+        lines.append("")
+        lines.append(f"This building: {sqft:,.0f} sqft")
+        lines.append("Not subject to fines.")
+        return '\n'.join(lines)
+
+    # Case 4: Has fine avoidance - SHOW THE MATH
     if fine_avoided > 0:
-        # Building has fine avoidance - give full explanation
+        lines = []
+
         if city == 'New York':
-            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            cap_per_sqft = 0.00758
+            cap = sqft * cap_per_sqft
+            overage = max(0, emissions - cap)
+            lines.append("NYC LOCAL LAW 97")
+            lines.append("")
+            lines.append(f"Cap: {sqft:,.0f} sqft × 0.00758")
+            lines.append(f"   = {cap:,.0f} tCO2e/yr allowed")
+            lines.append(f"This building: {emissions:,.0f} tCO2e/yr")
+            if overage > 0:
+                lines.append(f"Over cap by: {overage:,.0f} tCO2e")
+            lines.append("")
+            lines.append(f"Fine without ODCV: ${fine_baseline:,.0f}/yr")
+            lines.append(f"ODCV cuts emissions {odcv_pct*100:.0f}%")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
+
         elif city in ['Boston', 'Cambridge']:
-            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            cap_per_sqft = 0.0053
+            cap = sqft * cap_per_sqft
+            law_name = 'BERDO 2.0' if city == 'Boston' else 'CAMBRIDGE BEUDO'
+            lines.append(law_name)
+            lines.append("")
+            lines.append(f"Cap: {sqft:,.0f} sqft × 0.0053")
+            lines.append(f"   = {cap:,.0f} tCO2e/yr allowed")
+            lines.append(f"This building: {emissions:,.0f} tCO2e/yr")
+            lines.append("")
+            lines.append(f"Fine: $234/tCO2e over cap")
+            lines.append(f"ODCV cuts emissions {odcv_pct*100:.0f}%")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
+
         elif city == 'Washington':
-            return f"{law}: {penalty} based on ENERGY STAR compliance gap. ODCV improves score, avoiding ${fine_avoided:,.0f}/yr in fines."
+            lines.append("DC BEPS")
+            lines.append("")
+            lines.append("Target: ENERGY STAR score 71+")
+            if energy_star:
+                lines.append(f"This building: {int(energy_star)}")
+            lines.append("")
+            lines.append("Below 71 = $10/sqft fine")
+            lines.append("ODCV improves efficiency → higher score")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
+
         elif city == 'Denver':
-            return f"{law}: {penalty} (target: {cap}). ODCV reduces EUI, avoiding ${fine_avoided:,.0f}/yr in fines."
+            target_eui = 48.3
+            overage = max(0, eui - target_eui)
+            lines.append("ENERGIZE DENVER")
+            lines.append("")
+            lines.append(f"EUI target: 48.3 kBtu/sqft")
+            lines.append(f"This building: {eui:.1f} kBtu/sqft")
+            if overage > 0:
+                lines.append(f"Over by: {overage:.1f} kBtu/sqft")
+            lines.append("")
+            lines.append("Fine: $0.30/kBtu over target")
+            lines.append(f"ODCV reduces EUI {odcv_pct*100:.0f}%")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
+
         elif city == 'Seattle':
-            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            cap_per_sqft = 0.00081
+            cap = sqft * cap_per_sqft
+            lines.append("SEATTLE BEPS")
+            lines.append("")
+            lines.append(f"Emission cap: {cap:.1f} tCO2e/yr")
+            lines.append(f"This building: {emissions:,.0f} tCO2e/yr")
+            lines.append("")
+            lines.append("Non-compliance: $10/sqft per 5yr cycle")
+            lines.append(f"ODCV cuts emissions {odcv_pct*100:.0f}%")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
+
         elif city == 'St. Louis':
-            return f"{law}: {penalty} (target: {cap}). ODCV brings building into compliance, avoiding ${fine_avoided:,.0f}/yr in fines."
+            target_eui = 71.7
+            lines.append("ST. LOUIS BEPS")
+            lines.append("")
+            lines.append(f"EUI target: {target_eui} kBtu/sqft")
+            lines.append(f"This building: {eui:.1f} kBtu/sqft")
+            lines.append("")
+            lines.append("Non-compliance: $500/day")
+            lines.append(f"ODCV reduces EUI {odcv_pct*100:.0f}%")
+            lines.append(f"Fine avoided: ${fine_avoided:,.0f}/yr")
 
-    # Case 5: In BPS city but $0 fine avoided - building is already compliant
-    if city == 'New York':
-        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
-    elif city in ['Boston', 'Cambridge']:
-        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
-    elif city == 'Washington':
-        return f"{law} applies but building already meets ENERGY STAR target. No fines to avoid."
-    elif city == 'Denver':
-        return f"{law} applies but building is already below EUI target ({cap}). No fines to avoid."
-    elif city == 'Seattle':
-        return f"{law} applies but building is already below emission cap ({cap}). No fines to avoid."
-    elif city == 'St. Louis':
-        return f"{law} applies but building is already below EUI target ({cap}). No fines to avoid."
+        return '\n'.join(lines)
 
-    # Default fallback
-    return f"{law}: {penalty}. See docs/methodology/NATIONAL_BPS_METHODOLOGY.md for details."
+    # Case 5: In BPS city but already compliant
+    lines = []
+    lines.append(f"{law}")
+    lines.append("")
+    lines.append("This building is already compliant.")
+    lines.append("No fines to avoid.")
+    lines.append("")
+    lines.append("ODCV still saves on utility costs.")
+    return '\n'.join(lines)
+
+
+def get_utility_cost_savings_tooltip(row):
+    """IMPACT tooltip - answers Chad's follow-up questions about $ savings."""
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+
+    elec_cost = safe_num(row, 'cost_elec_total_annual', 0) or 0
+    gas_cost = safe_num(row, 'cost_gas_annual', 0) or 0
+    steam_cost = safe_num(row, 'cost_steam_annual', 0) or 0
+    fuel_cost = safe_num(row, 'cost_fuel_oil_annual', 0) or 0
+    total_cost = elec_cost + gas_cost + steam_cost + fuel_cost
+
+    hvac_total = safe_num(row, 'hvac_cost_total_annual', 0) or 0
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
+    odcv_savings = safe_num(row, 'odcv_hvac_savings_annual_usd', 0) or 0
+
+    # Build cost breakdown by fuel
+    costs = []
+    if elec_cost > 0: costs.append(f"Electric: ${elec_cost:,.0f}")
+    if gas_cost > 0: costs.append(f"Gas: ${gas_cost:,.0f}")
+    if steam_cost > 0: costs.append(f"Steam: ${steam_cost:,.0f}")
+    if fuel_cost > 0: costs.append(f"Oil: ${fuel_cost:,.0f}")
+
+    lines = ["HOW WE CALCULATE $ SAVINGS"]
+    lines.append(f"Total energy bill: ${total_cost:,.0f}/yr")
+    if costs:
+        lines.append(f"  ({', '.join(costs)})")
+    lines.append(f"HVAC portion of that: ${hvac_total:,.0f}/yr")
+    lines.append(f"ODCV saves {odcv_pct*100:.0f}% of HVAC = ${odcv_savings:,.0f}/yr")
+
+    # Vertical-specific context (keep concise)
+    if bldg_type == 'Hotel':
+        lines.append("HOTEL NOTE:")
+        lines.append("Gas savings are smaller because only 20% of gas is HVAC.")
+        lines.append("Rest goes to hot water and kitchens - can't save there.")
+    elif bldg_type == 'Restaurant/Bar':
+        lines.append("RESTAURANT NOTE:")
+        lines.append("Gas savings limited - 72% of gas is kitchen cooking.")
+    elif bldg_type == 'K-12 School':
+        lines.append("SCHOOL NOTE:")
+        lines.append("Schools have highest savings - empty after 3pm, weekends, summer.")
+    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
+        lines.append("HOSPITAL NOTE:")
+        lines.append("Savings limited to non-clinical areas (lobbies, offices, cafeteria).")
+        lines.append("Clinical areas need constant airflow by code.")
+    elif bldg_type == 'Data Center':
+        lines.append("DATA CENTER NOTE:")
+        lines.append("Minimal savings - cooling is for servers, not people.")
+    elif bldg_type in ['Office', 'Medical Office']:
+        vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
+        util = safe_num(row, 'occ_utilization_rate', 0) or 0
+        lines.append("OFFICE NOTE:")
+        if vacancy > 0:
+            lines.append(f"This building is {vacancy*100:.0f}% vacant - paying to condition empty space.")
+        if util > 0:
+            lines.append(f"Hybrid work means only {util*100:.0f}% of occupied space is actually used.")
+    elif bldg_type == 'Supermarket/Grocery':
+        lines.append("GROCERY NOTE:")
+        lines.append("40% of electric is refrigeration - those cases run 24/7.")
+        lines.append("ODCV only saves on the HVAC portion.")
+
+    lines.append("Sources: utility rates by ZIP, CBECS HVAC shares")
+    return '\n'.join(lines)
+
+
+def get_odcv_methodology_tooltip(row):
+    """SALES CALL READY tooltip for ODCV Savings % row.
+
+    Chad reads this when energy nerd asks "how did you
+    calculate that percentage?" Uses vertical language + formula.
+    """
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
+
+    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
+    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
+    utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
+
+    floor_pct = type_info.get('floor', 0.15) * 100
+    ceiling_pct = type_info.get('ceiling', 0.35) * 100
+
+    lines = []
+    lines.append(f"WHY {odcv_pct*100:.0f}% HVAC SAVINGS?")
+    lines.append("")
+    lines.append(f"{bldg_type}s: {floor_pct:.0f}-{ceiling_pct:.0f}% typical")
+    lines.append("")
+
+    # Building-type explanation in VERTICAL LANGUAGE
+    if bldg_type == 'Data Center':
+        lines.append("Data centers cool servers, not people.")
+        lines.append("Occupancy doesn't affect cooling load.")
+        lines.append("ODCV savings: 0%")
+        return '\n'.join(lines)
+
+    if bldg_type in ['Office', 'Medical Office', 'Mixed Use']:
+        lines.append("THE OPPORTUNITY:")
+        if vacancy > 0:
+            lines.append(f"  {vacancy*100:.0f}% vacancy (floors still ventilated)")
+        if utilization > 0:
+            lines.append(f"  {utilization*100:.0f}% utilization (hybrid work)")
+        lines.append("")
+        lines.append("HVAC runs like building is full")
+        lines.append("even when it's half empty.")
+
+    elif bldg_type == 'K-12 School':
+        empty_pct = (1 - utilization) * 100 if utilization else 55
+        lines.append("THE OPPORTUNITY:")
+        lines.append(f"  {empty_pct:.0f}% of year classrooms empty:")
+        lines.append("  • After 3pm daily")
+        lines.append("  • Weekends")
+        lines.append("  • 10+ weeks summer")
+        lines.append("")
+        lines.append("Highest ceiling (45%) of any type.")
+
+    elif bldg_type == 'Hotel':
+        occ = utilization * 100 if utilization else 70
+        lines.append("THE OPPORTUNITY:")
+        lines.append(f"  {occ:.0f}% room occupancy typical")
+        lines.append("  + Guests out during day")
+        lines.append("  + Checkout gaps")
+        lines.append("")
+        lines.append("Room HVAC can match actual guests.")
+
+    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
+        lines.append("CONSTRAINED BY CODE:")
+        lines.append("  ASHRAE 170: 15-25 air changes/hr")
+        lines.append("  in ORs regardless of occupancy.")
+        lines.append("")
+        lines.append("Only non-clinical areas qualify.")
+        lines.append(f"Max achievable: {ceiling_pct:.0f}%")
+
+    elif bldg_type == 'Retail Store':
+        lines.append("THE OPPORTUNITY:")
+        lines.append("  Traffic varies throughout day:")
+        lines.append("  opening, mid-morning lull, rushes")
+        lines.append("")
+        lines.append("ODCV matches actual customer traffic.")
+
+    elif bldg_type == 'Gym':
+        lines.append("THE OPPORTUNITY:")
+        lines.append("  Extreme peak/off-peak:")
+        lines.append("  6-8am packed, 10am-4pm empty")
+        lines.append("")
+        lines.append("Ventilating empty gym = pure waste.")
+
+    elif bldg_type in ['Theater', 'Venue']:
+        lines.append("THE OPPORTUNITY:")
+        lines.append("  Empty for hours/days between events")
+        lines.append("  then full capacity for shows.")
+        lines.append("")
+        lines.append("Highest variability = high savings.")
+
+    else:
+        if utilization > 0:
+            empty_pct = (1 - utilization) * 100
+            lines.append(f"THE OPPORTUNITY:")
+            lines.append(f"  {empty_pct:.0f}% underutilized")
+        lines.append("")
+        lines.append("ODCV adjusts to actual occupancy.")
+
+    lines.append("")
+    lines.append(f"This building: {odcv_pct*100:.0f}%")
+    lines.append("")
+    lines.append("CALCULATION:")
+    lines.append(f"  Floor ({floor_pct:.0f}%) + opportunity score × range")
+    lines.append("  Adjusted for climate zone and building efficiency.")
+    return '\n'.join(lines)
 
 # Map of dynamic tooltip keys to their generator functions
 DYNAMIC_TOOLTIPS = {
-    # Existing
-    'annual_savings': get_annual_savings_tooltip,
+    # Impact Section - SALES CALL READY
+    'utility_cost_savings': get_utility_cost_savings_tooltip,  # For Utility Cost row - $ talk OK
+    'odcv_methodology': get_odcv_methodology_tooltip,  # For ODCV Savings % explanation
     'property_value_increase': get_property_value_tooltip,
-    'energy_star_score': get_energy_star_tooltip,
     'fine_avoidance': get_fine_avoidance_tooltip,
-    # Energy Table - Enhanced with full calculation explanations
+    'energy_star_score': get_energy_star_tooltip,
+    # Legacy - keep for backward compatibility
+    'annual_savings': get_annual_savings_tooltip,
+    # Energy Table - ENERGY SAVINGS ONLY (no $ talk)
     'energy_elec_kwh': get_electricity_kwh_tooltip,
     'natural_gas': get_natural_gas_tooltip,
     'fuel_oil': get_fuel_oil_tooltip,
     'district_steam': get_district_steam_tooltip,
+    'energy_site_eui': get_site_eui_tooltip,  # NEW: dynamic Site EUI tooltip
     'pct_hvac_elec': get_hvac_pct_tooltip,
     # Electricity Details
     'load_factor': get_load_factor_tooltip,
@@ -2102,7 +2225,7 @@ def generate_energy_section(row):
             change_str = '<td>—</td>'
         html += f"""
             <tr>
-                <td>Site EUI{tooltip('energy_site_eui')}</td>
+                <td>Site EUI{tooltip('energy_site_eui', row)}</td>
                 <td>{current_str}</td>
                 <td>{new_str}</td>
                 {change_str}
@@ -2148,11 +2271,11 @@ def generate_impact_section(row):
             </tr>
 """
 
-    # Utility Cost row
+    # Utility Cost row - uses utility_cost_savings tooltip (SALES CALL READY)
     if total_energy_cost and odcv_savings:
         html += f"""
             <tr>
-                <td>Utility Cost{tooltip('annual_savings', row)}</td>
+                <td>Utility Cost{tooltip('utility_cost_savings', row)}</td>
                 <td>{format_currency(total_energy_cost)}/yr</td>
                 <td>{format_currency(new_utility_cost)}/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-{format_currency(odcv_savings)}/yr</td>

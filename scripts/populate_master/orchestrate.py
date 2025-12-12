@@ -31,12 +31,17 @@ DATA_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/port
 BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
 
 SCRIPTS = [
-    ('02_odcv_savings.py',   'ODCV savings percentage'),
-    ('03_hvac_totals.py',    'HVAC energy and cost totals'),
-    ('04_carbon_by_city.py', 'City-specific carbon emissions'),
-    ('05_bps_fines.py',      'BPS fine avoidance'),
-    ('06_valuation.py',      'Valuation impact'),
-    ('07_nyc_update.py',     'NYC building overrides (LAST)'),
+    ('01_hvac_pct.py',           'HVAC % by fuel type'),
+    ('02_energy_costs.py',       'Calculate energy costs from rates'),
+    ('03_odcv_savings.py',       'ODCV savings percentage'),
+    ('04_post_odcv_energy.py',   'Post-ODCV energy'),
+    ('05_post_odcv_costs.py',    'Post-ODCV costs'),
+    ('06_hvac_totals.py',        'HVAC energy and cost totals'),
+    ('07_carbon_by_city.py',     'City-specific carbon emissions'),
+    ('08_bps_fines.py',          'BPS fine avoidance'),
+    ('09_valuation.py',          'Valuation impact'),
+    ('10_energy_star_estimate.py', 'Energy Star score estimation'),
+    ('11_nyc_update.py',         'NYC building overrides (LAST)'),
 ]
 
 # =============================================================================

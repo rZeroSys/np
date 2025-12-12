@@ -7331,7 +7331,6 @@ const TUTORIAL_STEPS = [
     }},
     {{
         target: '.portfolio-card.expanded .row-controls',
-        multiTarget: ['.portfolio-card.expanded .row-arrow:first-child', '.portfolio-card.expanded .row-arrow:last-child'],
         title: 'Show More / Collapse',
         content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
         position: 'top',

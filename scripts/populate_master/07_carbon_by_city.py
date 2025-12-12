@@ -58,6 +58,7 @@ CITY_EMISSION_FACTORS = {
     'Chicago':       {'electricity': 0.0001649,  'gas': 0.00005311, 'steam': 0.00004493, 'fuel_oil': 0.00007315},
     'Portland':      {'electricity': 0.0000595,  'gas': 0.00005311, 'steam': 0.00004493, 'fuel_oil': 0.00007315},
     'Atlanta':       {'electricity': 0.0000988,  'gas': 0.00005311, 'steam': 0.00004493, 'fuel_oil': 0.00007315},
+    'Berkeley':      {'electricity': 0.0000570,  'gas': 0.00005311, 'steam': 0.00004493, 'fuel_oil': 0.00007315},  # PG&E grid (same as SF)
     'DEFAULT':       {'electricity': 0.0000922,  'gas': 0.00005311, 'steam': 0.00004493, 'fuel_oil': 0.00007315},
 }
 
