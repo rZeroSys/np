@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<!-- Nationwide Prospector - Technical Guide -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Methodology | Nationwide Prospector</title>
+    <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rzero-primary: #0066cc;
+            --rzero-secondary: #0052a3;
+            --text-light: #6b7280;
+            --text-dark: #1a202c;
+            --background: #f4fbfd;
+            --card-bg: white;
+            --border: #e5e7eb;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rzero-logo {
+            height: 40px;
+        }
+
+        .header-nav a {
+            color: var(--rzero-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .header-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Title section */
+        .title-section {
+            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.2);
+        }
+
+        .title-section h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .title-section .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 15px;
+        }
+
+        /* Table of contents */
+        .toc {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .toc h2 {
+            color: var(--rzero-primary);
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 102, 204, 0.2);
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .toc-list li a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95em;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .toc-list li a:hover {
+            background: var(--background);
+            color: var(--rzero-primary);
+        }
+
+        .toc-list li a .toc-num {
+            color: var(--rzero-primary);
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: var(--rzero-primary);
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 102, 204, 0.2);
+        }
+
+        .section h3 {
+            color: var(--text-dark);
+            font-size: 1.2em;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .section h4 {
+            color: var(--text-light);
+            font-size: 1em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .section ul, .section ol {
+            margin: 15px 0 15px 25px;
+            color: #444;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        /* Formula boxes */
+        .formula-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--rzero-primary);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .formula-box code {
+            color: var(--rzero-secondary);
+        }
+
+        /* Code blocks */
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: #0066cc;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        tr:hover {
+            background: #fafbfc;
+        }
+
+        /* Callout boxes */
+        .callout {
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+        }
+
+        .callout.success {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .callout.info .callout-title { color: #1d4ed8; }
+        .callout.warning .callout-title { color: #b45309; }
+        .callout.success .callout-title { color: #15803d; }
+
+        /* Highlight values */
+        .highlight-value {
+            color: var(--rzero-primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            font-size: 0.9em;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .title-section {
+                padding: 40px 25px;
+            }
+
+            .title-section h1 {
+                font-size: 1.8em;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="index.html">
+            <img src="https://rzero.com/wp-content/themes/rzero/build/images/logo-rzero.svg" alt="R-Zero" class="rzero-logo">
+        </a>
+        <nav class="header-nav">
+            <a href="index.html">&larr; Back to Buildings</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+
+    <div class="title-section">
+        <h1>Nationwide Prospector</h1>
+        <p class="subtitle">Definitive Technical Guide: Data sources, analytics methods, formulas, and definitions</p>
+        <span class="version-badge">Version 1.0</span>
+    </div>
+
+    <nav class="toc" id="toc">
+        <h2>Table of Contents</h2>
+        <ol class="toc-list">
+            <li><a href="#overview"><span class="toc-num">1</span> What Nationwide Prospector Produces</a></li>
+            <li><a href="#data-sources"><span class="toc-num">2</span> Data Sources</a></li>
+            <li><a href="#schema"><span class="toc-num">3</span> Canonical Schema</a></li>
+            <li><a href="#energy"><span class="toc-num">4</span> Energy Normalization</a></li>
+            <li><a href="#cost"><span class="toc-num">5</span> Utility Cost Calculation</a></li>
+            <li><a href="#hvac"><span class="toc-num">6</span> HVAC Attribution</a></li>
+            <li><a href="#odcv"><span class="toc-num">7</span> ODCV Savings Model</a></li>
+            <li><a href="#application"><span class="toc-num">8</span> ODCV Application</a></li>
+            <li><a href="#bps"><span class="toc-num">9</span> BPS Fine Methodology</a></li>
+            <li><a href="#opex"><span class="toc-num">10</span> Total OpEx Avoidance</a></li>
+            <li><a href="#valuation"><span class="toc-num">11</span> Valuation Impact</a></li>
+            <li><a href="#energy-star"><span class="toc-num">12</span> ENERGY STAR Estimation</a></li>
+            <li><a href="#portfolio"><span class="toc-num">13</span> Portfolio Identification</a></li>
+            <li><a href="#quality"><span class="toc-num">14</span> Data Quality Controls</a></li>
+            <li><a href="#formula-chain"><span class="toc-num">15</span> End-to-End Formula Chain</a></li>
+            <li><a href="#glossary"><span class="toc-num">16</span> Glossary</a></li>
+        </ol>
+    </nav>
+
+    <!-- Section 1: Overview -->
+    <section class="section" id="overview">
+        <h2>1) What Nationwide Prospector Produces</h2>
+
+        <h3>1.1 Output Artifact</h3>
+        <p>The core output is a <strong>building-level table</strong> (<code>portfolio_data.csv</code>) with <strong>one row per building</strong> and a standardized set of column groups (location, building characteristics, energy, costs, HVAC %, occupancy, ODCV savings, carbon, BPS fines, combined savings, valuation, metadata).</p>
+
+        <h3>1.2 Intended Use</h3>
+        <p>Nationwide Prospector is designed for <strong>portfolio-scale screening</strong>:</p>
+        <ul>
+            <li>Identify buildings likely wasting HVAC energy due to <strong>vacancy + under-utilization</strong></li>
+            <li>Quantify <strong>annual HVAC utility savings</strong> from occupancy-driven ventilation controls (ODCV)</li>
+            <li>Quantify <strong>year-1 regulatory penalty avoidance</strong> (where Building Performance Standards apply)</li>
+            <li>Translate annual OpEx avoided into <strong>property valuation uplift</strong> using cap rates</li>
+            <li>Roll buildings up into <strong>portfolio organizations</strong> for account-based targeting</li>
+        </ul>
+
+        <div class="callout warning">
+            <div class="callout-title">Important</div>
+            <p>This is explicitly a <strong>screening model</strong>, not a replacement for an engineering audit.</p>
+        </div>
+    </section>
+
+    <!-- Section 2: Data Sources -->
+    <section class="section" id="data-sources">
+        <h2>2) Data Sources</h2>
+        <p>Nationwide Prospector combines <strong>measured/declared building energy</strong> with <strong>modeled enrichment layers</strong> (rates, HVAC end-use splits, occupancy proxies, emissions factors, BPS rule parameters, cap rates).</p>
+
+        <h3>2.1 Building Energy & Benchmarking Disclosure Data</h3>
+        <h4>Primary source class</h4>
+        <ul>
+            <li><strong>EPA ENERGY STAR Portfolio Manager</strong> and/or <strong>local benchmarking disclosure laws</strong> (city/municipal public disclosure datasets)</li>
+        </ul>
+        <h4>Key fields derived</h4>
+        <ul>
+            <li>Electricity consumption (<code>energy_elec_kwh</code>)</li>
+            <li>Fuel consumption (<code>energy_gas_kbtu</code>, <code>energy_steam_kbtu</code>, <code>energy_fuel_oil_kbtu</code>)</li>
+            <li>Site EUI (<code>energy_site_eui</code>) and building type median benchmark (<code>energy_eui_benchmark</code>)</li>
+            <li>ENERGY STAR score (<code>energy_star_score</code>) when available</li>
+        </ul>
+
+        <h3>2.2 Utility Rates</h3>
+        <p>Energy cost estimation uses:</p>
+        <ul>
+            <li><strong>EIA commercial electricity data</strong> + local tariff analysis</li>
+            <li><strong>EIA natural gas data</strong> + local tariff analysis</li>
+            <li><strong>ConEd steam schedules</strong> / utility filings</li>
+            <li><strong>EIA heating oil data</strong> / regional price surveys</li>
+            <li>Multipliers calibrated from sample commercial bills and research</li>
+        </ul>
+
+        <h3>2.3 HVAC End-Use Split</h3>
+        <p>HVAC attribution depends on <strong>CBECS 2018 microdata</strong> (Commercial Buildings Energy Consumption Survey) with additional adjustments and special-case handling.</p>
+        <p>Output includes: <code>hvac_pct_elec</code>, <code>hvac_pct_gas</code>, <code>hvac_pct_steam</code>, <code>hvac_pct_fuel_oil</code></p>
+
+        <h3>2.4 Occupancy Proxies</h3>
+        <p>ODCV needs an estimate of how "empty" the building is:</p>
+        <ul>
+            <li><strong>Office vacancy:</strong> market vacancy estimates (CBRE / Cushman & Wakefield)</li>
+            <li><strong>Office utilization:</strong> badge-swipe utilization proxies (Kastle Systems "Back to Work")</li>
+            <li><strong>Hotel occupancy:</strong> market occupancy (STR / CoStar)</li>
+            <li><strong>School calendar utilization:</strong> instructional days / operating schedules</li>
+        </ul>
+
+        <h3>2.5 Carbon Emission Factors</h3>
+        <p>Carbon is calculated from raw energy by fuel using:</p>
+        <ul>
+            <li>City-specific electricity factors (grid region / BPS-specific definitions)</li>
+            <li>Standard combustion factors for gas</li>
+            <li>Steam factors (varies by system)</li>
+            <li>A national default when city-specific factor is not defined</li>
+        </ul>
+
+        <h3>2.6 Building Performance Standards (BPS) Rules</h3>
+        <p>The national BPS calculator uses city program parameters for:</p>
+        <ul>
+            <li>NYC LL97</li>
+            <li>Boston BERDO 2.0</li>
+            <li>Cambridge BEUDO</li>
+            <li>Washington DC BEPS</li>
+            <li>Denver Energize</li>
+            <li>Seattle BEPS</li>
+            <li>St. Louis BEPS</li>
+            <li>San Francisco EBEPO (reporting-only: no fine modeled)</li>
+        </ul>
+
+        <h3>2.7 Cap Rates & Valuation Assumptions</h3>
+        <ul>
+            <li><strong>Cap rate medians by building type</strong></li>
+            <li>An income capitalization approach where annual OpEx avoided increases NOI dollar-for-dollar</li>
+        </ul>
+    </section>
+
+    <!-- Section 3: Schema -->
+    <section class="section" id="schema">
+        <h2>3) Canonical Schema: Column Groups & Definitions</h2>
+        <p>Nationwide Prospector uses consistent prefixes:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Prefix</th>
+                    <th>Category</th>
+                    <th>Example Fields</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>loc_</code></td>
+                    <td>Location</td>
+                    <td>loc_address, loc_city, loc_state, loc_zip, loc_lat, loc_lon</td>
+                </tr>
+                <tr>
+                    <td><code>bldg_</code></td>
+                    <td>Building Characteristics</td>
+                    <td>bldg_type, bldg_vertical, bldg_year_built, bldg_sqft</td>
+                </tr>
+                <tr>
+                    <td><code>org_</code></td>
+                    <td>Organizations</td>
+                    <td>org_owner, org_manager, org_tenant</td>
+                </tr>
+                <tr>
+                    <td><code>energy_</code></td>
+                    <td>Energy</td>
+                    <td>energy_site_eui, energy_total_kbtu, energy_star_score</td>
+                </tr>
+                <tr>
+                    <td><code>cost_</code></td>
+                    <td>Utility Costs</td>
+                    <td>cost_elec_total_annual, cost_gas_annual</td>
+                </tr>
+                <tr>
+                    <td><code>hvac_</code></td>
+                    <td>HVAC Attribution</td>
+                    <td>hvac_pct_elec, hvac_energy_total_kbtu, hvac_cost_total_annual</td>
+                </tr>
+                <tr>
+                    <td><code>occ_</code></td>
+                    <td>Occupancy</td>
+                    <td>occ_vacancy_rate, occ_utilization_rate</td>
+                </tr>
+                <tr>
+                    <td><code>odcv_</code></td>
+                    <td>ODCV Savings</td>
+                    <td>odcv_hvac_savings_pct, odcv_hvac_savings_annual_usd</td>
+                </tr>
+                <tr>
+                    <td><code>bps_</code></td>
+                    <td>BPS Fines</td>
+                    <td>bps_law_name, bps_fine_avoided_yr1_usd</td>
+                </tr>
+                <tr>
+                    <td><code>savings_</code></td>
+                    <td>Combined Savings</td>
+                    <td>savings_opex_avoided_annual_usd</td>
+                </tr>
+                <tr>
+                    <td><code>val_</code></td>
+                    <td>Valuation</td>
+                    <td>val_odcv_impact_usd, val_current_usd, val_post_odcv_usd</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Section 4: Energy -->
+    <section class="section" id="energy">
+        <h2>4) Energy Normalization & Unit Conventions</h2>
+
+        <h3>4.1 Core Units</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>kWh</strong></td><td>Electricity consumption</td></tr>
+                <tr><td><strong>kBtu</strong></td><td>Thermal energy unit used for aggregating across fuels</td></tr>
+                <tr><td><strong>therm</strong></td><td>Gas billing unit (1 therm = 100 kBtu)</td></tr>
+                <tr><td><strong>Mlb steam</strong></td><td>"Thousand pounds of steam"</td></tr>
+                <tr><td><strong>MMBtu</strong></td><td>1,000 kBtu</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 EUI Definition</h3>
+        <p>Site EUI is energy per floor area:</p>
+        <div class="formula-box">
+            <code>Site EUI = Total site energy (kBtu) / Gross floor area (sqft)</code>
+        </div>
+
+        <p>Total site energy is computed from disclosed fuel quantities:</p>
+        <div class="formula-box">
+            <code>Total kBtu = (kWh × 3.412) + (therms × 100) + (steam MMBtu × 1000) + (fuel oil gallons × 138.5)</code>
+        </div>
+    </section>
+
+    <!-- Section 5: Utility Cost -->
+    <section class="section" id="cost">
+        <h2>5) Utility Cost Calculation Module</h2>
+
+        <h3>5.1 Purpose</h3>
+        <p>Convert annual energy consumption + rate assumptions into annual utility costs for electricity (energy + demand), natural gas, district steam, and fuel oil.</p>
+
+        <h3>5.2 Electricity: Demand Estimation via Load Factor</h3>
+        <p>If peak demand is not directly known, it is estimated using load factor:</p>
+        <div class="formula-box">
+            <code>Load factor = Average demand / Peak demand</code><br><br>
+            <code>Peak kW = Annual kWh / (8760 × Load factor)</code>
+        </div>
+        <p>Typical ranges by building type and a default assumption of <span class="highlight-value">0.45</span> are used.</p>
+
+        <h3>5.3 Electricity Annual Cost Formula</h3>
+        <div class="formula-box">
+            <code>peak_kw = energy_elec_kwh / (8760 × load_factor)</code><br><br>
+            <code>cost_elec_energy_annual = energy_elec_kwh × rate_kwh × 1.10</code><br><br>
+            <code>cost_elec_demand_annual = peak_kw × rate_demand_kw × 12 × 1.265</code><br><br>
+            <code>cost_elec_total_annual = cost_elec_energy_annual + cost_elec_demand_annual</code>
+        </div>
+
+        <h4>The Multipliers</h4>
+        <ul>
+            <li><strong>1.10</strong> is an "all-in adder" to approximate delivery charges, taxes/surcharges, and fixed customer charges when the rate field is commodity-only.</li>
+            <li><strong>1.265</strong> adjusts demand charges for ratchets, seasonal demand premiums, and other demand-related bill structures.</li>
+        </ul>
+
+        <h3>5.4 Natural Gas Annual Cost</h3>
+        <div class="formula-box">
+            <code>therms = energy_gas_kbtu / 100</code><br><br>
+            <code>cost_gas_annual = therms × rate_therm × 1.10</code>
+        </div>
+
+        <h3>5.5 District Steam Annual Cost</h3>
+        <p>Steam does not apply the 1.10 adder (steam rates are treated as all-inclusive):</p>
+        <div class="formula-box">
+            <code>mlb = energy_steam_kbtu / 909</code><br><br>
+            <code>cost_steam_annual = mlb × rate_mlb</code>
+        </div>
+
+        <h3>5.6 Fuel Oil Annual Cost</h3>
+        <div class="formula-box">
+            <code>mmbtu = energy_fuel_oil_kbtu / 1000</code><br><br>
+            <code>cost_fuel_oil_annual = mmbtu × rate_mmbtu × 1.10</code>
+        </div>
+
+        <div class="callout info">
+            <div class="callout-title">Validation</div>
+            <p>Cost formulas were validated against <strong>23,882 buildings</strong> with known costs; match rates are essentially exact.</p>
+        </div>
+    </section>
+
+    <!-- Section 6: HVAC -->
+    <section class="section" id="hvac">
+        <h2>6) HVAC Percentage by Fuel Type (End-Use Attribution)</h2>
+
+        <h3>6.1 Purpose</h3>
+        <p>ODCV savings apply to <strong>HVAC only</strong>, so we must estimate how much of each fuel is HVAC-driven:</p>
+        <ul>
+            <li><code>hvac_pct_elec</code>: fraction of electricity attributable to HVAC</li>
+            <li><code>hvac_pct_gas</code>: fraction of gas attributable to HVAC</li>
+            <li><code>hvac_pct_steam</code>: fraction of steam attributable to HVAC</li>
+            <li><code>hvac_pct_fuel_oil</code>: fraction of fuel oil attributable to HVAC</li>
+        </ul>
+
+        <h3>6.2 Data Backbone</h3>
+        <p>The method is grounded in <strong>CBECS 2018 microdata</strong> with building portfolio join keys and additional refinements.</p>
+
+        <h3>6.3 Core Adjustment Logic</h3>
+        <p>HVAC percentages are not taken as a single static number. Adjustments incorporate:</p>
+        <ul>
+            <li><strong>ENERGY STAR score thresholds</strong> (absolute bands) that shift expected HVAC share</li>
+            <li><strong>Year-built adjustments</strong> (older buildings often have less optimized systems)</li>
+            <li><strong>EUI vs peer median adjustments</strong> (EUI ratio bands)</li>
+            <li>A <strong>combined adjustment cap</strong> (±12%)</li>
+        </ul>
+
+        <h3>6.4 Electricity HVAC Minimum Floor</h3>
+        <p>Electric HVAC share has a documented minimum of <span class="highlight-value">15%</span> to account for fans, pumps, and controls that run broadly across operating hours.</p>
+
+        <h3>6.5 Special Cases</h3>
+        <p>Some building types have fundamentally different end-use splits:</p>
+        <ul>
+            <li><strong>Hotels:</strong> gas is mostly DHW + cooking; HVAC is a smaller fraction with intensity-tier logic</li>
+            <li><strong>Restaurants:</strong> gas dominated by cooking; HVAC fraction fixed and dampened</li>
+            <li><strong>Data centers:</strong> treated as special (no direct CBECS category) and assigned distinct HVAC shares</li>
+        </ul>
+
+        <h3>6.6 HVAC Totals (Energy & Cost)</h3>
+        <p>Once fuel HVAC fractions exist:</p>
+        <div class="formula-box">
+            <code>hvac_energy_total_kbtu = &Sigma;(fuel_kbtu × hvac_pct_fuel)</code><br><br>
+            <code>hvac_cost_total_annual = &Sigma;(fuel_cost × hvac_pct_fuel)</code>
+        </div>
+    </section>
+
+    <!-- Section 7: ODCV -->
+    <section class="section" id="odcv">
+        <h2>7) ODCV Savings Model (the Prospector "Engine")</h2>
+        <p><strong>ODCV = Occupancy-Driven Control Ventilation</strong> (ventilate/condition based on real occupancy rather than fixed schedules).</p>
+
+        <h3>7.1 What the ODCV % Represents</h3>
+        <p><code>odcv_hvac_savings_pct</code> is the fraction of HVAC costs saved by ODCV, applied to HVAC-only costs, and bounded by building-type ranges.</p>
+
+        <h3>7.2 The Master Formula</h3>
+        <p>The model uses a <strong>floor + scaled opportunity structure</strong>:</p>
+        <div class="formula-box">
+            <code>ODCV_base = Floor + (Opportunity × Automation × (Ceiling - Floor))</code>
+        </div>
+        <p>Then applies multiplicative modifiers:</p>
+        <div class="formula-box">
+            <code>ODCV_final = ODCV_base × EfficiencyModifier × ClimateModifier</code>
+        </div>
+        <p>...and clamps to building-type bounds.</p>
+
+        <h3>7.3 Opportunity Score (Vacancy + Utilization Logic)</h3>
+        <p>This is explicitly building-type dependent:</p>
+
+        <h4>A) Multi-tenant Commercial (office, medical office, mixed use, strip mall)</h4>
+        <p>Opportunity captures both space that is vacant but still ventilated, plus leased space that is under-utilized:</p>
+        <div class="formula-box">
+            <code>Opportunity = V + (1-V) × (1-U)</code>
+        </div>
+        <p>where V = vacancy rate, U = utilization rate</p>
+
+        <h4>B) Single-operator Buildings (schools, hotels, retail)</h4>
+        <p>No "vacancy" concept; it's purely utilization-driven:</p>
+        <div class="formula-box">
+            <code>Opportunity = 1 - U</code>
+        </div>
+
+        <h4>C) Limited-opportunity (hospitals, labs)</h4>
+        <p>Opportunity is discounted with a multiplier:</p>
+        <div class="formula-box">
+            <code>Opportunity = (1-U) × 0.3</code>
+        </div>
+
+        <h4>D) Data Centers</h4>
+        <div class="formula-box">
+            <code>Opportunity = 0</code>
+        </div>
+
+        <h3>7.4 Automation Score</h3>
+        <p>Automation is modeled as an average of a year-built score and a size score:</p>
+        <div class="formula-box">
+            <code>Automation = (YearScore + SizeScore) / 2</code>
+        </div>
+        <p>Size-score bands: under 50k sqft &rarr; 0.25; over 250k sqft &rarr; 1.0</p>
+
+        <h3>7.5 Efficiency Modifier</h3>
+        <p>If ENERGY STAR score exists:</p>
+        <table>
+            <thead>
+                <tr><th>ENERGY STAR Band</th><th>Modifier</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>90+</td><td>0.85</td></tr>
+                <tr><td>75-89</td><td>0.95</td></tr>
+                <tr><td>50-74</td><td>1.00</td></tr>
+                <tr><td>25-49</td><td>1.05</td></tr>
+                <tr><td>&lt;25</td><td>1.10</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.6 Climate Modifier</h3>
+        <table>
+            <thead>
+                <tr><th>Zone</th><th>Modifier</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Northern</td><td>1.10</td></tr>
+                <tr><td>North-Central</td><td>1.05</td></tr>
+                <tr><td>South-Central</td><td>1.00</td></tr>
+                <tr><td>Southern</td><td>0.95</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.7 Building-Type Floors and Ceilings</h3>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Opportunity Formula</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Office</td><td>20%</td><td>40%</td><td>V + (1-V)(1-U)</td></tr>
+                <tr><td>K-12 School</td><td>20%</td><td>45%</td><td>1-U</td></tr>
+                <tr><td>Hotel</td><td>15%</td><td>35%</td><td>1-U</td></tr>
+                <tr><td>Hospital</td><td>5%</td><td>15%</td><td>(1-U) × 0.3</td></tr>
+            </tbody>
+        </table>
+
+        <h3>7.8 Worked Example: ODCV % Computation (Office)</h3>
+        <div class="callout success">
+            <div class="callout-title">Example: Chicago Office</div>
+            <ul>
+                <li>Vacancy = 28%</li>
+                <li>Utilization = 52%</li>
+                <li>Opportunity = 0.626</li>
+                <li>Automation = 0.875</li>
+                <li>Floor/Ceiling = 20% / 40%</li>
+                <li>Climate modifier (North-Central) = 1.05</li>
+            </ul>
+            <p><strong>Final ODCV &asymp; 32.6%</strong></p>
+        </div>
+    </section>
+
+    <!-- Section 8: Application -->
+    <section class="section" id="application">
+        <h2>8) Applying ODCV to Dollars, Energy, Carbon, BPS, and Valuation</h2>
+        <p>This is where "Prospector" becomes a business case.</p>
+
+        <h3>8.1 Apply ODCV to HVAC Energy by Fuel</h3>
+        <p>ODCV savings apply to HVAC portion of each fuel:</p>
+        <div class="formula-box">
+            <code>Electricity HVAC Savings = Electricity Use × %Electric HVAC × ODCV%</code><br>
+            <code>Gas HVAC Savings        = Gas Use × %Gas HVAC × ODCV%</code><br>
+            <code>Steam HVAC Savings      = Steam Use × %Steam HVAC × ODCV%</code><br>
+            <code>Fuel Oil HVAC Savings   = Fuel Oil Use × %Fuel Oil HVAC × ODCV%</code>
+        </div>
+
+        <h3>8.2 Annual HVAC Utility Savings (USD)</h3>
+        <p>Primary dollar output:</p>
+        <div class="formula-box">
+            <code>odcv_hvac_savings_annual_usd = hvac_cost_total_annual × odcv_hvac_savings_pct</code>
+        </div>
+
+        <h3>8.3 Carbon Emissions (Baseline and Post-ODCV)</h3>
+        <h4>Baseline Emissions</h4>
+        <div class="formula-box">
+            <code>E_base = kBtu_elec × f_elec + kBtu_gas × f_gas + kBtu_steam × f_steam</code>
+        </div>
+        <p>Where f = emission factor (tCO2e per kBtu), which varies by city/grid for electricity.</p>
+
+        <h4>Apply ODCV Reductions per Fuel</h4>
+        <div class="formula-box">
+            <code>elec_reduction_kbtu  = elec_kbtu × hvac_pct_elec × odcv_pct</code><br>
+            <code>gas_reduction_kbtu   = gas_kbtu × hvac_pct_gas × odcv_pct</code><br>
+            <code>steam_reduction_kbtu = steam_kbtu × hvac_pct_steam × odcv_pct</code>
+        </div>
+
+        <p>Year-1 carbon reduction stored as: <code>odcv_carbon_reduction_yr1_mt</code></p>
+    </section>
+
+    <!-- Section 9: BPS -->
+    <section class="section" id="bps">
+        <h2>9) Building Performance Standards (BPS) Fine Methodology</h2>
+        <p>Nationwide Prospector computes: baseline year-1 fine (no ODCV), post-ODCV year-1 fine, and year-1 avoided fine (difference).</p>
+
+        <h3>9.1 General "Fine Avoided" Definition</h3>
+        <div class="formula-box">
+            <code>bps_fine_avoided_yr1 = fine_baseline - fine_postODCV</code>
+        </div>
+
+        <h3>9.2 Emissions-Cap Laws (NYC LL97, Boston BERDO, Cambridge BEUDO)</h3>
+
+        <h4>NYC LL97 (2024-2029 period)</h4>
+        <div class="formula-box">
+            <code>Cap = sqft × coefficient</code><br>
+            <code>Overage = max(0, emissions - cap)</code><br>
+            <code>Fine = overage × $268/tCO2e</code>
+        </div>
+
+        <h4>Boston BERDO 2.0</h4>
+        <p>Similar structure; penalty rate = <span class="highlight-value">$234/tCO2e</span></p>
+
+        <h4>Cambridge BEUDO</h4>
+        <p>Mirrors BERDO; penalty rate = <span class="highlight-value">$234/tCO2e</span></p>
+
+        <h3>9.3 DC BEPS (ENERGY STAR Score Target)</h3>
+        <div class="formula-box">
+            <code>Target score = 71</code><br>
+            <code>Fine = sqft × $10 × (gap / target_score)</code><br>
+            <code>Cap = $7.5M</code>
+        </div>
+        <div class="callout warning">
+            <div class="callout-title">Important Constraint</div>
+            <p>Buildings without ENERGY STAR score cannot be fined under this modeled pathway and are excluded from the DC fine calculation.</p>
+        </div>
+
+        <h3>9.4 Energize Denver (EUI Target)</h3>
+        <div class="formula-box">
+            <code>Target EUI (office example): 48.3</code><br>
+            <code>Overage kBtu = max(0, (EUI - target) × sqft)</code><br>
+            <code>Fine = overage_kBtu × $0.30</code>
+        </div>
+
+        <h3>9.5 Seattle BEPS (Emissions Intensity)</h3>
+        <div class="formula-box">
+            <code>Target GHGI = 0.0023 tCO2e/sqft (commercial)</code><br>
+            <code>Cap = sqft × target</code><br>
+            <code>Fine = (emissions over cap) × penalty_rate</code>
+        </div>
+
+        <h3>9.6 St. Louis BEPS (Daily Fine Style)</h3>
+        <div class="formula-box">
+            <code>If EUI > 72: Fine = $500/day × 15 days = $7,500</code><br>
+            <code>Otherwise: $0</code>
+        </div>
+
+        <h3>9.7 San Francisco EBEPO</h3>
+        <p>Explicitly treated as <strong>reporting-only</strong> (no fine avoidance calculated).</p>
+    </section>
+
+    <!-- Section 10: OpEx -->
+    <section class="section" id="opex">
+        <h2>10) Total Annual OpEx Avoidance</h2>
+
+        <h3>10.1 Definition</h3>
+        <p>Total Annual OpEx Avoidance is strictly the sum of:</p>
+        <ul>
+            <li>Annual HVAC utility savings</li>
+            <li>Year-1 BPS fine avoidance</li>
+        </ul>
+        <div class="formula-box">
+            <code>total_annual_opex_avoidance = odcv_hvac_savings_annual_usd + bps_fine_avoided_yr1_usd</code>
+        </div>
+
+        <h3>10.2 Why Valuation is NOT Included</h3>
+        <p>Valuation increase is a downstream capitalization of OpEx avoided; it is not itself an annual operating expense.</p>
+    </section>
+
+    <!-- Section 11: Valuation -->
+    <section class="section" id="valuation">
+        <h2>11) Valuation Impact Methodology (Income Capitalization)</h2>
+
+        <h3>11.1 Core Concept</h3>
+        <p>If a building avoids $1 in annual operating expense, NOI increases by $1; value increase is NOI uplift divided by cap rate.</p>
+
+        <h3>11.2 Valuation Uplift Formula</h3>
+        <div class="formula-box">
+            <code>val_odcv_impact_usd = savings_opex_avoided_annual_usd / (cap_rate / 100)</code>
+        </div>
+
+        <h3>11.3 Cap Rates by Building Type</h3>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Median Cap Rate</th><th>Value Multiplier</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Office</td><td>7.50%</td><td>13.33×</td></tr>
+                <tr><td>Hotel</td><td>8.00%</td><td>12.50×</td></tr>
+                <tr><td>Retail Store</td><td>6.25%</td><td>16.00×</td></tr>
+                <tr><td>Multifamily</td><td>5.50%</td><td>18.18×</td></tr>
+            </tbody>
+        </table>
+
+        <h3>11.4 Estimating Current Value</h3>
+        <p>When true valuation is unknown, a "back-of-envelope" estimator is used:</p>
+        <div class="formula-box">
+            <code>Estimated Gross Income = Total Energy Cost / 0.12</code><br>
+            <code>Estimated NOI = Estimated Gross Income × 0.60</code><br>
+            <code>val_current_usd = Estimated NOI / (cap_rate / 100)</code>
+        </div>
+        <p>Then:</p>
+        <div class="formula-box">
+            <code>val_post_odcv_usd = val_current_usd + val_odcv_impact_usd</code>
+        </div>
+
+        <h3>11.5 Example</h3>
+        <div class="callout success">
+            <div class="callout-title">Valuation Impact Example</div>
+            <ul>
+                <li>Utility savings: $300k/year</li>
+                <li>Fine avoidance: $800k/year</li>
+                <li>Total OpEx avoided: $1.1M/year</li>
+                <li>At 7% cap rate &rarr; <strong>~$15.7M valuation impact</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 12: ENERGY STAR -->
+    <section class="section" id="energy-star">
+        <h2>12) Estimated Post-ODCV ENERGY STAR Score</h2>
+
+        <h3>12.1 What an ENERGY STAR Score Is</h3>
+        <p>ENERGY STAR is based on an efficiency ratio:</p>
+        <div class="formula-box">
+            <code>Efficiency Ratio = Actual Source EUI / Predicted Source EUI</code>
+        </div>
+        <p>Lower ratio &rarr; higher score; mapping uses a gamma distribution per building type.</p>
+
+        <h3>12.2 How Prospector Estimates Post-ODCV Score</h3>
+        <ol>
+            <li><strong>Weighted HVAC fraction:</strong> <code>hvac_total_pct = &Sigma;(hvac_pct × energy) / total_energy</code></li>
+            <li><strong>Total energy reduction:</strong> <code>total_energy_reduction = odcv_pct × hvac_total_pct</code></li>
+            <li><strong>New EUI:</strong> <code>new_eui = current_eui × (1 - total_energy_reduction)</code></li>
+            <li>Convert score &harr; ratio using gamma inverse CDF/CDF with building-type parameters</li>
+        </ol>
+
+        <h3>12.3 Example</h3>
+        <p>A worked example shows score rising from <strong>65 &rarr; 73</strong> after ODCV-driven EUI reduction.</p>
+
+        <div class="callout warning">
+            <div class="callout-title">Limitations</div>
+            <p>This is an approximation; actual EPA score calculations rely on proprietary tables and source-energy normalization; site EUI is used as a proxy (estimated 5-10% error).</p>
+        </div>
+    </section>
+
+    <!-- Section 13: Portfolio -->
+    <section class="section" id="portfolio">
+        <h2>13) Portfolio Identification Methodology</h2>
+        <p>Nationwide Prospector supports account-based prospecting by defining a <strong>portfolio organization</strong> as an owner/manager/tenant name that appears across at least <strong>3 separate building rows</strong>.</p>
+
+        <h3>13.1 Normalization Rules (Name Cleaning)</h3>
+        <p>Organization names are normalized by:</p>
+        <ul>
+            <li>Lowercasing</li>
+            <li>Stripping punctuation</li>
+            <li>Removing corporate suffixes (LLC, Inc, LP, etc.)</li>
+            <li>Collapsing whitespace</li>
+            <li>Filtering generic/common single-word entities (e.g., "Church", "School")</li>
+        </ul>
+
+        <h3>13.2 Matching & Rollup</h3>
+        <ul>
+            <li><strong>Organization columns searched:</strong> owner / manager / tenant</li>
+            <li><strong>Portfolio threshold:</strong> &ge; 3 buildings</li>
+            <li>Output includes a portfolio org label and building counts for targeting workflows</li>
+        </ul>
+    </section>
+
+    <!-- Section 14: Quality -->
+    <section class="section" id="quality">
+        <h2>14) Data Quality Controls & Edge-Case Handling</h2>
+
+        <h3>14.1 City Parsing and BPS City Assignment</h3>
+        <p>City is extracted from the address using deterministic parsing and is measured to be highly accurate (reported ~99.996%).</p>
+
+        <h3>14.2 Emissions from Raw Energy</h3>
+        <p>BPS modeling explicitly computes emissions from raw energy kBtu (not precomputed emissions) to match the original LL97 calculator style.</p>
+
+        <h3>14.3 Known "Back-Calculated Energy" Records</h3>
+        <p>A documented data-quality patch: <strong>249 records</strong> had energy back-calculated from cost using median rates.</p>
+
+        <h3>14.4 Module-Specific Limitations</h3>
+        <ul>
+            <li><strong>Cost module:</strong> no TOU, tiering, DR credits; rate/multiplier assumptions</li>
+            <li><strong>ODCV:</strong> no real occupancy feeds; automation is a proxy; ranges are conservative; validate for proposals</li>
+            <li><strong>BPS:</strong> only year-1 caps, office/commercial assumptions, DC needs ENERGY STAR score</li>
+            <li><strong>Valuation:</strong> cap rates are market dependent; BPS programs change</li>
+        </ul>
+    </section>
+
+    <!-- Section 15: Formula Chain -->
+    <section class="section" id="formula-chain">
+        <h2>15) End-to-End Formula Chain (Single Building)</h2>
+        <p>This is the "audit trail" to reproduce Prospector outputs:</p>
+
+        <ol>
+            <li><strong>Normalize energy</strong> &mdash; Convert fuel quantities to kBtu; compute total kBtu and EUI</li>
+            <li><strong>Compute annual utility costs</strong> &mdash; Electricity (energy + demand, load-factor peak estimate, multipliers); gas/steam/oil conversions and costs</li>
+            <li><strong>Estimate HVAC fuel shares</strong> &mdash; CBECS-based with adjustments and special cases</li>
+            <li><strong>Compute total HVAC cost</strong> &mdash; Sum fuel_cost × hvac_pct</li>
+            <li><strong>Compute ODCV savings %</strong> &mdash; Floor + (Opportunity × Automation × Range) × modifiers; clamp to type bounds</li>
+            <li><strong>Compute ODCV annual HVAC savings (USD)</strong> &mdash; hvac_cost_total_annual × odcv_pct</li>
+            <li><strong>Compute emissions baseline + post-ODCV</strong> &mdash; Use city-specific factors; reduce fuels by hvac_pct × odcv_pct</li>
+            <li><strong>Compute year-1 BPS fines (if applicable)</strong> &mdash; Apply city's law-type formula; compute avoided fine</li>
+            <li><strong>Total annual OpEx avoided</strong> &mdash; utility savings + year-1 fine avoidance</li>
+            <li><strong>Valuation uplift</strong> &mdash; OpEx avoided &divide; (cap_rate/100)</li>
+            <li><strong>Optional: post-ODCV ENERGY STAR score estimate</strong> &mdash; Weighted HVAC %, EUI reduction, gamma mapping</li>
+        </ol>
+    </section>
+
+    <!-- Section 16: Glossary -->
+    <section class="section" id="glossary">
+        <h2>16) Glossary</h2>
+
+        <h3>Energy & Power</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>kWh</strong></td><td>Kilowatt-hour (electric energy)</td></tr>
+                <tr><td><strong>kW</strong></td><td>Kilowatt (electric demand / instantaneous power)</td></tr>
+                <tr><td><strong>kBtu</strong></td><td>Thousand BTU (energy unit for cross-fuel aggregation)</td></tr>
+                <tr><td><strong>EUI</strong></td><td>Energy Use Intensity (kBtu/sqft-year)</td></tr>
+                <tr><td><strong>Load factor</strong></td><td>Average demand &divide; peak demand; used to infer peak kW from annual kWh</td></tr>
+            </tbody>
+        </table>
+
+        <h3>HVAC Attribution</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>hvac_pct_fuel</strong></td><td>Fraction (0-1) of a fuel attributable to HVAC end use</td></tr>
+                <tr><td><strong>hvac_cost_total_annual</strong></td><td>Sum over fuels of (annual fuel cost × hvac_pct_fuel)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Occupancy</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>Vacancy (V)</strong></td><td>Fraction of rentable space vacant (0-1)</td></tr>
+                <tr><td><strong>Utilization (U)</strong></td><td>Fraction of occupied space actually in use during business hours (0-1)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>ODCV</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>ODCV savings percent</strong></td><td>% of HVAC costs saved (bounded by building-type floor/ceiling)</td></tr>
+                <tr><td><strong>Opportunity score</strong></td><td>How much "empty-time waste" exists; building-type specific formulas</td></tr>
+                <tr><td><strong>Automation score</strong></td><td>Proxy for whether the building can implement advanced control</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Carbon & BPS</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>tCO2e</strong></td><td>Metric tons of CO2-equivalent</td></tr>
+                <tr><td><strong>Emission factor</strong></td><td>tCO2e per kBtu (electricity varies by city/grid)</td></tr>
+                <tr><td><strong>BPS fine (year 1)</strong></td><td>Modeled penalty exposure under the applicable city program</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Finance</h3>
+        <table>
+            <tbody>
+                <tr><td><strong>OpEx avoided</strong></td><td>Annual operating expenses not paid (utility + fines)</td></tr>
+                <tr><td><strong>Cap rate</strong></td><td>NOI &divide; value; used to capitalize annual OpEx avoided into value uplift</td></tr>
+                <tr><td><strong>Valuation impact</strong></td><td>OpEx avoided &divide; cap_rate</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>Nationwide Prospector Technical Methodology v1.0</p>
+    <p>&copy; R-Zero | Data sources include EPA ENERGY STAR, CBECS, municipal benchmarking disclosures</p>
+</footer>
+
+</body>
+</html>
