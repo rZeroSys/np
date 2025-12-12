@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:57:20 EST -->
+<!-- Generated: 2025-12-12 12:49:40 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,48 +359,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From SF Environment Code benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, STR room occupancy data, guest presence patterns." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="63% room occupancy × 45% guest presence = 72% of ventilation wasted." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 13,481,241 kWh/yr
-After ODCV: 12,510,322 kWh/yr
-Change: -970,919 kWh/yr
-How: HVAC is 36% of electric; ODCV cuts 20% of that.
-Why believable: 66% occupancy means empty rooms get conditioned.
-Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC drives 36% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>13,481,240 kWh</td>
                 <td>12,510,321 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-970,918 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -970,918 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
-Current (disclosed): 355,759 therms/yr
-After ODCV: 344,019 therms/yr
-Change: -11,740 therms/yr
-How: HVAC is 16% of gas; ODCV cuts 20% of that.
-Why believable: only 16% of hotel gas is HVAC (rest is hot water/kitchen).
-Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Only 16% of hotel gas goes to HVAC (space heating). The other 84% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>355,759 therms</td>
                 <td>344,018 therms</td>
-                <td style="color: #16a34a; font-weight: 600;">-11,740 therms</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -11,740 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 48.4 kBtu/sqft
-After ODCV: 45.8 kBtu/sqft
-Change: -2.6 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
-Why believable: gas HVAC only 16% (rest is hot water/kitchen) — smaller EUI impact.
-Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 16% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>48.4 kBtu/sqft</td>
                 <td>45.8 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-2.6 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -2.6 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -417,49 +399,24 @@ Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $5,312,734/yr
-  (Electric: $4,571,898, Gas: $740,836)
-HVAC portion of that: $1,768,578/yr
-ODCV saves 20% of HVAC = $353,716/yr
-HOTEL NOTE:
-Gas savings are smaller because only 20% of gas is HVAC.
-Rest goes to hot water and kitchens - can't save there.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="66% occupancy from STR San Francisco market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$5.3M/yr</td>
                 <td>$5.0M/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$354K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$354K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $353,716/yr
-
-Cap rate: 7.5% (Hotel typical)
-
-$353,716/yr ÷ 7.5%
-= $4,716,209 value increase
-
-Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.5% for Hotels in San Francisco. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$4.7M</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$4.7M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from SF Environment Code. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Hotels nationally. Benchmark EUI (63 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 95, already ENERGY STAR certified territory. Pitch: 'Maintain or improve your competitive position.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>95</td>
                 <td>95</td>
                 <td>—</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>4,511.3 tCO2e/yr</td>
-                <td>4,260.1 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-251.2 tCO2e/yr</td>
             </tr>
 
         </table>

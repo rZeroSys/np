@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:56:38 EST -->
+<!-- Generated: 2025-12-12 12:48:55 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -357,48 +357,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From KC Benchmarking benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, Placer.ai foot traffic data." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Built for peak crowds but averages 35-45% capacity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 2,380,735 kWh/yr
-After ODCV: 2,050,282 kWh/yr
-Change: -330,452 kWh/yr
-How: HVAC is 59% of electric; ODCV cuts 24% of that.
-Why believable: 5% vacant, 70% utilized.
-Sources: KC Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 59% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 41% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,380,734 kWh</td>
                 <td>2,050,282 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-330,452 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -330,452 kWh</td>
             </tr>
 
             <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="FUEL OIL SAVINGS
-Current (disclosed): 69,000 gallons/yr
-After ODCV: 53,837 gallons/yr
-Change: -15,163 gallons/yr
-How: HVAC is 93% of fuel oil; ODCV cuts 24% of that.
-Why believable: fuel oil is almost entirely for heating (no cooking/hot water).
-Sources: KC Benchmarking, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Fuel oil is almost pure heating fuel—93% goes directly to HVAC. Unlike natural gas, there's no cooking or hot water competing for it. When you reduce ventilation, you reduce heating load dollar-for-dollar." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>69,000 gallons</td>
                 <td>53,836 gallons</td>
-                <td style="color: #16a34a; font-weight: 600;">-15,163 gallons</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🛢️ -15,163 gallons</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 75.3 kBtu/sqft
-After ODCV: 49.9 kBtu/sqft
-Change: -25.4 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
-Why believable: HVAC portion drives EUI reduction.
-Sources: KC Benchmarking, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for 59% of electricity and 0% of gas—when you reduce ventilation to empty spaces, EUI drops." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>75.3 kBtu/sqft</td>
                 <td>49.9 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-25.4 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -25.4 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -415,46 +397,24 @@ Sources: KC Benchmarking, ODCV model." style="display: inline-block; margin-left
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $785,711/yr
-  (Electric: $649,052, Oil: $136,659)
-HVAC portion of that: $508,346/yr
-ODCV saves 24% of HVAC = $120,122/yr
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="70% average traffic from Placer.ai Kansas City foot traffic analytics—real location data. 20% weekday mornings, 80% Saturday afternoons. HVAC runs at peak all day." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$786K/yr</td>
                 <td>$666K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$120K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$120K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $120,122/yr
-
-Cap rate: 7.0% (Retail Store typical)
-
-$120,122/yr ÷ 7.0%
-= $1,716,030 value increase
-
-Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.0% for Retail Stores in Kansas City. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$1.7M</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$1.7M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from KC Benchmarking. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Retail Stores nationally. Benchmark EUI (51 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 64, above median but 25 points from certification. Pitch: 'ODCV could get you there—that's a marketing asset.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>64</td>
                 <td>72</td>
-                <td style="color: #16a34a; font-weight: 600;">+8</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,448.0 tCO2e/yr</td>
-                <td>1,190.4 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-257.6 tCO2e/yr</td>
+                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +8</td>
             </tr>
 
         </table>

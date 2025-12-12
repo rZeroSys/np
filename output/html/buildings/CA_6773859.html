@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:55:28 EST -->
+<!-- Generated: 2025-12-12 12:47:39 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,48 +359,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From SF Environment Code benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, STR room occupancy data, guest presence patterns." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="63% room occupancy × 45% guest presence = 72% of ventilation wasted." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 839,450 kWh/yr
-After ODCV: 751,983 kWh/yr
-Change: -87,467 kWh/yr
-How: HVAC is 49% of electric; ODCV cuts 21% of that.
-Why believable: 75% occupancy means empty rooms get conditioned.
-Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC drives 49% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>839,450 kWh</td>
                 <td>751,983 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-87,466 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -87,466 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
-Current (disclosed): 76,445 therms/yr
-After ODCV: 71,082 therms/yr
-Change: -5,363 therms/yr
-How: HVAC is 33% of gas; ODCV cuts 21% of that.
-Why believable: only 33% of hotel gas is HVAC (rest is hot water/kitchen).
-Sources: SF Environment Code, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Only 33% of hotel gas goes to HVAC (space heating). The other 67% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>76,444 therms</td>
                 <td>71,081 therms</td>
-                <td style="color: #16a34a; font-weight: 600;">-5,363 therms</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -5,363 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 93.3 kBtu/sqft
-After ODCV: 78.3 kBtu/sqft
-Change: -15.0 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 21% savings).
-Why believable: gas HVAC only 33% (rest is hot water/kitchen) — smaller EUI impact.
-Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 33% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>93.3 kBtu/sqft</td>
                 <td>78.3 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-15.0 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -15.0 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -417,25 +399,10 @@ Sources: SF Environment Code, ODCV model." style="display: inline-block; margin-
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $422,682/yr
-  (Electric: $263,493, Gas: $159,189)
-HVAC portion of that: $181,670/yr
-ODCV saves 21% of HVAC = $38,623/yr
-HOTEL NOTE:
-Gas savings are smaller because only 20% of gas is HVAC.
-Rest goes to hot water and kitchens - can't save there.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="75% occupancy from STR San Francisco market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$423K/yr</td>
                 <td>$384K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$39K/yr</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>569.3 tCO2e/yr</td>
-                <td>523.8 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-45.5 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$39K/yr</td>
             </tr>
 
         </table>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:54:47 EST -->
+<!-- Generated: 2025-12-12 12:46:56 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,48 +359,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From LL84 benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, STR room occupancy data, guest presence patterns." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="63% room occupancy × 45% guest presence = 72% of ventilation wasted." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 6,055,352 kWh/yr
-After ODCV: 5,353,118 kWh/yr
-Change: -702,234 kWh/yr
-How: HVAC is 48% of electric; ODCV cuts 24% of that.
-Why believable: 84% occupancy means empty rooms get conditioned.
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC drives 48% of electricity—cooling and ventilating 24/7 whether guests are in-room or not. The rest is lighting, elevators, laundry, and kitchen equipment." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>6,055,352 kWh</td>
                 <td>5,353,118 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-702,233 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -702,233 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
-Current (disclosed): 136,505 therms/yr
-After ODCV: 125,507 therms/yr
-Change: -10,998 therms/yr
-How: HVAC is 34% of gas; ODCV cuts 24% of that.
-Why believable: only 34% of hotel gas is HVAC (rest is hot water/kitchen).
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Only 34% of hotel gas goes to HVAC (space heating). The other 66% heats domestic hot water for showers and laundry, plus kitchen cooking. ODCV can only reduce the heating portion." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>136,504 therms</td>
                 <td>125,506 therms</td>
-                <td style="color: #16a34a; font-weight: 600;">-10,997 therms</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -10,997 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 156.4 kBtu/sqft
-After ODCV: 140.5 kBtu/sqft
-Change: -15.9 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 24% savings).
-Why believable: gas HVAC only 34% (rest is hot water/kitchen) — smaller EUI impact.
-Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hotels have high EUIs but only 34% of gas is HVAC—rest is hot water and kitchens. ODCV affects the HVAC portion, not guest services." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>156.4 kBtu/sqft</td>
                 <td>140.5 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-15.9 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -15.9 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -417,67 +399,31 @@ Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $3,235,077/yr
-  (Electric: $3,075,852, Gas: $159,225)
-HVAC portion of that: $1,536,516/yr
-ODCV saves 24% of HVAC = $369,532/yr
-HOTEL NOTE:
-Gas savings are smaller because only 20% of gas is HVAC.
-Rest goes to hot water and kitchens - can't save there.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="84% occupancy from STR New York market data—the hotel industry's standard tracking. Guests in rooms ~10 hours/day. Rest of the time rooms sit empty but conditioned." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$3.2M/yr</td>
                 <td>$2.9M/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$370K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$370K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
-
-Cap: 219,320 sqft × 0.00758
-   = 1,662 tCO2e/yr allowed
-This building: 2,475 tCO2e/yr
-Over cap by: 813 tCO2e
-
-Fine without ODCV: $217,752/yr
-ODCV cuts emissions 24%
-Fine avoided: $70,042/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="LL97 fine formula: excess tCO2e × $268/ton (NYC Mayor's Office, Local Law 97 of 2019). Building's 2475 tCO2e exceeds its cap. Pitch: 'This isn't a projection—$268/ton is in the law. No appeals, no exemptions for commercial buildings.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$218K/yr</td>
                 <td>$148K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$70K/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$70K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $369,532/yr
-  Fine avoidance: $70,042/yr
-  Total: $439,575/yr
-
-Cap rate: 7.0% (Hotel typical)
-
-$439,575/yr ÷ 7.0%
-= $6,279,637 value increase
-
-Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.0% for Hotels in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Avoided BPS fines count the same way—they reduce operating expenses, which increases NOI. Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$6.3M</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$6.3M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Hotels nationally. Benchmark EUI (63 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 7, below median. Pitch: 'Every competitor Hotel scores higher—tenants notice.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>7</td>
                 <td>10</td>
-                <td style="color: #16a34a; font-weight: 600;">+3</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,475.0 tCO2e/yr</td>
-                <td>2,213.6 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-261.4 tCO2e/yr</td>
+                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +3</td>
             </tr>
 
         </table>

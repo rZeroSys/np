@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:54:39 EST -->
+<!-- Generated: 2025-12-12 12:46:50 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -358,48 +358,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From LL84 benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, NIC MAP Vision occupancy data." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Residents present 24/7 (~95%). Limited empty-space opportunity." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 2,814,203 kWh/yr
-After ODCV: 2,518,036 kWh/yr
-Change: -296,167 kWh/yr
-How: HVAC is 53% of electric; ODCV cuts 20% of that.
-Why believable: 12% vacant.
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 53% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 47% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,814,202 kWh</td>
                 <td>2,518,036 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-296,166 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -296,166 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
-Current (disclosed): 149,489 therms/yr
-After ODCV: 127,807 therms/yr
-Change: -21,682 therms/yr
-How: HVAC is 73% of gas; ODCV cuts 20% of that.
-Why believable: 73% of gas is HVAC; ODCV cuts when unoccupied.
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="Heating accounts for 73% of this building's gas use—boilers and furnaces warming outdoor air brought in for ventilation. The remaining 27% typically goes to domestic hot water and any process loads." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>149,489 therms</td>
                 <td>127,807 therms</td>
-                <td style="color: #16a34a; font-weight: 600;">-21,681 therms</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -21,681 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 132.7 kBtu/sqft
-After ODCV: 116.9 kBtu/sqft
-Change: -15.8 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
-Why believable: HVAC portion drives EUI reduction.
-Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for 53% of electricity and 73% of gas—when you reduce ventilation to empty spaces, EUI drops." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>132.7 kBtu/sqft</td>
                 <td>116.9 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-15.8 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -15.8 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -416,45 +398,24 @@ Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $1,364,668/yr
-  (Electric: $1,190,298, Gas: $174,370)
-HVAC portion of that: $752,788/yr
-ODCV saves 20% of HVAC = $150,558/yr
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="0% utilization. Building conditions empty space most of the time. BMS runs at design capacity. Doesn't know when people leave." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.4M/yr</td>
                 <td>$1.2M/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$151K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$151K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
-
-Cap: 185,000 sqft × 0.00758
-   = 1,402 tCO2e/yr allowed
-This building: 1,607 tCO2e/yr
-Over cap by: 205 tCO2e
-
-Fine without ODCV: $54,921/yr
-ODCV cuts emissions 20%
-Fine avoided: $53,799/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="LL97 fine formula: excess tCO2e × $268/ton (NYC Mayor's Office, Local Law 97 of 2019). Building's 1607 tCO2e exceeds its cap. Pitch: 'This isn't a projection—$268/ton is in the law. No appeals, no exemptions for commercial buildings.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$55K/yr</td>
                 <td>$1K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$54K/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$54K/yr</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Residential Cares nationally. Benchmark EUI (99 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 43, below median. Pitch: 'Every competitor Residential Care scores higher—tenants notice.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>43</td>
                 <td>50</td>
-                <td style="color: #16a34a; font-weight: 600;">+7</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,607.2 tCO2e/yr</td>
-                <td>1,406.5 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-200.7 tCO2e/yr</td>
+                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +7</td>
             </tr>
 
         </table>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:56:57 EST -->
+<!-- Generated: 2025-12-12 12:49:16 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,49 +359,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From LL84 benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, AHA bed occupancy data. ASHRAE 170 limits applied." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Limited opportunity. Savings from admin areas, not clinical spaces." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 23,307,708 kWh/yr
-After ODCV: 21,070,168 kWh/yr
-Change: -2,237,540 kWh/yr
-How: HVAC is 48% of electric; ODCV cuts 20% of that.
-Why believable: savings from non-clinical areas only (clinical has code requirements).
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 48% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems. ODCV savings come from non-clinical areas—waiting rooms, admin offices, cafeterias." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>23,307,708 kWh</td>
-                <td>21,070,168 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-2,237,539 kWh</td>
+                <td>19,770,157 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -3,537,550 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
-Current (disclosed): 59,029.89 Mlb/yr
-After ODCV: 48,711.47 Mlb/yr
-Change: -10,318.43 Mlb/yr
-How: HVAC is 87% of steam; ODCV cuts 20% of that.
-Why believable: district steam is almost entirely for heating.
-(NYC Con Edison steam — largest district steam in US)
-Sources: LL84, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="District steam is 87% HVAC—a heating-only fuel piped from Con Edison's central plants (the largest district steam system in the US). No cooking, no process loads. When you ventilate less, you heat less outdoor air." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>59,029.89 Mlb</td>
-                <td>48,711.47 Mlb</td>
-                <td style="color: #16a34a; font-weight: 600;">-10,318.43 Mlb</td>
+                <td>42,716.46 Mlb</td>
+                <td style="color: #6366f1; font-weight: 600; background: rgba(99,102,241,0.08);">💨 -16,313.43 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 280.7 kBtu/sqft
-After ODCV: 243.3 kBtu/sqft
-Change: -37.4 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
-Why believable: HVAC portion drives EUI reduction.
-Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hospitals have high EUIs due to 24/7 operation and medical equipment. HVAC is 48% of electric—savings come from non-clinical areas." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>280.7 kBtu/sqft</td>
                 <td>243.3 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-37.4 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -37.4 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -418,41 +399,17 @@ Sources: LL84, ODCV model." style="display: inline-block; margin-left: 5px; widt
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $11,908,703/yr
-  (Electric: $8,869,229, Steam: $3,039,475)
-HVAC portion of that: $6,913,731/yr
-ODCV saves 20% of HVAC = $1,382,746/yr
-HOSPITAL NOTE:
-Savings limited to non-clinical areas (lobbies, offices, cafeteria).
-Clinical areas need constant airflow by code.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="75% utilization from AHA Hospital Statistics—hospital-specific data, not office assumptions. 40% non-clinical: waiting rooms, admin, cafeterias. All ventilated at medical-grade 24/7." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$11.9M/yr</td>
-                <td>$10.5M/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$1.4M/yr</td>
+                <td>$9.7M/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$2.2M/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC LOCAL LAW 97
-
-Cap: 534,472 sqft × 0.00758
-   = 4,051 tCO2e/yr allowed
-This building: 9,903 tCO2e/yr
-Over cap by: 5,851 tCO2e
-
-Fine without ODCV: $1,568,145/yr
-ODCV cuts emissions 20%
-Fine avoided: $321,650/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="LL97 fine formula: excess tCO2e × $268/ton (NYC Mayor's Office, Local Law 97 of 2019). Building's 9903 tCO2e exceeds its cap. Pitch: 'This isn't a projection—$268/ton is in the law. No appeals, no exemptions for commercial buildings.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.6M/yr</td>
-                <td>$1.2M/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$322K/yr</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>9,902.6 tCO2e/yr</td>
-                <td>8,702.4 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-1,200.2 tCO2e/yr</td>
+                <td>$1.1M/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$509K/yr</td>
             </tr>
 
         </table>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:55:28 EST -->
+<!-- Generated: 2025-12-12 12:47:39 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -348,35 +348,23 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From EBEWE benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, CBRE vacancy data, MGMA exam room utilization benchmarks." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Exam rooms get 2-3x airflow but sit empty between appointments." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 1,061,999 kWh/yr
-After ODCV: 906,861 kWh/yr
-Change: -155,137 kWh/yr
-How: HVAC is 56% of electric; ODCV cuts 26% of that.
-Why believable: 9% vacant, 75% utilized — underused space = wasted conditioning.
-Sources: EBEWE, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 56% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 44% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,061,998 kWh</td>
                 <td>906,861 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-155,137 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -155,137 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 69.8 kBtu/sqft
-After ODCV: 62.7 kBtu/sqft
-Change: -7.1 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 26% savings).
-Why believable: elec HVAC 56%; 9% vacant, 75% utilized.
-Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles (56% of electric, 0% of gas). Big EUI impact when you stop ventilating empty space." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>69.8 kBtu/sqft</td>
                 <td>62.7 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-7.1 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -7.1 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -393,42 +381,17 @@ Sources: EBEWE, ODCV model." style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $432,191/yr
-  (Electric: $432,191)
-HVAC portion of that: $243,669/yr
-ODCV saves 26% of HVAC = $63,135/yr
-OFFICE NOTE:
-This building is 9% vacant - paying to condition empty space.
-Hybrid work means only 75% of occupied space is actually used.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="9% vacancy from CBRE Q4 2024 Los Angeles office market report—actual market data, not a national average. 75% desk utilization from Kastle Systems badge swipes for Los Angeles—they track 2,600+ buildings. BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$432K/yr</td>
                 <td>$369K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$63K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$63K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $63,135/yr
-
-Cap rate: 7.5% (Medical Office typical)
-
-$63,135/yr ÷ 7.5%
-= $841,796 value increase
-
-Every $1 saved = $13 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.5% for Medical Offices in Los Angeles. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$842K</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>206.5 tCO2e/yr</td>
-                <td>176.4 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-30.2 tCO2e/yr</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$842K</td>
             </tr>
 
         </table>
