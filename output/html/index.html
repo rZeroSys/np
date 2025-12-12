@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-12 00:05:40 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-12 00:30:52 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8073,7 +8073,7 @@ const TUTORIAL_STEPS = [
         }
     },
     {
-        target: '.row-controls',
+        target: '.portfolio-card.expanded .row-controls',
         title: 'Show More / Collapse',
         content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
         position: 'top',
@@ -8083,10 +8083,18 @@ const TUTORIAL_STEPS = [
                 var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
                 if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }
-            setTimeout(function() {
-                var controls = document.querySelector('.row-controls');
-                if (controls) controls.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            // Wait for .row-controls to appear (async loading)
+            var attempts = 0;
+            var waitForControls = setInterval(function() {
+                var controls = document.querySelector('.portfolio-card.expanded .row-controls');
+                attempts++;
+                if (controls) {
+                    clearInterval(waitForControls);
+                    controls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (attempts > 20) {
+                    clearInterval(waitForControls);
+                }
+            }, 100);
         }
     }
 ];
@@ -8155,22 +8163,36 @@ function showTutorialStep(stepIndex) {
         step.action();
     }
 
-    // Small delay to let DOM update after actions
-    setTimeout(function() {
+    // Poll for target element (handles async-loaded content like .row-controls)
+    var pollAttempts = 0;
+    var maxAttempts = 30; // 3 seconds max wait
+    var pollForTarget = function() {
         var targetEl = document.querySelector(step.target);
+        pollAttempts++;
 
-        if (!targetEl) {
-            console.warn('[Tutorial] Target not found:', step.target);
-            // Skip to next step if target doesn't exist
+        if (targetEl) {
+            // Target found - proceed with showing step
+            showTutorialStepWithTarget(stepIndex, step, tooltip, targetEl);
+        } else if (pollAttempts < maxAttempts) {
+            // Keep polling
+            setTimeout(pollForTarget, 100);
+        } else {
+            // Give up - skip to next step
+            console.warn('[Tutorial] Target not found after polling:', step.target);
             if (stepIndex < TUTORIAL_STEPS.length - 1) {
                 currentTutorialStep++;
                 showTutorialStep(currentTutorialStep);
             } else {
                 endTutorial();
             }
-            return;
         }
+    };
 
+    // Start polling after initial delay
+    setTimeout(pollForTarget, step.action ? 250 : 50);
+}
+
+function showTutorialStepWithTarget(stepIndex, step, tooltip, targetEl) {
         // Scroll target into view first
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -8258,8 +8280,6 @@ function showTutorialStep(stepIndex) {
             // Show tooltip after positioning
             tooltip.classList.add('visible');
         }, 200);
-
-    }, step.action ? 250 : 50);
 }
 
 function positionTooltip(tooltip, targetRect, position) {
@@ -8339,7 +8359,7 @@ window.addEventListener('resize', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-12 00:05:40 EST
+        Build: 2025-12-12 00:30:52 EST
       </div>
     </footer>
 
