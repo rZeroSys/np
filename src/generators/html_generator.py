@@ -7337,44 +7337,68 @@ const TUTORIAL_STEPS = [
         waitForTarget: true,
         waitForTargetTimeoutMs: 3000,
         action: function() {{
+            console.log('[TUT] Step 9 ACTION running');
             var expanded = document.querySelector('.portfolio-card.expanded');
+            console.log('[TUT] expanded before toggle:', expanded);
             if (!expanded) {{
                 var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-                if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
+                console.log('[TUT] firstCard:', firstCard);
+                if (firstCard) {{
+                    console.log('[TUT] calling togglePortfolio');
+                    togglePortfolio(firstCard.querySelector('.portfolio-header'));
+                }}
             }}
+            console.log('[TUT] ACTION done, expanded now:', document.querySelector('.portfolio-card.expanded'));
         }}
     }}
 ];
 
 // Helper: resolve tutorial target, scoped to expanded card for .row-controls
 function resolveTutorialTarget(step) {{
-    // For row-controls, scope to expanded card
+    console.log('[TUT] resolveTutorialTarget, step.target:', step && step.target);
     var expanded = document.querySelector('.portfolio-card.expanded');
+    console.log('[TUT] expanded card found:', !!expanded);
     if (expanded) {{
         var scoped = expanded.querySelector('.row-controls');
+        console.log('[TUT] .row-controls in expanded:', scoped);
         if (scoped) {{
             var rect = scoped.getBoundingClientRect();
-            if (rect.width > 0 && rect.height > 0) return scoped;
+            console.log('[TUT] rect:', rect.top, rect.left, rect.width, rect.height);
+            if (rect.width > 0 && rect.height > 0) {{
+                console.log('[TUT] FOUND scoped element');
+                return scoped;
+            }}
         }}
     }}
-    // Fallback to step.target selector
     if (step && step.target) {{
         var el = document.querySelector(step.target);
+        console.log('[TUT] fallback querySelector result:', el);
         if (el) {{
             var rect = el.getBoundingClientRect();
+            console.log('[TUT] fallback rect:', rect.top, rect.left, rect.width, rect.height);
             if (rect.width > 0 && rect.height > 0) return el;
         }}
     }}
+    console.log('[TUT] returning NULL');
     return null;
 }}
 
 // Helper: wait for element to exist
 function waitForTutorialTarget(step, maxWaitMs, cb) {{
+    console.log('[TUT] waitForTutorialTarget START, maxWait:', maxWaitMs);
     var start = Date.now();
+    var attempts = 0;
     (function tick() {{
+        attempts++;
         var el = resolveTutorialTarget(step);
-        if (el) return cb(el);
-        if (Date.now() - start >= maxWaitMs) return cb(null);
+        if (el) {{
+            console.log('[TUT] FOUND after', attempts, 'attempts,', Date.now() - start, 'ms');
+            return cb(el);
+        }}
+        if (Date.now() - start >= maxWaitMs) {{
+            console.log('[TUT] TIMEOUT after', attempts, 'attempts');
+            return cb(null);
+        }}
         requestAnimationFrame(tick);
     }})();
 }}
@@ -7445,9 +7469,9 @@ function showTutorialStep(stepIndex) {{
 
     // Render function - called once we have the target element
     var doRender = function(targetEl) {{
+        console.log('[TUT] doRender called, targetEl:', targetEl);
         if (!targetEl) {{
-            console.warn('[Tutorial] Target not found, skipping step:', step.target);
-            // Skip to next step if target doesn't exist
+            console.warn('[TUT] Target not found, skipping step:', step.target);
             if (stepIndex < TUTORIAL_STEPS.length - 1) {{
                 currentTutorialStep++;
                 showTutorialStep(currentTutorialStep);
@@ -7457,16 +7481,24 @@ function showTutorialStep(stepIndex) {{
             return;
         }}
 
+        var initialRect = targetEl.getBoundingClientRect();
+        console.log('[TUT] doRender targetEl rect BEFORE scroll:', initialRect.top, initialRect.left, initialRect.width, initialRect.height);
+
         // Scroll target into view first
         targetEl.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 
         // Wait for scroll, then measure with requestAnimationFrame for accurate coords
         requestAnimationFrame(function() {{
             requestAnimationFrame(function() {{
+            console.log('[TUT] Inside rAF x2');
             var spotlight = document.getElementById('tutorial-spotlight');
             var spotlight2 = document.getElementById('tutorial-spotlight-2');
             var padding = 8;
             var rect;
+
+            // Re-measure target after scroll
+            var afterScrollRect = targetEl.getBoundingClientRect();
+            console.log('[TUT] targetEl rect AFTER scroll:', afterScrollRect.top, afterScrollRect.left, afterScrollRect.width, afterScrollRect.height);
 
             var backdrop = document.querySelector('.tutorial-backdrop');
 
