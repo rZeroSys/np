@@ -1360,17 +1360,17 @@ def get_fine_avoidance_tooltip(row):
     if fine_avoided > 0:
         # Building has fine avoidance - give full explanation
         if city == 'New York':
-            return f"{law}: {penalty} over emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
         elif city in ['Boston', 'Cambridge']:
-            return f"{law}: {penalty} over emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
         elif city == 'Washington':
             return f"{law}: {penalty} based on ENERGY STAR compliance gap. ODCV improves score, avoiding ${fine_avoided:,.0f}/yr in fines."
         elif city == 'Denver':
-            return f"{law}: {penalty} ({cap}). ODCV reduces EUI, avoiding ${fine_avoided:,.0f}/yr in fines."
+            return f"{law}: {penalty} (target: {cap}). ODCV reduces EUI, avoiding ${fine_avoided:,.0f}/yr in fines."
         elif city == 'Seattle':
-            return f"{law}: {penalty} for exceeding emission cap ({cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
+            return f"{law}: {penalty} (cap: {cap}). ODCV reduces emissions, avoiding ${fine_avoided:,.0f}/yr in fines."
         elif city == 'St. Louis':
-            return f"{law}: {penalty} ({cap}). ODCV brings building into compliance, avoiding ${fine_avoided:,.0f}/yr in fines."
+            return f"{law}: {penalty} (target: {cap}). ODCV brings building into compliance, avoiding ${fine_avoided:,.0f}/yr in fines."
 
     # Case 5: In BPS city but $0 fine avoided - building is already compliant
     if city == 'New York':
