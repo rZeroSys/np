@@ -7330,25 +7330,54 @@ const TUTORIAL_STEPS = [
         }}
     }},
     {{
-        target: '.row-controls',
+        target: '.portfolio-card.expanded .row-controls',
         title: 'Show More / Collapse',
         content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
         position: 'top',
+        waitForTarget: true,
+        waitForTargetTimeoutMs: 3000,
         action: function() {{
-            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
-            if (firstCard && !firstCard.classList.contains('expanded')) {{
-                togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            var expanded = document.querySelector('.portfolio-card.expanded');
+            if (!expanded) {{
+                var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+                if (firstCard) togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }}
-            // Wait for rows to load, then scroll to the controls at bottom
-            setTimeout(function() {{
-                var controls = document.querySelector('.row-controls');
-                if (controls) {{
-                    controls.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
-                }}
-            }}, 500);
         }}
     }}
 ];
+
+// Helper: resolve tutorial target, scoped to expanded card for .row-controls
+function resolveTutorialTarget(step) {{
+    // For row-controls, scope to expanded card
+    var expanded = document.querySelector('.portfolio-card.expanded');
+    if (expanded) {{
+        var scoped = expanded.querySelector('.row-controls');
+        if (scoped) {{
+            var rect = scoped.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) return scoped;
+        }}
+    }}
+    // Fallback to step.target selector
+    if (step && step.target) {{
+        var el = document.querySelector(step.target);
+        if (el) {{
+            var rect = el.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) return el;
+        }}
+    }}
+    return null;
+}}
+
+// Helper: wait for element to exist
+function waitForTutorialTarget(step, maxWaitMs, cb) {{
+    var start = Date.now();
+    (function tick() {{
+        var el = resolveTutorialTarget(step);
+        if (el) return cb(el);
+        if (Date.now() - start >= maxWaitMs) return cb(null);
+        requestAnimationFrame(tick);
+    }})();
+}}
 
 let currentTutorialStep = 0;
 let tutorialActive = false;
@@ -7409,17 +7438,15 @@ function showTutorialStep(stepIndex) {{
     // Hide tooltip while repositioning
     tooltip.classList.remove('visible');
 
-    // Execute any action for this step (like switching tabs, expanding cards)
+    // Execute any action for this step FIRST (like switching tabs, expanding cards)
     if (step.action) {{
         step.action();
     }}
 
-    // Small delay to let DOM update after actions
-    setTimeout(function() {{
-        var targetEl = document.querySelector(step.target);
-
+    // Render function - called once we have the target element
+    var doRender = function(targetEl) {{
         if (!targetEl) {{
-            console.warn('[Tutorial] Target not found:', step.target);
+            console.warn('[Tutorial] Target not found, skipping step:', step.target);
             // Skip to next step if target doesn't exist
             if (stepIndex < TUTORIAL_STEPS.length - 1) {{
                 currentTutorialStep++;
@@ -7433,8 +7460,9 @@ function showTutorialStep(stepIndex) {{
         // Scroll target into view first
         targetEl.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
 
-        // Wait for scroll to complete, then position spotlight
-        setTimeout(function() {{
+        // Wait for scroll, then measure with requestAnimationFrame for accurate coords
+        requestAnimationFrame(function() {{
+            requestAnimationFrame(function() {{
             var spotlight = document.getElementById('tutorial-spotlight');
             var spotlight2 = document.getElementById('tutorial-spotlight-2');
             var padding = 8;
@@ -7516,9 +7544,20 @@ function showTutorialStep(stepIndex) {{
 
             // Show tooltip after positioning
             tooltip.classList.add('visible');
-        }}, 200);
+            }});
+        }});
+    }};
 
-    }}, step.action ? 250 : 50);
+    // If step needs to wait for dynamic element, use waitForTutorialTarget
+    if (step.waitForTarget) {{
+        waitForTutorialTarget(step, step.waitForTargetTimeoutMs || 3000, doRender);
+    }} else {{
+        // Default: small delay then resolve target
+        setTimeout(function() {{
+            var targetEl = resolveTutorialTarget(step) || document.querySelector(step.target);
+            doRender(targetEl);
+        }}, step.action ? 250 : 50);
+    }}
 }}
 
 function positionTooltip(tooltip, targetRect, position) {{
