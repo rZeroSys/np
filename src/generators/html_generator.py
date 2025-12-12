@@ -7328,6 +7328,18 @@ const TUTORIAL_STEPS = [
                 }}
             }}, 300);
         }}
+    }},
+    {{
+        target: '.row-controls',
+        title: 'Show More / Collapse',
+        content: 'Only the first 10 buildings are shown initially. Click ▼ to load all remaining buildings in the portfolio. Click ▲ to collapse the portfolio view.',
+        position: 'top',
+        action: function() {{
+            var firstCard = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstCard && !firstCard.classList.contains('expanded')) {{
+                togglePortfolio(firstCard.querySelector('.portfolio-header'));
+            }}
+        }}
     }}
 ];
 
