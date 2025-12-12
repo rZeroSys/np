@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:54:27 EST -->
+<!-- Generated: 2025-12-12 11:46:43 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -358,48 +358,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From Energize Denver benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, Placer.ai traffic patterns." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Long hours with steady traffic. Peaks 80-100%, lulls 15-30%." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 817,978 kWh/yr
-After ODCV: 793,438 kWh/yr
-Change: -24,539 kWh/yr
-How: HVAC is 15% of electric; ODCV cuts 20% of that.
-Why believable: 4% vacant, 73% utilized.
-Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC drives 15% of electricity. The other 85% is refrigeration cases (run 24/7 regardless of shoppers), lighting, and checkout equipment. ODCV only affects the HVAC portion." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>817,977 kWh</td>
                 <td>793,438 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-24,539 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -24,539 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="NATURAL GAS SAVINGS
-Current (disclosed): 3,612 therms/yr
-After ODCV: 3,323 therms/yr
-Change: -289 therms/yr
-How: HVAC is 40% of gas; ODCV cuts 20% of that.
-Why believable: 40% of gas is HVAC; ODCV cuts when unoccupied.
-Sources: Energize Denver, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HVAC is 40% of gas. Some stores use gas for heating; the rest goes to bakery ovens and deli equipment. Refrigeration is electric, not gas." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>3,612 therms</td>
                 <td>3,323 therms</td>
-                <td style="color: #16a34a; font-weight: 600;">-288 therms</td>
+                <td style="color: #f97316; font-weight: 600; background: rgba(249,115,22,0.08);">🔥 -288 therms</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 95.5 kBtu/sqft
-After ODCV: 92.1 kBtu/sqft
-Change: -3.4 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
-Why believable: HVAC portion drives EUI reduction.
-Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. HVAC accounts for 15% of electricity and 40% of gas—when you reduce ventilation to empty spaces, EUI drops." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>95.5 kBtu/sqft</td>
                 <td>92.1 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-3.4 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -3.4 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -416,66 +398,38 @@ Sources: Energize Denver, ODCV model." style="display: inline-block; margin-left
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $202,428/yr
-  (Electric: $197,908, Gas: $4,519)
-HVAC portion of that: $31,494/yr
-ODCV saves 20% of HVAC = $6,299/yr
-GROCERY NOTE:
-40% of electric is refrigeration - those cases run 24/7.
-ODCV only saves on the HVAC portion.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="48% average traffic from Placer.ai Denver foot traffic analytics—real location data. 20% weekday mornings, 80% Saturday afternoons. HVAC runs at peak all day." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$202K/yr</td>
                 <td>$196K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$6K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$6K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="ENERGIZE DENVER
-
-EUI target: 48.3 kBtu/sqft
-This building: 95.5 kBtu/sqft
-Over by: 47.2 kBtu/sqft
-
-Fine: $0.30/kBtu over target
-ODCV reduces EUI 20%
-Fine avoided: $33,787/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver fine formula: (EUI - target) × sqft × $0.30 (Denver CASR Office). Target: 48.3 kBtu/sqft. Building: 95 kBtu/sqft. Pitch: 'EUI-based law. ODCV directly lowers EUI by cutting HVAC waste.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$467K/yr</td>
                 <td>$434K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$34K/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$34K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $6,299/yr
-  Fine avoidance: $33,787/yr
-  Total: $40,086/yr
-
-Cap rate: 6.0% (Supermarket/Grocery typical)
-
-$40,086/yr ÷ 6.0%
-= $668,104 value increase
-
-Every $1 saved = $16 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—6.0% for Supermarket/Grocerys in Denver. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 17x to asset value (NOI ÷ cap rate). Avoided BPS fines count the same way—they reduce operating expenses, which increases NOI. Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$668K</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$668K</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Energize Denver. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Supermarket/Grocerys nationally. Benchmark EUI (196 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 91, already ENERGY STAR certified territory. Pitch: 'Maintain or improve your competitive position.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>91</td>
                 <td>91</td>
                 <td>—</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Grid emission factor from EPA eGRID 2022—Denver's actual utility grid, not a national average. Denver: 0.55 kg CO2/kWh (Xcel Colorado—coal-heavy). Natural gas: 5.3 kg CO2/therm (EIA standard). Pitch: 'These are auditable numbers—same methodology NYC uses for LL97 compliance.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>403.8 tCO2e/yr</td>
                 <td>390.7 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-13.1 tCO2e/yr</td>
+                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -13.1 tCO2e/yr</td>
             </tr>
 
         </table>

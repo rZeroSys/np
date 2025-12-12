@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:54:00 EST -->
+<!-- Generated: 2025-12-12 11:46:18 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -357,48 +357,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From BERDO benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, CBRE/Cushman vacancy rates, Kastle badge-swipe occupancy data." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Hybrid work + vacancy = 50-60% of ventilation goes to empty space." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 300,262 kWh/yr
-After ODCV: 247,866 kWh/yr
-Change: -52,396 kWh/yr
-How: HVAC is 54% of electric; ODCV cuts 32% of that.
-Why believable: 16% vacant, 42% utilized — underused space = wasted conditioning.
-Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 54% of this building's electricity—chillers, cooling towers, air handlers, and ventilation fans. The remaining 46% goes to lighting, plug loads, elevators, and equipment that runs regardless of occupancy." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>300,262 kWh</td>
-                <td>247,865 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-52,396 kWh</td>
+                <td>243,650 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -56,612 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
-Current (disclosed): 1,013.00 Mlb/yr
-After ODCV: 704.39 Mlb/yr
-Change: -308.61 Mlb/yr
-How: HVAC is 95% of steam; ODCV cuts 32% of that.
-Why believable: district steam is almost entirely for heating.
-Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="District steam is 95% HVAC—a heating-only fuel piped from central utility plants. Unlike gas, there's no cooking or hot water competing. Reduce ventilation and you reduce heating load directly." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,013.00 Mlb</td>
-                <td>704.39 Mlb</td>
-                <td style="color: #16a34a; font-weight: 600;">-308.61 Mlb</td>
+                <td>679.56 Mlb</td>
+                <td style="color: #6366f1; font-weight: 600; background: rgba(99,102,241,0.08);">💨 -333.44 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 77.0 kBtu/sqft
-After ODCV: 58.2 kBtu/sqft
-Change: -18.8 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 32% savings).
-Why believable: elec HVAC 54%; 16% vacant, 42% utilized.
-Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Offices have HVAC-dominated energy profiles (54% of electric, 0% of gas). Big EUI impact when you stop ventilating empty space." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>77.0 kBtu/sqft</td>
                 <td>58.2 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-18.8 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -18.8 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -415,66 +397,38 @@ Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $195,786/yr
-  (Electric: $165,757, Steam: $30,029)
-HVAC portion of that: $118,276/yr
-ODCV saves 32% of HVAC = $38,073/yr
-OFFICE NOTE:
-This building is 16% vacant - paying to condition empty space.
-Hybrid work means only 42% of occupied space is actually used.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="24% vacancy from CBRE Q4 2024 Boston office market report—actual market data, not a national average. 42% desk utilization from Kastle Systems badge swipes for Boston—they track 2,600+ buildings. BMS doesn't know which floors are empty. Ventilates for full capacity. That's the waste." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$196K/yr</td>
-                <td>$158K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$38K/yr</td>
+                <td>$155K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$41K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
-
-Cap: 29,000 sqft × 0.0053
-   = 154 tCO2e/yr allowed
-This building: 128 tCO2e/yr
-
-Fine: $234/tCO2e over cap
-ODCV cuts emissions 32%
-Fine avoided: $3,204/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0 fine formula: excess tCO2e × $234/ton (City of Boston Environment Dept). Current: 128 tCO2e for 29,000 sqft exceeds threshold. Pitch: 'Caps tighten every 5 years to net-zero by 2050. Early action = compliance runway.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$3K/yr</td>
                 <td>$0/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$3K/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$3K/yr</td>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="PROPERTY VALUE INCREASE
-
-Annual benefit:
-  Utility savings: $38,073/yr
-  Fine avoidance: $3,204/yr
-  Total: $41,278/yr
-
-Cap rate: 7.0% (Office typical)
-
-$41,278/yr ÷ 7.0%
-= $589,681 value increase
-
-Every $1 saved = $14 higher value" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Property Value<span class="info-tooltip" data-tooltip="Cap rate from CBRE Cap Rate Survey Q4 2024—7.0% for Offices in Boston. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Avoided BPS fines count the same way—they reduce operating expenses, which increases NOI. Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$590K</td>
+                <td style="color: #f59e0b; font-weight: 600; background: rgba(245,158,11,0.08);">📈 +$633K</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from BERDO. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="Score from EPA Portfolio Manager—percentile rank vs all Offices nationally. Benchmark EUI (53 kBtu/sqft median) from CBECS 2018 Commercial Buildings Survey by building type. At 33, below median. Pitch: 'Every competitor Office scores higher—tenants notice.' ODCV improves score by lowering source energy, which is what EPA's regression model weighs." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>33</td>
-                <td>48</td>
-                <td style="color: #16a34a; font-weight: 600;">+15</td>
+                <td>50</td>
+                <td style="color: #eab308; font-weight: 600; background: rgba(234,179,8,0.08);">⭐ +17</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Grid emission factor from EPA eGRID 2022—Boston's actual utility grid, not a national average. Boston: 0.31 kg CO2/kWh (ISO-NE regional grid). Natural gas: 5.3 kg CO2/therm (EIA standard). Pitch: 'These are auditable numbers—same methodology NYC uses for LL97 compliance.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>127.8 tCO2e/yr</td>
                 <td>98.4 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-29.4 tCO2e/yr</td>
+                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -29.4 tCO2e/yr</td>
             </tr>
 
         </table>

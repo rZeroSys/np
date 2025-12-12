@@ -2028,6 +2028,12 @@ body.all-buildings-active .main-tabs {
 .sort-col[data-total]:hover::before {
     opacity: 1;
 }
+/* Savings tooltip - position left so it doesn't overflow right edge */
+#header-opex[data-total]::before {
+    left: auto;
+    right: 0;
+    transform: none;
+}
 .sort-col:nth-child(6),
 .sort-col:nth-child(7),
 .sort-col:nth-child(8) {
@@ -3105,6 +3111,58 @@ tr.pin-highlight {
 
 }
 
+/* Responsive: 768-1024px */
+@media (max-width: 1024px) {
+    .cities-header,
+    .cities-row {
+        grid-template-columns: 60px 24px 1.5fr 70px 1.2fr 1.2fr 85px;
+    }
+    .cities-header span:nth-child(4),
+    .cities-header span:nth-child(6),
+    .cities-row > *:nth-child(4),
+    .cities-row > *:nth-child(6) {
+        display: none;
+    }
+    #userInfo {
+        right: 10px !important;
+        top: 10px !important;
+    }
+    #userInfo img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+/* Responsive: below 768px - simplified layout */
+@media (max-width: 767px) {
+    .portfolio-sort-header,
+    .portfolio-header {
+        grid-template-columns: 1fr auto !important;
+    }
+    .portfolio-sort-header .sort-col:nth-child(n+3),
+    .portfolio-header > *:nth-child(n+3) {
+        display: none !important;
+    }
+    .portfolio-header .stat-cell.building-count {
+        display: flex !important;
+    }
+    .cities-header,
+    .cities-row {
+        grid-template-columns: 1fr 80px !important;
+    }
+    .cities-header > *:nth-child(-n+2),
+    .cities-header > *:nth-child(n+4):nth-child(-n+8),
+    .cities-row > *:nth-child(-n+2),
+    .cities-row > *:nth-child(n+4):nth-child(-n+8) {
+        display: none !important;
+    }
+    .portfolio-section,
+    .all-buildings-section {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
+
 /* Loading spinner */
 .loading {
     display: flex;
@@ -3152,6 +3210,43 @@ tr.pin-highlight {
     background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Instagram-style image loading - NEVER shows empty space */
+.img-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.img-skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s ease-in-out infinite;
+    z-index: 1;
+}
+.img-skeleton.logo {
+    border-radius: 6px;
+    background-color: #f0f0f0;
+}
+.img-skeleton.thumb {
+    border-radius: 4px;
+    background-color: #e8e8e8;
+}
+.img-loaded {
+    opacity: 1 !important;
+}
+.img-hidden {
+    display: none !important;
+}
+/* Ensure placeholder stays positioned correctly */
+.img-container .org-logo-placeholder,
+.img-container .building-thumb-placeholder {
+    position: relative;
+    z-index: 0;
 }
 
 /* Hidden */
@@ -4050,7 +4145,7 @@ tr.pin-highlight {
 <div id="portfolios-tab" class="tab-content active">
 <div class="portfolio-section" style="padding: 210px 0 20px 0;">
     <div class="portfolio-sort-header">
-        <span class="sort-col">Portfolio</span>
+        <span class="sort-col" id="header-name" onclick="sortPortfolios('name')" style="cursor:pointer">Portfolio</span>
         <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
         <div class="sort-col type-filter-wrapper" id="typeFilterWrapper">
             <span onclick="sortPortfolios('type')" style="cursor:pointer">Type</span>
@@ -4069,7 +4164,7 @@ tr.pin-highlight {
         <span class="sort-col" id="header-eui" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
         <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
         <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
-        <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr">Savings/yr</span>
+        <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr (Avoided utility costs + avoided carbon fines)">Savings/yr</span>
     </div>
     <div class="portfolios-list" id="portfolios-list">
         {''.join(portfolio_cards)}
@@ -4185,9 +4280,10 @@ tr.pin-highlight {
 
         rows = []
         for rank, b in enumerate(sorted_buildings, 1):
-            # Thumbnail
+            # Thumbnail - Instagram-style skeleton + fade-in with console logging
             if b.get('image'):
-                thumb = f'<img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" loading="lazy" decoding="async">'
+                thumb_filename = b["image"]
+                thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="console.log(\'[Thumb] ✓\',\'{thumb_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
             else:
                 icon = building_type_icon(b.get('radio_type', ''))
                 thumb = f'<div class="building-thumb-placeholder">{icon}</div>'
@@ -4252,8 +4348,9 @@ tr.pin-highlight {
 
         org_url = p.get('org_url', '')
         if logo_url:
-            # Always eager load logos - they're small and critical for UX
-            logo_inner = f'<img src="{attr_escape(logo_url)}" alt="" class="org-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="org-logo-placeholder" style="display:none">{p["org_name"][0].upper()}</div>'
+            # Instagram-style skeleton + fade-in for logos - NEVER shows empty space
+            logo_filename = logo_url.split('/')[-1]
+            logo_inner = f'<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="{attr_escape(logo_url)}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log(\'[Logo] ✓\',\'{logo_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Logo] ✗\',\'{logo_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="org-logo-placeholder img-hidden">{p["org_name"][0].upper()}</div></div>'
         else:
             logo_inner = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
 
@@ -4354,9 +4451,10 @@ tr.pin-highlight {
         """Generate a building table row."""
         bucket = self.config['aws_bucket']
 
-        # Thumbnail
+        # Thumbnail - Instagram-style skeleton + fade-in with console logging
         if b.get('image'):
-            thumb = f'<img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" loading="lazy" decoding="async">'
+            thumb_filename = b["image"]
+            thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="console.log(\'[Thumb] ✓\',\'{thumb_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
         else:
             icon = building_type_icon(b.get('radio_type', ''))
             thumb = f'<div class="building-thumb-placeholder">{icon}</div>'
@@ -4710,9 +4808,8 @@ function createAllBuildingsRow(b, index) {{
     row.className = 'cities-row';
     row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html?from=cities'; }};
 
-    const loadingAttr = index < 1000 ? 'eager' : 'lazy';
     const thumb = b.image
-        ? `<img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" alt="" class="building-thumb" loading="${{loadingAttr}}" onerror="this.style.display='none'">`
+        ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Thumb] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
         : '<div class="building-thumb-placeholder">🏢</div>';
 
     const sqft = formatNumber(b.sqft || 0);
@@ -4937,6 +5034,8 @@ function escapeHtml(str) {{
 let activeVertical = 'all';
 let selectedBuildingType = null;
 let mapUpdateTimeout = null;
+let isInitialDataLoaded = false;  // Guards against race condition with EXPORT_DATA
+let pendingFilterUpdate = false;   // Defers filter if data not yet loaded
 
 function applyFilters() {{
     console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical);
@@ -5024,33 +5123,38 @@ function applyFilters() {{
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
-    // Update header tooltips - use allBuildingsData exactly like Cities tab does with filteredBuildingsData
-    let headerFiltered = allBuildingsData.filter(b => {{
-        if (selectedBuildingType && b.type !== selectedBuildingType) return false;
-        if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
-        if (globalQuery) {{
-            const searchFields = [b.owner || '', b.tenant || '', b.property_manager || ''].join(' ').toLowerCase();
-            if (!searchFields.includes(globalQuery)) return false;
-        }}
-        return true;
-    }});
+    // Update header tooltips - only if EXPORT_DATA has loaded (guard against race condition)
+    if (!isInitialDataLoaded || !allBuildingsData.length) {{
+        // Data not loaded yet - mark for re-run when data arrives
+        pendingFilterUpdate = true;
+    }} else {{
+        let headerFiltered = allBuildingsData.filter(b => {{
+            if (selectedBuildingType && b.type !== selectedBuildingType) return false;
+            if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
+            if (globalQuery) {{
+                const searchFields = [b.owner || '', b.tenant || '', b.property_manager || ''].join(' ').toLowerCase();
+                if (!searchFields.includes(globalQuery)) return false;
+            }}
+            return true;
+        }});
 
-    const headerTotalBuildings = headerFiltered.length;
-    const headerTotalSqft = headerFiltered.reduce((sum, b) => sum + (b.sqft || 0), 0);
-    const headerTotalValuation = headerFiltered.reduce((sum, b) => sum + (b.valuation || 0), 0);
-    const headerTotalCarbon = headerFiltered.reduce((sum, b) => sum + (b.carbon || 0), 0);
-    const headerTotalOpex = headerFiltered.reduce((sum, b) => sum + (b.opex || 0), 0);
+        const headerTotalBuildings = headerFiltered.length;
+        const headerTotalSqft = headerFiltered.reduce((sum, b) => sum + (b.sqft || 0), 0);
+        const headerTotalValuation = headerFiltered.reduce((sum, b) => sum + (b.valuation || 0), 0);
+        const headerTotalCarbon = headerFiltered.reduce((sum, b) => sum + (b.carbon || 0), 0);
+        const headerTotalOpex = headerFiltered.reduce((sum, b) => sum + (b.opex || 0), 0);
 
-    const headerBuildings = document.getElementById('header-buildings');
-    const headerSqft = document.getElementById('header-sqft');
-    const headerValuation = document.getElementById('header-valuation');
-    const headerCarbon = document.getElementById('header-carbon');
-    const headerOpex = document.getElementById('header-opex');
-    if (headerBuildings) headerBuildings.dataset.total = headerTotalBuildings.toLocaleString() + ' Total Buildings';
-    if (headerSqft) headerSqft.dataset.total = formatSqftJS(headerTotalSqft) + ' Total Sq Ft';
-    if (headerValuation) headerValuation.dataset.total = formatMoney(headerTotalValuation) + ' Total Val. Impact';
-    if (headerCarbon) headerCarbon.dataset.total = formatCarbon(headerTotalCarbon) + ' Total tCO2e/yr';
-    if (headerOpex) headerOpex.dataset.total = formatMoney(headerTotalOpex) + ' Total Savings/yr';
+        const headerBuildings = document.getElementById('header-buildings');
+        const headerSqft = document.getElementById('header-sqft');
+        const headerValuation = document.getElementById('header-valuation');
+        const headerCarbon = document.getElementById('header-carbon');
+        const headerOpex = document.getElementById('header-opex');
+        if (headerBuildings) headerBuildings.dataset.total = headerTotalBuildings.toLocaleString() + ' Total Buildings';
+        if (headerSqft) headerSqft.dataset.total = formatSqftJS(headerTotalSqft) + ' Total Sq Ft';
+        if (headerValuation) headerValuation.dataset.total = formatMoney(headerTotalValuation) + ' Total Val. Impact';
+        if (headerCarbon) headerCarbon.dataset.total = formatCarbon(headerTotalCarbon) + ' Total tCO2e/yr';
+        if (headerOpex) headerOpex.dataset.total = formatMoney(headerTotalOpex) + ' Total Savings/yr (Avoided utility costs + avoided carbon fines)';
+    }}
 
     // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
     const expanded = document.querySelector('.portfolio-card.expanded');
@@ -5309,7 +5413,7 @@ function globalSearch(query) {{
         }});
     }}
 
-    // Use debounced filter
+    // Use unified debounced filter (150ms for all filter operations)
     clearTimeout(filterTimeout);
     filterTimeout = setTimeout(() => {{
         requestAnimationFrame(() => {{
@@ -5319,7 +5423,7 @@ function globalSearch(query) {{
                 doFilterAllBuildings();
             }}
         }});
-    }}, 100);
+    }}, 150);  // Unified 150ms debounce for all filter operations
 }}
 
 function applySearchResults() {{
@@ -5857,7 +5961,10 @@ function updatePortfolioVisibleCounts() {{
 
     if (buildingsHeader) buildingsHeader.title = `${{totalBuildings.toLocaleString()}} buildings shown`;
     if (sqftHeader) sqftHeader.title = `${{(totalSqft/1e6).toFixed(1)}}M sq ft shown`;
-    if (opexHeader) opexHeader.title = `$${{(totalOpex/1e6).toFixed(1)}}M savings shown`;
+    if (opexHeader) {{
+        opexHeader.title = `$${{(totalOpex/1e6).toFixed(1)}}M savings shown (Avoided utility costs + avoided carbon fines)`;
+        console.log('[DEBUG] opexHeader.title =', opexHeader.title);
+    }}
     if (carbonHeader) carbonHeader.title = `${{Math.round(totalCarbon/1000)}}K tCO2e shown`;
     if (valuationHeader) valuationHeader.title = `$${{(totalValuation/1e9).toFixed(2)}}B val. impact shown`;
 }}
@@ -6912,6 +7019,48 @@ const imageLoader = {{
     }}
 }};
 
+// Instagram-style throttled preload queue - max 6 concurrent, prioritizes visible
+const preloadQueue = {{
+    queue: [],
+    loaded: new Set(),
+    loading: new Set(),
+    maxConcurrent: 6,
+    stats: {{ started: 0, completed: 0, failed: 0 }},
+
+    add(url, priority = false) {{
+        if (!url || this.loaded.has(url) || this.loading.has(url)) return;
+        if (this.queue.includes(url)) return;
+        priority ? this.queue.unshift(url) : this.queue.push(url);
+        console.log('[PreloadQueue] Added:', url.split('/').pop(), priority ? '(priority)' : '', 'Queue:', this.queue.length);
+        this.process();
+    }},
+
+    process() {{
+        while (this.loading.size < this.maxConcurrent && this.queue.length > 0) {{
+            const url = this.queue.shift();
+            if (this.loaded.has(url)) continue;
+            this.loading.add(url);
+            this.stats.started++;
+            const img = new Image();
+            const filename = url.split('/').pop();
+            img.onload = () => {{
+                this.loaded.add(url);
+                this.loading.delete(url);
+                this.stats.completed++;
+                console.log('[PreloadQueue] ✓ Loaded:', filename, `(${{this.stats.completed}}/${{this.stats.started}}) Active:${{this.loading.size}} Queue:${{this.queue.length}}`);
+                this.process();
+            }};
+            img.onerror = () => {{
+                this.loading.delete(url);
+                this.stats.failed++;
+                console.warn('[PreloadQueue] ✗ Failed:', filename);
+                this.process();
+            }};
+            img.src = url;
+        }}
+    }}
+}};
+
 // Track how many buildings shown per portfolio
 const portfolioBuildingCounts = {{}};
 const BUILDINGS_PER_BATCH = 10;
@@ -6950,7 +7099,11 @@ function loadPortfolioRows(card, loadMore = false) {{
     // NOTE: globalQuery filters PORTFOLIOS not buildings - don't filter here
 
     if (!buildings.length) {{
-        container.innerHTML = '';
+        // Show helpful message instead of empty space
+        const filterMsg = selectedBuildingType || (activeVertical && activeVertical !== 'all')
+            ? 'No buildings match the current filters'
+            : 'No buildings in this portfolio';
+        container.innerHTML = `<div style="padding:24px;text-align:center;color:#666;font-style:italic;background:#f9f9f9;border-radius:4px;margin:8px 0">${{filterMsg}}</div>`;
         return;
     }}
 
@@ -6968,7 +7121,7 @@ function loadPortfolioRows(card, loadMore = false) {{
     const bucket = CONFIG.awsBucket;
     const html = buildingsToShow.map(b => {{
         const thumb = b.image
-            ? `<img src="${{bucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="eager"><div class="building-thumb-placeholder" style="display:none">🏢</div>`
+            ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{bucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Thumb] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
             : `<div class="building-thumb-placeholder">🏢</div>`;
         // Strip zip code and city/state from address (show only street address)
         let addrClean = (b.address || '').replace(/,?\\s*\\d{{5}}(-\\d{{4}})?$/, '').trim();
@@ -7040,6 +7193,19 @@ function loadPortfolioRows(card, loadMore = false) {{
 
     container.innerHTML = sortHeader + html + controlBar;
     loadedPortfolios.add(idx);
+
+    // Re-apply sort if user had sorted this portfolio (preserves sort on filter change)
+    const sortKey = Object.keys(buildingSortDir).find(k => k.startsWith(idx + '_'));
+    if (sortKey) {{
+        const col = sortKey.split('_')[1];
+        const headerEl = container.querySelector(`.sort-col[onclick*="${{col}}"]`);
+        if (headerEl) {{
+            // Temporarily flip direction so sortBuildingRows flips it back to original
+            buildingSortDir[sortKey] = !buildingSortDir[sortKey];
+            sortBuildingRows(headerEl, col);
+        }}
+    }}
+
     console.log('[Portfolio] idx=' + idx + ' showing ' + buildingsToShow.length + '/' + buildings.length + ' buildings' + (loadMore ? ' (ALL)' : ''));
 }}
 
@@ -7058,19 +7224,16 @@ function showLessBuildings(card) {{
 // INITIALIZATION - NOTHING auto-loads, user action triggers everything
 // =============================================================================
 
-// Preload a portfolio's images
+// Preload a portfolio's images using throttled queue
 const preloadedIdx = new Set();
 function preloadPortfolio(idx) {{
     if (preloadedIdx.has(idx)) return;
     preloadedIdx.add(idx);
     const buildings = PORTFOLIO_BUILDINGS[idx];
     if (!buildings) return;
-    const bucket = CONFIG.awsBucket;
-    buildings.forEach(b => {{
-        if (b.image) {{
-            const img = new Image();
-            img.src = bucket + '/thumbnails/' + b.image;
-        }}
+    // Use throttled queue - only first 15 images to avoid flooding
+    buildings.slice(0, 15).forEach(b => {{
+        if (b.image) preloadQueue.add(CONFIG.awsBucket + '/thumbnails/' + b.image);
     }});
 }}
 
@@ -7086,7 +7249,7 @@ function renderPortfolioCard(p) {{
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
     const logoInner = logoUrl
-        ? `<img src="${{logoUrl}}" alt="" class="org-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="org-logo-placeholder" style="display:none">${{p.org_name[0].toUpperCase()}}</div>`
+        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Logo] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{p.org_name[0].toUpperCase()}}</div></div>`
         : `<div class="org-logo-placeholder">${{p.org_name[0].toUpperCase()}}</div>`;
     const logoHtml = p.org_url
         ? `<a href="${{p.org_url}}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${{logoInner}}</a>`
@@ -7171,12 +7334,17 @@ document.addEventListener('DOMContentLoaded', function() {{
     console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
     console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
 
-    // Load export_data.js immediately for header tooltips (with retry)
+    // Load export_data.js for header tooltips (with retry)
     loadScript('data/export_data.js', {{ timeout: 30000 }})
         .then(() => {{
             allBuildingsData = EXPORT_DATA;
+            isInitialDataLoaded = true;  // Set flag to enable header tooltip computation
             console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
-            applyFilters(); // Re-run to update header tooltips
+            // Only re-run if there was a pending filter update
+            if (pendingFilterUpdate) {{
+                pendingFilterUpdate = false;
+                applyFilters();
+            }}
         }})
         .catch(err => {{
             console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
@@ -7185,43 +7353,35 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     initTabs();
     selectVertical('all');
-    selectVertical('all');
 
-    // Preload logos for first 1000 portfolios for instant display
-    PORTFOLIO_CARDS.slice(0, 1000).forEach(p => {{
+    // Smart throttled preload - only first 50 visible logos (above fold)
+    // Uses preloadQueue to avoid flooding network on cold cache
+    PORTFOLIO_CARDS.slice(0, 50).forEach(p => {{
         const logoUrl = p.aws_logo_url || (p.logo_file ? CONFIG.awsBucket + '/logos/' + p.logo_file : '');
-        if (logoUrl) {{
-            const img = new Image();
-            img.src = logoUrl;
-        }}
+        if (logoUrl) preloadQueue.add(logoUrl, true);  // priority=true for visible
     }});
 
-    // Pre-load building rows AND images for first 5 portfolios
-    const first5Cards = Array.from(document.querySelectorAll('.portfolio-card')).slice(0, 5);
-    first5Cards.forEach(card => {{
-        const idx = parseInt(card.dataset.idx);
-        if (!isNaN(idx)) {{
-            // Load the building rows into DOM
-            loadPortfolioRows(card);
-            // Preload all images for this portfolio
-            const buildings = PORTFOLIO_BUILDINGS[idx];
-            if (buildings) {{
-                const bucket = CONFIG.awsBucket;
-                buildings.forEach(b => {{
-                    if (b.image) {{
-                        const img = new Image();
-                        img.src = bucket + '/thumbnails/' + b.image;
-                    }}
-                }});
-            }}
-        }}
-    }});
+    // DON'T pre-expand first 5 portfolios on cold cache - let user trigger expansion
+    // This prevents unnecessary network requests when cache is cleared
 
-    // On HOVER: preload that portfolio's images (before user clicks)
+    // On HOVER: preload that portfolio's building thumbnails using throttled queue
     document.querySelectorAll('.portfolio-card').forEach(card => {{
         card.addEventListener('mouseenter', function() {{
             const idx = parseInt(this.dataset.idx);
-            if (!isNaN(idx)) preloadPortfolio(idx);
+            if (isNaN(idx)) return;
+            // Preload logo for this card if not already loaded
+            const p = PORTFOLIO_CARDS[idx];
+            if (p) {{
+                const logoUrl = p.aws_logo_url || (p.logo_file ? CONFIG.awsBucket + '/logos/' + p.logo_file : '');
+                if (logoUrl) preloadQueue.add(logoUrl);
+            }}
+            // Preload first 10 building thumbnails when hovering
+            const buildings = PORTFOLIO_BUILDINGS[idx];
+            if (buildings) {{
+                buildings.slice(0, 10).forEach(b => {{
+                    if (b.image) preloadQueue.add(CONFIG.awsBucket + '/thumbnails/' + b.image);
+                }});
+            }}
         }});
     }});
 
@@ -7257,7 +7417,7 @@ const TUTORIAL_STEPS = [
     {{
         target: '.vertical-buttons-group',
         title: 'Vertical Filters',
-        content: 'Filter portfolios by sector: Commercial (blue), Education (green), or Healthcare (purple). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
+        content: 'Filter portfolios by sector: Commercial (navy), Education (blue), or Healthcare (light blue). Click the DOWN ARROW on each button to filter by specific building types within that vertical.',
         position: 'bottom',
         action: function() {{ switchMainTab('portfolios'); }}
     }},
@@ -7617,6 +7777,97 @@ window.addEventListener('resize', function() {{
         showTutorialStep(currentTutorialStep);
     }}
 }});
+
+// =============================================================================
+// RESPONSIVE DIAGNOSTICS - logs key measurements to console on resize
+// =============================================================================
+function logResponsiveDiagnostics() {{
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const header = document.querySelector('.header');
+    const filterBar = document.querySelector('.vertical-filter-bar');
+    const filterInner = document.querySelector('.vertical-filter-inner');
+    const portfolioSection = document.querySelector('.portfolio-section');
+    const statsGrid = document.querySelector('.stats-grid');
+    const tabsContainer = document.querySelector('.tabs-container');
+
+    const portfolioHeader = document.querySelector('.portfolio-sort-header');
+    const portfolioHeaderCells = portfolioHeader ? portfolioHeader.children : [];
+
+    const citiesHeader = document.querySelector('.cities-header');
+    const citiesHeaderCells = citiesHeader ? citiesHeader.children : [];
+
+    const body = document.body;
+    const hasHorizontalScroll = body.scrollWidth > vw;
+
+    console.clear();
+    console.log('%c=== RESPONSIVE DIAGNOSTICS ===', 'color: #0066cc; font-weight: bold; font-size: 14px');
+    console.log('Viewport: ' + vw + 'px × ' + vh + 'px');
+    console.log('Body scroll width: ' + body.scrollWidth + 'px');
+    console.log('Horizontal overflow: ' + (hasHorizontalScroll ? '⚠️ YES' : '✅ NO'));
+    console.log('');
+
+    console.log('%cContainer Widths:', 'font-weight: bold');
+    console.log('  Header: ' + (header ? header.offsetWidth : 'N/A') + 'px');
+    console.log('  Filter bar: ' + (filterBar ? filterBar.offsetWidth : 'N/A') + 'px');
+    console.log('  Filter inner: ' + (filterInner ? filterInner.offsetWidth : 'N/A') + 'px (max: 1272px)');
+    console.log('  Portfolio section: ' + (portfolioSection ? portfolioSection.offsetWidth : 'N/A') + 'px');
+    console.log('  Stats grid: ' + (statsGrid ? statsGrid.offsetWidth : 'N/A') + 'px (max: 1400px)');
+    console.log('  Tabs container: ' + (tabsContainer ? tabsContainer.offsetWidth : 'N/A') + 'px');
+    console.log('');
+
+    if (portfolioHeaderCells.length > 0) {{
+        console.log('%cPortfolio Grid Columns (8 cols):', 'font-weight: bold');
+        var colWidths = Array.from(portfolioHeaderCells).map(function(cell) {{
+            var w = cell.offsetWidth;
+            var cramped = w < 80 ? '⚠️' : '';
+            return w + 'px' + cramped;
+        }});
+        console.log('  ' + colWidths.join(' | '));
+        var total = Array.from(portfolioHeaderCells).reduce(function(sum, c) {{ return sum + c.offsetWidth; }}, 0);
+        console.log('  Total: ' + total + 'px');
+    }}
+    console.log('');
+
+    if (citiesHeaderCells.length > 0) {{
+        console.log('%cCities Grid Columns (9 cols):', 'font-weight: bold');
+        var cityColWidths = Array.from(citiesHeaderCells).map(function(cell) {{
+            var w = cell.offsetWidth;
+            var cramped = w < 60 ? '⚠️' : '';
+            return w + 'px' + cramped;
+        }});
+        console.log('  ' + cityColWidths.join(' | '));
+        var cityTotal = Array.from(citiesHeaderCells).reduce(function(sum, c) {{ return sum + c.offsetWidth; }}, 0);
+        console.log('  Total: ' + cityTotal + 'px');
+    }}
+    console.log('');
+
+    console.log('%cBreakpoint Status:', 'font-weight: bold');
+    console.log('  > 1400px (full desktop): ' + (vw > 1400 ? '✅ ACTIVE' : '—'));
+    console.log('  1200-1400px: ' + (vw <= 1400 && vw > 1200 ? '✅ ACTIVE' : '—'));
+    console.log('  1024-1200px: ' + (vw <= 1200 && vw > 1024 ? '⚠️ NO BREAKPOINT' : '—'));
+    console.log('  768-1024px: ' + (vw <= 1024 && vw > 768 ? '⚠️ NO BREAKPOINT' : '—'));
+    console.log('  < 768px: ' + (vw <= 768 ? '⚠️ ACTIVE (limited)' : '—'));
+    console.log('');
+
+    console.log('%cRecommendations:', 'font-weight: bold; color: #cc6600');
+    if (vw < 1024 && vw > 768) {{
+        console.log('  → Portfolio grid needs 5-6 columns at this width');
+        console.log('  → Cities grid needs 5-6 columns at this width');
+    }} else if (vw <= 768) {{
+        console.log('  → Portfolio grid needs 3-4 columns at this width');
+        console.log('  → Cities grid needs 3-4 columns at this width');
+    }} else if (vw >= 1024 && vw <= 1200) {{
+        console.log('  → Consider reducing to 6-7 columns');
+    }} else {{
+        console.log('  → Current layout should be fine');
+    }}
+}}
+
+// Debug diagnostics - call logResponsiveDiagnostics() manually in console if needed
+// logResponsiveDiagnostics();
+// window.addEventListener('resize', logResponsiveDiagnostics);
 </script>'''
 
 

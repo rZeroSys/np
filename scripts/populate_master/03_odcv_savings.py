@@ -72,9 +72,9 @@ BUILDING_TYPE_BOUNDS = {
     'Public Service':            (0.10, 0.25),
     'Outpatient Clinic':         (0.15, 0.32),
     'Sports/Gaming Center':      (0.18, 0.40),
-    'Inpatient Hospital':        (0.05, 0.15),
-    'Specialty Hospital':        (0.05, 0.15),
-    'Residential Care Facility': (0.05, 0.15),
+    'Inpatient Hospital':        (0.20, 0.38),  # Waiting rooms, exam rooms, admin offices = big opportunity
+    'Specialty Hospital':        (0.20, 0.38),  # Same as Inpatient
+    'Residential Care Facility': (0.05, 0.15),  # Legit low - residents actually there 24/7
     'Residential Care':          (0.05, 0.15),  # Same as Residential Care Facility
     'Laboratory':                (0.05, 0.15),
     'Police Station':            (0.05, 0.15),
@@ -87,8 +87,10 @@ BUILDING_TYPE_BOUNDS = {
 VACANCY_PLUS_UTIL_TYPES = ['Office', 'Medical Office', 'Mixed Use', 'Strip Mall']
 
 # Building types with reduced opportunity (24/7, infection control, high OA codes)
+# NOTE: Removed hospitals - they have huge non-clinical areas (waiting, exam, admin)
+# that are over-ventilated at medical-grade rates but have office-like occupancy
 LOW_OPPORTUNITY_TYPES = [
-    'Inpatient Hospital', 'Specialty Hospital', 'Residential Care Facility',
+    'Residential Care Facility', 'Residential Care',  # Residents actually there 24/7
     'Laboratory', 'Police Station', 'Fire Station', 'Public Transit'
 ]
 

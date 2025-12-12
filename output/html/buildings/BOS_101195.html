@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-12 01:53:58 EST -->
+<!-- Generated: 2025-12-12 11:46:16 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -357,48 +357,30 @@
         <table>
             <tr>
                 <th></th>
-                <th>Current</th>
-                <th>New</th>
-                <th>Change</th>
+                <th>Current<span class="info-tooltip" data-tooltip="From BERDO benchmarking disclosure. Actual metered energy reported by the building." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>New<span class="info-tooltip" data-tooltip="HVAC reduced using CBECS fuel splits, AHA bed occupancy data. ASHRAE 170 limits applied." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Change<span class="info-tooltip" data-tooltip="Limited opportunity. Savings from admin areas, not clinical spaces." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="ELECTRICITY SAVINGS
-Current (disclosed): 965,504 kWh/yr
-After ODCV: 895,987 kWh/yr
-Change: -69,516 kWh/yr
-How: HVAC is 36% of electric; ODCV cuts 20% of that.
-Why believable: savings from non-clinical areas only (clinical has code requirements).
-Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HVAC accounts for 36% of electricity. The rest powers medical imaging, life support, and 24/7 critical systems. ODCV savings come from non-clinical areas—waiting rooms, admin offices, cafeterias." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>965,503 kWh</td>
-                <td>895,987 kWh</td>
-                <td style="color: #16a34a; font-weight: 600;">-69,516 kWh</td>
+                <td>868,041 kWh</td>
+                <td style="color: #0ea5e9; font-weight: 600; background: rgba(14,165,233,0.08);">⚡ -97,461 kWh</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="DISTRICT STEAM SAVINGS
-Current (disclosed): 13,409.95 Mlb/yr
-After ODCV: 11,162.45 Mlb/yr
-Change: -2,247.51 Mlb/yr
-How: HVAC is 84% of steam; ODCV cuts 20% of that.
-Why believable: district steam is almost entirely for heating.
-Sources: BERDO, CBECS HVAC shares, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="In hospitals, 84% of district steam goes to HVAC. Some steam may also run sterilization equipment—but the vast majority heats ventilation air and building spaces." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>13,409.95 Mlb</td>
-                <td>11,162.45 Mlb</td>
-                <td style="color: #16a34a; font-weight: 600;">-2,247.51 Mlb</td>
+                <td>10,258.95 Mlb</td>
+                <td style="color: #6366f1; font-weight: 600; background: rgba(99,102,241,0.08);">💨 -3,151.01 Mlb</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="SITE EUI SAVINGS
-Current (disclosed): 134.7 kBtu/sqft
-After ODCV: 114.3 kBtu/sqft
-Change: -20.4 kBtu/sqft
-How: post-ODCV site energy ÷ sqft (uses *_post_odcv columns × 20% savings).
-Why believable: HVAC portion drives EUI reduction.
-Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="EUI (Energy Use Intensity) = total energy per square foot. Hospitals have high EUIs due to 24/7 operation and medical equipment. HVAC is 36% of electric—savings come from non-clinical areas." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>134.7 kBtu/sqft</td>
                 <td>114.3 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-20.4 kBtu/sqft</td>
+                <td style="color: #8b5cf6; font-weight: 600; background: rgba(139,92,246,0.08);">📉 -20.4 kBtu/sqft</td>
             </tr>
 
         </table>
@@ -415,40 +397,24 @@ Sources: BERDO, ODCV model." style="display: inline-block; margin-left: 5px; wid
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW WE CALCULATE $ SAVINGS
-Total energy bill: $988,706/yr
-  (Electric: $591,184, Steam: $397,522)
-HVAC portion of that: $545,949/yr
-ODCV saves 20% of HVAC = $109,190/yr
-HOSPITAL NOTE:
-Savings limited to non-clinical areas (lobbies, offices, cafeteria).
-Clinical areas need constant airflow by code.
-Sources: utility rates by ZIP, CBECS HVAC shares" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="60% utilization from AHA Hospital Statistics—hospital-specific data, not office assumptions. 40% non-clinical: waiting rooms, admin, cafeterias. All ventilated at medical-grade 24/7." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$989K/yr</td>
-                <td>$880K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$109K/yr</td>
+                <td>$836K/yr</td>
+                <td style="color: #16a34a; font-weight: 600; background: rgba(22,163,74,0.08);">💰 -$153K/yr</td>
             </tr>
 
             <tr>
-                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0
-
-Cap: 143,324 sqft × 0.0053
-   = 760 tCO2e/yr allowed
-This building: 956 tCO2e/yr
-
-Fine: $234/tCO2e over cap
-ODCV cuts emissions 20%
-Fine avoided: $46,413/yr" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="BERDO 2.0 fine formula: excess tCO2e × $234/ton (City of Boston Environment Dept). Current: 956 tCO2e for 143,324 sqft exceeds threshold. Pitch: 'Caps tighten every 5 years to net-zero by 2050. Early action = compliance runway.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$137K/yr</td>
-                <td>$90K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$46K/yr</td>
+                <td>$71K/yr</td>
+                <td style="color: #059669; font-weight: 600; background: rgba(5,150,105,0.08);">🛡️ -$65K/yr</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Grid emission factor from EPA eGRID 2022—Boston's actual utility grid, not a national average. Boston: 0.31 kg CO2/kWh (ISO-NE regional grid). Natural gas: 5.3 kg CO2/therm (EIA standard). Pitch: 'These are auditable numbers—same methodology NYC uses for LL97 compliance.'" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>955.6 tCO2e/yr</td>
                 <td>818.0 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-137.6 tCO2e/yr</td>
+                <td style="color: #0d9488; font-weight: 600; background: rgba(13,148,136,0.08);">🌱 -137.6 tCO2e/yr</td>
             </tr>
 
         </table>

@@ -33,7 +33,7 @@ import shutil
 # =============================================================================
 
 INPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv'
-CBECS_FILE = '/Users/forrestmiller/Desktop/Final real/CBECS data/cbecs2018_final_public.csv'
+CBECS_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/cbecs/cbecs2018_final_public.csv'
 BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
 
 # Building type to CBECS PBA mapping
