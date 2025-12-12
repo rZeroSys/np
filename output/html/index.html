@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-12 02:09:22 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-12 02:10:28 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8082,6 +8082,13 @@ const TUTORIAL_STEPS = [
             if (firstCard && !firstCard.classList.contains('expanded')) {
                 togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }
+            // Wait for rows to load, then scroll to the controls at bottom
+            setTimeout(function() {
+                var controls = document.querySelector('.row-controls');
+                if (controls) {
+                    controls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 500);
         }
     }
 ];
@@ -8334,7 +8341,7 @@ window.addEventListener('resize', function() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-12 02:09:22 EST
+        Build: 2025-12-12 02:10:28 EST
       </div>
     </footer>
 

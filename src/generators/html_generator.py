@@ -7339,6 +7339,13 @@ const TUTORIAL_STEPS = [
             if (firstCard && !firstCard.classList.contains('expanded')) {{
                 togglePortfolio(firstCard.querySelector('.portfolio-header'));
             }}
+            // Wait for rows to load, then scroll to the controls at bottom
+            setTimeout(function() {{
+                var controls = document.querySelector('.row-controls');
+                if (controls) {{
+                    controls.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+                }}
+            }}, 500);
         }}
     }}
 ];
