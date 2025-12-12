@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:31:55 EST -->
+<!-- Generated: 2025-12-11 23:34:04 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -358,37 +359,119 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  2,769,895 kWh × $0.1338/kWh × 1.10
+  = $407,521/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 703 kW
+  703 kW × $35.00/kW × 12 mo × 1.265
+  = $373,325/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 45%
+  (Enclosed Malls typically: 45%)
+  Peak = (2,769,895 ÷ 8,760 hrs) ÷ 0.45
+       = 703 kW
+
+TOTAL: $780,845/yr
+
+HVAC PORTION: 48%
+  = $374,806/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Enclosed Malls typically 50%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type
+  and climate.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,769,894 kWh</td>
-                <td>$781K</td>
-                <td>48%</td>
+                <td>2,447,080 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-322,814 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  23,708,671 kBtu ÷ 100 = 237,087 therms
+  237,087 × $1.090/therm × 1.10
+  = $284,293/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR ENCLOSED MALL: 83%
+  = $235,963/yr for heating
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type and
+  climate.
+  (Based on EIA CBECS 2018)
+
+Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>237,086 therms</td>
-                <td>$284K</td>
-                <td>83%</td>
+                <td>189,308 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-47,778 therms</td>
             </tr>
 
             <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
+================================
+
+FORMULA: MMBtu × rate × 1.10
+
+THIS BUILDING:
+  22,321,944 kBtu ÷ 1,000
+  = 22,321.9 MMBtu
+  × $13.00/MMBtu × 1.10
+  = $319,204/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR ENCLOSED MALL: 93%
+  = $296,860/yr for space heating
+  Fuel oil: fixed 93% HVAC (heating only)
+  (Based on EIA CBECS 2018)
+
+Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>161,169 gallons</td>
-                <td>$319K</td>
-                <td>93%</td>
+                <td>124,776 gallons</td>
+                <td style="color: #16a34a; font-weight: 600;">-36,392 gallons</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>123.1 kBtu/sqft</td>
+                <td>98.8 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-24.3 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -398,31 +481,74 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Chicago Benchmarking Ordinance, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 24% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Enclosed Mall
+Category: Single-Tenant
+
+WHY 15-35% RANGE:
+Standard commercial building. Savings depend
+on operating hours and occupancy patterns.
+
+FORMULA: 1 - Utilization
+  Utilization: 58%
+  Opportunity: 42%
+
+MODIFIERS:
+  Automation: 0.62 (built 1980, 451K sqft)
+  Efficiency: 1.10 (high EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 24.3% of HVAC costs
+(Range: 15-35% for Enclosed Mall)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.4M/yr</td>
                 <td>$1.2M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$220K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>123.1 kBtu/sqft</td>
-                <td>98.8 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-24.3 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>4,450.5 tCO2e/yr</td>
-                <td>3,646.4 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-804.1 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $780,845 x 48% = $374,806
+Gas: $284,293 x 83% = $235,963
+Fuel Oil: $319,204 x 93% = $296,860
+Total HVAC Cost: $907,629/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 7.5% cap rate. $1 saved → $13 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Enclosed Mall
+Category: Single-Tenant
+Formula: 1 - Utilization
+Utilization Rate: 58%
+Savings Range: 15-35%
+This Building: 24.3%
+Annual Savings: $220,372
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 7.50%
+$220,372 / 7.50% = $2,938,296
+
+$1 saved = $13 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$2.9M</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>4,450.5 tCO2e/yr</td>
+                <td>3,646.4 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-804.1 tCO2e/yr</td>
             </tr>
 
         </table>

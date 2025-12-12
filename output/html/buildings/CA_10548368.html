@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:31:55 EST -->
+<!-- Generated: 2025-12-11 23:34:04 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -349,32 +350,12 @@
 <tr><td>Size</td><td>161,185 sqft</td></tr>
 <tr><td>Type</td><td>Medical Office</td></tr>
 <tr><td>Year Built</td><td>1983</td></tr>
-<tr><td>Owner/Operator<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://ardengroup.com" target="_blank" class="org-logo" data-org-name="Arden Realty"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Arden_Realty,_Inc.png" alt="Arden Realty" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Arden Realty</span></a></div></td></tr>
+<tr><td>Owner/Operator<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://ardengroup.com" target="_blank" class="org-logo" data-org-name="Arden Realty"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Arden_Realty,_Inc.png" alt="Arden Realty" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Arden Realty</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: AB 802. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,664,255 kWh</td>
-                <td>$1.8M</td>
-                <td>52%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -384,31 +365,142 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: AB 802, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  2,664,255 kWh × $0.4569/kWh × 1.10
+  = $1,339,072/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 676 kW
+  676 kW × $47.08/kW × 12 mo × 1.265
+  = $483,023/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 45%
+  (Medical Offices typically: 45%)
+  Peak = (2,664,255 ÷ 8,760 hrs) ÷ 0.45
+       = 676 kW
+
+TOTAL: $1,822,094/yr
+
+HVAC PORTION: 52%
+  = $954,413/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Medical Offices typically 60%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  60% of electricity is HVAC. Similar to
+  office but with additional ventilation
+  requirements.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: AB 802, San Diego Gas &amp; Electric Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,664,255 kWh</td>
+                <td>2,295,554 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-368,700 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>56.4 kBtu/sqft</td>
+                <td>48.6 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-7.8 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 26% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Medical Office
+Category: Multi-Tenant
+
+WHY 20-40% RANGE:
+Like office buildings, medical offices have
+centralized systems that condition empty exam
+rooms and suites. ODCV adjusts ventilation to
+actual patient presence.
+
+FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
+  Vacancy: 9%
+  Utilization: 75%
+  Opportunity: 32%
+
+MODIFIERS:
+  Automation: 0.50 (built 1983, 161K sqft)
+  Efficiency: 0.90 (low EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 26.4% of HVAC costs
+(Range: 20-40% for Medical Office)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$1.8M/yr</td>
                 <td>$1.6M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$252K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>56.4 kBtu/sqft</td>
-                <td>48.6 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-7.8 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>838.1 tCO2e/yr</td>
-                <td>722.2 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-116.0 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $1,822,094 x 52% = $954,413
+Total HVAC Cost: $954,413/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 7.5% cap rate. $1 saved → $13 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Medical Office
+Category: Multi-Tenant
+Formula: Vacancy + (1-Vacancy) × (1-Utilization)
+Vacancy Rate: 9%
+Utilization Rate: 75%
+Savings Range: 20-40%
+This Building: 26.4%
+Annual Savings: $252,156
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 7.50%
+$252,156 / 7.50% = $3,362,079
+
+$1 saved = $13 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.4M</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>838.1 tCO2e/yr</td>
+                <td>722.2 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-116.0 tCO2e/yr</td>
             </tr>
 
         </table>

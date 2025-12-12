@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:41 EST -->
+<!-- Generated: 2025-12-11 23:34:51 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -348,39 +349,12 @@
 <tr><td>Size</td><td>302,543 sqft</td></tr>
 <tr><td>Type</td><td>Residential Care</td></tr>
 <tr><td>Year Built</td><td>1950</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.phila.gov" target="_blank" class="org-logo" data-org-name="Philadelphia County Gov"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Philadelphia_County.png" alt="Philadelphia County Gov" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Philadelphia County Gov</span></a></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.phila.gov" target="_blank" class="org-logo" data-org-name="Philadelphia County Gov"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Philadelphia_County.png" alt="Philadelphia County Gov" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Philadelphia County Gov</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Philadelphia Benchmarking. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,709,053 kWh</td>
-                <td>$503K</td>
-                <td>37%</td>
-            </tr>
-
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: Philadelphia Benchmarking. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>217,438 therms</td>
-                <td>$343K</td>
-                <td>98%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -390,31 +364,140 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Philadelphia Benchmarking, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>$846K/yr</td>
-                <td>$741K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$105K/yr</td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  2,709,054 kWh × $0.1490/kWh × 1.10
+  = $443,978/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 773 kW
+  773 kW × $5.00/kW × 12 mo × 1.265
+  = $58,681/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 40%
+  (Residential Cares typically: 65%)
+  Peak = (2,709,054 ÷ 8,760 hrs) ÷ 0.40
+       = 773 kW
+
+TOTAL: $502,659/yr
+
+HVAC PORTION: 52%
+  = $259,473/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Residential Cares typically 50%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type
+  and climate.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: Philadelphia Benchmarking, PECO Energy Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,709,053 kWh</td>
+                <td>2,429,371 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-279,682 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  21,743,881 kBtu ÷ 100 = 217,439 therms
+  217,439 × $1.434/therm × 1.10
+  = $343,084/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR RESIDENTIAL CARE: 72%
+  = $245,373/yr for heating
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type and
+  climate.
+  (Based on EIA CBECS 2018)
+
+Source: Philadelphia Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>217,438 therms</td>
+                <td>186,336 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-31,102 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>102.4 kBtu/sqft</td>
                 <td>86.0 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-16.4 kBtu/sqft</td>
             </tr>
 
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,007.0 tCO2e/yr</td>
-                <td>1,716.8 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-290.2 tCO2e/yr</td>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Philadelphia Benchmarking. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Residential Care
+Category: Constrained
+
+WHY 5-15% RANGE:
+Residents live there 24/7—unlike offices that
+empty at night. Common areas have some
+variability, but overall building load is
+relatively constant.
+
+FORMULA: (1 - Utilization) × 0.3
+  Utilization: 70%
+  Opportunity: 9%
+
+MODIFIERS:
+  Automation: 0.50 (built 1950, 303K sqft)
+  Efficiency: 1.10 (ES 6, inefficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 20.0% of HVAC costs
+(Range: 5-15% for Residential Care)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$846K/yr</td>
+                <td>$745K/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$101K/yr</td>
+            </tr>
+
+            <tr>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Philadelphia Benchmarking. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>6</td>
-                <td>11</td>
-                <td style="color: #16a34a; font-weight: 600;">+5</td>
+                <td>10</td>
+                <td style="color: #16a34a; font-weight: 600;">+4</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,007.0 tCO2e/yr</td>
+                <td>1,753.9 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-253.2 tCO2e/yr</td>
             </tr>
 
         </table>

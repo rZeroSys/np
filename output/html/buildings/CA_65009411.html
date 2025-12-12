@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:31:00 EST -->
+<!-- Generated: 2025-12-11 23:33:08 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -346,23 +347,69 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: AB 802. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  1,277,610 kWh × $0.4569/kWh × 1.10
+  = $642,135/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 486 kW
+  486 kW × $4.00/kW × 12 mo × 1.265
+  = $29,519/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 30%
+  (K-12 Schools typically: 35%)
+  Peak = (1,277,610 ÷ 8,760 hrs) ÷ 0.30
+       = 486 kW
+
+TOTAL: $671,654/yr
+
+HVAC PORTION: 48%
+  = $320,715/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: K-12 Schools typically 55%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  55% of electricity is HVAC. Large
+  spaces, older systems, extreme seasonal
+  variability.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: AB 802, San Diego Gas &amp; Electric Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,277,609 kWh</td>
-                <td>$672K</td>
-                <td>48%</td>
+                <td>1,118,933 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-158,676 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>21.2 kBtu/sqft</td>
+                <td>18.6 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-2.6 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -372,31 +419,48 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: AB 802, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 26% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: K-12 School
+Category: Single-Tenant
+
+WHY 20-45% RANGE:
+Schools empty after 3pm daily, all weekends,
+10+ weeks summer. Total &quot;empty&quot; time exceeds
+55% of year. Highest ceiling (45%) reflects
+extreme schedule-driven opportunity.
+
+FORMULA: 1 - Utilization
+  Utilization: 85%
+  Opportunity: 15%
+
+MODIFIERS:
+  Automation: 0.75 (built 2005, 205K sqft)
+  Efficiency: 0.95 (ES 80, efficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 26.0% of HVAC costs
+(Range: 20-45% for K-12 School)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$672K/yr</td>
                 <td>$588K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$83K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>21.2 kBtu/sqft</td>
-                <td>18.6 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-2.6 kBtu/sqft</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>401.9 tCO2e/yr</td>
-                <td>352.0 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-49.9 tCO2e/yr</td>
-            </tr>
-
-            <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from AB 802. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from AB 802. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>80</td>
                 <td>84</td>
                 <td style="color: #16a34a; font-weight: 600;">+4</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>401.9 tCO2e/yr</td>
+                <td>352.0 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-49.9 tCO2e/yr</td>
             </tr>
 
         </table>

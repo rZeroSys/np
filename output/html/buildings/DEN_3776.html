@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:13 EST -->
+<!-- Generated: 2025-12-11 23:34:22 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -357,30 +358,94 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Energize Denver. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  1,786,461 kWh × $0.1351/kWh × 1.10
+  = $265,539/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 314 kW
+  314 kW × $35.00/kW × 12 mo × 1.265
+  = $166,692/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 65%
+  (Supermarket/Grocerys typically: 65%)
+  Peak = (1,786,461 ÷ 8,760 hrs) ÷ 0.65
+       = 314 kW
+
+TOTAL: $432,231/yr
+
+HVAC PORTION: 15%
+  = $64,835/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Supermarket/Grocerys typically 32%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Only 32% of electricity is HVAC. ~40% is
+  refrigeration for food cases and
+  freezers.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: Energize Denver, Public Service Co of Colorado" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1,786,461 kWh</td>
-                <td>$432K</td>
-                <td>15%</td>
+                <td>1,732,867 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-53,593 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: Energize Denver. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  4,271,000 kBtu ÷ 100 = 42,710 therms
+  42,710 × $1.137/therm × 1.10
+  = $53,436/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR SUPERMARKET/GROCERY: 46%
+  = $24,826/yr for heating
+
+  75% of gas used for HVAC - higher than
+  average due to makeup air for exhaust.
+  (Based on EIA CBECS 2018)
+
+Source: Energize Denver, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>42,709 therms</td>
-                <td>$53K</td>
-                <td>46%</td>
+                <td>38,741 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-3,968 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>187.6 kBtu/sqft</td>
+                <td>177.1 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-10.5 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -390,38 +455,103 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Energize Denver, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Supermarket/Grocery
+Category: Single-Tenant
+
+WHY 10-25% RANGE:
+Long hours (often 6am-midnight or 24/7) with
+steady traffic reduce empty-space
+opportunity. Note: ~40% of electricity is
+refrigeration, not HVAC.
+
+FORMULA: 1 - Utilization
+  Utilization: 73%
+  Opportunity: 27%
+
+MODIFIERS:
+  Automation: 0.50 (built 1994, 55K sqft)
+  Efficiency: 0.95 (ES 79, efficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 20.0% of HVAC costs
+(Range: 10-25% for Supermarket/Grocery)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$486K/yr</td>
                 <td>$468K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$18K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>187.6 kBtu/sqft</td>
-                <td>177.1 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-10.5 kBtu/sqft</td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Energize Denver: $0.30/kBtu over EUI target (48.3 kBtu/sqft). ODCV reduces EUI below target." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$2.3M/yr</td>
+                <td>$2.1M/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$174K/yr</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,066.8 tCO2e/yr</td>
-                <td>1,020.5 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-46.3 tCO2e/yr</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 6.0% cap rate. $1 saved → $16 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $432,231 x 15% = $64,835
+Gas: $53,436 x 46% = $24,826
+Total HVAC Cost: $89,661/yr
+(HVAC % from EIA CBECS 2018)
+
+STEP 2: ODCV Savings
+-------------------------
+Type: Supermarket/Grocery
+Category: Single-Tenant
+Formula: 1 - Utilization
+Utilization Rate: 73%
+Savings Range: 10-25%
+This Building: 20.0%
+Annual Savings: $17,932
+
+STEP 3: BPS Fine Avoidance
+-------------------------
+Law: Energize Denver
+Method: EUI target
+Penalty: $0.30/kBtu over target
+Fine Avoided: $173,917/yr
+Source: City of Denver
+
+STEP 4: Total OpEx Avoidance
+-------------------------
+Utility Savings: $17,932
++ Fine Avoidance: $173,917
+= Total: $191,849/yr
+
+STEP 5: Valuation Impact
+-------------------------
+Cap Rate: 6.00%
+$191,849 / 6.00% = $3,197,488
+
+$1 saved = $16 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$3.2M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Energize Denver. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Energize Denver. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>79</td>
                 <td>81</td>
                 <td style="color: #16a34a; font-weight: 600;">+2</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,066.8 tCO2e/yr</td>
+                <td>1,020.5 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-46.3 tCO2e/yr</td>
             </tr>
 
         </table>

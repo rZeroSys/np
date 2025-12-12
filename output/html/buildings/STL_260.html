@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:55 EST -->
+<!-- Generated: 2025-12-11 23:35:05 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -348,32 +349,12 @@
 <tr><td>Name</td><td>Fox Theatre</td></tr>
 <tr><td>Size</td><td>59,775 sqft</td></tr>
 <tr><td>Type</td><td>Theater</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.foxrep.com" target="_blank" class="org-logo" data-org-name="Fox Assoc"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Fox_Associates_LP.png" alt="Fox Assoc" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Fox Assoc</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="The Fox Theatre"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Fox_Theatre.png" alt="The Fox Theatre" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">The Fox Theatre</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.foxrep.com" target="_blank" class="org-logo" data-org-name="Fox Assoc"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Fox_Associates_LP.png" alt="Fox Assoc" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Fox Assoc</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="The Fox Theatre"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/The_Fox_Theatre.png" alt="The Fox Theatre" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">The Fox Theatre</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: St. Louis BEPS. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,359,283 kWh</td>
-                <td>$763K</td>
-                <td>61%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -383,31 +364,140 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: St. Louis BEPS, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  2,359,284 kWh × $0.1103/kWh × 1.10
+  = $286,314/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 898 kW
+  898 kW × $35.00/kW × 12 mo × 1.265
+  = $476,974/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 30%
+  (Theaters typically: 35%)
+  Peak = (2,359,284 ÷ 8,760 hrs) ÷ 0.30
+       = 898 kW
+
+TOTAL: $763,288/yr
+
+HVAC PORTION: 61%
+  = $464,842/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Theaters typically 50%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type
+  and climate.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: St. Louis BEPS, Union Electric Co - (MO)" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,359,283 kWh</td>
+                <td>1,902,236 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-457,047 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>190.7 kBtu/sqft</td>
+                <td>164.6 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-26.1 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 32% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Theater
+Category: Single-Tenant
+
+WHY 18-40% RANGE:
+Performance schedules create extreme
+variability—completely empty for hours then
+full capacity for shows. High opportunity
+during non-show periods.
+
+FORMULA: 1 - Utilization
+  Utilization: 55%
+  Opportunity: 45%
+
+MODIFIERS:
+  Automation: 0.25
+  Efficiency: 1.10 (high EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 31.8% of HVAC costs
+(Range: 18-40% for Theater)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$763K/yr</td>
                 <td>$615K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$148K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>190.7 kBtu/sqft</td>
-                <td>164.6 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-26.1 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,327.4 tCO2e/yr</td>
-                <td>1,070.3 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-257.2 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $763,288 x 61% = $464,842
+Total HVAC Cost: $464,842/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 8.0% cap rate. $1 saved → $12 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Theater
+Category: Single-Tenant
+Formula: 1 - Utilization
+Utilization Rate: 55%
+Savings Range: 18-40%
+This Building: 31.8%
+Annual Savings: $147,866
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 8.00%
+$147,866 / 8.00% = $1,848,330
+
+$1 saved = $12 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.8M</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,327.4 tCO2e/yr</td>
+                <td>1,070.3 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-257.2 tCO2e/yr</td>
             </tr>
 
         </table>

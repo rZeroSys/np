@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:15 EST -->
+<!-- Generated: 2025-12-11 23:34:24 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -348,39 +349,12 @@
 <tr><td>Name</td><td>Professional Office Building</td></tr>
 <tr><td>Size</td><td>99,360 sqft</td></tr>
 <tr><td>Type</td><td>Medical Office</td></tr>
-<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.childrensmercy.org" target="_blank" class="org-logo" data-org-name="Children's Mercy Hospital"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Children_s_Mercy_Hospital.png" alt="Children's Mercy Hospital" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Children's Mercy Hospital</span></a></div></td></tr>
+<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.childrensmercy.org" target="_blank" class="org-logo" data-org-name="Children's Mercy Hospital"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Children_s_Mercy_Hospital.png" alt="Children's Mercy Hospital" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Children's Mercy Hospital</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: KC Benchmarking. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,828,207 kWh</td>
-                <td>$641K</td>
-                <td>62%</td>
-            </tr>
-
-            <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>87,092 gallons</td>
-                <td>$172K</td>
-                <td>93%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -390,31 +364,167 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: KC Benchmarking, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>$813K/yr</td>
-                <td>$643K/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-$170K/yr</td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  2,828,207 kWh × $0.1100/kWh × 1.10
+  = $342,213/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 646 kW
+  646 kW × $35.00/kW × 12 mo × 1.265
+  = $343,065/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 50%
+  (Medical Offices typically: 45%)
+  Peak = (2,828,207 ÷ 8,760 hrs) ÷ 0.50
+       = 646 kW
+
+TOTAL: $685,278/yr
+
+HVAC PORTION: 62%
+  = $426,312/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Medical Offices typically 60%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  60% of electricity is HVAC. Similar to
+  office but with additional ventilation
+  requirements.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: KC Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,828,207 kWh</td>
+                <td>2,293,693 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-534,514 kWh</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
+================================
+
+FORMULA: MMBtu × rate × 1.10
+
+THIS BUILDING:
+  12,062,304 kBtu ÷ 1,000
+  = 12,062.3 MMBtu
+  × $13.00/MMBtu × 1.10
+  = $172,491/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR MEDICAL OFFICE: 93%
+  = $160,417/yr for space heating
+  Fuel oil: fixed 93% HVAC (heating only)
+  (Based on EIA CBECS 2018)
+
+Source: KC Benchmarking, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>87,092 gallons</td>
+                <td>62,485 gallons</td>
+                <td style="color: #16a34a; font-weight: 600;">-24,606 gallons</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>121.4 kBtu/sqft</td>
                 <td>68.7 kBtu/sqft</td>
                 <td style="color: #16a34a; font-weight: 600;">-52.7 kBtu/sqft</td>
             </tr>
 
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,772.1 tCO2e/yr</td>
-                <td>1,354.6 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-417.4 tCO2e/yr</td>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 7.5% cap rate. $1 saved → $13 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 30% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Medical Office
+Category: Multi-Tenant
+
+WHY 20-40% RANGE:
+Like office buildings, medical offices have
+centralized systems that condition empty exam
+rooms and suites. ODCV adjusts ventilation to
+actual patient presence.
+
+FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
+  Vacancy: 7%
+  Utilization: 80%
+  Opportunity: 26%
+
+MODIFIERS:
+  Automation: 0.25
+  Efficiency: 1.05 (above avg EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 30.4% of HVAC costs
+(Range: 20-40% for Medical Office)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$858K/yr</td>
+                <td>$680K/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$178K/yr</td>
+            </tr>
+
+            <tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
+
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $685,278 x 62% = $426,312
+Fuel Oil: $172,491 x 93% = $160,417
+Total HVAC Cost: $586,728/yr
+(HVAC % from EIA CBECS 2018)
+
+STEP 2: ODCV Savings
+-------------------------
+Type: Medical Office
+Category: Multi-Tenant
+Formula: Vacancy + (1-Vacancy) × (1-Utilization)
+Vacancy Rate: 7%
+Utilization Rate: 80%
+Savings Range: 20-40%
+This Building: 30.4%
+Annual Savings: $178,248
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 7.50%
+$178,248 / 7.50% = $2,376,641
+
+$1 saved = $13 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
-                <td style="color: #16a34a; font-weight: 600;">+$2.3M</td>
+                <td style="color: #16a34a; font-weight: 600;">+$2.4M</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,772.1 tCO2e/yr</td>
+                <td>1,354.6 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-417.4 tCO2e/yr</td>
             </tr>
 
         </table>

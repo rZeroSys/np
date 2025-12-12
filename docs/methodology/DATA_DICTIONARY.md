@@ -164,7 +164,9 @@ These columns represent savings from **Occupancy-Driven Control Ventilation** ap
 | Column | Definition |
 |--------|------------|
 | `bps_law_name` | Name of Building Performance Standard law (e.g. 'NYC LL97', 'Boston BERDO') |
-| `bps_fine_avoided_yr1_usd` | Year 1 BPS penalty avoided by implementing ODCV in USD. Calculation varies by city law type (emission cap, EUI target, or Energy Star based) |
+| `bps_fine_baseline_yr1_usd` | Year 1 BPS penalty without ODCV implementation (baseline fine). Calculation varies by city law type (emission cap, EUI target, or Energy Star based) |
+| `bps_fine_post_odcv_yr1_usd` | Year 1 BPS penalty with ODCV implementation (reduced or zero fine). Shows remaining penalty after ODCV reduces emissions/EUI |
+| `bps_fine_avoided_yr1_usd` | Year 1 BPS penalty avoided by implementing ODCV in USD = `bps_fine_baseline_yr1_usd` - `bps_fine_post_odcv_yr1_usd` |
 
 ---
 

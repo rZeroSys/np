@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:17 EST -->
+<!-- Generated: 2025-12-11 23:34:26 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -348,39 +349,12 @@
 <tr><td>Size</td><td>40,375 sqft</td></tr>
 <tr><td>Type</td><td>Retail Store</td></tr>
 <tr><td>Year Built</td><td>1930</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Ford Emerald Associates"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ford_Emerald_Associates.png" alt="Ford Emerald Associates" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Ford Emerald Associates</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Ford Emerald Associates"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Ford_Emerald_Associates.png" alt="Ford Emerald Associates" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Ford Emerald Associates</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: LL84. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,242,584 kWh</td>
-                <td>$718K</td>
-                <td>50%</td>
-            </tr>
-
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: LL84. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>23,422 therms</td>
-                <td>$27K</td>
-                <td>97%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -390,38 +364,195 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: LL84, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  1,242,584 kWh × $0.2926/kWh × 1.10
+  = $399,959/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 355 kW
+  355 kW × $59.06/kW × 12 mo × 1.265
+  = $317,927/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 40%
+  (Retail Stores typically: 40%)
+  Peak = (1,242,584 ÷ 8,760 hrs) ÷ 0.40
+       = 355 kW
+
+TOTAL: $717,885/yr
+
+HVAC PORTION: 50%
+  = $357,076/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Retail Stores typically 56%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  56% of electricity is HVAC. Open floor
+  plans require high airflow for customer
+  comfort.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,242,584 kWh</td>
+                <td>1,107,661 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-134,922 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  2,342,260 kBtu ÷ 100 = 23,423 therms
+  23,423 × $1.060/therm × 1.10
+  = $27,321/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR RETAIL STORE: 97%
+  = $26,422/yr for heating
+
+  78% of gas is HVAC. Retail has minimal
+  cooking or process loads.
+  (Based on EIA CBECS 2018)
+
+Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>23,422 therms</td>
+                <td>18,477 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-4,944 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>163.0 kBtu/sqft</td>
+                <td>139.4 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-23.6 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 22% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Retail Store
+Category: Single-Tenant
+
+WHY 15-35% RANGE:
+Significant intra-day variability:
+opening/closing with staff only, mid-morning
+lulls, lunch/evening rushes. Opportunity
+comes from modulating to actual customer
+traffic.
+
+FORMULA: 1 - Utilization
+  Utilization: 70%
+  Opportunity: 30%
+
+MODIFIERS:
+  Automation: 0.12 (built 1930, 40K sqft)
+  Efficiency: 1.10 (ES 1, inefficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 21.8% of HVAC costs
+(Range: 15-35% for Retail Store)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$745K/yr</td>
                 <td>$661K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$84K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>163.0 kBtu/sqft</td>
-                <td>139.4 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-23.6 kBtu/sqft</td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="NYC Local Law 97: $268/tCO2e over emission cap (0.00758 tCO2e/sqft). ODCV reduces emissions below cap." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$48K/yr</td>
+                <td>$30K/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$17K/yr</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>483.5 tCO2e/yr</td>
-                <td>418.2 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-65.3 tCO2e/yr</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 5.0% cap rate. $1 saved → $20 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $717,885 x 50% = $357,076
+Gas: $27,321 x 97% = $26,422
+Total HVAC Cost: $383,498/yr
+(HVAC % from EIA CBECS 2018)
+
+STEP 2: ODCV Savings
+-------------------------
+Type: Retail Store
+Category: Single-Tenant
+Formula: 1 - Utilization
+Utilization Rate: 70%
+Savings Range: 15-35%
+This Building: 21.8%
+Annual Savings: $83,718
+
+STEP 3: BPS Fine Avoidance
+-------------------------
+Law: NYC Local Law 97
+Method: emission cap
+Penalty: $268/tCO2e over cap
+Fine Avoided: $17,488/yr
+Source: NYC Dept of Buildings
+
+STEP 4: Total OpEx Avoidance
+-------------------------
+Utility Savings: $83,718
++ Fine Avoidance: $17,488
+= Total: $101,206/yr
+
+STEP 5: Valuation Impact
+-------------------------
+Cap Rate: 5.00%
+$101,206 / 5.00% = $2,024,120
+
+$1 saved = $20 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$2.0M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>1</td>
                 <td>2</td>
                 <td style="color: #16a34a; font-weight: 600;">+1</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>483.5 tCO2e/yr</td>
+                <td>418.2 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-65.3 tCO2e/yr</td>
             </tr>
 
         </table>

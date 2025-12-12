@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:29:57 EST -->
+<!-- Generated: 2025-12-11 23:32:04 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -349,46 +350,12 @@
 <tr><td>Size</td><td>144,308 sqft</td></tr>
 <tr><td>Type</td><td>Higher Ed</td></tr>
 <tr><td>Year Built</td><td>1962</td></tr>
-<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.mit.edu" target="_blank" class="org-logo" data-org-name="MIT"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Massachusetts_Institute_Of_Technology.png" alt="MIT" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">MIT</span></a></div></td></tr>
+<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.mit.edu" target="_blank" class="org-logo" data-org-name="MIT"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Massachusetts_Institute_Of_Technology.png" alt="MIT" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">MIT</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: BEUDO. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>3,664,019 kWh</td>
-                <td>$1.4M</td>
-                <td>57%</td>
-            </tr>
-
-            <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>74,560 gallons</td>
-                <td>$250K</td>
-                <td>93%</td>
-            </tr>
-
-            <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="Piped steam from central plant. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>18,258.00 Mlb</td>
-                <td>$541K</td>
-                <td>94%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -398,21 +365,156 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: BEUDO, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  3,664,020 kWh × $0.3116/kWh × 1.10
+  = $1,255,835/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 1,195 kW
+  1,195 kW × $8.00/kW × 12 mo × 1.265
+  = $145,127/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 35%
+  (Higher Eds typically: 35%)
+  Peak = (3,664,020 ÷ 8,760 hrs) ÷ 0.35
+       = 1,195 kW
+
+TOTAL: $1,400,962/yr
+
+HVAC PORTION: 57%
+  = $800,229/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Higher Eds typically 55%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  55% of electricity is HVAC. Campus
+  buildings have diverse usage patterns.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: BEUDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>3,664,019 kWh</td>
+                <td>2,942,182 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-721,837 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
+================================
+
+FORMULA: MMBtu × rate × 1.10
+
+THIS BUILDING:
+  10,326,624 kBtu ÷ 1,000
+  = 10,326.6 MMBtu
+  × $22.00/MMBtu × 1.10
+  = $249,904/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR HIGHER ED: 93%
+  = $232,411/yr for space heating
+  Fuel oil: fixed 93% HVAC (heating only)
+  (Based on EIA CBECS 2018)
+
+Source: BEUDO, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>74,560 gallons</td>
+                <td>50,644 gallons</td>
+                <td style="color: #16a34a; font-weight: 600;">-23,915 gallons</td>
+            </tr>
+
+            <tr>
+                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
+======================================
+
+FORMULA: Mlb × rate
+(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
+
+THIS BUILDING:
+  21,800,052 kBtu ÷ 909 kBtu/Mlb
+  = 23,982.5 Mlb
+  × $22.57/Mlb
+  = $541,236/yr
+  (No adder - steam rates all-inclusive)
+
+HVAC PORTION: 94%
+  = $509,466/yr for space heating
+  District steam typically 85-100% heating.
+  (Based on EIA CBECS 2018)
+
+AVAILABILITY:
+  NYC, Boston, DC, Philadelphia, and other
+  dense urban areas with steam infrastructure.
+
+Source: BEUDO" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>18,258.00 Mlb</td>
+                <td>12,330.46 Mlb</td>
+                <td style="color: #16a34a; font-weight: 600;">-5,927.54 Mlb</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>309.3 kBtu/sqft</td>
+                <td>220.2 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-89.1 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 34% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Higher Ed
+Category: Single-Tenant
+
+WHY 20-45% RANGE:
+Semester breaks (winter, spring, summer),
+variable class schedules, evening/weekend
+classes in some buildings. Similar to K-12
+but more diverse usage patterns.
+
+FORMULA: 1 - Utilization
+  Utilization: 60%
+  Opportunity: 40%
+
+MODIFIERS:
+  Automation: 0.38 (built 1962, 144K sqft)
+  Efficiency: 1.10 (high EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 34.5% of HVAC costs
+(Range: 20-45% for Higher Ed)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.2M/yr</td>
                 <td>$1.7M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$532K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>309.3 kBtu/sqft</td>
-                <td>220.2 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-89.1 kBtu/sqft</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,631.2 tCO2e/yr</td>
                 <td>1,894.4 tCO2e/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-736.9 tCO2e/yr</td>

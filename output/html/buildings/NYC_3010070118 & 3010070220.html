@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:36 EST -->
+<!-- Generated: 2025-12-11 23:34:46 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -331,45 +332,29 @@
         <h1><a href="https://propertyinformationportal.nyc.gov/parcels/parcel/3010070118 &amp; 3010070220" target="_blank" style="color: inherit; text-decoration: none;">118 2Nd Avenue, New York, NY, 11215 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
     </div>
 
+    <div class="section" style="margin: 0; padding: 0;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/NYC_3010070118 & 3010070220_streetview.jpg" alt="Building NYC_3010070118 & 3010070220" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
+    </div>
+
     <div class="section">
         <h2>Property</h2>
         <table>
 <tr><td>Size</td><td>159,379 sqft</td></tr>
 <tr><td>Type</td><td>Wholesale Club</td></tr>
 <tr><td>Year Built</td><td>2004</td></tr>
-<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Forest City Ratner Companies"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Forest_City_Ratner_Companies.png" alt="Forest City Ratner Companies" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Forest City Ratner Companies</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><span class="org-logo" data-org-name="Forest City Ratner Companies"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Forest_City_Ratner_Companies.png" alt="Forest City Ratner Companies" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Forest City Ratner Companies</span></span></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: LL84. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>1,446,238 kWh</td>
-                <td>$810K</td>
-                <td>34%</td>
-            </tr>
-
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: LL84. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>21,682 therms</td>
-                <td>$25K</td>
-                <td>81%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -379,38 +364,173 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: LL84, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  1,446,238 kWh × $0.2926/kWh × 1.10
+  = $465,510/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 330 kW
+  330 kW × $68.63/kW × 12 mo × 1.265
+  = $344,014/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 50%
+  (Wholesale Clubs typically: 60%)
+  Peak = (1,446,238 ÷ 8,760 hrs) ÷ 0.50
+       = 330 kW
+
+TOTAL: $809,524/yr
+
+HVAC PORTION: 34%
+  = $273,134/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Wholesale Clubs typically 35%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type
+  and climate.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: LL84, Consolidated Edison Co-NY Inc" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>1,446,238 kWh</td>
+                <td>1,348,646 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-97,592 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  2,168,257 kBtu ÷ 100 = 21,683 therms
+  21,683 × $1.060/therm × 1.10
+  = $25,291/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR WHOLESALE CLUB: 81%
+  = $20,413/yr for heating
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type and
+  climate.
+  (Based on EIA CBECS 2018)
+
+Source: LL84, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>21,682 therms</td>
+                <td>18,182 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-3,500 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>44.6 kBtu/sqft</td>
+                <td>40.3 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-4.3 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Wholesale Club
+Category: Single-Tenant
+
+WHY 10-25% RANGE:
+Similar to supermarkets—high ceilings,
+refrigeration load, steady traffic. Lower
+HVAC % due to large refrigerated sections.
+
+FORMULA: 1 - Utilization
+  Utilization: 75%
+  Opportunity: 25%
+
+MODIFIERS:
+  Automation: 0.62 (built 2004, 159K sqft)
+  Efficiency: 0.95 (ES 89, efficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 20.0% of HVAC costs
+(Range: 10-25% for Wholesale Club)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$835K/yr</td>
                 <td>$776K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$59K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>44.6 kBtu/sqft</td>
-                <td>40.3 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-4.3 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>533.1 tCO2e/yr</td>
-                <td>486.3 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-46.8 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $809,524 x 34% = $273,134
+Gas: $25,291 x 81% = $20,413
+Total HVAC Cost: $293,546/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 5.8% cap rate. $1 saved → $17 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Wholesale Club
+Category: Single-Tenant
+Formula: 1 - Utilization
+Utilization Rate: 75%
+Savings Range: 10-25%
+This Building: 20.0%
+Annual Savings: $58,709
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 5.75%
+$58,709 / 5.75% = $1,021,030
+
+$1 saved = $17 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$1.0M</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from LL84. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>89</td>
                 <td>91</td>
                 <td style="color: #16a34a; font-weight: 600;">+2</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>533.1 tCO2e/yr</td>
+                <td>486.3 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-46.8 tCO2e/yr</td>
             </tr>
 
         </table>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:07 EST -->
+<!-- Generated: 2025-12-11 23:34:17 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -349,46 +350,12 @@
 <tr><td>Size</td><td>359,258 sqft</td></tr>
 <tr><td>Type</td><td>Higher Ed</td></tr>
 <tr><td>Year Built</td><td>1940</td></tr>
-<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.gwu.edu" target="_blank" class="org-logo" data-org-name="GW University"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/George_Washington_University.png" alt="GW University" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">GW University</span></a></div></td></tr>
+<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.gwu.edu" target="_blank" class="org-logo" data-org-name="GW University"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/George_Washington_University.png" alt="GW University" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">GW University</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: DC BEPS. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>6,110,262 kWh</td>
-                <td>$1.7M</td>
-                <td>43%</td>
-            </tr>
-
-            <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: DC BEPS. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>184,629 therms</td>
-                <td>$319K</td>
-                <td>89%</td>
-            </tr>
-
-            <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,030 gallons</td>
-                <td>$7K</td>
-                <td>93%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -398,21 +365,159 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: DC BEPS, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  6,110,263 kWh × $0.2234/kWh × 1.10
+  = $1,501,738/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 1,993 kW
+  1,993 kW × $8.00/kW × 12 mo × 1.265
+  = $242,019/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 35%
+  (Higher Eds typically: 35%)
+  Peak = (6,110,263 ÷ 8,760 hrs) ÷ 0.35
+       = 1,993 kW
+
+TOTAL: $1,743,757/yr
+
+HVAC PORTION: 43%
+  = $754,872/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Higher Eds typically 55%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  55% of electricity is HVAC. Campus
+  buildings have diverse usage patterns.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: DC BEPS, Potomac Electric Power Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>6,110,262 kWh</td>
+                <td>5,202,982 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-907,280 kWh</td>
+            </tr>
+
+            <tr>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  18,462,959 kBtu ÷ 100 = 184,630 therms
+  184,630 × $1.570/therm × 1.10
+  = $318,794/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR HIGHER ED: 89%
+  = $285,034/yr for heating
+
+  80% of gas is HVAC. Research buildings may
+  have higher due to fume hood makeup air.
+  (Based on EIA CBECS 2018)
+
+Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>184,629 therms</td>
+                <td>128,008 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-56,621 therms</td>
+            </tr>
+
+            <tr>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
+================================
+
+FORMULA: MMBtu × rate × 1.10
+
+THIS BUILDING:
+  281,244 kBtu ÷ 1,000
+  = 281.2 MMBtu
+  × $22.00/MMBtu × 1.10
+  = $6,806/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR HIGHER ED: 93%
+  = $6,330/yr for space heating
+  Fuel oil: fixed 93% HVAC (heating only)
+  (Based on EIA CBECS 2018)
+
+Source: DC BEPS, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,030 gallons</td>
+                <td>1,382 gallons</td>
+                <td style="color: #16a34a; font-weight: 600;">-647 gallons</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>110.2 kBtu/sqft</td>
+                <td>85.6 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-24.6 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 34% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Higher Ed
+Category: Single-Tenant
+
+WHY 20-45% RANGE:
+Semester breaks (winter, spring, summer),
+variable class schedules, evening/weekend
+classes in some buildings. Similar to K-12
+but more diverse usage patterns.
+
+FORMULA: 1 - Utilization
+  Utilization: 62%
+  Opportunity: 38%
+
+MODIFIERS:
+  Automation: 0.50 (built 1940, 359K sqft)
+  Efficiency: 1.05 (above avg EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 34.3% of HVAC costs
+(Range: 20-45% for Higher Ed)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$2.1M/yr</td>
                 <td>$1.7M/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$359K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>110.2 kBtu/sqft</td>
-                <td>85.6 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-24.6 kBtu/sqft</td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="DC BEPS: $10/sqft penalty prorated by Energy Star compliance gap. ODCV improves score toward target." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$1.8M/yr</td>
+                <td>$1.6M/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$160K/yr</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>2,656.5 tCO2e/yr</td>
                 <td>2,103.4 tCO2e/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-553.1 tCO2e/yr</td>

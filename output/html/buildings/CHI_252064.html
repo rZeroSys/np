@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:31:57 EST -->
+<!-- Generated: 2025-12-11 23:34:06 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -357,44 +358,148 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  523,476 kWh × $0.1338/kWh × 1.10
+  = $77,016/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 171 kW
+  171 kW × $8.00/kW × 12 mo × 1.265
+  = $20,734/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 35%
+  (Library/Museums typically: 35%)
+  Peak = (523,476 ÷ 8,760 hrs) ÷ 0.35
+       = 171 kW
+
+TOTAL: $97,750/yr
+
+HVAC PORTION: 61%
+  = $59,872/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Library/Museums typically 50%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type
+  and climate.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>523,475 kWh</td>
-                <td>$98K</td>
-                <td>61%</td>
+                <td>448,063 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-75,411 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  439,557 kBtu ÷ 100 = 4,396 therms
+  4,396 × $1.090/therm × 1.10
+  = $5,271/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR LIBRARY/MUSEUM: 77%
+  = $4,070/yr for heating
+
+  Based on EIA CBECS 2018 survey of 6,436
+  buildings, adjusted for building type and
+  climate.
+  (Based on EIA CBECS 2018)
+
+Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>4,395 therms</td>
-                <td>$5K</td>
-                <td>77%</td>
+                <td>3,597 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-798 therms</td>
             </tr>
 
             <tr>
-                <td>Fuel Oil<span class="info-tooltip" data-tooltip="Heating oil. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Fuel Oil<span class="info-tooltip" data-tooltip="HOW FUEL OIL COST IS CALCULATED
+================================
+
+FORMULA: MMBtu × rate × 1.10
+
+THIS BUILDING:
+  2,466,114 kBtu ÷ 1,000
+  = 2,466.1 MMBtu
+  × $13.00/MMBtu × 1.10
+  = $35,265/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR LIBRARY/MUSEUM: 93%
+  = $32,797/yr for space heating
+  Fuel oil: fixed 93% HVAC (heating only)
+  (Based on EIA CBECS 2018)
+
+Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>17,805 gallons</td>
-                <td>$35K</td>
-                <td>93%</td>
+                <td>13,911 gallons</td>
+                <td style="color: #16a34a; font-weight: 600;">-3,894 gallons</td>
             </tr>
 
             <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="Piped steam from central plant. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
+======================================
+
+FORMULA: Mlb × rate
+(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
+
+THIS BUILDING:
+  5,607,383 kBtu ÷ 909 kBtu/Mlb
+  = 6,168.7 Mlb
+  × $33.60/Mlb
+  = $207,270/yr
+  (No adder - steam rates all-inclusive)
+
+HVAC PORTION: 98%
+  = $204,036/yr for space heating
+  District steam typically 85-100% heating.
+  (Based on EIA CBECS 2018)
+
+AVAILABILITY:
+  NYC, Boston, DC, Philadelphia, and other
+  dense urban areas with steam infrastructure.
+
+Source: Chicago Benchmarking Ordinance" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>4,696.30 Mlb</td>
-                <td>$207K</td>
-                <td>98%</td>
+                <td>3,608.96 Mlb</td>
+                <td style="color: #16a34a; font-weight: 600;">-1,087.34 Mlb</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>160.9 kBtu/sqft</td>
+                <td>126.9 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-34.0 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -404,21 +509,38 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Chicago Benchmarking Ordinance, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 24% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Library/Museum
+Category: Single-Tenant
+
+WHY 12-28% RANGE:
+Fixed operating hours with relatively steady
+occupancy during open hours. Collection
+preservation may require stable conditions.
+Savings primarily from nights/weekends.
+
+FORMULA: 1 - Utilization
+  Utilization: 58%
+  Opportunity: 42%
+
+MODIFIERS:
+  Automation: 0.62 (built 2009, 64K sqft)
+  Efficiency: 1.10 (high EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 23.5% of HVAC costs
+(Range: 12-28% for Library/Museum)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$346K/yr</td>
                 <td>$275K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$71K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>160.9 kBtu/sqft</td>
-                <td>126.9 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-34.0 kBtu/sqft</td>
-            </tr>
-
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>750.2 tCO2e/yr</td>
                 <td>605.7 tCO2e/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-144.5 tCO2e/yr</td>

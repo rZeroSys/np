@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:29:54 EST -->
+<!-- Generated: 2025-12-11 23:32:02 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -347,39 +348,12 @@
         <table>
 <tr><td>Size</td><td>57,487 sqft</td></tr>
 <tr><td>Type</td><td>Inpatient Hospital</td></tr>
-<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.bu.edu" target="_blank" class="org-logo" data-org-name="Boston University"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_University.png" alt="Boston University" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Boston University</span></a></div></td></tr>
+<tr><td>Owner/Occupier<span class="info-tooltip" data-tooltip="Sources: ENERGY STAR Portfolio Manager, city benchmarking filings, CoStar, SEC 10-K, corporate websites." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td><td><div style=""><a href="https://www.bu.edu" target="_blank" class="org-logo" data-org-name="Boston University"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Boston_University.png" alt="Boston University" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Boston University</span></a></div></td></tr>
         </table>
     </div>
 
     <div class="section">
         <h2>Energy</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
-            </tr>
-
-            <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: BERDO. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>412,128 kWh</td>
-                <td>$158K</td>
-                <td>39%</td>
-            </tr>
-
-            <tr>
-                <td>District Steam<span class="info-tooltip" data-tooltip="Piped steam from central plant. Source: city benchmarking." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>2,824.23 Mlb</td>
-                <td>$84K</td>
-                <td>85%</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Savings</h2>
         <table>
             <tr>
                 <th></th>
@@ -389,31 +363,149 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: BERDO, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  412,128 kWh × $0.3116/kWh × 1.10
+  = $141,256/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 134 kW
+  134 kW × $8.00/kW × 12 mo × 1.265
+  = $16,324/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 35%
+  (Inpatient Hospitals typically: 65%)
+  Peak = (412,128 ÷ 8,760 hrs) ÷ 0.35
+       = 134 kW
+
+TOTAL: $157,580/yr
+
+HVAC PORTION: 39%
+  = $61,456/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Inpatient Hospitals typically 54%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  54% of electricity is HVAC. Strict
+  ventilation codes (ASHRAE 170) require
+  high air change rates.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: BERDO, NSTAR Electric Company" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>412,128 kWh</td>
+                <td>379,982 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-32,146 kWh</td>
+            </tr>
+
+            <tr>
+                <td>District Steam<span class="info-tooltip" data-tooltip="HOW DISTRICT STEAM COST IS CALCULATED
+======================================
+
+FORMULA: Mlb × rate
+(Mlb = 1,000 lbs steam @ ~909 kBtu/Mlb)
+
+THIS BUILDING:
+  3,372,127 kBtu ÷ 909 kBtu/Mlb
+  = 3,709.7 Mlb
+  × $22.57/Mlb
+  = $83,721/yr
+  (No adder - steam rates all-inclusive)
+
+HVAC PORTION: 85%
+  = $70,911/yr for space heating
+  District steam typically 85-100% heating.
+  (Based on EIA CBECS 2018)
+
+PROVIDER: Vicinity Energy
+
+Source: BERDO" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>2,824.23 Mlb</td>
+                <td>2,345.80 Mlb</td>
+                <td style="color: #16a34a; font-weight: 600;">-478.42 Mlb</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>83.1 kBtu/sqft</td>
+                <td>71.3 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-11.8 kBtu/sqft</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Impact</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
+            </tr>
+
+            <tr>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 20% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Inpatient Hospital
+Category: Constrained
+
+WHY 5-15% RANGE:
+ASHRAE 170 mandates 15-25 air changes/hour in
+ORs regardless of occupancy. 24/7 operation,
+infection control requirements. Only ~30% of
+theoretical savings achievable in
+non-clinical areas.
+
+FORMULA: (1 - Utilization) × 0.3
+  Utilization: 60%
+  Opportunity: 12%
+
+MODIFIERS:
+  Automation: 0.25
+  Efficiency: 1.00 (ES 64, average)
+  Climate: 1.00 (Moderate)
+
+RESULT: 20.0% of HVAC costs
+(Range: 5-15% for Inpatient Hospital)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$241K/yr</td>
                 <td>$215K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$26K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>83.1 kBtu/sqft</td>
-                <td>71.3 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-11.8 kBtu/sqft</td>
+                <td>Fine Avoidance<span class="info-tooltip" data-tooltip="Boston BERDO 2.0: $234/tCO2e over emission cap (0.0053 tCO2e/sqft). ODCV reduces emissions below cap." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>$9K/yr</td>
+                <td>$0/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-$9K/yr</td>
             </tr>
 
             <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>252.3 tCO2e/yr</td>
-                <td>218.8 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-33.5 tCO2e/yr</td>
-            </tr>
-
-            <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from BERDO. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from BERDO. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>64</td>
                 <td>71</td>
                 <td style="color: #16a34a; font-weight: 600;">+7</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>252.3 tCO2e/yr</td>
+                <td>218.8 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-33.5 tCO2e/yr</td>
             </tr>
 
         </table>

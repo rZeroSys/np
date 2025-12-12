@@ -5,12 +5,12 @@ Master Orchestration Script
 Runs all populate_master scripts in correct dependency order.
 
 Execution Order:
-  1. 01_hvac_pct.py       - Base data only
-  2. 02_odcv_savings.py   - Base data only
-  3. 03_hvac_totals.py    - Needs hvac_pct (1)
-  4. 04_carbon_by_city.py - Needs hvac_pct (1), odcv_pct (2)
-  5. 05_bps_fines.py      - Needs hvac_pct (1), odcv_pct (2)
-  6. 06_valuation.py      - Needs (1), (2), bps_fine (5)
+  1. 01_hvac_pct.py       - HVAC % by fuel type (CBECS benchmarks + adjustments)
+  2. 02_odcv_savings.py   - ODCV savings percentage
+  3. 03_hvac_totals.py    - HVAC energy and cost totals
+  4. 04_carbon_by_city.py - City-specific carbon emissions
+  5. 05_bps_fines.py      - BPS fine avoidance
+  6. 06_valuation.py      - Valuation impact
   7. 07_nyc_update.py     - MUST BE LAST (overwrites NYC data)
 
 Usage: python3 orchestrate.py
@@ -31,7 +31,6 @@ DATA_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/port
 BACKUP_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector/BACKUPS_GO_HERE/csv_backups'
 
 SCRIPTS = [
-    ('01_hvac_pct.py',       'HVAC percentages by fuel type'),
     ('02_odcv_savings.py',   'ODCV savings percentage'),
     ('03_hvac_totals.py',    'HVAC energy and cost totals'),
     ('04_carbon_by_city.py', 'City-specific carbon emissions'),

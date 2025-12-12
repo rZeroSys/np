@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:32:53 EST -->
+<!-- Generated: 2025-12-11 23:35:03 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -357,30 +358,95 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: SF Environment Code. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  481,362 kWh × $0.2005/kWh × 1.10
+  = $106,178/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 122 kW
+  122 kW × $37.63/kW × 12 mo × 1.265
+  = $69,748/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 45%
+  (Offices typically: 45%)
+  Peak = (481,362 ÷ 8,760 hrs) ÷ 0.45
+       = 122 kW
+
+TOTAL: $175,926/yr
+
+HVAC PORTION: 54%
+  = $95,053/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Offices typically 60%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  60% of electricity is HVAC. Central
+  systems condition entire floors even
+  when partially occupied.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: SF Environment Code, City &amp; County of San Francisco" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>481,362 kWh</td>
-                <td>$176K</td>
-                <td>54%</td>
+                <td>406,537 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-74,825 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: SF Environment Code. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  2,134,309 kBtu ÷ 100 = 21,343 therms
+  21,343 × $1.893/therm × 1.10
+  = $44,445/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR OFFICE: 98%
+  = $43,556/yr for heating
+
+  87.5% of gas is HVAC - primarily heating.
+  High percentage due to minimal
+  cooking/DHW.
+  (Based on EIA CBECS 2018)
+
+Source: SF Environment Code, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>21,343 therms</td>
-                <td>$44K</td>
-                <td>98%</td>
+                <td>15,325 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-6,017 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>83.9 kBtu/sqft</td>
+                <td>64.9 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-19.0 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -390,31 +456,77 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: SF Environment Code, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 29% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Office
+Category: Multi-Tenant
+
+WHY 20-40% RANGE:
+Centralized HVAC ventilates vacant floors at
+design capacity. Hybrid work (avg 52%
+utilization) + vacancy creates 50-60%
+opportunity in typical buildings.
+
+FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
+  Vacancy: 26%
+  Utilization: 38%
+  Opportunity: 72%
+
+MODIFIERS:
+  Automation: 0.12 (built 1907, 45K sqft)
+  Efficiency: 1.10 (high EUI)
+  Climate: 1.00 (Moderate)
+
+RESULT: 28.8% of HVAC costs
+(Range: 20-40% for Office)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$220K/yr</td>
                 <td>$180K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$40K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>83.9 kBtu/sqft</td>
-                <td>64.9 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-19.0 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>207.0 tCO2e/yr</td>
-                <td>160.5 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-46.5 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $175,926 x 54% = $95,053
+Gas: $44,445 x 98% = $43,556
+Total HVAC Cost: $138,609/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 7.5% cap rate. $1 saved → $13 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Office
+Category: Multi-Tenant
+Formula: Vacancy + (1-Vacancy) × (1-Utilization)
+Vacancy Rate: 26%
+Utilization Rate: 38%
+Savings Range: 20-40%
+This Building: 28.8%
+Annual Savings: $39,878
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 7.50%
+$39,878 / 7.50% = $531,704
+
+$1 saved = $13 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$532K</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>207.0 tCO2e/yr</td>
+                <td>160.5 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-46.5 tCO2e/yr</td>
             </tr>
 
         </table>

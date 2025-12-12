@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-11 12:31:58 EST -->
+<!-- Generated: 2025-12-11 23:34:07 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,7 +212,7 @@
             margin-left: 5px;
             width: 16px;
             height: 16px;
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -228,21 +228,22 @@
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: normal;
-            width: 500px;
+            background-color: #1a1a2e;
+            color: #e8e8e8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            white-space: pre-line;
+            width: 420px;
             max-width: 90vw;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 11px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
             text-align: left;
             z-index: 2147483647;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             pointer-events: none;
         }
 
@@ -258,7 +259,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: #333;
+            border-top-color: #1a1a2e;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
@@ -305,8 +306,8 @@
         /* Mobile tooltip adjustments */
         @media (max-width: 768px) {
             .info-tooltip::after {
-                width: 280px;
-                font-size: 12px;
+                width: 320px;
+                font-size: 10px;
                 left: auto;
                 right: 0;
                 transform: none;
@@ -331,6 +332,17 @@
         <h1><a href="https://www.google.com/maps/search/?api=1&amp;query=400%20W.%2076th%20Street%2C%20Chicago%2C%20IL%2C%2060620" target="_blank" style="color: inherit; text-decoration: none;">400 W. 76th Street, Chicago, IL, 60620 <span style="font-size: 0.6em; font-weight: bold; opacity: 1; background: rgba(255,255,255,0.25); padding: 2px 6px; border-radius: 4px; margin-left: 8px;">↗</span></a></h1>
     </div>
 
+    <div class="section" style="margin: 0; padding: 0;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/CHI_174123_streetview.jpg" alt="Building CHI_174123" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
+    </div>
+
     <div class="section">
         <h2>Property</h2>
         <table>
@@ -347,30 +359,95 @@
         <table>
             <tr>
                 <th></th>
-                <th>Annual Use</th>
-                <th>Annual Cost</th>
-                <th>HVAC %<span class="info-tooltip" data-tooltip="Source: EIA CBECS 2018 survey of 6,436 buildings. Adjusted for building type, climate, age, efficiency." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></th>
+                <th>Current</th>
+                <th>New</th>
+                <th>Change</th>
             </tr>
 
             <tr>
-                <td>Electricity<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Cost includes energy charges (per kWh) and demand charges (per peak kW). Rates from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Electricity<span class="info-tooltip" data-tooltip="HOW ELECTRICITY COST IS CALCULATED
+===================================
+
+ENERGY CHARGES (usage-based):
+  505,067 kWh × $0.1338/kWh × 1.10
+  = $74,308/yr
+  (×1.10 = taxes, fees, distribution)
+
+DEMAND CHARGES (peak capacity):
+  Peak: 128 kW
+  128 kW × $35.00/kW × 12 mo × 1.265
+  = $68,073/yr
+  (×1.265 = ratchet clauses, seasonal peaks)
+
+HOW PEAK DEMAND IS ESTIMATED:
+  Load Factor: 45%
+  (Offices typically: 45%)
+  Peak = (505,067 ÷ 8,760 hrs) ÷ 0.45
+       = 128 kW
+
+TOTAL: $142,380/yr
+
+HVAC PORTION: 41%
+  = $58,675/yr for heating/cooling
+
+HOW HVAC % IS DERIVED:
+  Baseline: Offices typically 60%
+  Adjustments applied:
+    • Building age (newer = more efficient)
+    • Energy Star score (higher = less waste)
+    • EUI vs. peer median
+    • Climate zone
+
+  60% of electricity is HVAC. Central
+  systems condition entire floors even
+  when partially occupied.
+
+  Source: EIA CBECS 2018 (6,436 buildings)
+
+Source: Chicago Benchmarking Ordinance, Commonwealth Edison Co" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>505,066 kWh</td>
-                <td>$142K</td>
-                <td>41%</td>
+                <td>446,121 kWh</td>
+                <td style="color: #16a34a; font-weight: 600;">-58,944 kWh</td>
             </tr>
 
             <tr>
-                <td>Natural Gas<span class="info-tooltip" data-tooltip="Source: Chicago Benchmarking Ordinance. Rate from NREL." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Natural Gas<span class="info-tooltip" data-tooltip="HOW NATURAL GAS COST IS CALCULATED
+===================================
+
+FORMULA: therms × rate × 1.10
+
+THIS BUILDING:
+  1,704,941 kBtu ÷ 100 = 17,049 therms
+  17,049 × $1.090/therm × 1.10
+  = $20,444/yr
+  (×1.10 = taxes, fees, delivery)
+
+HVAC PORTION FOR OFFICE: 84%
+  = $17,116/yr for heating
+
+  87.5% of gas is HVAC - primarily heating.
+  High percentage due to minimal
+  cooking/DHW.
+  (Based on EIA CBECS 2018)
+
+Source: Chicago Benchmarking Ordinance, NREL rates" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>17,049 therms</td>
-                <td>$20K</td>
-                <td>84%</td>
+                <td>13,007 therms</td>
+                <td style="color: #16a34a; font-weight: 600;">-4,042 therms</td>
+            </tr>
+
+            <tr>
+                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>29.8 kBtu/sqft</td>
+                <td>24.6 kBtu/sqft</td>
+                <td style="color: #16a34a; font-weight: 600;">-5.2 kBtu/sqft</td>
             </tr>
 
         </table>
     </div>
 
     <div class="section">
-        <h2>Savings</h2>
+        <h2>Impact</h2>
         <table>
             <tr>
                 <th></th>
@@ -380,38 +457,84 @@
             </tr>
 
             <tr>
-                <td>Utility Cost<span class="info-tooltip" data-tooltip="HVAC savings × utility rates. Sources: Chicago Benchmarking Ordinance, NREL utility rates by ZIP." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Utility Cost<span class="info-tooltip" data-tooltip="HOW 28% HVAC SAVINGS IS ESTIMATED
+======================================
+
+BUILDING TYPE: Office
+Category: Multi-Tenant
+
+WHY 20-40% RANGE:
+Centralized HVAC ventilates vacant floors at
+design capacity. Hybrid work (avg 52%
+utilization) + vacancy creates 50-60%
+opportunity in typical buildings.
+
+FORMULA: Vacancy + (1-Vacancy) × (1-Utilization)
+  Vacancy: 19%
+  Utilization: 37%
+  Opportunity: 70%
+
+MODIFIERS:
+  Automation: 0.38 (built 1965, 115K sqft)
+  Efficiency: 0.85 (ES 95, very efficient)
+  Climate: 1.00 (Moderate)
+
+RESULT: 28.3% of HVAC costs
+(Range: 20-40% for Office)
+
+Sources: EIA CBECS 2018, ASHRAE standards" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>$163K/yr</td>
                 <td>$141K/yr</td>
                 <td style="color: #16a34a; font-weight: 600;">-$21K/yr</td>
             </tr>
 
             <tr>
-                <td>Site EUI<span class="info-tooltip" data-tooltip="Energy use per square foot. Office average: 70-90. Source: city benchmarking law." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>29.8 kBtu/sqft</td>
-                <td>24.6 kBtu/sqft</td>
-                <td style="color: #16a34a; font-weight: 600;">-5.2 kBtu/sqft</td>
-            </tr>
+                <td>Property Value<span class="info-tooltip" data-tooltip="HOW VALUATION IMPACT IS CALCULATED
+===================================
 
-            <tr>
-                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
-                <td>374.7 tCO2e/yr</td>
-                <td>320.1 tCO2e/yr</td>
-                <td style="color: #16a34a; font-weight: 600;">-54.6 tCO2e/yr</td>
-            </tr>
+STEP 1: Annual HVAC Cost
+-------------------------
+Elec: $142,380 x 41% = $58,675
+Gas: $20,444 x 84% = $17,116
+Total HVAC Cost: $75,791/yr
+(HVAC % from EIA CBECS 2018)
 
-            <tr>
-                <td>Property Value<span class="info-tooltip" data-tooltip="Annual savings ÷ 8.0% cap rate. $1 saved → $12 higher value. Cap rate source: caprateindex.com." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+STEP 2: ODCV Savings
+-------------------------
+Type: Office
+Category: Multi-Tenant
+Formula: Vacancy + (1-Vacancy) × (1-Utilization)
+Vacancy Rate: 19%
+Utilization Rate: 37%
+Savings Range: 20-40%
+This Building: 28.3%
+Annual Savings: $21,464
+
+STEP 3: Valuation Impact
+-------------------------
+Cap Rate: 8.00%
+$21,464 / 8.00% = $268,299
+
+$1 saved = $12 higher value
+
+Sources: EIA CBECS, NREL, caprateindex.com" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td style="color: #16a34a; font-weight: 600;">+$268K</td>
             </tr>
 
             <tr>
-                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Chicago Benchmarking Ordinance. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: #0066cc; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>Energy Star Score<span class="info-tooltip" data-tooltip="1-100 percentile ranking vs peers. 50 = median, 75+ = ENERGY STAR certified. Current score from Chicago Benchmarking Ordinance. Post-ODCV estimated using EPA efficiency ratio methodology: new EUI reduces ratio, improving percentile rank via gamma distribution. See docs/methodology/ENERGY_STAR_ESTIMATE_METHODOLOGY.md" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
                 <td>95</td>
                 <td>96</td>
                 <td style="color: #16a34a; font-weight: 600;">+1</td>
+            </tr>
+
+            <tr>
+                <td>Carbon Emissions<span class="info-tooltip" data-tooltip="Source: EPA eGRID grid emission factors." style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i</span></td>
+                <td>374.7 tCO2e/yr</td>
+                <td>320.1 tCO2e/yr</td>
+                <td style="color: #16a34a; font-weight: 600;">-54.6 tCO2e/yr</td>
             </tr>
 
         </table>
