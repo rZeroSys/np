@@ -342,7 +342,7 @@
 
     <!-- Section 2: Data Sources -->
     <section class="section" id="data-sources">
-        <h2>1) Data Sources</h2>
+        <h2>Data Sources</h2>
         <p>Nationwide Prospector combines <strong>measured/declared building energy</strong> with <strong>modeled enrichment layers</strong> (rates, HVAC end-use splits, occupancy proxies, emissions factors, BPS rule parameters, cap rates).</p>
 
         <h3>1.1 Building Energy & Benchmarking Disclosure Data</h3>
@@ -420,38 +420,9 @@
         </ul>
     </section>
 
-    <!-- Section 3: Schema -->
-    <section class="section" id="schema">
-        <h2>2) Canonical Schema: Column Groups & Definitions</h2>
-        <p>Nationwide Prospector uses consistent prefixes:</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Prefix</th>
-                    <th>Category</th>
-                    <th>Example Fields</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td><code>loc_</code></td><td>Location</td><td>loc_address, loc_city, loc_state, loc_zip, loc_lat, loc_lon</td></tr>
-                <tr><td><code>bldg_</code></td><td>Building Characteristics</td><td>bldg_type, bldg_vertical, bldg_year_built, bldg_sqft</td></tr>
-                <tr><td><code>org_</code></td><td>Organizations</td><td>org_owner, org_manager, org_tenant</td></tr>
-                <tr><td><code>energy_</code></td><td>Energy</td><td>energy_site_eui, energy_total_kbtu, energy_star_score</td></tr>
-                <tr><td><code>cost_</code></td><td>Utility Costs</td><td>cost_elec_total_annual, cost_gas_annual</td></tr>
-                <tr><td><code>hvac_</code></td><td>HVAC Attribution</td><td>hvac_pct_elec, hvac_energy_total_kbtu, hvac_cost_total_annual</td></tr>
-                <tr><td><code>occ_</code></td><td>Occupancy</td><td>occ_vacancy_rate, occ_utilization_rate</td></tr>
-                <tr><td><code>odcv_</code></td><td>ODCV Savings</td><td>odcv_hvac_savings_pct, odcv_hvac_savings_annual_usd</td></tr>
-                <tr><td><code>bps_</code></td><td>BPS Fines</td><td>bps_law_name, bps_fine_avoided_yr1_usd</td></tr>
-                <tr><td><code>savings_</code></td><td>Combined Savings</td><td>savings_opex_avoided_annual_usd</td></tr>
-                <tr><td><code>val_</code></td><td>Valuation</td><td>val_odcv_impact_usd, val_current_usd, val_post_odcv_usd</td></tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- Section 4: Energy -->
+    <!-- Section 3: Energy -->
     <section class="section" id="energy">
-        <h2>3) Energy Normalization & Unit Conventions</h2>
+        <h2>Energy Normalization & Unit Conventions</h2>
 
         <h3>3.1 Core Units</h3>
         <table>
@@ -479,7 +450,7 @@
 
     <!-- Section 5: Utility Cost -->
     <section class="section" id="cost">
-        <h2>4) Utility Cost Calculation Module</h2>
+        <h2>Utility Cost Calculation</h2>
 
         <h3>4.1 Purpose</h3>
         <p>Convert annual energy consumption + rate assumptions into annual utility costs for electricity (energy + demand), natural gas, district steam, and fuel oil.</p>
@@ -525,24 +496,14 @@
             <code>cost_fuel_oil_annual = mmbtu &times; rate_mmbtu &times; 1.10</code>
         </div>
 
-        <div class="callout info">
-            <div class="callout-title">Validation</div>
-            <p>Cost formulas were validated against <strong>23,882 buildings</strong> with known costs; match rates are essentially exact.</p>
-        </div>
     </section>
 
     <!-- Section 6: HVAC -->
     <section class="section" id="hvac">
-        <h2>5) HVAC Percentage by Fuel Type (End-Use Attribution)</h2>
+        <h2>HVAC Percentage by Fuel Type</h2>
 
         <h3>5.1 Purpose</h3>
-        <p>ODCV savings apply to <strong>HVAC only</strong>, so we must estimate how much of each fuel is HVAC-driven:</p>
-        <ul>
-            <li><code>hvac_pct_elec</code>: fraction of electricity attributable to HVAC</li>
-            <li><code>hvac_pct_gas</code>: fraction of gas attributable to HVAC</li>
-            <li><code>hvac_pct_steam</code>: fraction of steam attributable to HVAC</li>
-            <li><code>hvac_pct_fuel_oil</code>: fraction of fuel oil attributable to HVAC</li>
-        </ul>
+        <p>ODCV savings apply to <strong>HVAC only</strong>, so we must estimate how much of each fuel is HVAC-driven.</p>
 
         <h3>5.2 Data Backbone</h3>
         <p>The method is grounded in <a href="https://www.eia.gov/consumption/commercial/data/2018/index.php?view=microdata" target="_blank" class="source-link">CBECS 2018 microdata</a> with building portfolio join keys and additional refinements.</p>
@@ -568,18 +529,11 @@
             <li><strong>Data centers:</strong> treated as special (no direct CBECS category) and assigned distinct HVAC shares</li>
         </ul>
 
-        <h3>5.6 HVAC Totals (Energy & Cost)</h3>
-        <p>Once fuel HVAC fractions exist:</p>
-        <div class="formula-box">
-            <code>hvac_energy_total_kbtu = &Sigma;(fuel_kbtu &times; hvac_pct_fuel)</code><br><br>
-            <code>hvac_cost_total_annual = &Sigma;(fuel_cost &times; hvac_pct_fuel)</code>
-        </div>
     </section>
 
     <!-- Section 7: ODCV -->
     <section class="section" id="odcv">
-        <h2>6) ODCV Savings Model (the Prospector "Engine")</h2>
-        <p><strong>ODCV = Occupancy-Driven Control Ventilation</strong> (ventilate/condition based on real occupancy rather than fixed schedules).</p>
+        <h2>ODCV Savings Model</h2>
 
         <h3>6.1 What the ODCV % Represents</h3>
         <p><code>odcv_hvac_savings_pct</code> is the fraction of HVAC costs saved by ODCV, applied to HVAC-only costs, and bounded by building-type ranges.</p>
@@ -674,8 +628,7 @@
 
     <!-- Section 8: Application -->
     <section class="section" id="application">
-        <h2>7) Applying ODCV to Dollars, Energy, Carbon, BPS, and Valuation</h2>
-        <p>This is where "Prospector" becomes a business case.</p>
+        <h2>Applying ODCV</h2>
 
         <h3>7.1 Apply ODCV to HVAC Energy by Fuel</h3>
         <p>ODCV savings apply to HVAC portion of each fuel:</p>
@@ -712,7 +665,7 @@
 
     <!-- Section 9: BPS -->
     <section class="section" id="bps">
-        <h2>8) Building Performance Standards (BPS) Fine Methodology</h2>
+        <h2>BPS Fine Methodology</h2>
         <p>Nationwide Prospector computes: baseline year-1 fine (no ODCV), post-ODCV year-1 fine, and year-1 avoided fine (difference). See <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" target="_blank" class="source-link">IMT BPS Matrix</a> for cross-city comparison.</p>
 
         <h3>8.1 General "Fine Avoided" Definition</h3>
@@ -772,7 +725,7 @@
 
     <!-- Section 10: OpEx -->
     <section class="section" id="opex">
-        <h2>9) Total Annual OpEx Avoidance</h2>
+        <h2>Total Annual OpEx Avoidance</h2>
 
         <h3>9.1 Definition</h3>
         <p>Total Annual OpEx Avoidance is strictly the sum of:</p>
@@ -790,7 +743,7 @@
 
     <!-- Section 11: Valuation -->
     <section class="section" id="valuation">
-        <h2>10) Valuation Impact Methodology (Income Capitalization)</h2>
+        <h2>Valuation Impact</h2>
 
         <h3>10.1 Core Concept</h3>
         <p>If a building avoids $1 in annual operating expense, <a href="https://www.naiop.org/term-definitions/net-operating-income-noi/" target="_blank" class="source-link">NOI</a> increases by $1; value increase is NOI uplift divided by cap rate. See <a href="https://www.boe.ca.gov/proptaxes/pdf/lesson8.pdf" target="_blank" class="source-link">Direct Capitalization (I &divide; R = V)</a>.</p>
@@ -838,7 +791,7 @@
 
     <!-- Section 12: ENERGY STAR -->
     <section class="section" id="energy-star">
-        <h2>11) Estimated Post-ODCV ENERGY STAR Score</h2>
+        <h2>Estimated Post-ODCV ENERGY STAR Score</h2>
 
         <h3>11.1 What an ENERGY STAR Score Is</h3>
         <p><a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" target="_blank" class="source-link">ENERGY STAR</a> is based on an efficiency ratio:</p>
@@ -855,64 +808,13 @@
             <li>Convert score &harr; ratio using gamma inverse CDF/CDF with building-type parameters</li>
         </ol>
 
-        <h3>11.3 Example</h3>
-        <p>A worked example shows score rising from <strong>65 &rarr; 73</strong> after ODCV-driven EUI reduction.</p>
-
-        <div class="callout warning">
-            <div class="callout-title">Limitations</div>
-            <p>This is an approximation; actual EPA score calculations rely on proprietary tables and source-energy normalization; site EUI is used as a proxy (estimated 5-10% error).</p>
-        </div>
     </section>
 
-    <!-- Section 13: Portfolio -->
-    <section class="section" id="portfolio">
-        <h2>12) Portfolio Identification Methodology</h2>
-        <p>Nationwide Prospector supports account-based prospecting by defining a <strong>portfolio organization</strong> as an owner/manager/tenant name that appears across at least <strong>3 separate building rows</strong>.</p>
 
-        <h3>12.1 Normalization Rules (Name Cleaning)</h3>
-        <p>Organization names are normalized by:</p>
-        <ul>
-            <li>Lowercasing</li>
-            <li>Stripping punctuation</li>
-            <li>Removing corporate suffixes (LLC, Inc, LP, etc.)</li>
-            <li>Collapsing whitespace</li>
-            <li>Filtering generic/common single-word entities (e.g., "Church", "School")</li>
-        </ul>
-
-        <h3>12.2 Matching & Rollup</h3>
-        <ul>
-            <li><strong>Organization columns searched:</strong> owner / manager / tenant</li>
-            <li><strong>Portfolio threshold:</strong> &ge; 3 buildings</li>
-            <li>Output includes a portfolio org label and building counts for targeting workflows</li>
-        </ul>
-    </section>
-
-    <!-- Section 14: Quality -->
-    <section class="section" id="quality">
-        <h2>13) Data Quality Controls & Edge-Case Handling</h2>
-
-        <h3>13.1 City Parsing and BPS City Assignment</h3>
-        <p>City is extracted from the address using deterministic parsing and is measured to be highly accurate (reported ~99.996%).</p>
-
-        <h3>13.2 Emissions from Raw Energy</h3>
-        <p>BPS modeling explicitly computes emissions from raw energy kBtu (not precomputed emissions) to match the original LL97 calculator style.</p>
-
-        <h3>13.3 Known "Back-Calculated Energy" Records</h3>
-        <p>A documented data-quality patch: <strong>249 records</strong> had energy back-calculated from cost using median rates.</p>
-
-        <h3>13.4 Module-Specific Limitations</h3>
-        <ul>
-            <li><strong>Cost module:</strong> no TOU, tiering, DR credits; rate/multiplier assumptions</li>
-            <li><strong>ODCV:</strong> no real occupancy feeds; automation is a proxy; ranges are conservative; validate for proposals</li>
-            <li><strong>BPS:</strong> only year-1 caps, office/commercial assumptions, DC needs ENERGY STAR score</li>
-            <li><strong>Valuation:</strong> cap rates are market dependent; BPS programs change</li>
-        </ul>
-    </section>
 
     <!-- Section 15: Formula Chain -->
     <section class="section" id="formula-chain">
-        <h2>14) End-to-End Formula Chain (Single Building)</h2>
-        <p>This is the "audit trail" to reproduce Prospector outputs:</p>
+        <h2>End-to-End Formula Chain</h2>
 
         <ol>
             <li><strong>Normalize energy</strong> &mdash; Convert fuel quantities to kBtu; compute total kBtu and EUI</li>
