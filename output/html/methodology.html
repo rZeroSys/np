@@ -345,7 +345,7 @@
         <h2>Data Sources</h2>
         <p>Nationwide Prospector combines <strong>measured/declared building energy</strong> with <strong>modeled enrichment layers</strong> (rates, HVAC end-use splits, occupancy proxies, emissions factors, BPS rule parameters, cap rates).</p>
 
-        <h3>1.1 Building Energy & Benchmarking Disclosure Data</h3>
+        <h3>Building Energy & Benchmarking Disclosure Data</h3>
         <h4>Primary source class</h4>
         <ul>
             <li><a href="https://portfoliomanager.energystar.gov/webservices/" target="_blank" class="source-link">EPA ENERGY STAR Portfolio Manager</a> and/or local benchmarking disclosure laws (city/municipal public disclosure datasets)</li>
@@ -361,7 +361,7 @@
             <li>ENERGY STAR score (<code>energy_star_score</code>) - <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" target="_blank" class="source-link">Technical Reference</a></li>
         </ul>
 
-        <h3>1.2 Utility Rates</h3>
+        <h3>Utility Rates</h3>
         <p>Energy cost estimation uses:</p>
         <ul>
             <li><strong>EIA commercial electricity data</strong> + local tariff analysis</li>
@@ -371,7 +371,7 @@
             <li>Multipliers calibrated from sample commercial bills and research</li>
         </ul>
 
-        <h3>1.3 HVAC End-Use Split</h3>
+        <h3>HVAC End-Use Split</h3>
         <p>HVAC attribution depends on <a href="https://www.eia.gov/consumption/commercial/data/2018/index.php?view=microdata" target="_blank" class="source-link">CBECS 2018 microdata</a> (Commercial Buildings Energy Consumption Survey) with additional adjustments and special-case handling.</p>
         <p>Key references:</p>
         <ul>
@@ -381,7 +381,7 @@
         </ul>
         <p>Output includes: <code>hvac_pct_elec</code>, <code>hvac_pct_gas</code>, <code>hvac_pct_steam</code>, <code>hvac_pct_fuel_oil</code></p>
 
-        <h3>1.4 Occupancy Proxies</h3>
+        <h3>Occupancy Proxies</h3>
         <p>ODCV needs an estimate of how "empty" the building is:</p>
         <ul>
             <li><strong>Office vacancy:</strong> <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" class="source-link">CBRE U.S. Office Figures</a> (market vacancy estimates)</li>
@@ -390,7 +390,7 @@
             <li><strong>School calendar utilization:</strong> NCES instructional days / state calendars</li>
         </ul>
 
-        <h3>1.5 Carbon Emission Factors</h3>
+        <h3>Carbon Emission Factors</h3>
         <p>Carbon is calculated from raw energy by fuel using:</p>
         <ul>
             <li><a href="https://www.epa.gov/egrid" target="_blank" class="source-link">EPA eGRID</a> - City-specific electricity factors (grid region)</li>
@@ -399,7 +399,7 @@
             <li><a href="https://portfoliomanager.energystar.gov/pdf/reference/Historical_GHG_Factors.xlsx" target="_blank" class="source-link">Historical GHG Factors Spreadsheet</a></li>
         </ul>
 
-        <h3>1.6 Building Performance Standards (BPS) Rules</h3>
+        <h3>Building Performance Standards (BPS) Rules</h3>
         <p>The national BPS calculator uses city program parameters. <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" target="_blank" class="source-link">IMT BPS Comparison Matrix</a> provides cross-city reference.</p>
         <ul>
             <li><a href="https://www.nyc.gov/assets/buildings/local_laws/ll97of2019.pdf" target="_blank" class="source-link">NYC LL97</a> - $268/tCO2e penalty</li>
@@ -412,7 +412,7 @@
             <li>San Francisco EBEPO (reporting-only: no fine modeled)</li>
         </ul>
 
-        <h3>1.7 Cap Rates & Valuation Assumptions</h3>
+        <h3>Cap Rates & Valuation Assumptions</h3>
         <ul>
             <li><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" class="source-link">CBRE U.S. Cap Rate Survey</a> - Cap rate medians by building type</li>
             <li><a href="https://www.naiop.org/term-definitions/net-operating-income-noi/" target="_blank" class="source-link">NAIOP: Net Operating Income (NOI)</a> definition</li>
@@ -424,7 +424,7 @@
     <section class="section" id="energy">
         <h2>Energy Normalization & Unit Conventions</h2>
 
-        <h3>3.1 Core Units</h3>
+        <h3>Core Units</h3>
         <table>
             <thead><tr><th>Unit</th><th>Description</th></tr></thead>
             <tbody>
@@ -436,7 +436,7 @@
             </tbody>
         </table>
 
-        <h3>3.2 EUI Definition</h3>
+        <h3>EUI Definition</h3>
         <p><a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/what-eui" target="_blank" class="source-link">Site EUI</a> is energy per floor area:</p>
         <div class="formula-box">
             <code>Site EUI = Total site energy (kBtu) / Gross floor area (sqft)</code>
@@ -452,10 +452,10 @@
     <section class="section" id="cost">
         <h2>Utility Cost Calculation</h2>
 
-        <h3>4.1 Purpose</h3>
+        <h3>Purpose</h3>
         <p>Convert annual energy consumption + rate assumptions into annual utility costs for electricity (energy + demand), natural gas, district steam, and fuel oil.</p>
 
-        <h3>4.2 Electricity: Demand Estimation via <a href="https://www.eia.gov/tools/glossary/index.php?id=L" target="_blank" class="source-link">Load Factor</a></h3>
+        <h3>Electricity: Demand Estimation via <a href="https://www.eia.gov/tools/glossary/index.php?id=L" target="_blank" class="source-link">Load Factor</a></h3>
         <p>If peak demand is not directly known, it is estimated using load factor:</p>
         <div class="formula-box">
             <code>Load factor = Average demand / Peak demand</code><br><br>
@@ -463,7 +463,7 @@
         </div>
         <p>Typical ranges by building type and a default assumption of <span class="highlight-value">0.45</span> are used.</p>
 
-        <h3>4.3 Electricity Annual Cost Formula</h3>
+        <h3>Electricity Annual Cost Formula</h3>
         <div class="formula-box">
             <code>peak_kw = energy_elec_kwh / (8760 &times; load_factor)</code><br><br>
             <code>cost_elec_energy_annual = energy_elec_kwh &times; rate_kwh &times; 1.10</code><br><br>
@@ -477,20 +477,20 @@
             <li><strong>1.265</strong> adjusts demand charges for ratchets, seasonal demand premiums, and other demand-related bill structures.</li>
         </ul>
 
-        <h3>4.4 Natural Gas Annual Cost</h3>
+        <h3>Natural Gas Annual Cost</h3>
         <div class="formula-box">
             <code>therms = energy_gas_kbtu / 100</code><br><br>
             <code>cost_gas_annual = therms &times; rate_therm &times; 1.10</code>
         </div>
 
-        <h3>4.5 District Steam Annual Cost</h3>
+        <h3>District Steam Annual Cost</h3>
         <p>Steam (<a href="https://www.coned.com/en/about-us/corporate-facts" target="_blank" class="source-link">ConEd NYC system</a>) does not apply the 1.10 adder (steam rates are treated as all-inclusive):</p>
         <div class="formula-box">
             <code>mlb = energy_steam_kbtu / 909</code><br><br>
             <code>cost_steam_annual = mlb &times; rate_mlb</code>
         </div>
 
-        <h3>4.6 Fuel Oil Annual Cost</h3>
+        <h3>Fuel Oil Annual Cost</h3>
         <div class="formula-box">
             <code>mmbtu = energy_fuel_oil_kbtu / 1000</code><br><br>
             <code>cost_fuel_oil_annual = mmbtu &times; rate_mmbtu &times; 1.10</code>
@@ -502,14 +502,14 @@
     <section class="section" id="hvac">
         <h2>HVAC Percentage by Fuel Type</h2>
 
-        <h3>5.1 Purpose</h3>
+        <h3>Purpose</h3>
         <p>ODCV savings apply to <strong>HVAC only</strong>, so we must estimate how much of each fuel is HVAC-driven.</p>
 
-        <h3>5.2 Data Backbone</h3>
+        <h3>Data Backbone</h3>
         <p>The method is grounded in <a href="https://www.eia.gov/consumption/commercial/data/2018/index.php?view=microdata" target="_blank" class="source-link">CBECS 2018 microdata</a> with building portfolio join keys and additional refinements.</p>
         <p>See also: <a href="https://www.eia.gov/consumption/commercial/reports/2018/estimated-end-use.php" target="_blank" class="source-link">How end-use consumption was estimated</a> and <a href="https://www.eia.gov/consumption/commercial/data/2018/ce/pdf/c24.pdf" target="_blank" class="source-link">Table C24</a> (major fuels by end use including heating/cooling/ventilation).</p>
 
-        <h3>5.3 Core Adjustment Logic</h3>
+        <h3>Core Adjustment Logic</h3>
         <p>HVAC percentages are not taken as a single static number. Adjustments incorporate:</p>
         <ul>
             <li><strong><a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" target="_blank" class="source-link">ENERGY STAR score</a> thresholds</strong> (absolute bands) that shift expected HVAC share</li>
@@ -518,10 +518,10 @@
             <li>A <strong>combined adjustment cap</strong> (&plusmn;12%)</li>
         </ul>
 
-        <h3>5.4 Electricity HVAC Minimum Floor</h3>
+        <h3>Electricity HVAC Minimum Floor</h3>
         <p>Electric HVAC share has a documented minimum of <span class="highlight-value">15%</span> to account for fans, pumps, and controls that run broadly across operating hours.</p>
 
-        <h3>5.5 Special Cases</h3>
+        <h3>Special Cases</h3>
         <p>Some building types have fundamentally different end-use splits (see <a href="https://www.eia.gov/consumption/commercial/reports.php" target="_blank" class="source-link">CBECS building activity reports</a>):</p>
         <ul>
             <li><strong><a href="https://www.eia.gov/consumption/commercial/pba/lodging.php" target="_blank" class="source-link">Hotels</a>:</strong> gas is mostly DHW + cooking; HVAC is a smaller fraction with intensity-tier logic</li>
@@ -535,10 +535,10 @@
     <section class="section" id="odcv">
         <h2>ODCV Savings Model</h2>
 
-        <h3>6.1 What the ODCV % Represents</h3>
+        <h3>What the ODCV % Represents</h3>
         <p><code>odcv_hvac_savings_pct</code> is the fraction of HVAC costs saved by ODCV, applied to HVAC-only costs, and bounded by building-type ranges.</p>
 
-        <h3>6.2 The Master Formula</h3>
+        <h3>The Master Formula</h3>
         <p>The model uses a <strong>floor + scaled opportunity structure</strong>:</p>
         <div class="formula-box">
             <code>ODCV_base = Floor + (Opportunity &times; Automation &times; (Ceiling - Floor))</code>
@@ -549,7 +549,7 @@
         </div>
         <p>...and clamps to building-type bounds.</p>
 
-        <h3>6.3 Opportunity Score (Vacancy + Utilization Logic)</h3>
+        <h3>Opportunity Score (Vacancy + Utilization Logic)</h3>
         <p>This is explicitly building-type dependent. Vacancy data from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" class="source-link">CBRE</a>; utilization from <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" class="source-link">Kastle Back to Work Barometer</a>.</p>
 
         <h4>A) Multi-tenant Commercial (office, medical office, mixed use, strip mall)</h4>
@@ -570,12 +570,12 @@
         <h4>D) Data Centers</h4>
         <div class="formula-box"><code>Opportunity = 0</code></div>
 
-        <h3>6.4 Automation Score</h3>
+        <h3>Automation Score</h3>
         <p>Automation is modeled as an average of a year-built score and a size score:</p>
         <div class="formula-box"><code>Automation = (YearScore + SizeScore) / 2</code></div>
         <p>Size-score bands: under 50k sqft &rarr; 0.25; over 250k sqft &rarr; 1.0</p>
 
-        <h3>6.5 Efficiency Modifier</h3>
+        <h3>Efficiency Modifier</h3>
         <p>If <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" target="_blank" class="source-link">ENERGY STAR score</a> exists:</p>
         <table>
             <thead><tr><th>ENERGY STAR Band</th><th>Modifier</th></tr></thead>
@@ -588,7 +588,7 @@
             </tbody>
         </table>
 
-        <h3>6.6 Climate Modifier</h3>
+        <h3>Climate Modifier</h3>
         <p>Based on <a href="https://www.eia.gov/consumption/commercial/maps.php" target="_blank" class="source-link">CBECS climate zones</a> (HDD/CDD-based). See also <a href="https://www.eia.gov/energyexplained/units-and-calculators/degree-days.php" target="_blank" class="source-link">EIA Degree Days Explainer</a>.</p>
         <table>
             <thead><tr><th>Zone</th><th>Modifier</th></tr></thead>
@@ -600,7 +600,7 @@
             </tbody>
         </table>
 
-        <h3>6.7 Building-Type Floors and Ceilings</h3>
+        <h3>Building-Type Floors and Ceilings</h3>
         <table>
             <thead><tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Opportunity Formula</th></tr></thead>
             <tbody>
@@ -611,26 +611,13 @@
             </tbody>
         </table>
 
-        <h3>6.8 Worked Example: ODCV % Computation (Office)</h3>
-        <div class="callout success">
-            <div class="callout-title">Example: Chicago Office</div>
-            <ul>
-                <li>Vacancy = 28% (<a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" class="source-link">CBRE data</a>)</li>
-                <li>Utilization = 52% (<a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" target="_blank" class="source-link">Kastle data</a>)</li>
-                <li>Opportunity = 0.626</li>
-                <li>Automation = 0.875</li>
-                <li>Floor/Ceiling = 20% / 40%</li>
-                <li>Climate modifier (North-Central) = 1.05</li>
-            </ul>
-            <p><strong>Final ODCV &asymp; 32.6%</strong></p>
-        </div>
     </section>
 
     <!-- Section 8: Application -->
     <section class="section" id="application">
         <h2>Applying ODCV</h2>
 
-        <h3>7.1 Apply ODCV to HVAC Energy by Fuel</h3>
+        <h3>Apply ODCV to HVAC Energy by Fuel</h3>
         <p>ODCV savings apply to HVAC portion of each fuel:</p>
         <div class="formula-box">
             <code>Electricity HVAC Savings = Electricity Use &times; %Electric HVAC &times; ODCV%</code><br>
@@ -639,13 +626,13 @@
             <code>Fuel Oil HVAC Savings   = Fuel Oil Use &times; %Fuel Oil HVAC &times; ODCV%</code>
         </div>
 
-        <h3>7.2 Annual HVAC Utility Savings (USD)</h3>
+        <h3>Annual HVAC Utility Savings (USD)</h3>
         <p>Primary dollar output:</p>
         <div class="formula-box">
             <code>odcv_hvac_savings_annual_usd = hvac_cost_total_annual &times; odcv_hvac_savings_pct</code>
         </div>
 
-        <h3>7.3 Carbon Emissions (Baseline and Post-ODCV)</h3>
+        <h3>Carbon Emissions (Baseline and Post-ODCV)</h3>
         <h4>Baseline Emissions</h4>
         <p>Using <a href="https://www.epa.gov/egrid" target="_blank" class="source-link">EPA eGRID</a> factors and <a href="https://portfoliomanager.energystar.gov/pdf/reference/Emissions.pdf" target="_blank" class="source-link">Portfolio Manager GHG reference</a>:</p>
         <div class="formula-box">
@@ -668,12 +655,12 @@
         <h2>BPS Fine Methodology</h2>
         <p>Nationwide Prospector computes: baseline year-1 fine (no ODCV), post-ODCV year-1 fine, and year-1 avoided fine (difference). See <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" target="_blank" class="source-link">IMT BPS Matrix</a> for cross-city comparison.</p>
 
-        <h3>8.1 General "Fine Avoided" Definition</h3>
+        <h3>General "Fine Avoided" Definition</h3>
         <div class="formula-box">
             <code>bps_fine_avoided_yr1 = fine_baseline - fine_postODCV</code>
         </div>
 
-        <h3>8.2 Emissions-Cap Laws</h3>
+        <h3>Emissions-Cap Laws</h3>
 
         <h4><a href="https://www.nyc.gov/assets/buildings/local_laws/ll97of2019.pdf" target="_blank" class="source-link">NYC LL97</a> (2024-2029 period)</h4>
         <div class="formula-box">
@@ -688,7 +675,7 @@
         <h4><a href="https://www.cambridgema.gov/-/media/Files/CDD/PlanningandDevelopment/sustainabilityandresilienceprograms/beudo/ordinance/BEUDOOrdinance2014-29.pdf" target="_blank" class="source-link">Cambridge BEUDO</a></h4>
         <p>Mirrors BERDO; penalty rate = <span class="highlight-value">$234/tCO2e</span></p>
 
-        <h3>8.3 <a href="https://doee.dc.gov/sites/default/files/dc/sites/ddoe/publication/attachments/1_Guide%20to%20the%202021%20BEPS%281%29.pdf" target="_blank" class="source-link">DC BEPS</a> (ENERGY STAR Score Target)</h3>
+        <h3><a href="https://doee.dc.gov/sites/default/files/dc/sites/ddoe/publication/attachments/1_Guide%20to%20the%202021%20BEPS%281%29.pdf" target="_blank" class="source-link">DC BEPS</a> (ENERGY STAR Score Target)</h3>
         <div class="formula-box">
             <code>Target score = 71</code><br>
             <code>Fine = sqft &times; $10 &times; (gap / target_score)</code><br>
@@ -699,27 +686,27 @@
             <p>Buildings without ENERGY STAR score cannot be fined under this modeled pathway and are excluded from the DC fine calculation.</p>
         </div>
 
-        <h3>8.4 <a href="https://www.denvergov.org/files/assets/public/v/1/climate-action/documents/energize-denver-hub/ed-technical-guidance-buildings-25k-sf-v3-april-2025-redline.pdf" target="_blank" class="source-link">Energize Denver</a> (EUI Target)</h3>
+        <h3><a href="https://www.denvergov.org/files/assets/public/v/1/climate-action/documents/energize-denver-hub/ed-technical-guidance-buildings-25k-sf-v3-april-2025-redline.pdf" target="_blank" class="source-link">Energize Denver</a> (EUI Target)</h3>
         <div class="formula-box">
             <code>Target EUI (office example): 48.3</code><br>
             <code>Overage kBtu = max(0, (EUI - target) &times; sqft)</code><br>
             <code>Fine = overage_kBtu &times; $0.30</code>
         </div>
 
-        <h3>8.5 <a href="https://www.seattle.gov/documents/Departments/OSE/ClimateDocs/SeattleBEPSPolicyGuide.pdf" target="_blank" class="source-link">Seattle BEPS</a> (Emissions Intensity)</h3>
+        <h3><a href="https://www.seattle.gov/documents/Departments/OSE/ClimateDocs/SeattleBEPSPolicyGuide.pdf" target="_blank" class="source-link">Seattle BEPS</a> (Emissions Intensity)</h3>
         <div class="formula-box">
             <code>Target GHGI = 0.0023 tCO2e/sqft (commercial)</code><br>
             <code>Cap = sqft &times; target</code><br>
             <code>Fine = (emissions over cap) &times; penalty_rate</code>
         </div>
 
-        <h3>8.6 <a href="https://www.stlouis-mo.gov/government/departments/public-safety/building/building-performance/property-compliance.cfm" target="_blank" class="source-link">St. Louis BEPS</a> (Daily Fine Style)</h3>
+        <h3><a href="https://www.stlouis-mo.gov/government/departments/public-safety/building/building-performance/property-compliance.cfm" target="_blank" class="source-link">St. Louis BEPS</a> (Daily Fine Style)</h3>
         <div class="formula-box">
             <code>If EUI > 72: Fine = $500/day &times; 15 days = $7,500</code><br>
             <code>Otherwise: $0</code>
         </div>
 
-        <h3>8.7 San Francisco EBEPO</h3>
+        <h3>San Francisco EBEPO</h3>
         <p>Explicitly treated as <strong>reporting-only</strong> (no fine avoidance calculated).</p>
     </section>
 
@@ -727,7 +714,7 @@
     <section class="section" id="opex">
         <h2>Total Annual OpEx Avoidance</h2>
 
-        <h3>9.1 Definition</h3>
+        <h3>Definition</h3>
         <p>Total Annual OpEx Avoidance is strictly the sum of:</p>
         <ul>
             <li>Annual HVAC utility savings</li>
@@ -737,7 +724,7 @@
             <code>total_annual_opex_avoidance = odcv_hvac_savings_annual_usd + bps_fine_avoided_yr1_usd</code>
         </div>
 
-        <h3>9.2 Why Valuation is NOT Included</h3>
+        <h3>Why Valuation is NOT Included</h3>
         <p>Valuation increase is a downstream capitalization of OpEx avoided; it is not itself an annual operating expense.</p>
     </section>
 
@@ -745,15 +732,15 @@
     <section class="section" id="valuation">
         <h2>Valuation Impact</h2>
 
-        <h3>10.1 Core Concept</h3>
+        <h3>Core Concept</h3>
         <p>If a building avoids $1 in annual operating expense, <a href="https://www.naiop.org/term-definitions/net-operating-income-noi/" target="_blank" class="source-link">NOI</a> increases by $1; value increase is NOI uplift divided by cap rate. See <a href="https://www.boe.ca.gov/proptaxes/pdf/lesson8.pdf" target="_blank" class="source-link">Direct Capitalization (I &divide; R = V)</a>.</p>
 
-        <h3>10.2 Valuation Uplift Formula</h3>
+        <h3>Valuation Uplift Formula</h3>
         <div class="formula-box">
             <code>val_odcv_impact_usd = savings_opex_avoided_annual_usd / (cap_rate / 100)</code>
         </div>
 
-        <h3>10.3 Cap Rates by Building Type</h3>
+        <h3>Cap Rates by Building Type</h3>
         <p>Source: <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" class="source-link">CBRE U.S. Cap Rate Survey</a></p>
         <table>
             <thead><tr><th>Building Type</th><th>Median Cap Rate</th><th>Value Multiplier</th></tr></thead>
@@ -765,7 +752,7 @@
             </tbody>
         </table>
 
-        <h3>10.4 Estimating Current Value</h3>
+        <h3>Estimating Current Value</h3>
         <p>When true valuation is unknown, a "back-of-envelope" estimator is used:</p>
         <div class="formula-box">
             <code>Estimated Gross Income = Total Energy Cost / 0.12</code><br>
@@ -777,30 +764,20 @@
             <code>val_post_odcv_usd = val_current_usd + val_odcv_impact_usd</code>
         </div>
 
-        <h3>10.5 Example</h3>
-        <div class="callout success">
-            <div class="callout-title">Valuation Impact Example</div>
-            <ul>
-                <li>Utility savings: $300k/year</li>
-                <li>Fine avoidance: $800k/year</li>
-                <li>Total OpEx avoided: $1.1M/year</li>
-                <li>At 7% cap rate &rarr; <strong>~$15.7M valuation impact</strong></li>
-            </ul>
-        </div>
     </section>
 
     <!-- Section 12: ENERGY STAR -->
     <section class="section" id="energy-star">
         <h2>Estimated Post-ODCV ENERGY STAR Score</h2>
 
-        <h3>11.1 What an ENERGY STAR Score Is</h3>
+        <h3>What an ENERGY STAR Score Is</h3>
         <p><a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" target="_blank" class="source-link">ENERGY STAR</a> is based on an efficiency ratio:</p>
         <div class="formula-box">
             <code>Efficiency Ratio = Actual <a href="https://portfoliomanager.energystar.gov/pdf/reference/Source%20Energy.pdf" target="_blank" class="source-link">Source EUI</a> / Predicted Source EUI</code>
         </div>
         <p>Lower ratio &rarr; higher score; mapping uses a gamma distribution per building type.</p>
 
-        <h3>11.2 How Prospector Estimates Post-ODCV Score</h3>
+        <h3>How Prospector Estimates Post-ODCV Score</h3>
         <ol>
             <li><strong>Weighted HVAC fraction:</strong> <code>hvac_total_pct = &Sigma;(hvac_pct &times; energy) / total_energy</code></li>
             <li><strong>Total energy reduction:</strong> <code>total_energy_reduction = odcv_pct &times; hvac_total_pct</code></li>
