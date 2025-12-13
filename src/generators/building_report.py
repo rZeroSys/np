@@ -1099,39 +1099,31 @@ def get_property_value_tooltip(row):
     return story
 
 def get_energy_star_tooltip(row):
-    """Brief explanation of Energy Star score."""
-    current_score = safe_num(row, 'energy_star_score', 0) or 0
-    post_score = safe_num(row, 'energy_star_score_post_odcv', 0) or 0
-
-    if current_score >= 75:
-        status = "Eligible for ENERGY STAR certification."
-    elif current_score >= 50:
-        gap = 75 - current_score
-        status = f"{gap:.0f} points from certification (75)."
-    else:
-        status = "Below national median."
-
-    # Add post-ODCV context if it would cross a threshold
-    post_note = ""
-    if post_score and current_score < 75 and post_score >= 75:
-        post_note = " With ODCV, would qualify for certification."
-    elif post_score and current_score < 50 and post_score >= 50:
-        post_note = " With ODCV, would move above national median."
-
-    return f"Percentile rank vs. similar buildings. {status}{post_note} (Source: <a href='https://www.energystar.gov/buildings/benchmark' target='_blank'>EPA Portfolio Manager</a>)"
+    """Brief methodology explanation for Energy Star score."""
+    return ("ENERGY STAR® scores rank your building against similar buildings nationwide. "
+            "A score of 75+ means you outperform 75% of peers and can apply for EPA certification. "
+            "We estimate post-ODCV scores by modeling how HVAC savings reduce your energy use.")
 
 def get_energy_star_threshold_upgrade(current, post):
-    """Return upgrade message if post-ODCV score crosses a ranking threshold."""
+    """Return upgrade message if post-ODCV score crosses certification threshold."""
     if current is None or post is None:
         return None
     # Certification threshold (75)
     if current < 75 and post >= 75:
-        return ('<span style="color:#15803d;font-size:0.85em;display:block;margin-top:4px;">'
-                '&#9733; Qualifies for certification!</span>')
+        return ('<span style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;'
+                'border:1px solid #86efac;border-radius:4px;padding:4px 8px;margin-top:6px;font-size:0.8em;">'
+                '<img src="../assets/images/energy_star_certified_building.png" alt="ENERGY STAR" '
+                'style="width:32px;height:auto;">'
+                '<span style="color:#15803d;">ODCV would make the difference between ENERGY STAR eligibility and ineligibility. '
+                '<a href="https://www.energystar.gov/buildings/building-recognition/building-certification" '
+                'target="_blank" style="color:#0891b2;">Learn more</a></span>'
+                '</span>')
     # Median threshold (50)
     if current < 50 and post >= 50:
-        return ('<span style="color:#0891b2;font-size:0.85em;display:block;margin-top:4px;">'
-                '&#8593; Now above median!</span>')
+        return ('<div style="background:#f0f9ff;border:1px solid #0891b2;border-radius:6px;'
+                'padding:8px 12px;margin-top:8px;font-size:0.85em;">'
+                '<strong style="color:#0891b2;">↑ Above National Median</strong><br>'
+                '<span style="color:#374151;font-size:0.9em;">Your building would outperform the typical building in its class.</span></div>')
     return None
 
 def get_electricity_kwh_tooltip(row):
@@ -1780,6 +1772,20 @@ def generate_building_info(row):
     # Vacancy/Utilization rates are shown in the ODCV Savings % tooltip dynamically
     # Energy Star Score moved to Savings section
 
+    # Utility Company
+    utility = safe_val(row, 'cost_utility_name')
+    if utility and str(utility).lower() != 'nan':
+        html += f"<tr><td>Utility</td><td>{escape(utility)}</td></tr>\n"
+
+    # LEED Certification (only show if certified)
+    leed_level = safe_val(row, 'leed_certification_level')
+    if leed_level and str(leed_level).lower() != 'nan':
+        leed_url = safe_val(row, 'leed_project_url')
+        if leed_url and str(leed_url).lower() != 'nan':
+            html += f'<tr><td>LEED</td><td><a href="{escape(leed_url)}" target="_blank" style="color:#059669;font-weight:600;">{escape(leed_level)}</a></td></tr>\n'
+        else:
+            html += f'<tr><td>LEED</td><td style="color:#059669;font-weight:600;">{escape(leed_level)}</td></tr>\n'
+
     html += """
         </table>
     </div>
@@ -2353,15 +2359,30 @@ def generate_impact_section(row):
         current_str = mini_gauge(current_es)
         new_str = mini_gauge(post_es) if post_es else '<span style="color:#999;">—</span>'
 
-        if post_es and post_es > current_es:
+        # Check if ODCV crosses certification threshold
+        crosses_threshold = current_es and post_es and current_es < 75 and post_es >= 75
+
+        if crosses_threshold:
+            # Special row for buildings where ODCV makes the certification difference
             change = int(post_es - current_es)
-            pct = (change / current_es) * 100
-            color = '#15803d' if pct >= 10 else '#0891b2' if pct >= 5 else '#3b82f6'
-            upgrade_msg = get_energy_star_threshold_upgrade(current_es, post_es) or ''
-            change_str = f'<td><span style="color:{color};font-weight:700;">↑{change} pts</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span>{upgrade_msg}</td>'
+            html += f"""
+            <tr style="{row_bg()}">
+                <td style="white-space:nowrap;"><strong>ENERGY STAR</strong>{tooltip('energy_star_score', row)} <span style="color:#15803d;">ODCV would make building <a href="https://www.energystar.gov/buildings/building-recognition/building-certification" target="_blank" style="color:#0891b2;text-decoration:underline;">eligible for certification</a>.</span></td>
+                <td style="text-align:center;">{current_str}</td>
+                <td style="text-align:center;">{new_str}</td>
+                <td><span style="color:#15803d;font-weight:700;">↑{change} pts</span></td>
+            </tr>
+"""
         else:
-            change_str = '<td>—</td>'
-        html += f"""
+            # Normal row
+            if post_es and post_es > current_es:
+                change = int(post_es - current_es)
+                pct = (change / current_es) * 100
+                color = '#15803d' if pct >= 10 else '#0891b2' if pct >= 5 else '#3b82f6'
+                change_str = f'<td><span style="color:{color};font-weight:700;">↑{change} pts</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span></td>'
+            else:
+                change_str = '<td>—</td>'
+            html += f"""
             <tr style="{row_bg()}">
                 <td><strong>ENERGY STAR</strong>{tooltip('energy_star_score', row)}</td>
                 <td>{current_str}</td>
