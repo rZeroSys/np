@@ -71,6 +71,23 @@ try:
 except Exception as e:
     print(f"Warning: Could not load EUI post-ODCV data: {e}")
 
+# Load LEED certification data
+LEED_DATA = {}
+try:
+    leed_df = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/leed_matches.csv')
+    for _, leed_row in leed_df.iterrows():
+        p_idx = leed_row.get('portfolio_idx')
+        if pd.notna(p_idx):
+            LEED_DATA[int(p_idx)] = {
+                'level': leed_row.get('leed_certification_level'),
+                'url': leed_row.get('leed_project_url'),
+                'date': leed_row.get('leed_certification_date'),
+                'rating_system': leed_row.get('leed_rating_system')
+            }
+    print(f"✓ Loaded {len(LEED_DATA)} LEED certifications")
+except Exception as e:
+    print(f"Warning: Could not load LEED data: {e}")
+
 #===============================================================================
 # CITY & BUILDING TYPE CLASSIFICATIONS
 #===============================================================================
@@ -1695,10 +1712,10 @@ def generate_building_info(row):
             # onerror: hide wrapper, show fallback text (no hover since text is visible)
             fallback_text = f'<span style="display:none;">{escape(display_name)}</span>'
             if org_url:
-                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
+                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
                 return f'<a href="{escape(org_url)}" target="_blank" class="org-logo" data-org-name="{escape(display_name)}">{img_tag}{fallback_text}</a>'
             else:
-                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
+                img_tag = f'<img src="{logo_url}" alt="{escape(display_name)}" style="height:{height}px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
                 return f'<span class="org-logo" data-org-name="{escape(display_name)}">{img_tag}{fallback_text}</span>'
         # No logo filename - just text (hyperlinked if URL exists), no hover
         if org_url:
@@ -1772,19 +1789,32 @@ def generate_building_info(row):
     # Vacancy/Utilization rates are shown in the ODCV Savings % tooltip dynamically
     # Energy Star Score moved to Savings section
 
-    # Utility Company
+    # Utility Company (only show if not empty)
     utility = safe_val(row, 'cost_utility_name')
-    if utility and str(utility).lower() != 'nan':
+    if utility and str(utility).lower() not in ['nan', '', 'none']:
         html += f"<tr><td>Utility</td><td>{escape(utility)}</td></tr>\n"
 
-    # LEED Certification (only show if certified)
-    leed_level = safe_val(row, 'leed_certification_level')
-    if leed_level and str(leed_level).lower() != 'nan':
-        leed_url = safe_val(row, 'leed_project_url')
-        if leed_url and str(leed_url).lower() != 'nan':
-            html += f'<tr><td>LEED</td><td><a href="{escape(leed_url)}" target="_blank" style="color:#059669;font-weight:600;">{escape(leed_level)}</a></td></tr>\n'
+    # LEED Certification (only show if certified, with logo) - lookup from leed_matches.csv
+    row_idx = row.name if hasattr(row, 'name') else None
+    leed_info = LEED_DATA.get(row_idx, {}) if row_idx is not None else {}
+    leed_level = leed_info.get('level')
+
+    if leed_level and str(leed_level).lower() not in ['nan', '', 'none']:
+        # Map certification level to logo filename
+        leed_logos = {
+            'Platinum': 'leed_platinum.png',
+            'Gold': 'leed_gold.png',
+            'Silver': 'leed_silver.png',
+            'Certified': 'leed_certified.png'
+        }
+        logo_file = leed_logos.get(leed_level, 'leed_certified.png')
+        logo_url = f'https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/{logo_file}'
+        leed_url = leed_info.get('url')
+
+        if leed_url and str(leed_url).lower() not in ['nan', '', 'none']:
+            html += f'<tr><td>LEED</td><td><a href="{escape(leed_url)}" target="_blank" class="org-logo" data-org-name="LEED {escape(leed_level)}"><img src="{logo_url}" alt="LEED {escape(leed_level)}" style="height:40px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;color:#059669;font-weight:600;">{escape(leed_level)}</span></a></td></tr>\n'
         else:
-            html += f'<tr><td>LEED</td><td style="color:#059669;font-weight:600;">{escape(leed_level)}</td></tr>\n'
+            html += f'<tr><td>LEED</td><td><span class="org-logo" data-org-name="LEED {escape(leed_level)}"><img src="{logo_url}" alt="LEED {escape(leed_level)}" style="height:40px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className=\'\';this.parentElement.removeAttribute(\'data-org-name\');this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;color:#059669;font-weight:600;">{escape(leed_level)}</span></span></td></tr>\n'
 
     html += """
         </table>
@@ -2346,14 +2376,14 @@ def generate_impact_section(row):
             # Score determines how much of the arc is filled (0-100 maps to arc)
             # Full arc is 180 degrees, score% of that
             fill_pct = score / 100
-            return f'''<div style="display:inline-flex;align-items:center;gap:6px;">
-                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+            return f'''<div style="display:inline-flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
                     <!-- Gray background arc -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
                     <!-- Colored fill arc based on score -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="{color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="{fill_pct * 126} 126"/>
                 </svg>
-                <span style="font-weight:700;font-size:1.1em;color:{color};">{int(score)}</span>
+                <span style="font-weight:700;font-size:1.2em;color:{color};min-width:28px;">{int(score)}</span>
             </div>'''
 
         current_str = mini_gauge(current_es)
@@ -2365,11 +2395,12 @@ def generate_impact_section(row):
         if crosses_threshold:
             # Special row for buildings where ODCV makes the certification difference
             change = int(post_es - current_es)
+            cert_tooltip = '<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 18px; height: 18px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 18px; font-size: 12px; cursor: help; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">i<span class="tooltip-content">ENERGY STAR certification requires a score of 75+. This building scores below 75 today. ODCV makes the score cross the 75 eligibility threshold—qualifying for official EPA certification.</span></span>'
             html += f"""
             <tr style="{row_bg()}">
-                <td style="white-space:nowrap;"><strong>ENERGY STAR</strong>{tooltip('energy_star_score', row)} <span style="color:#15803d;">ODCV would make building <a href="https://www.energystar.gov/buildings/building-recognition/building-certification" target="_blank" style="color:#0891b2;text-decoration:underline;">eligible for certification</a>.</span></td>
-                <td style="text-align:center;">{current_str}</td>
-                <td style="text-align:center;">{new_str}</td>
+                <td><strong>ENERGY STAR</strong>{tooltip('energy_star_score', row)}<br><span style="color:#15803d;">ODCV makes building <a href="https://www.energystar.gov/buildings/building-recognition/building-certification" target="_blank" style="color:#0891b2;text-decoration:underline;">certification eligible</a>.{cert_tooltip}</span></td>
+                <td>{current_str}</td>
+                <td>{new_str}</td>
                 <td><span style="color:#15803d;font-weight:700;">↑{change} pts</span></td>
             </tr>
 """
@@ -2452,7 +2483,7 @@ def generate_html_report(row):
             background: white;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }}
 
         /* Page Header */
@@ -2565,7 +2596,8 @@ def generate_html_report(row):
             color: #1a202c;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #0066cc;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #0066cc 0%, #0066cc 60%, transparent 100%) 1;
         }}
 
         /* Tables */
@@ -2580,6 +2612,15 @@ def generate_html_report(row):
             color: white;
             padding: 12px;
             text-align: left;
+            font-weight: 600;
+        }}
+
+        th:first-child {{
+            border-radius: 6px 0 0 0;
+        }}
+
+        th:last-child {{
+            border-radius: 0 6px 0 0;
         }}
 
         td {{
@@ -2587,8 +2628,12 @@ def generate_html_report(row):
             border-bottom: 1px solid #e5e7eb;
         }}
 
-        tr:hover {{
+        tr:nth-child(even) td {{
             background: #f9fafb;
+        }}
+
+        tr:hover td {{
+            background: #f3f4f6;
         }}
 
         /* Chart */
@@ -2631,16 +2676,17 @@ def generate_html_report(row):
         .info-tooltip {{
             display: inline-block;
             margin-left: 5px;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 18px;
             font-size: 12px;
             cursor: help;
             position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }}
 
         .tooltip-content {{

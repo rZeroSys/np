@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-13 15:44:55 EST -->
+<!-- Generated: 2025-12-13 17:05:19 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
             background: white;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
 
         /* Page Header */
@@ -144,7 +144,8 @@
             color: #1a202c;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #0066cc;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #0066cc 0%, #0066cc 60%, transparent 100%) 1;
         }
 
         /* Tables */
@@ -159,6 +160,15 @@
             color: white;
             padding: 12px;
             text-align: left;
+            font-weight: 600;
+        }
+
+        th:first-child {
+            border-radius: 6px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 6px 0 0;
         }
 
         td {
@@ -166,8 +176,12 @@
             border-bottom: 1px solid #e5e7eb;
         }
 
-        tr:hover {
+        tr:nth-child(even) td {
             background: #f9fafb;
+        }
+
+        tr:hover td {
+            background: #f3f4f6;
         }
 
         /* Chart */
@@ -210,16 +224,17 @@
         .info-tooltip {
             display: inline-block;
             margin-left: 5px;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 18px;
             font-size: 12px;
             cursor: help;
             position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .tooltip-content {
@@ -357,7 +372,8 @@
 <tr><td>Size</td><td>51,227 sqft</td></tr>
 <tr><td>Type</td><td>Theater</td></tr>
 <tr><td>Year Built</td><td>1996</td></tr>
-<tr><td>Tenant</td><td><div style=""><a href="https://www.cinemark.com" target="_blank" class="org-logo" data-org-name="Cinemark"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cinemark_Holdings.png" alt="Cinemark" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Cinemark</span></a></div></td></tr>
+<tr><td>Tenant</td><td><div style=""><a href="https://www.cinemark.com" target="_blank" class="org-logo" data-org-name="Cinemark"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Cinemark_Holdings.png" alt="Cinemark" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Cinemark</span></a></div></td></tr><tr><td>Utility</td><td>Pacific Gas &amp; Electric Co.</td></tr>
+
         </table>
     </div>
 

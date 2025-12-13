@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-13 15:45:45 EST -->
+<!-- Generated: 2025-12-13 17:06:08 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
             background: white;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
 
         /* Page Header */
@@ -144,7 +144,8 @@
             color: #1a202c;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #0066cc;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #0066cc 0%, #0066cc 60%, transparent 100%) 1;
         }
 
         /* Tables */
@@ -159,6 +160,15 @@
             color: white;
             padding: 12px;
             text-align: left;
+            font-weight: 600;
+        }
+
+        th:first-child {
+            border-radius: 6px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 6px 0 0;
         }
 
         td {
@@ -166,8 +176,12 @@
             border-bottom: 1px solid #e5e7eb;
         }
 
-        tr:hover {
+        tr:nth-child(even) td {
             background: #f9fafb;
+        }
+
+        tr:hover td {
+            background: #f3f4f6;
         }
 
         /* Chart */
@@ -210,16 +224,17 @@
         .info-tooltip {
             display: inline-block;
             margin-left: 5px;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 18px;
             font-size: 12px;
             cursor: help;
             position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .tooltip-content {
@@ -357,7 +372,8 @@
 <tr><td>Size</td><td>60,969 sqft</td></tr>
 <tr><td>Type</td><td>K-12 School</td></tr>
 <tr><td>Year Built</td><td>1931</td></tr>
-<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://dcps.dc.gov" target="_blank" class="org-logo" data-org-name="DC Public Schools"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia_Public_Schools.png" alt="DC Public Schools" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">DC Public Schools</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Mann Elementary School (Washington)"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Mann_Elementary_School_Washington.png" alt="Mann Elementary School (Washington)" style="height:60px;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Mann Elementary School (Washington)</span></span></div></td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://dcps.dc.gov" target="_blank" class="org-logo" data-org-name="DC Public Schools"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/District_Of_Columbia_Public_Schools.png" alt="DC Public Schools" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">DC Public Schools</span></a></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Mann Elementary School (Washington)"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Mann_Elementary_School_Washington.png" alt="Mann Elementary School (Washington)" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Mann Elementary School (Washington)</span></span></div></td></tr><tr><td>Utility</td><td>Potomac Electric Power Co</td></tr>
+
         </table>
     </div>
 
@@ -433,23 +449,23 @@
 
             <tr style="">
                 <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content"><a href="https://www.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR</a>® scores rank your building against similar buildings nationwide. A score of 75+ means you outperform 75% of peers and can apply for EPA certification. We estimate post-ODCV scores by modeling how HVAC savings reduce your energy use.</span></span></td>
-                <td><div style="display:inline-flex;align-items:center;gap:6px;">
-                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                <td><div style="display:inline-flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
                     <!-- Gray background arc -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
                     <!-- Colored fill arc based on score -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#b91c1c" stroke-width="8" stroke-linecap="round" stroke-dasharray="60.48 126"/>
                 </svg>
-                <span style="font-weight:700;font-size:1.1em;color:#b91c1c;">48</span>
+                <span style="font-weight:700;font-size:1.2em;color:#b91c1c;min-width:28px;">48</span>
             </div></td>
-                <td><div style="display:inline-flex;align-items:center;gap:6px;">
-                <svg viewBox="0 0 100 55" style="width:50px;height:28px;">
+                <td><div style="display:inline-flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
                     <!-- Gray background arc -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
                     <!-- Colored fill arc based on score -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#a16207" stroke-width="8" stroke-linecap="round" stroke-dasharray="73.08 126"/>
                 </svg>
-                <span style="font-weight:700;font-size:1.1em;color:#a16207;">58</span>
+                <span style="font-weight:700;font-size:1.2em;color:#a16207;min-width:28px;">58</span>
             </div></td>
                 <td><span style="color:#15803d;font-weight:700;">↑10 pts</span> <span style="color:#64748b;font-size:0.9em;">(21%)</span></td>
             </tr>
