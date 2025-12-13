@@ -5173,7 +5173,7 @@ function applyFilters() {{
     }}
 }}
 
-function selectVertical(v) {{
+function selectVertical(v, preserveBuildingType = false) {{
     // Toggle behavior: clicking same vertical deselects it (returns to 'all')
     if (activeVertical === v && v !== 'all') {{
         v = 'all';
@@ -5192,16 +5192,15 @@ function selectVertical(v) {{
             btn.classList.remove('selected');
         }}
     }});
-    // Only clear building type if it's from a chip button that got hidden
-    const selectedChipBtn = document.querySelector('.building-type-btn.selected');
-    if (selectedChipBtn && selectedChipBtn.classList.contains('hidden')) {{
-        // The selected chip button is now hidden, so clear the filter
+    // Clear building type when switching verticals (unless preserving for dropdown selection)
+    if (!preserveBuildingType) {{
         selectedBuildingType = null;
+        document.querySelectorAll('.building-type-btn').forEach(b => b.classList.remove('selected'));
         document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
+        document.querySelectorAll('#typeFilterDropdown input[name="type-filter"]').forEach(r => r.checked = false);
         const chip = document.getElementById('building-type-chip');
         if (chip) chip.classList.remove('visible');
     }}
-    // Don't touch selectedBuildingType if it was set from dropdown radio
 
     applyFilters();
 }}
@@ -5547,6 +5546,8 @@ function clearAllFilters() {{
         b.classList.remove('hidden');
     }});
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
+    // Reset typeFilterDropdown radio buttons
+    document.querySelectorAll('#typeFilterDropdown input[name="type-filter"]').forEach(r => r.checked = false);
 
     const cityFilter = document.getElementById('city-filter');
     const typeFilter = document.getElementById('type-filter');
@@ -5555,6 +5556,8 @@ function clearAllFilters() {{
     const searchEl = document.getElementById('global-search');
     if (searchEl) searchEl.value = '';
     document.querySelectorAll('.opp-tile').forEach(t => t.classList.remove('selected'));
+    // Clear any inline display styles (fixes conflict with applyAllFilters)
+    document.querySelectorAll('.portfolio-card').forEach(card => card.style.display = '');
 
     updateFilterChips();
     applyFilters();
@@ -5833,7 +5836,7 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
         return;
     }}
 
-    // Set building type BEFORE calling selectVertical (so it doesn't get cleared)
+    // Set building type BEFORE calling selectVertical
     selectedBuildingType = buildingType;
 
     // Ensure only this radio is selected (clear all others explicitly)
@@ -5841,8 +5844,8 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
         r.checked = (r.dataset.type === buildingType);
     }});
 
-    // Switch to that vertical
-    selectVertical(vertical);
+    // Switch to that vertical, preserving the building type we just set
+    selectVertical(vertical, true);
 
     // Add selected class to the vertical button (shows shadow + X)
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
