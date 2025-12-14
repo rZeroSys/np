@@ -2837,6 +2837,7 @@ def generate_batch_reports(args):
 
     for row_dict, idx in rows_batch:
         row = pd.Series(row_dict)
+        row.name = idx  # Preserve index for LEED lookup
         building_id = row.get('id_building', f'unknown_{idx}')
         safe_building_id = building_id.replace('/', '_').replace('\\', '_')
 
@@ -2858,6 +2859,7 @@ def generate_single_report(args):
 
     # Convert dict back to pandas Series for compatibility
     row = pd.Series(row_dict)
+    row.name = idx  # Preserve index for LEED lookup
     building_id = row.get('id_building', f'unknown_{idx}')
     safe_building_id = building_id.replace('/', '_').replace('\\', '_')
 
