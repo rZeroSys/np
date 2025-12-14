@@ -575,7 +575,7 @@ DEFAULT_ENERGY_NOTES = {
 #===============================================================================
 
 BUILDING_TYPE_STORIES = {
-    'Office': "We calculate savings using federal CBECS survey data for how much energy goes to HVAC, city-specific office vacancy rates from CBRE and Cushman & Wakefield, and real occupancy data from Kastle Systems badge swipes. Buildings in cities with lower office attendance (San Francisco at 38%) show higher savings potential than cities with stronger return-to-office (New York at 55%). Adjusted for building age and current efficiency.",
+    'Office': "We calculate savings using federal CBECS survey data for how much energy goes to HVAC, city-specific office vacancy rates from CBRE, and real occupancy data from Kastle Systems badge swipes. Buildings in cities with lower office attendance (San Francisco at 38%) show higher savings potential than cities with stronger return-to-office (New York at 55%). Adjusted for building age and current efficiency.",
 
     'Hotel': "Room occupancy (STR data: NYC 87%, national 63%) times guest presence (~45% of the day—the rest they're out at meetings, sightseeing, dining) gives true utilization. A 63%-occupied hotel runs just 28% actual utilization—meaning 72% of ventilation conditions empty rooms. High-occupancy markets like NYC show less savings potential than lower-occupancy markets like Denver or Atlanta.",
 
@@ -595,7 +595,7 @@ BUILDING_TYPE_STORIES = {
 
     'Inpatient Hospital': "Hospitals are a limited-opportunity building type due to 24/7 operation and infection control requirements. Significant savings come from non-clinical areas over-ventilated at medical-grade rates around the clock: waiting rooms empty overnight, exam rooms only periodically occupied, admin offices with business-hours staff, cafeterias with variable traffic. ASHRAE 170 mandates minimum rates in critical areas, but waiting rooms, admin, and lobbies offer real opportunity.",
 
-    'Mixed Use': "Mixed-use buildings—typically office towers with ground-floor retail—run centralized HVAC that ventilates vacant floors at near-design rates. We use the same sources as offices: city vacancy from CBRE and Cushman & Wakefield (14-30% by market) and Kastle badge-swipe utilization (36-52%). Opportunity comes from both vacant space and leased space with low actual attendance.",
+    'Mixed Use': "Mixed-use buildings—typically office towers with ground-floor retail—run centralized HVAC that ventilates vacant floors at near-design rates. We use the same sources as offices: city vacancy from CBRE (14-30% by market) and Kastle badge-swipe utilization (36-52%). Opportunity comes from both vacant space and leased space with low actual attendance.",
 
     'Wholesale Club': "Wholesale clubs have 30-40% of the building in back-of-house stock and warehouse space with almost nobody in it—just occasional forklift operators restocking shelves. We weight the sales floor (60% of building at ~48% customer traffic) against these giant empty stock areas (40% at ~10% occupancy), giving 30-38% true building-wide utilization.",
 
@@ -635,7 +635,7 @@ DEFAULT_BUILDING_STORY = "We calculate savings using federal CBECS survey data f
 
 # Static fallback (dynamic functions below are preferred)
 ENERGY_COLUMN_TOOLTIPS = {
-    'current': "From city benchmarking disclosure or ENERGY STAR Portfolio Manager.",
+    'current': "From city benchmarking disclosure. Actual metered energy.",
     'new': "Projected energy after ODCV implementation.",
     'change': "Annual energy reduction from ODCV.",
 }
@@ -646,7 +646,7 @@ ENERGY_COLUMN_TOOLTIPS = {
 
 # NEW column: Methodology + data sources by building type
 NEW_COLUMN_SOURCES = {
-    'Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>/Cushman vacancy rates, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> badge-swipe occupancy data.",
+    'Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights/figures/q3-2025-us-office-figures' target='_blank'>CBRE</a> vacancy rates, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> badge-swipe occupancy data.",
     'Medical Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a> vacancy data, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> exam room utilization benchmarks.",
     'Hotel': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://str.com/' target='_blank'>STR</a> room occupancy data, guest presence patterns.",
     'K-12 School': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> instructional day requirements, state calendar data.",
@@ -667,7 +667,7 @@ NEW_COLUMN_SOURCES = {
     'Outpatient Clinic': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> provider productivity benchmarks.",
     'Bank Branch': "HVAC reduced using <a href='https://www.fdic.gov/' target='_blank'>FDIC</a> transaction trends, branch traffic patterns.",
     'Enclosed Mall': "HVAC reduced using <a href='https://www.icsc.com/' target='_blank'>ICSC</a> traffic data, inline vacancy rates.",
-    'Strip Mall': "HVAC reduced using <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>/CoStar vacancy, retail traffic patterns.",
+    'Strip Mall': "HVAC reduced using <a href='https://www.cbre.com/insights/figures/q3-2025-us-office-figures' target='_blank'>CBRE</a> vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
     'Vehicle Dealership': "HVAC reduced using <a href='https://www.nada.org/' target='_blank'>NADA</a> traffic data, showroom vs service bay weighting.",
     'Event Space': "HVAC reduced using event booking schedules, setup/teardown patterns.",
@@ -701,7 +701,7 @@ CHANGE_COLUMN_INSIGHTS = {
     'Outpatient Clinic': "Exam rooms are ventilated at medical-grade rates for infection control, but patients only occupy them for 15-30 minute appointments. Between patients, rooms sit empty but fully ventilated. (CBECS 2018, MGMA)",
     'Bank Branch': "Banks are open just 45-50 hours/week, with 20-40 customers per day in spaces designed for lines of 50. Digital banking means fewer visitors, but HVAC runs for a full lobby. (CBECS 2018, FDIC)",
     'Enclosed Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas get fully conditioned whether 100 or 1,000 shoppers are present. (CBECS 2018, ICSC)",
-    'Strip Mall': "Strip malls have tenant turnover (spaces sit empty between leases) plus normal retail traffic swings. Individual rooftop units make it easy to condition only occupied spaces. (CBECS 2018, CBRE, CoStar)",
+    'Strip Mall': "Strip malls have tenant turnover (spaces sit empty between leases) plus normal retail traffic swings. Individual rooftop units make it easy to condition only occupied spaces. (CBECS 2018, CBRE)",
     'Wholesale Club': "30-40% of the building is back-of-house warehouse with almost nobody in it—just occasional forklift operators restocking shelves. The sales floor itself is only busy on weekends. (CBECS 2018)",
     'Vehicle Dealership': "Showrooms have high ceilings and huge windows conditioning space that averages 40% customer occupancy. Service bays are busier during business hours but close evenings and weekends. (CBECS 2018, NADA)",
     'Event Space': "Banquet halls and conference centers host 2-4 events per week, sitting empty the rest of the time. HVAC conditions empty ballrooms waiting for the next wedding or conference. (CBECS 2018)",
@@ -722,7 +722,7 @@ def get_current_column_tooltip(row):
     elif state == 'CA':
         return "From California AB 802 disclosure. Actual metered energy reported by the building."
     else:
-        return "From ENERGY STAR Portfolio Manager or city benchmarking. Actual metered energy."
+        return "From public energy benchmarking data. Actual metered energy."
 
 def get_new_column_tooltip(row):
     """NEW column tooltip - explains methodology + data sources by building type."""
@@ -742,8 +742,6 @@ def get_change_column_tooltip(row):
 # NOTE: fuel_oil, district_steam, pct_hvac_elec are now DYNAMIC (see DYNAMIC_TOOLTIPS)
 TOOLTIPS = {
     'owner': "Building ownership from public records and regulatory filings.",
-    # 'energy_site_eui' is now a DYNAMIC tooltip - see get_site_eui_tooltip()
-    'carbon_reduction': "Less energy used means less carbon emitted. Emissions calculated from your actual electricity, gas, and steam use—converted using EPA's regional grid emission factors.",
     # Electricity Details section (static explanations)
     'energy_rate': "Cost per kWh of electricity. Varies by utility and rate class. Source: NREL utility rate database.",
     'demand_rate': "Cost per kW of peak demand per month. Utilities charge this to cover infrastructure costs for peak capacity.",
@@ -957,11 +955,7 @@ def get_climate_modifier(climate_zone):
     return 1.00, "Moderate"
 
 def get_odcv_savings_tooltip(row):
-    """
-    Chad-readable ODCV savings explanation.
-    Dynamic by building type - explains WHY this building has its specific %.
-    Short enough to read aloud, technical enough to sound legit.
-    """
+    """Dynamic ODCV savings explanation by building type."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
 
@@ -1092,12 +1086,8 @@ def get_odcv_savings_tooltip(row):
         return f"{bldg_type}s save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Most buildings are ventilated at design capacity regardless of how many people are actually inside. ODCV adjusts airflow to match real occupancy, reducing waste during low-traffic periods. This building: {odcv_pct*100:.0f}% savings.{src}"
 
 
-def get_annual_savings_tooltip(row):
-    """Alias for backward compatibility - redirects to new function."""
-    return get_odcv_savings_tooltip(row)
-
 def get_property_value_tooltip(row):
-    """SALESPERSON TALKING POINTS - data sources for property value calculation."""
+    """Data sources for property value calculation."""
     bldg_type = safe_val(row, 'bldg_type', '')
     city = safe_val(row, 'loc_city', '')
     cap_rate_decimal = safe_num(row, 'val_cap_rate_pct', 0.07) or 0.07
@@ -1292,7 +1282,10 @@ def get_total_ghg_tooltip(row):
 
 def get_carbon_reduction_tooltip(row):
     """Brief explanation of carbon emissions calculation methodology."""
-    return "Carbon emissions from electricity vary dramatically by region—Seattle's hydro grid produces 29x less carbon per kWh than coal-heavy St. Louis. Gas emissions are standard combustion rates. We use EPA eGRID regional factors for your building's location. (EPA eGRID 2023)"
+    city = safe_val(row, 'loc_city', '')
+    state = safe_val(row, 'loc_state', '')
+    location = city if city else state if state else "your location"
+    return f"Carbon per kWh varies by grid—we use EPA eGRID emission factors for {location}. Gas emissions use standard combustion rates. (EPA eGRID 2023)"
 
 def get_fine_avoidance_tooltip(row):
     """Brief tooltip for BPS fine avoidance."""
@@ -1340,123 +1333,29 @@ def get_fine_avoidance_tooltip(row):
 
 def get_utility_cost_savings_tooltip(row):
     """Brief tooltip for utility cost savings methodology."""
-    return "Annual dollar savings from conditioning less empty space. Energy usage comes from city benchmarking filings (LL84, BERDO, etc.) or EPA Portfolio Manager. We determine what portion is HVAC for your building type, apply your ODCV savings rate, then multiply by local utility rates (including taxes and distribution fees). (CBECS 2018, EIA, NREL Utility Rate Database)"
+    city = safe_val(row, 'loc_city', '')
+    state = safe_val(row, 'loc_state', '')
 
-
-def get_odcv_methodology_tooltip(row):
-    """SALES CALL READY tooltip for ODCV Savings % row.
-
-    Chad reads this when energy nerd asks "how did you
-    calculate that percentage?" Uses vertical language + formula.
-    """
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
-
-    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
-    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
-    utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
-
-    floor_pct = type_info.get('floor', 0.15) * 100
-    ceiling_pct = type_info.get('ceiling', 0.35) * 100
-
-    lines = []
-    lines.append(f"WHY {odcv_pct*100:.0f}% HVAC SAVINGS?")
-    lines.append("")
-    lines.append(f"{bldg_type}s: {floor_pct:.0f}-{ceiling_pct:.0f}% typical")
-    lines.append("")
-
-    # Building-type explanation in VERTICAL LANGUAGE
-    if bldg_type == 'Data Center':
-        lines.append("Data centers cool servers, not people.")
-        lines.append("Occupancy doesn't affect cooling load.")
-        lines.append("ODCV savings: 0%")
-        return '\n'.join(lines)
-
-    if bldg_type in ['Office', 'Medical Office', 'Mixed Use']:
-        lines.append("THE OPPORTUNITY:")
-        if vacancy > 0:
-            lines.append(f"  {vacancy*100:.0f}% vacancy (floors still ventilated)")
-        if utilization > 0:
-            lines.append(f"  {utilization*100:.0f}% utilization (hybrid work)")
-        lines.append("")
-        lines.append("HVAC runs like building is full")
-        lines.append("even when it's half empty.")
-
-    elif bldg_type == 'K-12 School':
-        empty_pct = (1 - utilization) * 100 if utilization else 55
-        lines.append("THE OPPORTUNITY:")
-        lines.append(f"  {empty_pct:.0f}% of year classrooms empty:")
-        lines.append("  • After 3pm daily")
-        lines.append("  • Weekends")
-        lines.append("  • 10+ weeks summer")
-        lines.append("")
-        lines.append("Highest ceiling (45%) of any type.")
-
-    elif bldg_type == 'Hotel':
-        occ = utilization * 100 if utilization else 70
-        lines.append("THE OPPORTUNITY:")
-        lines.append(f"  {occ:.0f}% room occupancy typical")
-        lines.append("  + Guests out during day")
-        lines.append("  + Checkout gaps")
-        lines.append("")
-        lines.append("Room HVAC can match actual guests.")
-
-    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        lines.append("CONSTRAINED BY CODE:")
-        lines.append("  ASHRAE 170: 15-25 air changes/hr")
-        lines.append("  in ORs regardless of occupancy.")
-        lines.append("")
-        lines.append("Only non-clinical areas qualify.")
-        lines.append(f"Max achievable: {ceiling_pct:.0f}%")
-
-    elif bldg_type == 'Retail Store':
-        lines.append("THE OPPORTUNITY:")
-        lines.append("  Traffic varies throughout day:")
-        lines.append("  opening, mid-morning lull, rushes")
-        lines.append("")
-        lines.append("ODCV matches actual customer traffic.")
-
-    elif bldg_type == 'Gym':
-        lines.append("THE OPPORTUNITY:")
-        lines.append("  Extreme peak/off-peak:")
-        lines.append("  6-8am packed, 10am-4pm empty")
-        lines.append("")
-        lines.append("Ventilating empty gym = pure waste.")
-
-    elif bldg_type in ['Theater', 'Venue']:
-        lines.append("THE OPPORTUNITY:")
-        lines.append("  Empty for hours/days between events")
-        lines.append("  then full capacity for shows.")
-        lines.append("")
-        lines.append("Highest variability = high savings.")
-
+    # City-specific law name
+    if city in CITY_DISCLOSURE_LAWS:
+        law_name = CITY_DISCLOSURE_LAWS[city]
+        source = f"{law_name} disclosure"
+    elif state == 'CA':
+        source = "California AB 802 disclosure"
     else:
-        if utilization > 0:
-            empty_pct = (1 - utilization) * 100
-            lines.append(f"THE OPPORTUNITY:")
-            lines.append(f"  {empty_pct:.0f}% underutilized")
-        lines.append("")
-        lines.append("ODCV adjusts to actual occupancy.")
+        source = "public energy benchmarking data"
 
-    lines.append("")
-    lines.append(f"This building: {odcv_pct*100:.0f}%")
-    lines.append("")
-    lines.append("CALCULATION:")
-    lines.append(f"  Floor ({floor_pct:.0f}%) + opportunity score × range")
-    lines.append("  Adjusted for climate zone and building efficiency.")
-    return '\n'.join(lines)
+    return f"Annual savings from conditioning less empty space. Energy data from {source}. HVAC portion determined by building type, multiplied by local utility rates. (CBECS 2018, EIA)"
+
 
 # Map of dynamic tooltip keys to their generator functions
 DYNAMIC_TOOLTIPS = {
-    # Impact Section - SALES CALL READY
-    'utility_cost_savings': get_utility_cost_savings_tooltip,  # For Utility Cost row - $ talk OK
-    'odcv_methodology': get_odcv_methodology_tooltip,  # For ODCV Savings % explanation
+    # Impact Section
+    'utility_cost_savings': get_utility_cost_savings_tooltip,
     'property_value_increase': get_property_value_tooltip,
     'fine_avoidance': get_fine_avoidance_tooltip,
     'energy_star_score': get_energy_star_tooltip,
-    'carbon_reduction': get_carbon_reduction_tooltip,  # NEW: storytelling carbon tooltip
-    # Legacy - keep for backward compatibility
-    'annual_savings': get_annual_savings_tooltip,
+    'carbon_reduction': get_carbon_reduction_tooltip,
     # Energy Table - ENERGY SAVINGS ONLY (no $ talk)
     'energy_elec_kwh': get_electricity_kwh_tooltip,
     'natural_gas': get_natural_gas_tooltip,
@@ -1913,17 +1812,17 @@ def generate_electricity_details(row):
     # Total cost
     total_cost = safe_num(row, 'cost_elec_total_annual')
     if total_cost:
-        html += f"<tr><td>Total Annual Cost{tooltip('total_annual_cost')}</td><td>{format_currency(total_cost)}</td></tr>"
+        html += f"<tr><td>Total Annual Cost</td><td>{format_currency(total_cost)}</td></tr>"
 
     # Energy charges
     energy_cost = safe_num(row, 'cost_elec_energy_annual')
     if energy_cost:
-        html += f"<tr><td>Energy Charges{tooltip('energy_charges')}</td><td>{format_currency(energy_cost)}</td></tr>"
+        html += f"<tr><td>Energy Charges</td><td>{format_currency(energy_cost)}</td></tr>"
 
     # Demand charges
     demand_cost = safe_num(row, 'cost_elec_demand_annual')
     if demand_cost:
-        html += f"<tr><td>Demand Charges{tooltip('demand_charges')}</td><td>{format_currency(demand_cost)}</td></tr>"
+        html += f"<tr><td>Demand Charges</td><td>{format_currency(demand_cost)}</td></tr>"
 
     # Energy rate
     energy_rate = safe_num(row, 'cost_elec_rate_kwh')

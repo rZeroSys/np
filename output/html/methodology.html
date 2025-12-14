@@ -175,17 +175,6 @@
         <p>How Nationwide Prospector calculates ODCV savings, BPS fine avoidance, and property value impact.</p>
     </div>
 
-    <!-- Section 1: The Problem & Solution -->
-    <section class="section">
-        <h2>The Problem</h2>
-        <p>Commercial buildings are designed for peak occupancy that rarely occurs. A conference room for 20 sits empty most of the day. An office floor leased to 200 has 80 present. A school closes for summer but HVAC runs for maintenance.</p>
-        <p>HVAC systems ventilate, heat, and cool based on design capacity&mdash;not actual presence. The result: buildings condition vast amounts of empty space.</p>
-
-        <h2 style="margin-top: 35px;">The Solution</h2>
-        <p><strong>ODCV (Occupancy-Driven Control Ventilation)</strong> uses sensors to detect real-time occupancy and adjusts ventilation accordingly. When a floor is empty, airflow drops. When a conference room fills, ventilation increases. The building breathes with its occupants instead of running at full blast 24/7.</p>
-        <p>This isn't theoretical&mdash;it's measured. We calculate savings using actual vacancy rates, utilization data, and energy benchmarks for each building.</p>
-    </section>
-
     <!-- Section 2: Opportunity by Building Type -->
     <section class="section">
         <h2>How Opportunity Varies by Building Type</h2>
@@ -197,63 +186,63 @@
                     <th>Building Type</th>
                     <th>Method</th>
                     <th>Why</th>
+                    <th>Sources</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Office, Medical Office, Mixed Use</strong></td>
+                    <td><strong>Office</strong></td>
                     <td>Vacancy + Utilization</td>
                     <td>Multi-tenant: unleased space + leased space where tenants aren't showing up</td>
+                    <td><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a> (vacancy), <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a> (utilization)</td>
+                </tr>
+                <tr>
+                    <td><strong>Higher Ed/K-12</strong></td>
+                    <td>Utilization</td>
+                    <td>Schedule-driven: empty summers, holidays, evenings, weekends</td>
+                    <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
                 </tr>
                 <tr>
                     <td><strong>Hotel</strong></td>
                     <td>Utilization</td>
                     <td>Rooms booked or not; guests out during day for meetings, sightseeing</td>
+                    <td><a href="https://str.com/" class="source-link">STR</a></td>
                 </tr>
                 <tr>
-                    <td><strong>K-12 School, Higher Ed</strong></td>
-                    <td>Utilization</td>
-                    <td>Schedule-driven: empty summers, holidays, evenings, weekends</td>
-                </tr>
-                <tr>
-                    <td><strong>Retail, Supermarket, Mall</strong></td>
+                    <td><strong>Retail Store</strong></td>
                     <td>Utilization</td>
                     <td>Traffic swings between peak and empty; designed for peak</td>
+                    <td>Operating hours, traffic patterns</td>
                 </tr>
                 <tr>
-                    <td><strong>Theater, Venue, Event Space</strong></td>
-                    <td>Utilization</td>
-                    <td>Spaces for thousands sit empty most of the year</td>
-                </tr>
-                <tr>
-                    <td><strong>Restaurant/Bar</strong></td>
-                    <td>Utilization (dining only)</td>
-                    <td>Kitchen exhaust must run; savings from dining areas between rushes</td>
-                </tr>
-                <tr>
-                    <td><strong>Gym/Fitness</strong></td>
-                    <td>Utilization</td>
-                    <td>Sharp AM/PM peaks, near-empty midday and overnight</td>
-                </tr>
-                <tr>
-                    <td><strong>Library/Museum</strong></td>
-                    <td>Utilization</td>
-                    <td>Climate runs 24/7 for preservation; visitors only during limited hours</td>
-                </tr>
-                <tr>
-                    <td><strong>Hospital, Laboratory</strong></td>
+                    <td><strong>Hospital</strong></td>
                     <td>Utilization (dampened)</td>
                     <td>Code-mandated ventilation; savings in non-clinical areas only</td>
+                    <td><a href="https://www.aha.org/statistics-trends-reports" class="source-link">AHA</a></td>
                 </tr>
                 <tr>
                     <td><strong>Residential Care</strong></td>
                     <td>Utilization (dampened)</td>
                     <td>Residents on-site 24/7 unlike hotel guests</td>
+                    <td><a href="https://www.nic.org/nic-map-vision/" class="source-link">NIC MAP</a></td>
                 </tr>
                 <tr>
-                    <td><strong>Data Center</strong></td>
-                    <td>None</td>
-                    <td>Cooling is for equipment heat, not people</td>
+                    <td><strong>Theater</strong></td>
+                    <td>Utilization</td>
+                    <td>Spaces for thousands sit empty most of the year</td>
+                    <td>Event schedules</td>
+                </tr>
+                <tr>
+                    <td><strong>Library/Museum</strong></td>
+                    <td>Utilization</td>
+                    <td>Climate runs 24/7 for preservation; visitors only during limited hours</td>
+                    <td>Operating hours</td>
+                </tr>
+                <tr>
+                    <td><strong>Restaurant/Bar</strong></td>
+                    <td>Utilization (dining only)</td>
+                    <td>Kitchen exhaust must run; savings from dining areas between rushes</td>
+                    <td>Operating hours</td>
                 </tr>
             </tbody>
         </table>
@@ -317,59 +306,14 @@
         <h2>Beyond Utility Savings</h2>
 
         <h3>BPS Fine Avoidance</h3>
-        <p>Seven cities penalize buildings exceeding emissions or energy targets: NYC (LL97), Boston (BERDO), Cambridge (BEUDO), Washington DC, Denver, Seattle, St. Louis.</p>
+        <p>Seven cities penalize buildings exceeding emissions or energy targets: NYC (LL97), Boston (BERDO), Cambridge (BEUDO), Washington DC, Denver, Seattle, St. Louis. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for details.</p>
         <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces fines.<a href="#fn5" class="footnote-ref">5</a></p>
 
         <h3>Property Value Impact</h3>
-        <p>Commercial real estate is valued on Net Operating Income. Every dollar of OpEx avoided increases NOI by a dollar. Value increase = annual savings &divide; cap rate.<a href="#fn6" class="footnote-ref">6</a></p>
+        <p>Commercial real estate is valued on Net Operating Income. Every dollar of OpEx avoided increases NOI by a dollar. Value increase = annual savings ÷ cap rate (cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>).<a href="#fn6" class="footnote-ref">6</a></p>
 
         <h3>ENERGY STAR Score Improvement</h3>
         <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn7" class="footnote-ref">7</a></p>
-    </section>
-
-    <!-- Section 6: Data Sources -->
-    <section class="section">
-        <h2>Data Sources</h2>
-
-        <h3>Building Energy</h3>
-        <ul>
-            <li><a href="https://portfoliomanager.energystar.gov/" class="source-link">EPA ENERGY STAR Portfolio Manager</a></li>
-            <li>Municipal benchmarking: <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" class="source-link">NYC LL84</a>, <a href="https://data.boston.gov/dataset/building-emissions-reduction-and-disclosure-ordinance" class="source-link">Boston BERDO</a>, <a href="https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program" class="source-link">California AB 802</a></li>
-        </ul>
-
-        <h3>Occupancy</h3>
-        <ul>
-            <li><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> &mdash; vacancy by city</li>
-            <li><a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> &mdash; office utilization</li>
-            <li><a href="https://str.com/" class="source-link">STR</a> / <a href="https://www.costar.com/" class="source-link">CoStar</a> &mdash; hotel occupancy</li>
-            <li><a href="https://nces.ed.gov/" class="source-link">NCES</a> &mdash; school instructional days</li>
-            <li><a href="https://www.mgma.com/" class="source-link">MGMA</a> &mdash; medical office utilization</li>
-            <li>Retail/supermarket &mdash; operating hours and seasonal traffic patterns</li>
-            <li><a href="https://www.aha.org/statistics" class="source-link">AHA Hospital Statistics</a> &mdash; bed occupancy</li>
-            <li><a href="https://www.nic.org/nic-map-vision/" class="source-link">NIC MAP Vision</a> &mdash; senior housing occupancy</li>
-        </ul>
-
-        <h3>HVAC End-Use</h3>
-        <ul>
-            <li><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> &mdash; energy end-use by building type</li>
-        </ul>
-
-        <h3>Emissions &amp; Rates</h3>
-        <ul>
-            <li><a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID</a> &mdash; grid emission factors</li>
-            <li><a href="https://www.epa.gov/climateleadership/ghg-emission-factors-hub" class="source-link">EPA GHG Emission Factors Hub</a></li>
-            <li>EIA commercial rates + local utility tariffs</li>
-        </ul>
-
-        <h3>BPS Rules</h3>
-        <ul>
-            <li><a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a></li>
-        </ul>
-
-        <h3>Valuation</h3>
-        <ul>
-            <li><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a></li>
-        </ul>
     </section>
 
     <!-- Footnotes: Formulas -->
