@@ -589,7 +589,7 @@ BUILDING_TYPE_STORIES = {
 
     'Medical Office': "Medical offices get 2-3x the airflow of regular offices under ASHRAE 62.1 healthcare standards—even waiting rooms receive medical-grade ventilation. We use CBRE 2024-2025 data showing 9.5% vacancy (versus 20%+ for regular offices) and MGMA benchmarks showing 70% exam room utilization during business hours. The opportunity: exam rooms sit empty between appointments while still receiving full infection-control airflow.",
 
-    'Supermarket/Grocery': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design. Refrigeration cases also benefit—lower ventilation means reduced humidity loads.",
+    'Supermarket/Grocery': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design.",
 
     'Specialty Hospital': "Specialty hospitals—psychiatric, rehab, children's, cancer centers—are limited-opportunity: they run 24/7 with patients who stay continuously. We use AHA bed occupancy data showing 65-80% depending on specialty and market. ASHRAE 170 mandates 15-25 air changes per hour in critical areas regardless of census—those rates can't drop. Savings come mainly from admin areas and waiting rooms during off-hours.",
 
