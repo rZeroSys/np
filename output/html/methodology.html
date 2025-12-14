@@ -265,13 +265,19 @@
     <!-- Section 3: Regional Variations -->
     <section class="section">
         <h2>Why Cities Differ</h2>
-        <p>The same building type shows different savings potential in different cities:</p>
-        <ul>
-            <li><strong>Vacancy varies by market:</strong> SF offices have higher vacancy than NYC, so SF shows more opportunity</li>
-            <li><strong>Return-to-office culture differs:</strong> Texas/Midwest have stronger in-person work than Bay Area/Seattle</li>
-            <li><strong>Climate affects HVAC load:</strong> Northern heating-dominated climates show slightly higher savings than Southern cooling-dominated ones</li>
-            <li><strong>Grid emissions vary:</strong> Seattle hydro means less carbon per kWh saved than Midwest coal grids</li>
-        </ul>
+        <p>The same building type shows different savings potential in different cities. We source city-specific data to capture these regional variations:</p>
+
+        <h3>Vacancy Varies by Market</h3>
+        <p>SF offices have higher vacancy than NYC, so SF shows more opportunity. We pull quarterly vacancy rates from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> for each metro area. Current rates range from ~13% (NYC) to ~37% (San Francisco). We match each building to its metro's vacancy rate rather than using a national average.</p>
+
+        <h3>Return-to-Office Culture Differs</h3>
+        <p>Texas and Midwest metros have stronger in-person work cultures than Bay Area and Seattle. We use <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> data, which tracks keycard swipes across 2,600+ buildings in 10 major metros. Austin runs ~60% of pre-pandemic occupancy while San Jose hovers around ~40%. We apply city-specific utilization rates to capture these cultural differences.</p>
+
+        <h3>Climate Affects HVAC Load</h3>
+        <p>Northern heating-dominated climates show slightly higher savings than Southern cooling-dominated ones because heating systems run longer continuous cycles. We use <a href="https://www.energy.gov/eere/buildings/climate-zones" class="source-link">ASHRAE/DOE climate zones</a> (1-8) to adjust HVAC percentages. A Minneapolis office (Zone 6A) dedicates more energy to HVAC than a Miami office (Zone 1A), so the same percentage savings yields more absolute savings.</p>
+
+        <h3>Grid Emissions Vary</h3>
+        <p>Seattle hydro means less carbon per kWh saved than Midwest coal grids. We use <a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID subregion data</a> for emission factors. The Northwest (NWPP) emits ~0.28 kg CO2/kWh while the Midwest (RFCM) emits ~0.55 kg CO2/kWh. This affects carbon savings calculations but not dollar savings&mdash;a kWh saved is still a kWh saved regardless of grid mix.</p>
     </section>
 
     <!-- Section 4: From Opportunity to Savings -->
