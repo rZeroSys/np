@@ -589,7 +589,7 @@ BUILDING_TYPE_STORIES = {
 
     'Medical Office': "Medical offices get 2-3x the airflow of regular offices under ASHRAE 62.1 healthcare standards—even waiting rooms receive medical-grade ventilation. We use CBRE 2024-2025 data showing 9.5% vacancy (versus 20%+ for regular offices) and MGMA benchmarks showing 70% exam room utilization during business hours. The opportunity: exam rooms sit empty between appointments while still receiving full infection-control airflow.",
 
-    'Supermarket/Grocery': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. We use Placer.ai foot traffic data: peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design. Refrigeration cases also benefit—lower ventilation means reduced humidity loads.",
+    'Supermarket/Grocery': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design. Refrigeration cases also benefit—lower ventilation means reduced humidity loads.",
 
     'Specialty Hospital': "Specialty hospitals—psychiatric, rehab, children's, cancer centers—are limited-opportunity: they run 24/7 with patients who stay continuously. We use AHA bed occupancy data showing 65-80% depending on specialty and market. ASHRAE 170 mandates 15-25 air changes per hour in critical areas regardless of census—those rates can't drop. Savings come mainly from admin areas and waiting rooms during off-hours.",
 
@@ -609,7 +609,7 @@ BUILDING_TYPE_STORIES = {
 
     'Outpatient Clinic': "Outpatient clinics follow medical office patterns—exam rooms ventilated at medical-grade rates but patients only present for 15-30 minute appointments. Between patients, rooms sit empty but fully ventilated. Providers see 20-25 patients per day across 6-8 exam rooms, meaning each room is occupied just 25-35% of operating hours. Weighted building utilization runs 42-48%.",
 
-    'Enclosed Mall': "Enclosed malls face both vacancy and traffic challenges—inline store vacancy runs 15-30% as anchor stores close. We use ICSC and Placer.ai data: weekday morning traffic runs 10-20% of design, weekend afternoons hit 60-80%. Common areas get fully conditioned regardless of whether 100 or 1,000 shoppers are present. Weighted utilization runs 35-45%.",
+    'Enclosed Mall': "Enclosed malls face both vacancy and traffic challenges—inline store vacancy runs 15-30% as anchor stores close. Weekday morning traffic runs 10-20% of design, weekend afternoons hit 60-80%. Common areas get fully conditioned regardless of whether 100 or 1,000 shoppers are present. Weighted utilization runs 35-45%.",
 
     'Data Center': "Data centers have zero ODCV savings potential. Cooling requirements are driven entirely by server heat loads, not human occupancy. A data center with 2 people or 20 people requires the same precise temperature and humidity control. Ventilation rates are set by IT equipment density—ASHRAE recommends 64-80°F inlet temperatures regardless of occupancy. No opportunity to reduce conditioning based on human presence.",
 
@@ -651,8 +651,8 @@ NEW_COLUMN_SOURCES = {
     'Hotel': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://str.com/' target='_blank'>STR</a> room occupancy data, guest presence patterns.",
     'K-12 School': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> instructional day requirements, state calendar data.",
     'Higher Ed': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> data, semester and break schedules.",
-    'Retail Store': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> foot traffic data.",
-    'Supermarket/Grocery': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> traffic patterns.",
+    'Retail Store': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, operating hours and traffic patterns.",
+    'Supermarket/Grocery': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, operating hours and traffic patterns.",
     'Restaurant/Bar': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits. Kitchen exhaust excluded—only dining area HVAC.",
     'Inpatient Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data. <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a> limits applied.",
     'Specialty Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data. <a href='https://www.ashrae.org/' target='_blank'>ASHRAE 170</a> limits applied.",
@@ -666,7 +666,7 @@ NEW_COLUMN_SOURCES = {
     'Library/Museum': "HVAC reduced using visitor traffic data, collection preservation requirements.",
     'Outpatient Clinic': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> provider productivity benchmarks.",
     'Bank Branch': "HVAC reduced using <a href='https://www.fdic.gov/' target='_blank'>FDIC</a> transaction trends, branch traffic patterns.",
-    'Enclosed Mall': "HVAC reduced using <a href='https://www.icsc.com/' target='_blank'>ICSC</a> and <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a> traffic data, inline vacancy rates.",
+    'Enclosed Mall': "HVAC reduced using <a href='https://www.icsc.com/' target='_blank'>ICSC</a> traffic data, inline vacancy rates.",
     'Strip Mall': "HVAC reduced using <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a>/CoStar vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
     'Vehicle Dealership': "HVAC reduced using <a href='https://www.nada.org/' target='_blank'>NADA</a> traffic data, showroom vs service bay weighting.",
@@ -685,8 +685,8 @@ CHANGE_COLUMN_INSIGHTS = {
     'Hotel': "Most hotel rooms sit empty—national average is just 63% occupied. Even booked rooms are empty most of the day while guests are out at meetings, sightseeing, or meals. HVAC conditions empty rooms around the clock. (CBECS 2018, STR)",
     'K-12 School': "Schools are empty most of the year—summers off, weekends, holidays, and after 3pm daily. Buildings ventilate for students who aren't there 70-80% of the time. (CBECS 2018, NCES)",
     'Higher Ed': "Classrooms sit empty most of the year—semester breaks, weekends, summers, and between classes. Even when school's in session, most rooms are unused. (CBECS 2018, NCES)",
-    'Retail Store': "Stores are built to handle Black Friday crowds, but most of the day they're nearly empty—slow mornings, quiet afternoons, closed overnight. HVAC runs as if the store were packed. (CBECS 2018, Placer.ai)",
-    'Supermarket/Grocery': "Supermarkets run long hours with steadier traffic than most retail, but still swing between busy evenings and empty early mornings. Refrigeration also benefits from lower humidity when fewer people are inside. (CBECS 2018, Placer.ai)",
+    'Retail Store': "Stores are built to handle Black Friday crowds, but most of the day they're nearly empty—slow mornings, quiet afternoons, closed overnight. HVAC runs as if the store were packed. (CBECS 2018)",
+    'Supermarket/Grocery': "Supermarkets run long hours with steadier traffic than most retail, but still swing between busy evenings and empty early mornings. (CBECS 2018)",
     'Restaurant/Bar': "Kitchen exhaust fans run non-stop while cooking—that can't change. Savings come from the dining room, which is packed at meal times but empty the rest of the day. (CBECS 2018)",
     'Inpatient Hospital': "Hospitals have limited savings—infection control codes require high airflow in patient areas 24/7. Savings come from admin offices, waiting rooms, and cafeterias that empty at night. (CBECS 2018, AHA, ASHRAE 170)",
     'Specialty Hospital': "Specialty hospitals have limited savings—infection control codes require high airflow in clinical areas around the clock. Savings come from non-clinical spaces during off-hours. (CBECS 2018, AHA, ASHRAE 170)",
@@ -700,7 +700,7 @@ CHANGE_COLUMN_INSIGHTS = {
     'Library/Museum': "HVAC runs 24/7 to protect books and artwork from humidity, but visitors only occupy the space 10-15% of the time. Climate control never stops; people come and go. (CBECS 2018)",
     'Outpatient Clinic': "Exam rooms are ventilated at medical-grade rates for infection control, but patients only occupy them for 15-30 minute appointments. Between patients, rooms sit empty but fully ventilated. (CBECS 2018, MGMA)",
     'Bank Branch': "Banks are open just 45-50 hours/week, with 20-40 customers per day in spaces designed for lines of 50. Digital banking means fewer visitors, but HVAC runs for a full lobby. (CBECS 2018, FDIC)",
-    'Enclosed Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas get fully conditioned whether 100 or 1,000 shoppers are present. (CBECS 2018, ICSC, Placer.ai)",
+    'Enclosed Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas get fully conditioned whether 100 or 1,000 shoppers are present. (CBECS 2018, ICSC)",
     'Strip Mall': "Strip malls have tenant turnover (spaces sit empty between leases) plus normal retail traffic swings. Individual rooftop units make it easy to condition only occupied spaces. (CBECS 2018, CBRE, CoStar)",
     'Wholesale Club': "30-40% of the building is back-of-house warehouse with almost nobody in it—just occasional forklift operators restocking shelves. The sales floor itself is only busy on weekends. (CBECS 2018)",
     'Vehicle Dealership': "Showrooms have high ceilings and huge windows conditioning space that averages 40% customer occupancy. Service bays are busier during business hours but close evenings and weekends. (CBECS 2018, NADA)",
@@ -776,7 +776,6 @@ SOURCE_TEXT_TO_URL = [
     ('NCES', 'https://nces.ed.gov/'),
     ('AHA Hospital Statistics', 'https://www.aha.org/statistics-trends-reports'),
     ('AHA', 'https://www.aha.org/statistics-trends-reports'),
-    ('Placer.ai', 'https://www.placer.ai/'),
     ('MGMA', 'https://www.mgma.com/'),
     ('NIC MAP Vision', 'https://www.nic.org/nic-map-vision/'),
     ('IHRSA', 'https://www.ihrsa.org/'),
@@ -999,7 +998,7 @@ def get_odcv_savings_tooltip(row):
         return f"Hotels save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Most rooms sit empty on any given night, and even checked-in guests spend much of their day out—at meetings, sightseeing, or dining. That means ventilation is conditioning empty rooms most of the time. Also, most hotel gas goes to hot water and kitchens, not HVAC. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Retail Store':
-        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a>)"
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
         return f"Retail saves {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Customer traffic varies wildly throughout the day—staff-only during opening and closing, quiet mid-mornings, then lunch and evening rushes. ODCV modulates airflow to match actual foot traffic instead of running at peak capacity all day. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Restaurant/Bar':
@@ -1007,7 +1006,7 @@ def get_odcv_savings_tooltip(row):
         return f"Restaurants save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Dining rooms have predictable meal-time peaks with quiet periods between, but kitchen exhaust runs constantly regardless. Most restaurant gas goes to cooking, not HVAC—so the opportunity is in the dining area ventilation. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type == 'Supermarket/Grocery':
-        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>, <a href='https://www.placer.ai/' target='_blank'>Placer.ai</a>)"
+        src = " (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
         return f"Supermarkets save {floor_pct:.0f}-{ceiling_pct:.0f}% on HVAC. Long hours and steady customer traffic limit the empty-space opportunity compared to other building types. Also, a large share of grocery store electricity goes to refrigeration, not HVAC—so the savings focus on the sales floor ventilation. This building: {odcv_pct*100:.0f}% savings.{src}"
 
     elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
