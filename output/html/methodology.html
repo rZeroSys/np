@@ -49,6 +49,18 @@
             margin: 0 auto;
             padding: 40px;
         }
+        .page-title {
+            margin-bottom: 40px;
+        }
+        .page-title h1 {
+            font-size: 2em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        .page-title p {
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
         .section {
             background: white;
             border: 1px solid var(--border);
@@ -91,6 +103,9 @@
             color: var(--rzero-primary);
             text-decoration: none;
             border-bottom: 1px dotted var(--rzero-primary);
+        }
+        .source-link:hover {
+            border-bottom-style: solid;
         }
         .footnote-ref {
             color: var(--rzero-primary);
@@ -155,101 +170,108 @@
 
 <main class="main-content">
 
-    <!-- Section 1: The Problem -->
+    <div class="page-title">
+        <h1>Technical Methodology</h1>
+        <p>How Nationwide Prospector calculates ODCV savings, BPS fine avoidance, and property value impact.</p>
+    </div>
+
+    <!-- Section 1: The Problem & Solution -->
     <section class="section">
-        <h2>The Core Problem</h2>
-        <p>Commercial buildings are designed for peak occupancy that rarely occurs. A conference room built for 20 people sits empty most of the day. An office floor leased to 200 workers has 80 present. A school closes for summer but HVAC runs for maintenance.</p>
-        <p>The result: buildings condition vast amounts of empty space. HVAC systems ventilate, heat, and cool based on design capacity, not actual presence.</p>
-        <p><strong>ODCV (Occupancy-Driven Control Ventilation)</strong> recovers this waste by adjusting ventilation to match real-time occupancy instead of theoretical maximums.</p>
+        <h2>The Problem</h2>
+        <p>Commercial buildings are designed for peak occupancy that rarely occurs. A conference room for 20 sits empty most of the day. An office floor leased to 200 has 80 present. A school closes for summer but HVAC runs for maintenance.</p>
+        <p>HVAC systems ventilate, heat, and cool based on design capacity&mdash;not actual presence. The result: buildings condition vast amounts of empty space.</p>
+
+        <h2 style="margin-top: 35px;">The Solution</h2>
+        <p><strong>ODCV (Occupancy-Driven Control Ventilation)</strong> uses sensors to detect real-time occupancy and adjusts ventilation accordingly. When a floor is empty, airflow drops. When a conference room fills, ventilation increases. The building breathes with its occupants instead of running at full blast 24/7.</p>
+        <p>This isn't theoretical&mdash;it's measured. We calculate savings using actual vacancy rates, utilization data, and energy benchmarks for each building.</p>
     </section>
 
     <!-- Section 2: Opportunity by Building Type -->
     <section class="section">
         <h2>How Opportunity Varies by Building Type</h2>
-        <p>Different buildings have different patterns of emptiness. The method for measuring savings opportunity depends on ownership structure and operational patterns:</p>
+        <p>Different buildings have different emptiness patterns. The method for measuring opportunity depends on ownership and operations:</p>
 
         <table>
             <thead>
                 <tr>
                     <th>Building Type</th>
                     <th>Method</th>
-                    <th>Why This Method</th>
+                    <th>Why</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><strong>Office, Medical Office, Mixed Use</strong></td>
                     <td>Vacancy + Utilization</td>
-                    <td>Multi-tenant buildings have two sources of waste: unleased space still being conditioned, plus leased space where tenants aren't showing up</td>
+                    <td>Multi-tenant: unleased space + leased space where tenants aren't showing up</td>
                 </tr>
                 <tr>
                     <td><strong>Hotel</strong></td>
                     <td>Utilization</td>
-                    <td>Single operator. Rooms are booked or not, and guests leave during the day for meetings, sightseeing, dining</td>
+                    <td>Rooms booked or not; guests out during day for meetings, sightseeing</td>
                 </tr>
                 <tr>
                     <td><strong>K-12 School, Higher Ed</strong></td>
                     <td>Utilization</td>
-                    <td>Schedule-driven. Empty during summer, holidays, evenings, weekends&mdash;but HVAC often runs continuously</td>
+                    <td>Schedule-driven: empty summers, holidays, evenings, weekends</td>
                 </tr>
                 <tr>
                     <td><strong>Retail, Supermarket, Mall</strong></td>
                     <td>Utilization</td>
-                    <td>Customer traffic swings between peak and empty. Buildings designed for peak but conditioned constantly</td>
+                    <td>Traffic swings between peak and empty; designed for peak</td>
                 </tr>
                 <tr>
                     <td><strong>Theater, Venue, Event Space</strong></td>
                     <td>Utilization</td>
-                    <td>Event-driven. Spaces for thousands sit empty most of the year but remain conditioned</td>
+                    <td>Spaces for thousands sit empty most of the year</td>
                 </tr>
                 <tr>
                     <td><strong>Restaurant/Bar</strong></td>
                     <td>Utilization (dining only)</td>
-                    <td>Kitchen exhaust must run during cooking. Savings come from dining areas between meal rushes</td>
+                    <td>Kitchen exhaust must run; savings from dining areas between rushes</td>
                 </tr>
                 <tr>
                     <td><strong>Gym/Fitness</strong></td>
                     <td>Utilization</td>
-                    <td>Sharp peaks at morning and evening, near-empty midday and overnight</td>
+                    <td>Sharp AM/PM peaks, near-empty midday and overnight</td>
                 </tr>
                 <tr>
                     <td><strong>Library/Museum</strong></td>
                     <td>Utilization</td>
-                    <td>Climate control runs 24/7 for preservation, but visitors only present during limited hours</td>
+                    <td>Climate runs 24/7 for preservation; visitors only during limited hours</td>
                 </tr>
                 <tr>
                     <td><strong>Hospital, Laboratory</strong></td>
                     <td>Utilization (dampened)</td>
-                    <td>Code-mandated ventilation limits reductions. Savings mostly in non-clinical areas like waiting rooms and admin offices</td>
+                    <td>Code-mandated ventilation; savings in non-clinical areas only</td>
                 </tr>
                 <tr>
                     <td><strong>Residential Care</strong></td>
                     <td>Utilization (dampened)</td>
-                    <td>Unlike hotels, residents live on-site 24/7. Minimal empty periods to recover</td>
+                    <td>Residents on-site 24/7 unlike hotel guests</td>
                 </tr>
                 <tr>
                     <td><strong>Data Center</strong></td>
                     <td>None</td>
-                    <td>Cooling is for equipment heat, not people. Human occupancy is irrelevant</td>
+                    <td>Cooling is for equipment heat, not people</td>
                 </tr>
             </tbody>
         </table>
 
-        <p><strong>Vacancy</strong> = unleased space (empty suites, no tenant). Only applies to multi-tenant buildings.</p>
-        <p><strong>Utilization</strong> = how much of occupied space has people present. Applies to all buildings. A fully-leased office with 50% work-from-home has 0% vacancy but 50% utilization.</p>
+        <p><strong>Vacancy</strong> = unleased space (empty suites). Only applies to multi-tenant buildings.</p>
+        <p><strong>Utilization</strong> = people actually present in occupied space. A fully-leased office with 50% WFH has 0% vacancy but 50% utilization.</p>
     </section>
 
     <!-- Section 3: Regional Variations -->
     <section class="section">
         <h2>Why Cities Differ</h2>
-        <p>The same building type in different cities shows different savings potential:</p>
+        <p>The same building type shows different savings potential in different cities:</p>
         <ul>
-            <li><strong>Vacancy rates vary by market:</strong> San Francisco offices have higher vacancy than NYC, so SF buildings show more opportunity from unleased space</li>
-            <li><strong>Return-to-office culture differs:</strong> Cities with stronger in-person work (Texas, Midwest) show lower utilization-based opportunity than cities with more remote work (Bay Area, Seattle)</li>
-            <li><strong>Climate affects heating/cooling balance:</strong> Northern climates with more heating load show slightly higher HVAC savings potential than cooling-dominated Southern climates</li>
-            <li><strong>Grid emissions determine carbon impact:</strong> Seattle's hydroelectric grid means the same kWh reduction produces less carbon savings than in coal-heavy Midwest grids</li>
+            <li><strong>Vacancy varies by market:</strong> SF offices have higher vacancy than NYC, so SF shows more opportunity</li>
+            <li><strong>Return-to-office culture differs:</strong> Texas/Midwest have stronger in-person work than Bay Area/Seattle</li>
+            <li><strong>Climate affects HVAC load:</strong> Northern heating-dominated climates show slightly higher savings than Southern cooling-dominated ones</li>
+            <li><strong>Grid emissions vary:</strong> Seattle hydro means less carbon per kWh saved than Midwest coal grids</li>
         </ul>
-        <p>Data sources: <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> (vacancy), <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> (utilization), <a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID</a> (grid emissions).</p>
     </section>
 
     <!-- Section 4: From Opportunity to Savings -->
@@ -257,16 +279,16 @@
         <h2>From Opportunity to Dollar Savings</h2>
 
         <h3>1. Measure the opportunity</h3>
-        <p>Using vacancy and/or utilization data (depending on building type), we calculate how much conditioned space is actually empty.<a href="#fn1" class="footnote-ref">1</a></p>
+        <p>Using vacancy and/or utilization data, calculate how much conditioned space is actually empty.<a href="#fn1" class="footnote-ref">1</a></p>
 
         <h3>2. Determine HVAC share of energy</h3>
-        <p>Not all building energy goes to HVAC. We use <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">CBECS</a> survey data to estimate what fraction of electricity, gas, and steam goes to heating, cooling, and ventilation for each building type.<a href="#fn2" class="footnote-ref">2</a></p>
+        <p>Not all energy goes to HVAC. We use federal survey data to estimate what fraction of electricity, gas, and steam goes to heating/cooling/ventilation for each building type.<a href="#fn2" class="footnote-ref">2</a></p>
 
         <h3>3. Apply modifiers</h3>
-        <p>Building age and size affect how sophisticated existing controls are (newer, larger buildings likely have better BMS). Current efficiency (ENERGY STAR score) and climate zone also adjust the estimate.<a href="#fn3" class="footnote-ref">3</a></p>
+        <p>Building age and size affect control sophistication. Current efficiency and climate zone also adjust the estimate.<a href="#fn3" class="footnote-ref">3</a></p>
 
         <h3>4. Calculate annual savings</h3>
-        <p>The ODCV savings percentage (typically 20-40% for offices) is applied to the HVAC portion of utility costs to get annual dollar savings.<a href="#fn4" class="footnote-ref">4</a></p>
+        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn4" class="footnote-ref">4</a></p>
     </section>
 
     <!-- Section 5: Beyond Utility Savings -->
@@ -274,50 +296,58 @@
         <h2>Beyond Utility Savings</h2>
 
         <h3>BPS Fine Avoidance</h3>
-        <p>Seven cities have Building Performance Standards that penalize buildings exceeding emissions or energy targets: NYC (LL97), Boston (BERDO), Cambridge (BEUDO), Washington DC, Denver, Seattle, and St. Louis.</p>
-        <p>ODCV reduces energy consumption, which reduces emissions, which can reduce or eliminate these fines. We calculate baseline fines (without ODCV) and post-ODCV fines for each applicable building.<a href="#fn5" class="footnote-ref">5</a></p>
-        <p>Source: <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a></p>
+        <p>Seven cities penalize buildings exceeding emissions or energy targets: NYC (LL97), Boston (BERDO), Cambridge (BEUDO), Washington DC, Denver, Seattle, St. Louis.</p>
+        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces fines.<a href="#fn5" class="footnote-ref">5</a></p>
 
         <h3>Property Value Impact</h3>
-        <p>Commercial real estate is valued based on Net Operating Income (NOI). Every dollar of operating expense avoided&mdash;whether utility savings or fine avoidance&mdash;increases NOI by a dollar.</p>
-        <p>Value increase = annual savings &divide; cap rate. At a 7% cap rate, $100,000 in annual savings adds $1.43M to property value.<a href="#fn6" class="footnote-ref">6</a></p>
-        <p>Source: <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a></p>
+        <p>Commercial real estate is valued on Net Operating Income. Every dollar of OpEx avoided increases NOI by a dollar. Value increase = annual savings &divide; cap rate.<a href="#fn6" class="footnote-ref">6</a></p>
 
         <h3>ENERGY STAR Score Improvement</h3>
-        <p>Reduced energy consumption lowers EUI, which improves ENERGY STAR score. We estimate post-ODCV scores using EPA's scoring methodology.<a href="#fn7" class="footnote-ref">7</a></p>
+        <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn7" class="footnote-ref">7</a></p>
     </section>
 
     <!-- Section 6: Data Sources -->
     <section class="section">
         <h2>Data Sources</h2>
 
-        <h3>Building Energy Data</h3>
+        <h3>Building Energy</h3>
         <ul>
             <li><a href="https://portfoliomanager.energystar.gov/" class="source-link">EPA ENERGY STAR Portfolio Manager</a></li>
-            <li>Municipal benchmarking disclosures: <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" class="source-link">NYC LL84</a>, <a href="https://data.boston.gov/dataset/building-emissions-reduction-and-disclosure-ordinance" class="source-link">Boston BERDO</a>, <a href="https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program" class="source-link">California AB 802</a></li>
+            <li>Municipal benchmarking: <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" class="source-link">NYC LL84</a>, <a href="https://data.boston.gov/dataset/building-emissions-reduction-and-disclosure-ordinance" class="source-link">Boston BERDO</a>, <a href="https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program" class="source-link">California AB 802</a></li>
         </ul>
 
-        <h3>Occupancy Data</h3>
+        <h3>Occupancy</h3>
         <ul>
-            <li><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> &mdash; office vacancy by city</li>
-            <li><a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> &mdash; office utilization by city</li>
-            <li>STR/CoStar &mdash; hotel occupancy</li>
-            <li>NCES &mdash; school instructional days</li>
-            <li>Placer.ai &mdash; retail foot traffic</li>
-            <li>MGMA &mdash; medical office exam room utilization</li>
-            <li>AHA Hospital Statistics &mdash; bed occupancy</li>
+            <li><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> &mdash; vacancy by city</li>
+            <li><a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> &mdash; office utilization</li>
+            <li><a href="https://str.com/" class="source-link">STR</a> / <a href="https://www.costar.com/" class="source-link">CoStar</a> &mdash; hotel occupancy</li>
+            <li><a href="https://nces.ed.gov/" class="source-link">NCES</a> &mdash; school instructional days</li>
+            <li><a href="https://www.placer.ai/" class="source-link">Placer.ai</a> &mdash; retail foot traffic</li>
+            <li><a href="https://www.mgma.com/" class="source-link">MGMA</a> &mdash; medical office utilization</li>
+            <li><a href="https://www.aha.org/statistics" class="source-link">AHA Hospital Statistics</a> &mdash; bed occupancy</li>
+            <li><a href="https://www.nic.org/nic-map-vision/" class="source-link">NIC MAP Vision</a> &mdash; senior housing occupancy</li>
         </ul>
 
-        <h3>HVAC End-Use Splits</h3>
+        <h3>HVAC End-Use</h3>
         <ul>
-            <li><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018 Microdata</a> &mdash; energy end-use by building type and climate zone</li>
+            <li><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> &mdash; energy end-use by building type</li>
         </ul>
 
         <h3>Emissions &amp; Rates</h3>
         <ul>
-            <li><a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID</a> &mdash; electricity grid emission factors by region</li>
-            <li><a href="https://www.epa.gov/climateleadership/ghg-emission-factors-hub" class="source-link">EPA GHG Emission Factors Hub</a> &mdash; combustion factors</li>
-            <li>EIA commercial electricity/gas rates + local utility tariffs</li>
+            <li><a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID</a> &mdash; grid emission factors</li>
+            <li><a href="https://www.epa.gov/climateleadership/ghg-emission-factors-hub" class="source-link">EPA GHG Emission Factors Hub</a></li>
+            <li>EIA commercial rates + local utility tariffs</li>
+        </ul>
+
+        <h3>BPS Rules</h3>
+        <ul>
+            <li><a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a></li>
+        </ul>
+
+        <h3>Valuation</h3>
+        <ul>
+            <li><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a></li>
         </ul>
     </section>
 
@@ -328,7 +358,7 @@
         <div class="footnote" id="fn1">
             <span class="footnote-num">1</span>
             <strong>Opportunity Score</strong><br>
-            Multi-tenant (office, medical office, mixed use):
+            Multi-tenant (office, MOB, mixed use):
             <div class="formula">Opportunity = Vacancy + (1 - Vacancy) × (1 - Utilization)</div>
             Single-operator (hotel, school, retail):
             <div class="formula">Opportunity = 1 - Utilization</div>
@@ -339,41 +369,41 @@
         <div class="footnote" id="fn2">
             <span class="footnote-num">2</span>
             <strong>HVAC Percentages</strong><br>
-            From CBECS 2018, adjusted for ENERGY STAR score, year built, and EUI vs peers. Electric HVAC minimum 15% (fans, pumps, controls always run). Hotels: only ~20% of gas goes to HVAC (rest is DHW + cooking). Restaurants: ~18% gas HVAC (72% cooking).
+            From CBECS 2018, adjusted for ENERGY STAR score, year built, and EUI vs peers. Electric HVAC minimum 15% (fans/pumps always run). Hotels: ~20% of gas to HVAC (rest is DHW + cooking). Restaurants: ~18% gas HVAC (72% cooking).
         </div>
 
         <div class="footnote" id="fn3">
             <span class="footnote-num">3</span>
             <strong>Master Formula</strong>
             <div class="formula">ODCV% = Floor + (Opportunity × Automation × (Ceiling - Floor)) × EfficiencyMod × ClimateMod</div>
-            Automation = average of year-built score and size score. Efficiency modifier based on ENERGY STAR bands (0.85 for 90+, up to 1.10 for &lt;25). Climate modifier: 1.10 Northern, 1.05 North-Central, 1.00 South-Central, 0.95 Southern.
+            Automation = avg of year-built and size scores. Efficiency: 0.85 for ES 90+, up to 1.10 for ES &lt;25. Climate: 1.10 Northern to 0.95 Southern.
         </div>
 
         <div class="footnote" id="fn4">
             <span class="footnote-num">4</span>
             <strong>Annual Savings</strong>
-            <div class="formula">HVAC_cost = Σ(fuel_cost × hvac_pct) for each fuel</div>
+            <div class="formula">HVAC_cost = Σ(fuel_cost × hvac_pct)</div>
             <div class="formula">Annual_savings = HVAC_cost × ODCV%</div>
         </div>
 
         <div class="footnote" id="fn5">
             <span class="footnote-num">5</span>
-            <strong>BPS Fine Calculation</strong><br>
-            Varies by city. NYC LL97: $268/tCO2e over cap. Boston/Cambridge: $234/tCO2e. DC: up to $10/sqft based on ENERGY STAR gap. Denver: $0.30/kBtu over EUI target. Seattle: emissions intensity target.
+            <strong>BPS Fines</strong><br>
+            NYC LL97: $268/tCO2e over cap. Boston/Cambridge: $234/tCO2e. DC: up to $10/sqft. Denver: $0.30/kBtu over target.
             <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
         </div>
 
         <div class="footnote" id="fn6">
             <span class="footnote-num">6</span>
-            <strong>Valuation Impact</strong>
+            <strong>Valuation</strong>
             <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
-            Cap rates by type: Office 7.5%, Hotel 8.0%, Retail 6.25%, Medical 7.5%.
+            Cap rates: Office 7.5%, Hotel 8.0%, Retail 6.25%, Medical 7.5%.
         </div>
 
         <div class="footnote" id="fn7">
             <span class="footnote-num">7</span>
-            <strong>ENERGY STAR Estimation</strong><br>
-            ENERGY STAR scores map EUI to percentile via gamma distribution. We calculate post-ODCV EUI, convert to efficiency ratio, then to score.
+            <strong>ENERGY STAR</strong><br>
+            Scores map EUI to percentile via gamma distribution.
             <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
         </div>
     </div>
