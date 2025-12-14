@@ -281,13 +281,28 @@
         <h3>1. Measure the opportunity</h3>
         <p>Using vacancy and/or utilization data, calculate how much conditioned space is actually empty.<a href="#fn1" class="footnote-ref">1</a></p>
 
-        <h3>2. Determine HVAC share of energy</h3>
-        <p>Not all energy goes to HVAC. We use federal survey data to estimate what fraction of electricity, gas, and steam goes to heating/cooling/ventilation for each building type.<a href="#fn2" class="footnote-ref">2</a></p>
+        <h3>2. Convert energy usage to energy cost</h3>
+        <p>Buildings report energy <em>consumption</em> (kWh, therms, Mlb steam). We convert this to <em>cost</em> using utility rate data and real-world billing factors:<a href="#fn8" class="footnote-ref">8</a></p>
 
-        <h3>3. Apply modifiers</h3>
+        <p><strong>Electricity</strong> has two cost components:</p>
+        <ul>
+            <li><strong>Energy charges:</strong> Based on total kWh consumed. We apply a 1.10× multiplier to account for taxes, distribution charges, transmission fees, and surcharges that appear on real utility bills beyond the base commodity rate.</li>
+            <li><strong>Demand charges:</strong> Based on peak kW draw. Commercial buildings pay for their highest 15-minute demand each month. We estimate peak demand from annual consumption using load factor (typically 0.45 for offices). We apply a 1.265× multiplier to account for demand ratchet clauses (paying for historical peaks), seasonal rate differentials, and power factor penalties.</li>
+        </ul>
+
+        <p><strong>Natural Gas:</strong> Convert kBtu to therms (÷100), multiply by rate, apply 1.10× for delivery charges and taxes.</p>
+
+        <p><strong>District Steam:</strong> Convert kBtu to Mlb (÷909), multiply by rate. No adder&mdash;steam utilities like ConEd bundle all charges into the rate.</p>
+
+        <p><strong>Fuel Oil:</strong> Convert kBtu to MMBtu (÷1000), multiply by rate, apply 1.10× for delivery and taxes.</p>
+
+        <h3>3. Determine HVAC share of energy</h3>
+        <p>Not all energy goes to HVAC. We use the <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA Commercial Buildings Energy Consumption Survey (CBECS 2018)</a> to estimate what fraction of electricity, gas, and steam goes to heating, cooling, and ventilation for each building type. For example, offices use ~44% of electricity for HVAC, while restaurants use only ~18% of gas for HVAC (the rest goes to cooking).<a href="#fn2" class="footnote-ref">2</a></p>
+
+        <h3>4. Apply modifiers</h3>
         <p>Building age and size affect control sophistication. Current efficiency and climate zone also adjust the estimate.<a href="#fn3" class="footnote-ref">3</a></p>
 
-        <h3>4. Calculate annual savings</h3>
+        <h3>5. Calculate annual savings</h3>
         <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn4" class="footnote-ref">4</a></p>
     </section>
 
@@ -405,6 +420,19 @@
             <strong>ENERGY STAR</strong><br>
             Scores map EUI to percentile via gamma distribution.
             <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
+        </div>
+
+        <div class="footnote" id="fn8">
+            <span class="footnote-num">8</span>
+            <strong>Energy Cost Formulas</strong><br>
+            We source real utility rates by zip code from EIA data and local utility tariff filings.
+            <div class="formula">Peak_kW = Annual_kWh ÷ (8,760 hours × Load_Factor)</div>
+            <div class="formula">Elec_Energy_Cost = kWh × Rate_kWh × 1.10</div>
+            <div class="formula">Elec_Demand_Cost = Peak_kW × Rate_kW × 12 months × 1.265</div>
+            <div class="formula">Gas_Cost = (kBtu ÷ 100) × Rate_therm × 1.10</div>
+            <div class="formula">Steam_Cost = (kBtu ÷ 909) × Rate_Mlb</div>
+            <div class="formula">Fuel_Oil_Cost = (kBtu ÷ 1000) × Rate_MMBtu × 1.10</div>
+            Multipliers derived from analysis of commercial utility bills. Load factor default: 0.45 (typical office).
         </div>
     </div>
 
