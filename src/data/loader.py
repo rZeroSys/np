@@ -13,6 +13,26 @@ import statistics
 from collections import defaultdict
 from src.data.helpers import safe_float, safe_int, safe_str, normalize_building_type
 
+# Columns that must be read as strings to avoid mixed-type warnings
+# These columns have NaN values that pandas otherwise reads as float
+STRING_DTYPE_COLUMNS = {
+    'id_property_name': str,
+    'id_source_url': str,
+    'loc_zip': str,
+    'org_manager': str,
+    'org_owner': str,
+    'org_tenant': str,
+    'org_tenant_subunit': str,
+    'energy_climate_zone': str,
+    'cost_utility_name': str,
+    'bps_law_name': str,
+    'meta_photo_url': str,
+    'leed_certification_level': str,
+    'leed_certification_date': str,
+    'leed_rating_system': str,
+    'leed_project_url': str,
+}
+
 # =============================================================================
 # UTILITY FUNCTIONS FOR BUILDING REPORTS
 # =============================================================================
@@ -21,7 +41,7 @@ def load_csv(csv_path):
     """Load CSV for building reports, handle encoding, data types"""
     import sys
     try:
-        df = pd.read_csv(csv_path, encoding='utf-8')
+        df = pd.read_csv(csv_path, encoding='utf-8', dtype=STRING_DTYPE_COLUMNS)
         print(f"✓ Loaded {len(df)} buildings from CSV")
     except Exception as e:
         print(f"✗ Error loading CSV: {e}")
@@ -91,7 +111,7 @@ def load_building_data():
     """
     print("Loading building data...")
 
-    df = pd.read_csv(BUILDING_DATA_PATH, encoding='utf-8')
+    df = pd.read_csv(BUILDING_DATA_PATH, encoding='utf-8', dtype=STRING_DTYPE_COLUMNS)
 
     # Ensure critical columns exist and have proper types
     df['id_building'] = df['id_building'].astype(str)
@@ -124,7 +144,7 @@ def load_portfolio_data():
     """
     print("Loading portfolio data...")
 
-    df = pd.read_csv(PORTFOLIO_DATA_PATH, encoding='utf-8')
+    df = pd.read_csv(PORTFOLIO_DATA_PATH, encoding='utf-8', dtype=STRING_DTYPE_COLUMNS)
 
     # Ensure critical columns exist and have proper types
     df['id_building'] = df['id_building'].astype(str)
