@@ -5099,17 +5099,22 @@ function applyFilters() {{
         let count = 0, opex = 0, valuation = 0, carbon = 0, sqft = 0;
 
         for (const [key, vals] of Object.entries(agg)) {{
-            const [t, v] = key.split('|');
+            // Validate key format (must be "type|vertical")
+            const parts = key.split('|');
+            if (parts.length !== 2) continue;
+            const [t, v] = parts;
             // Filter by building type (radio_button_building_type)
             if (selectedBuildingType && t !== selectedBuildingType) continue;
             // Filter by vertical
             if (activeVertical !== 'all' && v !== activeVertical) continue;
-            // Accumulate matching
-            count += vals[0];
-            opex += vals[1];
-            valuation += vals[2];
-            carbon += vals[3];
-            sqft += vals[4];
+            // Accumulate matching - validate array structure for reliability
+            if (Array.isArray(vals) && vals.length >= 5) {{
+                count += vals[0] || 0;
+                opex += vals[1] || 0;
+                valuation += vals[2] || 0;
+                carbon += vals[3] || 0;
+                sqft += vals[4] || 0;
+            }}
         }}
 
         // Filter by search - check both org name AND display name
@@ -5122,9 +5127,11 @@ function applyFilters() {{
         }}
 
         // Filter by classification (type filter dropdown) - ADDED for unified filter system
+        // Case-insensitive comparison for reliability across data variations
         if (selectedClassification !== 'all') {{
-            const cardClassification = card.dataset.classification || '';
-            if (cardClassification !== selectedClassification) {{
+            const cardClassification = (card.dataset.classification || '').toLowerCase().trim();
+            const targetClassification = selectedClassification.toLowerCase().trim();
+            if (cardClassification !== targetClassification) {{
                 count = 0;
             }}
         }}
@@ -5465,18 +5472,18 @@ function globalSearch(query) {{
                 // Short queries: strict matching
                 const displayWords = displayLower.split(/\s+/);
                 const orgWords = orgLower.split(/[\s()]+/);
-                const aliasExact = (p.search_aliases || []).some(a => a.toLowerCase() === globalQuery);
+                const aliasExact = (p.search_aliases || []).some(a => a && typeof a === 'string' && a.toLowerCase() === globalQuery);
                 match = displayLower.startsWith(globalQuery) ||
                         displayWords.some(w => w.startsWith(globalQuery)) ||
                         orgWords.some(w => w === globalQuery) ||
                         orgLower.includes('(' + globalQuery + ')') ||
                         aliasExact;  // NYC, LA, SF, etc.
             }} else {{
-                // Long queries: search all fields
-                const tenantMatch = (p.tenants || []).some(t => t.toLowerCase().includes(globalQuery));
-                const subOrgMatch = (p.tenant_sub_orgs || []).some(s => s.toLowerCase().includes(globalQuery));
-                const ownerMatch = (p.owners || []).some(o => o.toLowerCase().includes(globalQuery));
-                const managerMatch = (p.managers || []).some(m => m.toLowerCase().includes(globalQuery));
+                // Long queries: search all fields (with null-safe element checks)
+                const tenantMatch = (p.tenants || []).some(t => t && typeof t === 'string' && t.toLowerCase().includes(globalQuery));
+                const subOrgMatch = (p.tenant_sub_orgs || []).some(s => s && typeof s === 'string' && s.toLowerCase().includes(globalQuery));
+                const ownerMatch = (p.owners || []).some(o => o && typeof o === 'string' && o.toLowerCase().includes(globalQuery));
+                const managerMatch = (p.managers || []).some(m => m && typeof m === 'string' && m.toLowerCase().includes(globalQuery));
 
                 if (subOrgMatch) {{
                     console.log('TENANT_SUB_ORG MATCH:', p.org_name, 'tenant_sub_orgs:', p.tenant_sub_orgs);
@@ -5826,9 +5833,10 @@ window.sortBuildingRows = function(headerEl, col) {{
     const container = card.querySelector('.building-rows-container');
     const rows = Array.from(container.querySelectorAll('.building-grid-row'));
 
-    // Toggle sort direction per portfolio+column
+    // Toggle sort direction per portfolio+column (first click = descending for consistency with portfolio sort)
     const key = card.dataset.idx + '_' + col;
-    buildingSortDir[key] = !buildingSortDir[key];
+    const currentDir = buildingSortDir[key];
+    buildingSortDir[key] = currentDir === undefined ? false : !currentDir;
     const asc = buildingSortDir[key];
 
     rows.sort((a, b) => {{
@@ -7327,9 +7335,10 @@ let isLoadingMore = false;
 function renderPortfolioCard(p) {{
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
+    const orgInitial = (p.org_name && p.org_name.length > 0) ? p.org_name[0].toUpperCase() : '?';
     const logoInner = logoUrl
-        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Logo] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{p.org_name[0].toUpperCase()}}</div></div>`
-        : `<div class="org-logo-placeholder">${{p.org_name[0].toUpperCase()}}</div>`;
+        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Logo] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{orgInitial}}</div></div>`
+        : `<div class="org-logo-placeholder">${{orgInitial}}</div>`;
     const logoHtml = p.org_url
         ? `<a href="${{p.org_url}}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${{logoInner}}</a>`
         : logoInner;
