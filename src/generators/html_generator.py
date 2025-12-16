@@ -3680,11 +3680,8 @@ tr.pin-highlight {
                         lastName: 'Miller',
                         lastActive: firebase.firestore.FieldValue.serverTimestamp()
                     }}, {{ merge: true }});
-                    await ref.set({{
-                        visitCount: firebase.firestore.FieldValue.increment(1),
-                        homepageVisits: firebase.firestore.FieldValue.increment(1)
-                    }}, {{ merge: true }});
-                    console.log("[Bypass] Visit tracked for fmiller@rzero.com");
+                    // Skip visitCount increment for bypass auth
+                    console.log("[Bypass] Visit tracked for fmiller@rzero.com (no count increment)");
                 }} catch(e) {{
                     console.warn("[Bypass] Failed to track visit:", e);
                 }}
@@ -3852,6 +3849,7 @@ tr.pin-highlight {
     def _generate_body_end(self):
         """Generate closing body and html tags with auth functions and visitor leaderboard."""
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d %H:%M:%S EST')
+        sf_timestamp = datetime.now(pytz.timezone('America/Los_Angeles')).strftime('%m/%d/%Y %I:%M %p PST')
         return f'''
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
@@ -3994,11 +3992,18 @@ tr.pin-highlight {
             if (userInfoElement && userNameElement && userProfilePic) {{
                 userNameElement.textContent = userName;
                 const localPic = getProfilePicture(userEmail);
-                console.log("[Auth] Local profile pic:", localPic, "Google pic:", authData.picture);
-                userProfilePic.src = localPic || authData.picture || 'profile-pics/rzero_default.png';
+                const googlePic = authData.picture;
+                console.log("[Auth] Local profile pic:", localPic, "Google pic:", googlePic);
+                userProfilePic.src = localPic || googlePic || 'profile-pics/rzero_default.png';
                 userProfilePic.onerror = function() {{
-                    console.log("[Auth] Profile pic load error, using R-Zero logo");
-                    this.src = 'profile-pics/rzero_default.png';
+                    // Fallback chain: local pic failed -> try Google pic -> rzero logo
+                    if (this.src.includes('profile-pics/') && googlePic && !this.src.includes('rzero_default')) {{
+                        console.log("[Auth] Local pic failed, trying Google pic");
+                        this.src = googlePic;
+                    }} else {{
+                        console.log("[Auth] Using R-Zero logo fallback");
+                        this.src = 'profile-pics/rzero_default.png';
+                    }}
                 }};
                 userInfoElement.style.display = "block";
                 console.log("[Auth] User info displayed successfully");
@@ -4017,6 +4022,10 @@ tr.pin-highlight {
             firebase.auth().signOut();
         }}
         location.reload();
+    }}
+
+    function showBuildDate() {{
+        alert("Build: {sf_timestamp}");
     }}
 
     // Check auth on page load
@@ -4043,8 +4052,14 @@ tr.pin-highlight {
           const name = [r.firstName, r.lastName].filter(Boolean).join(' ') || r.displayName || r.email || 'Anonymous';
           const n = r.visitCount || 0;
           const pretty = n >= 1000 ? (Math.round(n/100)/10)+'k' : String(n);
-          const avatarSrc = getProfilePicture(r.email) || r.photoURL || 'profile-pics/rzero_default.png';
-          return `<li class="leaderboard-item"><img src="${{avatarSrc}}" class="leaderboard-avatar" onerror="this.src='profile-pics/rzero_default.png'"><span class="leaderboard-name">${{i+1}}. ${{name}}</span><span class="leaderboard-count">${{pretty}} visits</span></li>`;
+          const localPic = getProfilePicture(r.email);
+          const googlePic = r.photoURL || '';
+          const avatarSrc = localPic || googlePic || 'profile-pics/rzero_default.png';
+          // Fallback chain: local pic -> Google pic -> rzero logo
+          const onerrorHandler = googlePic
+            ? `if(this.src.includes('profile-pics/') && !this.src.includes('rzero_default')){{this.src='${{googlePic}}'}}else{{this.src='profile-pics/rzero_default.png'}}`
+            : `this.src='profile-pics/rzero_default.png'`;
+          return `<li class="leaderboard-item"><img src="${{avatarSrc}}" class="leaderboard-avatar" onerror="${{onerrorHandler}}"><span class="leaderboard-name">${{i+1}}. ${{name}}</span><span class="leaderboard-count">${{pretty}} visits</span></li>`;
         }}).join('');
       }}
 
@@ -4100,7 +4115,7 @@ tr.pin-highlight {
     <!-- User Profile Section -->
     <div id="userInfo" style="position: absolute; top: 15px; right: 20px; color: white; font-size: 14px; display: none; z-index: 10;">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <img id="userProfilePic" src="" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); object-fit: cover;">
+            <img id="userProfilePic" src="" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); object-fit: cover; cursor: pointer;" onclick="showBuildDate()">
             <div style="text-align: right;">
                 <div id="userName" style="font-weight: 600; margin-bottom: 2px; color: white;"></div>
                 <div onclick="signOut()" style="font-size: 12px; color: white; opacity: 0.9; cursor: pointer; text-decoration: underline;">Log out</div>
