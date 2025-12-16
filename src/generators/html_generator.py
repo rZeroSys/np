@@ -3962,6 +3962,7 @@ tr.pin-highlight {
             'skarki@rzero.com': 'Sanjil_Karki.jpg',
             'skurgansky@rzero.com': 'Stas_Kurgansky.jpg',
             'ssnow@rzero.com': 'Stephanie_Snow.jpg',
+            'tbusbee@rzero.com': 'Thomas_Busbee.jpg',
             'treznik@rzero.com': 'Thomas_Reznik.jpg',
             'tpearce@rzero.com': 'Trish_Pearce.jpg',
             'ukogan@rzero.com': 'Uri_Kogan.jpg',
