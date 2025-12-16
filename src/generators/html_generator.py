@@ -7966,18 +7966,18 @@ if __name__ == '__main__':
     generator = NationwideHTMLGenerator(config, data)
     html, data_files = generator.generate()
 
-    # Save the HTML file to output/html (GitHub Pages path)
-    project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-    output_dir = os.path.join(project_root, 'output', 'html')
+    # Save the HTML file using config paths
+    from src.config import HTML_OUTPUT_DIR, DATA_OUTPUT_DIR, PORTFOLIOS_OUTPUT_DIR
+    output_dir = str(HTML_OUTPUT_DIR)
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, 'index.html')
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    # Save data files to output/html/data
-    data_dir = os.path.join(output_dir, 'data')
+    # Save data files using config paths
+    data_dir = str(DATA_OUTPUT_DIR)
     os.makedirs(data_dir, exist_ok=True)
-    os.makedirs(os.path.join(data_dir, 'portfolios'), exist_ok=True)
+    os.makedirs(str(PORTFOLIOS_OUTPUT_DIR), exist_ok=True)
     for filename, content in data_files.items():
         filepath = os.path.join(data_dir, filename)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
