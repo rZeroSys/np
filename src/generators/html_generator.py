@@ -184,6 +184,7 @@ class NationwideHTMLGenerator:
                 'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
                 'image': b.get('image', ''),
                 'sub_org': b.get('org_tenant_subunit', ''),
+                'hq_org': b.get('bldg_hq_org', ''),
             } for b in p['buildings']] for i, p in enumerate(self.portfolios)
         }
 
@@ -225,7 +226,8 @@ class NationwideHTMLGenerator:
             'site_eui': b.get('energy_site_eui', 0) or 0,
             'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
             'bldg_vertical': b.get('bldg_vertical', ''),
-            'image': b.get('image', '')
+            'image': b.get('image', ''),
+            'hq_org': b.get('bldg_hq_org', ''),
         } for b in sorted(self.all_buildings, key=lambda x: x.get('total_opex', 0) or 0, reverse=True)]
 
         # Portfolio card data - for rendering cards on scroll
@@ -2508,6 +2510,19 @@ body.all-buildings-active .main-tabs {
     max-width: 100%;
 }
 
+.hq-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    color: #0066cc;
+    background: rgba(0, 102, 204, 0.1);
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
 .row-controls {
     display: flex;
     justify-content: center;
@@ -3721,6 +3736,7 @@ tr.pin-highlight {
         total = self.stats.get('total_buildings', 0)
         radio_counts = self.stats.get('radio_type_counts', {})
         types_by_vertical = self.stats.get('types_by_vertical', {})
+        type_counts_by_vertical = self.stats.get('type_counts_by_vertical', {})
 
         # Colors: bg color for each vertical
         colors = {
@@ -3730,11 +3746,20 @@ tr.pin-highlight {
             'Healthcare': '#5ba3d9', # light blue
         }
 
-        # Map building types to their vertical
+        # Map building types to the vertical with the highest count
+        # This ensures types like "Office" appear under Commercial (9,756) not Education (135)
         type_to_vertical = {}
         for vertical, types in types_by_vertical.items():
             for t in types:
-                type_to_vertical[t] = vertical
+                if t not in type_to_vertical:
+                    type_to_vertical[t] = vertical
+                else:
+                    # Compare counts - assign to vertical with more buildings of this type
+                    current_v = type_to_vertical[t]
+                    current_count = type_counts_by_vertical.get(current_v, {}).get(t, 0)
+                    new_count = type_counts_by_vertical.get(vertical, {}).get(t, 0)
+                    if new_count > current_count:
+                        type_to_vertical[t] = vertical
 
         # Build dropdown options for each vertical (sorted by count descending)
         dropdown_options = {v: [] for v in ['Commercial', 'Education', 'Healthcare']}
@@ -4842,12 +4867,13 @@ function createAllBuildingsRow(b, index) {{
     const addrLine = cityDisplay ? addrClean + ', ' + cityDisplay : addrClean;
 
     const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
+    const hqBadge = b.hq_org ? `<span class="hq-badge">${{escapeHtml(b.hq_org)}} HQ</span>` : '';
 
     row.innerHTML = `
         <div>${{thumb}}</div>
         <span class="ext-link-cell">${{extLink}}</span>
         <div class="addr"><span class="addr-main">${{escapeHtml(addrLine)}}</span><span class="addr-sub">${{escapeHtml(propertyName)}}</span></div>
-        <div class="cell">${{escapeHtml(b.type || '-')}}</div>
+        <div class="cell">${{escapeHtml(b.type || '-')}}${{hqBadge}}</div>
         <div class="cell">${{sqft}}</div>
         <div class="cell">${{eui}}</div>
         <div class="cell">${{escapeHtml(b.owner || '-')}}</div>
@@ -5043,6 +5069,8 @@ let selectedBuildingType = null;
 let mapUpdateTimeout = null;
 let isInitialDataLoaded = false;  // Guards against race condition with EXPORT_DATA
 let pendingFilterUpdate = false;   // Defers filter if data not yet loaded
+let currentSortCol = 'opex';      // Track current sort column
+let currentSortAsc = false;       // Track sort direction (false = descending)
 
 function applyFilters() {{
     console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical);
@@ -5105,7 +5133,7 @@ function applyFilters() {{
             if (carbonEl) carbonEl.textContent = formatCarbonJS(carbon);
             if (sqftEl) sqftEl.textContent = formatSqftJS(sqft);
 
-            visible.push({{ card, opex }});
+            visible.push({{ card, opex, buildingCount: count, sqft, valuation, carbon, eui: PORTFOLIO_CARDS[idx]?.median_eui || 0 }});
             totalOpex += opex;
             totalValuation += valuation;
             totalCarbon += carbon;
@@ -5114,8 +5142,34 @@ function applyFilters() {{
         }}
     }});
 
-    // Sort by opex descending and reorder DOM
-    visible.sort((a, b) => b.opex - a.opex);
+    // Sort by current sort column and reorder DOM
+    visible.sort((a, b) => {{
+        let aVal, bVal;
+        if (currentSortCol === 'name') {{
+            aVal = (a.card.dataset.displayname || '').toLowerCase();
+            bVal = (b.card.dataset.displayname || '').toLowerCase();
+        }} else if (currentSortCol === 'buildings') {{
+            aVal = a.buildingCount;
+            bVal = b.buildingCount;
+        }} else if (currentSortCol === 'sqft') {{
+            aVal = a.sqft;
+            bVal = b.sqft;
+        }} else if (currentSortCol === 'eui') {{
+            aVal = a.eui;
+            bVal = b.eui;
+        }} else if (currentSortCol === 'valuation') {{
+            aVal = a.valuation;
+            bVal = b.valuation;
+        }} else if (currentSortCol === 'carbon') {{
+            aVal = a.carbon;
+            bVal = b.carbon;
+        }} else {{
+            // Default to opex
+            aVal = a.opex;
+            bVal = b.opex;
+        }}
+        return currentSortAsc ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+    }});
     visible.forEach(v => container.appendChild(v.card));
 
     // Update counts
@@ -5693,6 +5747,10 @@ let portfolioSortDir = {{}};
 window.sortPortfolios = function(col) {{
     portfolioSortDir[col] = !portfolioSortDir[col];
     const asc = portfolioSortDir[col];
+
+    // Update global sort state so applyFilters respects it
+    currentSortCol = col;
+    currentSortAsc = asc;
 
     // Sort the PORTFOLIO_CARDS array (all portfolio data, not just rendered DOM)
     PORTFOLIO_CARDS.sort((a, b) => {{
@@ -7157,11 +7215,12 @@ function loadPortfolioRows(card, loadMore = false) {{
         const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
         const addrLine1 = b.property_name ? `${{addrClean}}, ${{cityState}}` : addrClean;
         const addrLine2 = b.property_name ? b.property_name : cityState;
+        const hqBadge = b.hq_org ? `<span class="hq-badge">${{escapeHtml(b.hq_org)}} HQ</span>` : '';
         return `<div class="building-grid-row" data-radio-type="${{b.type}}" data-vertical="${{b.vertical}}" data-sqft="${{b.sqft}}" data-eui="${{b.eui || 0}}" data-eui-rating="${{euiRating}}" data-opex="${{b.opex}}" data-valuation="${{b.valuation}}" data-carbon="${{b.carbon}}" onclick="window.location='buildings/${{b.id}}.html'">
             <div>${{thumb}}</div>
             <span class="ext-link-cell">${{extLink}}</span>
             <span class="stat-cell"><span class="addr-main">${{addrLine1}}</span><span class="addr-sub">${{addrLine2}}</span></span>
-            <span class="stat-cell">${{b.type || '-'}}</span>
+            <span class="stat-cell">${{b.type || '-'}}${{hqBadge}}</span>
             <span class="stat-cell">${{sqft}}</span>
             <span class="stat-cell">${{eui}}</span>
             <span class="stat-cell carbon-value">${{carbon}}</span>

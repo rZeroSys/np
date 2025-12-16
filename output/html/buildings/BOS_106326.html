@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-14 01:05:58 EST -->
+<!-- Generated: 2025-12-15 19:45:03 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +96,18 @@
         .hero h1 {
             font-size: 1.3em;
             margin-bottom: 3px;
+        }
+
+        .hero .hq-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
         .hero .address {
@@ -396,15 +408,15 @@
             <tr style="">
                 <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Schools use ~45-50% of electricity for HVAC. Lighting, computers, and cafeteria equipment take the rest. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>1,092,435 kWh</td>
-                <td>902,344 kWh</td>
-                <td><span style="color:#15803d;font-weight:700;">↓190,090 kWh</span> <span style="color:#64748b;font-size:0.9em;">(17%)</span></td>
+                <td>908,575 kWh</td>
+                <td><span style="color:#15803d;font-weight:700;">↓183,860 kWh</span> <span style="color:#64748b;font-size:0.9em;">(17%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Schools use ~80% of gas for heating. The rest is cafeteria cooking and hot water. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>25,461 therms</td>
-                <td>17,204 therms</td>
-                <td><span style="color:#15803d;font-weight:700;">↓8,257 therms</span> <span style="color:#64748b;font-size:0.9em;">(32%)</span></td>
+                <td>18,007 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓7,453 therms</span> <span style="color:#64748b;font-size:0.9em;">(29%)</span></td>
             </tr>
 
             <tr style="">
@@ -436,18 +448,11 @@
             <tr style="">
                 <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from conditioning less empty space. Energy data from <a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" target="_blank" rel="noopener">BERDO</a> disclosure. HVAC portion determined by building type, multiplied by local utility rates. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>, EIA)</span></span></td>
                 <td>$654K/yr</td>
-                <td>$533K/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓$121K/yr</span> <span style="color:#64748b;font-size:0.9em;">(19%)</span></td>
+                <td>$538K/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓$116K/yr</span> <span style="color:#64748b;font-size:0.9em;">(18%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.0% for K-12 Schools in Boston. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
-                <td>—</td>
-                <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$1.7M</span></td>
-            </tr>
-
-            <tr style="">
                 <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content"><a href="https://www.energystar.gov/" target="_blank" rel="noopener">ENERGY STAR</a>® scores rank your building against similar buildings nationwide. A score of 75+ means you outperform 75% of peers and can apply for EPA certification. We estimate post-ODCV scores by modeling how HVAC savings reduce your energy use.</span></span></td>
                 <td><div style="display:inline-flex;align-items:center;gap:8px;">
                 <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
@@ -470,11 +475,11 @@
                 <td><span style="color:#15803d;font-weight:700;">↑12 pts</span> <span style="color:#64748b;font-size:0.9em;">(21%)</span></td>
             </tr>
 
-            <tr style="background:#f9fafb;">
+            <tr style="">
                 <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Carbon per kWh varies by grid—we use <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID</a> emission factors for Boston. Gas emissions use standard combustion rates. (<a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>)</span></span></td>
                 <td>402.5 tCO2e/yr</td>
-                <td>312.1 tCO2e/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓90.4 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(22%)</span></td>
+                <td>317.9 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓84.6 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(21%)</span></td>
             </tr>
 
         </table>

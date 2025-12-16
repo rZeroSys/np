@@ -214,8 +214,8 @@ def build_nyc_row(bbl, data):
     building_id = f"NYC_{bbl}"
     address = bldg.get('address', '')
 
-    # Square footage
-    square_footage = safe_float(bldg.get('office_sqft')) or safe_float(bldg.get('total_gross_floor_area'))
+    # Square footage - use total_gross_floor_area (matches building.py)
+    square_footage = safe_float(bldg.get('total_gross_floor_area')) or safe_float(bldg.get('office_sqft'))
 
     # Vacancy rate - READ FROM CSV (1 - % Leased)
     pct_leased = safe_float(bldg.get('% Leased'))
@@ -375,7 +375,7 @@ def build_nyc_row(bbl, data):
         'cost_steam_annual': annual_steam_cost,
         'cost_steam_rate_mlb': None,
         'energy_climate_zone': NYC_DEFAULTS['energy_climate_zone'],
-        'cost_fuel_oil_rate_gal': None,
+        'cost_fuel_oil_rate_mmbtu': None,
         'cost_fuel_oil_annual': None,
         'occ_vacancy_rate': vacancy_rate,
         'occ_utilization_rate': utilization_rate,

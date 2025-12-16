@@ -1,5 +1,29 @@
 # CLAUDE INSTRUCTIONS FOR THIS PROJECT
 
+================================================================================
+##            THE ONE SCRIPT TO RULE THEM ALL
+================================================================================
+
+**TO UPDATE DATA AND REGENERATE EVERYTHING, RUN THIS:**
+
+```bash
+python3 scripts/MASTER_ORCHESTRATE.py "Your commit message"
+```
+
+This single script does EVERYTHING:
+1. Backs up portfolio_data.csv
+2. Runs all 11 data calculation scripts
+3. Regenerates the homepage
+4. Regenerates all building reports (including NYC special reports)
+5. Commits and pushes to GitHub
+
+**DO NOT run individual scripts unless you know what you're doing.**
+**DO NOT create new orchestration scripts - use MASTER_ORCHESTRATE.py.**
+
+================================================================================
+
+---
+
 ## BACKUP POLICY - READ THIS FIRST
 
 **ALL BACKUPS GO IN `BACKUPS_GO_HERE/` FOLDER**
@@ -114,12 +138,12 @@ cp BACKUPS_GO_HERE/script_backups/html_generator_WORKING_20251208_161703.py src/
 
 ## Useful Commands
 
-### Regenerate & Push to GitHub
+### FULL UPDATE - Use This!
 ```bash
-./scripts/regenerate_and_push.sh "Your commit message"
+python3 scripts/MASTER_ORCHESTRATE.py "Your commit message"
 ```
 
-### Manual Commands
+### Manual Commands (only if you need individual steps)
 ```bash
 # Regenerate homepage only
 python3 -m src.generators.html_generator

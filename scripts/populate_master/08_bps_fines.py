@@ -716,15 +716,9 @@ def process_csv(input_csv):
     df = pd.read_csv(input_csv, low_memory=False)
     print(f"Total rows: {len(df)}")
 
-    # Extract city for all rows
-    print("\nExtracting cities from addresses...")
-    df['loc_city'] = df.apply(lambda row: extract_city(
-        str(row.get('loc_address', '')),
-        str(row.get('loc_state', ''))
-    ), axis=1)
-
+    # Use existing loc_city column from CSV
     city_fill = df['loc_city'].notna().sum()
-    print(f"Cities extracted: {city_fill}/{len(df)} ({100*city_fill/len(df):.2f}%)")
+    print(f"Buildings with loc_city: {city_fill}/{len(df)} ({100*city_fill/len(df):.2f}%)")
 
     # Initialize fine columns (carbon is calculated separately)
     df['bps_fine_baseline_yr1_usd'] = 0.0

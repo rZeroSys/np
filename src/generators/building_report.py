@@ -1521,10 +1521,14 @@ def generate_hero(row):
         Back
     </a>'''
 
+    # Corporate Office badge for HQ buildings
+    hq_org = safe_val(row, 'bldg_hq_org')
+    hq_badge = f'<span class="hq-badge">{escape(str(hq_org))} HQ</span>' if hq_org and str(hq_org).lower() != 'nan' else ''
+
     html = f"""
     <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
         {back_btn}
-        <h1 style="margin-bottom:0;">{escape(address)}</h1>
+        <h1 style="margin-bottom:0;">{escape(address)}{hq_badge}</h1>
     </div>
 """
     return html
@@ -2446,6 +2450,18 @@ def generate_html_report(row):
         .hero h1 {{
             font-size: 1.3em;
             margin-bottom: 3px;
+        }}
+
+        .hero .hq-badge {{
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
         }}
 
         .hero .address {{

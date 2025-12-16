@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-14 01:09:03 EST -->
+<!-- Generated: 2025-12-15 19:47:54 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +96,18 @@
         .hero h1 {
             font-size: 1.3em;
             margin-bottom: 3px;
+        }
+
+        .hero .hq-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
         .hero .address {
@@ -397,22 +409,22 @@
             <tr style="">
                 <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>364,116 kWh</td>
-                <td>351,199 kWh</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓12,917 kWh</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
+                <td>350,483 kWh</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓13,632 kWh</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Commercial buildings typically use 75-85% of gas for heating. Hot water and process loads take the rest. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>18,816 therms</td>
-                <td>16,124 therms</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓2,691 therms</span> <span style="color:#64748b;font-size:0.9em;">(14%)</span></td>
+                <td>15,975 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓2,840 therms</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Fuel Oil</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Mixed-use buildings use ~10-15% of fuel oil for HVAC. Much goes to backup power. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>0 gallons</td>
                 <td>0 gallons</td>
-                <td><span style="color:#15803d;font-weight:700;">↓0 gal</span> <span style="color:#64748b;font-size:0.9em;">(22%)</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↓0 gal</span> <span style="color:#64748b;font-size:0.9em;">(23%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
@@ -452,14 +464,14 @@
                 <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.0% for Mixed Uses in Seattle. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$95K</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$101K</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Carbon per kWh varies by grid—we use <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID</a> emission factors for Seattle. Gas emissions use standard combustion rates. (<a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>)</span></span></td>
                 <td>103.3 tCO2e/yr</td>
-                <td>88.9 tCO2e/yr</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓14.4 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(14%)</span></td>
+                <td>88.1 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓15.2 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
             </tr>
 
         </table>

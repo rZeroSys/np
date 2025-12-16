@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-14 01:08:28 EST -->
+<!-- Generated: 2025-12-15 19:47:18 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +96,18 @@
         .hero h1 {
             font-size: 1.3em;
             margin-bottom: 3px;
+        }
+
+        .hero .hq-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
         .hero .address {
@@ -396,15 +408,15 @@
             <tr style="">
                 <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Restaurants use ~30-35% of electricity for HVAC. Kitchen equipment, refrigeration, and lighting take the bulk. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>910,767 kWh</td>
-                <td>851,039 kWh</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓59,728 kWh</span> <span style="color:#64748b;font-size:0.9em;">(7%)</span></td>
+                <td>854,682 kWh</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓56,085 kWh</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Just ~18% of restaurant gas is HVAC. The bulk (~72%) fires cooking equipment—that can't change with occupancy. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>730 therms</td>
-                <td>697 therms</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓32 therms</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
+                <td>699 therms</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓31 therms</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
             </tr>
 
             <tr style="">
@@ -436,15 +448,15 @@
             <tr style="">
                 <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from conditioning less empty space. Energy data from <a href="https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page" target="_blank" rel="noopener">LL84</a> disclosure. HVAC portion determined by building type, multiplied by local utility rates. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>, EIA)</span></span></td>
                 <td>$560K/yr</td>
-                <td>$524K/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓$37K/yr</span> <span style="color:#64748b;font-size:0.9em;">(7%)</span></td>
+                <td>$526K/yr</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓$34K/yr</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.0% for Restaurant/Bars in New York. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 14x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$525K</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$493K</span></td>
             </tr>
 
             <tr style="">
@@ -473,8 +485,8 @@
             <tr style="background:#f9fafb;">
                 <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Carbon per kWh varies by grid—we use <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID</a> emission factors for New York. Gas emissions use standard combustion rates. (<a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>)</span></span></td>
                 <td>267.1 tCO2e/yr</td>
-                <td>249.7 tCO2e/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓17.4 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(7%)</span></td>
+                <td>250.7 tCO2e/yr</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓16.4 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
             </tr>
 
         </table>

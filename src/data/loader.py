@@ -419,7 +419,8 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
             'energy_site_eui': safe_float(row.get('energy_site_eui'), None),
             'energy_eui_benchmark': safe_float(row.get('energy_eui_benchmark'), None),
             'owner': safe_str(row.get('org_owner')),
-            'manager': safe_str(row.get('org_manager'))
+            'manager': safe_str(row.get('org_manager')),
+            'bldg_hq_org': safe_str(row.get('bldg_hq_org', ''))
         }
 
         owner = safe_str(row.get('org_owner'))
@@ -629,12 +630,15 @@ def calculate_stats(buildings_df, portfolios):
     # Building types by vertical - for dynamic left sidebar filtering
     # Only include types with at least 50 buildings in that vertical
     types_by_vertical = {}
+    type_counts_by_vertical = {}  # Track counts per vertical for proper type assignment
     for vertical in ['Commercial', 'Education', 'Healthcare']:
         v_df = buildings_df[buildings_df['bldg_vertical'] == vertical]
         type_counts = v_df['bldg_type_filter'].value_counts()
         types = [t for t, c in type_counts.items() if c >= 50]
         types_by_vertical[vertical] = sorted(types)
+        type_counts_by_vertical[vertical] = type_counts.to_dict()
     stats['types_by_vertical'] = types_by_vertical
+    stats['type_counts_by_vertical'] = type_counts_by_vertical
 
     print(f"  Total buildings: {stats['total_buildings']:,}")
     print(f"  Total OpEx avoidance: ${stats['total_opex_avoidance']:,.0f}")
@@ -712,7 +716,8 @@ def prepare_all_buildings(buildings_df, image_map):
             'sub_org': safe_str(row.get('org_tenant_subunit')),
             'id_property_name': safe_str(row.get('id_property_name')),
             'energy_site_eui': safe_float(row.get('energy_site_eui', 0)),
-            'bldg_year_built': safe_int(row.get('bldg_year_built', 0))
+            'bldg_year_built': safe_int(row.get('bldg_year_built', 0)),
+            'bldg_hq_org': safe_str(row.get('bldg_hq_org', ''))
         }
         all_buildings.append(bldg)
 

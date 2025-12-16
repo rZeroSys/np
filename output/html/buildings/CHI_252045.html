@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-14 01:07:30 EST -->
+<!-- Generated: 2025-12-15 19:46:26 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +96,18 @@
         .hero h1 {
             font-size: 1.3em;
             margin-bottom: 3px;
+        }
+
+        .hero .hq-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
         .hero .address {
@@ -373,7 +385,6 @@
 <tr><td>Type</td><td>Library/Museum</td></tr>
 <tr><td>Year Built</td><td>1912</td></tr>
 <tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Harper Library"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Harper_Library.png" alt="Harper Library" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Harper Library</span></span></div></td></tr><tr><td>Utility</td><td>Commonwealth Edison Co</td></tr>
-<tr><td>LEED</td><td><a href="https://www.usgbc.org/projects/univ-chicago-crerar-select-renovation" target="_blank" class="org-logo" data-org-name="LEED Gold"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/leed_gold.png" alt="LEED Gold" style="height:60px;max-width:220px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;color:#059669;font-weight:600;">Gold</span></a></td></tr>
 
         </table>
     </div>
@@ -397,22 +408,22 @@
             <tr style="">
                 <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>732,091 kWh</td>
-                <td>574,957 kWh</td>
-                <td><span style="color:#15803d;font-weight:700;">↓157,134 kWh</span> <span style="color:#64748b;font-size:0.9em;">(21%)</span></td>
+                <td>645,338 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓86,752 kWh</span> <span style="color:#64748b;font-size:0.9em;">(12%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Fuel Oil</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fuel oil is primarily a heating fuel—typically 80-95% goes to HVAC in commercial buildings. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>8,411 gallons</td>
-                <td>5,714 gallons</td>
-                <td><span style="color:#15803d;font-weight:700;">↓2,697 gal</span> <span style="color:#64748b;font-size:0.9em;">(32%)</span></td>
+                <td>6,846 gallons</td>
+                <td><span style="color:#15803d;font-weight:700;">↓1,564 gal</span> <span style="color:#64748b;font-size:0.9em;">(19%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>District Steam</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">District steam is ~95%+ HVAC—a heating-only fuel from central plants. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>)</span></span></td>
                 <td>6,201.14 Mlb</td>
-                <td>4,089.93 Mlb</td>
-                <td><span style="color:#15803d;font-weight:700;">↓2,111.21 Mlb</span> <span style="color:#64748b;font-size:0.9em;">(34%)</span></td>
+                <td>4,987.70 Mlb</td>
+                <td><span style="color:#15803d;font-weight:700;">↓1,213.44 Mlb</span> <span style="color:#64748b;font-size:0.9em;">(20%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
@@ -444,22 +455,15 @@
             <tr style="">
                 <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from conditioning less empty space. Energy data from public energy benchmarking data. HVAC portion determined by building type, multiplied by local utility rates. (<a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>, EIA)</span></span></td>
                 <td>$559K/yr</td>
-                <td>$405K/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓$154K/yr</span> <span style="color:#64748b;font-size:0.9em;">(28%)</span></td>
+                <td>$472K/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓$87K/yr</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Cap rate from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" target="_blank" rel="noopener">CBRE Cap Rate Survey Q4 2024</a>—7.5% for Library/Museums in 1116 East 59Th Street Chicago. Market-specific and building-type specific, not a national guess. Income capitalization: every dollar of savings adds 13x to asset value (NOI ÷ cap rate). Ask the prospect: 'What cap rate did you underwrite?' If different, we adjust the model.</span></span></td>
-                <td>—</td>
-                <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$2.1M</span></td>
-            </tr>
-
-            <tr style="">
                 <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Carbon per kWh varies by grid—we use <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID</a> emission factors for 1116 East 59Th Street Chicago. Gas emissions use standard combustion rates. (<a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>)</span></span></td>
                 <td>648.2 tCO2e/yr</td>
-                <td>458.2 tCO2e/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓190.0 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(29%)</span></td>
+                <td>540.0 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓108.2 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(17%)</span></td>
             </tr>
 
         </table>
