@@ -3919,6 +3919,7 @@ tr.pin-highlight {
     // Get profile picture URL based on email
     function getProfilePicture(email) {{
         const profileMap = {{
+            'agoodwin@rzero.com': 'Alex_Goodwin.jpg',
             'apires@rzero.com': 'Andy_Pires.jpg',
             'asalvatore@rzero.com': 'Anthony_Salvatore.jpg',
             'bsiegfried@rzero.com': 'Ben_Siegfried.jpg',
