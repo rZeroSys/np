@@ -129,7 +129,7 @@ BPS_TOOLTIP_INFO = {
         'cap': '0.00758 tCO2e/sqft',
         'min_sqft': 25000,
         'source': 'NYC Dept of Buildings',
-        'source_url': 'https://www.nyc.gov/site/sustainablebuildings/ll97/local-law-97.page',
+        'source_url': 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page',
         'effective': '2024-2029 (stricter limits 2030+)',
         'note': 'Current cap applies through 2029. In 2030, caps tighten ~50% making compliance harder.',
         'exempt_types': ['K-12 School', 'Government'],
@@ -150,42 +150,42 @@ BPS_TOOLTIP_INFO = {
     },
     'Cambridge': {
         'law': 'Cambridge BEUDO',
-        'method': 'emission cap',
-        'penalty': '$234/tCO2e over cap',
-        'cap': '0.0053 tCO2e/sqft',
+        'method': 'baseline reduction',
+        'penalty': '$234/tCO2e over target',
+        'cap': '20% below baseline',
         'min_sqft': 25000,
         'source': 'City of Cambridge',
-        'source_url': 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainablebldgs/beudo',
-        'effective': '2025 (aligned with Boston BERDO)',
-        'note': 'Uses same penalty structure as Boston. Caps tighten through 2050.',
-        'exempt_types': [],
-        'exempt_reason': ''
+        'source_url': 'https://www.cambridgema.gov/beudo',
+        'effective': '2025 (first compliance period)',
+        'note': 'Unlike Boston (fixed cap), Cambridge requires 20% reduction from each building\'s own baseline emissions. Multifamily only reports.',
+        'exempt_types': ['Multifamily'],
+        'exempt_reason': 'only report emissions (no reduction fines)'
     },
     'Washington': {
         'law': 'DC BEPS',
-        'method': 'Energy Star score',
+        'method': 'ENERGY STAR score',
         'penalty': '$10/sqft (prorated)',
-        'cap': 'ENERGY STAR 71 target',
+        'cap': 'By type (ES targets)',
         'min_sqft': 50000,
         'source': 'DC DOEE',
         'source_url': 'https://doee.dc.gov/service/building-energy-performance-standards',
         'effective': '2026 (first compliance deadline)',
-        'note': 'Unlike emission-based laws, DC uses Energy Star scores. Buildings scoring below 71 pay prorated fines.',
+        'note': 'Uses ENERGY STAR targets by building type: Office=71, Hotel=54, Hospital=50, Multifamily=66. Fine prorated by gap from target.',
         'exempt_types': [],
         'exempt_reason': ''
     },
     'Denver': {
         'law': 'Energize Denver',
-        'method': 'EUI target',
-        'penalty': '$0.30/kBtu over target',
-        'cap': '48.3 kBtu/sqft EUI',
+        'method': 'EUI glide path',
+        'penalty': '$0.15/kBtu over target',
+        'cap': 'By type (glide path to 2032)',
         'min_sqft': 25000,
         'source': 'City of Denver',
-        'source_url': 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-Resiliency/Energize-Denver',
-        'effective': '2024-2027 (current compliance period)',
-        'note': 'Penalties scale with how far over target. A building 10 kBtu over pays ~$3/sqft annually.',
-        'exempt_types': ['K-12 School', 'Government'],
-        'exempt_reason': 'have different compliance pathways'
+        'source_url': 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Energize-Denver',
+        'effective': '2029 (first fines, 2028 interim target)',
+        'note': 'Penalty rate reduced 50% (April 2025). Timeline: 2028 interim → 2032 final. Linear glide path (9/13 progress by 2028).',
+        'exempt_types': ['K-12 School'],
+        'exempt_reason': 'have alternative compliance pathways'
     },
     'Seattle': {
         'law': 'Seattle BEPS',
@@ -207,7 +207,7 @@ BPS_TOOLTIP_INFO = {
         'cap': '71.7 kBtu/sqft EUI',
         'min_sqft': 50000,
         'source': 'City of St. Louis',
-        'source_url': 'https://www.stlouis-mo.gov/government/departments/mayor/initiatives/sustainability/building-energy-performance-standard.cfm',
+        'source_url': 'https://www.stlouis-mo.gov/government/departments/public-safety/building/',
         'effective': '2025 (reporting begins)',
         'note': 'Daily fines accumulate quickly—$182,500/year if non-compliant. Smaller cities often have aggressive enforcement.',
         'exempt_types': [],
@@ -645,36 +645,37 @@ ENERGY_COLUMN_TOOLTIPS = {
 #===============================================================================
 
 # NEW column: Methodology + data sources by building type
+# Sources get auto-hyperlinked by inject_source_links()
 NEW_COLUMN_SOURCES = {
-    'Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights/figures/q3-2025-us-office-figures' target='_blank'>CBRE</a> vacancy rates, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> badge-swipe occupancy data.",
-    'Medical Office': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a> vacancy data, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> exam room utilization benchmarks.",
-    'Hotel': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://str.com/' target='_blank'>STR</a> room occupancy data, guest presence patterns.",
-    'K-12 School': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> instructional day requirements, state calendar data.",
-    'Higher Ed': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://nces.ed.gov/' target='_blank'>NCES</a> data, semester and break schedules.",
-    'Retail Store': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, operating hours and traffic patterns.",
-    'Supermarket/Grocery': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, operating hours and traffic patterns.",
-    'Restaurant/Bar': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, meal-time traffic patterns.",
-    'Inpatient Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data.",
-    'Specialty Hospital': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.aha.org/' target='_blank'>AHA</a> bed occupancy data.",
-    'Residential Care': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.nic.org/' target='_blank'>NIC MAP Vision</a> occupancy data.",
-    'Residential Care Facility': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.nic.org/' target='_blank'>NIC MAP Vision</a> occupancy data.",
-    'Mixed Use': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.cbre.com/insights' target='_blank'>CBRE</a> vacancy, <a href='https://www.kastle.com/safety-wellness/getting-america-back-to-work/' target='_blank'>Kastle</a> occupancy for office portion.",
+    'Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy rates, Kastle badge-swipe occupancy data.",
+    'Medical Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy data, MGMA exam room utilization benchmarks.",
+    'Hotel': "HVAC reduced using CBECS 2018 fuel splits, STR room occupancy data, guest presence patterns.",
+    'K-12 School': "HVAC reduced using CBECS 2018 fuel splits, NCES instructional day requirements, state calendar data.",
+    'Higher Ed': "HVAC reduced using CBECS 2018 fuel splits, NCES data, semester and break schedules.",
+    'Retail Store': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
+    'Supermarket/Grocery': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
+    'Restaurant/Bar': "HVAC reduced using CBECS 2018 fuel splits, meal-time traffic patterns.",
+    'Inpatient Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
+    'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
+    'Residential Care': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
+    'Residential Care Facility': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
+    'Mixed Use': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy, Kastle occupancy for office portion.",
     'Data Center': "No ODCV reduction. Cooling is for equipment heat, not people.",
     'Venue': "HVAC reduced using event schedules, industry utilization data.",
     'Theater': "HVAC reduced using performance schedules, Broadway/regional theater utilization data.",
-    'Gym': "HVAC reduced using <a href='https://www.ihrsa.org/' target='_blank'>IHRSA</a> traffic patterns, peak/off-peak utilization data.",
+    'Gym': "HVAC reduced using IHRSA traffic patterns, peak/off-peak utilization data.",
     'Library/Museum': "HVAC reduced using visitor traffic data, operating hours patterns.",
-    'Outpatient Clinic': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, <a href='https://www.mgma.com/' target='_blank'>MGMA</a> provider productivity benchmarks.",
-    'Bank Branch': "HVAC reduced using <a href='https://www.fdic.gov/' target='_blank'>FDIC</a> transaction trends, branch traffic patterns.",
-    'Enclosed Mall': "HVAC reduced using <a href='https://www.icsc.com/' target='_blank'>ICSC</a> traffic data, inline vacancy rates.",
-    'Strip Mall': "HVAC reduced using <a href='https://www.cbre.com/insights/figures/q3-2025-us-office-figures' target='_blank'>CBRE</a> vacancy, retail traffic patterns.",
+    'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, MGMA provider productivity benchmarks.",
+    'Bank Branch': "HVAC reduced using FDIC transaction trends, branch traffic patterns.",
+    'Enclosed Mall': "HVAC reduced using ICSC traffic data, inline vacancy rates.",
+    'Strip Mall': "HVAC reduced using CBRE vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
-    'Vehicle Dealership': "HVAC reduced using <a href='https://www.nada.org/' target='_blank'>NADA</a> traffic data, showroom vs service bay weighting.",
+    'Vehicle Dealership': "HVAC reduced using NADA traffic data, showroom vs service bay weighting.",
     'Event Space': "HVAC reduced using event booking schedules, setup/teardown patterns.",
-    'Preschool/Daycare': "HVAC reduced using state licensing data, <a href='https://www.naeyc.org/' target='_blank'>NAEYC</a> capacity standards.",
-    'Laboratory': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, research schedule patterns.",
+    'Preschool/Daycare': "HVAC reduced using state licensing data, NAEYC capacity standards.",
+    'Laboratory': "HVAC reduced using CBECS 2018 fuel splits, research schedule patterns.",
     'Courthouse': "HVAC reduced using court administration docket data, public area patterns.",
-    'default': "HVAC reduced using <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a> fuel splits, building type utilization benchmarks.",
+    'default': "HVAC reduced using CBECS 2018 fuel splits, building type utilization benchmarks.",
 }
 
 # CHANGE column: Human-readable insight (WHY savings exist) by building type
@@ -709,21 +710,22 @@ def get_current_column_tooltip(row):
 
     if city in CITY_DISCLOSURE_LAWS:
         law = CITY_DISCLOSURE_LAWS[city]
-        return f"From {law} benchmarking disclosure. Actual metered energy reported by the building."
+        return f"Based on regional disclosure laws, from {law} benchmarking disclosure. Actual metered energy reported by the building."
     elif state == 'CA':
-        return "From California AB 802 disclosure. Actual metered energy reported by the building."
+        return "Based on regional disclosure laws, from California AB 802 disclosure. Actual metered energy reported by the building."
     else:
         return "From public energy benchmarking data. Actual metered energy."
 
 def get_new_column_tooltip(row):
     """NEW column tooltip - explains methodology + data sources by building type."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return NEW_COLUMN_SOURCES.get(bldg_type, NEW_COLUMN_SOURCES['default'])
+    base_text = NEW_COLUMN_SOURCES.get(bldg_type, NEW_COLUMN_SOURCES['default'])
+    return f"Based on building type: {base_text}"
 
 def get_change_column_tooltip(row):
     """CHANGE column tooltip - the WHY punchline by building type."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return CHANGE_COLUMN_INSIGHTS.get(bldg_type, CHANGE_COLUMN_INSIGHTS['default'])
+    # Delegate to get_odcv_savings_tooltip which has detailed building-type explanations
+    return get_odcv_savings_tooltip(row)
 
 #===============================================================================
 # TOOLTIP DEFINITIONS
@@ -738,26 +740,26 @@ TOOLTIPS = {
 def get_energy_rate_tooltip(row):
     """Dynamic tooltip explaining energy rate concept - for ODCV provider audience."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"Base electricity rate before demand charges. Multiplier applied for taxes, distribution, and transmission fees not in the commodity rate. (NREL utility rate database)"
+    return f"Based on regional utility rates, base electricity rate before demand charges. Multiplier applied for taxes, distribution, and transmission fees not in the commodity rate. (NREL utility rate database)"
 
 def get_demand_rate_tooltip(row):
     """Dynamic tooltip explaining demand rate concept - for ODCV provider audience."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"Utilities charge for peak power draw each month, not just consumption. Includes adjustments for demand ratchet clauses and seasonal rate premiums. (NREL utility rate database)"
+    return f"Based on regional utility rates, utilities charge for peak power draw each month, not just consumption. Includes adjustments for demand ratchet clauses and seasonal rate premiums. (NREL utility rate database)"
 
 def get_peak_demand_tooltip(row):
     """Dynamic tooltip explaining peak demand concept - for ODCV provider audience."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
     context = {
-        'Office': "Offices peak mid-afternoon when HVAC, lighting, and equipment all run together.",
-        'K-12 School': "Schools peak when HVAC ramps up before students arrive and during hot afternoons.",
-        'Hotel': "Hotels peak in early evening when guests return and restaurant/laundry run simultaneously.",
-        'Retail Store': "Retail peaks during store hours when lighting, HVAC, and point-of-sale all operate.",
-        'Inpatient Hospital': "Hospitals have relatively flat demand since they run around the clock.",
-        'Data Center': "Data centers have very flat demand—servers run constantly.",
+        'Office': "offices peak mid-afternoon when HVAC, lighting, and equipment all run together.",
+        'K-12 School': "schools peak when HVAC ramps up before students arrive and during hot afternoons.",
+        'Hotel': "hotels peak in early evening when guests return and restaurant/laundry run simultaneously.",
+        'Retail Store': "retail peaks during store hours when lighting, HVAC, and point-of-sale all operate.",
+        'Inpatient Hospital': "hospitals have relatively flat demand since they run around the clock.",
+        'Data Center': "data centers have very flat demand—servers run constantly.",
     }
-    type_context = context.get(bldg_type, "Peak typically occurs when HVAC, lighting, and equipment all run at once.")
-    return f"Highest instantaneous power draw. {type_context} Calculated from annual usage and load factor."
+    type_context = context.get(bldg_type, "peak typically occurs when HVAC, lighting, and equipment all run at once.")
+    return f"Highest instantaneous power draw. Based on building type, {type_context} Calculated from annual usage and load factor."
 
 # Source text to URL mapping for tooltip hyperlinks
 # Order matters - longer/more specific patterns first to avoid partial matches
@@ -780,12 +782,12 @@ SOURCE_TEXT_TO_URL = [
     ('Kastle', 'https://www.kastle.com/safety-wellness/getting-america-back-to-work/'),
 
     # Industry-Specific Sources
-    ('STR', 'https://str.com/'),
+    ('STR', 'https://www.hospitalitynet.org/news/4129415.html'),
     ('NCES', 'https://nces.ed.gov/'),
-    ('AHA Hospital Statistics', 'https://www.aha.org/statistics-trends-reports'),
-    ('AHA', 'https://www.aha.org/statistics-trends-reports'),
+    ('AHA Hospital Statistics', 'https://www.aha.org/statistics/fast-facts-us-hospitals'),
+    ('AHA', 'https://www.aha.org/statistics/fast-facts-us-hospitals'),
     ('MGMA', 'https://www.mgma.com/'),
-    ('NIC MAP Vision', 'https://www.nic.org/nic-map-vision/'),
+    ('NIC MAP Vision', 'https://www.nic.org/blog/senior-housing-occupancy-continues-climbing-in-first-quarter-2025/'),
     ('IHRSA', 'https://www.ihrsa.org/'),
     ('ICSC', 'https://www.icsc.com/'),
     ('CoStar', 'https://www.costar.com/'),
@@ -800,24 +802,24 @@ SOURCE_TEXT_TO_URL = [
     ('ENERGY STAR', 'https://www.energystar.gov/'),
 
     # BPS Laws - NYC
-    ('NYC Local Law 97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
-    ('Local Law 97 of 2019', 'https://www.nyc.gov/assets/buildings/local_laws/ll97of2019.pdf'),
-    ('Local Law 97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
-    ('LL97', 'https://www.nyc.gov/site/buildings/property-or-business-owner/ll97.page'),
-    ('LL84', 'https://www.nyc.gov/site/buildings/property-or-business-owner/energy-and-water-benchmarking-ll84.page'),
+    ('NYC Local Law 97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
+    ('Local Law 97 of 2019', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
+    ('Local Law 97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
+    ('LL97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
+    ('LL84', 'https://www.nyc.gov/site/buildings/codes/ll84-benchmarking-law.page'),
 
     # BPS Laws - Boston
     ('BERDO 2.0', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
     ('BERDO', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
 
     # BPS Laws - Other Cities
-    ('Cambridge BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabilityandresilienceprograms/beudo'),
-    ('BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabilityandresilienceprograms/beudo'),
+    ('Cambridge BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabledevelopment/buildingenergydisclosureordinance'),
+    ('BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabledevelopment/buildingenergydisclosureordinance'),
     ('DC BEPS', 'https://doee.dc.gov/service/building-energy-performance-standards-beps'),
     ('DC DOEE', 'https://doee.dc.gov/'),
-    ('Energize Denver', 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Climate-Action-Sustainability-Resiliency/Energize-Denver'),
+    ('Energize Denver', 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub'),
     ('Seattle BEPS', 'https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards'),
-    ('St. Louis BEPS', 'https://www.stlouis-mo.gov/government/departments/public-safety/building/building-performance/'),
+    ('St. Louis BEPS', 'https://www.stlouis-mo.gov/government/departments/public-safety/building/'),
     ('California AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
     ('AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
 
@@ -965,68 +967,98 @@ def get_climate_modifier(climate_zone):
     return 1.00, "Moderate"
 
 def get_odcv_savings_tooltip(row):
-    """Dynamic ODCV savings explanation by building type."""
+    """Dynamic ODCV opportunity explanation by building type.
+
+    Explains WHY this building type has its specific ODCV savings potential.
+    Uses hybrid style: real-world patterns + key data points + source citations.
+    """
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    type_info = BUILDING_TYPE_INFO.get(bldg_type, DEFAULT_BUILDING_INFO)
 
-    odcv_pct = safe_num(row, 'odcv_hvac_savings_pct', 0) or 0
-    vacancy = safe_num(row, 'occ_vacancy_rate', 0) or 0
-    utilization = safe_num(row, 'occ_utilization_rate', 0) or 0
+    # Building-type specific explanations - hybrid style with data + sources
+    tooltips = {
+        # HIGH OPPORTUNITY (30%+ savings)
+        'Office': "Post-COVID reality: Kastle Systems shows 50% average badge-ins nationally. Add 15-25% vacancy rates (SF: 34%, NYC: 15%) and you get massive over-ventilation. A building designed for 1,000 people often has 300-400 present. (CBECS 2018, CBRE, Kastle Systems)",
 
-    floor_pct = type_info.get('floor', 0.15) * 100
-    ceiling_pct = type_info.get('ceiling', 0.35) * 100
-    uses_vacancy = type_info.get('uses_vacancy', False)
-    category = type_info.get('category', 'Single-Tenant')
+        'Medical Office': "Exam rooms sit empty between patients—each 15-30 minute appointment means the room is unoccupied 50-70% of operating hours. MGMA benchmarks show providers see 20-25 patients/day across 6-8 exam rooms. Add nights/weekends = closed. (CBECS 2018, MGMA)",
 
-    # Building-type specific explanation - concept only, no numbers
-    if bldg_type == 'Office' or bldg_type == 'Medical Office':
-        return "Office buildings face a double problem: vacant floors with no tenant, plus leased floors where hybrid work means most desks sit empty on any given day. HVAC runs at full capacity in both—conditioning space for people who aren't there. (CBECS 2018, CBRE, Kastle)"
+        'K-12 School': "Schools are empty 3+ months/year (summer, holidays, weekends) but HVAC often runs year-round. During school days, classrooms average 65-75% occupancy with significant empty periods between classes. Gyms, auditoriums, and cafeterias sit empty most of the day. (CBECS 2018, NCES)",
 
-    elif bldg_type == 'K-12 School':
-        return "Schools operate roughly 180 days per year for about 7 hours each day. Add summer break, weekends, and holidays, and the building sits empty most of the year—yet HVAC often keeps running. (CBECS 2018, NCES)"
+        'Higher Ed': "Universities have dramatic occupancy swings: summer break (12+ weeks), winter break, spring break, plus evenings and weekends. Lecture halls designed for 300 students often have 50. Research buildings run 24/7 HVAC for 9-5 occupancy. (CBECS 2018, NCES)",
 
-    elif bldg_type == 'Higher Ed':
-        return "Campus buildings have dramatic swings: lecture halls designed for 300 often have 50, classrooms sit empty between periods, and entire buildings clear out for semester breaks and summers. (CBECS 2018, NCES)"
+        'Venue': "Arenas, concert halls, and convention centers are empty 80%+ of the time. A typical arena hosts 60-80 events/year—that's only 300-400 hours of actual use out of 8,760 hours/year. Yet HVAC conditions these massive spaces continuously. (CBECS 2018)",
 
-    elif bldg_type == 'Hotel':
-        return "Most rooms sit empty on any given night, and even checked-in guests spend much of their day out—at meetings, sightseeing, or dining. Ventilation conditions empty rooms most of the time. (CBECS 2018, STR)"
+        'Theater': "Broadway runs 8 shows/week x 3 hours = 24 hours of performances out of 168 hours/week. Even adding rehearsals and pre-show HVAC, theaters operate at 15-20% utilization. Movie theaters fare slightly better but still average 30% seat occupancy. (CBECS 2018)",
 
-    elif bldg_type == 'Retail Store':
-        return "Customer traffic varies wildly throughout the day—staff-only during opening and closing, quiet mid-mornings, then lunch and evening rushes. HVAC runs at peak capacity all day regardless. (CBECS 2018)"
+        'Inpatient Hospital': "Hospitals run 24/7, but non-clinical areas have variable occupancy: waiting rooms (30% occupied), exam rooms (35%), admin offices (40%), cafeterias (35%)—yet all receive the same aggressive ventilation as patient rooms. (CBECS 2018, AHA, ASHRAE 170)",
 
-    elif bldg_type == 'Restaurant/Bar':
-        return "Dining rooms are packed during lunch and dinner but nearly empty between meal times. (CBECS 2018)"
+        'Mixed Use': "Office floors follow Kastle data (45-55% occupancy), retail floors follow traffic patterns (40-50%). Multi-tenant means vacancy challenges similar to office. Central HVAC controlled by landlord = same over-ventilation problem. (CBECS 2018, CBRE)",
 
-    elif bldg_type == 'Supermarket/Grocery':
-        return "Long hours with steady traffic, but still swing between evening peaks and early morning lulls. (CBECS 2018)"
+        # MODERATE OPPORTUNITY (22-29%)
+        'Specialty Hospital': "Rehab facilities, psychiatric hospitals, and specialty care have similar patterns to inpatient hospitals. Large waiting areas, admin offices, and therapy rooms are over-ventilated. True utilization 55-60%. (CBECS 2018, AHA)",
 
-    elif bldg_type in ['Inpatient Hospital', 'Specialty Hospital']:
-        return "24/7 operation limits opportunity, but non-clinical areas have variable occupancy: waiting rooms empty overnight, exam rooms idle between appointments, admin offices with business-hours staff. (CBECS 2018, AHA)"
+        'Hotel': "Average US hotel occupancy: 63%. But rooms are only occupied ~10 hours/day (evening to morning). Meeting rooms: booked 40% of time. Lobbies: 30% capacity average. HVAC runs 24/7 in all spaces regardless of occupancy. (CBECS 2018, STR)",
 
-    elif bldg_type in ['Residential Care', 'Residential Care Facility']:
-        return "Unlike offices that empty at night, residents live here around the clock—so the empty-space opportunity is limited. Savings come from common areas like dining rooms where occupancy varies. (CBECS 2018, NIC MAP Vision)"
+        'Outpatient Clinic': "Same pattern as medical office—exam rooms ventilated at medical-grade rates but patients only present for brief appointments. Operating hours: 8am-5pm weekdays. Effective utilization across exam rooms, waiting areas, and admin: 42-48%. (CBECS 2018, MGMA)",
 
-    elif bldg_type in ['Theater', 'Venue']:
-        return "Arenas and theaters are empty most of the time—a typical venue hosts 60-80 events per year, leaving the space unused thousands of hours annually. (CBECS 2018)"
+        'Retail Store': "Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy. (CBECS 2018)",
 
-    elif bldg_type == 'Mixed Use':
-        return "Office towers with ground-floor retail run centralized HVAC. Vacant floors still get ventilated, and office floors face the same hybrid-work utilization gap as pure office buildings. (CBECS 2018, CBRE)"
+        'Enclosed Mall': "Retail apocalypse reality: many malls have 15-30% vacancy from anchor store closures. Common areas (food courts, hallways) conditioned regardless of traffic. Weekday mornings: 10-20% of capacity. Average: 35-40% utilization. (CBECS 2018, ICSC)",
 
-    elif bldg_type == 'Wholesale Club':
-        return "Wholesale clubs have large back-of-house warehouse areas with minimal staff—most of the building has very low occupancy compared to the sales floor. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        'Library': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
 
-    elif bldg_type in ['Library', 'Museum', 'Library/Museum']:
-        return "Libraries and museums have limited public hours with variable visitor traffic. Reading rooms and exhibit halls designed for crowds often have sparse attendance. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        'Museum': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
 
-    elif bldg_type == 'Outpatient Clinic':
-        return "Outpatient clinics have exam rooms that sit empty between appointments. Patients occupy them briefly, then they're vacant until the next visit. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        'Library/Museum': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
 
-    elif bldg_type == 'Enclosed Mall':
-        return "Enclosed malls have high vacancy from anchor store closures. Common areas stay empty on weekday mornings while packed on weekend afternoons. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>CBECS 2018</a>)"
+        # LIMITED OPPORTUNITY (20-22%)
+        'Wholesale Club': "30-40% of the building is back-of-house warehouse with only forklift drivers present. Sales floor averages 48% traffic, stock areas 10%. Shorter hours than grocery (10am-8:30pm) and weekend-heavy traffic. (CBECS 2018)",
 
-    else:
-        # Generic fallback
-        return "Most buildings are ventilated at design capacity regardless of how many people are actually inside. Adjusting airflow to match real occupancy reduces waste during low-traffic periods. (CBECS 2018)"
+        'Restaurant/Bar': "Kitchen exhaust hoods must run at full blast during all cooking—not demand-controllable. ODCV opportunity exists only in dining areas (~60% of space). Dining follows meal patterns: packed at lunch/dinner, empty between. (CBECS 2018)",
+
+        'Supermarket/Grocery': "Longer hours (6am-midnight) than most retail, but still variable traffic. Open 126 hrs/week, but mornings and late nights see 20-30% of design. Food safety requirements limit how much ventilation can be reduced. (CBECS 2018)",
+
+        'Residential Care': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
+
+        'Residential Care Facility': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
+
+        # VERY LIMITED OPPORTUNITY (5-15%)
+        'Laboratory': "Labs have limited opportunity due to fume hoods requiring constant exhaust and specialized equipment. Negative pressure requirements override occupancy-based control. (CBECS 2018, ASHRAE)",
+
+        'Police Station': "24/7 staffing requirement. Holding areas have specific ventilation requirements under detention standards. Savings limited to administrative and training spaces during off-hours. (CBECS 2018)",
+
+        'Fire Station': "24/7 staffing requirement. Living quarters, apparatus bays, and ready rooms must maintain comfortable conditions for crews who may be called out at any moment. Response capability must remain immediate. (CBECS 2018, NFPA)",
+
+        'Public Transit': "Station utilization follows commute patterns: packed 7-9am and 5-7pm, sparse overnight. But underground stations have specific ventilation requirements for tunnel air quality and emergency smoke evacuation. (CBECS 2018, NFPA 130)",
+
+        'Courthouse': "Security requirements and unpredictable docket schedules limit flexibility. Courtrooms may sit empty between cases but require rapid climate recovery when sessions begin. (CBECS 2018)",
+
+        'Bank Branch': "Limited hours—typically 9am-5pm weekdays, Saturday mornings (27-30% of time). During those hours, modern branches see minimal foot traffic: 20-40 customers/day in spaces designed for queues of 30-50. (CBECS 2018, FDIC)",
+
+        'Public Service': "DMVs, permit centers operate standard business hours with variable public traffic. Waiting areas designed for 100 people often have 20-40 present except during peak periods. (CBECS 2018, GSA)",
+
+        # OTHER TYPES
+        'Gym': "Extreme peak-valley patterns: packed at 6-8am and 5-8pm (60-80% of equipment in use), nearly empty midday and late night (10-20%). 24-hour gyms run even lower averages—overnight hours see single-digit utilization. (CBECS 2018, IHRSA)",
+
+        'Gym/Fitness Center': "Extreme peak-valley patterns: packed at 6-8am and 5-8pm (60-80% of equipment in use), nearly empty midday and late night (10-20%). 24-hour gyms run even lower averages—overnight hours see single-digit utilization. (CBECS 2018, IHRSA)",
+
+        'Event Space': "Banquet halls, conference centers, wedding venues are empty 80%+ of the time. A typical venue hosts 2-4 events/week, each lasting 4-8 hours. Between events, spaces sit empty but require conditioning. (CBECS 2018)",
+
+        'Arts & Culture': "Galleries require 24/7 climate control for artwork but see visitors only during limited hours. Performance spaces follow theater patterns with sparse scheduling. 15-25% visitor utilization. (CBECS 2018)",
+
+        'Sports/Gaming Center': "Bowling alleys, ice rinks, arcades run 12-16 hours daily but average 35-45% utilization. Weekend afternoons hit 70-90% capacity; Tuesday mornings run 10-20%. Ice rinks need continuous cooling regardless of skaters. (CBECS 2018)",
+
+        'Vehicle Dealership': "Showrooms (30-40% of building) follow retail traffic with variable customer presence. Service bays (40-50%) have controlled utilization from scheduled appointments. Showroom traffic averages 35-45% of design. (CBECS 2018, NADA)",
+
+        'Preschool/Daycare': "Operate more hours than K-12 (6:30am-6:30pm) but still close nights and weekends. Operating hours: ~60/week out of 168 (36%). During hours, rooms designed for 20 children often have 12-15 present. (CBECS 2018, NAEYC)",
+
+        'Strip Mall': "Individual tenant spaces go empty during turnover (8-15% vacancy). Individual stores follow retail traffic patterns—busy evenings and weekends, slow weekday mornings. Rooftop units make demand-based ventilation straightforward. (CBECS 2018, CoStar)",
+
+        # ZERO OPPORTUNITY
+        'Data Center': "Data centers have zero ODCV savings potential. Cooling requirements are driven entirely by server heat loads, not human occupancy. A data center with 2 people or 20 people requires the same precise temperature and humidity control. (CBECS 2018)",
+    }
+
+    # Return building-type specific tooltip, or fallback for unknown types
+    return tooltips.get(bldg_type, "Most buildings are ventilated at design capacity regardless of actual occupancy. Adjusting airflow to match real occupancy reduces waste during low-traffic periods. (CBECS 2018)")
 
 
 def get_property_value_tooltip(row):
@@ -1039,13 +1071,13 @@ def get_property_value_tooltip(row):
     story += "Lower operating costs (like HVAC savings) flow directly to NOI, multiplying their impact on asset value. "
     if fine_avoided > 0:
         story += "Avoided BPS fines also reduce expenses, increasing NOI further. "
-    story += f"Cap rates for {bldg_type.lower()}s from CBRE Cap Rate Survey Q4 2024."
+    story += f"Based on building type, cap rates for {bldg_type.lower()}s from CBRE Cap Rate Survey Q4 2024."
     return story
 
 def get_energy_star_tooltip(row):
     """Dynamic methodology explanation for Energy Star score - for ODCV provider audience."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return (f"ENERGY STAR® ranks this {bldg_type.lower()} against similar buildings nationwide using source energy (not site energy), "
+    return (f"Based on building type, ENERGY STAR® ranks this {bldg_type.lower()} against similar buildings nationwide using source energy (not site energy), "
             "normalized for weather and operating hours. Score of 75+ qualifies for EPA certification. "
             "Post-ODCV scores estimated by modeling how HVAC savings reduce source energy use. (EPA Portfolio Manager)")
 
@@ -1077,19 +1109,20 @@ def get_electricity_kwh_tooltip(row):
     data_year = safe_val(row, 'data_year', '')
     year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
     tooltips = {
-        'Data Center': "Data centers use ~42% of electricity for cooling—but it removes server heat, not affected by occupancy. The rest powers IT equipment.",
-        'Supermarket/Grocery': "Supermarkets use ~35% of electricity for HVAC. Refrigeration takes 40-50%, with lighting and equipment making up the rest.",
-        'Inpatient Hospital': "Hospitals use ~40-45% of electricity for HVAC. Medical imaging, life support, and 24/7 critical systems take the rest.",
-        'Specialty Hospital': "Specialty hospitals use ~40-45% of electricity for HVAC. Medical equipment and critical systems take the rest.",
-        'Hotel': "Hotels use ~45-50% of electricity for HVAC. Lighting, elevators, laundry, and kitchen equipment take the rest.",
-        'Restaurant/Bar': "Restaurants use ~30-35% of electricity for HVAC. Kitchen equipment, refrigeration, and lighting take the bulk.",
-        'K-12 School': "Schools use ~45-50% of electricity for HVAC. Lighting, computers, and cafeteria equipment take the rest.",
-        'Higher Ed': "Universities use ~45-50% of electricity for HVAC. Labs, computers, and lighting take the rest.",
-        'Office': "Offices use ~40-50% of electricity for HVAC. Lighting and plug loads (computers, equipment) take the rest.",
-        'Medical Office': "Medical offices use ~45-50% of electricity for HVAC. Medical equipment and lighting take the rest.",
-        'Retail Store': "Retail stores use ~40-45% of electricity for HVAC. Lighting is a major load, especially in display-heavy stores.",
+        'Data Center': "data centers use ~42% of electricity for cooling—but it removes server heat, not affected by occupancy. The rest powers IT equipment.",
+        'Supermarket/Grocery': "supermarkets use ~35% of electricity for HVAC. Refrigeration takes 40-50%, with lighting and equipment making up the rest.",
+        'Inpatient Hospital': "hospitals use ~40-45% of electricity for HVAC. Medical imaging, life support, and 24/7 critical systems take the rest.",
+        'Specialty Hospital': "specialty hospitals use ~40-45% of electricity for HVAC. Medical equipment and critical systems take the rest.",
+        'Hotel': "hotels use ~45-50% of electricity for HVAC. Lighting, elevators, laundry, and kitchen equipment take the rest.",
+        'Restaurant/Bar': "restaurants use ~30-35% of electricity for HVAC. Kitchen equipment, refrigeration, and lighting take the bulk.",
+        'K-12 School': "schools use ~45-50% of electricity for HVAC. Lighting, computers, and cafeteria equipment take the rest.",
+        'Higher Ed': "universities use ~45-50% of electricity for HVAC. Labs, computers, and lighting take the rest.",
+        'Office': "offices use ~40-50% of electricity for HVAC. Lighting and plug loads (computers, equipment) take the rest.",
+        'Medical Office': "medical offices use ~45-50% of electricity for HVAC. Medical equipment and lighting take the rest.",
+        'Retail Store': "retail stores use ~40-45% of electricity for HVAC. Lighting is a major load, especially in display-heavy stores.",
     }
-    return tooltips.get(bldg_type, "Commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest.") + year_suffix
+    base_text = tooltips.get(bldg_type, "commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest.")
+    return f"Based on building type, {base_text}" + year_suffix
 
 def get_natural_gas_tooltip(row):
     """ROW tooltip - static per building type, with data year."""
@@ -1097,19 +1130,20 @@ def get_natural_gas_tooltip(row):
     data_year = safe_val(row, 'data_year', '')
     year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
     tooltips = {
-        'Hotel': "Only ~20% of hotel gas goes to HVAC. The rest (~40% hot water, ~33% kitchen cooking) can't be reduced by occupancy controls.",
-        'Restaurant/Bar': "Just ~18% of restaurant gas is HVAC. The bulk (~72%) fires cooking equipment—that can't change with occupancy.",
-        'Inpatient Hospital': "Hospitals use ~60% of gas for HVAC. The rest goes to sterilization, hot water, and cafeteria.",
-        'Specialty Hospital': "Specialty hospitals use ~60% of gas for HVAC. The rest goes to sterilization and hot water.",
-        'K-12 School': "Schools use ~80% of gas for heating. The rest is cafeteria cooking and hot water.",
-        'Higher Ed': "Universities use ~80% of gas for heating. Labs, cafeterias, and hot water take the rest.",
-        'Supermarket/Grocery': "Supermarkets use ~65-75% of gas for HVAC. Bakery ovens and deli equipment take the rest.",
-        'Office': "Offices use ~85-90% of gas for heating. Hot water takes the small remainder.",
-        'Medical Office': "Medical offices use ~85% of gas for heating. Hot water and sterilization take the rest.",
-        'Retail Store': "Retail stores use ~75-80% of gas for heating. Hot water takes the rest.",
-        'Data Center': "Data centers use almost no gas for HVAC—cooling is electric. Any gas goes to backup generators or office areas.",
+        'Hotel': "only ~20% of hotel gas goes to HVAC. The rest (~40% hot water, ~33% kitchen cooking) can't be reduced by occupancy controls.",
+        'Restaurant/Bar': "just ~18% of restaurant gas is HVAC. The bulk (~72%) fires cooking equipment—that can't change with occupancy.",
+        'Inpatient Hospital': "hospitals use ~60% of gas for HVAC. The rest goes to sterilization, hot water, and cafeteria.",
+        'Specialty Hospital': "specialty hospitals use ~60% of gas for HVAC. The rest goes to sterilization and hot water.",
+        'K-12 School': "schools use ~80% of gas for heating. The rest is cafeteria cooking and hot water.",
+        'Higher Ed': "universities use ~80% of gas for heating. Labs, cafeterias, and hot water take the rest.",
+        'Supermarket/Grocery': "supermarkets use ~65-75% of gas for HVAC. Bakery ovens and deli equipment take the rest.",
+        'Office': "offices use ~85-90% of gas for heating. Hot water takes the small remainder.",
+        'Medical Office': "medical offices use ~85% of gas for heating. Hot water and sterilization take the rest.",
+        'Retail Store': "retail stores use ~75-80% of gas for heating. Hot water takes the rest.",
+        'Data Center': "data centers use almost no gas for HVAC—cooling is electric. Any gas goes to backup generators or office areas.",
     }
-    return tooltips.get(bldg_type, "Commercial buildings typically use 75-85% of gas for heating. Hot water and process loads take the rest.") + year_suffix
+    base_text = tooltips.get(bldg_type, "commercial buildings typically use 75-85% of gas for heating. Hot water and process loads take the rest.")
+    return f"Based on building type, {base_text}" + year_suffix
 
 def get_fuel_oil_tooltip(row):
     """ROW tooltip - static per building type, with data year."""
@@ -1117,15 +1151,16 @@ def get_fuel_oil_tooltip(row):
     data_year = safe_val(row, 'data_year', '')
     year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
     tooltips = {
-        'Inpatient Hospital': "Hospitals use ~50-60% of fuel oil for HVAC. The rest runs backup generators and sterilization equipment.",
-        'Specialty Hospital': "Specialty hospitals use ~50-60% of fuel oil for HVAC. Backup generators and sterilization take the rest.",
-        'Hotel': "Hotels use ~70-80% of fuel oil for HVAC. The rest heats hot water.",
-        'Laboratory': "Labs use only ~12% of fuel oil for HVAC. Most powers backup generators and specialized equipment.",
-        'Mixed Use': "Mixed-use buildings use ~10-15% of fuel oil for HVAC. Much goes to backup power.",
-        'Residential Care': "Care facilities use ~40-50% of fuel oil for HVAC. Hot water for residents takes the rest.",
-        'Retail Store': "Retail stores use ~95%+ of fuel oil for heating—it's almost pure HVAC fuel.",
+        'Inpatient Hospital': "hospitals use ~50-60% of fuel oil for HVAC. The rest runs backup generators and sterilization equipment.",
+        'Specialty Hospital': "specialty hospitals use ~50-60% of fuel oil for HVAC. Backup generators and sterilization take the rest.",
+        'Hotel': "hotels use ~70-80% of fuel oil for HVAC. The rest heats hot water.",
+        'Laboratory': "labs use only ~12% of fuel oil for HVAC. Most powers backup generators and specialized equipment.",
+        'Mixed Use': "mixed-use buildings use ~10-15% of fuel oil for HVAC. Much goes to backup power.",
+        'Residential Care': "care facilities use ~40-50% of fuel oil for HVAC. Hot water for residents takes the rest.",
+        'Retail Store': "retail stores use ~95%+ of fuel oil for heating—it's almost pure HVAC fuel.",
     }
-    return tooltips.get(bldg_type, "Fuel oil is primarily a heating fuel—typically 80-95% goes to HVAC in commercial buildings.") + year_suffix
+    base_text = tooltips.get(bldg_type, "fuel oil is primarily a heating fuel—typically 80-95% goes to HVAC in commercial buildings.")
+    return f"Based on building type, {base_text}" + year_suffix
 
 def get_district_steam_tooltip(row):
     """ROW tooltip - static per building type, with data year."""
@@ -1134,16 +1169,17 @@ def get_district_steam_tooltip(row):
     data_year = safe_val(row, 'data_year', '')
     year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
     tooltips = {
-        'Inpatient Hospital': "Hospitals use ~85-90% of district steam for HVAC. Some runs sterilization equipment.",
-        'Specialty Hospital': "Specialty hospitals use ~85-90% of district steam for HVAC. Sterilization takes the rest.",
+        'Inpatient Hospital': "hospitals use ~85-90% of district steam for HVAC. Some runs sterilization equipment.",
+        'Specialty Hospital': "specialty hospitals use ~85-90% of district steam for HVAC. Sterilization takes the rest.",
     }
     # NYC gets special mention of Con Edison
     if 'New York' in city or city == 'NYC':
-        base = tooltips.get(bldg_type, "District steam is ~95%+ HVAC—piped from Con Edison's central plants. It's a heating-only fuel.")
+        base = tooltips.get(bldg_type, "district steam is ~95%+ HVAC—piped from Con Edison's central plants. It's a heating-only fuel.")
         if bldg_type not in tooltips:
-            return base + year_suffix
-        return tooltips[bldg_type] + " Piped from Con Edison." + year_suffix
-    return tooltips.get(bldg_type, "District steam is ~95%+ HVAC—a heating-only fuel from central plants.") + year_suffix
+            return f"Based on building type and regional utility, {base}" + year_suffix
+        return f"Based on building type and regional utility, {tooltips[bldg_type]} Piped from Con Edison." + year_suffix
+    base_text = tooltips.get(bldg_type, "district steam is ~95%+ HVAC—a heating-only fuel from central plants.")
+    return f"Based on building type, {base_text}" + year_suffix
 
 def get_site_eui_tooltip(row):
     """EUI tooltip - explains what EUI is and provides benchmark context."""
@@ -1161,12 +1197,12 @@ def get_site_eui_tooltip(row):
     }
     type_benchmark = benchmarks.get(bldg_type, benchmarks['default'])
 
-    return f"Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. {bldg_type} median: ~{type_benchmark} kBtu/sq ft/year.{year_suffix}"
+    return f"Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Based on building type, {bldg_type.lower()} median: ~{type_benchmark} kBtu/sq ft/year.{year_suffix}"
 
 def get_hvac_pct_tooltip(row):
     """Brief tooltip for HVAC percentage."""
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"% of energy used by HVAC for {bldg_type}s. Adjusted for age, efficiency, and climate. (Source: <a href='https://www.eia.gov/consumption/commercial/' target='_blank'>EIA CBECS 2018</a>)"
+    return f"Based on building type, % of energy used by HVAC for {bldg_type.lower()}s. Adjusted for age, efficiency, and climate. (EIA CBECS 2018)"
 
 def get_load_factor_tooltip(row):
     """Load factor tooltip - conceptual explanation with building-type context."""
@@ -1174,18 +1210,18 @@ def get_load_factor_tooltip(row):
 
     # Building type context (conceptual)
     context = {
-        'Data Center': "Data centers have very high load factors—servers run around the clock at steady power.",
-        'Inpatient Hospital': "Hospitals have high load factors due to 24/7 operations.",
-        'Specialty Hospital': "Hospitals have high load factors due to 24/7 operations.",
-        'Supermarket/Grocery': "Grocery stores have high load factors—refrigeration runs constantly.",
-        'Office': "Offices have lower load factors—busy during business hours, quiet nights and weekends.",
-        'K-12 School': "Schools have low load factors—empty summers, evenings, and weekends.",
-        'Higher Ed': "Universities have moderate load factors—semester schedules with breaks.",
-        'Hotel': "Hotels have moderate load factors—variable occupancy patterns.",
+        'Data Center': "data centers have very high load factors—servers run around the clock at steady power.",
+        'Inpatient Hospital': "hospitals have high load factors due to 24/7 operations.",
+        'Specialty Hospital': "hospitals have high load factors due to 24/7 operations.",
+        'Supermarket/Grocery': "grocery stores have high load factors—refrigeration runs constantly.",
+        'Office': "offices have lower load factors—busy during business hours, quiet nights and weekends.",
+        'K-12 School': "schools have low load factors—empty summers, evenings, and weekends.",
+        'Higher Ed': "universities have moderate load factors—semester schedules with breaks.",
+        'Hotel': "hotels have moderate load factors—variable occupancy patterns.",
     }
-    type_context = context.get(bldg_type, "Load factor depends on how consistently the building operates.")
+    type_context = context.get(bldg_type, "load factor depends on how consistently the building operates.")
 
-    return f"Load factor measures how evenly electricity is used (average load ÷ peak load). Higher values mean steadier usage, lower values mean sharp peaks. {type_context} Used to estimate peak demand for utility billing. (CBECS 2018)"
+    return f"Load factor measures how evenly electricity is used (average load ÷ peak load). Higher values mean steadier usage, lower values mean sharp peaks. Based on building type, {type_context} Used to estimate peak demand for utility billing. (CBECS 2018)"
 
 def get_total_ghg_tooltip(row):
     """Dynamic tooltip explaining total GHG emissions - city-specific grid context."""
@@ -1206,7 +1242,7 @@ def get_total_ghg_tooltip(row):
 
     base = "Total emissions from all fuel types: electricity (varies by regional grid), natural gas (standard combustion), plus any steam or fuel oil. "
     if city_note:
-        base += city_note + " "
+        base += f"Based on regional grid mix, {city_note.lower()} "
     base += "(EPA eGRID 2023)"
 
     return base
@@ -1227,7 +1263,7 @@ def get_carbon_reduction_tooltip(row):
     }
 
     city_note = grid_context.get(city, "")
-    base = "Carbon per kWh varies dramatically by regional grid. "
+    base = "Based on regional grid mix, carbon per kWh varies dramatically. "
     if city_note:
         base += city_note + " "
     base += "(EPA eGRID 2023)"
@@ -1255,27 +1291,27 @@ def get_fine_avoidance_tooltip(row):
 
     exempt_types = bps_info.get('exempt_types', [])
     if bldg_type in exempt_types or bldg_vertical in exempt_types:
-        return f"{law} provides {bldg_type}s alternative compliance pathways."
+        return f"Based on local regulations, {law} provides {bldg_type.lower()}s alternative compliance pathways."
 
     if sqft > 0 and sqft < min_sqft:
-        return f"{law} covers larger buildings—this one is below the size threshold."
+        return f"Based on local regulations, {law} covers larger buildings—this one is below the size threshold."
 
     if city == 'New York':
-        return "NYC Local Law 97 sets annual carbon emission limits. Buildings exceeding the cap pay fines per metric ton over the limit. ODCV reduces emissions by cutting HVAC energy waste. (NYC Local Law 97)"
+        return "Based on local regulations: NYC Local Law 97 sets annual carbon emission limits. Buildings exceeding the cap pay fines per metric ton over the limit. ODCV reduces emissions by cutting HVAC energy waste. (NYC Local Law 97)"
     elif city == 'Boston':
-        return "Boston's BERDO 2.0 sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions by cutting the electricity and gas that generate them. (BERDO 2.0)"
+        return "Based on local regulations: Boston's BERDO 2.0 sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions by cutting the electricity and gas that generate them. (BERDO 2.0)"
     elif city == 'Cambridge':
-        return "Cambridge BEUDO sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions proportionally to energy savings. (Cambridge BEUDO)"
+        return "Based on local regulations: Cambridge BEUDO sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions proportionally to energy savings. (Cambridge BEUDO)"
     elif city == 'Washington':
-        return "DC BEPS requires buildings to meet an ENERGY STAR score threshold. Buildings below face fines based on how far below target they score. ODCV improves scores by reducing energy use. (DC BEPS)"
+        return "Based on local regulations: DC BEPS requires buildings to meet an ENERGY STAR score threshold. Buildings below face fines based on how far below target they score. ODCV improves scores by reducing energy use. (DC BEPS)"
     elif city == 'Denver':
-        return "Energize Denver fines buildings based on how far they exceed their EUI target. ODCV directly lowers EUI by reducing HVAC energy waste. (Energize Denver)"
+        return "Based on local regulations: Energize Denver fines buildings based on how far they exceed their EUI target. ODCV directly lowers EUI by reducing HVAC energy waste. (Energize Denver)"
     elif city == 'Seattle':
-        return "Seattle BEPS sets emissions intensity targets with penalties for non-compliance. Seattle's nearly all-hydro grid means most building emissions come from gas—making HVAC gas reduction especially impactful. (Seattle Clean Buildings Act)"
+        return "Based on local regulations: Seattle BEPS sets emissions intensity targets with penalties for non-compliance. Seattle's nearly all-hydro grid means most building emissions come from gas—making HVAC gas reduction especially impactful. (Seattle Clean Buildings Act)"
     elif city == 'St. Louis':
-        return "St. Louis BEPS sets EUI targets with daily fines for non-compliance. ODCV directly lowers EUI by reducing HVAC energy waste. (St. Louis BEPS)"
+        return "Based on local regulations: St. Louis BEPS sets EUI targets with daily fines for non-compliance. ODCV directly lowers EUI by reducing HVAC energy waste. (St. Louis BEPS)"
 
-    return f"Currently compliant with {law}."
+    return f"Based on local regulations, currently compliant with {law}."
 
 
 def get_utility_cost_savings_tooltip(row):
@@ -1295,22 +1331,24 @@ def get_utility_cost_savings_tooltip(row):
 
     # Building-type HVAC context (conceptual)
     hvac_context = {
-        'Office': "Offices use a large share of electricity and most gas for HVAC.",
-        'Hotel': "Hotels use less gas for HVAC than you'd expect—hot water and kitchens take a large share.",
-        'Restaurant/Bar': "Restaurants use most gas for cooking, not HVAC.",
-        'K-12 School': "Schools use most gas for heating and a large share of electricity for cooling.",
-        'Hospital': "Hospitals have high ventilation requirements but also significant non-HVAC loads.",
-        'Inpatient Hospital': "Hospitals have high ventilation requirements but also significant non-HVAC loads.",
-        'Retail Store': "Retail uses a significant share of electricity for HVAC, with lighting as another major load.",
-        'Data Center': "Data centers use almost no HVAC for occupancy—cooling is for equipment heat removal.",
+        'Office': "offices use a large share of electricity and most gas for HVAC.",
+        'Hotel': "hotels use less gas for HVAC than you'd expect—hot water and kitchens take a large share.",
+        'Restaurant/Bar': "restaurants use most gas for cooking, not HVAC.",
+        'K-12 School': "schools use most gas for heating and a large share of electricity for cooling.",
+        'Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
+        'Inpatient Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
+        'Retail Store': "retail uses a significant share of electricity for HVAC, with lighting as another major load.",
+        'Data Center': "data centers use almost no HVAC for occupancy—cooling is for equipment heat removal.",
     }
     type_note = hvac_context.get(bldg_type, "HVAC is a significant portion of energy use for this building type.")
 
-    return f"Annual savings from conditioning less empty space. Energy data from {source}. {type_note} (CBECS 2018)"
+    return f"Annual savings from conditioning less empty space. Based on regional disclosure laws, energy data from {source}. Based on building type, {type_note} (CBECS 2018)"
 
 
 # Map of dynamic tooltip keys to their generator functions
 DYNAMIC_TOOLTIPS = {
+    # Building Type Opportunity (Property section)
+    'bldg_type_opportunity': get_odcv_savings_tooltip,
     # Impact Section
     'utility_cost_savings': get_utility_cost_savings_tooltip,
     'property_value_increase': get_property_value_tooltip,
@@ -1534,10 +1572,10 @@ def generate_building_info(row):
     if sqft:
         html += f"<tr><td>Size</td><td>{format_number(sqft)} sqft</td></tr>\n"
 
-    # Type
+    # Type (with opportunity level tooltip explaining WHY this building type has savings potential)
     bldg_type = safe_val(row, 'bldg_type')
     if bldg_type and str(bldg_type).lower() != 'nan':
-        html += f"<tr><td>Type</td><td>{escape(bldg_type)}</td></tr>\n"
+        html += f"<tr><td>Type{tooltip('bldg_type_opportunity', row)}</td><td>{escape(bldg_type)}</td></tr>\n"
 
     # Year Built
     year = safe_num(row, 'bldg_year_built')
@@ -1795,17 +1833,17 @@ def generate_electricity_details(row):
     # Energy rate
     energy_rate = safe_num(row, 'cost_elec_rate_kwh')
     if energy_rate:
-        html += f"<tr><td>Energy Rate{tooltip('energy_rate')}</td><td>${energy_rate:.4f}/kWh</td></tr>"
+        html += f"<tr><td>Energy Rate{tooltip('energy_rate', row)}</td><td>${energy_rate:.4f}/kWh</td></tr>"
 
     # Demand rate
     demand_rate = safe_num(row, 'cost_elec_rate_demand_kw')
     if demand_rate:
-        html += f"<tr><td>Demand Rate{tooltip('demand_rate')}</td><td>${demand_rate:.2f}/kW</td></tr>"
+        html += f"<tr><td>Demand Rate{tooltip('demand_rate', row)}</td><td>${demand_rate:.2f}/kW</td></tr>"
 
     # Peak demand
     peak_kw = safe_num(row, 'cost_elec_peak_kw')
     if peak_kw:
-        html += f"<tr><td>Peak Demand{tooltip('peak_demand')}</td><td>{format_number(peak_kw)} kW</td></tr>"
+        html += f"<tr><td>Peak Demand{tooltip('peak_demand', row)}</td><td>{format_number(peak_kw)} kW</td></tr>"
 
     # Load factor
     load_factor = safe_num(row, 'cost_elec_load_factor')

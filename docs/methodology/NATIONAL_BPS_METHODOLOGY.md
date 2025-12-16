@@ -134,15 +134,16 @@ or
 
 ### Summary Table
 
-| City | Law Name | Fine Type | Fine Rate | Emission/EUI Cap | Min Sqft | Penalty Start |
-|------|----------|-----------|-----------|------------------|----------|---------------|
-| New York, NY | Local Law 97 | $/tCO2e | $268 | 0.00758 tCO2e/sqft | 25,000 | 2026 |
-| Boston, MA | BERDO 2.0 | $/tCO2e | $234 | 0.0053 tCO2e/sqft | 20,000 | 2025 |
-| Washington, DC | DC BEPS | $/sqft | $10 (max $7.5M) | ENERGY STAR median | 50,000 | 2026 |
-| Denver, CO | Energize Denver | $/kBtu | $0.30 | 48.3 kBtu/sqft | 25,000 | 2028 |
+| City | Law Name | Fine Type | Fine Rate | Target | Min Sqft | Penalty Start |
+|------|----------|-----------|-----------|--------|----------|---------------|
+| New York, NY | Local Law 97 | $/tCO2e | $268 | By type (tCO2e/sqft) | 25,000 | 2026 |
+| Boston, MA | BERDO 2.0 | $/tCO2e | $234 | By type (tCO2e/sqft) | 20,000 | 2025 |
+| Cambridge, MA | BEUDO | $/tCO2e | $234 | 20% below baseline | 25,000 | 2025 |
+| Washington, DC | DC BEPS | $/sqft | $10 (max $7.5M) | By type (ES score) | 50,000 | 2026 |
+| Denver, CO | Energize Denver | $/kBtu | $0.15 | By type (2028→2032) | 25,000 | 2029 |
 | Seattle, WA | Seattle BEPS | $/sqft | $10 per cycle | 0.00081 tCO2e/sqft | 20,000 | 2031 |
 | San Francisco, CA | EBEPO | Daily | $100/day | None (reporting only) | 10,000 | N/A |
-| St. Louis, MO | St. Louis BEPS | Daily | $500/day | ~65 kBtu/sqft | 50,000 | 2025 |
+| St. Louis, MO | St. Louis BEPS | Daily | $500/day | By type (EUI) | 50,000 | 2025 |
 
 ---
 
@@ -189,86 +190,119 @@ fine_avoidance = (baseline_overage - with_odcv_overage) × $234
 ### 5.3 Cambridge BEUDO
 
 **Law Details:**
-- Penalty: $234/tCO2e Alternative Compliance Payment (same as Boston BERDO)
-- Cap (2025-2029): 0.0053 tCO2e/sqft (5.3 kgCO2e/sqft)
+- Penalty: $234/tCO2e Alternative Compliance Payment
+- Target: **20% reduction from building's own baseline emissions** (NOT fixed cap like Boston)
 - Minimum building size: 25,000 sqft
+- Note: Multifamily buildings only report, no emission reduction fines
 
 **Formula:**
 ```python
-cap = square_footage × 0.0053  # tCO2e
-baseline_overage = max(0, baseline_emissions - cap)
-with_odcv_overage = max(0, with_odcv_emissions - cap)
+# Cambridge requires each building to reduce 20% from its own baseline
+target = baseline_emissions × 0.80  # 20% reduction = keep 80%
+
+baseline_overage = max(0, baseline_emissions - target)
+with_odcv_overage = max(0, with_odcv_emissions - target)
 fine_avoidance = (baseline_overage - with_odcv_overage) × $234
 ```
 
-**Source:** [Cambridge BEUDO](https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainablebldgs/beudo)
+**Key Difference from Boston:** Boston uses a fixed cap per sqft. Cambridge requires each building to reduce 20% from its own historical baseline - meaning high-emitting buildings have higher targets and low-emitting buildings have lower targets.
+
+**Source:** [Cambridge BEUDO](https://www.cambridgema.gov/beudo)
 
 ---
 
 ### 5.4 Washington DC BEPS
 
 **Law Details:**
-- Penalty: $10/sqft (max $7.5M per property), prorated by compliance gap
-- Metric: ENERGY STAR score (office median target = 71)
+- Penalty: $10/sqft (max $7.5M per property), prorated by gap from target
+- Metric: ENERGY STAR score with **building-type-specific targets**
 - Minimum building size: 50,000 sqft
+
+**ENERGY STAR Targets by Building Type:**
+| Type | Target | Type | Target |
+|------|--------|------|--------|
+| Office | 71 | Hotel | 54 |
+| Multifamily | 66 | K-12 School | 36 |
+| Hospital | 50 | Medical Office | 71 |
 
 **Formula (using energy_star_score column):**
 ```python
-target_score = 71
-current_score = energy_star_score
+# Get building-type-specific target
+target = DC_ENERGY_STAR_TARGETS.get(bldg_type, 71)
 
-if current_score >= target_score:
-    fine_avoidance = 0  # Already compliant
+# Max fine = $10/sqft, capped at $7.5M
+max_fine = min(sqft × $10, $7,500,000)
+
+# If score >= target: compliant, no fine
+if baseline_score >= target:
+    baseline_fine = 0
 else:
-    gap = target_score - current_score
-    odcv_score_improvement = 7  # ~15-30% energy reduction ≈ 7 point improvement
-    new_score = min(100, current_score + odcv_score_improvement)
+    # Prorate by gap from target
+    gap = target - baseline_score
+    baseline_fine = max_fine × (gap / target)
 
-    if new_score >= target_score:
-        # ODCV brings building to full compliance
-        fine_avoidance = square_footage × $10
-    else:
-        # Partial improvement - prorated by gap reduction
-        fine_avoidance = square_footage × $10 × (odcv_score_improvement / gap)
+# Post-ODCV: use improved score
+if post_odcv_score >= target:
+    post_odcv_fine = 0
+else:
+    gap = target - post_odcv_score
+    post_odcv_fine = max_fine × (gap / target)
+
+fine_avoidance = baseline_fine - post_odcv_fine
 ```
 
-**Source:** [DC BEPS](https://doee.dc.gov/service/building-energy-performance-standards-beps)
+**Source:** [DC BEPS](https://doee.dc.gov/service/building-energy-performance-standards-beps), [Allen Shariff](https://www.allenshariff.com/dc-building-energy-performance-standard-beps/)
 
 ---
 
-### 5.4 Denver Energize Denver
+### 5.5 Denver Energize Denver
 
 **Law Details:**
-- Penalty: $0.30/kBtu above EUI target
-- Target EUI (Office): 48.3 kBtu/sqft
+- Penalty: $0.15/kBtu above EUI target (50% reduced per April 2025 rules)
 - Minimum building size: 25,000 sqft
+- K-12 schools exempt (alternative compliance pathway)
+- **Timeline (updated April 2025):** 2028 interim → 2032 final (no fines until late 2029)
+- **Target:** Building-type-specific 2032 targets with **linear glide path** from 2019 baseline
 
-**Formula:**
+**2032 Final EUI Targets by Building Type (kBtu/sqft):**
+| Type | Target | Type | Target |
+|------|--------|------|--------|
+| Office | 48.3 | Multifamily | 44.2 |
+| Hotel | 61.1 | Retail Store | 43.5 |
+| Restaurant/Bar | 194.1 | Supermarket/Grocery | 164.4 |
+| Higher Ed | 60.6 | Medical Office | 69.0 |
+| Hospital | 165.2 | Warehouse | 27.2 |
+
+**Glide Path Formula (2028 Interim Target - first fines late 2029):**
 ```python
-target_eui = 48.3
+# Get building-type-specific 2032 FINAL target
+final_target = DENVER_EUI_TARGETS.get(bldg_type, 48.3)
 
-# Calculate energy reduction from ODCV (per fuel type)
-energy_reduction = (
-    elec × elec_hvac × odcv_pct +
-    gas × gas_hvac × odcv_pct +
-    steam × steam_hvac × odcv_pct
-)
+# Denver uses LINEAR GLIDE PATH from 2019 baseline to 2032 target
+# Timeline updated April 2025: first fines 2029, final target 2032
+# 2028 = 9 years into 13-year path (2019→2032)
+years_elapsed = 9   # 2028 - 2019 (first penalty year is late 2029)
+total_years = 13    # 2032 - 2019
+target_eui = site_eui - (site_eui - final_target) × (9 / 13)
 
-# EUI after ODCV
+# Calculate energy reduction from ODCV
+energy_reduction = elec × elec_hvac × odcv_pct + gas × gas_hvac × odcv_pct + steam × steam_hvac × odcv_pct
 eui_reduction = energy_reduction / square_footage
 with_odcv_eui = max(0, site_eui - eui_reduction)
 
 # Fine calculation
 baseline_overage_kbtu = max(0, site_eui - target_eui) × square_footage
 with_odcv_overage_kbtu = max(0, with_odcv_eui - target_eui) × square_footage
-fine_avoidance = (baseline_overage_kbtu - with_odcv_overage_kbtu) × $0.30
+fine_avoidance = (baseline_overage_kbtu - with_odcv_overage_kbtu) × $0.15
 ```
+
+**Key Point:** The glide path means buildings get progressively stricter targets. A building with 100 kBtu/sqft baseline and 48.3 final target would have 2028 interim target of ~64 kBtu/sqft (9/13 = 69% progress toward final).
 
 **Source:** [Denver Energize](https://denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Energize-Denver)
 
 ---
 
-### 5.5 Seattle BEPS
+### 5.6 Seattle BEPS
 
 **Law Details:**
 - Penalty: $10/sqft per 5-year compliance cycle
@@ -298,7 +332,7 @@ else:
 
 ---
 
-### 5.6 San Francisco EBEPO
+### 5.7 San Francisco EBEPO
 
 **Law Details:**
 - Fine: $100/day (>50k sqft), $50/day (<50k sqft), max 25 days
@@ -315,7 +349,7 @@ fine_avoidance = 0  # No cap to exceed
 
 ---
 
-### 5.7 St. Louis BEPS
+### 5.8 St. Louis BEPS
 
 **Law Details:**
 - Penalty: $500/day for non-compliance
@@ -468,7 +502,7 @@ Buildings with fine avoidance include both:
 
 ## 10. Limitations
 
-1. **DC BEPS:** Uses `energy_star_score` column with target of 71; buildings without scores excluded from fine calculation
+1. **DC BEPS:** Uses `energy_star_score` column with building-type-specific targets; buildings without scores excluded from fine calculation
 2. **San Francisco:** No emission caps to calculate fine avoidance (EBEPO is reporting-only)
 3. **Building Type Assumptions:** All buildings treated as Office/Commercial
 4. **Future Period Caps:** Only Year 1 caps used; stricter future caps not modeled

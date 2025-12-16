@@ -175,6 +175,121 @@
         <p>How Nationwide Prospector calculates ODCV savings, BPS fine avoidance, and property value impact.</p>
     </div>
 
+    <!-- Dataset Overview Section -->
+    <section class="section">
+        <h2>Dataset Overview</h2>
+        <p>Nationwide Prospector analyzes energy and operational data from commercial buildings across the United States.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Total Buildings</strong></td>
+                    <td>23,500</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Square Footage</strong></td>
+                    <td>4.18 billion sq ft</td>
+                </tr>
+                <tr>
+                    <td><strong>Geographic Coverage</strong></td>
+                    <td>726 cities across 12 states (CA, CO, DC, FL, GA, IL, MA, MO, NY, OR, PA, WA)</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Years</strong></td>
+                    <td>2011&ndash;2024 (90% from 2023&ndash;2024)</td>
+                </tr>
+                <tr>
+                    <td><strong>ENERGY STAR Scored</strong></td>
+                    <td>18,358 buildings (78%)</td>
+                </tr>
+                <tr>
+                    <td><strong>LEED Certified</strong></td>
+                    <td>3,575 buildings (Gold: 1,849 | Silver: 866 | Certified: 442 | Platinum: 418)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Building Types in Dataset</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Building Type</th>
+                    <th>Count</th>
+                    <th>Building Type</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Office</td>
+                    <td>9,947</td>
+                    <td>Supermarket/Grocery</td>
+                    <td>694</td>
+                </tr>
+                <tr>
+                    <td>K-12 School</td>
+                    <td>2,584</td>
+                    <td>Mixed Use</td>
+                    <td>682</td>
+                </tr>
+                <tr>
+                    <td>Hotel</td>
+                    <td>2,485</td>
+                    <td>Inpatient Hospital</td>
+                    <td>401</td>
+                </tr>
+                <tr>
+                    <td>Retail Store</td>
+                    <td>2,072</td>
+                    <td>Theater</td>
+                    <td>288</td>
+                </tr>
+                <tr>
+                    <td>Higher Ed</td>
+                    <td>1,318</td>
+                    <td>Venue</td>
+                    <td>273</td>
+                </tr>
+                <tr>
+                    <td>Residential Care</td>
+                    <td>955</td>
+                    <td>Wholesale Club</td>
+                    <td>265</td>
+                </tr>
+                <tr>
+                    <td>Medical Office</td>
+                    <td>785</td>
+                    <td>Library/Museum</td>
+                    <td>221</td>
+                </tr>
+                <tr>
+                    <td>Specialty Hospital</td>
+                    <td>190</td>
+                    <td>Enclosed Mall</td>
+                    <td>158</td>
+                </tr>
+                <tr>
+                    <td>Outpatient Clinic</td>
+                    <td>104</td>
+                    <td>Restaurant/Bar</td>
+                    <td>66</td>
+                </tr>
+                <tr>
+                    <td>Multifamily</td>
+                    <td>12</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
     <!-- Section 2: Opportunity by Building Type -->
     <section class="section">
         <h2>How Opportunity Varies by Building Type</h2>
@@ -197,16 +312,34 @@
                     <td><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a> (vacancy), <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a> (utilization)</td>
                 </tr>
                 <tr>
-                    <td><strong>Higher Ed/K-12</strong></td>
+                    <td><strong>Medical Office</strong></td>
+                    <td>Vacancy + Utilization</td>
+                    <td>Multi-tenant like office; patient scheduling drives utilization</td>
+                    <td><a href="https://www.cbre.com/insights/reports/2025-us-healthcare-real-estate-outlook" class="source-link">CBRE Healthcare</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Mixed Use</strong></td>
+                    <td>Vacancy + Utilization</td>
+                    <td>Blended rates based on component types (office, retail, residential)</td>
+                    <td>Component-weighted averages</td>
+                </tr>
+                <tr>
+                    <td><strong>K-12 School</strong></td>
                     <td>Utilization</td>
                     <td>Schedule-driven: empty summers, holidays, evenings, weekends</td>
+                    <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Higher Ed</strong></td>
+                    <td>Utilization</td>
+                    <td>Schedule-driven: semester breaks, evenings, weekends</td>
                     <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
                 </tr>
                 <tr>
                     <td><strong>Hotel</strong></td>
                     <td>Utilization</td>
                     <td>Rooms booked or not; guests out during day for meetings, sightseeing</td>
-                    <td><a href="https://str.com/" class="source-link">STR</a></td>
+                    <td><a href="https://www.hospitalitynet.org/news/4129415.html" class="source-link">STR/CoStar</a></td>
                 </tr>
                 <tr>
                     <td><strong>Retail Store</strong></td>
@@ -215,21 +348,57 @@
                     <td>Operating hours, traffic patterns</td>
                 </tr>
                 <tr>
-                    <td><strong>Hospital</strong></td>
+                    <td><strong>Supermarket/Grocery</strong></td>
+                    <td>Utilization</td>
+                    <td>Extended hours but traffic varies; refrigeration runs continuously</td>
+                    <td>Operating hours, traffic patterns</td>
+                </tr>
+                <tr>
+                    <td><strong>Wholesale Club</strong></td>
+                    <td>Utilization</td>
+                    <td>Large spaces with variable traffic; refrigeration loads</td>
+                    <td>Operating hours</td>
+                </tr>
+                <tr>
+                    <td><strong>Enclosed Mall</strong></td>
+                    <td>Vacancy + Utilization</td>
+                    <td>Multi-tenant retail; high vacancy in some markets</td>
+                    <td><a href="https://www.cbre.com/insights/figures" class="source-link">CBRE Retail</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Inpatient Hospital</strong></td>
                     <td>Utilization (dampened)</td>
                     <td>Code-mandated ventilation; savings in non-clinical areas only</td>
-                    <td><a href="https://www.aha.org/statistics-trends-reports" class="source-link">AHA</a></td>
+                    <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Specialty Hospital</strong></td>
+                    <td>Utilization (dampened)</td>
+                    <td>Similar to inpatient; may have more variable schedules</td>
+                    <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Outpatient Clinic</strong></td>
+                    <td>Utilization</td>
+                    <td>Scheduled appointments; closed evenings/weekends</td>
+                    <td>Operating hours</td>
                 </tr>
                 <tr>
                     <td><strong>Residential Care</strong></td>
                     <td>Utilization (dampened)</td>
                     <td>Residents on-site 24/7 unlike hotel guests</td>
-                    <td><a href="https://www.nic.org/nic-map-vision/" class="source-link">NIC MAP</a></td>
+                    <td><a href="https://www.nic.org/blog/senior-housing-occupancy-continues-climbing-in-first-quarter-2025/" class="source-link">NIC MAP</a></td>
                 </tr>
                 <tr>
                     <td><strong>Theater</strong></td>
                     <td>Utilization</td>
                     <td>Spaces for thousands sit empty most of the year</td>
+                    <td>Event schedules</td>
+                </tr>
+                <tr>
+                    <td><strong>Venue</strong></td>
+                    <td>Utilization</td>
+                    <td>Event-driven; empty between performances/events</td>
                     <td>Event schedules</td>
                 </tr>
                 <tr>
@@ -244,29 +413,110 @@
                     <td>Kitchen exhaust must run; savings from dining areas between rushes</td>
                     <td>Operating hours</td>
                 </tr>
+                <tr>
+                    <td><strong>Multifamily</strong></td>
+                    <td>Vacancy + Utilization</td>
+                    <td>Common areas only; unit HVAC controlled by residents</td>
+                    <td>Market vacancy rates</td>
+                </tr>
             </tbody>
         </table>
 
         <p><strong>Vacancy</strong> = unleased space (empty suites). Only applies to multi-tenant buildings.</p>
         <p><strong>Utilization</strong> = people actually present in occupied space. A fully-leased office with 50% WFH has 0% vacancy but 50% utilization.</p>
+
+        <h3>Base Utilization Rates by Building Type</h3>
+        <p>Different building types have inherently different utilization patterns based on their operations:</p>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Utilization Rate</th><th>Rationale</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>K-12 School</td><td>54% &ndash; 85%</td><td>Summers off, after-school hours empty, holidays</td></tr>
+                <tr><td>Higher Ed</td><td>~66%</td><td>Semester breaks, variable class schedules</td></tr>
+                <tr><td>Hotel</td><td>66.8% &ndash; 73.3%</td><td>Room occupancy varies by market; guests out during day</td></tr>
+                <tr><td>Inpatient Hospital</td><td>76% &ndash; 78%</td><td>24/7 but not always at full capacity</td></tr>
+                <tr><td>Outpatient Clinic</td><td>~70%</td><td>Business hours only, appointment-driven</td></tr>
+                <tr><td>Medical Office</td><td>~75%</td><td>Similar to office but more consistent patient flow</td></tr>
+                <tr><td>Library/Museum</td><td>42% &ndash; 55%</td><td>Public hours only; climate runs 24/7 for preservation</td></tr>
+                <tr><td>Retail Store</td><td>55% &ndash; 65%</td><td>Operating hours, seasonal variations</td></tr>
+                <tr><td>Restaurant/Bar</td><td>50% &ndash; 60%</td><td>Peak at meal times, low between rushes</td></tr>
+                <tr><td>Office (varies by city)</td><td>55% &ndash; 93%</td><td>Hybrid work impact; see city-specific rates above</td></tr>
+            </tbody>
+        </table>
     </section>
 
     <!-- Section 3: Regional Variations -->
     <section class="section">
         <h2>Why Cities Differ</h2>
-        <p>The same building type shows different savings potential in different cities. We source city-specific data to capture these regional variations:</p>
+        <p>The same building type shows different savings potential in different cities. <strong>We use city-specific data&mdash;not national averages&mdash;for key inputs:</strong></p>
 
-        <h3>Vacancy Varies by Market</h3>
-        <p>SF offices have higher vacancy than NYC, so SF shows more opportunity. We pull quarterly vacancy rates from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a> for each metro area. Current rates range from ~13% (NYC) to ~37% (San Francisco). We match each building to its metro's vacancy rate rather than using a national average.</p>
+        <h3>Vacancy Rates (City-Specific)</h3>
+        <p>Office vacancy rates vary dramatically by metro. We source real 2024-2025 vacancy data from <a href="https://www.commercialcafe.com/blog/national-office-report/" class="source-link">CommercialEdge</a> and <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a>:</p>
+        <table>
+            <thead>
+                <tr><th>City</th><th>Vacancy Rate</th><th>City</th><th>Vacancy Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>San Francisco</td><td>29%</td><td>Boston</td><td>18.6%</td></tr>
+                <tr><td>Seattle</td><td>27%</td><td>San Diego</td><td>18.4%</td></tr>
+                <tr><td>Austin</td><td>27%</td><td>Los Angeles</td><td>16.5%</td></tr>
+                <tr><td>Denver</td><td>23%</td><td>Portland</td><td>16.2%</td></tr>
+                <tr><td>Chicago</td><td>22%</td><td>New York</td><td>13% (LL84 data)</td></tr>
+                <tr><td>Philadelphia</td><td>19.4%</td><td><em>National default</em></td><td>18.6%</td></tr>
+            </tbody>
+        </table>
 
-        <h3>Return-to-Office Culture Differs</h3>
-        <p>Texas and Midwest metros have stronger in-person work cultures than Bay Area and Seattle. We use <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> data, which tracks keycard swipes across 2,600+ buildings in 10 major metros. Austin runs ~60% of pre-pandemic occupancy while San Jose hovers around ~40%. We apply city-specific utilization rates to capture these cultural differences.</p>
+        <h3>Utilization Rates (City-Specific)</h3>
+        <p>Return-to-office culture varies by metro. We use <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> data:</p>
+        <table>
+            <thead>
+                <tr><th>City</th><th>Utilization</th><th>City</th><th>Utilization</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Kansas City</td><td>93%</td><td>Seattle</td><td>84%</td></tr>
+                <tr><td>Santa Clara</td><td>92%</td><td>Sacramento</td><td>83%</td></tr>
+                <tr><td>Portland</td><td>92%</td><td>San Francisco</td><td>77%</td></tr>
+                <tr><td>Cambridge</td><td>91%</td><td>Boston</td><td>75%</td></tr>
+                <tr><td>Philadelphia</td><td>90%</td><td>New York</td><td>55-73%</td></tr>
+                <tr><td>Chicago</td><td>89%</td><td></td><td></td></tr>
+            </tbody>
+        </table>
 
-        <h3>Climate Affects HVAC Load</h3>
-        <p>Northern heating-dominated climates show slightly higher savings than Southern cooling-dominated ones because heating systems run longer continuous cycles. We use <a href="https://www.energy.gov/eere/buildings/climate-zones" class="source-link">ASHRAE/DOE climate zones</a> (1-8) to adjust HVAC percentages. A Minneapolis office (Zone 6A) dedicates more energy to HVAC than a Miami office (Zone 1A), so the same percentage savings yields more absolute savings.</p>
+        <h3>Grid Emission Factors (City-Specific)</h3>
+        <p>Carbon savings depend on local grid mix. Seattle's 98% hydroelectric grid is <strong>29× cleaner</strong> than NYC. Sources: <a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID 2023</a>, <a href="https://www.epa.gov/climateleadership/ghg-emission-factors-hub" class="source-link">EPA GHG Emission Factors Hub</a>, and city BPS law definitions:</p>
+        <table>
+            <thead>
+                <tr><th>City</th><th>Elec Factor (tCO2e/kBtu)</th><th>Relative to US Avg</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Seattle</td><td>0.0000029</td><td>32× cleaner (hydro)</td></tr>
+                <tr><td>San Francisco / LA</td><td>0.0000570</td><td>1.6× cleaner</td></tr>
+                <tr><td>Portland</td><td>0.0000595</td><td>1.5× cleaner</td></tr>
+                <tr><td>Boston</td><td>0.0000717</td><td>1.3× cleaner</td></tr>
+                <tr><td>DC</td><td>0.0000794</td><td>1.2× cleaner</td></tr>
+                <tr><td>NYC</td><td>0.0000847</td><td>1.1× cleaner</td></tr>
+                <tr><td><strong>US Average</strong></td><td><strong>0.0000922</strong></td><td>Baseline</td></tr>
+                <tr><td>Atlanta</td><td>0.0000988</td><td>1.1× dirtier</td></tr>
+                <tr><td>Denver</td><td>0.0001378</td><td>1.5× dirtier</td></tr>
+                <tr><td>Chicago / St. Louis</td><td>0.0001649</td><td>1.8× dirtier (coal)</td></tr>
+            </tbody>
+        </table>
+        <p><em>Note: Gas and steam emission factors are consistent nationwide (gas: 0.00005311, steam: 0.00004493 tCO2e/kBtu).</em></p>
 
-        <h3>Grid Emissions Vary</h3>
-        <p>Seattle hydro means less carbon per kWh saved than Midwest coal grids. We use <a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID subregion data</a> for emission factors. The Northwest (NWPP) emits ~0.28 kg CO2/kWh while the Midwest (RFCM) emits ~0.55 kg CO2/kWh. This affects carbon savings calculations but not dollar savings&mdash;a kWh saved is still a kWh saved regardless of grid mix.</p>
+        <h3>Climate Zone Affects HVAC Share</h3>
+        <p>Northern heating-dominated climates dedicate more energy to HVAC. We use <a href="https://www.energy.gov/eere/buildings/climate-zones" class="source-link">DOE climate zones</a> (based on <a href="https://www.ashrae.org/technical-resources/standards-and-guidelines" class="source-link">ASHRAE 169</a>) to adjust HVAC percentages:</p>
+        <table>
+            <thead>
+                <tr><th>Climate Zone</th><th>Gas HVAC %</th><th>Climate Modifier</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Northern (6,000+ HDD)</td><td>67.9%</td><td>1.10×</td></tr>
+                <tr><td>North-Central (4,000-6,000 HDD)</td><td>78.6%</td><td>1.05×</td></tr>
+                <tr><td>South-Central (2,000-4,000 HDD)</td><td>76.4%</td><td>1.00×</td></tr>
+                <tr><td>Southern (&lt;2,000 HDD)</td><td>59.4%</td><td>0.95×</td></tr>
+            </tbody>
+        </table>
     </section>
 
     <!-- Section 4: From Opportunity to Savings -->
@@ -282,8 +532,24 @@
         <p><strong>Electricity</strong> has two cost components:</p>
         <ul>
             <li><strong>Energy charges:</strong> Based on total kWh consumed. We apply a 1.10× multiplier to account for taxes, distribution charges, transmission fees, and surcharges that appear on real utility bills beyond the base commodity rate.</li>
-            <li><strong>Demand charges:</strong> Based on peak kW draw. Commercial buildings pay for their highest 15-minute demand each month. We estimate peak demand from annual consumption using load factor (typically 0.45 for offices). We apply a 1.265× multiplier to account for demand ratchet clauses (paying for historical peaks), seasonal rate differentials, and power factor penalties.</li>
+            <li><strong>Demand charges:</strong> Based on peak kW draw. Commercial buildings pay for their highest 15-minute demand each month. We estimate peak demand from annual consumption using load factor. We apply a 1.265× multiplier to account for demand ratchet clauses (paying for historical peaks), seasonal rate differentials, and power factor penalties.</li>
         </ul>
+
+        <h4>Load Factor by Building Type</h4>
+        <p>Load factor = average demand / peak demand. Higher load factor means more even energy use throughout the day:</p>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Load Factor</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Data Center</td><td>0.70 &ndash; 0.85</td><td>Servers run 24/7 at constant load</td></tr>
+                <tr><td>Hospital (24/7)</td><td>0.60 &ndash; 0.70</td><td>Continuous operation, some peaks</td></tr>
+                <tr><td>Office</td><td>0.40 &ndash; 0.50</td><td>Peaks during business hours</td></tr>
+                <tr><td>Retail</td><td>0.35 &ndash; 0.45</td><td>Peaks during open hours</td></tr>
+                <tr><td>Warehouse</td><td>0.30 &ndash; 0.40</td><td>Variable operations</td></tr>
+                <tr><td><em>Default</em></td><td>0.45</td><td>Used when building type unknown</td></tr>
+            </tbody>
+        </table>
 
         <p><strong>Natural Gas:</strong> Convert kBtu to therms (÷100), multiply by rate, apply 1.10× for delivery charges and taxes.</p>
 
@@ -291,13 +557,92 @@
 
         <p><strong>Fuel Oil:</strong> Convert kBtu to MMBtu (÷1000), multiply by rate, apply 1.10× for delivery and taxes.</p>
 
-        <h3>3. Determine HVAC share of energy</h3>
-        <p>Not all energy goes to HVAC. We use the <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA Commercial Buildings Energy Consumption Survey (CBECS 2018)</a> to estimate what fraction of electricity, gas, and steam goes to heating, cooling, and ventilation for each building type. For example, offices use ~44% of electricity for HVAC, while restaurants use only ~18% of gas for HVAC (the rest goes to cooking).<a href="#fn2" class="footnote-ref">2</a></p>
+        <h3>3. Determine HVAC share of energy (Building Type-Specific)</h3>
+        <p>Not all energy goes to HVAC. We use <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">CBECS 2018</a> base values, then adjust for each building's efficiency, age, and EUI. <strong>HVAC percentages vary significantly by building type:</strong></p>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Gas HVAC %</th><th>Elec HVAC %</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Office</td><td>87.5%</td><td>~45%</td><td>Most gas is heating</td></tr>
+                <tr><td>K-12 School / Higher Ed</td><td>79.6%</td><td>~40%</td><td>Schedule-driven</td></tr>
+                <tr><td>Hospital</td><td>60.3%</td><td>~35%</td><td>DHW, sterilization use gas</td></tr>
+                <tr><td>Medical Office</td><td>84.8%</td><td>~42%</td><td>Similar to office</td></tr>
+                <tr><td>Retail</td><td>77.7%</td><td>~38%</td><td>Lighting is major load</td></tr>
+                <tr><td><strong>Hotel</strong></td><td><strong>19.7%</strong></td><td>~35%</td><td><strong>41.6% DHW, 33.1% cooking</strong></td></tr>
+                <tr><td><strong>Restaurant</strong></td><td><strong>17.6%</strong></td><td>~25%</td><td><strong>72% goes to cooking</strong></td></tr>
+                <tr><td>Data Center</td><td>0%</td><td>42%</td><td>Cooling only, no people</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Adjustments applied:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.<a href="#fn2" class="footnote-ref">2</a></p>
 
-        <h3>4. Apply modifiers</h3>
-        <p>Building age and size affect control sophistication. Current efficiency and climate zone also adjust the estimate.<a href="#fn3" class="footnote-ref">3</a></p>
+        <h3>4. Apply modifiers (Building-Specific)</h3>
+        <p>Building age and size determine how likely a building can implement O-DCV (automation capability). Current efficiency adjusts for how much waste exists to capture.</p>
 
-        <h3>5. Calculate annual savings</h3>
+        <h4>Automation Score = (Year Built Score + Size Score) / 2</h4>
+        <table>
+            <thead>
+                <tr><th>Year Built</th><th>Typical Systems</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Before 1970</td><td>Pneumatic controls, constant volume</td><td>0.00</td></tr>
+                <tr><td>1970-1989</td><td>Early electronic, limited DDC</td><td>0.25</td></tr>
+                <tr><td>1990-2004</td><td>DDC becoming standard, basic BMS</td><td>0.50</td></tr>
+                <tr><td>2005-2014</td><td>Modern BMS, IP-based controls</td><td>0.75</td></tr>
+                <tr><td>2015+</td><td>Smart building ready, integrated systems</td><td>1.00</td></tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr><th>Square Footage</th><th>Typical Sophistication</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Under 50,000</td><td>Rooftop units, simple thermostats</td><td>0.25</td></tr>
+                <tr><td>50,000 - 100,000</td><td>Basic BMS, some VAV</td><td>0.50</td></tr>
+                <tr><td>100,000 - 250,000</td><td>Full BMS, VAV throughout</td><td>0.75</td></tr>
+                <tr><td>Over 250,000</td><td>Advanced BMS, multiple AHUs, sophisticated zoning</td><td>1.00</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Efficiency Modifier (Based on ENERGY STAR Score)</h4>
+        <p>Buildings that are already efficient have less waste to capture. Inefficient buildings have more:</p>
+        <table>
+            <thead>
+                <tr><th>ENERGY STAR Score</th><th>Modifier</th><th>Rationale</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>90+</td><td>0.85×</td><td>Top 10% efficiency &mdash; less waste to find</td></tr>
+                <tr><td>75-89</td><td>0.95×</td><td>Better than 75%</td></tr>
+                <tr><td>50-74</td><td>1.00×</td><td>Average efficiency</td></tr>
+                <tr><td>25-49</td><td>1.05×</td><td>Below average</td></tr>
+                <tr><td>Below 25</td><td>1.10×</td><td>Bottom quartile &mdash; lots of waste</td></tr>
+            </tbody>
+        </table>
+        <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.<a href="#fn3" class="footnote-ref">3</a></p>
+
+        <h3>5. Calculate ODCV savings (Building Type-Specific Ranges)</h3>
+        <p>Each building type has different floor (minimum) and ceiling (maximum) savings potential based on operating patterns and code requirements. <strong>The actual ODCV% is calculated using the master formula and falls within these ranges:</strong></p>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Office</strong></td><td>20%</td><td>40%</td><td>Clear occupied/unoccupied hours, hybrid work impact</td></tr>
+                <tr><td><strong>K-12 School</strong></td><td>20%</td><td>45%</td><td>Empty summers, nights, weekends, holidays</td></tr>
+                <tr><td><strong>Higher Ed</strong></td><td>20%</td><td>45%</td><td>Semester breaks, variable schedules</td></tr>
+                <tr><td><strong>Theater/Venue</strong></td><td>18-20%</td><td>40-45%</td><td>Event-driven, empty most of the time</td></tr>
+                <tr><td>Medical Office</td><td>20%</td><td>40%</td><td>Multi-tenant like office</td></tr>
+                <tr><td>Mixed Use</td><td>18%</td><td>38%</td><td>Blended based on components</td></tr>
+                <tr><td>Hotel</td><td>15%</td><td>35%</td><td>Room-by-room variability</td></tr>
+                <tr><td>Retail Store</td><td>15%</td><td>35%</td><td>Traffic swings peak to empty</td></tr>
+                <tr><td>Supermarket/Grocery</td><td>10%</td><td>25%</td><td>Long hours, refrigeration runs 24/7</td></tr>
+                <tr><td>Restaurant/Bar</td><td>10%</td><td>25%</td><td>Kitchen exhaust must run; savings in dining only</td></tr>
+                <tr><td>Library/Museum</td><td>12%</td><td>28%</td><td>Climate runs 24/7 for preservation</td></tr>
+                <tr><td><strong>Inpatient Hospital</strong></td><td><strong>5%</strong></td><td><strong>15%</strong></td><td><strong>Code-mandated ventilation; savings in non-clinical only</strong></td></tr>
+                <tr><td><strong>Residential Care</strong></td><td><strong>5%</strong></td><td><strong>15%</strong></td><td><strong>Residents 24/7; limited opportunity</strong></td></tr>
+                <tr><td><strong>Data Center</strong></td><td><strong>0%</strong></td><td><strong>0%</strong></td><td><strong>Ventilates for equipment heat, not people</strong></td></tr>
+            </tbody>
+        </table>
         <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn4" class="footnote-ref">4</a></p>
     </section>
 
@@ -305,12 +650,39 @@
     <section class="section">
         <h2>Beyond Utility Savings</h2>
 
-        <h3>BPS Fine Avoidance</h3>
-        <p>Seven cities penalize buildings exceeding emissions or energy targets: NYC (LL97), Boston (BERDO), Cambridge (BEUDO), Washington DC, Denver, Seattle, St. Louis. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for details.</p>
-        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces fines.<a href="#fn5" class="footnote-ref">5</a></p>
+        <h3>BPS Fine Avoidance (City-Specific Calculations)</h3>
+        <p>Seven cities penalize buildings exceeding emissions or energy targets. <strong>Each city has different penalty structures, caps, and calculation methods:</strong></p>
+        <table>
+            <thead>
+                <tr><th>City</th><th>Law</th><th>Penalty Type</th><th>Rate</th><th>Cap/Target</th><th>Min Sqft</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>NYC</strong></td><td>Local Law 97</td><td>$/tCO2e over cap</td><td>$268</td><td>0.00758 tCO2e/sqft</td><td>25,000</td></tr>
+                <tr><td><strong>Boston</strong></td><td>BERDO 2.0</td><td>$/tCO2e over cap</td><td>$234</td><td>0.0053 tCO2e/sqft</td><td>20,000</td></tr>
+                <tr><td><strong>Cambridge</strong></td><td>BEUDO</td><td>$/tCO2e over target</td><td>$234</td><td>20% below baseline</td><td>25,000</td></tr>
+                <tr><td><strong>Washington DC</strong></td><td>DC BEPS</td><td>$/sqft (prorated)</td><td>$10 (max $7.5M)</td><td>By type (ES score)</td><td>50,000</td></tr>
+                <tr><td><strong>Denver</strong></td><td>Energize Denver</td><td>$/kBtu over target</td><td>$0.15</td><td>By type (2028→2032)</td><td>25,000</td></tr>
+                <tr><td><strong>Seattle</strong></td><td>Seattle BEPS</td><td>$/sqft per cycle</td><td>$10 (5-yr)</td><td>0.00081 tCO2e/sqft</td><td>20,000</td></tr>
+                <tr><td><strong>St. Louis</strong></td><td>St. Louis BEPS</td><td>$/day non-compliance</td><td>$500/day</td><td>~65 kBtu/sqft</td><td>50,000</td></tr>
+            </tbody>
+        </table>
+        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.<a href="#fn5" class="footnote-ref">5</a></p>
 
-        <h3>Property Value Impact</h3>
-        <p>Commercial real estate is valued on Net Operating Income. Every dollar of OpEx avoided increases NOI by a dollar. Value increase = annual savings ÷ cap rate (cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>).<a href="#fn6" class="footnote-ref">6</a></p>
+        <h3>Property Value Impact (Building Type × Market)</h3>
+        <p>Commercial real estate is valued on Net Operating Income. Every dollar of OpEx avoided increases NOI by a dollar. <strong>Cap rates vary by building type and metro area:</strong></p>
+        <table>
+            <thead>
+                <tr><th>Building Type</th><th>Cap Rate Range</th><th>Value Multiplier</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Office</td><td>5.0% &ndash; 10.2%</td><td>10× &ndash; 20×</td></tr>
+                <tr><td>Hotel</td><td>5.0% &ndash; 9.5%</td><td>11× &ndash; 20×</td></tr>
+                <tr><td>Retail</td><td>5.0% &ndash; 9.0%</td><td>11× &ndash; 20×</td></tr>
+                <tr><td>Medical Office</td><td>6.2% &ndash; 8.5%</td><td>12× &ndash; 16×</td></tr>
+                <tr><td>Hospital/K-12</td><td>7.0% &ndash; 8.0%</td><td>12× &ndash; 14×</td></tr>
+            </tbody>
+        </table>
+        <p>Example: $100K annual savings ÷ 7% cap rate = $1.43M property value increase. Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>.<a href="#fn6" class="footnote-ref">6</a></p>
 
         <h3>ENERGY STAR Score Improvement</h3>
         <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn7" class="footnote-ref">7</a></p>
@@ -334,7 +706,7 @@
         <div class="footnote" id="fn2">
             <span class="footnote-num">2</span>
             <strong>HVAC Percentages</strong><br>
-            From CBECS 2018, adjusted for ENERGY STAR score, year built, and EUI vs peers. Electric HVAC minimum 15% (fans/pumps always run). Hotels: ~20% of gas to HVAC (rest is DHW + cooking). Restaurants: ~18% gas HVAC (72% cooking).
+            From <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">CBECS 2018</a>, adjusted for ENERGY STAR score, year built, and EUI vs peers. Electric HVAC minimum 15% (fans/pumps always run). Hotels: ~20% of gas to HVAC (rest is DHW + cooking). Restaurants: ~18% gas HVAC (72% cooking).
         </div>
 
         <div class="footnote" id="fn3">
@@ -354,7 +726,7 @@
         <div class="footnote" id="fn5">
             <span class="footnote-num">5</span>
             <strong>BPS Fines</strong><br>
-            NYC LL97: $268/tCO2e over cap. Boston/Cambridge: $234/tCO2e. DC: up to $10/sqft. Denver: $0.30/kBtu over target.
+            <a href="https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page" class="source-link">NYC LL97</a>: $268/tCO2e over cap. <a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" class="source-link">Boston/Cambridge BERDO</a>: $234/tCO2e. <a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" class="source-link">DC BEPS</a>: up to $10/sqft. <a href="https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub" class="source-link">Denver</a>: $0.30/kBtu over target. <a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards" class="source-link">Seattle</a>: $10/sqft. <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">Full comparison (IMT)</a>.
             <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
         </div>
 
@@ -362,20 +734,20 @@
             <span class="footnote-num">6</span>
             <strong>Valuation</strong>
             <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
-            Cap rates: Office 7.5%, Hotel 8.0%, Retail 6.25%, Medical 7.5%.
+            Cap rates sourced from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a> and vary by metro area and property subtype. Ranges in dataset: Office 5.0%&ndash;10.2%, Hotel 5.0%&ndash;9.5%, Retail 5.0%&ndash;9.0%, Medical Office 6.2%&ndash;8.5%, Higher Ed 5.0%&ndash;8.5%, K-12 7.0%&ndash;8.0%, Hospital 7.0%&ndash;8.0%.
         </div>
 
         <div class="footnote" id="fn7">
             <span class="footnote-num">7</span>
             <strong>ENERGY STAR</strong><br>
-            Scores map EUI to percentile via gamma distribution.
+            <a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> map EUI to percentile via gamma distribution. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.
             <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
         </div>
 
         <div class="footnote" id="fn8">
             <span class="footnote-num">8</span>
             <strong>Energy Cost Formulas</strong><br>
-            We source real utility rates by zip code from EIA data and local utility tariff filings.
+            Utility rates from <a href="https://www.eia.gov/electricity/data/state/" class="source-link">EIA State Electricity Data</a> and <a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI Utility Rate Database</a>.
             <div class="formula">Peak_kW = Annual_kWh ÷ (8,760 hours × Load_Factor)</div>
             <div class="formula">Elec_Energy_Cost = kWh × Rate_kWh × 1.10</div>
             <div class="formula">Elec_Demand_Cost = Peak_kW × Rate_kW × 12 months × 1.265</div>

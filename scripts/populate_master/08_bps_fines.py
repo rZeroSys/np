@@ -68,6 +68,104 @@ ZIP_TO_CITY = {
 }
 
 # =============================================================================
+# BUILDING-TYPE-SPECIFIC TARGETS
+# =============================================================================
+
+# Denver EUI targets by building type (kBtu/sqft) - Official 2030 targets
+# Source: https://denvergov.org/.../Energize-Denver-Building-Performance-Policy
+DENVER_EUI_TARGETS = {
+    'Office': 48.3,
+    'Hotel': 61.1,
+    'Retail Store': 43.5,
+    'Restaurant/Bar': 194.1,
+    'Supermarket/Grocery': 164.4,
+    'Medical Office': 69.0,  # Updated from official source
+    'Higher Ed': 60.6,       # College/University from official source
+    'Inpatient Hospital': 165.2,
+    'Specialty Hospital': 165.2,
+    'Outpatient Clinic': 60.7,  # Ambulatory Surgical Center
+    'Residential Care': 75.5,
+    'Wholesale Club': 164.4,
+    'Enclosed Mall': 45.6,   # Updated from official source
+    'Mixed Use': 65.0,
+    'Library/Museum': 52.9,  # Library target from official source
+    'Venue': None,           # 30% reduction from baseline (Convention Center)
+    'Theater': 53.2,         # Movie Theater from official source
+    'Multifamily': 44.2,     # Added from official source
+    'Warehouse': 27.2,       # Non-Refrigerated Warehouse from official source
+    'K-12 School': 48.0,     # Added for completeness (though exempt)
+    'DEFAULT': 48.3,
+}
+
+# Boston BERDO emission caps by building type (tCO2e/sqft) - 2025-2029 period
+# Source: https://www.boston.gov/departments/environment/berdo
+BOSTON_EMISSION_CAPS = {
+    'Office': 0.0053,
+    'Higher Ed': 0.0102,
+    'Hotel': 0.0074,
+    'Retail Store': 0.0053,
+    'Inpatient Hospital': 0.0165,
+    'Specialty Hospital': 0.0165,
+    'Outpatient Clinic': 0.0061,
+    'Library/Museum': 0.0082,
+    'Medical Office': 0.0061,
+    'Supermarket/Grocery': 0.0200,
+    'K-12 School': 0.0056,
+    'Residential Care': 0.0075,
+    'Restaurant/Bar': 0.0240,
+    'Venue': 0.0082,
+    'Theater': 0.0082,
+    'Mixed Use': 0.0065,
+    'Enclosed Mall': 0.0067,
+    'Wholesale Club': 0.0200,
+    'DEFAULT': 0.0053,
+}
+
+# Cambridge BEUDO uses same caps as Boston (same grid, same methodology)
+CAMBRIDGE_EMISSION_CAPS = BOSTON_EMISSION_CAPS.copy()
+
+# St. Louis EUI targets by building type (kBtu/sqft) - 35th percentile by property type
+# Source: https://www.stlouis-mo.gov/.../beps-targets.cfm
+STLOUIS_EUI_TARGETS = {
+    'Office': 71.7,
+    'K-12 School': 58.0,
+    'Hotel': 85.0,
+    'Higher Ed': 100.0,
+    'Retail Store': 50.0,
+    'Mixed Use': 75.0,
+    'Medical Office': 70.0,
+    'Library/Museum': 65.0,
+    'Residential Care': 80.0,
+    'Supermarket/Grocery': 180.0,
+    'Specialty Hospital': 180.0,
+    'Inpatient Hospital': 180.0,
+    'Theater': 70.0,
+    'Restaurant/Bar': 200.0,
+    'Outpatient Clinic': 70.0,
+    'Multifamily': 55.0,
+    'DEFAULT': 71.7,
+}
+
+# DC BEPS ENERGY STAR targets by building type
+# Source: https://www.allenshariff.com/dc-building-energy-performance-standard-beps/
+DC_ENERGY_STAR_TARGETS = {
+    'Office': 71,
+    'Hotel': 54,
+    'Multifamily': 66,
+    'K-12 School': 36,
+    'Inpatient Hospital': 50,
+    'Specialty Hospital': 50,
+    'Medical Office': 71,
+    'Retail Store': 71,
+    'Higher Ed': 71,
+    'Supermarket/Grocery': 71,
+    'Restaurant/Bar': 71,
+    'Mixed Use': 71,
+    'Residential Care': 50,
+    'DEFAULT': 71,
+}
+
+# =============================================================================
 # EMISSION FACTORS BY CITY (tCO2e per kBtu)
 # =============================================================================
 
@@ -168,8 +266,8 @@ BPS_LAWS = {
         'loc_state': 'CO',
         'law_name': 'Energize Denver',
         'type': 'eui',
-        'fine_rate': 0.30,  # $/kBtu over target
-        'eui_target': 48.3,  # kBtu/sqft
+        'fine_rate': 0.15,  # $/kBtu over target (50% reduced April 2025)
+        'eui_target': 48.3,  # kBtu/sqft (building-type specific, this is default)
         'min_sqft': 25000,
         'factors': DENVER_FACTORS,
     },
@@ -344,7 +442,10 @@ def calc_fine_nyc(row):
 
 
 def calc_fine_boston(row):
-    """Boston BERDO - Emission-based, $234/tCO2e over cap."""
+    """Boston BERDO - Emission-based, $234/tCO2e over cap.
+
+    Uses building-type-specific emission caps from BOSTON_EMISSION_CAPS.
+    """
     params = BPS_LAWS['Boston']
     factors = params['factors']
 
@@ -354,6 +455,7 @@ def calc_fine_boston(row):
     gas = safe_float(row.get('energy_gas_kbtu'), 0)
     steam = safe_float(row.get('energy_steam_kbtu'), 0)
     odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
+    bldg_type = row.get('bldg_type', '')
 
     # HVAC percentages - use default only if energy exists but pct is NaN
     elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
@@ -375,8 +477,11 @@ def calc_fine_boston(row):
     # Carbon reduction
     carbon_reduction = baseline_emissions - with_odcv_emissions
 
+    # Get building-type-specific emission cap
+    emission_cap_per_sqft = BOSTON_EMISSION_CAPS.get(bldg_type, BOSTON_EMISSION_CAPS['DEFAULT'])
+
     # Fine calculation (cap is in tCO2e/sqft)
-    cap = sqft * params['emission_cap']
+    cap = sqft * emission_cap_per_sqft
     baseline_overage = max(0, baseline_emissions - cap)
     with_odcv_overage = max(0, with_odcv_emissions - cap)
 
@@ -387,41 +492,33 @@ def calc_fine_boston(row):
 
 
 def calc_fine_cambridge(row):
-    """Cambridge BEUDO - Emission-based, $234/tCO2e over cap (same as Boston)."""
+    """Cambridge BEUDO - 20% reduction from building's own baseline.
+
+    Unlike Boston (fixed cap per sqft), Cambridge requires each building
+    to reduce emissions 20% from its own historical baseline.
+    Fine: $234/tCO2e over target (same Alternative Compliance Payment as Boston).
+    """
     params = BPS_LAWS['Cambridge']
-    factors = params['factors']
 
-    # Use safe_float to handle NaN properly
     sqft = safe_float(row.get('bldg_sqft'), 0)
-    elec = safe_float(row.get('energy_elec_kbtu'), 0)
-    gas = safe_float(row.get('energy_gas_kbtu'), 0)
-    steam = safe_float(row.get('energy_steam_kbtu'), 0)
-    odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
 
-    # HVAC percentages - use default only if energy exists but pct is NaN
-    elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
-    gas_hvac = safe_float(row.get('hvac_pct_gas'), DEFAULT_GAS_HVAC) if gas > 0 else 0
-    steam_hvac = safe_float(row.get('hvac_pct_steam'), DEFAULT_STEAM_HVAC) if steam > 0 else 0
+    # Get baseline from CSV column (building's own historical emissions)
+    baseline_emissions = safe_float(row.get('carbon_emissions_total_mt'), 0)
+    post_odcv_emissions = safe_float(row.get('carbon_emissions_post_odcv_mt'), 0)
 
+    # Cambridge applies to buildings ≥25,000 sqft
     if sqft < params['min_sqft']:
         return 0, 0, 0
 
-    # Baseline emissions
-    baseline_emissions = calc_emissions_from_energy(elec, gas, steam, factors)
+    # Target is 20% reduction from baseline (i.e., 80% of baseline)
+    target = baseline_emissions * 0.80
 
-    # With ODCV emissions
-    net_elec, net_gas, net_steam = apply_odcv_to_energy(
-        elec, gas, steam, odcv_pct, elec_hvac, gas_hvac, steam_hvac
-    )
-    with_odcv_emissions = calc_emissions_from_energy(net_elec, net_gas, net_steam, factors)
+    # Carbon reduction from ODCV
+    carbon_reduction = baseline_emissions - post_odcv_emissions
 
-    # Carbon reduction
-    carbon_reduction = baseline_emissions - with_odcv_emissions
-
-    # Fine calculation (cap is in tCO2e/sqft)
-    cap = sqft * params['emission_cap']
-    baseline_overage = max(0, baseline_emissions - cap)
-    with_odcv_overage = max(0, with_odcv_emissions - cap)
+    # Fine calculation: $234/tCO2e over target
+    baseline_overage = max(0, baseline_emissions - target)
+    with_odcv_overage = max(0, post_odcv_emissions - target)
 
     baseline_fine = baseline_overage * params['fine_rate']
     post_odcv_fine = with_odcv_overage * params['fine_rate']
@@ -430,29 +527,38 @@ def calc_fine_cambridge(row):
 
 
 def calc_fine_dc(row):
-    """DC BEPS - ENERGY STAR-based, $10/sqft prorated.
+    """DC BEPS - ENERGY STAR score targets by building type.
 
-    Since we don't have ENERGY STAR scores, estimate based on emissions reduction.
+    Penalty: $10/sqft, max $7.5M, prorated by gap from target.
+    Buildings with score >= target are compliant (no fine).
+    Buildings without ENERGY STAR scores are excluded.
+
+    Source: https://www.allenshariff.com/dc-building-energy-performance-standard-beps/
     """
     params = BPS_LAWS['Washington']
     factors = params['factors']
 
-    # Use safe_float to handle NaN properly
     sqft = safe_float(row.get('bldg_sqft'), 0)
     elec = safe_float(row.get('energy_elec_kbtu'), 0)
     gas = safe_float(row.get('energy_gas_kbtu'), 0)
     steam = safe_float(row.get('energy_steam_kbtu'), 0)
     odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
+    bldg_type = row.get('bldg_type', '')
 
-    # HVAC percentages - use default only if energy exists but pct is NaN
+    # Get ENERGY STAR scores
+    baseline_score = safe_float(row.get('energy_star_score'), 0)
+    post_odcv_score = safe_float(row.get('energy_star_score_post_odcv'), baseline_score)
+
+    # HVAC percentages
     elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
     gas_hvac = safe_float(row.get('hvac_pct_gas'), DEFAULT_GAS_HVAC) if gas > 0 else 0
     steam_hvac = safe_float(row.get('hvac_pct_steam'), DEFAULT_STEAM_HVAC) if steam > 0 else 0
 
+    # Size threshold
     if sqft < params['min_sqft']:
         return 0, 0, 0
 
-    # Calculate carbon reduction
+    # Calculate carbon reduction (always calculate for reporting)
     baseline_emissions = calc_emissions_from_energy(elec, gas, steam, factors)
     net_elec, net_gas, net_steam = apply_odcv_to_energy(
         elec, gas, steam, odcv_pct, elec_hvac, gas_hvac, steam_hvac
@@ -460,24 +566,42 @@ def calc_fine_dc(row):
     with_odcv_emissions = calc_emissions_from_energy(net_elec, net_gas, net_steam, factors)
     carbon_reduction = baseline_emissions - with_odcv_emissions
 
-    # DC BEPS fine estimate: energy reduction improves ENERGY STAR score
-    # Assume energy reduction % translates to proportional fine reduction
-    # Conservative: only 30% of theoretical max fine avoided
-    energy_reduction_pct = odcv_pct * elec_hvac  # Approximate
+    # No ENERGY STAR score = skip fine calculation
+    if baseline_score == 0:
+        return carbon_reduction, 0, 0
 
-    # Baseline fine = full theoretical fine (prorated based on score gap)
-    # Post-ODCV fine = baseline minus avoided amount
-    max_fine = sqft * params['fine_rate']
-    baseline_fine = min(max_fine * 0.5, params['max_fine'])  # Assume 50% of max as baseline
-    fine_avoidance = max_fine * energy_reduction_pct * 0.3
-    fine_avoidance = min(fine_avoidance, params['max_fine'])
-    post_odcv_fine = max(0, baseline_fine - fine_avoidance)
+    # Get building-type-specific target
+    target = DC_ENERGY_STAR_TARGETS.get(bldg_type, DC_ENERGY_STAR_TARGETS['DEFAULT'])
+
+    # Max fine = $10/sqft, capped at $7.5M
+    max_fine = min(sqft * params['fine_rate'], params['max_fine'])
+
+    # Baseline fine: prorated by gap from target
+    if baseline_score >= target:
+        baseline_fine = 0
+    else:
+        gap = target - baseline_score
+        # Prorate: gap / target (e.g., score 50 vs target 71 = 21/71 = 30% of max fine)
+        baseline_fine = max_fine * (gap / target)
+
+    # Post-ODCV fine: use improved score
+    if post_odcv_score >= target:
+        post_odcv_fine = 0
+    else:
+        gap = target - post_odcv_score
+        post_odcv_fine = max_fine * (gap / target)
 
     return carbon_reduction, baseline_fine, post_odcv_fine
 
 
 def calc_fine_denver(row):
-    """Denver Energize - EUI-based, $0.30/kBtu over target."""
+    """Denver Energize - EUI-based, $0.30/kBtu over target.
+
+    Uses building-type-specific 2032 EUI targets with LINEAR GLIDE PATH.
+    Timeline updated 2025: first fines 2028, final target moved to 2032.
+    2028 = year 9 of 13-year path from 2019 baseline to 2032 target.
+    For Library/Museum, Venue, Theater: target = 30% reduction from baseline.
+    """
     params = BPS_LAWS['Denver']
     factors = params['factors']
 
@@ -488,6 +612,7 @@ def calc_fine_denver(row):
     gas = safe_float(row.get('energy_gas_kbtu'), 0)
     steam = safe_float(row.get('energy_steam_kbtu'), 0)
     odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
+    bldg_type = row.get('bldg_type', '')
 
     # HVAC percentages - use default only if energy exists but pct is NaN
     elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
@@ -505,8 +630,21 @@ def calc_fine_denver(row):
     with_odcv_emissions = calc_emissions_from_energy(net_elec, net_gas, net_steam, factors)
     carbon_reduction = baseline_emissions - with_odcv_emissions
 
-    # Denver fine is EUI-based
-    target_eui = params['eui_target']
+    # Get building-type-specific 2032 FINAL target
+    final_target = DENVER_EUI_TARGETS.get(bldg_type, DENVER_EUI_TARGETS['DEFAULT'])
+
+    # Handle 30% reduction types (Library/Museum, Venue, Theater)
+    if final_target is None:
+        final_target = site_eui * 0.70
+
+    # Denver uses LINEAR GLIDE PATH from 2019 baseline to 2032 target
+    # Timeline updated 2025: first fines 2028, final target 2032
+    # 2028 = 9 years into 13-year path (2019→2032)
+    # Interim target = baseline - (baseline - final) × (years_elapsed / total_years)
+    # Using current EUI as proxy for 2019 baseline (we don't have historical data)
+    years_elapsed = 9   # 2028 - 2019 (first year with fines)
+    total_years = 13    # 2032 - 2019
+    target_eui = site_eui - (site_eui - final_target) * (years_elapsed / total_years)
 
     # Calculate total energy reduction from ODCV (handles NaN properly)
     energy_reduction = calc_energy_reduction(
@@ -609,7 +747,10 @@ def calc_fine_sf(row):
 
 
 def calc_fine_stlouis(row):
-    """St. Louis BEPS - EUI-based, $500/day if non-compliant."""
+    """St. Louis BEPS - EUI-based, $500/day if non-compliant.
+
+    Uses building-type-specific EUI targets from STLOUIS_EUI_TARGETS.
+    """
     params = BPS_LAWS['St. Louis']
     factors = params['factors']
 
@@ -620,6 +761,7 @@ def calc_fine_stlouis(row):
     gas = safe_float(row.get('energy_gas_kbtu'), 0)
     steam = safe_float(row.get('energy_steam_kbtu'), 0)
     odcv_pct = safe_float(row.get('odcv_hvac_savings_pct'), 0)
+    bldg_type = row.get('bldg_type', '')
 
     # HVAC percentages - use default only if energy exists but pct is NaN
     elec_hvac = safe_float(row.get('hvac_pct_elec'), DEFAULT_ELEC_HVAC) if elec > 0 else 0
@@ -637,8 +779,8 @@ def calc_fine_stlouis(row):
     with_odcv_emissions = calc_emissions_from_energy(net_elec, net_gas, net_steam, factors)
     carbon_reduction = baseline_emissions - with_odcv_emissions
 
-    # St. Louis fine is binary - compliant or not
-    target_eui = params['eui_target']
+    # Get building-type-specific EUI target
+    target_eui = STLOUIS_EUI_TARGETS.get(bldg_type, STLOUIS_EUI_TARGETS['DEFAULT'])
 
     # Calculate total energy reduction from ODCV (handles NaN properly)
     energy_reduction = calc_energy_reduction(
@@ -736,27 +878,26 @@ def process_csv(input_csv):
     # ==========================================================================
     # BPS EXEMPTIONS BY CITY (based on official law research Dec 2025)
     # ==========================================================================
-    # NYC LL97: Houses of worship fully exempt; affordable housing & city buildings
-    #           have alternative compliance under Article 321 (not standard fines)
-    # Denver:   K-12 schools and government buildings have different compliance pathways
-    # Cambridge: Only non-residential buildings subject to emission reduction fines
-    #           (residential buildings exempt from emission reduction per 2023 amendment)
-    # Boston, DC, Seattle, St. Louis: No K-12/govt exemptions - all building types fined
+    # NYC LL97: Houses of worship fully exempt; K-12 schools have alternative compliance
+    # Denver:   K-12 schools have different compliance pathways (not standard fines)
+    # Cambridge: Only NON-RESIDENTIAL buildings subject to emission reduction fines
+    #           (Multifamily/residential buildings report only - NO FINES per 2023 amendment)
+    # Boston, DC, Seattle, St. Louis: All building types subject to fines
     # ==========================================================================
-
-    # Cities that EXEMPT K-12 and Government buildings from standard BPS fines
-    EXEMPT_K12_GOV = ['New York', 'Denver']
 
     for city_name, calc_func in FINE_CALCULATORS.items():
         # Base mask: buildings in this city
         city_base_mask = df['loc_city'] == city_name
 
         # Apply exemptions based on city-specific rules
-        if city_name in EXEMPT_K12_GOV:
-            # NYC & Denver: K-12 schools and government buildings have alternative compliance
-            city_mask = city_base_mask & (df['bldg_vertical'] != 'Government') & (df['bldg_vertical'] != 'K-12 School')
+        if city_name in ['New York', 'Denver']:
+            # NYC & Denver: K-12 schools have alternative compliance (use bldg_type column!)
+            city_mask = city_base_mask & (df['bldg_type'] != 'K-12 School')
+        elif city_name == 'Cambridge':
+            # Cambridge BEUDO: Multifamily/residential only report, NO emission reduction fines
+            city_mask = city_base_mask & (df['bldg_type'] != 'Multifamily')
         else:
-            # Boston, Cambridge, DC, Seattle, St. Louis - include ALL commercial building types
+            # Boston, DC, Seattle, St. Louis - all building types subject to fines
             city_mask = city_base_mask
 
         city_count = city_mask.sum()
