@@ -1246,6 +1246,12 @@ body.all-buildings-active .main-tabs {
     white-space: nowrap;
     min-width: 0;
 }
+.cities-row .cell:has(.hq-badge) {
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .cities-row .ext-link-cell {
     margin-left: -4px;
 }
@@ -2152,7 +2158,8 @@ body.all-buildings-active .main-tabs {
     justify-content: center;
 }
 
-.stat-cell:has(.addr-main) {
+.stat-cell:has(.addr-main),
+.stat-cell:has(.hq-badge) {
     flex-direction: column;
     align-items: flex-start;
 }
@@ -2511,16 +2518,18 @@ body.all-buildings-active .main-tabs {
 }
 
 .hq-badge {
-    display: inline-block;
-    font-size: 9px;
+    display: block;
+    font-size: 8px;
     font-weight: 600;
     color: #0066cc;
-    background: rgba(0, 102, 204, 0.1);
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 6px;
-    vertical-align: middle;
+    background: rgba(0, 102, 204, 0.15);
+    padding: 1px 4px;
+    border-radius: 2px;
+    margin-top: 2px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .row-controls {
