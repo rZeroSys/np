@@ -52,3 +52,6 @@ output/html/test_*.html
 
 # Scripts with hardcoded API keys (not the homepage - Google Maps key is protected)
 scripts/images/fetch_and_validate_missing.py
+
+# Backups folder
+BACKUPS_GO_HERE/
