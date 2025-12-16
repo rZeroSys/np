@@ -49,10 +49,10 @@ AWS_BUCKET = 'nationwide-odcv-images'
 AWS_REGION = 'us-east-2'
 AWS_LOGOS_PREFIX = 'logos/'
 
-# API Keys (hardcoded)
-SERPAPI_KEY = "***REMOVED***"
-OPENAI_API_KEY = "***REMOVED***"
-REMOVEBG_API_KEY = "***REMOVED***"
+# API Keys (from environment variables)
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+REMOVEBG_API_KEY = os.environ.get("REMOVEBG_API_KEY", "")
 
 # Logo optimization settings
 MAX_LOGO_WIDTH = 400  # pixels
