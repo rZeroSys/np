@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-15 20:26:40 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-15 20:42:43 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5801,7 +5801,13 @@ let currentSortCol = 'opex';      // Track current sort column
 let currentSortAsc = false;       // Track sort direction (false = descending)
 
 function applyFilters() {
-    console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical);
+    // Get classification filter (type dropdown) once, outside the loop
+    const selectedClassification = (() => {
+        const sel = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
+        return sel ? sel.dataset.type : 'all';
+    })();
+    console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical, 'classification:', selectedClassification);
+
     const cards = document.querySelectorAll('.portfolio-card');
     const container = document.getElementById('portfolios-list');
     if (!container) return;
@@ -5843,6 +5849,14 @@ function applyFilters() {
             }
         }
 
+        // Filter by classification (type filter dropdown) - ADDED for unified filter system
+        if (selectedClassification !== 'all') {
+            const cardClassification = card.dataset.classification || '';
+            if (cardClassification !== selectedClassification) {
+                count = 0;
+            }
+        }
+
         if (count === 0) {
             card.classList.add('hidden');
         } else {
@@ -5877,26 +5891,30 @@ function applyFilters() {
             aVal = (a.card.dataset.displayname || '').toLowerCase();
             bVal = (b.card.dataset.displayname || '').toLowerCase();
         } else if (currentSortCol === 'buildings') {
-            aVal = a.buildingCount;
-            bVal = b.buildingCount;
+            aVal = a.buildingCount || 0;
+            bVal = b.buildingCount || 0;
         } else if (currentSortCol === 'sqft') {
-            aVal = a.sqft;
-            bVal = b.sqft;
+            aVal = a.sqft || 0;
+            bVal = b.sqft || 0;
         } else if (currentSortCol === 'eui') {
-            aVal = a.eui;
-            bVal = b.eui;
+            aVal = a.eui || 0;
+            bVal = b.eui || 0;
         } else if (currentSortCol === 'valuation') {
-            aVal = a.valuation;
-            bVal = b.valuation;
+            aVal = a.valuation || 0;
+            bVal = b.valuation || 0;
         } else if (currentSortCol === 'carbon') {
-            aVal = a.carbon;
-            bVal = b.carbon;
+            aVal = a.carbon || 0;
+            bVal = b.carbon || 0;
         } else {
             // Default to opex
-            aVal = a.opex;
-            bVal = b.opex;
+            aVal = a.opex || 0;
+            bVal = b.opex || 0;
         }
-        return currentSortAsc ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+        // FIXED: Use proper comparison that handles equal values and string/number types
+        if (typeof aVal === 'string') {
+            return currentSortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return currentSortAsc ? (aVal - bVal) : (bVal - aVal);
     });
     visible.forEach(v => container.appendChild(v.card));
 
@@ -6508,7 +6526,11 @@ window.sortPortfolios = function(col) {
             aVal = (a.classification || '').toLowerCase();
             bVal = (b.classification || '').toLowerCase();
         }
-        return asc ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+        // FIXED: Use proper comparison that handles equal values and string/number types
+        if (typeof aVal === 'string') {
+            return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return asc ? (aVal - bVal) : (bVal - aVal);
     });
 
     // Clear DOM and reset infinite scroll counter
@@ -6712,28 +6734,14 @@ function applyTypeFilter() {
 }
 
 function applyAllFilters() {
-    // Get selected type filter (radio button)
-    const selected = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
-    const selectedType = selected ? selected.dataset.type : 'all';
-
-    // Filter portfolio cards by Type only (EUI is now L2 filter)
-    document.querySelectorAll('.portfolio-card').forEach(card => {
-        const classification = card.dataset.classification || '';
-        const passesType = selectedType === 'all' || classification === selectedType;
-
-        if (passesType) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-    // Update visible counts
-    updatePortfolioVisibleCounts();
+    // CONSOLIDATED: Delegate to main applyFilters() instead of duplicate logic
+    // This ensures all filters (vertical, building type, classification, search) work together
+    applyFilters();
 }
 
 function updatePortfolioVisibleCounts() {
-    const visibleCards = document.querySelectorAll('.portfolio-card:not([style*="display: none"])');
+    // FIXED: Use .hidden class instead of inline style check to match applyFilters()
+    const visibleCards = document.querySelectorAll('.portfolio-card:not(.hidden)');
     let totalBuildings = 0;
     let totalSqft = 0;
     let totalOpex = 0;
@@ -6795,7 +6803,8 @@ function clearEuiFilter() {
     // Re-show all building rows in expanded portfolio
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (expanded) {
-        expanded.querySelectorAll('.building-grid-row').forEach(row => row.style.display = '');
+        // FIXED: Use .hidden class instead of style.display for consistency
+        expanded.querySelectorAll('.building-grid-row').forEach(row => row.classList.remove('hidden'));
     }
 }
 
@@ -6830,12 +6839,13 @@ function applyEuiFilter() {
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (!expanded) return;
 
+    // FIXED: Use .hidden class instead of style.display for consistency
     expanded.querySelectorAll('.building-grid-row').forEach(row => {
         const euiRating = row.dataset.euiRating || 'ok';
         if (activeEui === 'all' || activeEui === euiRating) {
-            row.style.display = '';
+            row.classList.remove('hidden');
         } else {
-            row.style.display = 'none';
+            row.classList.add('hidden');
         }
     });
 }
@@ -8669,7 +8679,7 @@ function logResponsiveDiagnostics() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-15 20:26:40 EST
+        Build: 2025-12-15 20:42:43 EST
       </div>
     </footer>
 
