@@ -176,12 +176,12 @@ class NationwideHTMLGenerator:
                 'type': b.get('radio_type', ''),
                 'bldg_type': b.get('bldg_type', ''),
                 'vertical': b.get('bldg_vertical', ''),
-                'sqft': b.get('sqft', 0) or 0,
-                'opex': b.get('total_opex', 0) or 0,
-                'valuation': b.get('valuation_impact', 0) or 0,
-                'carbon': b.get('carbon_reduction', 0) or 0,
-                'eui': b.get('energy_site_eui', 0) or 0,
-                'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
+                'sqft': safe_float(b.get('sqft')),
+                'opex': safe_float(b.get('total_opex')),
+                'valuation': safe_float(b.get('valuation_impact')),
+                'carbon': safe_float(b.get('carbon_reduction')),
+                'eui': safe_float(b.get('energy_site_eui')),
+                'eui_benchmark': safe_float(b.get('energy_eui_benchmark')),
                 'image': b.get('image', ''),
                 'sub_org': b.get('org_tenant_subunit', ''),
                 'hq_org': b.get('bldg_hq_org', ''),
@@ -197,7 +197,7 @@ class NationwideHTMLGenerator:
             'city': b['loc_city'],
             'state': b['loc_state'],
             'type': b.get('radio_type', ''),
-            'bldg_vertical': b['bldg_vertical'],
+            'vertical': b['bldg_vertical'],
             'opex': b['total_opex'],
             'image': b['image'],
             'owner': self._get_org_display_name(b.get('owner', '')),
@@ -218,14 +218,14 @@ class NationwideHTMLGenerator:
             'owner': self._get_org_display_name(b.get('owner', '')),
             'tenant': self._get_org_display_name(b.get('org_tenant', '')),
             'manager': self._get_org_display_name(b.get('manager', '')),
-            'sqft': b.get('sqft', 0) or 0,
+            'sqft': safe_float(b.get('sqft')),
             'year_built': b.get('bldg_year_built', ''),
-            'opex': b.get('total_opex', 0) or 0,
-            'valuation': b.get('valuation_impact', 0) or 0,
-            'carbon': b.get('carbon_reduction', 0) or 0,
-            'site_eui': b.get('energy_site_eui', 0) or 0,
-            'eui_benchmark': b.get('energy_eui_benchmark', 0) or 0,
-            'bldg_vertical': b.get('bldg_vertical', ''),
+            'opex': safe_float(b.get('total_opex')),
+            'valuation': safe_float(b.get('valuation_impact')),
+            'carbon': safe_float(b.get('carbon_reduction')),
+            'site_eui': safe_float(b.get('energy_site_eui')),
+            'eui_benchmark': safe_float(b.get('energy_eui_benchmark')),
+            'vertical': b.get('bldg_vertical', ''),
             'image': b.get('image', ''),
             'hq_org': b.get('bldg_hq_org', ''),
         } for b in sorted(self.all_buildings, key=lambda x: x.get('total_opex', 0) or 0, reverse=True)]
@@ -234,7 +234,7 @@ class NationwideHTMLGenerator:
         # Calculate total sqft for each portfolio
         portfolio_cards = []
         for i, p in enumerate(self.portfolios):
-            total_sqft = sum(b.get('sqft', 0) or 0 for b in p['buildings'])
+            total_sqft = sum(safe_float(b.get('sqft')) for b in p['buildings'])
 
             # Build display_name and parent_owned separately for two-line display
             display_name = p.get('display_name', p['org_name'])
@@ -284,12 +284,13 @@ class NationwideHTMLGenerator:
                     continue
                 key = f'{t}|{v}'
                 if key not in agg:
-                    agg[key] = [0, 0, 0, 0, 0]  # count, opex, val, carbon, sqft
-                agg[key][0] += 1
-                agg[key][1] += int(b.get('total_opex', 0) or 0)
-                agg[key][2] += int(b.get('valuation_impact', 0) or 0)
-                agg[key][3] += int(b.get('carbon_reduction', 0) or 0)
-                agg[key][4] += int(b.get('sqft', 0) or 0)
+                    # Use objects instead of arrays for clarity and maintainability
+                    agg[key] = {'count': 0, 'opex': 0.0, 'valuation': 0.0, 'carbon': 0.0, 'sqft': 0.0}
+                agg[key]['count'] += 1
+                agg[key]['opex'] += safe_float(b.get('total_opex'))
+                agg[key]['valuation'] += safe_float(b.get('valuation_impact'))
+                agg[key]['carbon'] += safe_float(b.get('carbon_reduction'))
+                agg[key]['sqft'] += safe_float(b.get('sqft'))
             filter_data[i] = agg
 
         data_files = {
@@ -4376,7 +4377,7 @@ tr.pin-highlight {
             building_url = b.get('url', '')
             row_click = f'''onclick="if (!event.target.closest('a, .clickable-link')) window.open('{attr_escape(building_url)}', '_blank')" style="cursor:pointer"''' if building_url else ''
             radio_type = b.get('radio_type', '') or btype
-            row = f'''<tr class="building-row" data-id="{attr_escape(building_id)}" data-city="{attr_escape(city)}" data-type="{attr_escape(btype)}" data-radio-type="{attr_escape(radio_type)}" data-owner="{attr_escape(owner)}" data-manager="{attr_escape(manager)}" data-tenant="{attr_escape(tenant)}" data-sub-org="{attr_escape(sub_org)}" data-vertical="{attr_escape(vertical)}" data-opex="{opex}" data-rank="{rank}" {row_click}>
+            row = f'''<tr class="building-row" data-id="{attr_escape(building_id)}" data-city="{attr_escape(city)}" data-type="{attr_escape(btype)}" data-radio-type="{attr_escape(radio_type)}" data-owner="{attr_escape(owner)}" data-manager="{attr_escape(manager)}" data-tenant="{attr_escape(tenant)}" data-sub-org="{attr_escape(sub_org)}" data-vertical="{attr_escape(vertical)}" data-opex="{opex}" data-carbon="{carbon}" data-address="{attr_escape(address)}" data-rank="{rank}" {row_click}>
     <td>{thumb}</td>
     <td><span class="rank-badge">#{rank}</span></td>
     <td><span class="building-address">{address}</span><br><span class="city-state">{city_display}, {state}</span></td>
@@ -4618,7 +4619,7 @@ tr.pin-highlight {
         type_badge = fmt_building_type(b.get('bldg_type', ''))
 
         return f'''
-<div class="building-grid-row" data-id="{building_id}" data-lat="{b['loc_lat'] or ''}" data-lon="{b['loc_lon'] or ''}" data-radio-type="{attr_escape(radio_type)}" data-vertical="{attr_escape(b.get('bldg_vertical', ''))}" data-opex="{opex_value}" data-valuation="{valuation_value}" data-carbon="{carbon_value}" data-sqft="{sqft_value}" data-tenant="{attr_escape(b.get('org_tenant', ''))}" data-sub-org="{attr_escape(b.get('org_tenant_subunit', ''))}" onclick="window.location='buildings/{building_id}.html'">
+<div class="building-grid-row" data-id="{building_id}" data-lat="{b['loc_lat'] or ''}" data-lon="{b['loc_lon'] or ''}" data-radio-type="{attr_escape(radio_type)}" data-vertical="{attr_escape(b.get('bldg_vertical', ''))}" data-opex="{opex_value}" data-valuation="{valuation_value}" data-carbon="{carbon_value}" data-sqft="{sqft_value}" data-tenant="{attr_escape(b.get('org_tenant', ''))}" data-sub-org="{attr_escape(b.get('org_tenant_subunit', ''))}" data-address="{attr_escape(address_text)}" onclick="window.location='buildings/{building_id}.html'">
     <div>{thumb}</div>
     <span class="stat-cell">{address_html}</span>
     <span class="stat-cell">{type_badge}</span>
@@ -4780,6 +4781,11 @@ function switchMainTab(tabId) {{
         window.allBuildingsInitialized = true;
     }}
 
+    // FIX: Re-filter All Buildings tab when switching to it (applies current vertical/type filters)
+    if (tabId === 'all-buildings' && window.allBuildingsInitialized) {{
+        doFilterAllBuildings();
+    }}
+
     // Show/hide tutorial button - only on portfolios tab
     var tutorialBtn = document.getElementById('tutorial-btn');
     if (tutorialBtn) {{
@@ -4936,6 +4942,12 @@ function filterAllBuildings() {{
 function doFilterAllBuildings() {{
     // Filter by selected city card AND global search
     filteredBuildingsData = allBuildingsData.filter(b => {{
+        // FIX: Vertical filter - match Portfolio tab behavior
+        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
+
+        // FIX: Building type filter - match Portfolio tab behavior
+        if (selectedBuildingType && b.type !== selectedBuildingType) return false;
+
         // City filter
         if (selectedCityFilter && b.city !== selectedCityFilter) return false;
 
@@ -4948,7 +4960,9 @@ function doFilterAllBuildings() {{
                 b.type || '',
                 b.owner || '',
                 b.sub_org || '',
-                b.property_name || ''
+                b.property_name || '',
+                b.tenant || '',
+                b.property_manager || ''
             ].join(' ').toLowerCase();
             if (!searchFields.includes(globalQuery)) return false;
         }}
@@ -5042,13 +5056,35 @@ function sortFilteredBuildings() {{
     const dir = abSortDirection === 'asc' ? 1 : -1;
 
     filteredBuildingsData.sort((a, b) => {{
-        let valA = col === 'eui' ? (a.site_eui || 0) : (a[col] || '');
-        let valB = col === 'eui' ? (b.site_eui || 0) : (b[col] || '');
+        let valA, valB;
 
-        if (typeof valA === 'number' && typeof valB === 'number') {{
-            return (valA - valB) * dir;
+        // Numeric columns
+        if (col === 'sqft') {{
+            valA = a.sqft || 0;
+            valB = b.sqft || 0;
+        }} else if (col === 'eui') {{
+            valA = a.site_eui || 0;
+            valB = b.site_eui || 0;
+        }} else if (col === 'opex') {{
+            valA = a.opex || 0;
+            valB = b.opex || 0;
+        }} else if (col === 'carbon') {{
+            valA = a.carbon || 0;
+            valB = b.carbon || 0;
+        }} else if (col === 'valuation') {{
+            valA = a.valuation || 0;
+            valB = b.valuation || 0;
+        }} else {{
+            // String columns: address, type, owner, tenant
+            valA = (a[col] || '').toString().toLowerCase();
+            valB = (b[col] || '').toString().toLowerCase();
         }}
-        return String(valA).localeCompare(String(valB)) * dir;
+
+        // FIXED: Use proper comparison that handles equal values and string/number types
+        if (typeof valA === 'string') {{
+            return valA.localeCompare(valB) * dir;
+        }}
+        return (valA - valB) * dir;
     }});
 }}
 
@@ -5095,8 +5131,11 @@ let activeVertical = 'all';
 let selectedBuildingType = null;
 let activeEuiFilter = 'all';  // EUI filter state for building rows
 let mapUpdateTimeout = null;
-let isInitialDataLoaded = false;  // Guards against race condition with EXPORT_DATA
-let pendingFilterUpdate = false;   // Defers filter if data not yet loaded
+// Data loading state - cleaner than separate boolean flags
+let dataLoadState = {{
+    exportData: 'pending',  // 'pending' | 'loading' | 'loaded' | 'error'
+    filterUpdateQueued: false
+}};
 let currentSortCol = 'opex';      // Track current sort column
 let currentSortAsc = false;       // Track sort direction (false = descending)
 
@@ -5123,7 +5162,7 @@ function applyFilters() {{
         const idx = parseInt(card.dataset.idx);
         const agg = FILTER_DATA[idx] || {{}};
 
-        // FILTER_DATA format: {{"type|vertical": [count, opex, val, carbon, sqft], ...}}
+        // FILTER_DATA format: {{"type|vertical": {{count, opex, valuation, carbon, sqft}}, ...}}
         let count = 0, opex = 0, valuation = 0, carbon = 0, sqft = 0;
 
         for (const [key, vals] of Object.entries(agg)) {{
@@ -5135,13 +5174,13 @@ function applyFilters() {{
             if (selectedBuildingType && t !== selectedBuildingType) continue;
             // Filter by vertical
             if (activeVertical !== 'all' && v !== activeVertical) continue;
-            // Accumulate matching - validate array structure for reliability
-            if (Array.isArray(vals) && vals.length >= 5) {{
-                count += vals[0] || 0;
-                opex += vals[1] || 0;
-                valuation += vals[2] || 0;
-                carbon += vals[3] || 0;
-                sqft += vals[4] || 0;
+            // Accumulate matching - using named object properties for clarity
+            if (vals && typeof vals === 'object') {{
+                count += vals.count || 0;
+                opex += vals.opex || 0;
+                valuation += vals.valuation || 0;
+                carbon += vals.carbon || 0;
+                sqft += vals.sqft || 0;
             }}
         }}
 
@@ -5238,15 +5277,37 @@ function applyFilters() {{
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
     // Update header tooltips - only if EXPORT_DATA has loaded (guard against race condition)
-    if (!isInitialDataLoaded || !allBuildingsData.length) {{
-        // Data not loaded yet - mark for re-run when data arrives
-        pendingFilterUpdate = true;
+    if (dataLoadState.exportData !== 'loaded' || !allBuildingsData.length) {{
+        // Data not loaded yet - show loading indicator and queue re-run
+        dataLoadState.filterUpdateQueued = true;
+        const headerBuildings = document.getElementById('header-buildings');
+        const headerSqft = document.getElementById('header-sqft');
+        const headerValuation = document.getElementById('header-valuation');
+        const headerCarbon = document.getElementById('header-carbon');
+        const headerOpex = document.getElementById('header-opex');
+        const loadingText = dataLoadState.exportData === 'error' ? 'Data unavailable' : 'Loading...';
+        if (headerBuildings) headerBuildings.dataset.total = loadingText;
+        if (headerSqft) headerSqft.dataset.total = loadingText;
+        if (headerValuation) headerValuation.dataset.total = loadingText;
+        if (headerCarbon) headerCarbon.dataset.total = loadingText;
+        if (headerOpex) headerOpex.dataset.total = loadingText;
     }} else {{
         let headerFiltered = allBuildingsData.filter(b => {{
             if (selectedBuildingType && b.type !== selectedBuildingType) return false;
-            if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
+            if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
             if (globalQuery) {{
-                const searchFields = [b.owner || '', b.tenant || '', b.property_manager || ''].join(' ').toLowerCase();
+                // FIX: Use same search fields as doFilterAllBuildings for consistency
+                const searchFields = [
+                    b.address || '',
+                    b.city || '',
+                    b.state || '',
+                    b.type || '',
+                    b.owner || '',
+                    b.sub_org || '',
+                    b.property_name || '',
+                    b.tenant || '',
+                    b.property_manager || ''
+                ].join(' ').toLowerCase();
                 if (!searchFields.includes(globalQuery)) return false;
             }}
             return true;
@@ -5361,6 +5422,14 @@ function clearVerticalBuildingTypeFilter(vertical) {{
     // Clear the building type filter
     selectedBuildingType = null;
 
+    // FIX: Also reset vertical to 'all' when X is clicked
+    activeVertical = 'all';
+
+    // FIX: Update All Buildings tab if initialized
+    if (window.allBuildingsInitialized) {{
+        doFilterAllBuildings();
+    }}
+
     applyFilters();
 }}
 
@@ -5385,7 +5454,7 @@ function applyMainTableFilters() {{
         const subOrg = (row.dataset.subOrg || '').toLowerCase();
         const vertical = row.dataset.vertical || '';
         const radioType = row.dataset.radioType || '';
-        const address = (row.cells[2]?.textContent || '').toLowerCase();
+        const address = (row.dataset.address || '').toLowerCase();
 
         const matchesVertical = activeVertical === 'all' || vertical === activeVertical;
         const matchesCity = cityFilter === 'all' || city === cityFilter;
@@ -5563,8 +5632,27 @@ function applySearchResults() {{
             if (!existingIndices.has(idx)) {{
                 const p = PORTFOLIO_CARDS[idx];
                 if (p) {{
-                    container.insertAdjacentHTML('beforeend', renderPortfolioCard(p));
-                    existingIndices.add(idx);
+                    // FIX: Check if card would pass vertical/building type filters before inserting
+                    const agg = FILTER_DATA[idx] || {{}};
+                    let hasMatchingBuildings = false;
+
+                    for (const [key, vals] of Object.entries(agg)) {{
+                        const parts = key.split('|');
+                        if (parts.length !== 2) continue;
+                        const [t, v] = parts;
+                        if (selectedBuildingType && t !== selectedBuildingType) continue;
+                        if (activeVertical !== 'all' && v !== activeVertical) continue;
+                        // FILTER_DATA uses named properties: vals.count, vals.opex, etc.
+                        if (vals && vals.count > 0) {{
+                            hasMatchingBuildings = true;
+                            break;
+                        }}
+                    }}
+
+                    if (hasMatchingBuildings) {{
+                        container.insertAdjacentHTML('beforeend', renderPortfolioCard(p));
+                        existingIndices.add(idx);
+                    }}
                 }}
             }}
         }});
@@ -5755,12 +5843,12 @@ function exportFilteredCSV() {{
     document.querySelectorAll('#main-table-body .building-row:not(.hidden)').forEach(row => {{
         rows.push([
             row.dataset.rank,
-            row.cells[2]?.textContent?.split('\\n')[0]?.trim() || '',
+            row.dataset.address || '',
             row.dataset.city,
             row.dataset.type,
             row.dataset.owner,
-            row.cells[6]?.textContent?.trim() || '',
-            row.cells[7]?.textContent?.trim() || ''
+            formatMoneyJS(parseFloat(row.dataset.opex) || 0),
+            formatCarbonJS(parseFloat(row.dataset.carbon) || 0)
         ]);
     }});
 
@@ -5798,7 +5886,13 @@ function exportCSV() {{ exportPortfolioCSV(); }}
 
 let portfolioSortDir = {{}};
 window.sortPortfolios = function(col) {{
-    portfolioSortDir[col] = !portfolioSortDir[col];
+    // Standardize: first click = descending for numeric columns (show highest first)
+    const isNumeric = ['opex', 'valuation', 'carbon', 'sqft', 'buildings', 'eui'].includes(col);
+    if (portfolioSortDir[col] === undefined) {{
+        portfolioSortDir[col] = isNumeric ? false : true;  // false = descending for numeric
+    }} else {{
+        portfolioSortDir[col] = !portfolioSortDir[col];
+    }}
     const asc = portfolioSortDir[col];
 
     // Update global sort state so applyFilters respects it
@@ -5847,6 +5941,9 @@ window.sortPortfolios = function(col) {{
 
     // Re-render first batch from sorted data
     loadMorePortfolios();
+
+    // FIX: Apply active filters after re-rendering sorted cards
+    applyFilters();
 }};
 
 // =============================================================================
@@ -5861,17 +5958,21 @@ window.sortBuildingRows = function(headerEl, col) {{
     const container = card.querySelector('.building-rows-container');
     const rows = Array.from(container.querySelectorAll('.building-grid-row'));
 
-    // Toggle sort direction per portfolio+column (first click = descending for consistency with portfolio sort)
+    // Standardize: first click = descending for numeric columns (show highest first)
     const key = card.dataset.idx + '_' + col;
-    const currentDir = buildingSortDir[key];
-    buildingSortDir[key] = currentDir === undefined ? false : !currentDir;
+    const isNumeric = ['opex', 'valuation', 'carbon', 'sqft', 'eui'].includes(col);
+    if (buildingSortDir[key] === undefined) {{
+        buildingSortDir[key] = isNumeric ? false : true;  // false = descending for numeric
+    }} else {{
+        buildingSortDir[key] = !buildingSortDir[key];
+    }}
     const asc = buildingSortDir[key];
 
     rows.sort((a, b) => {{
         let aVal, bVal;
         if (col === 'address') {{
-            aVal = a.querySelector('.stat-cell')?.textContent?.toLowerCase() || '';
-            bVal = b.querySelector('.stat-cell')?.textContent?.toLowerCase() || '';
+            aVal = (a.dataset.address || '').toLowerCase();
+            bVal = (b.dataset.address || '').toLowerCase();
         }} else if (col === 'type') {{
             aVal = (a.dataset.radioType || '').toLowerCase();
             bVal = (b.dataset.radioType || '').toLowerCase();
@@ -6504,7 +6605,7 @@ function getFilteredBuildingsForMap() {{
         if (buildingIds && !buildingIds.has(b.id)) return false;
 
         // Apply current filters (vertical, building type)
-        if (activeVertical !== 'all' && b.bldg_vertical !== activeVertical) return false;
+        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
         if (selectedBuildingType && b.type !== selectedBuildingType) return false;
 
         return true;
@@ -6536,7 +6637,7 @@ function buildingsGeoJSON(buildings = null) {{
                     city: b.city,
                     state: b.state,
                     type: b.type,
-                    vertical: b.bldg_vertical,
+                    vertical: b.vertical,
                     opex: b.opex,
                     image: b.image,
                     owner: b.owner || '',
@@ -7260,7 +7361,7 @@ function loadPortfolioRows(card, loadMore = false) {{
         const addrLine1 = b.property_name ? `${{addrClean}}, ${{cityState}}` : addrClean;
         const addrLine2 = b.property_name ? b.property_name : cityState;
         const hqBadge = b.hq_org ? `<span class="hq-badge">${{escapeHtml(b.hq_org)}} HQ</span>` : '';
-        return `<div class="building-grid-row" data-radio-type="${{b.type}}" data-vertical="${{b.vertical}}" data-sqft="${{b.sqft}}" data-eui="${{b.eui || 0}}" data-eui-rating="${{euiRating}}" data-opex="${{b.opex}}" data-valuation="${{b.valuation}}" data-carbon="${{b.carbon}}" onclick="window.location='buildings/${{b.id}}.html'">
+        return `<div class="building-grid-row" data-radio-type="${{b.type}}" data-vertical="${{b.vertical}}" data-sqft="${{b.sqft}}" data-eui="${{b.eui || 0}}" data-eui-rating="${{euiRating}}" data-opex="${{b.opex}}" data-valuation="${{b.valuation}}" data-carbon="${{b.carbon}}" data-address="${{escapeHtml(b.address || '')}}" onclick="window.location='buildings/${{b.id}}.html'">
             <div>${{thumb}}</div>
             <span class="ext-link-cell">${{extLink}}</span>
             <span class="stat-cell"><span class="addr-main">${{addrLine1}}</span><span class="addr-sub">${{addrLine2}}</span></span>
@@ -7454,20 +7555,23 @@ document.addEventListener('DOMContentLoaded', function() {{
     console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
 
     // Load export_data.js for header tooltips (with retry)
+    dataLoadState.exportData = 'loading';
     loadScript('data/export_data.js', {{ timeout: 30000 }})
         .then(() => {{
             allBuildingsData = EXPORT_DATA;
-            isInitialDataLoaded = true;  // Set flag to enable header tooltip computation
+            dataLoadState.exportData = 'loaded';
             console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
-            // Only re-run if there was a pending filter update
-            if (pendingFilterUpdate) {{
-                pendingFilterUpdate = false;
+            // Re-run filters if there was a pending update
+            if (dataLoadState.filterUpdateQueued) {{
+                dataLoadState.filterUpdateQueued = false;
                 applyFilters();
             }}
         }})
         .catch(err => {{
             console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
-            // Non-critical - page still works without header tooltips
+            dataLoadState.exportData = 'error';
+            // Re-run to show error state in header tooltips
+            applyFilters();
         }});
 
     initTabs();

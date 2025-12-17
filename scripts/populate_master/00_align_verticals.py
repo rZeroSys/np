@@ -17,11 +17,13 @@ Output:
 
 import pandas as pd
 import sys
+import shutil
 from pathlib import Path
+from datetime import datetime
 
 # Add project root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR
+from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR, BACKUP_DIR as CONFIG_BACKUP_DIR
 
 # =============================================================================
 # CONFIGURATION
@@ -29,6 +31,16 @@ from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR
 
 INPUT_FILE = str(PORTFOLIO_DATA_PATH)
 MAPPING_FILE = str(SOURCE_DATA_DIR / 'building_type_to_vertical.csv')
+BACKUP_DIR = str(CONFIG_BACKUP_DIR)
+
+def create_backup():
+    """Create timestamped backup before any changes."""
+    Path(BACKUP_DIR).mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    backup_path = f"{BACKUP_DIR}/portfolio_data_backup_{timestamp}.csv"
+    shutil.copy(INPUT_FILE, backup_path)
+    print(f"Backup created: {backup_path}")
+    return backup_path
 
 # =============================================================================
 # MAIN
@@ -38,6 +50,9 @@ def main():
     print("=" * 60)
     print("Align Building Types to Verticals")
     print("=" * 60)
+
+    # Create backup before any changes
+    create_backup()
 
     # Load mapping file
     print(f"\nLoading mapping file: {MAPPING_FILE}")
