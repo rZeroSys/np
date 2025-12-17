@@ -88,6 +88,24 @@ try:
 except Exception as e:
     print(f"Warning: Could not load LEED data: {e}")
 
+# Load utility logo mappings from CSV
+UTILITY_LOGOS = {}
+try:
+    utility_logos_path = os.path.join(os.path.dirname(__file__), '../../data/source/utility_logos.csv')
+    utility_df = pd.read_csv(utility_logos_path)
+    for _, row in utility_df.iterrows():
+        name = row.get('utility_name', '')
+        logo_url = row.get('aws_logo_url', '')
+        logo_file = row.get('logo_file', '')
+        if name and (logo_url or logo_file):
+            if logo_url and str(logo_url).lower() not in ['nan', '', 'none']:
+                UTILITY_LOGOS[name] = logo_url
+            elif logo_file and str(logo_file).lower() not in ['nan', '', 'none']:
+                UTILITY_LOGOS[name] = f'https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/utilities/{logo_file}'
+    print(f"✓ Loaded {len(UTILITY_LOGOS)} utility logo mappings")
+except Exception as e:
+    print(f"Warning: Could not load utility logos: {e}")
+
 #===============================================================================
 # CITY & BUILDING TYPE CLASSIFICATIONS
 #===============================================================================
@@ -1741,7 +1759,11 @@ def generate_building_info(row):
     # Utility Company (only show if not empty)
     utility = safe_val(row, 'cost_utility_name')
     if utility and str(utility).lower() not in ['nan', '', 'none']:
-        html += f"<tr><td>Utility</td><td>{escape(utility)}</td></tr>\n"
+        utility_logo_url = UTILITY_LOGOS.get(utility, '')
+        if utility_logo_url:
+            html += f'<tr><td>Utility</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:24px;max-width:80px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>\n'
+        else:
+            html += f"<tr><td>Utility</td><td>⚡ {escape(utility)}</td></tr>\n"
 
     # LEED Certification (only show if certified, with logo) - lookup from leed_matches.csv
     row_idx = row.name if hasattr(row, 'name') else None
@@ -1898,7 +1920,11 @@ def generate_electricity_details(row):
     # Utility
     utility = safe_val(row, 'cost_utility_name')
     if utility:
-        html += f"<tr><td>Utility Provider{tooltip('utility_provider')}</td><td>{escape(utility)}</td></tr>"
+        utility_logo_url = UTILITY_LOGOS.get(utility, '')
+        if utility_logo_url:
+            html += f'<tr><td>Utility Provider{tooltip("utility_provider")}</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:24px;max-width:80px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>'
+        else:
+            html += f"<tr><td>Utility Provider{tooltip('utility_provider')}</td><td>⚡ {escape(utility)}</td></tr>"
 
     html += """
         </table>

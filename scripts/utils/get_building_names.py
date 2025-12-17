@@ -46,7 +46,7 @@ print(f"Loaded {len(df)} rows")
 sys.stdout.flush()
 
 # Filter: missing property_name AND sqft > 100,000
-mask = (df['property_name'].isna() | (df['property_name'] == '')) & (df['square_footage'] > 100000)
+mask = (df['id_property_name'].isna() | (df['id_property_name'] == '')) & (df['bldg_sqft'] > 100000)
 buildings = df[mask]
 total = len(buildings)
 
@@ -62,25 +62,25 @@ results = []
 found_count = 0
 for i, (idx, row) in enumerate(buildings.iterrows()):
     progress = f"[{i+1}/{total}]"
-    building_id = row.get('building_id', '')
-    addr = row.get('address', '')
-    city = row.get('city', '')
-    state = row.get('state', '')
+    building_id = row.get('id_building', '')
+    addr = row.get('loc_address', '')
+    city = row.get('loc_city', '')
+    state = row.get('loc_state', '')
 
     print(f"{progress} Looking up: {addr}, {city}, {state}...", end=" ")
     sys.stdout.flush()
 
-    name = get_place_name(addr, city, state, row.get('zip_code', ''))
+    name = get_place_name(addr, city, state, row.get('loc_zip', ''))
 
     if name:
         found_count += 1
         print(f"FOUND: {name}")
         results.append({
-            'building_id': building_id,
-            'address': addr,
-            'city': city,
-            'state': state,
-            'property_name': name
+            'id_building': building_id,
+            'loc_address': addr,
+            'loc_city': city,
+            'loc_state': state,
+            'id_property_name': name
         })
     else:
         print("not found")

@@ -52,7 +52,7 @@ BAD_BUILDING_IDS = [
 def get_building_info(building_id):
     """Get building info from CSV."""
     df = pd.read_csv(BUILDING_DATA, low_memory=False)
-    row = df[df['building_id'] == building_id]
+    row = df[df['id_building'] == building_id]
     if len(row) == 0:
         return None
     return row.iloc[0]
@@ -102,15 +102,15 @@ def main():
     fail_count = 0
 
     for i, building_id in enumerate(BAD_BUILDING_IDS):
-        row = df[df['building_id'] == building_id]
+        row = df[df['id_building'] == building_id]
         if len(row) == 0:
             print(f"\n[{i+1}/{len(BAD_BUILDING_IDS)}] {building_id} - NOT FOUND IN CSV")
             fail_count += 1
             continue
 
         row = row.iloc[0]
-        address = row.get('address', '')
-        owner = row.get('building_owner', 'Unknown')
+        address = row.get('loc_address', '')
+        owner = row.get('org_owner', 'Unknown')
 
         print(f"\n[{i+1}/{len(BAD_BUILDING_IDS)}] {building_id}")
         print(f"    Owner: {str(owner)[:40]}")

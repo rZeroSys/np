@@ -3685,7 +3685,8 @@ tr.pin-highlight {
                         lastName: 'Miller',
                         lastActive: firebase.firestore.FieldValue.serverTimestamp()
                     }}, {{ merge: true }});
-                    // Skip visitCount increment for bypass auth}} catch(e) {{
+                    // Skip visitCount increment for bypass auth
+                }} catch(e) {{
                     console.warn("[Bypass] Failed to track visit:", e);
                 }}
             }})();
@@ -4741,13 +4742,13 @@ DIAG.log('info', 'Page load started');
 window.runDiagnostics = async function() {{
     const results = {{ passed: [], failed: [], warnings: [] }};
 
-    // Test 1: Data files loaded
+    // Test 1: Data files loaded (note: const vars aren't on window, use typeof)
     const dataTests = [
-        {{ name: 'PORTFOLIO_CARDS array loaded', check: () => Array.isArray(window.PORTFOLIO_CARDS) && window.PORTFOLIO_CARDS.length > 0 }},
-        {{ name: 'FILTER_DATA array loaded', check: () => Array.isArray(window.FILTER_DATA) && window.FILTER_DATA.length > 0 }},
-        {{ name: 'EXPORT_DATA exists or null', check: () => window.EXPORT_DATA === null || window.EXPORT_DATA === undefined || Array.isArray(window.EXPORT_DATA) }},
-        {{ name: 'MAP_DATA defined', check: () => typeof window.MAP_DATA !== 'undefined' }},
-        {{ name: 'PORTFOLIO_BUILDINGS object exists', check: () => typeof window.PORTFOLIO_BUILDINGS === 'object' }}
+        {{ name: 'PORTFOLIO_CARDS array loaded', check: () => typeof PORTFOLIO_CARDS !== 'undefined' && Array.isArray(PORTFOLIO_CARDS) && PORTFOLIO_CARDS.length > 0 }},
+        {{ name: 'FILTER_DATA object loaded', check: () => typeof FILTER_DATA !== 'undefined' && typeof FILTER_DATA === 'object' && Object.keys(FILTER_DATA).length > 0 }},
+        {{ name: 'EXPORT_DATA loaded', check: () => typeof EXPORT_DATA !== 'undefined' && Array.isArray(EXPORT_DATA) && EXPORT_DATA.length > 0 }},
+        {{ name: 'MAP_DATA loaded or pending', check: () => typeof MAP_DATA === 'undefined' || MAP_DATA === null || Array.isArray(MAP_DATA) }},
+        {{ name: 'PORTFOLIO_BUILDINGS object exists', check: () => typeof PORTFOLIO_BUILDINGS !== 'undefined' && typeof PORTFOLIO_BUILDINGS === 'object' }}
     ];
 
     // Test 2: Firebase
@@ -6771,10 +6772,18 @@ function savingsColor(amount) {{
 let MAP_DATA = null;
 
 function loadMapData() {{
-    if (MAP_DATA) return Promise.resolve();
+    if (MAP_DATA) {{
+        DIAG.log('info', 'MAP_DATA already loaded', {{ count: MAP_DATA.length }});
+        return Promise.resolve();
+    }}
+    DIAG.log('info', 'Loading map_data.js...');
     // Larger file needs longer timeout (30s)
     return loadScript('data/map_data.js', {{ timeout: 30000 }})
+        .then(() => {{
+            DIAG.log('info', 'map_data.js loaded', {{ count: MAP_DATA?.length || 0 }});
+        }})
         .catch(err => {{
+            DIAG.log('error', 'map_data.js failed to load', err);
             console.error('[Map] Failed to load map data:', err);
             MAP_DATA = []; // Graceful fallback to empty
         }});
@@ -7473,13 +7482,21 @@ const BUILDINGS_PER_BATCH = 10;
 function loadPortfolioRows(card, loadMore = false) {{
     const idx = parseInt(card.dataset.idx);
     const container = card.querySelector('.building-rows-container');
-    if (!container) return;
+    if (!container) {{
+        DIAG.log('warn', 'loadPortfolioRows: container not found', {{ idx }});
+        return;
+    }}
 
     if (!PORTFOLIO_BUILDINGS[idx]) {{
+        DIAG.log('info', 'Loading portfolio buildings', {{ idx }});
         container.innerHTML = '<div class="loading-shimmer" style="padding:20px;text-align:center;border-radius:4px;">Loading buildings...</div>';
         loadScript(`data/portfolios/p_${{idx}}.js`)
-            .then(() => loadPortfolioRows(card, loadMore))
+            .then(() => {{
+                DIAG.log('info', 'Portfolio buildings loaded', {{ idx, count: PORTFOLIO_BUILDINGS[idx]?.length || 0 }});
+                loadPortfolioRows(card, loadMore);
+            }})
             .catch(err => {{
+                DIAG.log('error', 'Portfolio buildings failed to load', {{ idx, error: err.message }});
                 console.error('[Portfolio] Failed to load portfolio', idx, ':', err);
                 container.innerHTML = `<div style="padding:20px;color:#c00;text-align:center;">
                     Failed to load buildings.
@@ -7796,6 +7813,15 @@ window.addEventListener('online', () => {{document.body.classList.remove('is-off
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', function() {{
+    DIAG.log('info', 'DOMContentLoaded fired');
+    DIAG.log('info', 'Initial state', {{
+        PORTFOLIO_CARDS: PORTFOLIO_CARDS?.length || 0,
+        FILTER_DATA: FILTER_DATA?.length || 0,
+        firebase: typeof firebase !== 'undefined',
+        google: typeof google !== 'undefined',
+        mapboxgl: typeof mapboxgl !== 'undefined'
+    }});
+
     // Load export_data.js for All Buildings tab and CSV export (not needed for header tooltips)
     // Header tooltips now use pre-computed HEADER_TOTALS for instant updates
     dataLoadState.exportData = 'loading';
@@ -7803,14 +7829,31 @@ document.addEventListener('DOMContentLoaded', function() {{
         .then(() => {{
             allBuildingsData = EXPORT_DATA;
             dataLoadState.exportData = 'loaded';
+            DIAG.log('info', 'EXPORT_DATA loaded via DOMContentLoaded', {{ count: EXPORT_DATA?.length || 0 }});
         }})
         .catch(err => {{
+            DIAG.log('error', 'EXPORT_DATA failed in DOMContentLoaded', err);
             console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
             dataLoadState.exportData = 'error';
         }});
 
     initTabs();
     selectVertical('all');
+
+    // FIX: Handle cached images that loaded before handlers were attached
+    // When images are cached, they may load synchronously before inline onload fires
+    document.querySelectorAll('img.org-logo, img.building-thumb').forEach(img => {{
+        if (img.complete && img.naturalWidth > 0) {{
+            // Image already loaded successfully - trigger load handler manually
+            img.classList.add('img-loaded');
+            if (img.previousElementSibling) img.previousElementSibling.classList.add('img-hidden');
+        }} else if (img.complete && img.naturalWidth === 0) {{
+            // Image failed to load (404 or error) - trigger error handler manually
+            img.classList.add('img-hidden');
+            if (img.previousElementSibling) img.previousElementSibling.classList.add('img-hidden');
+            if (img.nextElementSibling) img.nextElementSibling.classList.remove('img-hidden');
+        }}
+    }});
 
     // Smart throttled preload - only first 50 visible logos (above fold)
     // Uses preloadQueue to avoid flooding network on cold cache

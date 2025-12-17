@@ -45,15 +45,15 @@ def get_top_20_missing_images():
     have_images = get_buildings_with_images()
 
     # Mark which have images
-    df['has_image'] = df['building_id'].astype(str).isin(have_images)
+    df['has_image'] = df['id_building'].astype(str).isin(have_images)
 
     # Get top 20 portfolios by OpEx
-    portfolio_opex = df.groupby('building_owner')['total_annual_opex_avoidance'].sum()
+    portfolio_opex = df.groupby('org_owner')['savings_opex_avoided_annual_usd'].sum()
     top_20_portfolios = portfolio_opex.nlargest(20).index.tolist()
 
     # Filter to top 20 portfolios without images
     missing = df[
-        (df['building_owner'].isin(top_20_portfolios)) &
+        (df['org_owner'].isin(top_20_portfolios)) &
         (~df['has_image'])
     ].copy()
 
@@ -132,11 +132,11 @@ def main():
     fail_count = 0
 
     for idx, row in missing.iterrows():
-        building_id = row['building_id']
-        lat = row.get('latitude')
-        lon = row.get('longitude')
-        address = row.get('address', '')
-        owner = row.get('building_owner', 'Unknown')
+        building_id = row['id_building']
+        lat = row.get('loc_lat')
+        lon = row.get('loc_lon')
+        address = row.get('loc_address', '')
+        owner = row.get('org_owner', 'Unknown')
 
         print(f"\n[{success_count + fail_count + 1}/{len(missing)}] {building_id}")
         print(f"    Owner: {owner[:40]}")

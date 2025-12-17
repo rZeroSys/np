@@ -54,10 +54,10 @@ def get_portfolio_20_40_missing_images():
                     have_images.add(bid)
 
     # Mark which have images
-    df['has_image'] = df['building_id'].astype(str).isin(have_images)
+    df['has_image'] = df['id_building'].astype(str).isin(have_images)
 
     # Get portfolios ranked by OpEx
-    portfolio_opex = df.groupby('building_owner')['total_annual_opex_avoidance'].sum()
+    portfolio_opex = df.groupby('org_owner')['savings_opex_avoided_annual_usd'].sum()
     ranked_portfolios = portfolio_opex.nlargest(40).index.tolist()
 
     # Get portfolios 20-40 (indices 20-39)
@@ -70,7 +70,7 @@ def get_portfolio_20_40_missing_images():
 
     # Filter to portfolios 20-40 without images
     missing = df[
-        (df['building_owner'].isin(portfolios_20_40)) &
+        (df['org_owner'].isin(portfolios_20_40)) &
         (~df['has_image'])
     ].copy()
 
@@ -152,11 +152,11 @@ def main():
     fail_count = 0
 
     for idx, row in missing.iterrows():
-        building_id = row['building_id']
-        lat = row.get('latitude')
-        lon = row.get('longitude')
-        address = row.get('address', '')
-        owner = row.get('building_owner', 'Unknown')
+        building_id = row['id_building']
+        lat = row.get('loc_lat')
+        lon = row.get('loc_lon')
+        address = row.get('loc_address', '')
+        owner = row.get('org_owner', 'Unknown')
 
         print(f"\n[{success_count + fail_count + 1}/{len(missing)}] {building_id}")
         print(f"    Owner: {str(owner)[:40]}")

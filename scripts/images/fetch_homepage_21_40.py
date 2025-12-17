@@ -142,11 +142,11 @@ def main():
 
     # Get buildings with images
     have_images = get_buildings_with_images()
-    df['has_image'] = df['building_id'].astype(str).isin(have_images)
+    df['has_image'] = df['id_building'].astype(str).isin(have_images)
 
     # Filter to portfolios 21-40 without images
     missing = df[
-        (df['building_owner'].isin(portfolios_21_40)) &
+        (df['org_owner'].isin(portfolios_21_40)) &
         (~df['has_image'])
     ].copy()
 
@@ -162,11 +162,11 @@ def main():
     fail_count = 0
 
     for idx, row in missing.iterrows():
-        building_id = row['building_id']
-        lat = row.get('latitude')
-        lon = row.get('longitude')
-        address = row.get('address', '')
-        owner = row.get('building_owner', 'Unknown')
+        building_id = row['id_building']
+        lat = row.get('loc_lat')
+        lon = row.get('loc_lon')
+        address = row.get('loc_address', '')
+        owner = row.get('org_owner', 'Unknown')
 
         print(f"\n[{success_count + fail_count + 1}/{len(missing)}] {building_id}")
         print(f"    Owner: {str(owner)[:40]}")

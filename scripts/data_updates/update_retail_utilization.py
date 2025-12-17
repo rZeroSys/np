@@ -125,8 +125,8 @@ def update_retail_utilization():
     default_used = 0
 
     # Get retail buildings only
-    retail_mask = df['bldg_type'] == 'Retail Store'
-    print(f"Found {retail_mask.sum()} retail store buildings")
+    retail_mask = df['bldg_type'] == 'Retail'
+    print(f"Found {retail_mask.sum()} retail buildings")
 
     for idx in df[retail_mask].index:
         city = str(df.loc[idx, 'loc_city']).strip()
