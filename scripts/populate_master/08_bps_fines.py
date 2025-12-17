@@ -86,7 +86,6 @@ DENVER_EUI_TARGETS = {
     'Outpatient Clinic': 60.7,  # Ambulatory Surgical Center
     'Residential Care': 75.5,
     'Wholesale Club': 164.4,
-    'Mall': 45.6,   # Updated from official source
     'Mixed Use': 65.0,
     'Library/Museum': 52.9,  # Library target from official source
     'Venue': None,           # 30% reduction from baseline (Convention Center)
@@ -116,7 +115,6 @@ BOSTON_EMISSION_CAPS = {
     'Venue': 0.0082,
     'Theater': 0.0082,
     'Mixed Use': 0.0065,
-    'Mall': 0.0067,
     'Wholesale Club': 0.0200,
     'DEFAULT': 0.0053,
 }

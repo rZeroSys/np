@@ -222,7 +222,7 @@ class NationwideHTMLGenerator:
             'year_built': b.get('bldg_year_built', ''),
             'opex': safe_float(b.get('total_opex')),
             'valuation': safe_float(b.get('valuation_impact')),
-            'carbon': safe_float(b.get('carbon_reduction')),
+            'carbon': safe_float(b.get('carbon')),
             'site_eui': safe_float(b.get('energy_site_eui')),
             'eui_benchmark': safe_float(b.get('energy_eui_benchmark')),
             'vertical': b.get('bldg_vertical', ''),
@@ -274,12 +274,15 @@ class NationwideHTMLGenerator:
             })
 
         # Filter data - aggregated by type|vertical per portfolio (tiny ~75KB)
+        # IMPORTANT: Only include buildings with BOTH type AND vertical to ensure accurate filter counts
         filter_data = {}
         for i, p in enumerate(self.portfolios):
             agg = {}
             for b in p['buildings']:
-                t = b.get('radio_type', '') or ''
-                v = b.get('bldg_vertical', '') or ''
+                t = (b.get('radio_type', '') or '').strip()
+                v = (b.get('bldg_vertical', '') or '').strip()
+                # Skip buildings without complete type/vertical data
+                # This ensures filter counts match the actual visible/filterable buildings
                 if not t or not v:
                     continue
                 key = f'{t}|{v}'
@@ -293,8 +296,32 @@ class NationwideHTMLGenerator:
                 agg[key]['sqft'] += safe_float(b.get('sqft'))
             filter_data[i] = agg
 
+        # Compute global totals by type|vertical for header tooltips (instant lookup)
+        # This eliminates the need for EXPORT_DATA to be loaded for header tooltip updates
+        header_totals = {}
+        for b in self.all_buildings:
+            t = (b.get('radio_type', '') or '').strip()
+            v = (b.get('bldg_vertical', '') or '').strip()
+            # Skip buildings without vertical (type is optional for "all" key)
+            if not v:
+                continue
+
+            # Generate all relevant keys for this building
+            keys = [f"|all", f"|{v}"]  # No type filter, and vertical-only filter
+            if t:
+                keys.extend([f"{t}|all", f"{t}|{v}"])  # Type-only and type+vertical
+
+            for key in keys:
+                if key not in header_totals:
+                    header_totals[key] = {'count': 0, 'sqft': 0.0, 'opex': 0.0, 'valuation': 0.0, 'carbon': 0.0}
+                header_totals[key]['count'] += 1
+                header_totals[key]['sqft'] += safe_float(b.get('sqft'))
+                header_totals[key]['opex'] += safe_float(b.get('total_opex'))
+                header_totals[key]['valuation'] += safe_float(b.get('valuation_impact'))
+                header_totals[key]['carbon'] += safe_float(b.get('carbon'))
+
         data_files = {
-            'filter_data.js': f'const FILTER_DATA = {json.dumps(filter_data)};',
+            'filter_data.js': f'const FILTER_DATA = {json.dumps(filter_data)};\nconst HEADER_TOTALS = {json.dumps(header_totals)};',
             'map_data.js': f'MAP_DATA = {json.dumps(map_data)};',
             'portfolio_cards.js': f'const PORTFOLIO_CARDS = {json.dumps(portfolio_cards)};',
             'export_data.js': f'EXPORT_DATA = {json.dumps(export_data)};',
@@ -400,12 +427,10 @@ function initMap() {{
             if (!(host.includes(GH_PAGES_HOST) || host.includes("localhost") || host === "127.0.0.1" || host.includes(":8"))) {{
               console.warn("[FirebaseConfig] Page is served from unexpected host:", host);
             }}
-          }} catch {{}}
+          }} catch (e) {{ if(window.DIAG) DIAG.log('warn', 'Firebase host check failed', e); }}
 
           window.firebaseConfig = Object.freeze({{...c}});
-          window.firebaseConfigValidated = true;
-          console.log("[FirebaseConfig] ✓ Config validated:", window.firebaseConfig);
-        }} catch (e) {{
+          window.firebaseConfigValidated = true;}} catch (e) {{
           window.firebaseConfigValidated = false;
           const msg = "🚫 Firebase config error: " + e.message +
                       " — Fix window.firebaseConfig to the correct project.";
@@ -428,11 +453,7 @@ function initMap() {{
       // Auth sanity hook — safe no-op UI, console only
       if (typeof firebase !== 'undefined' && firebase.auth) {{
         firebase.auth().onAuthStateChanged((u) => {{
-          if (u) {{
-            console.log("[Auth] Signed in:", u.email || u.uid);
-          }} else {{
-            console.log("[Auth] Signed out");
-          }}
+          if (u) {{}} else {{}}
         }});
       }}
     </script>
@@ -457,9 +478,7 @@ function initMap() {{
                 lastVisit: firebase.firestore.FieldValue.serverTimestamp()
               }});
             }}
-          }}).catch(err => {{
-            console.log('[Homepage tracking] Could not record visit');
-          }});
+          }}).catch(err => {{ if(window.DIAG) DIAG.log('error', 'Firebase visit tracking failed', err); }});
 
           // Auth-based user tracking (names leaderboard)
           (function(){{
@@ -3544,19 +3563,12 @@ tr.pin-highlight {
         return f'''<body>
     <!-- Define callback BEFORE Google Sign-In loads -->
     <script>
-    window.handleCredentialResponse = function(response) {{
-        console.log("[Auth] handleCredentialResponse called");
-        const base64Url = response.credential.split(".")[1];
+    window.handleCredentialResponse = function(response) {{const base64Url = response.credential.split(".")[1];
         const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
         const jsonPayload = decodeURIComponent(atob(base64).split("").map(function(c) {{
             return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         }}).join(""));
-        const userData = JSON.parse(jsonPayload);
-        console.log("[Auth] User data:", userData.email, userData.name);
-
-        if (userData.email && userData.email.endsWith("@rzero.com")) {{
-            console.log("[Auth] R-Zero email verified, logging in...");
-            localStorage.setItem("rzeroAuth", JSON.stringify({{
+        const userData = JSON.parse(jsonPayload);if (userData.email && userData.email.endsWith("@rzero.com")) {{localStorage.setItem("rzeroAuth", JSON.stringify({{
                 email: userData.email,
                 name: userData.name,
                 picture: userData.picture,
@@ -3583,7 +3595,6 @@ tr.pin-highlight {
                   const cred = firebase.auth.GoogleAuthProvider.credential(idToken);
                   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
                   await firebase.auth().signInWithCredential(cred);
-                  console.log("✓ Firebase Auth signed in as", firebase.auth().currentUser?.email);
                   // Display user info after Firebase auth
                   displayUserInfo();
                 }});
@@ -3603,10 +3614,7 @@ tr.pin-highlight {
     window.logoClickCount = 0;
     window.logoClickTimer = null;
     window.handleLogoClick = function() {{
-        window.logoClickCount++;
-        console.log("[Bypass] Logo click #" + window.logoClickCount);
-
-        // Visual feedback - flash the logo
+        window.logoClickCount++;// Visual feedback - flash the logo
         var logo = document.querySelector('#loginOverlay img');
         if (logo) {{
             logo.style.transform = 'scale(0.95)';
@@ -3628,15 +3636,11 @@ tr.pin-highlight {
         // Reset after 2 seconds of inactivity
         if (window.logoClickTimer) clearTimeout(window.logoClickTimer);
         window.logoClickTimer = setTimeout(function() {{
-            window.logoClickCount = 0;
-            console.log("[Bypass] Click count reset");
-            var h = document.getElementById('bypassHint');
+            window.logoClickCount = 0;var h = document.getElementById('bypassHint');
             if (h) h.style.display = 'none';
         }}, 2000);
 
-        if (window.logoClickCount >= 3) {{
-            console.log("[Bypass] Triple-click detected! Bypassing auth as fmiller@rzero.com");
-            window.logoClickCount = 0;
+        if (window.logoClickCount >= 3) {{window.logoClickCount = 0;
 
             // Show success message
             var hint = document.getElementById('bypassHint');
@@ -3681,9 +3685,7 @@ tr.pin-highlight {
                         lastName: 'Miller',
                         lastActive: firebase.firestore.FieldValue.serverTimestamp()
                     }}, {{ merge: true }});
-                    // Skip visitCount increment for bypass auth
-                    console.log("[Bypass] Visit tracked for fmiller@rzero.com (no count increment)");
-                }} catch(e) {{
+                    // Skip visitCount increment for bypass auth}} catch(e) {{
                     console.warn("[Bypass] Failed to track visit:", e);
                 }}
             }})();
@@ -3880,37 +3882,20 @@ tr.pin-highlight {
 
     <!-- Auth and User Management JavaScript -->
     <script>
-    function checkAuth() {{
-        console.log("[Auth] checkAuth called, protocol:", window.location.protocol);
-        // Bypass auth for file:// protocol
-        if (window.location.protocol === 'file:') {{
-            console.log("[Auth] File protocol - bypassing auth");
-            showMainContent();
+    function checkAuth() {{// Bypass auth for file:// protocol
+        if (window.location.protocol === 'file:') {{showMainContent();
             return;
         }}
 
-        const authToken = localStorage.getItem("rzeroAuth");
-        console.log("[Auth] authToken exists:", !!authToken);
-        if (authToken) {{
+        const authToken = localStorage.getItem("rzeroAuth");if (authToken) {{
             const authData = JSON.parse(authToken);
-            console.log("[Auth] Auth data:", authData.email, "expires:", new Date(authData.expires));
-            if (Date.now() < authData.expires) {{
-                console.log("[Auth] Token valid, showing main content");
-                showMainContent();
+            if (Date.now() < authData.expires) {{showMainContent();
                 return;
-            }}
-            console.log("[Auth] Token expired, removing");
-            localStorage.removeItem("rzeroAuth");
-        }}
-        console.log("[Auth] No valid token, showing login overlay");
-    }}
+            }}localStorage.removeItem("rzeroAuth");
+        }}}}
 
-    function showMainContent() {{
-        console.log("[Auth] showMainContent called");
-        const loginOverlay = document.getElementById("loginOverlay");
-        const mainContent = document.getElementById("mainContent");
-        console.log("[Auth] loginOverlay:", !!loginOverlay, "mainContent:", !!mainContent);
-        if (loginOverlay) loginOverlay.style.display = "none";
+    function showMainContent() {{const loginOverlay = document.getElementById("loginOverlay");
+        const mainContent = document.getElementById("mainContent");if (loginOverlay) loginOverlay.style.display = "none";
         if (mainContent) mainContent.style.display = "block";
 
         // Display user profile info
@@ -3977,45 +3962,25 @@ tr.pin-highlight {
         return filename ? `profile-pics/${{filename}}` : null;
     }}
 
-    function displayUserInfo() {{
-        console.log("[Auth] displayUserInfo called");
-        const auth = localStorage.getItem("rzeroAuth");
+    function displayUserInfo() {{const auth = localStorage.getItem("rzeroAuth");
         if (auth) {{
             const authData = JSON.parse(auth);
             const userEmail = authData.email;
-            const userName = authData.name || userEmail.split("@")[0];
-            console.log("[Auth] Displaying user:", userName, userEmail);
-
-            // Update the header user info
+            const userName = authData.name || userEmail.split("@")[0];// Update the header user info
             const userInfoElement = document.getElementById("userInfo");
             const userNameElement = document.getElementById("userName");
-            const userProfilePic = document.getElementById("userProfilePic");
-            console.log("[Auth] Elements found - userInfo:", !!userInfoElement, "userName:", !!userNameElement, "profilePic:", !!userProfilePic);
-
-            if (userInfoElement && userNameElement && userProfilePic) {{
+            const userProfilePic = document.getElementById("userProfilePic");if (userInfoElement && userNameElement && userProfilePic) {{
                 userNameElement.textContent = userName;
                 const localPic = getProfilePicture(userEmail);
-                const googlePic = authData.picture;
-                console.log("[Auth] Local profile pic:", localPic, "Google pic:", googlePic);
-                userProfilePic.src = localPic || googlePic || 'profile-pics/rzero_default.png';
+                const googlePic = authData.picture;userProfilePic.src = localPic || googlePic || 'profile-pics/rzero_default.png';
                 userProfilePic.onerror = function() {{
                     // Fallback chain: local pic failed -> try Google pic -> rzero logo
-                    if (this.src.includes('profile-pics/') && googlePic && !this.src.includes('rzero_default')) {{
-                        console.log("[Auth] Local pic failed, trying Google pic");
-                        this.src = googlePic;
-                    }} else {{
-                        console.log("[Auth] Using R-Zero logo fallback");
-                        this.src = 'profile-pics/rzero_default.png';
+                    if (this.src.includes('profile-pics/') && googlePic && !this.src.includes('rzero_default')) {{this.src = googlePic;
+                    }} else {{this.src = 'profile-pics/rzero_default.png';
                     }}
                 }};
-                userInfoElement.style.display = "block";
-                console.log("[Auth] User info displayed successfully");
-            }} else {{
-                console.log("[Auth] Missing DOM elements for user info");
-            }}
-        }} else {{
-            console.log("[Auth] No auth data in localStorage");
-        }}
+                userInfoElement.style.display = "block";}} else {{}}
+        }} else {{}}
     }}
 
     function signOut() {{
@@ -4073,7 +4038,7 @@ tr.pin-highlight {
 
       async function refreshLeaderboard(){{
         try {{
-          await firebase.firestore().enableNetwork().catch(()=>{{}});
+          await firebase.firestore().enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
           btn.disabled = true;
           btn.textContent = 'Refreshing...';
 
@@ -4085,9 +4050,7 @@ tr.pin-highlight {
           render(rows);
           stamp();
           btn.textContent = 'Refresh';
-        }} catch (e) {{
-          console.log('[Leaderboard] refresh failed', e);
-          try {{
+        }} catch (e) {{try {{
             const q = db.collection('nationwideUserActivity').orderBy('visitCount','desc').limit(30);
             const snap = await q.get({{ source: 'cache' }});
             const rows = [];
@@ -4106,6 +4069,66 @@ tr.pin-highlight {
       btn.addEventListener('click', refreshLeaderboard);
       refreshLeaderboard();
     }})();
+    </script>
+
+    <!-- Hidden Diagnostics Button - Triple-click anywhere to reveal -->
+    <button id="diag-btn" style="display:none;position:fixed;bottom:10px;right:10px;z-index:99999;
+        background:#222;color:#0f0;padding:12px 24px;border:2px solid #0f0;cursor:pointer;font-family:monospace;
+        border-radius:4px;box-shadow:0 2px 10px rgba(0,255,0,0.3);font-size:14px;">
+        Run Diagnostics
+    </button>
+    <script>
+    (function() {{
+        let clickCount = 0;
+        let clickTimer = null;
+        document.addEventListener('click', function(e) {{
+            // Don't trigger on interactive elements
+            if (e.target.closest('button, a, input, select, .portfolio-card, .building-row, .leaderboard-dropdown')) return;
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {{ clickCount = 0; }}, 500);
+            if (clickCount >= 3) {{
+                clickCount = 0;
+                const btn = document.getElementById('diag-btn');
+                btn.style.display = btn.style.display === 'none' ? 'block' : 'none';
+                if (btn.style.display === 'block') {{
+                    DIAG.log('info', 'Diagnostics panel revealed via triple-click');
+                }}
+            }}
+        }});
+    }})();
+    document.getElementById('diag-btn').onclick = async function(e) {{
+        e.stopPropagation();
+        this.textContent = 'Running...';
+        this.disabled = true;
+        this.style.background = '#333';
+
+        const results = await runDiagnostics();
+
+        // Console output with colors
+        console.group('=== DIAGNOSTICS RESULTS ===');
+        console.log('%c PASSED (' + results.passed.length + ')', 'color: #0f0; font-weight: bold; font-size: 14px');
+        results.passed.forEach(t => console.log('  ✓ ' + t));
+        if (results.failed.length > 0) {{
+            console.log('%c FAILED (' + results.failed.length + ')', 'color: #f00; font-weight: bold; font-size: 14px');
+            results.failed.forEach(t => console.error('  ✗ ' + t));
+        }}
+        if (results.warnings.length > 0) {{
+            console.log('%c WARNINGS (' + results.warnings.length + ')', 'color: #ff0; font-weight: bold');
+            results.warnings.forEach(t => console.warn('  ⚠ ' + t));
+        }}
+        console.log('%c DIAG Log (' + DIAG.checks.length + ' entries)', 'color: #888');
+        DIAG.checks.slice(-20).forEach(c => console.log('  [' + c.type + '] ' + c.msg));
+        console.groupEnd();
+
+        // Alert summary
+        const status = results.failed.length === 0 ? '✓ ALL TESTS PASSED' : '✗ SOME TESTS FAILED';
+        alert('DIAGNOSTICS COMPLETE\\n\\n' + status + '\\n\\n✓ Passed: ' + results.passed.length + '\\n✗ Failed: ' + results.failed.length + '\\n⚠ Warnings: ' + results.warnings.length + '\\n\\nCheck browser console (F12) for full details');
+
+        this.textContent = 'Run Diagnostics';
+        this.disabled = false;
+        this.style.background = '#222';
+    }};
     </script>
 
 </body>
@@ -4342,7 +4365,7 @@ tr.pin-highlight {
             # Thumbnail - Instagram-style skeleton + fade-in with console logging
             if b.get('image'):
                 thumb_filename = b["image"]
-                thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="console.log(\'[Thumb] ✓\',\'{thumb_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
+                thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
             else:
                 icon = building_type_icon(b.get('radio_type', ''))
                 thumb = f'<div class="building-thumb-placeholder">{icon}</div>'
@@ -4410,7 +4433,7 @@ tr.pin-highlight {
         if logo_url:
             # Instagram-style skeleton + fade-in for logos - NEVER shows empty space
             logo_filename = logo_url.split('/')[-1]
-            logo_inner = f'<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="{attr_escape(logo_url)}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log(\'[Logo] ✓\',\'{logo_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Logo] ✗\',\'{logo_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="org-logo-placeholder img-hidden">{p["org_name"][0].upper()}</div></div>'
+            logo_inner = f'<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="{attr_escape(logo_url)}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Logo] ✗\',\'{logo_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="org-logo-placeholder img-hidden">{p["org_name"][0].upper()}</div></div>'
         else:
             logo_inner = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
 
@@ -4514,7 +4537,7 @@ tr.pin-highlight {
         # Thumbnail - Instagram-style skeleton + fade-in with console logging
         if b.get('image'):
             thumb_filename = b["image"]
-            thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="console.log(\'[Thumb] ✓\',\'{thumb_filename}\');this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
+            thumb = f'<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="{bucket}/thumbnails/{attr_escape(b["image"])}" alt="" class="building-thumb" style="opacity:0;transition:opacity 0.15s" loading="lazy" decoding="async" onload="this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Thumb] ✗\',\'{thumb_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="building-thumb-placeholder img-hidden">{building_type_icon(b.get("radio_type", ""))}</div></div>'
         else:
             icon = building_type_icon(b.get('radio_type', ''))
             thumb = f'<div class="building-thumb-placeholder">{icon}</div>'
@@ -4604,8 +4627,6 @@ tr.pin-highlight {
                 css_class = 'event'
             elif 'mixed' in btype_lower:
                 css_class = 'mixed'
-            elif 'mall' in btype_lower or 'strip' in btype_lower:
-                css_class = 'mall'
             elif 'residential' in btype_lower or 'care' in btype_lower:
                 css_class = 'residential'
             else:
@@ -4682,6 +4703,138 @@ const CONFIG = {{
 }};
 
 // =============================================================================
+// DIAGNOSTICS SYSTEM - Triple-click anywhere to reveal diagnostics button
+// =============================================================================
+
+window.DIAG = {{
+    start: Date.now(),
+    checks: [],
+    errors: [],
+    warnings: [],
+
+    log(type, msg, data) {{
+        const entry = {{ time: Date.now() - this.start, type, msg, data: data || null }};
+        this.checks.push(entry);
+        if (type === 'error') this.errors.push(entry);
+        if (type === 'warn') this.warnings.push(entry);
+        console.log('[DIAG:' + type + '] ' + msg, data || '');
+    }},
+
+    report() {{
+        console.group('=== DIAGNOSTIC REPORT ===');
+        console.log('Total checks:', this.checks.length);
+        console.log('Errors:', this.errors.length);
+        console.log('Warnings:', this.warnings.length);
+        this.errors.forEach(e => console.error(e.msg, e.data));
+        console.groupEnd();
+        return {{ errors: this.errors, warnings: this.warnings }};
+    }}
+}};
+
+// Initialize diagnostics on page load
+DIAG.log('info', 'Page load started');
+
+// =============================================================================
+// AUTOMATED DIAGNOSTICS TEST SUITE
+// =============================================================================
+
+window.runDiagnostics = async function() {{
+    const results = {{ passed: [], failed: [], warnings: [] }};
+
+    // Test 1: Data files loaded
+    const dataTests = [
+        {{ name: 'PORTFOLIO_CARDS array loaded', check: () => Array.isArray(window.PORTFOLIO_CARDS) && window.PORTFOLIO_CARDS.length > 0 }},
+        {{ name: 'FILTER_DATA array loaded', check: () => Array.isArray(window.FILTER_DATA) && window.FILTER_DATA.length > 0 }},
+        {{ name: 'EXPORT_DATA exists or null', check: () => window.EXPORT_DATA === null || window.EXPORT_DATA === undefined || Array.isArray(window.EXPORT_DATA) }},
+        {{ name: 'MAP_DATA defined', check: () => typeof window.MAP_DATA !== 'undefined' }},
+        {{ name: 'PORTFOLIO_BUILDINGS object exists', check: () => typeof window.PORTFOLIO_BUILDINGS === 'object' }}
+    ];
+
+    // Test 2: Firebase
+    const firebaseTests = [
+        {{ name: 'Firebase SDK loaded', check: () => typeof firebase !== 'undefined' }},
+        {{ name: 'Firestore initialized (window.db)', check: () => !!window.db }},
+        {{ name: 'Firebase config validated', check: () => window.firebaseConfigValidated === true }},
+        {{ name: 'Firebase app initialized', check: () => window.firebaseAppInitialized === true }}
+    ];
+
+    // Test 3: External APIs
+    const apiTests = [
+        {{ name: 'Google Maps SDK loaded', check: () => typeof google !== 'undefined' && !!google.maps }},
+        {{ name: 'Google Places API available', check: () => !!(google?.maps?.places?.Autocomplete) }},
+        {{ name: 'Mapbox GL loaded', check: () => typeof mapboxgl !== 'undefined' }},
+        {{ name: 'CONFIG object valid', check: () => !!CONFIG && !!CONFIG.awsBucket && !!CONFIG.mapboxToken }}
+    ];
+
+    // Test 4: DOM Elements exist
+    const domIds = [
+        'cities-list', 'portfolios-list', 'map-panel', 'loginOverlay',
+        'mainContent', 'global-search', 'filter-chips', 'leaderboard-list',
+        'tutorial-overlay', 'ab-loading-trigger'
+    ];
+    const domTests = domIds.map(id => ({{
+        name: 'DOM element #' + id,
+        check: () => !!document.getElementById(id)
+    }}));
+
+    // Test 5: Image loading stats
+    const imageTests = [
+        {{ name: 'Preload queue exists', check: () => typeof preloadQueue !== 'undefined' }},
+        {{ name: 'Preload failure rate <10%', check: () => {{
+            if (typeof preloadQueue === 'undefined') return false;
+            const stats = preloadQueue.stats;
+            if (stats.completed === 0) return true; // No images loaded yet
+            return stats.failed < stats.completed * 0.1;
+        }} }},
+        {{ name: 'Image loader exists', check: () => typeof imageLoader !== 'undefined' }}
+    ];
+
+    // Test 6: Functions defined
+    const funcTests = [
+        {{ name: 'globalSearch function', check: () => typeof globalSearch === 'function' }},
+        {{ name: 'applyFilters function', check: () => typeof applyFilters === 'function' }},
+        {{ name: 'togglePortfolio function', check: () => typeof togglePortfolio === 'function' }},
+        {{ name: 'openMapPanel function', check: () => typeof openMapPanel === 'function' }},
+        {{ name: 'initAllBuildingsTable function', check: () => typeof initAllBuildingsTable === 'function' }},
+        {{ name: 'loadScript function', check: () => typeof loadScript === 'function' }}
+    ];
+
+    // Run all tests
+    const allTests = [...dataTests, ...firebaseTests, ...apiTests, ...domTests, ...imageTests, ...funcTests];
+    for (const test of allTests) {{
+        try {{
+            const result = await test.check();
+            (result ? results.passed : results.failed).push(test.name);
+        }} catch (e) {{
+            results.failed.push(test.name + ': ' + e.message);
+        }}
+    }}
+
+    // Log DIAG errors/warnings to results
+    if (DIAG.errors.length > 0) {{
+        results.warnings.push('DIAG recorded ' + DIAG.errors.length + ' errors during page load');
+    }}
+
+    return results;
+}};
+
+// =============================================================================
+// GLOBAL ERROR HANDLING - Prevent page crashes from unhandled errors
+// =============================================================================
+
+window.onerror = function(msg, url, line, col, error) {{
+    console.error('[Global Error]', msg, 'at', url + ':' + line + ':' + col);
+    // Log to console but don't crash the page
+    return true;  // Prevents default error handling
+}};
+
+window.addEventListener('unhandledrejection', function(event) {{
+    console.error('[Unhandled Promise Rejection]', event.reason);
+    // Prevent the default handling (which would log to console as an error)
+    event.preventDefault();
+}});
+
+// =============================================================================
 // RELIABLE SCRIPT LOADER WITH RETRY + TIMEOUT
 // =============================================================================
 
@@ -4697,9 +4850,7 @@ function loadScript(url, opts = {{}}) {{
 
             const timer = setTimeout(() => {{
                 script.remove();
-                if (attempts < maxRetries) {{
-                    console.log('[loadScript] Timeout, retry', attempts + 1, url);
-                    setTimeout(tryLoad, 500);
+                if (attempts < maxRetries) {{setTimeout(tryLoad, 500);
                 }} else {{
                     reject(new Error('Timeout after ' + maxRetries + ' attempts'));
                 }}
@@ -4709,9 +4860,7 @@ function loadScript(url, opts = {{}}) {{
             script.onerror = () => {{
                 clearTimeout(timer);
                 script.remove();
-                if (attempts < maxRetries) {{
-                    console.log('[loadScript] Error, retry', attempts + 1, url);
-                    setTimeout(tryLoad, 500);
+                if (attempts < maxRetries) {{setTimeout(tryLoad, 500);
                 }} else {{
                     reject(new Error('Failed after ' + maxRetries + ' attempts'));
                 }}
@@ -4808,16 +4957,27 @@ let abSearchTimeout = null;
 let selectedCityFilter = null;
 
 function initAllBuildingsTable() {{
+    DIAG.log('info', 'initAllBuildingsTable called');
     const container = document.getElementById('cities-list');
+    if (!container) {{
+        DIAG.log('error', 'cities-list element not found');
+        return;
+    }}
     container.innerHTML = '<div class="loading-shimmer" style="text-align:center;padding:40px;border-radius:4px;">Loading buildings...</div>';
 
     if (EXPORT_DATA && EXPORT_DATA.length > 0) {{
+        DIAG.log('info', 'EXPORT_DATA already loaded', {{ count: EXPORT_DATA.length }});
         onAllBuildingsDataLoaded();
     }} else {{
+        DIAG.log('info', 'Loading export_data.js...');
         // Large file - use 30s timeout with retry
         loadScript('data/export_data.js', {{ timeout: 30000 }})
-            .then(onAllBuildingsDataLoaded)
+            .then(() => {{
+                DIAG.log('info', 'export_data.js loaded', {{ count: EXPORT_DATA?.length || 0 }});
+                onAllBuildingsDataLoaded();
+            }})
             .catch(err => {{
+                DIAG.log('error', 'export_data.js failed to load', err);
                 console.error('[AllBuildings] Failed to load:', err);
                 container.innerHTML = `<div style="text-align:center;padding:40px;color:#c00;">
                     Failed to load building data.
@@ -4874,7 +5034,7 @@ function createAllBuildingsRow(b, index) {{
     row.onclick = function() {{ window.location = 'buildings/' + b.id + '.html?from=cities'; }};
 
     const thumb = b.image
-        ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Thumb] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
+        ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{CONFIG.awsBucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
         : '<div class="building-thumb-placeholder">🏢</div>';
 
     const sqft = formatNumber(b.sqft || 0);
@@ -4936,7 +5096,7 @@ function setupAbInfiniteScroll() {{
 // Debounced filter function
 function filterAllBuildings() {{
     clearTimeout(abSearchTimeout);
-    abSearchTimeout = setTimeout(doFilterAllBuildings, 150);
+    abSearchTimeout = setTimeout(doFilterAllBuildings, 50);
 }}
 
 function doFilterAllBuildings() {{
@@ -5124,6 +5284,48 @@ function escapeHtml(str) {{
 }}
 
 // =============================================================================
+// SAFE VALUE UTILITIES - Robust handling of missing/invalid data
+// =============================================================================
+
+/**
+ * Safely parse a value to float, with robust null/NaN/undefined handling.
+ * @param {{*}} val - Value to parse
+ * @param {{number}} fallback - Default value if parsing fails (default: 0)
+ * @returns {{number}} Parsed number or fallback
+ */
+function safeParseFloat(val, fallback) {{
+    if (fallback === undefined) fallback = 0;
+    if (val === null || val === undefined || val === '' || val === 'NaN' || val === 'undefined' || val === 'null') {{
+        return fallback;
+    }}
+    const n = parseFloat(val);
+    return (isNaN(n) || !isFinite(n)) ? fallback : n;
+}}
+
+/**
+ * Safely display a value with formatting, showing placeholder for missing/invalid data.
+ * @param {{*}} val - Value to display
+ * @param {{function}} formatter - Optional formatting function
+ * @param {{string}} placeholder - Text to show for missing data (default: '--')
+ * @returns {{string}} Formatted value or placeholder
+ */
+function safeDisplay(val, formatter, placeholder) {{
+    placeholder = placeholder || '--';
+    if (val === null || val === undefined || val === '' || val === 'NaN' || val === 'undefined') {{
+        return placeholder;
+    }}
+    if (typeof val === 'number' && (isNaN(val) || !isFinite(val))) {{
+        return placeholder;
+    }}
+    try {{
+        return formatter ? formatter(val) : String(val);
+    }} catch (e) {{
+        console.warn('[safeDisplay] Format error:', e);
+        return placeholder;
+    }}
+}}
+
+// =============================================================================
 // FILTERS - OPTIMIZED
 // =============================================================================
 
@@ -5131,23 +5333,42 @@ let activeVertical = 'all';
 let selectedBuildingType = null;
 let activeEuiFilter = 'all';  // EUI filter state for building rows
 let mapUpdateTimeout = null;
-// Data loading state - cleaner than separate boolean flags
+// Data loading state for lazy-loaded files (EXPORT_DATA used for All Buildings tab and CSV export)
 let dataLoadState = {{
-    exportData: 'pending',  // 'pending' | 'loading' | 'loaded' | 'error'
-    filterUpdateQueued: false
+    exportData: 'pending'  // 'pending' | 'loading' | 'loaded' | 'error'
 }};
 let currentSortCol = 'opex';      // Track current sort column
 let currentSortAsc = false;       // Track sort direction (false = descending)
+
+// Update header tooltips using pre-computed HEADER_TOTALS (instant lookup, no EXPORT_DATA needed)
+function updateHeaderTooltips() {{
+    // Build lookup key from current filter state
+    const typeKey = selectedBuildingType || '';
+    const vertKey = activeVertical || 'all';
+    const key = `${{typeKey}}|${{vertKey}}`;
+
+    // Look up pre-computed totals (falls back to global totals if key not found)
+    const totals = HEADER_TOTALS[key] || HEADER_TOTALS['|all'] || {{count: 0, sqft: 0, opex: 0, valuation: 0, carbon: 0}};
+
+    const headerBuildings = document.getElementById('header-buildings');
+    const headerSqft = document.getElementById('header-sqft');
+    const headerValuation = document.getElementById('header-valuation');
+    const headerCarbon = document.getElementById('header-carbon');
+    const headerOpex = document.getElementById('header-opex');
+
+    if (headerBuildings) headerBuildings.dataset.total = totals.count.toLocaleString() + ' Total Buildings';
+    if (headerSqft) headerSqft.dataset.total = formatSqftJS(totals.sqft) + ' Total Sq Ft';
+    if (headerValuation) headerValuation.dataset.total = formatMoneyJS(totals.valuation) + ' Total Val. Impact';
+    if (headerCarbon) headerCarbon.dataset.total = formatCarbonJS(totals.carbon) + ' Total tCO2e/yr';
+    if (headerOpex) headerOpex.dataset.total = formatMoneyJS(totals.opex) + ' Total Savings/yr (Avoided utility costs + avoided carbon fines)';
+}}
 
 function applyFilters() {{
     // Get classification filter (type dropdown) once, outside the loop
     const selectedClassification = (() => {{
         const sel = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
         return sel ? sel.dataset.type : 'all';
-    }})();
-    console.log('[applyFilters] selectedBuildingType:', selectedBuildingType, 'activeVertical:', activeVertical, 'classification:', selectedClassification);
-
-    const cards = document.querySelectorAll('.portfolio-card');
+    }})();const cards = document.querySelectorAll('.portfolio-card');
     const container = document.getElementById('portfolios-list');
     if (!container) return;
 
@@ -5195,10 +5416,13 @@ function applyFilters() {{
 
         // Filter by classification (type filter dropdown) - ADDED for unified filter system
         // Case-insensitive comparison for reliability across data variations
+        // When a specific classification is selected, hide portfolios that don't match
+        // (including portfolios without any classification - they should be filtered out)
         if (selectedClassification !== 'all') {{
             const cardClassification = (card.dataset.classification || '').toLowerCase().trim();
             const targetClassification = selectedClassification.toLowerCase().trim();
-            if (cardClassification !== targetClassification) {{
+            // Hide if classification doesn't match OR if portfolio has no classification
+            if (!cardClassification || cardClassification !== targetClassification) {{
                 count = 0;
             }}
         }}
@@ -5243,8 +5467,14 @@ function applyFilters() {{
             aVal = a.sqft || 0;
             bVal = b.sqft || 0;
         }} else if (currentSortCol === 'eui') {{
-            aVal = a.eui || 0;
-            bVal = b.eui || 0;
+            // Put null/0 EUI at bottom regardless of sort direction
+            const aHasEui = a.eui && a.eui > 0;
+            const bHasEui = b.eui && b.eui > 0;
+            if (!aHasEui && !bHasEui) return 0;
+            if (!aHasEui) return 1;  // a goes to bottom
+            if (!bHasEui) return -1; // b goes to bottom
+            aVal = a.eui;
+            bVal = b.eui;
         }} else if (currentSortCol === 'valuation') {{
             aVal = a.valuation || 0;
             bVal = b.valuation || 0;
@@ -5276,60 +5506,8 @@ function applyFilters() {{
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
-    // Update header tooltips - only if EXPORT_DATA has loaded (guard against race condition)
-    if (dataLoadState.exportData !== 'loaded' || !allBuildingsData.length) {{
-        // Data not loaded yet - show loading indicator and queue re-run
-        dataLoadState.filterUpdateQueued = true;
-        const headerBuildings = document.getElementById('header-buildings');
-        const headerSqft = document.getElementById('header-sqft');
-        const headerValuation = document.getElementById('header-valuation');
-        const headerCarbon = document.getElementById('header-carbon');
-        const headerOpex = document.getElementById('header-opex');
-        const loadingText = dataLoadState.exportData === 'error' ? 'Data unavailable' : 'Loading...';
-        if (headerBuildings) headerBuildings.dataset.total = loadingText;
-        if (headerSqft) headerSqft.dataset.total = loadingText;
-        if (headerValuation) headerValuation.dataset.total = loadingText;
-        if (headerCarbon) headerCarbon.dataset.total = loadingText;
-        if (headerOpex) headerOpex.dataset.total = loadingText;
-    }} else {{
-        let headerFiltered = allBuildingsData.filter(b => {{
-            if (selectedBuildingType && b.type !== selectedBuildingType) return false;
-            if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
-            if (globalQuery) {{
-                // FIX: Use same search fields as doFilterAllBuildings for consistency
-                const searchFields = [
-                    b.address || '',
-                    b.city || '',
-                    b.state || '',
-                    b.type || '',
-                    b.owner || '',
-                    b.sub_org || '',
-                    b.property_name || '',
-                    b.tenant || '',
-                    b.property_manager || ''
-                ].join(' ').toLowerCase();
-                if (!searchFields.includes(globalQuery)) return false;
-            }}
-            return true;
-        }});
-
-        const headerTotalBuildings = headerFiltered.length;
-        const headerTotalSqft = headerFiltered.reduce((sum, b) => sum + (b.sqft || 0), 0);
-        const headerTotalValuation = headerFiltered.reduce((sum, b) => sum + (b.valuation || 0), 0);
-        const headerTotalCarbon = headerFiltered.reduce((sum, b) => sum + (b.carbon || 0), 0);
-        const headerTotalOpex = headerFiltered.reduce((sum, b) => sum + (b.opex || 0), 0);
-
-        const headerBuildings = document.getElementById('header-buildings');
-        const headerSqft = document.getElementById('header-sqft');
-        const headerValuation = document.getElementById('header-valuation');
-        const headerCarbon = document.getElementById('header-carbon');
-        const headerOpex = document.getElementById('header-opex');
-        if (headerBuildings) headerBuildings.dataset.total = headerTotalBuildings.toLocaleString() + ' Total Buildings';
-        if (headerSqft) headerSqft.dataset.total = formatSqftJS(headerTotalSqft) + ' Total Sq Ft';
-        if (headerValuation) headerValuation.dataset.total = formatMoney(headerTotalValuation) + ' Total Val. Impact';
-        if (headerCarbon) headerCarbon.dataset.total = formatCarbon(headerTotalCarbon) + ' Total tCO2e/yr';
-        if (headerOpex) headerOpex.dataset.total = formatMoney(headerTotalOpex) + ' Total Savings/yr (Avoided utility costs + avoided carbon fines)';
-    }}
+    // Update header tooltips using pre-computed HEADER_TOTALS (instant, no EXPORT_DATA needed)
+    updateHeaderTooltips();
 
     // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
     const expanded = document.querySelector('.portfolio-card.expanded');
@@ -5371,6 +5549,8 @@ function selectVertical(v, preserveBuildingType = false) {{
     }}
 
     applyFilters();
+    // Sync to All Buildings tab
+    if (window.allBuildingsInitialized) doFilterAllBuildings();
 }}
 
 function toggleBuildingType(btn) {{
@@ -5383,6 +5563,8 @@ function toggleBuildingType(btn) {{
         selectedBuildingType = null;
     }}
     applyFilters();
+    // Sync to All Buildings tab
+    if (window.allBuildingsInitialized) doFilterAllBuildings();
 
     // Update filter chip
     const chip = document.getElementById('building-type-chip');
@@ -5401,9 +5583,12 @@ function clearBuildingTypeFilter() {{
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
     selectedBuildingType = null;
+    activeVertical = 'all';
     const chip = document.getElementById('building-type-chip');
     if (chip) chip.classList.remove('visible');
     applyFilters();
+    // Sync to All Buildings tab
+    if (window.allBuildingsInitialized) doFilterAllBuildings();
 }}
 
 function clearVerticalBuildingTypeFilter(vertical) {{
@@ -5535,7 +5720,6 @@ function formatTypeBadge(type) {{
     else if (t.includes('gym')) cls = 'type-badge--blue-light';
     else if (t.includes('retail') || t.includes('consumer')) cls = 'type-badge--gray-light';
     else if (t.includes('grocery') || t.includes('supercenter')) cls = 'type-badge--gray-mid';
-    else if (t.includes('mall') || t.includes('strip')) cls = 'type-badge--gray-light';
     else if (t.includes('library') || t.includes('museum')) cls = 'type-badge--gray-dark';
     else if (t.includes('event')) cls = 'type-badge--gray-mid';
     else if (t.includes('mixed')) cls = 'type-badge--blue-light';
@@ -5582,9 +5766,7 @@ function globalSearch(query) {{
                 const ownerMatch = (p.owners || []).some(o => o && typeof o === 'string' && o.toLowerCase().includes(globalQuery));
                 const managerMatch = (p.managers || []).some(m => m && typeof m === 'string' && m.toLowerCase().includes(globalQuery));
 
-                if (subOrgMatch) {{
-                    console.log('TENANT_SUB_ORG MATCH:', p.org_name, 'tenant_sub_orgs:', p.tenant_sub_orgs);
-                }}
+                if (subOrgMatch) {{}}
 
                 match = orgLower.includes(globalQuery) ||
                         displayLower.includes(globalQuery) ||
@@ -5595,7 +5777,7 @@ function globalSearch(query) {{
         }});
     }}
 
-    // Use unified debounced filter (150ms for all filter operations)
+    // Debounce search input only (50ms - fast but prevents every keystroke)
     clearTimeout(filterTimeout);
     filterTimeout = setTimeout(() => {{
         requestAnimationFrame(() => {{
@@ -5605,7 +5787,7 @@ function globalSearch(query) {{
                 doFilterAllBuildings();
             }}
         }});
-    }}, 150);  // Unified 150ms debounce for all filter operations
+    }}, 50);
 }}
 
 function applySearchResults() {{
@@ -5637,6 +5819,14 @@ function applySearchResults() {{
                     let hasMatchingBuildings = false;
 
                     for (const [key, vals] of Object.entries(agg)) {{
+                        // Special '|all' key for buildings without type/vertical - always include
+                        if (key === '|all') {{
+                            if (vals && vals.count > 0) {{
+                                hasMatchingBuildings = true;
+                                break;
+                            }}
+                            continue;
+                        }}
                         const parts = key.split('|');
                         if (parts.length !== 2) continue;
                         const [t, v] = parts;
@@ -5912,8 +6102,14 @@ window.sortPortfolios = function(col) {{
             aVal = a.total_sqft || 0;
             bVal = b.total_sqft || 0;
         }} else if (col === 'eui') {{
-            aVal = a.median_eui || 0;
-            bVal = b.median_eui || 0;
+            // Put null/0 EUI at bottom regardless of sort direction
+            const aHasEui = a.median_eui && a.median_eui > 0;
+            const bHasEui = b.median_eui && b.median_eui > 0;
+            if (!aHasEui && !bHasEui) return 0;
+            if (!aHasEui) return 1;  // a goes to bottom
+            if (!bHasEui) return -1; // b goes to bottom
+            aVal = a.median_eui;
+            bVal = b.median_eui;
         }} else if (col === 'opex') {{
             aVal = a.total_opex || 0;
             bVal = b.total_opex || 0;
@@ -5951,11 +6147,15 @@ window.sortPortfolios = function(col) {{
 // =============================================================================
 
 let buildingSortDir = {{}};
-window.sortBuildingRows = function(headerEl, col) {{
-    event.stopPropagation();  // Prevent portfolio collapse
+window.sortBuildingRows = function(headerEl, col, evt) {{
+    // Use passed event or fall back to window.event for legacy compatibility
+    if (evt) evt.stopPropagation();
+    else if (window.event) window.event.stopPropagation();
 
     const card = headerEl.closest('.portfolio-card');
+    if (!card) return;  // Safety check
     const container = card.querySelector('.building-rows-container');
+    if (!container) return;  // Safety check
     const rows = Array.from(container.querySelectorAll('.building-grid-row'));
 
     // Standardize: first click = descending for numeric columns (show highest first)
@@ -5977,20 +6177,28 @@ window.sortBuildingRows = function(headerEl, col) {{
             aVal = (a.dataset.radioType || '').toLowerCase();
             bVal = (b.dataset.radioType || '').toLowerCase();
         }} else if (col === 'sqft') {{
-            aVal = parseFloat(a.dataset.sqft) || 0;
-            bVal = parseFloat(b.dataset.sqft) || 0;
+            aVal = safeParseFloat(a.dataset.sqft, 0);
+            bVal = safeParseFloat(b.dataset.sqft, 0);
         }} else if (col === 'eui') {{
-            aVal = parseFloat(a.dataset.eui) || 0;
-            bVal = parseFloat(b.dataset.eui) || 0;
+            // Explicit null handling - push missing EUI to bottom regardless of sort direction
+            const aRaw = safeParseFloat(a.dataset.eui, NaN);
+            const bRaw = safeParseFloat(b.dataset.eui, NaN);
+            const aHasEui = !isNaN(aRaw) && aRaw > 0;
+            const bHasEui = !isNaN(bRaw) && bRaw > 0;
+            if (!aHasEui && !bHasEui) return 0;
+            if (!aHasEui) return 1;  // a goes to bottom
+            if (!bHasEui) return -1; // b goes to bottom
+            aVal = aRaw;
+            bVal = bRaw;
         }} else if (col === 'valuation') {{
-            aVal = parseFloat(a.dataset.valuation) || 0;
-            bVal = parseFloat(b.dataset.valuation) || 0;
+            aVal = safeParseFloat(a.dataset.valuation, 0);
+            bVal = safeParseFloat(b.dataset.valuation, 0);
         }} else if (col === 'carbon') {{
-            aVal = parseFloat(a.dataset.carbon) || 0;
-            bVal = parseFloat(b.dataset.carbon) || 0;
+            aVal = safeParseFloat(a.dataset.carbon, 0);
+            bVal = safeParseFloat(b.dataset.carbon, 0);
         }} else if (col === 'opex') {{
-            aVal = parseFloat(a.dataset.opex) || 0;
-            bVal = parseFloat(b.dataset.opex) || 0;
+            aVal = safeParseFloat(a.dataset.opex, 0);
+            bVal = safeParseFloat(b.dataset.opex, 0);
         }}
 
         if (typeof aVal === 'string') {{
@@ -6169,9 +6377,7 @@ function updatePortfolioVisibleCounts() {{
     if (buildingsHeader) buildingsHeader.title = `${{totalBuildings.toLocaleString()}} buildings shown`;
     if (sqftHeader) sqftHeader.title = `${{(totalSqft/1e6).toFixed(1)}}M sq ft shown`;
     if (opexHeader) {{
-        opexHeader.title = `$${{(totalOpex/1e6).toFixed(1)}}M savings shown (Avoided utility costs + avoided carbon fines)`;
-        console.log('[DEBUG] opexHeader.title =', opexHeader.title);
-    }}
+        opexHeader.title = `$${{(totalOpex/1e6).toFixed(1)}}M savings shown (Avoided utility costs + avoided carbon fines)`;}}
     if (carbonHeader) carbonHeader.title = `${{Math.round(totalCarbon/1000)}}K tCO2e shown`;
     if (valuationHeader) valuationHeader.title = `$${{(totalValuation/1e9).toFixed(2)}}B val. impact shown`;
 }}
@@ -7231,7 +7437,6 @@ const preloadQueue = {{
         if (!url || this.loaded.has(url) || this.loading.has(url)) return;
         if (this.queue.includes(url)) return;
         priority ? this.queue.unshift(url) : this.queue.push(url);
-        console.log('[PreloadQueue] Added:', url.split('/').pop(), priority ? '(priority)' : '', 'Queue:', this.queue.length);
         this.process();
     }},
 
@@ -7247,7 +7452,6 @@ const preloadQueue = {{
                 this.loaded.add(url);
                 this.loading.delete(url);
                 this.stats.completed++;
-                console.log('[PreloadQueue] ✓ Loaded:', filename, `(${{this.stats.completed}}/${{this.stats.started}}) Active:${{this.loading.size}} Queue:${{this.queue.length}}`);
                 this.process();
             }};
             img.onerror = () => {{
@@ -7334,7 +7538,7 @@ function loadPortfolioRows(card, loadMore = false) {{
     const bucket = CONFIG.awsBucket;
     const html = buildingsToShow.map(b => {{
         const thumb = b.image
-            ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{bucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Thumb] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
+            ? `<div class="img-container building-thumb-container"><div class="img-skeleton thumb"></div><img src="${{bucket}}/thumbnails/${{b.image}}" class="building-thumb" alt="" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Thumb] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="building-thumb-placeholder img-hidden">🏢</div></div>`
             : `<div class="building-thumb-placeholder">🏢</div>`;
         // Strip zip code and city/state from address (show only street address)
         let addrClean = (b.address || '').replace(/,?\\s*\\d{{5}}(-\\d{{4}})?$/, '').trim();
@@ -7344,8 +7548,10 @@ function loadPortfolioRows(card, loadMore = false) {{
             addrClean = addrClean.replace(cityStatePattern, '').trim();
         }}
         const cityState = b.city && b.state ? `${{b.city}}, ${{b.state}}` : '';
-        const sqft = b.sqft >= 1000000 ? `${{(b.sqft/1000000).toFixed(1)}}M` : b.sqft >= 10000 ? `${{Math.round(b.sqft/1000)}}K` : b.sqft > 0 ? Math.round(b.sqft).toLocaleString() : '-';
-        const eui = formatEuiRating(b.eui, b.eui_benchmark);
+        // Safe formatting with null/NaN handling - display '--' for missing data
+        const sqftVal = safeParseFloat(b.sqft, 0);
+        const sqft = sqftVal >= 1000000 ? `${{(sqftVal/1000000).toFixed(1)}}M` : sqftVal >= 10000 ? `${{Math.round(sqftVal/1000)}}K` : sqftVal > 0 ? Math.round(sqftVal).toLocaleString() : '--';
+        const eui = (b.eui && b.eui > 0) ? formatEuiRating(b.eui, b.eui_benchmark) : '--';
         let euiRating = 'ok';
         if (b.eui && b.eui_benchmark && b.eui_benchmark > 0) {{
             const ratio = b.eui / b.eui_benchmark;
@@ -7353,9 +7559,12 @@ function loadPortfolioRows(card, loadMore = false) {{
             else if (ratio <= 1.2) euiRating = 'ok';
             else euiRating = 'bad';
         }}
-        const opex = b.opex >= 1000000000 ? `$${{(b.opex/1000000000).toFixed(1)}}B` : b.opex >= 1000000 ? `$${{(b.opex/1000000).toFixed(1)}}M` : b.opex >= 1000 ? `$${{Math.round(b.opex/1000)}}K` : `$${{Math.round(b.opex)}}`;
-        const val = b.valuation >= 1000000000 ? `$${{(b.valuation/1000000000).toFixed(1)}}B` : b.valuation >= 1000000 ? `$${{(b.valuation/1000000).toFixed(1)}}M` : b.valuation >= 1000 ? `$${{Math.round(b.valuation/1000)}}K` : `$${{Math.round(b.valuation)}}`;
-        const carbon = b.carbon >= 1000000 ? `${{(b.carbon/1000000).toFixed(1)}}M` : b.carbon >= 1000 ? `${{Math.round(b.carbon/1000)}}K` : Math.round(b.carbon || 0);
+        const opexVal = safeParseFloat(b.opex, 0);
+        const opex = opexVal > 0 ? (opexVal >= 1000000000 ? `$${{(opexVal/1000000000).toFixed(1)}}B` : opexVal >= 1000000 ? `$${{(opexVal/1000000).toFixed(1)}}M` : opexVal >= 1000 ? `$${{Math.round(opexVal/1000)}}K` : `$${{Math.round(opexVal)}}`) : '--';
+        const valNum = safeParseFloat(b.valuation, 0);
+        const val = valNum > 0 ? (valNum >= 1000000000 ? `$${{(valNum/1000000000).toFixed(1)}}B` : valNum >= 1000000 ? `$${{(valNum/1000000).toFixed(1)}}M` : valNum >= 1000 ? `$${{Math.round(valNum/1000)}}K` : `$${{Math.round(valNum)}}`) : '--';
+        const carbonVal = safeParseFloat(b.carbon, 0);
+        const carbon = carbonVal > 0 ? (carbonVal >= 1000000 ? `${{(carbonVal/1000000).toFixed(1)}}M` : carbonVal >= 1000 ? `${{Math.round(carbonVal/1000)}}K` : Math.round(carbonVal)) : '0';
 
         const extLink = b.url ? `<a href="${{b.url}}" target="_blank" onclick="event.stopPropagation()" style="color:var(--primary);font-weight:bold;font-size:11px;background:rgba(0,102,204,0.15);padding:1px 4px;border-radius:3px;text-decoration:none">↗</a>` : '';
         const addrLine1 = b.property_name ? `${{addrClean}}, ${{cityState}}` : addrClean;
@@ -7417,15 +7626,56 @@ function loadPortfolioRows(card, loadMore = false) {{
     const sortKey = Object.keys(buildingSortDir).find(k => k.startsWith(idx + '_'));
     if (sortKey) {{
         const col = sortKey.split('_')[1];
-        const headerEl = container.querySelector(`.sort-col[onclick*="${{col}}"]`);
-        if (headerEl) {{
-            // Temporarily flip direction so sortBuildingRows flips it back to original
-            buildingSortDir[sortKey] = !buildingSortDir[sortKey];
-            sortBuildingRows(headerEl, col);
+        const asc = buildingSortDir[sortKey];
+
+        // Sort rows directly without calling sortBuildingRows (which toggles direction)
+        const rows = Array.from(container.querySelectorAll('.building-grid-row'));
+        if (rows.length > 0) {{
+            rows.sort((a, b) => {{
+                let aVal, bVal;
+                if (col === 'address') {{
+                    aVal = (a.dataset.address || '').toLowerCase();
+                    bVal = (b.dataset.address || '').toLowerCase();
+                }} else if (col === 'type') {{
+                    aVal = (a.dataset.radioType || '').toLowerCase();
+                    bVal = (b.dataset.radioType || '').toLowerCase();
+                }} else if (col === 'eui') {{
+                    // Explicit null handling - push missing EUI to bottom regardless of sort direction
+                    const aRaw = parseFloat(a.dataset.eui);
+                    const bRaw = parseFloat(b.dataset.eui);
+                    const aHasEui = !isNaN(aRaw) && aRaw > 0;
+                    const bHasEui = !isNaN(bRaw) && bRaw > 0;
+                    if (!aHasEui && !bHasEui) return 0;
+                    if (!aHasEui) return 1;  // a goes to bottom
+                    if (!bHasEui) return -1; // b goes to bottom
+                    aVal = aRaw;
+                    bVal = bRaw;
+                }} else {{
+                    aVal = parseFloat(a.dataset[col]) || 0;
+                    bVal = parseFloat(b.dataset[col]) || 0;
+                }}
+
+                if (typeof aVal === 'string') {{
+                    return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }}
+                return asc ? aVal - bVal : bVal - aVal;
+            }});
+
+            // Re-append sorted rows
+            const controls = container.querySelector('.row-controls');
+            rows.forEach(row => container.insertBefore(row, controls));
+
+            // Update header visual indicator - handle both direct onclick and nested span (for EUI)
+            let headerEl = container.querySelector(`.sort-col[onclick*="${{col}}"]`);
+            if (!headerEl) headerEl = container.querySelector(`.sort-col [onclick*="${{col}}"]`);
+            if (headerEl) {{
+                container.querySelectorAll('.building-sort-header .sort-col, .building-sort-header .sort-col span').forEach(el => {{
+                    el.classList.remove('sorted-asc', 'sorted-desc');
+                }});
+                headerEl.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+            }}
         }}
     }}
-
-    console.log('[Portfolio] idx=' + idx + ' showing ' + buildingsToShow.length + '/' + buildings.length + ' buildings' + (loadMore ? ' (ALL)' : ''));
 }}
 
 // Show less - ALWAYS collapse the portfolio (hide all building rows)
@@ -7469,7 +7719,7 @@ function renderPortfolioCard(p) {{
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
     const orgInitial = (p.org_name && p.org_name.length > 0) ? p.org_name[0].toUpperCase() : '?';
     const logoInner = logoUrl
-        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="console.log('[Logo] ✓',this.src.split('/').pop());this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{orgInitial}}</div></div>`
+        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{orgInitial}}</div></div>`
         : `<div class="org-logo-placeholder">${{orgInitial}}</div>`;
     const logoHtml = p.org_url
         ? `<a href="${{p.org_url}}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${{logoInner}}</a>`
@@ -7535,14 +7785,10 @@ function loadMorePortfolios() {{
 // OFFLINE DETECTION
 // =============================================================================
 
-window.addEventListener('offline', () => {{
-    console.log('[Network] Went offline');
-    document.body.classList.add('is-offline');
+window.addEventListener('offline', () => {{document.body.classList.add('is-offline');
 }});
 
-window.addEventListener('online', () => {{
-    console.log('[Network] Back online');
-    document.body.classList.remove('is-offline');
+window.addEventListener('online', () => {{document.body.classList.remove('is-offline');
 }});
 
 // =============================================================================
@@ -7550,28 +7796,17 @@ window.addEventListener('online', () => {{
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', function() {{
-    console.log('[DOMContentLoaded] FILTER_DATA portfolios:', Object.keys(FILTER_DATA).length);
-    console.log('[DOMContentLoaded] PORTFOLIO_CARDS:', PORTFOLIO_CARDS.length);
-    console.log('[DOMContentLoaded] PORTFOLIO_BUILDINGS (should be empty):', Object.keys(PORTFOLIO_BUILDINGS).length);
-
-    // Load export_data.js for header tooltips (with retry)
+    // Load export_data.js for All Buildings tab and CSV export (not needed for header tooltips)
+    // Header tooltips now use pre-computed HEADER_TOTALS for instant updates
     dataLoadState.exportData = 'loading';
     loadScript('data/export_data.js', {{ timeout: 30000 }})
         .then(() => {{
             allBuildingsData = EXPORT_DATA;
             dataLoadState.exportData = 'loaded';
-            console.log('[DOMContentLoaded] EXPORT_DATA loaded:', allBuildingsData.length, 'buildings');
-            // Re-run filters if there was a pending update
-            if (dataLoadState.filterUpdateQueued) {{
-                dataLoadState.filterUpdateQueued = false;
-                applyFilters();
-            }}
         }})
         .catch(err => {{
             console.error('[DOMContentLoaded] Failed to load EXPORT_DATA:', err);
             dataLoadState.exportData = 'error';
-            // Re-run to show error state in header tooltips
-            applyFilters();
         }});
 
     initTabs();

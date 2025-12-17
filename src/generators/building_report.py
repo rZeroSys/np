@@ -218,18 +218,18 @@ BPS_TOOLTIP_INFO = {
 # Building type categorizations for ODCV savings calculation
 # Building types where vacancy is used in the ODCV formula: V + (1-V)(1-U)
 # Per ODCV_SAVINGS_METHODOLOGY_COMPLETE.md - these have centralized HVAC where vacant space still gets ventilated
-USES_VACANCY_FORMULA = ['Office', 'Medical Office', 'Mixed Use', 'Strip Mall']
+USES_VACANCY_FORMULA = ['Office', 'Medical Office', 'Mixed Use']
 
 SINGLE_TENANT_TYPES = [
-    'K-12 School', 'Higher Ed', 'Preschool/Daycare', 'Retail',
-    'Supermarket', 'Wholesale Club', 'Mall', 'Hotel',
-    'Restaurant/Bar', 'Gym', 'Event Space', 'Theater', 'Library/Museum',
+    'K-12 School', 'Higher Ed', 'Retail',
+    'Supermarket', 'Wholesale Club', 'Hotel',
+    'Restaurant/Bar', 'Theater', 'Library/Museum', 'Venue',
     'Bank Branch', 'Vehicle Dealership', 'Courthouse', 'Outpatient Clinic',
     'Sports/Gaming Center'
 ]
 
 CONSTRAINED_TYPES = [
-    'Inpatient Hospital', 'Specialty Hospital', 'Residential Care Facility',
+    'Inpatient Hospital', 'Specialty Hospital', 'Residential Care',
     'Laboratory', 'Police Station', 'Fire Station'
 ]
 
@@ -270,17 +270,6 @@ BUILDING_TYPE_INFO = {
         'load_factor': 0.45,
         'demand_rate_typical': 35.0,
         'explanation': 'Combination of office, retail, residential uses. Savings vary by tenant mix but centralized systems still ventilate vacant spaces.'
-    },
-    'Strip Mall': {
-        'category': 'Multi-Tenant',
-        'floor': 0.15, 'ceiling': 0.35,
-        'uses_vacancy': True,
-        'formula': 'Vacancy + (1-Vacancy) × (1-Utilization)',
-        'elec_hvac_typical': 0.56,
-        'gas_hvac_typical': 0.777,
-        'load_factor': 0.40,
-        'demand_rate_typical': 35.0,
-        'explanation': 'Individual tenant spaces may have separate systems, but common areas and some shared HVAC still create vacancy-driven opportunity.'
     },
     'K-12 School': {
         'category': 'Single-Tenant',
@@ -381,17 +370,6 @@ BUILDING_TYPE_INFO = {
         'demand_rate_typical': 6.0,
         'explanation': 'Open ~50 hours/week with 30-40% visitor occupancy during those hours. Galleries sit mostly empty nights and weekends.'
     },
-    'Gym': {
-        'category': 'Single-Tenant',
-        'floor': 0.15, 'ceiling': 0.35,
-        'uses_vacancy': False,
-        'formula': '1 - Utilization',
-        'elec_hvac_typical': 0.55,
-        'gas_hvac_typical': 0.80,
-        'load_factor': 0.45,
-        'demand_rate_typical': 35.0,
-        'explanation': 'Extreme peak/off-peak patterns: 6-8am packed, 10am-4pm empty, 5-7pm packed again, 8pm-5am empty. Ventilating at peak capacity during dead hours is pure waste.'
-    },
     'Wholesale Club': {
         'category': 'Single-Tenant',
         'floor': 0.10, 'ceiling': 0.25,
@@ -437,17 +415,6 @@ BUILDING_TYPE_INFO = {
         'explanation': '24/7 operation limits opportunity, but admin areas and waiting rooms have variable occupancy.'
     },
     'Residential Care': {
-        'category': 'Constrained',
-        'floor': 0.05, 'ceiling': 0.15,
-        'uses_vacancy': False,
-        'formula': '(1 - Utilization) × 0.3',
-        'elec_hvac_typical': 0.50,
-        'gas_hvac_typical': 0.70,
-        'load_factor': 0.65,
-        'demand_rate_typical': 22.0,
-        'explanation': 'Residents live there 24/7—unlike offices that empty at night. Common areas have some variability, but overall building load is relatively constant.'
-    },
-    'Residential Care Facility': {
         'category': 'Constrained',
         'floor': 0.05, 'ceiling': 0.15,
         'uses_vacancy': False,
@@ -555,11 +522,6 @@ BUILDING_TYPE_ENERGY_NOTES = {
         'gas_note': "82% of gas is HVAC. Lab fume hood makeup air increases heating load significantly.",
         'load_factor_note': "Moderate load factor (50%) - equipment runs 24/7 but some labs have off-hours.",
     },
-    'Residential Care Facility': {
-        'elec_note': "50% of electricity is HVAC. Comfort requirements for elderly residents.",
-        'gas_note': "70% of gas is HVAC. DHW for bathing and kitchen use the remaining 30%.",
-        'load_factor_note': "High load factor (65%) - residents live there 24/7, unlike offices that empty at night.",
-    },
 }
 
 # Default notes for building types not in the dictionary
@@ -609,21 +571,12 @@ BUILDING_TYPE_STORIES = {
 
     'Outpatient Clinic': "Providers see 20-25 patients per day across 6-8 exam rooms—each room is occupied just 25-35% of operating hours. Between appointments, rooms sit empty. Weighted building utilization runs 42-48%.",
 
-    'Mall': "Enclosed malls face both vacancy and traffic challenges—inline store vacancy runs 15-30% as anchor stores close. Weekday morning traffic runs 10-20% of design, weekend afternoons hit 60-80%. Common areas get fully conditioned regardless of whether 100 or 1,000 shoppers are present. Weighted utilization runs 35-45%.",
-
     'Data Center': "Data centers have zero ODCV savings. Cooling is driven by server heat loads, not people—a data center with 2 people or 20 requires the same cooling. No opportunity to reduce based on human presence.",
-
-    'Strip Mall': "Strip malls combine vacancy challenges (individual tenant spaces go empty during turnover) with retail traffic patterns. Vacancy runs 8-15% depending on market. Individual stores follow retail traffic patterns—busy evenings and weekends, slow weekday mornings. Tenant spaces typically served by individual rooftop units, making demand-based ventilation straightforward.",
-
-    'Preschool/Daycare': "Daycares operate more hours than K-12 schools (typically 6:30am-6:30pm for working parents) but still close nights and weekends. Operating hours: ~60 per week versus 168 total = 36% of time open. During operating hours, rooms designed for 20 children often have 12-15 present (rolling drop-offs/pickups). Effective utilization: 25-32%.",
 
     'Bank Branch': "Bank branches operate limited hours—typically 9am-5pm weekdays, Saturday mornings—totaling just 45-50 hours per week (27-30% of time). During those hours, modern branches see minimal foot traffic as banking shifts online: 20-40 customers per day in spaces designed for queues of 30-50. Teller areas get full conditioning regardless of traffic.",
 
     'Vehicle Dealership': "Dealerships present a split opportunity: showrooms (30-40% of building) follow retail traffic with variable customer presence, while service bays (40-50%) have controlled utilization from scheduled appointments. Showroom traffic averages 35-45% of design, peaking on Saturdays. Service bays run 60-70% utilization during business hours. Showrooms with high ceilings and large glass have significant conditioning load for 40% average occupancy.",
 
-    'Gym': "Extreme peak-valley patterns: 60-80% equipment use at 6-8am and 5-8pm, just 10-20% midday and late night. Facilities average 35-45% utilization. 24-hour gyms see single-digit overnight utilization.",
-
-    'Event Space': "Event spaces—banquet halls, conference centers, wedding venues—are designed for peak events that occur infrequently. A typical venue hosts 2-4 events per week, each lasting 4-8 hours. Between events, spaces sit empty but require some conditioning. 20 hours of events per week + 10 hours setup = 30 hours conditioned out of 168 (18%). Weighted utilization runs 15-22%.",
 }
 
 # Default story for building types not in the dictionary
@@ -658,21 +611,15 @@ NEW_COLUMN_SOURCES = {
     'Inpatient Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
     'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
     'Residential Care': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
-    'Residential Care Facility': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
     'Mixed Use': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy, Kastle occupancy for office portion.",
     'Data Center': "No ODCV reduction. Cooling is for equipment heat, not people.",
     'Venue': "HVAC reduced using event schedules, industry utilization data.",
     'Theater': "HVAC reduced using performance schedules, Broadway/regional theater utilization data.",
-    'Gym': "HVAC reduced using IHRSA traffic patterns, peak/off-peak utilization data.",
     'Library/Museum': "HVAC reduced using visitor traffic data, operating hours patterns.",
     'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, MGMA provider productivity benchmarks.",
     'Bank Branch': "HVAC reduced using FDIC transaction trends, branch traffic patterns.",
-    'Mall': "HVAC reduced using ICSC traffic data, inline vacancy rates.",
-    'Strip Mall': "HVAC reduced using CBRE vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
     'Vehicle Dealership': "HVAC reduced using NADA traffic data, showroom vs service bay weighting.",
-    'Event Space': "HVAC reduced using event booking schedules, setup/teardown patterns.",
-    'Preschool/Daycare': "HVAC reduced using state licensing data, NAEYC capacity standards.",
     'Laboratory': "HVAC reduced using CBECS 2018 fuel splits, research schedule patterns.",
     'Courthouse': "HVAC reduced using court administration docket data, public area patterns.",
     'default': "HVAC reduced using CBECS 2018 fuel splits, building type utilization benchmarks.",
@@ -692,13 +639,11 @@ CHANGE_COLUMN_INSIGHTS = {
     'Inpatient Hospital': "Hospitals run 24/7, but admin offices, waiting rooms, and cafeterias empty at night while patient areas stay occupied. (CBECS 2018, AHA)",
     'Specialty Hospital': "Specialty hospitals run 24/7, but non-clinical spaces like admin and waiting rooms empty during off-hours. (CBECS 2018, AHA)",
     'Residential Care': "Unlike hotels, residents live here 24/7—they don't leave for work or sightseeing. With people present ~95% of the time, there's less empty space to save on. (CBECS 2018, NIC MAP Vision)",
-    'Residential Care Facility': "Unlike hotels, residents live here 24/7—they don't leave for work or sightseeing. With people present ~95% of the time, there's less empty space to save on. (CBECS 2018, NIC MAP Vision)",
     'Mixed Use': "The office floors follow hybrid work patterns—workers come in 2-3 days/week, and vacant floors have no tenants at all. Ground-floor retail adds its own traffic variability. (CBECS 2018, CBRE, Kastle)",
     'Venue': "Arenas and convention centers sit empty 80%+ of the year. A typical arena hosts 60-80 events totaling just 300-400 hours—out of 8,760 hours annually. (CBECS 2018)",
     'Theater': "Theaters run just 8 shows per week, about 3 hours each—that's 21% of weekly hours at best. The rest of the time, seats sit empty. (CBECS 2018)",
     'Library/Museum': "Open ~50 hours/week, but visitors only occupy galleries 10-15% of the time. Reading rooms and exhibit halls designed for crowds often sit mostly empty. (CBECS 2018)",
     'Outpatient Clinic': "Patients occupy exam rooms for 15-30 minute appointments, then rooms sit empty until the next patient. Rooms designed for constant use are idle most of the day. (CBECS 2018, MGMA)",
-    'Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas conditioned whether 100 or 1,000 shoppers. (CBECS 2018, ICSC)",
     'Wholesale Club': "30-40% of the building is back-of-house warehouse with minimal staff. The sales floor is only busy on weekends. (CBECS 2018)",
     'default': "Most buildings are empty more often than people realize. HVAC runs at design capacity regardless of actual occupancy. (CBECS 2018)",
 }
@@ -1002,8 +947,6 @@ def get_odcv_savings_tooltip(row):
 
         'Retail': "Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy. (CBECS 2018)",
 
-        'Mall': "Retail apocalypse reality: many malls have 15-30% vacancy from anchor store closures. Common areas (food courts, hallways) conditioned regardless of traffic. Weekday mornings: 10-20% of capacity. Average: 35-40% utilization. (CBECS 2018, ICSC)",
-
         'Library': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
 
         'Museum': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
@@ -1018,8 +961,6 @@ def get_odcv_savings_tooltip(row):
         'Supermarket': "Longer hours (6am-midnight) than most retail, but still variable traffic. Open 126 hrs/week, but mornings and late nights see 20-30% of design. Food safety requirements limit how much ventilation can be reduced. (CBECS 2018)",
 
         'Residential Care': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
-
-        'Residential Care Facility': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
 
         # VERY LIMITED OPPORTUNITY (5-15%)
         'Laboratory': "Labs have limited opportunity due to fume hoods requiring constant exhaust and specialized equipment. Negative pressure requirements override occupancy-based control. (CBECS 2018, ASHRAE)",
@@ -1037,21 +978,11 @@ def get_odcv_savings_tooltip(row):
         'Public Service': "DMVs, permit centers operate standard business hours with variable public traffic. Waiting areas designed for 100 people often have 20-40 present except during peak periods. (CBECS 2018, GSA)",
 
         # OTHER TYPES
-        'Gym': "Extreme peak-valley patterns: packed at 6-8am and 5-8pm (60-80% of equipment in use), nearly empty midday and late night (10-20%). 24-hour gyms run even lower averages—overnight hours see single-digit utilization. (CBECS 2018, IHRSA)",
-
-        'Gym/Fitness Center': "Extreme peak-valley patterns: packed at 6-8am and 5-8pm (60-80% of equipment in use), nearly empty midday and late night (10-20%). 24-hour gyms run even lower averages—overnight hours see single-digit utilization. (CBECS 2018, IHRSA)",
-
-        'Event Space': "Banquet halls, conference centers, wedding venues are empty 80%+ of the time. A typical venue hosts 2-4 events/week, each lasting 4-8 hours. Between events, spaces sit empty but require conditioning. (CBECS 2018)",
-
         'Arts & Culture': "Galleries require 24/7 climate control for artwork but see visitors only during limited hours. Performance spaces follow theater patterns with sparse scheduling. 15-25% visitor utilization. (CBECS 2018)",
 
         'Sports/Gaming Center': "Bowling alleys, ice rinks, arcades run 12-16 hours daily but average 35-45% utilization. Weekend afternoons hit 70-90% capacity; Tuesday mornings run 10-20%. Ice rinks need continuous cooling regardless of skaters. (CBECS 2018)",
 
         'Vehicle Dealership': "Showrooms (30-40% of building) follow retail traffic with variable customer presence. Service bays (40-50%) have controlled utilization from scheduled appointments. Showroom traffic averages 35-45% of design. (CBECS 2018, NADA)",
-
-        'Preschool/Daycare': "Operate more hours than K-12 (6:30am-6:30pm) but still close nights and weekends. Operating hours: ~60/week out of 168 (36%). During hours, rooms designed for 20 children often have 12-15 present. (CBECS 2018, NAEYC)",
-
-        'Strip Mall': "Individual tenant spaces go empty during turnover (8-15% vacancy). Individual stores follow retail traffic patterns—busy evenings and weekends, slow weekday mornings. Rooftop units make demand-based ventilation straightforward. (CBECS 2018, CoStar)",
 
         # ZERO OPPORTUNITY
         'Data Center': "Data centers have zero ODCV savings potential. Cooling requirements are driven entirely by server heat loads, not human occupancy. A data center with 2 people or 20 people requires the same precise temperature and humidity control. (CBECS 2018)",
@@ -1193,7 +1124,7 @@ def get_site_eui_tooltip(row):
         'Higher Ed': 90, 'Retail': 50, 'Restaurant/Bar': 250,
         'Supermarket': 180, 'Inpatient Hospital': 200, 'Specialty Hospital': 180,
         'Data Center': 800, 'Warehouse': 25, 'Residential Care': 100,
-        'Residential Care Facility': 100, 'Mixed Use': 75, 'default': 70
+        'Mixed Use': 75, 'default': 70
     }
     type_benchmark = benchmarks.get(bldg_type, benchmarks['default'])
 
@@ -1409,11 +1340,27 @@ def safe_num(row, column, default=None):
         return default
 
 def format_currency(value):
-    """Format dollar amounts"""
-    if value is None or value == 0:
-        return "$0"
+    """Format dollar amounts - guaranteed safe output"""
+    if value is None:
+        return "—"
     try:
         val = float(value)
+        if math.isnan(val) or math.isinf(val):
+            return "—"
+        if val == 0:
+            return "$0"
+        # Handle negative values
+        if val < 0:
+            abs_val = abs(val)
+            if abs_val >= 1e9:
+                return f"-${abs_val/1e9:.2f}B"
+            elif abs_val >= 1e6:
+                return f"-${abs_val/1e6:.1f}M"
+            elif abs_val >= 1e3:
+                return f"-${abs_val/1e3:.0f}K"
+            else:
+                return f"-${abs_val:,.0f}"
+        # Positive values
         if val >= 1e9:
             return f"${val/1e9:.2f}B"
         elif val >= 1e6:
@@ -1422,25 +1369,86 @@ def format_currency(value):
             return f"${val/1e3:.0f}K"
         else:
             return f"${val:,.0f}"
-    except:
-        return "$0"
+    except (ValueError, TypeError):
+        return "—"
 
 def format_number(value, decimals=0):
-    """Format numbers with commas"""
+    """Format numbers with commas - guaranteed safe output"""
     if value is None:
-        return ""
+        return "—"
     try:
+        num = float(value)
+        if math.isnan(num) or math.isinf(num):
+            return "—"
         if decimals > 0:
-            return f"{float(value):,.{decimals}f}"
-        return f"{int(float(value)):,}"
-    except:
-        return ""
+            return f"{num:,.{decimals}f}"
+        return f"{int(num):,}"
+    except (ValueError, TypeError):
+        return "—"
+
+def safe_percentage(numerator, denominator, default=0):
+    """Calculate percentage safely - no division by zero, bounded output."""
+    if numerator is None or denominator is None:
+        return default
+    try:
+        num = float(numerator)
+        denom = float(denominator)
+        if denom == 0 or math.isnan(denom) or math.isinf(denom):
+            return default
+        pct = (num / denom) * 100
+        # Clamp to reasonable bounds
+        return max(0, min(pct, 999))
+    except (ValueError, TypeError):
+        return default
+
+def clamp_energy_star(score):
+    """Clamp Energy Star score to valid 0-100 range."""
+    if score is None:
+        return None
+    try:
+        s = float(score)
+        if math.isnan(s) or math.isinf(s):
+            return None
+        return max(0, min(100, s))
+    except (ValueError, TypeError):
+        return None
 
 def escape(text):
     """Escape HTML"""
     if pd.isna(text) or text == '':
         return ''
     return str(text).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+
+def is_valid_building(row):
+    """Check if building data looks valid for report generation.
+    Skips test/garbage data like numeric names or missing addresses.
+    """
+    # Get key fields
+    name = safe_val(row, 'id_property_name') if hasattr(row, '__getitem__') else row.get('id_property_name', '')
+    bldg_type = safe_val(row, 'bldg_type') if hasattr(row, '__getitem__') else row.get('bldg_type', '')
+    address = safe_val(row, 'loc_address') if hasattr(row, '__getitem__') else row.get('loc_address', '')
+
+    # Names/types shouldn't be pure numbers (indicates test data)
+    for val in [name, bldg_type]:
+        if val and str(val).strip():
+            try:
+                float(str(val).strip())
+                return False  # Looks like test data
+            except (ValueError, TypeError):
+                pass  # Good - not a number
+
+    # Must have a real address (at least 5 chars)
+    if not address or len(str(address).strip()) < 5:
+        return False
+
+    # Address shouldn't be a pure number
+    try:
+        float(str(address).strip())
+        return False  # Address looks like test data
+    except (ValueError, TypeError):
+        pass  # Good - not a number
+
+    return True
 
 def get_building_image_url(building_id):
     """Get AWS S3 URL for building image if it exists"""
@@ -1475,24 +1483,71 @@ def get_logo_filename(name):
     return name
 
 def tooltip(key, row=None):
-    """Generate tooltip HTML span. If row is provided and key is dynamic, generates contextual tooltip."""
-    # Check if this is a dynamic tooltip that needs row data
-    if key in DYNAMIC_TOOLTIPS and row is not None:
-        text = DYNAMIC_TOOLTIPS[key](row)
-    else:
-        text = TOOLTIPS.get(key, '')
+    """Generate tooltip HTML span. If row is provided and key is dynamic, generates contextual tooltip.
+    Wrapped in try/except for robustness - tooltips are optional enhancements.
+    """
+    try:
+        # Check if this is a dynamic tooltip that needs row data
+        if key in DYNAMIC_TOOLTIPS and row is not None:
+            try:
+                text = DYNAMIC_TOOLTIPS[key](row)
+            except Exception:
+                # Fallback to static tooltip if dynamic fails
+                text = TOOLTIPS.get(key, '')
+        else:
+            text = TOOLTIPS.get(key, '')
 
-    if not text:
-        return ''
+        if not text:
+            return ''
 
-    # Inject hyperlinks into source references
-    html_text = inject_source_links(text)
+        # Inject hyperlinks into source references
+        try:
+            html_text = inject_source_links(text)
+        except Exception:
+            html_text = escape(text)  # Fallback to escaped plain text
 
-    return f'<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">{html_text}</span></span>'
+        return f'<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">{html_text}</span></span>'
+    except Exception:
+        return ''  # Fail silently - tooltips are optional enhancements
 
 #===============================================================================
 # HTML SECTIONS
 #===============================================================================
+
+def format_address(street, city, state, zip_code):
+    """Format address with proper commas and no double spaces."""
+    # Clean inputs
+    street = str(street).strip() if street and str(street).lower() != 'nan' else ''
+    city = str(city).strip() if city and str(city).lower() != 'nan' else ''
+    state = str(state).strip() if state and str(state).lower() != 'nan' else ''
+    zip_code = str(zip_code).strip() if zip_code and str(zip_code).lower() != 'nan' else ''
+
+    # Check if city is already in street address
+    if city and city in street:
+        address = street
+    else:
+        # Build address with proper formatting
+        parts = []
+        if street:
+            parts.append(street)
+        if city and state:
+            parts.append(f"{city}, {state}")
+        elif city:
+            parts.append(city)
+        elif state:
+            parts.append(state)
+        if zip_code:
+            if parts:
+                parts[-1] = f"{parts[-1]} {zip_code}"
+            else:
+                parts.append(zip_code)
+        address = ', '.join(parts) if len(parts) > 1 else (parts[0] if parts else 'Address not available')
+
+    # Clean up any double spaces
+    while '  ' in address:
+        address = address.replace('  ', ' ')
+
+    return address.strip()
 
 def generate_hero(row):
     """Hero section - address with external link, centered with back button"""
@@ -1501,18 +1556,8 @@ def generate_hero(row):
     state = safe_val(row, 'loc_state', '')
     zip_code = safe_val(row, 'loc_zip', '')
 
-    # Build full address - only append city/state/zip if not already in loc_address
-    if city and city in street:
-        # Address already contains city, use as-is
-        address = street
-    else:
-        # Address is just street, append city/state/zip
-        address_parts = [street]
-        if city and state:
-            address_parts.append(f"{city}, {state}")
-        if zip_code:
-            address_parts[-1] = address_parts[-1] + f" {zip_code}" if len(address_parts) > 1 else zip_code
-        address = ', '.join(address_parts) if len(address_parts) > 1 else street
+    # Use the robust address formatter
+    address = format_address(street, city, state, zip_code)
 
     building_url = safe_val(row, 'id_source_url')
     has_url = building_url and str(building_url).lower() != 'nan'
@@ -1577,9 +1622,9 @@ def generate_building_info(row):
     if bldg_type and str(bldg_type).lower() != 'nan':
         html += f"<tr><td>Type{tooltip('bldg_type_opportunity', row)}</td><td>{escape(bldg_type)}</td></tr>\n"
 
-    # Year Built
+    # Year Built - only show if it's a reasonable year (1800-2030)
     year = safe_num(row, 'bldg_year_built')
-    if year:
+    if year and 1800 <= year <= 2030:
         html += f"<tr><td>Year Built</td><td>{int(year)}</td></tr>\n"
 
     # Owner/Tenant/Property Manager - collapsed when matching
@@ -2056,13 +2101,14 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Electricity
-    if elec_kwh:
+    # Electricity - only show if value will display as >= 1 kWh
+    if elec_kwh and elec_kwh >= 0.5:
         current_val = elec_kwh
         new_val = elec_kwh_post
         current_str = f"{format_number(current_val)} kWh"
-        new_str = f"{format_number(new_val)} kWh" if new_val else "—"
-        if new_val and current_val:
+        new_str = f"{format_number(new_val)} kWh" if new_val and new_val >= 0.5 else "—"
+        # Only show percentage if base value is meaningful
+        if new_val and current_val >= 1:
             change = current_val - new_val
             pct = (change / current_val) * 100
             change_str = f'<td>{change_cell(format_number(change), pct, " kWh")}</td>'
@@ -2077,19 +2123,22 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Natural Gas
+    # Natural Gas - only show if value will display as >= 1 therm
     if gas_use and gas_use > 0:
         gas_therms = gas_use / 100
-        gas_therms_post = gas_post / 100 if gas_post else None
-        current_str = f"{format_number(gas_therms)} therms"
-        new_str = f"{format_number(gas_therms_post)} therms" if gas_therms_post else "—"
-        if gas_therms_post:
-            change = gas_therms - gas_therms_post
-            pct = (change / gas_therms) * 100
-            change_str = f'<td>{change_cell(format_number(change), pct, " therms")}</td>'
-        else:
-            change_str = '<td>—</td>'
-        html += f"""
+        # Skip row if value rounds to 0 (avoids "0 therms (38%)" bug)
+        if gas_therms >= 0.5:
+            gas_therms_post = gas_post / 100 if gas_post else None
+            current_str = f"{format_number(gas_therms)} therms"
+            new_str = f"{format_number(gas_therms_post)} therms" if gas_therms_post and gas_therms_post >= 0.5 else "—"
+            # Only show percentage if base value is meaningful
+            if gas_therms_post and gas_therms >= 1:
+                change = gas_therms - gas_therms_post
+                pct = (change / gas_therms) * 100
+                change_str = f'<td>{change_cell(format_number(change), pct, " therms")}</td>'
+            else:
+                change_str = '<td>—</td>'
+            html += f"""
             <tr style="{row_bg()}">
                 <td><strong>Natural Gas</strong>{tooltip('natural_gas', row)}</td>
                 <td>{current_str}</td>
@@ -2098,19 +2147,22 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # Fuel Oil
+    # Fuel Oil - only show if value will display as >= 1 gallon
     if fuel_use and fuel_use > 0:
         fuel_gal = fuel_use / 138.5
-        fuel_gal_post = fuel_post / 138.5 if fuel_post else None
-        current_str = f"{format_number(fuel_gal)} gallons"
-        new_str = f"{format_number(fuel_gal_post)} gallons" if fuel_gal_post else "—"
-        if fuel_gal_post:
-            change = fuel_gal - fuel_gal_post
-            pct = (change / fuel_gal) * 100
-            change_str = f'<td>{change_cell(format_number(change), pct, " gal")}</td>'
-        else:
-            change_str = '<td>—</td>'
-        html += f"""
+        # Skip row if value rounds to 0 (avoids "0 gallons (X%)" bug)
+        if fuel_gal >= 0.5:
+            fuel_gal_post = fuel_post / 138.5 if fuel_post else None
+            current_str = f"{format_number(fuel_gal)} gallons"
+            new_str = f"{format_number(fuel_gal_post)} gallons" if fuel_gal_post and fuel_gal_post >= 0.5 else "—"
+            # Only show percentage if base value is meaningful
+            if fuel_gal_post and fuel_gal >= 1:
+                change = fuel_gal - fuel_gal_post
+                pct = (change / fuel_gal) * 100
+                change_str = f'<td>{change_cell(format_number(change), pct, " gal")}</td>'
+            else:
+                change_str = '<td>—</td>'
+            html += f"""
             <tr style="{row_bg()}">
                 <td><strong>Fuel Oil</strong>{tooltip('fuel_oil', row)}</td>
                 <td>{current_str}</td>
@@ -2119,19 +2171,22 @@ def generate_energy_section(row):
             </tr>
 """
 
-    # District Steam
+    # District Steam - only show if value will display as >= 0.01 Mlb
     if steam_use and steam_use > 0:
         steam_mlb = steam_use / 1194
-        steam_mlb_post = steam_post / 1194 if steam_post else None
-        current_str = f"{format_number(steam_mlb, 2)} Mlb"
-        new_str = f"{format_number(steam_mlb_post, 2)} Mlb" if steam_mlb_post else "—"
-        if steam_mlb_post:
-            change = steam_mlb - steam_mlb_post
-            pct = (change / steam_mlb) * 100
-            change_str = f'<td>{change_cell(format_number(change, 2), pct, " Mlb")}</td>'
-        else:
-            change_str = '<td>—</td>'
-        html += f"""
+        # Skip row if value rounds to 0.00 (avoids "0.00 Mlb (X%)" bug)
+        if steam_mlb >= 0.005:
+            steam_mlb_post = steam_post / 1194 if steam_post else None
+            current_str = f"{format_number(steam_mlb, 2)} Mlb"
+            new_str = f"{format_number(steam_mlb_post, 2)} Mlb" if steam_mlb_post and steam_mlb_post >= 0.005 else "—"
+            # Only show percentage if base value is meaningful
+            if steam_mlb_post and steam_mlb >= 0.01:
+                change = steam_mlb - steam_mlb_post
+                pct = (change / steam_mlb) * 100
+                change_str = f'<td>{change_cell(format_number(change, 2), pct, " Mlb")}</td>'
+            else:
+                change_str = '<td>—</td>'
+            html += f"""
             <tr style="{row_bg()}">
                 <td><strong>District Steam</strong>{tooltip('district_steam', row)}</td>
                 <td>{current_str}</td>
@@ -2265,9 +2320,9 @@ def generate_impact_section(row):
 """
 
     # Energy Star Score row with simple gauge showing green fill based on score
-    current_es = safe_num(row, 'energy_star_score')
-    post_es = safe_num(row, 'energy_star_score_post_odcv')
-    if current_es:
+    current_es = clamp_energy_star(safe_num(row, 'energy_star_score'))
+    post_es = clamp_energy_star(safe_num(row, 'energy_star_score_post_odcv'))
+    if current_es and current_es > 0:
         # Color based on score
         def es_color(score):
             if score < 50: return '#b91c1c'  # Dark red
@@ -2312,7 +2367,7 @@ def generate_impact_section(row):
             # Normal row
             if post_es and post_es > current_es:
                 change = int(post_es - current_es)
-                pct = (change / current_es) * 100
+                pct = safe_percentage(change, current_es)
                 color = '#15803d' if pct >= 10 else '#0891b2' if pct >= 5 else '#3b82f6'
                 change_str = f'<td><span style="color:{color};font-weight:700;">↑{change} pts</span> <span style="color:#64748b;font-size:0.9em;">({pct:.0f}%)</span></td>'
             else:
@@ -2327,9 +2382,9 @@ def generate_impact_section(row):
 """
 
     # Carbon Emissions row
-    if carbon_current and carbon_post:
+    if carbon_current and carbon_current > 0 and carbon_post:
         carbon_reduction = carbon_current - carbon_post
-        pct = (carbon_reduction / carbon_current) * 100
+        pct = safe_percentage(carbon_reduction, carbon_current)
         html += f"""
             <tr style="{row_bg()}">
                 <td><strong>Carbon Emissions</strong>{tooltip('carbon_reduction', row)}</td>
@@ -2874,6 +2929,13 @@ def main():
     removed = len(df) - len(df_clean)
     if removed > 0:
         print(f"⚠ Removed {removed} buildings without coordinates")
+
+    # Filter out garbage/test data
+    valid_mask = df_clean.apply(is_valid_building, axis=1)
+    invalid_count = (~valid_mask).sum()
+    if invalid_count > 0:
+        print(f"⚠ Skipping {invalid_count} buildings with invalid/test data")
+    df_clean = df_clean[valid_mask]
 
     # Check for specific building ID in command line args
     if len(sys.argv) > 1:

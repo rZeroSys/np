@@ -7,7 +7,7 @@ This document describes the methodology used to calculate the property valuation
 ## Scope
 
 - **Buildings analyzed**: 26,648 commercial buildings
-- **Building types included**: Office, Medical Office, Mixed Use, Retail Store, Strip Mall, Hotel, Supermarket/Grocery, Enclosed Mall, Restaurant/Bar, Gym, Vehicle Dealership, Wholesale Club, Bank Branch, Data Center
+- **Building types included**: Office, Medical Office, Mixed Use, Retail Store, Hotel, Supermarket/Grocery, Restaurant/Bar, Gym, Vehicle Dealership, Wholesale Club, Bank Branch, Data Center
 - **Data Centers**: Excluded from savings calculations ($0 impact) due to cooling-dominated loads with minimal ventilation-related savings opportunity
 - **BPS Jurisdictions**: 7 cities with Building Performance Standards (NYC LL97, Boston BERDO, Cambridge BEUDO, DC BEPS, Denver Energize, Seattle BEPS, St. Louis BEPS)
 
@@ -105,10 +105,8 @@ post_odcv_valuation_usd = current_valuation_usd + odcv_valuation_impact_usd
 | Medical Office | 7.50% |
 | Mixed Use | 7.00% |
 | Retail Store | 6.25% |
-| Strip Mall | 6.75% |
 | Hotel | 8.00% |
 | Supermarket/Grocery | 6.00% |
-| Enclosed Mall | 7.50% |
 | Restaurant/Bar | 7.00% |
 | Gym | 7.00% |
 | Vehicle Dealership | 6.25% |
@@ -155,10 +153,8 @@ Four columns related to valuation in the dataset:
 | Hotel | 2,523 | $4,388,345,615 |
 | Retail Store | 1,902 | $2,556,495,690 |
 | Mixed Use | 496 | $1,429,066,137 |
-| Strip Mall | 1,028 | $1,339,724,555 |
 | Medical Office | 800 | $1,056,862,293 |
 | Wholesale Club | 490 | $770,583,810 |
-| Enclosed Mall | 150 | $529,875,699 |
 | Supermarket/Grocery | 682 | $341,126,172 |
 | Restaurant/Bar | 237 | $329,446,064 |
 

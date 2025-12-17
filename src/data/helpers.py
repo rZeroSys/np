@@ -59,14 +59,12 @@ def safe_str(val, default=''):
     return s
 
 def normalize_building_type(val):
-    """Normalize building type names."""
-    mapping = {
-        'Event Space': 'Venue',
-        'Enclosed Mall': 'Mall',
-        'Supermarket/Grocery': 'Supermarket',
-        'Retail Store': 'Retail',
-    }
-    return mapping.get(val, val)
+    """Normalize building type names.
+
+    Note: CSV values are now canonical - no mappings needed.
+    Keeping function for backwards compatibility.
+    """
+    return val
 
 def format_currency(amount, decimals=0):
     """Format number as currency string."""

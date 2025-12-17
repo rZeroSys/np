@@ -55,8 +55,6 @@ BUILDING_TYPE_TO_PBA = {
     'Inpatient Hospital': 16, 'Specialty Hospital': 16,
     'Residential Care Facility': 17, 'Residential Care': 17,
     'Hotel': 18,
-    'Strip Mall': 23,
-    'Mall': 24,
     'Retail': 25, 'Wholesale Club': 25,
     'Vehicle Dealership': 26, 'Public Service': 26, 'Public Transit': 26,
     'Mixed Use': 91,

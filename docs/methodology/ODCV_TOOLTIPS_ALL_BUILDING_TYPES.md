@@ -46,9 +46,6 @@ Same pattern as medical office—exam rooms ventilated at medical-grade rates bu
 ### Retail Store (20-34% savings)
 Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy.
 
-### Enclosed Mall (20-29% savings)
-Retail apocalypse reality: many malls have 15-30% vacancy from anchor store closures. Common areas (food courts, hallways) conditioned regardless of traffic. Weekday mornings: 10-20% of capacity. Average across all hours: 35-40% utilization.
-
 ### Library/Museum (20-27% savings)
 HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. Galleries designed for 200 visitors often have 20.
 

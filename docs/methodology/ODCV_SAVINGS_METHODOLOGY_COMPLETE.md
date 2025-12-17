@@ -89,7 +89,7 @@ Where:
 
 Not all buildings work the same way. The critical question is: **When space is empty, is it still being ventilated?**
 
-#### Multi-Tenant Commercial Buildings (Office, Medical Office, Mixed Use, Strip Mall)
+#### Multi-Tenant Commercial Buildings (Office, Medical Office, Mixed Use)
 
 These buildings have **centralized HVAC systems controlled by the landlord**, not individual tenants.
 
@@ -565,14 +565,12 @@ For individual building proposals, these estimates should be validated with:
 | Office | 20% | 40% | Vacancy + Utilization | V + (1-V)(1-U) |
 | Medical Office | 20% | 40% | Vacancy + Utilization | V + (1-V)(1-U) |
 | Mixed Use | 18% | 38% | Vacancy + Utilization | V + (1-V)(1-U) |
-| Strip Mall | 15% | 35% | Vacancy + Utilization | V + (1-V)(1-U) |
 | K-12 School | 20% | 45% | Utilization | 1 - U |
 | Higher Ed | 20% | 45% | Utilization | 1 - U |
 | Preschool/Daycare | 18% | 38% | Utilization | 1 - U |
 | Retail Store | 15% | 35% | Utilization | 1 - U |
 | Supermarket/Grocery | 10% | 25% | Utilization | 1 - U |
 | Wholesale Club | 10% | 25% | Utilization | 1 - U |
-| Enclosed Mall | 12% | 30% | Utilization | 1 - U |
 | Hotel | 15% | 35% | Utilization | 1 - U |
 | Restaurant/Bar | 10% | 25% | Utilization | 1 - U |
 | Gym | 15% | 35% | Utilization | 1 - U |

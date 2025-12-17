@@ -51,14 +51,12 @@ BUILDING_TYPE_BOUNDS = {
     'Office':                    (0.20, 0.40),
     'Medical Office':            (0.20, 0.40),
     'Mixed Use':                 (0.18, 0.38),
-    'Strip Mall':                (0.15, 0.35),
     'K-12 School':               (0.20, 0.45),
     'Higher Ed':                 (0.20, 0.45),
     'Preschool/Daycare':         (0.18, 0.38),
     'Retail':              (0.15, 0.35),
     'Supermarket':       (0.10, 0.25),
     'Wholesale Club':            (0.10, 0.25),
-    'Mall':             (0.12, 0.30),
     'Hotel':                     (0.15, 0.35),
     'Restaurant/Bar':            (0.10, 0.25),
     'Gym':                       (0.15, 0.35),
@@ -86,7 +84,7 @@ BUILDING_TYPE_BOUNDS = {
 }
 
 # Building types where vacancy + utilization both matter (multi-tenant central HVAC)
-VACANCY_PLUS_UTIL_TYPES = ['Office', 'Medical Office', 'Mixed Use', 'Strip Mall']
+VACANCY_PLUS_UTIL_TYPES = ['Office', 'Medical Office', 'Mixed Use']
 
 # Building types with reduced opportunity (24/7, infection control, high OA codes)
 # NOTE: Removed hospitals - they have huge non-clinical areas (waiting, exam, admin)
@@ -114,7 +112,7 @@ def calculate_opportunity_score(building_type, vacancy, utilization):
     """
     Calculate opportunity score (0-1) based on building type.
     
-    - Office/Medical Office/Mixed Use/Strip Mall: vacancy + (1-vacancy) * (1-util)
+    - Office/Medical Office/Mixed Use: vacancy + (1-vacancy) * (1-util)
     - Low opportunity types (Hospital, Lab, etc.): (1-util) * 0.3
     - Data Center: 0
     - Everything else: 1 - util

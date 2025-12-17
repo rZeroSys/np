@@ -18,6 +18,7 @@ from src.data.helpers import safe_float, safe_int, safe_str, normalize_building_
 STRING_DTYPE_COLUMNS = {
     'id_property_name': str,
     'id_source_url': str,
+    'id_source_plant_id': str,
     'loc_zip': str,
     'org_manager': str,
     'org_owner': str,
@@ -25,12 +26,16 @@ STRING_DTYPE_COLUMNS = {
     'org_tenant_subunit': str,
     'energy_climate_zone': str,
     'cost_utility_name': str,
+    'cost_calc_notes': str,
+    'hvac_pct_method': str,
     'bps_law_name': str,
     'meta_photo_url': str,
     'leed_certification_level': str,
     'leed_certification_date': str,
     'leed_rating_system': str,
     'leed_project_url': str,
+    'leed_project_id': str,
+    'bldg_hq_org': str,
 }
 
 # =============================================================================
@@ -49,9 +54,39 @@ def load_csv(csv_path):
 
     # Convert numeric columns, coerce errors to NaN
     numeric_columns = [
-        'bldg_sqft', 'energy_site_eui', 'loc_lat', 'loc_lon',
-        'odcv_hvac_savings_annual_usd', 'bps_fine_avoided_yr1_usd', 'savings_opex_avoided_annual_usd',
-        'val_odcv_impact_usd', 'odcv_carbon_reduction_yr1_mt'
+        # Building & Location
+        'bldg_sqft', 'bldg_year_built', 'loc_lat', 'loc_lon',
+        # Energy
+        'energy_site_eui', 'energy_eui_benchmark', 'energy_star_score',
+        'energy_elec_kwh', 'energy_elec_kbtu', 'energy_gas_kbtu',
+        'energy_steam_kbtu', 'energy_fuel_oil_kbtu', 'energy_total_kbtu',
+        # Costs
+        'cost_elec_total_annual', 'cost_elec_energy_annual', 'cost_elec_demand_annual',
+        'cost_elec_rate_kwh', 'cost_elec_rate_demand_kw', 'cost_elec_peak_kw',
+        'cost_elec_load_factor', 'cost_gas_annual', 'cost_gas_rate_therm',
+        'cost_steam_annual', 'cost_steam_rate_mlb',
+        'cost_fuel_oil_annual', 'cost_fuel_oil_rate_mmbtu',
+        # HVAC
+        'hvac_pct_elec', 'hvac_pct_gas', 'hvac_pct_steam', 'hvac_pct_fuel_oil',
+        'hvac_cost_total_annual', 'hvac_energy_total_kbtu',
+        # Carbon & Occupancy
+        'carbon_emissions_total_mt', 'carbon_emissions_post_odcv_mt',
+        'occ_utilization_rate', 'occ_vacancy_rate',
+        # ODCV & Savings
+        'odcv_hvac_savings_annual_usd', 'odcv_hvac_savings_pct', 'odcv_carbon_reduction_yr1_mt',
+        'bps_fine_avoided_yr1_usd', 'bps_fine_baseline_yr1_usd', 'bps_fine_post_odcv_yr1_usd',
+        'savings_opex_avoided_annual_usd', 'savings_pct_of_energy_cost',
+        # Valuation
+        'val_cap_rate_pct', 'val_current_usd', 'val_post_odcv_usd',
+        'val_odcv_impact_usd', 'val_market_rent_sqft', 'val_opex_ratio',
+        # Post-ODCV Energy
+        'energy_star_score_post_odcv', 'energy_elec_kwh_post_odcv', 'energy_elec_kbtu_post_odcv',
+        'energy_gas_kbtu_post_odcv', 'energy_steam_kbtu_post_odcv',
+        'energy_fuel_oil_kbtu_post_odcv', 'energy_total_kbtu_post_odcv',
+        # Post-ODCV Costs
+        'cost_elec_energy_annual_post_odcv', 'cost_elec_demand_annual_post_odcv',
+        'cost_elec_total_annual_post_odcv', 'cost_gas_annual_post_odcv',
+        'cost_steam_annual_post_odcv', 'cost_fuel_oil_annual_post_odcv',
     ]
 
     for col in numeric_columns:
@@ -66,6 +101,90 @@ def load_csv(csv_path):
             df[col] = df[col].fillna(0)
 
     return df
+
+
+# =============================================================================
+# DATA VALIDATION
+# =============================================================================
+
+def validate_building_data(df):
+    """
+    Validate building data and fix issues where safe.
+
+    This function catches data integrity issues at load time to ensure
+    the homepage never displays incorrect data to users.
+
+    Args:
+        df: DataFrame with building data
+
+    Returns:
+        Validated DataFrame (may be modified in place)
+    """
+    issues = []
+
+    # 1. Post-ODCV energy should be <= pre-ODCV (ODCV reduces energy)
+    if 'energy_total_kbtu_post_odcv' in df.columns and 'energy_total_kbtu' in df.columns:
+        mask = (
+            df['energy_total_kbtu_post_odcv'].notna() &
+            df['energy_total_kbtu'].notna() &
+            (df['energy_total_kbtu'] > 0) &
+            (df['energy_total_kbtu_post_odcv'] > df['energy_total_kbtu'] * 1.001)
+        )
+        if mask.any():
+            issues.append(f"WARNING: {mask.sum()} buildings have post-ODCV > pre-ODCV energy - capping to pre-ODCV")
+            df.loc[mask, 'energy_total_kbtu_post_odcv'] = df.loc[mask, 'energy_total_kbtu']
+
+    # 2. No negative financial values (these should always be positive)
+    positive_cols = [
+        'savings_opex_avoided_annual_usd',
+        'val_odcv_impact_usd',
+        'odcv_carbon_reduction_yr1_mt',
+        'bldg_sqft',
+        'bps_fine_avoided_yr1_usd'
+    ]
+    for col in positive_cols:
+        if col in df.columns:
+            neg_mask = df[col] < 0
+            if neg_mask.any():
+                issues.append(f"WARNING: {neg_mask.sum()} buildings have negative {col} - setting to 0")
+                df.loc[neg_mask, col] = 0
+
+    # 3. Flag unreasonable EUI values (> 1000 kBtu/sqft is highly suspicious)
+    if 'energy_site_eui' in df.columns:
+        high_eui_mask = df['energy_site_eui'] > 1000
+        if high_eui_mask.any():
+            issues.append(f"INFO: {high_eui_mask.sum()} buildings have EUI > 1000 kBtu/sqft (may be data quality issue)")
+
+    # 4. Validate coordinates are within valid ranges
+    if 'loc_lat' in df.columns:
+        invalid_lat = (df['loc_lat'].notna()) & ((df['loc_lat'] < -90) | (df['loc_lat'] > 90))
+        if invalid_lat.any():
+            issues.append(f"WARNING: {invalid_lat.sum()} buildings have invalid latitude - setting to NaN")
+            df.loc[invalid_lat, 'loc_lat'] = None
+
+    if 'loc_lon' in df.columns:
+        invalid_lon = (df['loc_lon'].notna()) & ((df['loc_lon'] < -180) | (df['loc_lon'] > 180))
+        if invalid_lon.any():
+            issues.append(f"WARNING: {invalid_lon.sum()} buildings have invalid longitude - setting to NaN")
+            df.loc[invalid_lon, 'loc_lon'] = None
+
+    # 5. Check for unreasonably large OpEx values (> $1 billion is suspicious)
+    if 'savings_opex_avoided_annual_usd' in df.columns:
+        huge_opex = df['savings_opex_avoided_annual_usd'] > 1_000_000_000
+        if huge_opex.any():
+            issues.append(f"WARNING: {huge_opex.sum()} buildings have OpEx > $1B (suspicious)")
+
+    # Print validation summary
+    if issues:
+        print("\n  DATA VALIDATION:")
+        for issue in issues:
+            print(f"    {issue}")
+        print()
+    else:
+        print("  DATA VALIDATION: All checks passed")
+
+    return df
+
 
 def extract_filename(photo_url):
     """Extract filename from photo URL"""
@@ -164,6 +283,9 @@ def load_portfolio_data():
 
     print(f"  Loaded {len(df):,} portfolio buildings")
     print(f"  Verticals: {df['bldg_vertical'].value_counts().to_dict()}")
+
+    # Validate data integrity
+    df = validate_building_data(df)
 
     return df
 
