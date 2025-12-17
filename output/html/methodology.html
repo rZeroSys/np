@@ -411,7 +411,7 @@
         <p>Using vacancy and/or utilization data, calculate how much conditioned space is actually empty.<a href="#fn1" class="footnote-ref">1</a></p>
 
         <h3>2. Convert energy usage to energy cost</h3>
-        <p>Buildings report energy <em>consumption</em> (kWh, therms, Mlb steam). We convert this to <em>cost</em> using real utility rates sourced by zip code from EIA data and local utility tariff filings:<a href="#fn8" class="footnote-ref">8</a></p>
+        <p>Buildings report energy <em>consumption</em> (kWh, therms, Mlb steam). We convert this to <em>cost</em> using real utility rates sourced by zip code from EIA data and local utility tariff filings:<a href="#fn2" class="footnote-ref">2</a></p>
 
         <p><strong>Electricity</strong> has two cost components:</p>
         <ul>
@@ -456,7 +456,7 @@
                 <tr><td>Restaurant</td><td>17.6%</td><td>~25%</td><td>72% goes to cooking</td></tr>
                             </tbody>
         </table>
-        <p><strong>Adjustments applied:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.<a href="#fn2" class="footnote-ref">2</a></p>
+        <p><strong>Adjustments applied:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.<a href="#fn3" class="footnote-ref">3</a></p>
 
         <h3>4. Apply Modifiers</h3>
         <p>Age and size indicate automation capability. Current efficiency determines available waste to capture.</p>
@@ -500,7 +500,7 @@
                 <tr><td>Below 25</td><td>1.10×</td><td>Bottom quartile &mdash; lots of waste</td></tr>
             </tbody>
         </table>
-        <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.<a href="#fn3" class="footnote-ref">3</a></p>
+        <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.<a href="#fn4" class="footnote-ref">4</a></p>
 
         <h3>5. ODCV Savings</h3>
         <p>Each building type has minimum (floor) and maximum (ceiling) savings potential. The master formula calculates actual ODCV% within these ranges:</p>
@@ -524,7 +524,7 @@
                 <tr><td>Residential Care</td><td>5%</td><td>15%</td><td>Residents 24/7; limited opportunity</td></tr>
                             </tbody>
         </table>
-        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn4" class="footnote-ref">4</a></p>
+        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn5" class="footnote-ref">5</a></p>
     </section>
 
     <!-- Section 5: Beyond Utility Savings -->
@@ -547,7 +547,7 @@
                 <tr><td>St. Louis</td><td>St. Louis BEPS</td><td>$/day non-compliance</td><td>$500/day</td><td>~65 kBtu/sqft</td><td>50,000</td></tr>
             </tbody>
         </table>
-        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.<a href="#fn5" class="footnote-ref">5</a></p>
+        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.<a href="#fn6" class="footnote-ref">6</a></p>
 
         <h3>Property Value</h3>
         <p>Real estate value depends on Net Operating Income. OpEx savings increase NOI dollar-for-dollar. Cap rates vary by type and market:</p>
@@ -563,10 +563,10 @@
                 <tr><td>Hospital/K-12</td><td>7.0% &ndash; 8.0%</td><td>12× &ndash; 14×</td></tr>
             </tbody>
         </table>
-        <p>Example: $100K annual savings ÷ 7% cap rate = $1.43M property value increase. Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>.<a href="#fn6" class="footnote-ref">6</a></p>
+        <p>Example: $100K annual savings ÷ 7% cap rate = $1.43M property value increase. Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>.<a href="#fn7" class="footnote-ref">7</a></p>
 
         <h3>ENERGY STAR Impact</h3>
-        <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn7" class="footnote-ref">7</a></p>
+        <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn8" class="footnote-ref">8</a></p>
     </section>
 
     <!-- Footnotes: Formulas -->
@@ -592,92 +592,6 @@
 
         <div class="footnote" id="fn2">
             <span class="footnote-num">2</span>
-            <strong>HVAC Percentages</strong><br>
-            Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> national survey of 6,436 commercial buildings, cross-referenced by building type and climate zone.<br><br>
-            <strong>Adjustments applied to each building:</strong><br>
-            &bull; ENERGY STAR score: ±5% (efficient buildings use less HVAC share)<br>
-            &bull; Year built: ±4% (older buildings have less efficient envelopes)<br>
-            &bull; EUI vs peer median: ±6% (high-EUI buildings often have HVAC issues)<br>
-            &bull; Combined adjustment capped at ±12%<br><br>
-            <strong>Electric HVAC minimum: 15%</strong><br>
-            Ventilation fans (8-12%), chilled water pumps (2-4%), condenser pumps (1-3%), and controls (1-2%) run continuously regardless of occupancy.<br><br>
-            <strong>Special cases:</strong><br>
-            &bull; Hotels: Only 19.7% of gas &rarr; HVAC. The rest: 41.6% domestic hot water, 33.1% cooking.<br>
-            &bull; Restaurants: Only 17.6% of gas &rarr; HVAC. The rest: 72% commercial cooking.
-        </div>
-
-        <div class="footnote" id="fn3">
-            <span class="footnote-num">3</span>
-            <strong>Master Formula</strong>
-            <div class="formula">ODCV% = Floor + (Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
-            Where Range = Ceiling - Floor for each building type.<br><br>
-            <strong>Component breakdown:</strong><br>
-            &bull; <strong>Floor/Ceiling:</strong> Building-type-specific min/max savings (e.g., Office 20-40%, Hospital 5-15%)<br>
-            &bull; <strong>Opportunity:</strong> 0-1 score based on vacancy and utilization (see footnote 1)<br>
-            &bull; <strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1). Newer, larger buildings more likely to have BMS capable of implementing ODCV.<br>
-            &bull; <strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste to capture)<br>
-            &bull; <strong>Climate Modifier:</strong> 1.10 Northern (heating penalty), 1.05 North-Central, 1.00 South-Central, 0.95 Southern<br><br>
-            Example: Office (20-40% range), 59% opportunity, 0.875 automation, ES score 68 (1.0×), North-Central (1.05×):<br>
-            ODCV% = 20% + (59% × 0.875 × 20%) × 1.0 × 1.05 = 20% + 10.8% = 30.8%
-        </div>
-
-        <div class="footnote" id="fn4">
-            <span class="footnote-num">4</span>
-            <strong>Annual Savings</strong><br>
-            ODCV reduces energy consumption for each fuel type proportional to its HVAC share.<br><br>
-            <strong>Step 1: Calculate HVAC cost by fuel type</strong>
-            <div class="formula">Elec_HVAC_cost = Elec_cost × hvac_pct_elec</div>
-            <div class="formula">Gas_HVAC_cost = Gas_cost × hvac_pct_gas</div>
-            <div class="formula">Steam_HVAC_cost = Steam_cost × hvac_pct_steam</div>
-            <div class="formula">Total_HVAC_cost = Elec + Gas + Steam + Fuel_Oil</div>
-            <strong>Step 2: Apply ODCV savings percentage</strong>
-            <div class="formula">Annual_savings = Total_HVAC_cost × ODCV%</div>
-            Example: Building with $500K total energy, 45% to HVAC ($225K), 30% ODCV savings = $67,500/year.
-        </div>
-
-        <div class="footnote" id="fn5">
-            <span class="footnote-num">5</span>
-            <strong>BPS Fine Calculations</strong><br>
-            Each city calculates fines differently. ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines.<br><br>
-            <strong><a href="https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page" class="source-link">NYC Local Law 97</a>:</strong> $268/tCO2e over emissions cap (0.00758 tCO2e/sqft for office). Buildings exceeding cap pay per ton over.<br>
-            <strong><a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" class="source-link">Boston BERDO 2.0</a>:</strong> $234/tCO2e Alternative Compliance Payment over cap (0.0053 tCO2e/sqft).<br>
-            <strong>Cambridge BEUDO:</strong> $234/tCO2e, but target is 20% below building's own baseline (not fixed cap).<br>
-            <strong><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" class="source-link">DC BEPS</a>:</strong> Up to $10/sqft (max $7.5M), prorated by gap from ENERGY STAR target. Target varies by building type (Office: 71, Hotel: 54).<br>
-            <strong><a href="https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub" class="source-link">Denver Energize</a>:</strong> $0.15/kBtu over EUI target. Target follows glide path from 2019 baseline to 2032 final.<br>
-            <strong><a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards" class="source-link">Seattle BEPS</a>:</strong> $10/sqft per 5-year cycle if over 0.00081 tCO2e/sqft (binary: compliant or not).<br>
-            <strong>St. Louis BEPS:</strong> $500/day non-compliance if EUI exceeds ~65 kBtu/sqft target.<br><br>
-            <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
-            See <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.
-        </div>
-
-        <div class="footnote" id="fn6">
-            <span class="footnote-num">6</span>
-            <strong>Property Valuation (Income Capitalization)</strong><br>
-            Commercial real estate is valued on Net Operating Income (NOI). Every $1 of operating expense avoided increases NOI by $1, which increases property value via the capitalization rate.<br><br>
-            <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
-            <strong>Example:</strong> $100K annual savings ÷ 7% cap rate = $1.43M property value increase.<br><br>
-            <strong>Cap rate interpretation:</strong> Lower cap rates (5-6%) mean higher value multipliers (16-20×). Higher cap rates (8-10%) mean lower multipliers (10-12×). Riskier assets command higher cap rates.<br><br>
-            Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>, vary by metro and property type:<br>
-            &bull; Office: 5.0% &ndash; 10.2% (Class A urban to suburban)<br>
-            &bull; Hotel: 5.0% &ndash; 9.5%<br>
-            &bull; Retail: 5.0% &ndash; 9.0%<br>
-            &bull; Medical Office: 6.2% &ndash; 8.5%<br>
-            &bull; K-12/Hospital: 7.0% &ndash; 8.0%
-        </div>
-
-        <div class="footnote" id="fn7">
-            <span class="footnote-num">7</span>
-            <strong>ENERGY STAR Score Improvement</strong><br>
-            <a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; higher is better (75+ qualifies for certification).<br><br>
-            <strong>How scores are calculated:</strong><br>
-            EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.<br><br>
-            <strong>Estimating post-ODCV score:</strong>
-            <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
-            Lower EUI &rarr; higher percentile &rarr; higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.
-        </div>
-
-        <div class="footnote" id="fn8">
-            <span class="footnote-num">8</span>
             <strong>Energy Cost Formulas</strong><br>
             Utility rates from <a href="https://www.eia.gov/electricity/data/state/" class="source-link">EIA State Electricity Data</a> and <a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI Utility Rate Database</a>.<br><br>
             <strong>Electricity (two components):</strong>
@@ -697,6 +611,93 @@
             <div class="formula">Fuel_Oil_Cost = (kBtu ÷ 1000) × Rate_MMBtu × 1.10</div>
             Conversion: 1 MMBtu = 1,000 kBtu. 1.10× for delivery and taxes.
         </div>
+
+        <div class="footnote" id="fn3">
+            <span class="footnote-num">3</span>
+            <strong>HVAC Percentages</strong><br>
+            Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> national survey of 6,436 commercial buildings, cross-referenced by building type and climate zone.<br><br>
+            <strong>Adjustments applied to each building:</strong><br>
+            &bull; ENERGY STAR score: ±5% (efficient buildings use less HVAC share)<br>
+            &bull; Year built: ±4% (older buildings have less efficient envelopes)<br>
+            &bull; EUI vs peer median: ±6% (high-EUI buildings often have HVAC issues)<br>
+            &bull; Combined adjustment capped at ±12%<br><br>
+            <strong>Electric HVAC minimum: 15%</strong><br>
+            Ventilation fans (8-12%), chilled water pumps (2-4%), condenser pumps (1-3%), and controls (1-2%) run continuously regardless of occupancy.<br><br>
+            <strong>Special cases:</strong><br>
+            &bull; Hotels: Only 19.7% of gas &rarr; HVAC. The rest: 41.6% domestic hot water, 33.1% cooking.<br>
+            &bull; Restaurants: Only 17.6% of gas &rarr; HVAC. The rest: 72% commercial cooking.
+        </div>
+
+        <div class="footnote" id="fn4">
+            <span class="footnote-num">4</span>
+            <strong>Master Formula</strong>
+            <div class="formula">ODCV% = Floor + (Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
+            Where Range = Ceiling - Floor for each building type.<br><br>
+            <strong>Component breakdown:</strong><br>
+            &bull; <strong>Floor/Ceiling:</strong> Building-type-specific min/max savings (e.g., Office 20-40%, Hospital 5-15%)<br>
+            &bull; <strong>Opportunity:</strong> 0-1 score based on vacancy and utilization (see footnote 1)<br>
+            &bull; <strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1). Newer, larger buildings more likely to have BMS capable of implementing ODCV.<br>
+            &bull; <strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste to capture)<br>
+            &bull; <strong>Climate Modifier:</strong> 1.10 Northern (heating penalty), 1.05 North-Central, 1.00 South-Central, 0.95 Southern<br><br>
+            Example: Office (20-40% range), 59% opportunity, 0.875 automation, ES score 68 (1.0×), North-Central (1.05×):<br>
+            ODCV% = 20% + (59% × 0.875 × 20%) × 1.0 × 1.05 = 20% + 10.8% = 30.8%
+        </div>
+
+        <div class="footnote" id="fn5">
+            <span class="footnote-num">5</span>
+            <strong>Annual Savings</strong><br>
+            ODCV reduces energy consumption for each fuel type proportional to its HVAC share.<br><br>
+            <strong>Step 1: Calculate HVAC cost by fuel type</strong>
+            <div class="formula">Elec_HVAC_cost = Elec_cost × hvac_pct_elec</div>
+            <div class="formula">Gas_HVAC_cost = Gas_cost × hvac_pct_gas</div>
+            <div class="formula">Steam_HVAC_cost = Steam_cost × hvac_pct_steam</div>
+            <div class="formula">Total_HVAC_cost = Elec + Gas + Steam + Fuel_Oil</div>
+            <strong>Step 2: Apply ODCV savings percentage</strong>
+            <div class="formula">Annual_savings = Total_HVAC_cost × ODCV%</div>
+            Example: Building with $500K total energy, 45% to HVAC ($225K), 30% ODCV savings = $67,500/year.
+        </div>
+
+        <div class="footnote" id="fn6">
+            <span class="footnote-num">6</span>
+            <strong>BPS Fine Calculations</strong><br>
+            Each city calculates fines differently. ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines.<br><br>
+            <strong><a href="https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page" class="source-link">NYC Local Law 97</a>:</strong> $268/tCO2e over emissions cap (0.00758 tCO2e/sqft for office). Buildings exceeding cap pay per ton over.<br>
+            <strong><a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" class="source-link">Boston BERDO 2.0</a>:</strong> $234/tCO2e Alternative Compliance Payment over cap (0.0053 tCO2e/sqft).<br>
+            <strong>Cambridge BEUDO:</strong> $234/tCO2e, but target is 20% below building's own baseline (not fixed cap).<br>
+            <strong><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" class="source-link">DC BEPS</a>:</strong> Up to $10/sqft (max $7.5M), prorated by gap from ENERGY STAR target. Target varies by building type (Office: 71, Hotel: 54).<br>
+            <strong><a href="https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub" class="source-link">Denver Energize</a>:</strong> $0.15/kBtu over EUI target. Target follows glide path from 2019 baseline to 2032 final.<br>
+            <strong><a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards" class="source-link">Seattle BEPS</a>:</strong> $10/sqft per 5-year cycle if over 0.00081 tCO2e/sqft (binary: compliant or not).<br>
+            <strong>St. Louis BEPS:</strong> $500/day non-compliance if EUI exceeds ~65 kBtu/sqft target.<br><br>
+            <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
+            See <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.
+        </div>
+
+        <div class="footnote" id="fn7">
+            <span class="footnote-num">7</span>
+            <strong>Property Valuation (Income Capitalization)</strong><br>
+            Commercial real estate is valued on Net Operating Income (NOI). Every $1 of operating expense avoided increases NOI by $1, which increases property value via the capitalization rate.<br><br>
+            <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
+            <strong>Example:</strong> $100K annual savings ÷ 7% cap rate = $1.43M property value increase.<br><br>
+            <strong>Cap rate interpretation:</strong> Lower cap rates (5-6%) mean higher value multipliers (16-20×). Higher cap rates (8-10%) mean lower multipliers (10-12×). Riskier assets command higher cap rates.<br><br>
+            Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>, vary by metro and property type:<br>
+            &bull; Office: 5.0% &ndash; 10.2% (Class A urban to suburban)<br>
+            &bull; Hotel: 5.0% &ndash; 9.5%<br>
+            &bull; Retail: 5.0% &ndash; 9.0%<br>
+            &bull; Medical Office: 6.2% &ndash; 8.5%<br>
+            &bull; K-12/Hospital: 7.0% &ndash; 8.0%
+        </div>
+
+        <div class="footnote" id="fn8">
+            <span class="footnote-num">8</span>
+            <strong>ENERGY STAR Score Improvement</strong><br>
+            <a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; higher is better (75+ qualifies for certification).<br><br>
+            <strong>How scores are calculated:</strong><br>
+            EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.<br><br>
+            <strong>Estimating post-ODCV score:</strong>
+            <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
+            Lower EUI &rarr; higher percentile &rarr; higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.
+        </div>
+
     </div>
 
 </main>
