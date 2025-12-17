@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-17 13:05:21 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-17 13:52:58 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -3675,7 +3675,7 @@ tr.pin-highlight {
         <div class="building-rows-container"></div>
     </div>
 </div>
-<div class="portfolio-card" data-idx="9" data-org="Brookfield" data-displayname="Brookfield" data-verticals="Commercial,Healthcare" data-cities="2525 El Camino Real,Bakersfield,Boston,Chicago,Denver,Kansas City,Los Angeles,Marina Del Rey,Montclair,New York,Orlando,Portland,Rancho Cucamonga,Riverside,San Francisco,Santa Rosa,Seattle,Temecula,Torrance,Visalia,Washington" data-types="Hotel,Mall,Medical Office,Mixed Use,Office,Retail,Venue" data-radio-types="Hotel,Mall,Medical Office,Mixed Use,Office,Retail,Venue" data-tenants="AMC Entertainment Holdings, Inc. (AMC),Accenture,Amazon,American Express,American Investment Council,American Realty Advisors,Army Navy Club,Arpc,Aspen Specialty Insurance Co.,Australian Consulate,Bank of America,Bank of New York,Blue Cross Blue Shield Association,Bny Mellon,Boqueria Penn Quarter,Box Office,Brookfield,Bryan Cave Leighton Paisner LLP,CBRE Group (CBRE),CME Group,California Market Center,Caplin &amp; Drysdale, Chartered,CenturyLink Communications, LLC,Clark Hill,Cleary Gottlieb,Clutch,Consulate General Of Ireland,Consulate-General Of Japan,Costco,Cravath, Swaine &amp; Moore LLP,Cushman &amp; Wakefield,Dillard&#x27;s,Dupont Medical NW,Elliott Management Corporation,Engine.Com - Corporate Travel Agency,Ernst &amp; Young,FIGat7th,Fannie Mae,Financial Industry Regulatory Authority, Inc.,Gap INC.,General Services Administration (GSA),H Mart Long Island City,Harriett Buhai Center For Family Law,Holland &amp; Knight LLP,Hyatt,JPMorgan Chase (JPM),John Gore Organization,Johns Manville Corporation,LACWKRR,Landmark Holdings INC,Law Offices Of Varun Luthra,Macy&#x27;s,Mass Injury Group Injury And Accident Attorneys,Morgan Stanley,Myeyedr.,National Grid,New York Times,New York University (NYU),Nuclear Energy Institute,One Jeanswear Group,Pendry Hotels,Pension Denefit Guaranty,People Inc.,Perch,Perkins Coie,PwC,Rights Protection Law Group, Pllc,Roots,TIAA,Target,The Los Angeles Clippers,The Wound Pros,Thumbtack, INC.,US Bank,Victoria Gardens,Wells Fargo,Wework" data-sub-orgs="Hyatt Regency" data-buildings="115" data-total-buildings="115" data-sqft="89852970.854" data-eui="48.2138424" data-eui-rating="good" data-opex="62480787.61" data-valuation="868219979.6192908" data-carbon="51093.78770171706" data-classification="owner/operator">
+<div class="portfolio-card" data-idx="9" data-org="Brookfield" data-displayname="Brookfield" data-verticals="Commercial,Healthcare" data-cities="2525 El Camino Real,Bakersfield,Boston,Chicago,Denver,Kansas City,Los Angeles,Marina Del Rey,Montclair,New York,Orlando,Portland,Rancho Cucamonga,Riverside,San Francisco,Santa Rosa,Seattle,Temecula,Torrance,Visalia,Washington" data-types="Hotel,Mall,Medical Office,Mixed Use,Office,Retail,Venue" data-radio-types="Hotel,Mall,Medical Office,Mixed Use,Office,Retail,Venue" data-tenants="AMC Entertainment Holdings, Inc. (AMC),Accenture,Amazon,American Express,American Investment Council,American Realty Advisors,Army Navy Club,Arpc,Aspen Specialty Insurance Co.,Australian Consulate,Bank of America,Bank of New York,Blue Cross Blue Shield Association,Bny Mellon,Boqueria Penn Quarter,Box Office,Brookfield,Bryan Cave Leighton Paisner LLP,CBRE Group (CBRE),CME Group,California Market Center,Caplin &amp; Drysdale, Chartered,CenturyLink Communications, LLC,Clark Hill,Cleary Gottlieb,Clutch,Consulate General Of Ireland,Consulate-General Of Japan,Costco,Cravath, Swaine &amp; Moore LLP,Cushman &amp; Wakefield,Dillard&#x27;s,Dupont Medical NW,Elliott Management Corporation,Engine.Com - Corporate Travel Agency,Ernst &amp; Young,FIGat7th,Fannie Mae,Financial Industry Regulatory Authority, Inc.,Gap INC.,General Services Administration (GSA),H Mart Long Island City,Harriett Buhai Center For Family Law,Holland &amp; Knight LLP,Hyatt,JPMorgan Chase (JPM),John Gore Organization,Johns Manville Corporation,LACWKRR,Landmark Holdings INC,Law Offices Of Varun Luthra,Macy&#x27;s,Mass Injury Group Injury And Accident Attorneys,Morgan Stanley,Myeyedr.,National Grid,New York Times,New York University (NYU),Nuclear Energy Institute,One Jeanswear Group,Pendry Hotels,Pension Denefit Guaranty,People Inc.,Perch,Perkins Coie,PwC,Rights Protection Law Group, Pllc,Roots,TIAA,Target,The Los Angeles Clippers,The Wound Pros,Thumbtack, INC.,US Bank,Victoria Gardens,Wells Fargo,Wework" data-sub-orgs="Hyatt Regency" data-buildings="115" data-total-buildings="115" data-sqft="89852970.854" data-eui="48.2138424" data-eui-rating="good" data-opex="62469198.38" data-valuation="868054419.1792908" data-carbon="51086.077601717065" data-classification="owner/operator">
     <div class="portfolio-header" onclick="togglePortfolio(this)">
         <div class="org-logo-stack">
             <span class="org-name-small" title="Brookfield">Brookfield</span>
@@ -3686,7 +3686,7 @@ tr.pin-highlight {
         <span class="stat-cell sqft-value">89.9M</span>
         <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio"><span class="eui-good">48 (Good)</span></span>
         <span class="stat-cell carbon-value">51.1K</span>
-        <span class="stat-cell valuation-value">$868.2M</span>
+        <span class="stat-cell valuation-value">$868.1M</span>
         <span class="stat-cell opex-value">$62.5M</span>
     </div>
     <div class="portfolio-buildings">
@@ -5800,6 +5800,7 @@ function escapeHtml(str) {
 
 let activeVertical = 'all';
 let selectedBuildingType = null;
+let activeEuiFilter = 'all';  // EUI filter state for building rows
 let mapUpdateTimeout = null;
 let isInitialDataLoaded = false;  // Guards against race condition with EXPORT_DATA
 let pendingFilterUpdate = false;   // Defers filter if data not yet loaded
@@ -6814,11 +6815,11 @@ function clearEuiFilter() {
     document.querySelectorAll('#euiFilterDropdown input[name="eui-filter"]').forEach(r => r.checked = false);
     const wrapper = document.getElementById('euiFilterWrapper');
     if (wrapper) wrapper.classList.remove('filtering');
-    // Re-show all building rows in expanded portfolio
+    // Reset global filter and re-render
+    activeEuiFilter = 'all';
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (expanded) {
-        // FIXED: Use .hidden class instead of style.display for consistency
-        expanded.querySelectorAll('.building-grid-row').forEach(row => row.classList.remove('hidden'));
+        loadPortfolioRows(expanded, true);
     }
 }
 
@@ -6832,12 +6833,12 @@ function toggleEuiAll(checkbox) {
 
 function applyEuiFilter() {
     const selected = document.querySelector('#euiFilterDropdown input[name="eui-filter"]:checked');
-    const activeEui = selected ? selected.dataset.eui : 'all';
+    activeEuiFilter = selected ? selected.dataset.eui : 'all';
 
     // Update filter indicator
     const wrapper = document.getElementById('euiFilterWrapper');
     if (wrapper) {
-        if (activeEui === 'all') {
+        if (activeEuiFilter === 'all') {
             wrapper.classList.remove('filtering');
         } else {
             wrapper.classList.add('filtering');
@@ -6849,19 +6850,10 @@ function applyEuiFilter() {
     if (dropdown) dropdown.classList.remove('show');
     if (wrapper) wrapper.classList.remove('active');
 
-    // Filter building rows ONLY in the currently expanded portfolio
+    // Re-render building rows with EUI filter applied to DATA
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (!expanded) return;
-
-    // FIXED: Use .hidden class instead of style.display for consistency
-    expanded.querySelectorAll('.building-grid-row').forEach(row => {
-        const euiRating = row.dataset.euiRating || 'ok';
-        if (activeEui === 'all' || activeEui === euiRating) {
-            row.classList.remove('hidden');
-        } else {
-            row.classList.add('hidden');
-        }
-    });
+    loadPortfolioRows(expanded, true);
 }
 
 // Close EUI filter dropdown when clicking outside
@@ -7916,11 +7908,24 @@ function loadPortfolioRows(card, loadMore = false) {
     if (activeVertical && activeVertical !== 'all') {
         buildings = buildings.filter(b => b.vertical === activeVertical);
     }
+    // Filter by EUI rating if active
+    if (activeEuiFilter && activeEuiFilter !== 'all') {
+        buildings = buildings.filter(b => {
+            let rating = 'ok';
+            if (b.eui && b.eui_benchmark && b.eui_benchmark > 0) {
+                const ratio = b.eui / b.eui_benchmark;
+                if (ratio <= 1.0) rating = 'good';
+                else if (ratio <= 1.2) rating = 'ok';
+                else rating = 'bad';
+            }
+            return rating === activeEuiFilter;
+        });
+    }
     // NOTE: globalQuery filters PORTFOLIOS not buildings - don't filter here
 
     if (!buildings.length) {
         // Show helpful message instead of empty space
-        const filterMsg = selectedBuildingType || (activeVertical && activeVertical !== 'all')
+        const filterMsg = selectedBuildingType || (activeVertical && activeVertical !== 'all') || (activeEuiFilter && activeEuiFilter !== 'all')
             ? 'No buildings match the current filters'
             : 'No buildings in this portfolio';
         container.innerHTML = `<div style="padding:24px;text-align:center;color:#666;font-style:italic;background:#f9f9f9;border-radius:4px;margin:8px 0">${filterMsg}</div>`;
@@ -7985,19 +7990,24 @@ function loadPortfolioRows(card, loadMore = false) {
 
     // Sort header for building rows (only shown inside expanded portfolio)
     const orgName = card.dataset.displayname || card.dataset.org || '';
+    // Build EUI filter with current state preserved
+    const euiFilteringClass = (activeEuiFilter && activeEuiFilter !== 'all') ? ' filtering' : '';
+    const euiBadChecked = activeEuiFilter === 'bad' ? ' checked' : '';
+    const euiOkChecked = activeEuiFilter === 'ok' ? ' checked' : '';
+    const euiGoodChecked = activeEuiFilter === 'good' ? ' checked' : '';
     const sortHeader = `<div class="building-sort-header">
         <span class="l2-org-name">${orgName}</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'address')">Building</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'type')">Type</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'sqft')">Sq Ft</span>
-        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper">
+        <div class="sort-col eui-filter-wrapper${euiFilteringClass}" id="euiFilterWrapper">
             <span onclick="event.stopPropagation(); sortBuildingRows(this, 'eui')" style="cursor:pointer">EUI</span>
             <span class="eui-active-indicator" onclick="event.stopPropagation(); clearEuiFilter()">×</span>
             <svg class="eui-filter-icon" onclick="event.stopPropagation(); toggleEuiFilter(event)" style="cursor:pointer" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"> Bad</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"> OK</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"> Good</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"${euiBadChecked}> Bad</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"${euiOkChecked}> OK</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"${euiGoodChecked}> Good</label>
             </div>
         </div>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'carbon')">tCO2e/yr</span>
@@ -8694,7 +8704,7 @@ function logResponsiveDiagnostics() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-17 13:05:21 EST
+        Build: 2025-12-17 13:52:58 EST
       </div>
     </footer>
 
@@ -8868,7 +8878,7 @@ function logResponsiveDiagnostics() {
     }
 
     function showBuildDate() {
-        alert("Build: 12/17/2025 10:05 AM PST");
+        alert("Build: 12/17/2025 10:52 AM PST");
     }
 
     // Check auth on page load

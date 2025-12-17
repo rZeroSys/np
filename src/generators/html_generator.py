@@ -5092,6 +5092,7 @@ function escapeHtml(str) {{
 
 let activeVertical = 'all';
 let selectedBuildingType = null;
+let activeEuiFilter = 'all';  // EUI filter state for building rows
 let mapUpdateTimeout = null;
 let isInitialDataLoaded = false;  // Guards against race condition with EXPORT_DATA
 let pendingFilterUpdate = false;   // Defers filter if data not yet loaded
@@ -6106,11 +6107,11 @@ function clearEuiFilter() {{
     document.querySelectorAll('#euiFilterDropdown input[name="eui-filter"]').forEach(r => r.checked = false);
     const wrapper = document.getElementById('euiFilterWrapper');
     if (wrapper) wrapper.classList.remove('filtering');
-    // Re-show all building rows in expanded portfolio
+    // Reset global filter and re-render
+    activeEuiFilter = 'all';
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (expanded) {{
-        // FIXED: Use .hidden class instead of style.display for consistency
-        expanded.querySelectorAll('.building-grid-row').forEach(row => row.classList.remove('hidden'));
+        loadPortfolioRows(expanded, true);
     }}
 }}
 
@@ -6124,12 +6125,12 @@ function toggleEuiAll(checkbox) {{
 
 function applyEuiFilter() {{
     const selected = document.querySelector('#euiFilterDropdown input[name="eui-filter"]:checked');
-    const activeEui = selected ? selected.dataset.eui : 'all';
+    activeEuiFilter = selected ? selected.dataset.eui : 'all';
 
     // Update filter indicator
     const wrapper = document.getElementById('euiFilterWrapper');
     if (wrapper) {{
-        if (activeEui === 'all') {{
+        if (activeEuiFilter === 'all') {{
             wrapper.classList.remove('filtering');
         }} else {{
             wrapper.classList.add('filtering');
@@ -6141,19 +6142,10 @@ function applyEuiFilter() {{
     if (dropdown) dropdown.classList.remove('show');
     if (wrapper) wrapper.classList.remove('active');
 
-    // Filter building rows ONLY in the currently expanded portfolio
+    // Re-render building rows with EUI filter applied to DATA
     const expanded = document.querySelector('.portfolio-card.expanded');
     if (!expanded) return;
-
-    // FIXED: Use .hidden class instead of style.display for consistency
-    expanded.querySelectorAll('.building-grid-row').forEach(row => {{
-        const euiRating = row.dataset.euiRating || 'ok';
-        if (activeEui === 'all' || activeEui === euiRating) {{
-            row.classList.remove('hidden');
-        }} else {{
-            row.classList.add('hidden');
-        }}
-    }});
+    loadPortfolioRows(expanded, true);
 }}
 
 // Close EUI filter dropdown when clicking outside
@@ -7208,11 +7200,24 @@ function loadPortfolioRows(card, loadMore = false) {{
     if (activeVertical && activeVertical !== 'all') {{
         buildings = buildings.filter(b => b.vertical === activeVertical);
     }}
+    // Filter by EUI rating if active
+    if (activeEuiFilter && activeEuiFilter !== 'all') {{
+        buildings = buildings.filter(b => {{
+            let rating = 'ok';
+            if (b.eui && b.eui_benchmark && b.eui_benchmark > 0) {{
+                const ratio = b.eui / b.eui_benchmark;
+                if (ratio <= 1.0) rating = 'good';
+                else if (ratio <= 1.2) rating = 'ok';
+                else rating = 'bad';
+            }}
+            return rating === activeEuiFilter;
+        }});
+    }}
     // NOTE: globalQuery filters PORTFOLIOS not buildings - don't filter here
 
     if (!buildings.length) {{
         // Show helpful message instead of empty space
-        const filterMsg = selectedBuildingType || (activeVertical && activeVertical !== 'all')
+        const filterMsg = selectedBuildingType || (activeVertical && activeVertical !== 'all') || (activeEuiFilter && activeEuiFilter !== 'all')
             ? 'No buildings match the current filters'
             : 'No buildings in this portfolio';
         container.innerHTML = `<div style="padding:24px;text-align:center;color:#666;font-style:italic;background:#f9f9f9;border-radius:4px;margin:8px 0">${{filterMsg}}</div>`;
@@ -7277,19 +7282,24 @@ function loadPortfolioRows(card, loadMore = false) {{
 
     // Sort header for building rows (only shown inside expanded portfolio)
     const orgName = card.dataset.displayname || card.dataset.org || '';
+    // Build EUI filter with current state preserved
+    const euiFilteringClass = (activeEuiFilter && activeEuiFilter !== 'all') ? ' filtering' : '';
+    const euiBadChecked = activeEuiFilter === 'bad' ? ' checked' : '';
+    const euiOkChecked = activeEuiFilter === 'ok' ? ' checked' : '';
+    const euiGoodChecked = activeEuiFilter === 'good' ? ' checked' : '';
     const sortHeader = `<div class="building-sort-header">
         <span class="l2-org-name">${{orgName}}</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'address')">Building</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'type')">Type</span>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'sqft')">Sq Ft</span>
-        <div class="sort-col eui-filter-wrapper" id="euiFilterWrapper">
+        <div class="sort-col eui-filter-wrapper${{euiFilteringClass}}" id="euiFilterWrapper">
             <span onclick="event.stopPropagation(); sortBuildingRows(this, 'eui')" style="cursor:pointer">EUI</span>
             <span class="eui-active-indicator" onclick="event.stopPropagation(); clearEuiFilter()">×</span>
             <svg class="eui-filter-icon" onclick="event.stopPropagation(); toggleEuiFilter(event)" style="cursor:pointer" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             <div class="eui-filter-dropdown" id="euiFilterDropdown" onclick="event.stopPropagation()">
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"> Bad</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"> OK</label>
-                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"> Good</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="bad" onchange="applyEuiFilter()"${{euiBadChecked}}> Bad</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="ok" onchange="applyEuiFilter()"${{euiOkChecked}}> OK</label>
+                <label class="eui-filter-option"><input type="radio" name="eui-filter" data-eui="good" onchange="applyEuiFilter()"${{euiGoodChecked}}> Good</label>
             </div>
         </div>
         <span class="sort-col" onclick="event.stopPropagation(); sortBuildingRows(this, 'carbon')">tCO2e/yr</span>
