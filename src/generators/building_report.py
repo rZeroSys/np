@@ -6,14 +6,13 @@ Simply displays the data we have, no bullshit explanations.
 import pandas as pd
 import sys
 import os
-import traceback
 import subprocess
 import math
 from pathlib import Path
 from datetime import datetime
 import pytz
 import time
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
 
 # NYC special buildings - use NYC building.py for these
@@ -849,86 +848,6 @@ def safe_val(row, column, default=''):
 # DYNAMIC TOOLTIP FUNCTIONS
 #===============================================================================
 
-def get_law_name(row):
-    """Get the energy disclosure law name for this building's city."""
-    city = safe_val(row, 'loc_city', '')
-    state = safe_val(row, 'loc_state', '')
-
-    # Check for exact city match
-    if city in CITY_DISCLOSURE_LAWS:
-        return CITY_DISCLOSURE_LAWS[city]
-
-    # California default
-    if state == 'CA':
-        return CITY_DISCLOSURE_LAWS['default_ca']
-
-    # Generic fallback
-    return 'energy disclosure'
-
-def get_automation_score(year_built, sqft):
-    """Calculate automation score from year built and sqft."""
-    # Year score
-    if not year_built or year_built < 1970:
-        year_score = 0.0
-    elif year_built < 1990:
-        year_score = 0.25
-    elif year_built < 2005:
-        year_score = 0.50
-    elif year_built < 2015:
-        year_score = 0.75
-    else:
-        year_score = 1.0
-
-    # Size score
-    if not sqft or sqft < 50000:
-        size_score = 0.25
-    elif sqft < 100000:
-        size_score = 0.50
-    elif sqft < 250000:
-        size_score = 0.75
-    else:
-        size_score = 1.0
-
-    return (year_score + size_score) / 2.0
-
-def get_efficiency_modifier(energy_star, eui, benchmark):
-    """Calculate efficiency modifier from Energy Star or EUI ratio."""
-    if energy_star:
-        if energy_star >= 90:
-            return 0.85, "very efficient"
-        elif energy_star >= 75:
-            return 0.95, "efficient"
-        elif energy_star >= 50:
-            return 1.00, "average"
-        elif energy_star >= 25:
-            return 1.05, "below avg"
-        else:
-            return 1.10, "inefficient"
-    elif eui and benchmark and benchmark > 0:
-        ratio = eui / benchmark
-        if ratio > 1.5:
-            return 1.10, "high EUI"
-        elif ratio > 1.2:
-            return 1.05, "above avg EUI"
-        elif ratio > 0.85:
-            return 1.00, "avg EUI"
-        elif ratio > 0.70:
-            return 0.95, "below avg EUI"
-        else:
-            return 0.90, "low EUI"
-    return 1.00, "default"
-
-def get_climate_modifier(climate_zone):
-    """Get climate modifier from zone."""
-    zone = str(climate_zone).lower() if climate_zone else ''
-    if 'cold' in zone or 'very cold' in zone:
-        return 1.10, "Cold"
-    elif 'mixed' in zone:
-        return 1.05, "Mixed"
-    elif 'hot' in zone or 'warm' in zone:
-        return 0.95, "Hot"
-    return 1.00, "Moderate"
-
 def get_odcv_savings_tooltip(row):
     """Dynamic ODCV opportunity explanation by building type.
 
@@ -1029,28 +948,6 @@ def get_energy_star_tooltip(row):
     return (f"Based on building type, ENERGY STAR® ranks this {bldg_type.lower()} against similar buildings nationwide using source energy (not site energy), "
             "normalized for weather and operating hours. Score of 75+ qualifies for EPA certification. "
             "Post-ODCV scores estimated by modeling how HVAC savings reduce source energy use. (EPA Portfolio Manager)")
-
-def get_energy_star_threshold_upgrade(current, post):
-    """Return upgrade message if post-ODCV score crosses certification threshold."""
-    if current is None or post is None:
-        return None
-    # Certification threshold (75)
-    if current < 75 and post >= 75:
-        return ('<span style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;'
-                'border:1px solid #86efac;border-radius:4px;padding:4px 8px;margin-top:6px;font-size:0.8em;">'
-                '<img src="../assets/images/energy_star_certified_building.png" alt="ENERGY STAR" '
-                'style="width:32px;height:auto;">'
-                '<span style="color:#15803d;">ODCV would make the difference between ENERGY STAR eligibility and ineligibility. '
-                '<a href="https://www.energystar.gov/buildings/building-recognition/building-certification" '
-                'target="_blank" style="color:#0891b2;">Learn more</a></span>'
-                '</span>')
-    # Median threshold (50)
-    if current < 50 and post >= 50:
-        return ('<div style="background:#f0f9ff;border:1px solid #0891b2;border-radius:6px;'
-                'padding:8px 12px;margin-top:8px;font-size:0.85em;">'
-                '<strong style="color:#0891b2;">↑ Above National Median</strong><br>'
-                '<span style="color:#374151;font-size:0.9em;">Your building would outperform the typical building in its class.</span></div>')
-    return None
 
 def get_electricity_kwh_tooltip(row):
     """ROW tooltip - static per building type, with data year."""
@@ -1761,7 +1658,7 @@ def generate_building_info(row):
     if utility and str(utility).lower() not in ['nan', '', 'none']:
         utility_logo_url = UTILITY_LOGOS.get(utility, '')
         if utility_logo_url:
-            html += f'<tr><td>Utility</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:24px;max-width:80px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>\n'
+            html += f'<tr><td>Utility</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>\n'
         else:
             html += f"<tr><td>Utility</td><td>⚡ {escape(utility)}</td></tr>\n"
 
@@ -1870,64 +1767,6 @@ def generate_energy_use(row):
 """
 
     html += """
-    </div>
-"""
-    return html
-
-def generate_electricity_details(row):
-    """Electricity cost breakdown"""
-    html = """
-    <div class="section">
-        <h2>Electricity Details</h2>
-        <table>
-"""
-
-    # Total cost
-    total_cost = safe_num(row, 'cost_elec_total_annual')
-    if total_cost:
-        html += f"<tr><td>Total Annual Cost</td><td>{format_currency(total_cost)}</td></tr>"
-
-    # Energy charges
-    energy_cost = safe_num(row, 'cost_elec_energy_annual')
-    if energy_cost:
-        html += f"<tr><td>Energy Charges</td><td>{format_currency(energy_cost)}</td></tr>"
-
-    # Demand charges
-    demand_cost = safe_num(row, 'cost_elec_demand_annual')
-    if demand_cost:
-        html += f"<tr><td>Demand Charges</td><td>{format_currency(demand_cost)}</td></tr>"
-
-    # Energy rate
-    energy_rate = safe_num(row, 'cost_elec_rate_kwh')
-    if energy_rate:
-        html += f"<tr><td>Energy Rate{tooltip('energy_rate', row)}</td><td>${energy_rate:.4f}/kWh</td></tr>"
-
-    # Demand rate
-    demand_rate = safe_num(row, 'cost_elec_rate_demand_kw')
-    if demand_rate:
-        html += f"<tr><td>Demand Rate{tooltip('demand_rate', row)}</td><td>${demand_rate:.2f}/kW</td></tr>"
-
-    # Peak demand
-    peak_kw = safe_num(row, 'cost_elec_peak_kw')
-    if peak_kw:
-        html += f"<tr><td>Peak Demand{tooltip('peak_demand', row)}</td><td>{format_number(peak_kw)} kW</td></tr>"
-
-    # Load factor
-    load_factor = safe_num(row, 'cost_elec_load_factor')
-    if load_factor:
-        html += f"<tr><td>Load Factor{tooltip('load_factor', row)}</td><td>{load_factor*100:.1f}%</td></tr>"
-
-    # Utility
-    utility = safe_val(row, 'cost_utility_name')
-    if utility:
-        utility_logo_url = UTILITY_LOGOS.get(utility, '')
-        if utility_logo_url:
-            html += f'<tr><td>Utility Provider{tooltip("utility_provider")}</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:24px;max-width:80px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>'
-        else:
-            html += f"<tr><td>Utility Provider{tooltip('utility_provider')}</td><td>⚡ {escape(utility)}</td></tr>"
-
-    html += """
-        </table>
     </div>
 """
     return html
