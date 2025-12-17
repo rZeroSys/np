@@ -109,7 +109,7 @@ This document defines all 70 columns in `portfolio_data.csv`, organized by categ
 | `cost_gas_annual` | Annual natural gas cost in USD |
 | `cost_steam_rate_mlb` | District steam rate in dollars per thousand pounds |
 | `cost_steam_annual` | Annual district steam cost in USD |
-| `cost_fuel_oil_rate_gal` | Fuel oil rate in dollars per gallon |
+| `cost_fuel_oil_rate_mmbtu` | Fuel oil rate in dollars per MMBtu |
 | `cost_fuel_oil_annual` | Annual fuel oil cost in USD |
 | `cost_utility_name` | Name of electric utility used for rate lookup |
 | `cost_calc_notes` | Notes on how costs were calculated or estimated |
