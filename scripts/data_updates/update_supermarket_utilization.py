@@ -130,7 +130,7 @@ def update_supermarket_utilization():
     default_used = 0
 
     # Get Supermarket/Grocery buildings only
-    grocery_mask = df['bldg_type'] == 'Supermarket/Grocery'
+    grocery_mask = df['bldg_type'] == 'Supermarket'
     print(f"Found {grocery_mask.sum()} Supermarket/Grocery buildings")
 
     for idx in df[grocery_mask].index:

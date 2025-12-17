@@ -221,8 +221,8 @@ BPS_TOOLTIP_INFO = {
 USES_VACANCY_FORMULA = ['Office', 'Medical Office', 'Mixed Use', 'Strip Mall']
 
 SINGLE_TENANT_TYPES = [
-    'K-12 School', 'Higher Ed', 'Preschool/Daycare', 'Retail Store',
-    'Supermarket/Grocery', 'Wholesale Club', 'Enclosed Mall', 'Hotel',
+    'K-12 School', 'Higher Ed', 'Preschool/Daycare', 'Retail',
+    'Supermarket', 'Wholesale Club', 'Mall', 'Hotel',
     'Restaurant/Bar', 'Gym', 'Event Space', 'Theater', 'Library/Museum',
     'Bank Branch', 'Vehicle Dealership', 'Courthouse', 'Outpatient Clinic',
     'Sports/Gaming Center'
@@ -315,7 +315,7 @@ BUILDING_TYPE_INFO = {
         'demand_rate_typical': 28.7,
         'explanation': 'Room-level variability: 60-80% occupancy typical, plus guests out during day. Note: Only 20% of gas goes to HVAC (rest is hot water 42%, cooking 33%).'
     },
-    'Retail Store': {
+    'Retail': {
         'category': 'Single-Tenant',
         'floor': 0.15, 'ceiling': 0.35,
         'uses_vacancy': False,
@@ -326,7 +326,7 @@ BUILDING_TYPE_INFO = {
         'demand_rate_typical': 35.0,
         'explanation': 'Significant intra-day variability: opening/closing with staff only, mid-morning lulls, lunch/evening rushes. Opportunity comes from modulating to actual customer traffic.'
     },
-    'Supermarket/Grocery': {
+    'Supermarket': {
         'category': 'Single-Tenant',
         'floor': 0.10, 'ceiling': 0.25,
         'uses_vacancy': False,
@@ -510,7 +510,7 @@ BUILDING_TYPE_ENERGY_NOTES = {
         'gas_note': "Only 18% of gas is HVAC. Kitchen cooking consumes 72% of natural gas.",
         'load_factor_note': "Peak demand during meal rushes. Kitchen equipment draws constant power.",
     },
-    'Supermarket/Grocery': {
+    'Supermarket': {
         'elec_note': "Only 32% of electricity is HVAC. ~40% is refrigeration for food cases and freezers.",
         'gas_note': "75% of gas used for HVAC - higher than average due to makeup air for exhaust.",
         'load_factor_note': "High load factor (65%) from continuous refrigeration systems running 24/7.",
@@ -540,7 +540,7 @@ BUILDING_TYPE_ENERGY_NOTES = {
         'gas_note': "85% of gas is HVAC. Medical sterilization and DHW use the remaining 15%.",
         'load_factor_note': "Moderate load factor (45%) - appointment-based occupancy with evening/weekend closures.",
     },
-    'Retail Store': {
+    'Retail': {
         'elec_note': "56% of electricity is HVAC. Open floor plans require high airflow for customer comfort.",
         'gas_note': "78% of gas is HVAC. Retail has minimal cooking or process loads.",
         'load_factor_note': "Moderate load factor (40%) - peaks during shopping hours, low overnight.",
@@ -581,7 +581,7 @@ BUILDING_TYPE_STORIES = {
 
     'K-12 School': "Schools operate roughly 180 days per year, 7 hours per day—just 22-28% of annual hours depending on state. We calculate utilization using NCES instructional day requirements and state-level data on year-round school adoption. California schools (more year-round programs) run 28% utilization; Minnesota schools (traditional calendar, harsh winters) run 21%. Buildings empty 72-80% of the time.",
 
-    'Retail Store': "Stores are built for peak crowds but average 35-45% capacity: slow mornings at 15-20%, lunch and evening rushes at 60-80%, overnight at zero. Urban locations with steadier foot traffic (NYC ~45%) show less savings than suburban stores with sharper peaks and valleys (~35%). The opportunity is in not ventilating for a full store during slow periods.",
+    'Retail': "Stores are built for peak crowds but average 35-45% capacity: slow mornings at 15-20%, lunch and evening rushes at 60-80%, overnight at zero. Urban locations with steadier foot traffic (NYC ~45%) show less savings than suburban stores with sharper peaks and valleys (~35%). The opportunity is in not ventilating for a full store during slow periods.",
 
     'Higher Ed': "Universities have extreme schedule-driven vacancy: only ~32 weeks in session per year, and during those weeks classrooms average just 35% utilization—most rooms sit empty between classes. Total building utilization runs 24-30% depending on academic calendar. Buildings empty 70-76% of the time.",
 
@@ -589,7 +589,7 @@ BUILDING_TYPE_STORIES = {
 
     'Medical Office': "Medical offices have just 9.5% vacancy (vs 20%+ for regular offices), but exam rooms are only occupied 25-35% of operating hours—patients are there for 15-30 minute appointments, then the room sits empty until the next one. (CBRE 2024-2025, MGMA)",
 
-    'Supermarket/Grocery': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design.",
+    'Supermarket': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design.",
 
     'Specialty Hospital': "Specialty hospitals run 24/7 with 65-80% bed occupancy (AHA data). Limited opportunity in patient areas, but admin offices, waiting rooms, and cafeterias have variable occupancy—especially off-hours.",
 
@@ -609,7 +609,7 @@ BUILDING_TYPE_STORIES = {
 
     'Outpatient Clinic': "Providers see 20-25 patients per day across 6-8 exam rooms—each room is occupied just 25-35% of operating hours. Between appointments, rooms sit empty. Weighted building utilization runs 42-48%.",
 
-    'Enclosed Mall': "Enclosed malls face both vacancy and traffic challenges—inline store vacancy runs 15-30% as anchor stores close. Weekday morning traffic runs 10-20% of design, weekend afternoons hit 60-80%. Common areas get fully conditioned regardless of whether 100 or 1,000 shoppers are present. Weighted utilization runs 35-45%.",
+    'Mall': "Enclosed malls face both vacancy and traffic challenges—inline store vacancy runs 15-30% as anchor stores close. Weekday morning traffic runs 10-20% of design, weekend afternoons hit 60-80%. Common areas get fully conditioned regardless of whether 100 or 1,000 shoppers are present. Weighted utilization runs 35-45%.",
 
     'Data Center': "Data centers have zero ODCV savings. Cooling is driven by server heat loads, not people—a data center with 2 people or 20 requires the same cooling. No opportunity to reduce based on human presence.",
 
@@ -652,8 +652,8 @@ NEW_COLUMN_SOURCES = {
     'Hotel': "HVAC reduced using CBECS 2018 fuel splits, STR room occupancy data, guest presence patterns.",
     'K-12 School': "HVAC reduced using CBECS 2018 fuel splits, NCES instructional day requirements, state calendar data.",
     'Higher Ed': "HVAC reduced using CBECS 2018 fuel splits, NCES data, semester and break schedules.",
-    'Retail Store': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
-    'Supermarket/Grocery': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
+    'Retail': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
+    'Supermarket': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
     'Restaurant/Bar': "HVAC reduced using CBECS 2018 fuel splits, meal-time traffic patterns.",
     'Inpatient Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
     'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
@@ -667,7 +667,7 @@ NEW_COLUMN_SOURCES = {
     'Library/Museum': "HVAC reduced using visitor traffic data, operating hours patterns.",
     'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, MGMA provider productivity benchmarks.",
     'Bank Branch': "HVAC reduced using FDIC transaction trends, branch traffic patterns.",
-    'Enclosed Mall': "HVAC reduced using ICSC traffic data, inline vacancy rates.",
+    'Mall': "HVAC reduced using ICSC traffic data, inline vacancy rates.",
     'Strip Mall': "HVAC reduced using CBRE vacancy, retail traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
     'Vehicle Dealership': "HVAC reduced using NADA traffic data, showroom vs service bay weighting.",
@@ -686,8 +686,8 @@ CHANGE_COLUMN_INSIGHTS = {
     'Hotel': "Most hotel rooms sit empty—national average is just 63% occupied. Even booked rooms are empty most of the day while guests are out at meetings, sightseeing, or meals. HVAC conditions empty rooms around the clock. (CBECS 2018, STR)",
     'K-12 School': "Schools are empty most of the year—summers off, weekends, holidays, and after 3pm daily. Buildings ventilate for students who aren't there 70-80% of the time. (CBECS 2018, NCES)",
     'Higher Ed': "Classrooms sit empty most of the year—semester breaks, weekends, summers, and between classes. Even when school's in session, most rooms are unused. (CBECS 2018, NCES)",
-    'Retail Store': "Stores are built to handle Black Friday crowds, but most of the day they're nearly empty—slow mornings, quiet afternoons, closed overnight. HVAC runs as if the store were packed. (CBECS 2018)",
-    'Supermarket/Grocery': "Supermarkets run long hours with steadier traffic than most retail, but still swing between busy evenings and empty early mornings. (CBECS 2018)",
+    'Retail': "Stores are built to handle Black Friday crowds, but most of the day they're nearly empty—slow mornings, quiet afternoons, closed overnight. HVAC runs as if the store were packed. (CBECS 2018)",
+    'Supermarket': "Supermarkets run long hours with steadier traffic than most retail, but still swing between busy evenings and empty early mornings. (CBECS 2018)",
     'Restaurant/Bar': "Dining rooms are packed at meal times but empty the rest of the day—lunch rush, dinner rush, then dead time between and overnight. (CBECS 2018)",
     'Inpatient Hospital': "Hospitals run 24/7, but admin offices, waiting rooms, and cafeterias empty at night while patient areas stay occupied. (CBECS 2018, AHA)",
     'Specialty Hospital': "Specialty hospitals run 24/7, but non-clinical spaces like admin and waiting rooms empty during off-hours. (CBECS 2018, AHA)",
@@ -698,7 +698,7 @@ CHANGE_COLUMN_INSIGHTS = {
     'Theater': "Theaters run just 8 shows per week, about 3 hours each—that's 21% of weekly hours at best. The rest of the time, seats sit empty. (CBECS 2018)",
     'Library/Museum': "Open ~50 hours/week, but visitors only occupy galleries 10-15% of the time. Reading rooms and exhibit halls designed for crowds often sit mostly empty. (CBECS 2018)",
     'Outpatient Clinic': "Patients occupy exam rooms for 15-30 minute appointments, then rooms sit empty until the next patient. Rooms designed for constant use are idle most of the day. (CBECS 2018, MGMA)",
-    'Enclosed Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas conditioned whether 100 or 1,000 shoppers. (CBECS 2018, ICSC)",
+    'Mall': "Malls face both vacancy (anchor stores closing) and traffic swings—quiet weekday mornings, busy weekend afternoons. Common areas conditioned whether 100 or 1,000 shoppers. (CBECS 2018, ICSC)",
     'Wholesale Club': "30-40% of the building is back-of-house warehouse with minimal staff. The sales floor is only busy on weekends. (CBECS 2018)",
     'default': "Most buildings are empty more often than people realize. HVAC runs at design capacity regardless of actual occupancy. (CBECS 2018)",
 }
@@ -754,7 +754,7 @@ def get_peak_demand_tooltip(row):
         'Office': "offices peak mid-afternoon when HVAC, lighting, and equipment all run together.",
         'K-12 School': "schools peak when HVAC ramps up before students arrive and during hot afternoons.",
         'Hotel': "hotels peak in early evening when guests return and restaurant/laundry run simultaneously.",
-        'Retail Store': "retail peaks during store hours when lighting, HVAC, and point-of-sale all operate.",
+        'Retail': "retail peaks during store hours when lighting, HVAC, and point-of-sale all operate.",
         'Inpatient Hospital': "hospitals have relatively flat demand since they run around the clock.",
         'Data Center': "data centers have very flat demand—servers run constantly.",
     }
@@ -1000,9 +1000,9 @@ def get_odcv_savings_tooltip(row):
 
         'Outpatient Clinic': "Same pattern as medical office—exam rooms ventilated at medical-grade rates but patients only present for brief appointments. Operating hours: 8am-5pm weekdays. Effective utilization across exam rooms, waiting areas, and admin: 42-48%. (CBECS 2018, MGMA)",
 
-        'Retail Store': "Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy. (CBECS 2018)",
+        'Retail': "Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy. (CBECS 2018)",
 
-        'Enclosed Mall': "Retail apocalypse reality: many malls have 15-30% vacancy from anchor store closures. Common areas (food courts, hallways) conditioned regardless of traffic. Weekday mornings: 10-20% of capacity. Average: 35-40% utilization. (CBECS 2018, ICSC)",
+        'Mall': "Retail apocalypse reality: many malls have 15-30% vacancy from anchor store closures. Common areas (food courts, hallways) conditioned regardless of traffic. Weekday mornings: 10-20% of capacity. Average: 35-40% utilization. (CBECS 2018, ICSC)",
 
         'Library': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
 
@@ -1015,7 +1015,7 @@ def get_odcv_savings_tooltip(row):
 
         'Restaurant/Bar': "Kitchen exhaust hoods must run at full blast during all cooking—not demand-controllable. ODCV opportunity exists only in dining areas (~60% of space). Dining follows meal patterns: packed at lunch/dinner, empty between. (CBECS 2018)",
 
-        'Supermarket/Grocery': "Longer hours (6am-midnight) than most retail, but still variable traffic. Open 126 hrs/week, but mornings and late nights see 20-30% of design. Food safety requirements limit how much ventilation can be reduced. (CBECS 2018)",
+        'Supermarket': "Longer hours (6am-midnight) than most retail, but still variable traffic. Open 126 hrs/week, but mornings and late nights see 20-30% of design. Food safety requirements limit how much ventilation can be reduced. (CBECS 2018)",
 
         'Residential Care': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
 
@@ -1110,7 +1110,7 @@ def get_electricity_kwh_tooltip(row):
     year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
     tooltips = {
         'Data Center': "data centers use ~42% of electricity for cooling—but it removes server heat, not affected by occupancy. The rest powers IT equipment.",
-        'Supermarket/Grocery': "supermarkets use ~35% of electricity for HVAC. Refrigeration takes 40-50%, with lighting and equipment making up the rest.",
+        'Supermarket': "supermarkets use ~35% of electricity for HVAC. Refrigeration takes 40-50%, with lighting and equipment making up the rest.",
         'Inpatient Hospital': "hospitals use ~40-45% of electricity for HVAC. Medical imaging, life support, and 24/7 critical systems take the rest.",
         'Specialty Hospital': "specialty hospitals use ~40-45% of electricity for HVAC. Medical equipment and critical systems take the rest.",
         'Hotel': "hotels use ~45-50% of electricity for HVAC. Lighting, elevators, laundry, and kitchen equipment take the rest.",
@@ -1119,7 +1119,7 @@ def get_electricity_kwh_tooltip(row):
         'Higher Ed': "universities use ~45-50% of electricity for HVAC. Labs, computers, and lighting take the rest.",
         'Office': "offices use ~40-50% of electricity for HVAC. Lighting and plug loads (computers, equipment) take the rest.",
         'Medical Office': "medical offices use ~45-50% of electricity for HVAC. Medical equipment and lighting take the rest.",
-        'Retail Store': "retail stores use ~40-45% of electricity for HVAC. Lighting is a major load, especially in display-heavy stores.",
+        'Retail': "retail stores use ~40-45% of electricity for HVAC. Lighting is a major load, especially in display-heavy stores.",
     }
     base_text = tooltips.get(bldg_type, "commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest.")
     return f"Based on building type, {base_text}" + year_suffix
@@ -1136,10 +1136,10 @@ def get_natural_gas_tooltip(row):
         'Specialty Hospital': "specialty hospitals use ~60% of gas for HVAC. The rest goes to sterilization and hot water.",
         'K-12 School': "schools use ~80% of gas for heating. The rest is cafeteria cooking and hot water.",
         'Higher Ed': "universities use ~80% of gas for heating. Labs, cafeterias, and hot water take the rest.",
-        'Supermarket/Grocery': "supermarkets use ~65-75% of gas for HVAC. Bakery ovens and deli equipment take the rest.",
+        'Supermarket': "supermarkets use ~65-75% of gas for HVAC. Bakery ovens and deli equipment take the rest.",
         'Office': "offices use ~85-90% of gas for heating. Hot water takes the small remainder.",
         'Medical Office': "medical offices use ~85% of gas for heating. Hot water and sterilization take the rest.",
-        'Retail Store': "retail stores use ~75-80% of gas for heating. Hot water takes the rest.",
+        'Retail': "retail stores use ~75-80% of gas for heating. Hot water takes the rest.",
         'Data Center': "data centers use almost no gas for HVAC—cooling is electric. Any gas goes to backup generators or office areas.",
     }
     base_text = tooltips.get(bldg_type, "commercial buildings typically use 75-85% of gas for heating. Hot water and process loads take the rest.")
@@ -1157,7 +1157,7 @@ def get_fuel_oil_tooltip(row):
         'Laboratory': "labs use only ~12% of fuel oil for HVAC. Most powers backup generators and specialized equipment.",
         'Mixed Use': "mixed-use buildings use ~10-15% of fuel oil for HVAC. Much goes to backup power.",
         'Residential Care': "care facilities use ~40-50% of fuel oil for HVAC. Hot water for residents takes the rest.",
-        'Retail Store': "retail stores use ~95%+ of fuel oil for heating—it's almost pure HVAC fuel.",
+        'Retail': "retail stores use ~95%+ of fuel oil for heating—it's almost pure HVAC fuel.",
     }
     base_text = tooltips.get(bldg_type, "fuel oil is primarily a heating fuel—typically 80-95% goes to HVAC in commercial buildings.")
     return f"Based on building type, {base_text}" + year_suffix
@@ -1190,8 +1190,8 @@ def get_site_eui_tooltip(row):
     # Building type median EUIs from CBECS 2018
     benchmarks = {
         'Office': 70, 'Medical Office': 85, 'Hotel': 95, 'K-12 School': 55,
-        'Higher Ed': 90, 'Retail Store': 50, 'Restaurant/Bar': 250,
-        'Supermarket/Grocery': 180, 'Inpatient Hospital': 200, 'Specialty Hospital': 180,
+        'Higher Ed': 90, 'Retail': 50, 'Restaurant/Bar': 250,
+        'Supermarket': 180, 'Inpatient Hospital': 200, 'Specialty Hospital': 180,
         'Data Center': 800, 'Warehouse': 25, 'Residential Care': 100,
         'Residential Care Facility': 100, 'Mixed Use': 75, 'default': 70
     }
@@ -1213,7 +1213,7 @@ def get_load_factor_tooltip(row):
         'Data Center': "data centers have very high load factors—servers run around the clock at steady power.",
         'Inpatient Hospital': "hospitals have high load factors due to 24/7 operations.",
         'Specialty Hospital': "hospitals have high load factors due to 24/7 operations.",
-        'Supermarket/Grocery': "grocery stores have high load factors—refrigeration runs constantly.",
+        'Supermarket': "grocery stores have high load factors—refrigeration runs constantly.",
         'Office': "offices have lower load factors—busy during business hours, quiet nights and weekends.",
         'K-12 School': "schools have low load factors—empty summers, evenings, and weekends.",
         'Higher Ed': "universities have moderate load factors—semester schedules with breaks.",
@@ -1337,7 +1337,7 @@ def get_utility_cost_savings_tooltip(row):
         'K-12 School': "schools use most gas for heating and a large share of electricity for cooling.",
         'Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
         'Inpatient Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
-        'Retail Store': "retail uses a significant share of electricity for HVAC, with lighting as another major load.",
+        'Retail': "retail uses a significant share of electricity for HVAC, with lighting as another major load.",
         'Data Center': "data centers use almost no HVAC for occupancy—cooling is for equipment heat removal.",
     }
     type_note = hvac_context.get(bldg_type, "HVAC is a significant portion of energy use for this building type.")

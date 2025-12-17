@@ -63,8 +63,8 @@ def create_backup(input_file):
 
 # Commercial building types (cap rate valuation applies to these)
 COMMERCIAL_TYPES = [
-    'Office', 'Medical Office', 'Mixed Use', 'Retail Store', 'Strip Mall',
-    'Hotel', 'Supermarket/Grocery', 'Enclosed Mall', 'Outlet Mall', 'Restaurant/Bar',
+    'Office', 'Medical Office', 'Mixed Use', 'Retail', 'Strip Mall',
+    'Hotel', 'Supermarket', 'Mall', 'Outlet Mall', 'Restaurant/Bar',
     'Gym', 'Vehicle Dealership', 'Wholesale Club', 'Bank Branch', 'Venue', 'Theater',
     'Sports/Gaming Center'
 ]

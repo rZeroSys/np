@@ -76,9 +76,9 @@ ZIP_TO_CITY = {
 DENVER_EUI_TARGETS = {
     'Office': 48.3,
     'Hotel': 61.1,
-    'Retail Store': 43.5,
+    'Retail': 43.5,
     'Restaurant/Bar': 194.1,
-    'Supermarket/Grocery': 164.4,
+    'Supermarket': 164.4,
     'Medical Office': 69.0,  # Updated from official source
     'Higher Ed': 60.6,       # College/University from official source
     'Inpatient Hospital': 165.2,
@@ -86,7 +86,7 @@ DENVER_EUI_TARGETS = {
     'Outpatient Clinic': 60.7,  # Ambulatory Surgical Center
     'Residential Care': 75.5,
     'Wholesale Club': 164.4,
-    'Enclosed Mall': 45.6,   # Updated from official source
+    'Mall': 45.6,   # Updated from official source
     'Mixed Use': 65.0,
     'Library/Museum': 52.9,  # Library target from official source
     'Venue': None,           # 30% reduction from baseline (Convention Center)
@@ -103,20 +103,20 @@ BOSTON_EMISSION_CAPS = {
     'Office': 0.0053,
     'Higher Ed': 0.0102,
     'Hotel': 0.0074,
-    'Retail Store': 0.0053,
+    'Retail': 0.0053,
     'Inpatient Hospital': 0.0165,
     'Specialty Hospital': 0.0165,
     'Outpatient Clinic': 0.0061,
     'Library/Museum': 0.0082,
     'Medical Office': 0.0061,
-    'Supermarket/Grocery': 0.0200,
+    'Supermarket': 0.0200,
     'K-12 School': 0.0056,
     'Residential Care': 0.0075,
     'Restaurant/Bar': 0.0240,
     'Venue': 0.0082,
     'Theater': 0.0082,
     'Mixed Use': 0.0065,
-    'Enclosed Mall': 0.0067,
+    'Mall': 0.0067,
     'Wholesale Club': 0.0200,
     'DEFAULT': 0.0053,
 }
@@ -131,12 +131,12 @@ STLOUIS_EUI_TARGETS = {
     'K-12 School': 58.0,
     'Hotel': 85.0,
     'Higher Ed': 100.0,
-    'Retail Store': 50.0,
+    'Retail': 50.0,
     'Mixed Use': 75.0,
     'Medical Office': 70.0,
     'Library/Museum': 65.0,
     'Residential Care': 80.0,
-    'Supermarket/Grocery': 180.0,
+    'Supermarket': 180.0,
     'Specialty Hospital': 180.0,
     'Inpatient Hospital': 180.0,
     'Theater': 70.0,
@@ -156,9 +156,9 @@ DC_ENERGY_STAR_TARGETS = {
     'Inpatient Hospital': 50,
     'Specialty Hospital': 50,
     'Medical Office': 71,
-    'Retail Store': 71,
+    'Retail': 71,
     'Higher Ed': 71,
-    'Supermarket/Grocery': 71,
+    'Supermarket': 71,
     'Restaurant/Bar': 71,
     'Mixed Use': 71,
     'Residential Care': 50,

@@ -192,6 +192,7 @@
                     <th>Building Type</th>
                     <th>Method</th>
                     <th>Why</th>
+                    <th>Utilization Rate</th>
                     <th>Sources</th>
                 </tr>
             </thead>
@@ -200,108 +201,126 @@
                     <td>Office</td>
                     <td>Vacancy + Utilization</td>
                     <td>Multi-tenant: unleased space + leased space where tenants aren't showing up</td>
+                    <td>55% &ndash; 93%</td>
                     <td><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a> (vacancy), <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a> (utilization)</td>
                 </tr>
                 <tr>
                     <td>Medical Office</td>
                     <td>Vacancy + Utilization</td>
                     <td>Multi-tenant like office; patient scheduling drives utilization</td>
+                    <td>~75%</td>
                     <td><a href="https://www.cbre.com/insights/reports/2025-us-healthcare-real-estate-outlook" class="source-link">CBRE Healthcare</a></td>
                 </tr>
                 <tr>
                     <td>Mixed Use</td>
                     <td>Vacancy + Utilization</td>
                     <td>Blended rates based on component types (office, retail, residential)</td>
+                    <td>&mdash;</td>
                     <td>Component-weighted averages</td>
                 </tr>
                 <tr>
                     <td>K-12 School</td>
                     <td>Utilization</td>
                     <td>Schedule-driven: empty summers, holidays, evenings, weekends</td>
+                    <td>54% &ndash; 85%</td>
                     <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
                 </tr>
                 <tr>
                     <td>Higher Ed</td>
                     <td>Utilization</td>
                     <td>Schedule-driven: semester breaks, evenings, weekends</td>
+                    <td>~66%</td>
                     <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
                 </tr>
                 <tr>
                     <td>Hotel</td>
                     <td>Utilization</td>
                     <td>Rooms booked or not; guests out during day for meetings, sightseeing</td>
+                    <td>66.8% &ndash; 73.3%</td>
                     <td><a href="https://www.hospitalitynet.org/news/4129415.html" class="source-link">STR/CoStar</a></td>
                 </tr>
                 <tr>
                     <td>Retail Store</td>
                     <td>Utilization</td>
                     <td>Traffic swings between peak and empty; designed for peak</td>
+                    <td>55% &ndash; 65%</td>
                     <td>Operating hours, traffic patterns</td>
                 </tr>
                 <tr>
                     <td>Supermarket/Grocery</td>
                     <td>Utilization</td>
                     <td>Extended hours but traffic varies; refrigeration runs continuously</td>
+                    <td>&mdash;</td>
                     <td>Operating hours, traffic patterns</td>
                 </tr>
                 <tr>
                     <td>Wholesale Club</td>
                     <td>Utilization</td>
                     <td>Large spaces with variable traffic; refrigeration loads</td>
+                    <td>&mdash;</td>
                     <td>Operating hours</td>
                 </tr>
                 <tr>
                     <td>Enclosed Mall</td>
                     <td>Vacancy + Utilization</td>
                     <td>Multi-tenant retail; high vacancy in some markets</td>
+                    <td>&mdash;</td>
                     <td><a href="https://www.cbre.com/insights/figures" class="source-link">CBRE Retail</a></td>
                 </tr>
                 <tr>
                     <td>Inpatient Hospital</td>
                     <td>Utilization (dampened)</td>
                     <td>Code-mandated ventilation; savings in non-clinical areas only</td>
+                    <td>76% &ndash; 78%</td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
                 <tr>
                     <td>Specialty Hospital</td>
                     <td>Utilization (dampened)</td>
                     <td>Similar to inpatient; may have more variable schedules</td>
+                    <td>&mdash;</td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
                 <tr>
                     <td>Outpatient Clinic</td>
                     <td>Utilization</td>
                     <td>Scheduled appointments; closed evenings/weekends</td>
+                    <td>~70%</td>
                     <td>Operating hours</td>
                 </tr>
                 <tr>
                     <td>Residential Care</td>
                     <td>Utilization (dampened)</td>
                     <td>Residents on-site 24/7 unlike hotel guests</td>
+                    <td>&mdash;</td>
                     <td><a href="https://www.nic.org/blog/senior-housing-occupancy-continues-climbing-in-first-quarter-2025/" class="source-link">NIC MAP</a></td>
                 </tr>
                 <tr>
                     <td>Theater</td>
                     <td>Utilization</td>
                     <td>Spaces for thousands sit empty most of the year</td>
+                    <td>&mdash;</td>
                     <td>Event schedules</td>
                 </tr>
                 <tr>
                     <td>Venue</td>
                     <td>Utilization</td>
                     <td>Event-driven; empty between performances/events</td>
+                    <td>&mdash;</td>
                     <td>Event schedules</td>
                 </tr>
                 <tr>
                     <td>Library/Museum</td>
                     <td>Utilization</td>
                     <td>Climate runs 24/7 for preservation; visitors only during limited hours</td>
+                    <td>42% &ndash; 55%</td>
                     <td>Operating hours</td>
                 </tr>
                 <tr>
                     <td>Restaurant/Bar</td>
                     <td>Utilization (dining only)</td>
                     <td>Kitchen exhaust must run; savings from dining areas between rushes</td>
+                    <td>50% &ndash; 60%</td>
                     <td>Operating hours</td>
                 </tr>
             </tbody>
@@ -309,61 +328,35 @@
 
         <p><strong>Vacancy</strong> = unleased space (empty suites). Only applies to multi-tenant buildings.</p>
         <p><strong>Utilization</strong> = people actually present in occupied space. A fully-leased office with 50% WFH has 0% vacancy but 50% utilization.</p>
-
-        <h3>Utilization Rates</h3>
-        <p>Utilization patterns vary by building type:</p>
-        <table>
-            <thead>
-                <tr><th>Building Type</th><th>Utilization Rate</th><th>Rationale</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>K-12 School</td><td>54% &ndash; 85%</td><td>Summers off, after-school hours empty, holidays</td></tr>
-                <tr><td>Higher Ed</td><td>~66%</td><td>Semester breaks, variable class schedules</td></tr>
-                <tr><td>Hotel</td><td>66.8% &ndash; 73.3%</td><td>Room occupancy varies by market; guests out during day</td></tr>
-                <tr><td>Inpatient Hospital</td><td>76% &ndash; 78%</td><td>24/7 but not always at full capacity</td></tr>
-                <tr><td>Outpatient Clinic</td><td>~70%</td><td>Business hours only, appointment-driven</td></tr>
-                <tr><td>Medical Office</td><td>~75%</td><td>Similar to office but more consistent patient flow</td></tr>
-                <tr><td>Library/Museum</td><td>42% &ndash; 55%</td><td>Public hours only; climate runs 24/7 for preservation</td></tr>
-                <tr><td>Retail Store</td><td>55% &ndash; 65%</td><td>Operating hours, seasonal variations</td></tr>
-                <tr><td>Restaurant/Bar</td><td>50% &ndash; 60%</td><td>Peak at meal times, low between rushes</td></tr>
-                <tr><td>Office (varies by city)</td><td>55% &ndash; 93%</td><td>Hybrid work impact; see city-specific rates above</td></tr>
-            </tbody>
-        </table>
     </section>
 
     <!-- Section 3: Regional Variations -->
     <section class="section">
         <h2>Why Cities Differ</h2>
 
-        <h3>Vacancy Rates</h3>
-        <p>Office vacancy rates vary dramatically by metro. We source real 2024-2025 vacancy data from <a href="https://www.commercialcafe.com/blog/national-office-report/" class="source-link">CommercialEdge</a> and <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a>:</p>
+        <h3>Office Vacancy &amp; Utilization by City</h3>
+        <p>Vacancy rates from <a href="https://www.commercialcafe.com/blog/national-office-report/" class="source-link">CommercialEdge</a> and <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Office Figures</a>. Utilization from <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a>:</p>
         <table>
             <thead>
-                <tr><th>City</th><th>Vacancy Rate</th><th>City</th><th>Vacancy Rate</th></tr>
+                <tr><th>City</th><th>Vacancy Rate</th><th>Utilization</th></tr>
             </thead>
             <tbody>
-                <tr><td>San Francisco</td><td>29%</td><td>Boston</td><td>18.6%</td></tr>
-                <tr><td>Seattle</td><td>27%</td><td>San Diego</td><td>18.4%</td></tr>
-                <tr><td>Austin</td><td>27%</td><td>Los Angeles</td><td>16.5%</td></tr>
-                <tr><td>Denver</td><td>23%</td><td>Portland</td><td>16.2%</td></tr>
-                <tr><td>Chicago</td><td>22%</td><td>New York</td><td>13% (LL84 data)</td></tr>
-                <tr><td>Philadelphia</td><td>19.4%</td><td><em>National default</em></td><td>18.6%</td></tr>
-            </tbody>
-        </table>
-
-        <h3>Office Utilization</h3>
-        <p>Return-to-office culture varies by metro. We use <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Back to Work Barometer</a> data:</p>
-        <table>
-            <thead>
-                <tr><th>City</th><th>Utilization</th><th>City</th><th>Utilization</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Kansas City</td><td>93%</td><td>Seattle</td><td>84%</td></tr>
-                <tr><td>Santa Clara</td><td>92%</td><td>Sacramento</td><td>83%</td></tr>
-                <tr><td>Portland</td><td>92%</td><td>San Francisco</td><td>77%</td></tr>
-                <tr><td>Cambridge</td><td>91%</td><td>Boston</td><td>75%</td></tr>
-                <tr><td>Philadelphia</td><td>90%</td><td>New York</td><td>55-73%</td></tr>
-                <tr><td>Chicago</td><td>89%</td><td></td><td></td></tr>
+                <tr><td>San Francisco</td><td>29%</td><td>77%</td></tr>
+                <tr><td>Seattle</td><td>27%</td><td>84%</td></tr>
+                <tr><td>Austin</td><td>27%</td><td>&mdash;</td></tr>
+                <tr><td>Denver</td><td>23%</td><td>&mdash;</td></tr>
+                <tr><td>Chicago</td><td>22%</td><td>89%</td></tr>
+                <tr><td>Philadelphia</td><td>19.4%</td><td>90%</td></tr>
+                <tr><td>Boston</td><td>18.6%</td><td>75%</td></tr>
+                <tr><td>San Diego</td><td>18.4%</td><td>&mdash;</td></tr>
+                <tr><td>Los Angeles</td><td>16.5%</td><td>&mdash;</td></tr>
+                <tr><td>Portland</td><td>16.2%</td><td>92%</td></tr>
+                <tr><td>New York</td><td>13% (LL84 data)</td><td>55-73%</td></tr>
+                <tr><td>Kansas City</td><td>&mdash;</td><td>93%</td></tr>
+                <tr><td>Santa Clara</td><td>&mdash;</td><td>92%</td></tr>
+                <tr><td>Cambridge</td><td>&mdash;</td><td>91%</td></tr>
+                <tr><td>Sacramento</td><td>&mdash;</td><td>83%</td></tr>
+                <tr><td><em>National default</em></td><td>18.6%</td><td>&mdash;</td></tr>
             </tbody>
         </table>
 

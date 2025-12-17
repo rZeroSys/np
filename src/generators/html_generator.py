@@ -4375,7 +4375,8 @@ tr.pin-highlight {
             building_id = b.get('id', '')
             building_url = b.get('url', '')
             row_click = f'''onclick="if (!event.target.closest('a, .clickable-link')) window.open('{attr_escape(building_url)}', '_blank')" style="cursor:pointer"''' if building_url else ''
-            row = f'''<tr class="building-row" data-id="{attr_escape(building_id)}" data-city="{attr_escape(city)}" data-type="{attr_escape(btype)}" data-owner="{attr_escape(owner)}" data-manager="{attr_escape(manager)}" data-tenant="{attr_escape(tenant)}" data-sub-org="{attr_escape(sub_org)}" data-vertical="{attr_escape(vertical)}" data-opex="{opex}" data-rank="{rank}" {row_click}>
+            radio_type = b.get('radio_type', '') or btype
+            row = f'''<tr class="building-row" data-id="{attr_escape(building_id)}" data-city="{attr_escape(city)}" data-type="{attr_escape(btype)}" data-radio-type="{attr_escape(radio_type)}" data-owner="{attr_escape(owner)}" data-manager="{attr_escape(manager)}" data-tenant="{attr_escape(tenant)}" data-sub-org="{attr_escape(sub_org)}" data-vertical="{attr_escape(vertical)}" data-opex="{opex}" data-rank="{rank}" {row_click}>
     <td>{thumb}</td>
     <td><span class="rank-badge">#{rank}</span></td>
     <td><span class="building-address">{address}</span><br><span class="city-state">{city_display}, {state}</span></td>
@@ -6038,12 +6039,6 @@ function applyTypeFilter() {{
 
     // Apply combined filters
     applyAllFilters();
-}}
-
-function applyAllFilters() {{
-    // CONSOLIDATED: Delegate to main applyFilters() instead of duplicate logic
-    // This ensures all filters (vertical, building type, classification, search) work together
-    applyFilters();
 }}
 
 function updatePortfolioVisibleCounts() {{

@@ -90,7 +90,7 @@ def update_enclosed_mall_utilization():
     state_match = 0
     default_used = 0
 
-    em_mask = df['bldg_type'] == 'Enclosed Mall'
+    em_mask = df['bldg_type'] == 'Mall'
     print(f"Found {em_mask.sum()} Enclosed Mall buildings")
 
     for idx in df[em_mask].index:

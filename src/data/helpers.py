@@ -60,9 +60,13 @@ def safe_str(val, default=''):
 
 def normalize_building_type(val):
     """Normalize building type names."""
-    if val == 'Event Space':
-        return 'Venue'
-    return val
+    mapping = {
+        'Event Space': 'Venue',
+        'Enclosed Mall': 'Mall',
+        'Supermarket/Grocery': 'Supermarket',
+        'Retail Store': 'Retail',
+    }
+    return mapping.get(val, val)
 
 def format_currency(amount, decimals=0):
     """Format number as currency string."""

@@ -73,13 +73,13 @@ COMMERCIAL_TYPES = {
     'Office': 'Office',
     'Medical Office': 'Medical Office',
     'Bank Branch': 'Bank Branch',
-    'Retail Store': 'Retail Store',
+    'Retail': 'Retail',
     'Hotel': 'Hotel',
-    'Supermarket/Grocery Store': 'Supermarket/Grocery',
+    'Supermarket/Grocery Store': 'Supermarket',
     'Mixed Use Property': 'Mixed Use',
     'Wholesale Club/Supercenter': 'Wholesale Club',
     'Strip Mall': 'Strip Mall',
-    'Enclosed Mall': 'Enclosed Mall',
+    'Mall': 'Mall',
     'Restaurant': 'Restaurant/Bar',
     'Data Center': 'Data Center',
     'Distribution Center': 'Distribution Center',
@@ -87,8 +87,8 @@ COMMERCIAL_TYPES = {
     'Laboratory': 'Laboratory',
     'Financial Office': 'Office',
     'Other - Mall': 'Strip Mall',
-    'Convenience Store with Gas Station': 'Retail Store',
-    'Convenience Store without Gas Station': 'Retail Store',
+    'Convenience Store with Gas Station': 'Retail',
+    'Convenience Store without Gas Station': 'Retail',
     'Automobile Dealership': 'Vehicle Dealership',
     'Self-Storage Facility': 'Warehouse',
     'Fitness Center/Health Club/Gym': 'Gym',
@@ -114,9 +114,9 @@ EXCLUDED_TYPES = [
 # Building type to vertical mapping
 TYPE_TO_VERTICAL = {
     'Office': 'Commercial', 'Medical Office': 'Healthcare', 'Bank Branch': 'Commercial',
-    'Retail Store': 'Commercial', 'Hotel': 'Commercial', 'Supermarket/Grocery': 'Commercial',
+    'Retail': 'Commercial', 'Hotel': 'Commercial', 'Supermarket': 'Commercial',
     'Mixed Use': 'Commercial', 'Wholesale Club': 'Commercial', 'Strip Mall': 'Commercial',
-    'Enclosed Mall': 'Commercial', 'Restaurant/Bar': 'Commercial', 'Data Center': 'Commercial',
+    'Mall': 'Commercial', 'Restaurant/Bar': 'Commercial', 'Data Center': 'Commercial',
     'Distribution Center': 'Commercial', 'Warehouse': 'Commercial', 'Laboratory': 'Commercial',
     'Vehicle Dealership': 'Commercial', 'Gym': 'Commercial', 'Theater': 'Commercial',
     'Library/Museum': 'Commercial', 'Library': 'Government', 'Event Space': 'Commercial',
@@ -126,9 +126,9 @@ TYPE_TO_VERTICAL = {
 # Building type to benchmark mapping
 TYPE_TO_BENCHMARK = {
     'Office': 'Office', 'Medical Office': 'Medical Office', 'Bank Branch': 'Office',
-    'Retail Store': 'Retail Store', 'Hotel': 'Hotel', 'Supermarket/Grocery': 'Supermarket/Grocery',
+    'Retail': 'Retail', 'Hotel': 'Hotel', 'Supermarket': 'Supermarket',
     'Mixed Use': 'Mixed Use', 'Wholesale Club': 'Wholesale Club', 'Strip Mall': 'Strip Mall',
-    'Enclosed Mall': 'Enclosed Mall', 'Restaurant/Bar': 'Restaurant', 'Data Center': 'Data Center',
+    'Mall': 'Mall', 'Restaurant/Bar': 'Restaurant', 'Data Center': 'Data Center',
     'Distribution Center': 'Distribution Center', 'Warehouse': 'Warehouse', 'Laboratory': 'Laboratory',
     'Vehicle Dealership': 'Vehicle Dealership', 'Gym': 'Fitness Center/Health Club/Gym',
     'Theater': 'Movie Theater', 'Library/Museum': 'Museum', 'Library': 'Library',
@@ -138,9 +138,9 @@ TYPE_TO_BENCHMARK = {
 # Building type to filter mapping
 TYPE_TO_FILTER = {
     'Office': 'Office', 'Medical Office': 'Medical Office', 'Bank Branch': 'Office',
-    'Retail Store': 'Retail', 'Hotel': 'Hotel', 'Supermarket/Grocery': 'Retail',
+    'Retail': 'Retail', 'Hotel': 'Hotel', 'Supermarket': 'Retail',
     'Mixed Use': 'Mixed Use', 'Wholesale Club': 'Retail', 'Strip Mall': 'Retail',
-    'Enclosed Mall': 'Retail', 'Restaurant/Bar': 'Restaurant', 'Data Center': 'Data Center',
+    'Mall': 'Retail', 'Restaurant/Bar': 'Restaurant', 'Data Center': 'Data Center',
     'Distribution Center': 'Industrial', 'Warehouse': 'Industrial', 'Laboratory': 'Laboratory',
     'Vehicle Dealership': 'Retail', 'Gym': 'Fitness', 'Theater': 'Entertainment',
     'Library/Museum': 'Arts & Culture', 'Library': 'Arts & Culture', 'Event Space': 'Entertainment',
@@ -149,8 +149,8 @@ TYPE_TO_FILTER = {
 
 # EUI benchmarks by building type
 EUI_BENCHMARKS = {
-    'Office': 52.9, 'Medical Office': 97.7, 'Retail Store': 51.4, 'Hotel': 95.0,
-    'Supermarket/Grocery': 171.0, 'Mixed Use': 70.0, 'Wholesale Club': 80.0,
+    'Office': 52.9, 'Medical Office': 97.7, 'Retail': 51.4, 'Hotel': 95.0,
+    'Supermarket': 171.0, 'Mixed Use': 70.0, 'Wholesale Club': 80.0,
     'Strip Mall': 65.0, 'Restaurant/Bar': 246.0, 'Data Center': 1000.0,
     'Warehouse': 25.0, 'Laboratory': 141.0, 'Gym': 64.0, 'Theater': 70.0,
     'Library': 80.0, 'Event Space': 70.0, 'Bank Branch': 52.9,
