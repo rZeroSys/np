@@ -6,8 +6,15 @@ assets/logos/
 # Staging
 staging/
 
-# Data source files (large CSVs)
-data/source/
+# Data source files - allow important CSVs, exclude backups/temp
+# The following are tracked:
+#   - portfolio_data.csv (main building database)
+#   - portfolio_organizations.csv (org metadata)
+#   - building_type_to_vertical.csv (type mappings)
+#   - leed_certified_buildings.csv (LEED database)
+#   - leed_matches.csv (LEED matches)
+#   - utility_logos.csv (utility logos)
+#   - column_rename_lookup.csv (column definitions)
 
 # Archive
 archive/

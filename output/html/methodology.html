@@ -789,7 +789,228 @@ if (window.location.search.includes('embed=1')) {
         <p>Lower EUI → higher percentile → higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.</p>
     </section>
 
-    <!-- Section 5: Validation & Limitations -->
+    <!-- Section 5: Data Sources -->
+    <section class="section" id="data-sources">
+        <h2>Data Sources</h2>
+
+        <h3>City Benchmarking Disclosure Programs</h3>
+        <p>Building energy data comes from official city benchmarking disclosure programs. These programs require commercial and multifamily buildings to report annual energy usage to their respective cities, which then publish the data publicly.</p>
+
+        <table>
+            <thead>
+                <tr><th>City</th><th>Program</th><th>Data Portal</th><th>Buildings</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>New York City</td>
+                    <td>Local Law 84 (LL84)</td>
+                    <td><a href="https://data.cityofnewyork.us/api/views/5zyy-y8am/rows.csv?accessType=DOWNLOAD" class="source-link">NYC Open Data (CSV)</a></td>
+                    <td>3,421</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles</td>
+                    <td>EBEWE Program</td>
+                    <td><a href="https://data.lacity.org/api/views/9yda-i4ya/rows.csv?accessType=DOWNLOAD" class="source-link">LA Open Data (CSV)</a></td>
+                    <td>1,847</td>
+                </tr>
+                <tr>
+                    <td>San Francisco</td>
+                    <td>Existing Buildings Ordinance</td>
+                    <td><a href="https://data.sfgov.org/Energy-and-Environment/Existing-Buildings-Benchmark-Reports/4ua7-5sfx" class="source-link">DataSF</a></td>
+                    <td>568</td>
+                </tr>
+                <tr>
+                    <td>Chicago</td>
+                    <td>Chicago Energy Benchmarking</td>
+                    <td><a href="https://data.cityofchicago.org/api/views/xq83-jr8c/rows.csv?accessType=DOWNLOAD" class="source-link">Chicago Open Data (CSV)</a></td>
+                    <td>384</td>
+                </tr>
+                <tr>
+                    <td>Seattle</td>
+                    <td>Building Energy Benchmarking</td>
+                    <td><a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/energy-benchmarking/data-and-reports" class="source-link">Seattle Environment</a></td>
+                    <td>398</td>
+                </tr>
+                <tr>
+                    <td>Washington DC</td>
+                    <td>DC BEPS</td>
+                    <td><a href="https://opendata.dc.gov/datasets/DCGIS::building-energy-benchmarking/about" class="source-link">Open Data DC</a></td>
+                    <td>748</td>
+                </tr>
+                <tr>
+                    <td>Boston</td>
+                    <td>BERDO</td>
+                    <td><a href="https://data.boston.gov/dataset/building-emissions-reduction-and-disclosure-ordinance" class="source-link">Analyze Boston</a></td>
+                    <td>327</td>
+                </tr>
+                <tr>
+                    <td>Denver</td>
+                    <td>Energize Denver</td>
+                    <td><a href="https://opendata-geospatialdenver.hub.arcgis.com/" class="source-link">Denver Open Data</a></td>
+                    <td>349</td>
+                </tr>
+                <tr>
+                    <td>Philadelphia</td>
+                    <td>Building Energy Benchmarking</td>
+                    <td><a href="https://opendataphilly.org/datasets/large-building-energy-benchmarking-data/" class="source-link">OpenDataPhilly</a></td>
+                    <td>136</td>
+                </tr>
+                <tr>
+                    <td>Portland</td>
+                    <td>Energy Performance Reporting</td>
+                    <td><a href="https://www.portland.gov/bps/climate-action/energy-reporting/documents" class="source-link">Portland.gov</a></td>
+                    <td>266</td>
+                </tr>
+                <tr>
+                    <td>Cambridge</td>
+                    <td>BEUDO</td>
+                    <td><a href="https://data.cambridgema.gov/Energy-and-the-Environment/Cambridge-Building-Energy-Use-Disclosure-Ordinance/72g6-j7aq" class="source-link">Cambridge Open Data</a></td>
+                    <td>125</td>
+                </tr>
+                <tr>
+                    <td>Atlanta</td>
+                    <td>CBEEO</td>
+                    <td><a href="https://www.benchmarkatl.com/" class="source-link">BenchmarkATL</a></td>
+                    <td>171</td>
+                </tr>
+                <tr>
+                    <td>San Diego</td>
+                    <td>Building Energy Benchmarking</td>
+                    <td><a href="https://www.sandiego.gov/sustainability-mobility/climate-action/bd/benchmarking" class="source-link">City of San Diego</a></td>
+                    <td>293</td>
+                </tr>
+                <tr>
+                    <td>San Jose</td>
+                    <td>Building Performance Ordinance</td>
+                    <td><a href="https://www.sanjoseca.gov/your-government/departments-offices/energy/climate-smart-san-jose/energy-and-water-building-performance-ordinance" class="source-link">City of San Jose</a></td>
+                    <td>386</td>
+                </tr>
+                <tr>
+                    <td>St. Louis</td>
+                    <td>BEPS</td>
+                    <td><a href="https://www.stlbenchmarking.com/" class="source-link">STL Benchmarking</a></td>
+                    <td>62</td>
+                </tr>
+                <tr>
+                    <td>Kansas City</td>
+                    <td>Energy Empowerment Ordinance</td>
+                    <td><a href="https://data.kcmo.org" class="source-link">Open Data KC</a></td>
+                    <td>98</td>
+                </tr>
+                <tr>
+                    <td>Orlando</td>
+                    <td>BEWES</td>
+                    <td><a href="https://data.cityoforlando.net/dataset/BEWES-Building-Data/f63n-kp6t" class="source-link">Orlando Open Data</a></td>
+                    <td>142</td>
+                </tr>
+                <tr>
+                    <td>California (Statewide)</td>
+                    <td>AB 802</td>
+                    <td><a href="https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program" class="source-link">CA Energy Commission</a></td>
+                    <td>5,200+</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Dataset Downloads</h3>
+        <p>The consolidated building dataset and supporting files are available on GitHub:</p>
+        <table>
+            <thead>
+                <tr><th>File</th><th>Description</th><th>Records</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_data.csv" class="source-link">portfolio_data.csv</a></td>
+                    <td>Main building database with energy, location, organization, and calculated fields</td>
+                    <td>~23,000</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_organizations.csv" class="source-link">portfolio_organizations.csv</a></td>
+                    <td>Organization metadata (owners, tenants) with logos and classifications</td>
+                    <td>~1,200</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_certified_buildings.csv" class="source-link">leed_certified_buildings.csv</a></td>
+                    <td>Complete USGBC LEED certification database</td>
+                    <td>~33,000</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_matches.csv" class="source-link">leed_matches.csv</a></td>
+                    <td>Buildings matched to LEED certifications by address proximity</td>
+                    <td>~2,000</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/building_type_to_vertical.csv" class="source-link">building_type_to_vertical.csv</a></td>
+                    <td>Maps building types to vertical categories</td>
+                    <td>17</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/column_rename_lookup.csv" class="source-link">column_rename_lookup.csv</a></td>
+                    <td>Column naming definitions and mappings</td>
+                    <td>70</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/utility_logos.csv" class="source-link">utility_logos.csv</a></td>
+                    <td>Utility company logo mappings</td>
+                    <td>21</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Additional Data Sources</h3>
+        <table>
+            <thead>
+                <tr><th>Data Type</th><th>Source</th><th>Link</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Office Vacancy Rates</td>
+                    <td>CBRE Q3 2025 Office Figures</td>
+                    <td><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a></td>
+                </tr>
+                <tr>
+                    <td>Office Utilization</td>
+                    <td>Kastle Back to Work Barometer</td>
+                    <td><a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a></td>
+                </tr>
+                <tr>
+                    <td>HVAC Energy Share</td>
+                    <td>EIA CBECS 2018</td>
+                    <td><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA</a></td>
+                </tr>
+                <tr>
+                    <td>Grid Emission Factors</td>
+                    <td>EPA eGRID 2023</td>
+                    <td><a href="https://www.epa.gov/egrid" class="source-link">EPA</a></td>
+                </tr>
+                <tr>
+                    <td>Utility Rates</td>
+                    <td>EIA State Electricity Data / NREL OpenEI</td>
+                    <td><a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">OpenEI</a></td>
+                </tr>
+                <tr>
+                    <td>Cap Rates</td>
+                    <td>CBRE Cap Rate Survey H1 2025</td>
+                    <td><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE</a></td>
+                </tr>
+                <tr>
+                    <td>LEED Certifications</td>
+                    <td>USGBC LEED Project Directory</td>
+                    <td><a href="https://www.usgbc.org/projects" class="source-link">USGBC</a></td>
+                </tr>
+                <tr>
+                    <td>BPS Policies</td>
+                    <td>IMT BPS Comparison Matrix</td>
+                    <td><a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Data Freshness</h3>
+        <p>Building energy data is updated annually as cities release new disclosure reports. Most programs require buildings to report by May-June for the previous calendar year's data. Dataset last updated: December 2024.</p>
+    </section>
+
+    <!-- Section 6: Validation & Limitations -->
     <section class="section" id="validation">
         <h2>Validation &amp; Limitations</h2>
 
