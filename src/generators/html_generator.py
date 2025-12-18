@@ -3153,6 +3153,14 @@ tr.pin-highlight {
     text-transform: none;
     }
 
+    .stat-cell.opex-value {
+        display: flex !important;
+    }
+
+    .portfolio-sort-header .sort-col:nth-child(8) {
+        display: block !important;
+    }
+
 }
 
 /* Responsive: 768-1024px */
@@ -3183,18 +3191,61 @@ tr.pin-highlight {
     }
 }
 
-/* Responsive: below 768px - simplified layout */
+/* Responsive: 768-1100px - smaller desktop/split-screen - show key metrics */
+@media (max-width: 1100px) and (min-width: 768px) {
+    .portfolio-sort-header,
+    .portfolio-header {
+        grid-template-columns: 132px 1fr 1fr !important;
+    }
+    /* Hide: Type (3), Sq Ft (4), EUI (5), Carbon (6), Valuation (7) */
+    .portfolio-sort-header .sort-col:nth-child(3),
+    .portfolio-sort-header .sort-col:nth-child(4),
+    .portfolio-sort-header .sort-col:nth-child(5),
+    .portfolio-sort-header .sort-col:nth-child(6),
+    .portfolio-sort-header .sort-col:nth-child(7),
+    .portfolio-header > *:nth-child(3),
+    .portfolio-header > *:nth-child(4),
+    .portfolio-header > *:nth-child(5),
+    .portfolio-header > *:nth-child(6),
+    .portfolio-header > *:nth-child(7) {
+        display: none !important;
+    }
+    /* Keep visible: Logo (1), Buildings (2), Savings/yr (8) */
+    .stat-cell.opex-value {
+        display: flex !important;
+    }
+    .portfolio-sort-header .sort-col:nth-child(8) {
+        display: block !important;
+    }
+}
+
+/* Responsive: below 768px - mobile layout with key metrics */
 @media (max-width: 767px) {
     .portfolio-sort-header,
     .portfolio-header {
-        grid-template-columns: 1fr auto !important;
+        grid-template-columns: 1fr auto auto !important;
     }
-    .portfolio-sort-header .sort-col:nth-child(n+3),
-    .portfolio-header > *:nth-child(n+3) {
+    /* Hide columns 3-7, keep 1, 2, 8 */
+    .portfolio-sort-header .sort-col:nth-child(3),
+    .portfolio-sort-header .sort-col:nth-child(4),
+    .portfolio-sort-header .sort-col:nth-child(5),
+    .portfolio-sort-header .sort-col:nth-child(6),
+    .portfolio-sort-header .sort-col:nth-child(7),
+    .portfolio-header > *:nth-child(3),
+    .portfolio-header > *:nth-child(4),
+    .portfolio-header > *:nth-child(5),
+    .portfolio-header > *:nth-child(6),
+    .portfolio-header > *:nth-child(7) {
         display: none !important;
     }
     .portfolio-header .stat-cell.building-count {
         display: flex !important;
+    }
+    .stat-cell.opex-value {
+        display: flex !important;
+    }
+    .portfolio-sort-header .sort-col:nth-child(8) {
+        display: block !important;
     }
     .cities-header,
     .cities-row {
@@ -4432,9 +4483,10 @@ tr.pin-highlight {
 
         org_url = p.get('org_url', '')
         if logo_url:
-            # Instagram-style skeleton + fade-in for logos - NEVER shows empty space
+            # Use thumbnail for faster loading, fall back to full-size on error
             logo_filename = logo_url.split('/')[-1]
-            logo_inner = f'<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="{attr_escape(logo_url)}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="console.warn(\'[Logo] ✗\',\'{logo_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')"><div class="org-logo-placeholder img-hidden">{p["org_name"][0].upper()}</div></div>'
+            logo_thumb_url = logo_url.replace('/logos/', '/logo-thumbnails/')
+            logo_inner = f'<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="{attr_escape(logo_thumb_url)}" data-fullsize="{attr_escape(logo_url)}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add(\'img-loaded\');this.previousElementSibling.classList.add(\'img-hidden\')" onerror="if(this.dataset.fullsize&&this.src!==this.dataset.fullsize){{this.src=this.dataset.fullsize}}else{{console.warn(\'[Logo] ✗\',\'{logo_filename}\');this.classList.add(\'img-hidden\');this.previousElementSibling.classList.add(\'img-hidden\');this.nextElementSibling.classList.remove(\'img-hidden\')}}"><div class="org-logo-placeholder img-hidden">{p["org_name"][0].upper()}</div></div>'
         else:
             logo_inner = f'<div class="org-logo-placeholder">{p["org_name"][0].upper()}</div>'
 
@@ -7632,9 +7684,10 @@ function renderPortfolioCard(p, overrides = {{}}) {{
 
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${{bucket}}/logos/${{p.logo_file}}` : '');
+    const logoThumbUrl = logoUrl ? logoUrl.replace('/logos/', '/logo-thumbnails/') : '';
     const orgInitial = (p.org_name && p.org_name.length > 0) ? p.org_name[0].toUpperCase() : '?';
     const logoInner = logoUrl
-        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')"><div class="org-logo-placeholder img-hidden">${{orgInitial}}</div></div>`
+        ? `<div class="img-container" style="width:48px;height:48px"><div class="img-skeleton logo"></div><img src="${{logoThumbUrl}}" data-fullsize="${{logoUrl}}" alt="" class="org-logo" style="opacity:0;transition:opacity 0.15s" onload="this.classList.add('img-loaded');this.previousElementSibling.classList.add('img-hidden')" onerror="if(this.dataset.fullsize&&this.src!==this.dataset.fullsize){{this.src=this.dataset.fullsize}}else{{console.warn('[Logo] ✗',this.src.split('/').pop());this.classList.add('img-hidden');this.previousElementSibling.classList.add('img-hidden');this.nextElementSibling.classList.remove('img-hidden')}}"><div class="org-logo-placeholder img-hidden">${{orgInitial}}</div></div>`
         : `<div class="org-logo-placeholder">${{orgInitial}}</div>`;
     const logoHtml = p.org_url
         ? `<a href="${{p.org_url}}" target="_blank" onclick="event.stopPropagation()" class="org-logo-link">${{logoInner}}</a>`
@@ -7720,6 +7773,27 @@ document.addEventListener('DOMContentLoaded', function() {{
         mapboxgl: typeof mapboxgl !== 'undefined'
     }});
 
+    // Responsive breakpoint debugging - verifies actual element visibility
+    function logResponsiveBreakpoint() {{
+        const w = window.innerWidth;
+        const opex = document.querySelector('.portfolio-header .opex-value');
+        const buildings = document.querySelector('.portfolio-header .building-count');
+        const opexVisible = opex ? (getComputedStyle(opex).display !== 'none') : false;
+        const buildingsVisible = buildings ? (getComputedStyle(buildings).display !== 'none') : false;
+        let breakpoint = 'desktop-full';
+        if (w <= 767) breakpoint = 'mobile';
+        else if (w <= 1100) breakpoint = 'small-desktop';
+        console.log('[Responsive] ' + w + 'px -> ' + breakpoint + ' | buildings: ' + buildingsVisible + ', savings: ' + opexVisible);
+    }}
+    logResponsiveBreakpoint();
+    window.addEventListener('resize', (function() {{
+        let timeout;
+        return function() {{
+            clearTimeout(timeout);
+            timeout = setTimeout(logResponsiveBreakpoint, 200);
+        }};
+    }})());
+
     // Load export_data.js for All Buildings tab and CSV export (not needed for header tooltips)
     // Header tooltips now use pre-computed HEADER_TOTALS for instant updates
     dataLoadState.exportData = 'loading';
@@ -7754,10 +7828,11 @@ document.addEventListener('DOMContentLoaded', function() {{
     }});
 
     // Smart throttled preload - only first 50 visible logos (above fold)
-    // Uses preloadQueue to avoid flooding network on cold cache
+    // Uses preloadQueue to avoid flooding network on cold cache - preload thumbnails for speed
     PORTFOLIO_CARDS.slice(0, 50).forEach(p => {{
         const logoUrl = p.aws_logo_url || (p.logo_file ? CONFIG.awsBucket + '/logos/' + p.logo_file : '');
-        if (logoUrl) preloadQueue.add(logoUrl, true);  // priority=true for visible
+        const logoThumbUrl = logoUrl ? logoUrl.replace('/logos/', '/logo-thumbnails/') : '';
+        if (logoThumbUrl) preloadQueue.add(logoThumbUrl, true);  // priority=true for visible
     }});
 
     // DON'T pre-expand first 5 portfolios on cold cache - let user trigger expansion
@@ -7768,11 +7843,12 @@ document.addEventListener('DOMContentLoaded', function() {{
         card.addEventListener('mouseenter', function() {{
             const idx = parseInt(this.dataset.idx);
             if (isNaN(idx)) return;
-            // Preload logo for this card if not already loaded
+            // Preload logo thumbnail for this card if not already loaded
             const p = PORTFOLIO_CARDS[idx];
             if (p) {{
                 const logoUrl = p.aws_logo_url || (p.logo_file ? CONFIG.awsBucket + '/logos/' + p.logo_file : '');
-                if (logoUrl) preloadQueue.add(logoUrl);
+                const logoThumbUrl = logoUrl ? logoUrl.replace('/logos/', '/logo-thumbnails/') : '';
+                if (logoThumbUrl) preloadQueue.add(logoThumbUrl);
             }}
             // Preload first 10 building thumbnails when hovering
             const buildings = PORTFOLIO_BUILDINGS[idx];

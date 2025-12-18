@@ -110,6 +110,7 @@ AWS_BUCKET = 'nationwide-odcv-images'
 AWS_REGION = 'us-east-2'
 AWS_BASE_URL = f'https://{AWS_BUCKET}.s3.{AWS_REGION}.amazonaws.com'
 AWS_LOGOS_PREFIX = 'logos/'
+AWS_LOGO_THUMBNAILS_PREFIX = 'logo-thumbnails/'
 AWS_IMAGES_PREFIX = 'images/'
 
 # S3 URL patterns
