@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 03:14:57 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 03:20:54 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6049,47 +6049,29 @@ function updateHeaderTooltips() {
 }
 
 function applyFilters() {
-    console.log('=== applyFilters DEBUG ===');
-    console.log('selectedBuildingType:', selectedBuildingType);
-    console.log('activeVertical:', activeVertical);
-    // Get classification filter (type dropdown) once, outside the loop
+    // Get classification filter
     const selectedClassification = (() => {
         const sel = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
         return sel ? sel.dataset.type : 'all';
-    })();const cards = document.querySelectorAll('.portfolio-card');
+    })();
+
     const container = document.getElementById('portfolios-list');
     if (!container) return;
 
-    const visible = [];
-    let totalOpex = 0;
-    let totalValuation = 0;
-    let totalCarbon = 0;
-    let totalBuildings = 0;
-    let totalSqft = 0;
+    // Filter from PORTFOLIO_CARDS data (all portfolios), not DOM
+    const filtered = [];
+    let totalOpex = 0, totalValuation = 0, totalCarbon = 0, totalBuildings = 0, totalSqft = 0;
 
-    let debugMatchedPortfolios = 0;
-    let debugTotalK12Count = 0;
-    cards.forEach(card => {
-        const idx = parseInt(card.dataset.idx);
+    PORTFOLIO_CARDS.forEach((p, idx) => {
         const agg = FILTER_DATA[idx] || {};
-
-        // FILTER_DATA format: {"type|vertical": {count, opex, valuation, carbon, sqft}, ...}
         let count = 0, opex = 0, valuation = 0, carbon = 0, sqft = 0;
 
         for (const [key, vals] of Object.entries(agg)) {
-            // Validate key format (must be "type|vertical")
             const parts = key.split('|');
             if (parts.length !== 2) continue;
             const [t, v] = parts;
-            // Filter by building type (radio_button_building_type)
             if (selectedBuildingType && t !== selectedBuildingType) continue;
-            // Filter by vertical
             if (activeVertical !== 'all' && v !== activeVertical) continue;
-            // DEBUG: track K-12 matches
-            if (selectedBuildingType === 'K-12 School' && t === 'K-12 School') {
-                debugTotalK12Count += vals.count || 0;
-            }
-            // Accumulate matching - using named object properties for clarity
             if (vals && typeof vals === 'object') {
                 count += vals.count || 0;
                 opex += vals.opex || 0;
@@ -6099,83 +6081,46 @@ function applyFilters() {
             }
         }
 
-        // Filter by search - check both org name AND display name
+        // Search filter
         if (globalQuery) {
-            const orgName = (card.dataset.org || '').toLowerCase();
-            const displayName = (card.dataset.displayname || '').toLowerCase();
-            if (!orgName.includes(globalQuery) && !displayName.includes(globalQuery)) {
-                count = 0;
-            }
+            const searchStr = [p.org_name, p.display_name, ...(p.search_aliases || [])].join(' ').toLowerCase();
+            if (!searchStr.includes(globalQuery)) count = 0;
         }
 
-        // Filter by classification (type filter dropdown) - ADDED for unified filter system
-        // Case-insensitive comparison for reliability across data variations
-        // When a specific classification is selected, hide portfolios that don't match
-        // (including portfolios without any classification - they should be filtered out)
+        // Classification filter
         if (selectedClassification !== 'all') {
-            const cardClassification = (card.dataset.classification || '').toLowerCase().trim();
-            const targetClassification = selectedClassification.toLowerCase().trim();
-            // Hide if classification doesn't match OR if portfolio has no classification
-            if (!cardClassification || cardClassification !== targetClassification) {
-                count = 0;
-            }
+            const cls = (p.classification || '').toLowerCase().trim();
+            if (!cls || cls !== selectedClassification.toLowerCase().trim()) count = 0;
         }
 
-        if (count === 0) {
-            card.classList.add('hidden');
-        } else {
-            card.classList.remove('hidden');
-
-            // Update card display
-            const countEl = card.querySelector('.building-count-value');
-            const opexEl = card.querySelector('.opex-value');
-            const valEl = card.querySelector('.valuation-value');
-            const carbonEl = card.querySelector('.carbon-value');
-            const sqftEl = card.querySelector('.sqft-value');
-
-            if (countEl) countEl.textContent = count.toLocaleString();
-            if (opexEl) opexEl.textContent = formatMoneyJS(opex);
-            if (valEl) valEl.textContent = formatMoneyJS(valuation);
-            if (carbonEl) carbonEl.textContent = formatCarbonJS(carbon);
-            if (sqftEl) sqftEl.textContent = formatSqftJS(sqft);
-
-            visible.push({ card, opex, buildingCount: count, sqft, valuation, carbon, eui: PORTFOLIO_CARDS[idx]?.median_eui || 0 });
+        if (count > 0) {
+            filtered.push({ p, idx, count, opex, valuation, carbon, sqft, eui: p.median_eui || 0 });
             totalOpex += opex;
             totalValuation += valuation;
             totalCarbon += carbon;
             totalBuildings += count;
             totalSqft += sqft;
         }
-        if (count > 0) debugMatchedPortfolios++;
     });
 
-    // DEBUG output
-    if (selectedBuildingType === 'K-12 School') {
-        console.log('DEBUG K-12 portfolios matched:', debugMatchedPortfolios);
-        console.log('DEBUG K-12 total building count:', debugTotalK12Count);
-        console.log('DEBUG visible portfolios:', visible.length);
-        console.log('DEBUG totalBuildings:', totalBuildings);
-    }
-
-    // Sort by current sort column and reorder DOM
-    visible.sort((a, b) => {
+    // Sort filtered array
+    filtered.sort((a, b) => {
         let aVal, bVal;
         if (currentSortCol === 'name') {
-            aVal = (a.card.dataset.displayname || '').toLowerCase();
-            bVal = (b.card.dataset.displayname || '').toLowerCase();
+            aVal = (a.p.display_name || '').toLowerCase();
+            bVal = (b.p.display_name || '').toLowerCase();
         } else if (currentSortCol === 'buildings') {
-            aVal = a.buildingCount || 0;
-            bVal = b.buildingCount || 0;
+            aVal = a.count || 0;
+            bVal = b.count || 0;
         } else if (currentSortCol === 'sqft') {
             aVal = a.sqft || 0;
             bVal = b.sqft || 0;
         } else if (currentSortCol === 'eui') {
-            // Put null/0 EUI at bottom regardless of sort direction
             const aHasEui = a.eui && a.eui > 0;
             const bHasEui = b.eui && b.eui > 0;
             if (!aHasEui && !bHasEui) return 0;
-            if (!aHasEui) return 1;  // a goes to bottom
-            if (!bHasEui) return -1; // b goes to bottom
+            if (!aHasEui) return 1;
+            if (!bHasEui) return -1;
             aVal = a.eui;
             bVal = b.eui;
         } else if (currentSortCol === 'valuation') {
@@ -6185,21 +6130,31 @@ function applyFilters() {
             aVal = a.carbon || 0;
             bVal = b.carbon || 0;
         } else {
-            // Default to opex
             aVal = a.opex || 0;
             bVal = b.opex || 0;
         }
-        // FIXED: Use proper comparison that handles equal values and string/number types
         if (typeof aVal === 'string') {
             return currentSortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         }
         return currentSortAsc ? (aVal - bVal) : (bVal - aVal);
     });
-    visible.forEach(v => container.appendChild(v.card));
+
+    // Clear and re-render from PORTFOLIO_CARDS data with filtered values
+    container.innerHTML = '';
+    filtered.forEach(f => {
+        const cardHtml = renderPortfolioCard(f.p, {
+            count: f.count,
+            sqft: f.sqft,
+            opex: f.opex,
+            valuation: f.valuation,
+            carbon: f.carbon
+        });
+        container.insertAdjacentHTML('beforeend', cardHtml);
+    });
 
     // Update counts
     const countEl = document.getElementById('visible-count');
-    if (countEl) countEl.textContent = visible.length;
+    if (countEl) countEl.textContent = filtered.length;
 
     // Update rollup stats
     const rollupValEl = document.getElementById('rollup-valuation');
@@ -6209,17 +6164,7 @@ function applyFilters() {
     if (rollupCarbonEl) rollupCarbonEl.textContent = formatCarbonJS(totalCarbon);
     if (rollupOpexEl) rollupOpexEl.textContent = formatMoneyJS(totalOpex);
 
-    // Update header tooltips using pre-computed HEADER_TOTALS (instant, no EXPORT_DATA needed)
     updateHeaderTooltips();
-
-    // Re-render expanded portfolio BUT preserve the "show all" state if user already clicked Show More
-    const expanded = document.querySelector('.portfolio-card.expanded');
-    if (expanded) {
-        const idx = parseInt(expanded.dataset.idx);
-        // If user already expanded all buildings, keep that state
-        const showAll = portfolioBuildingCounts[idx] && portfolioBuildingCounts[idx] > BUILDINGS_PER_BATCH;
-        loadPortfolioRows(expanded, showAll);
-    }
 }
 
 function selectVertical(v, preserveBuildingType = false) {
@@ -8449,7 +8394,14 @@ let loadedCardCount = 100;  // First 100 loaded in HTML
 const CARDS_PER_BATCH = 50;
 let isLoadingMore = false;
 
-function renderPortfolioCard(p) {
+function renderPortfolioCard(p, overrides = {}) {
+    // Use overrides if provided (for filtered views), otherwise use p values
+    const count = overrides.count !== undefined ? overrides.count : p.building_count;
+    const sqft = overrides.sqft !== undefined ? overrides.sqft : p.total_sqft;
+    const opex = overrides.opex !== undefined ? overrides.opex : p.total_opex;
+    const valuation = overrides.valuation !== undefined ? overrides.valuation : p.total_valuation;
+    const carbon = overrides.carbon !== undefined ? overrides.carbon : p.total_carbon;
+
     const bucket = CONFIG.awsBucket;
     const logoUrl = p.aws_logo_url || (p.logo_file ? `${bucket}/logos/${p.logo_file}` : '');
     const orgInitial = (p.org_name && p.org_name.length > 0) ? p.org_name[0].toUpperCase() : '?';
@@ -8462,19 +8414,19 @@ function renderPortfolioCard(p) {
     const parentHtml = p.parent_owned ? `<span class="parent-owned">${p.parent_owned}</span>` : '';
     const fullTitle = p.parent_owned ? `${p.display_name || p.org_name} (${p.parent_owned})` : (p.display_name || p.org_name);
 
-    return `<div class="portfolio-card" data-idx="${p.idx}" data-org="${p.org_name}" data-displayname="${p.display_name || p.org_name}" data-buildings="${p.building_count}" data-sqft="${p.total_sqft || 0}" data-eui="${p.median_eui}" data-valuation="${p.total_valuation}" data-carbon="${p.total_carbon}" data-opex="${p.total_opex}">
+    return `<div class="portfolio-card" data-idx="${p.idx}" data-org="${p.org_name}" data-displayname="${p.display_name || p.org_name}" data-buildings="${count}" data-sqft="${sqft || 0}" data-eui="${p.median_eui}" data-valuation="${valuation}" data-carbon="${carbon}" data-opex="${opex}" data-classification="${p.classification || ''}">
         <div class="portfolio-header" onclick="togglePortfolio(this)">
             <div class="org-logo-stack">
                 <span class="org-name-small" title="${fullTitle}">${p.display_name || p.org_name}${parentHtml}</span>
                 ${logoHtml}
             </div>
-            <span class="stat-cell building-count"><span class="building-count-value">${p.building_count}</span></span>
+            <span class="stat-cell building-count"><span class="building-count-value">${count.toLocaleString()}</span></span>
             <span class="stat-cell classification-cell">${(p.classification || '-').replace(/\//g, '<br>').replace(/ /g, '<br>')}</span>
-            <span class="stat-cell sqft-value">${formatSqftJS(p.total_sqft)}</span>
+            <span class="stat-cell sqft-value">${formatSqftJS(sqft)}</span>
             <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">${formatEuiRating(p.median_eui, p.median_eui_benchmark)}</span>
-            <span class="stat-cell carbon-value">${formatCarbon(p.total_carbon)}</span>
-            <span class="stat-cell valuation-value">${formatMoney(p.total_valuation)}</span>
-            <span class="stat-cell opex-value">${formatMoney(p.total_opex)}</span>
+            <span class="stat-cell carbon-value">${formatCarbon(carbon)}</span>
+            <span class="stat-cell valuation-value">${formatMoney(valuation)}</span>
+            <span class="stat-cell opex-value">${formatMoney(opex)}</span>
         </div>
         <div class="portfolio-buildings">
             <div class="building-rows-container"></div>
@@ -9091,7 +9043,7 @@ function logResponsiveDiagnostics() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-18 03:14:57 EST
+        Build: 2025-12-18 03:20:54 EST
       </div>
     </footer>
 
@@ -9228,7 +9180,7 @@ function logResponsiveDiagnostics() {
     }
 
     function showBuildDate() {
-        alert("Build: 12/18/2025 12:14 AM PST");
+        alert("Build: 12/18/2025 12:20 AM PST");
     }
 
     // Check auth on page load
