@@ -1,0 +1,26 @@
+# Core data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Scientific computing
+scipy>=1.10.0
+
+# Timezone handling
+pytz>=2023.3
+
+# HTTP requests
+requests>=2.31.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# AWS S3 operations
+boto3>=1.28.0
+botocore>=1.31.0
+
+# Image processing
+Pillow>=10.0.0
+
+# OpenAI API
+openai>=1.0.0
+
