@@ -2263,10 +2263,11 @@ body.methodology-active .main-tabs {
     white-space: nowrap;
 }
 .classification-badge.owner { color: #0066cc; }
-.classification-badge.tenant { color: #0066cc; }
-.classification-badge.property-manager { color: #1d4ed8; }
-.classification-badge.owner-occupier { color: #0052a3; }
-.classification-badge.owner-operator { color: #0052a3; }
+.classification-badge.owner-occupier { color: #0891b2; }
+.classification-badge.owner-operator { color: #7c3aed; }
+.classification-badge.tenant { color: #1a3870; }
+.classification-badge.tenant_sub_org { color: #b45309; }
+.classification-badge.property-manager { color: #475569; }
 
 .stat-cell.classification-cell {
     font-size: 11px;
@@ -2274,11 +2275,12 @@ body.methodology-active .main-tabs {
     text-transform: uppercase;
     color: var(--gray-600);
 }
-.classification-cell.classification-owner { color: var(--primary); }
-.classification-cell.classification-tenant { color: var(--gray-700); }
-.classification-cell.classification-property-manager { color: var(--primary-dark); }
-.classification-cell.classification-owner-occupier { color: var(--gray-600); }
-.classification-cell.classification-owner-operator { color: var(--gray-800); }
+.classification-cell.classification-owner { color: #0066cc; }
+.classification-cell.classification-owner-occupier { color: #0891b2; }
+.classification-cell.classification-owner-operator { color: #7c3aed; }
+.classification-cell.classification-tenant { color: #1a3870; }
+.classification-cell.classification-tenant_sub_org { color: #b45309; }
+.classification-cell.classification-property-manager { color: #475569; }
 
 /* TYPE column filter dropdown */
 .type-filter-wrapper {

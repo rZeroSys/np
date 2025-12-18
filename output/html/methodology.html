@@ -262,9 +262,9 @@ if (window.location.search.includes('embed=1')) {
             </thead>
             <tbody>
                 <tr><td>Total Buildings</td><td>22,948</td></tr>
-                <tr><td>Mean ODCV Savings</td><td>27.1%</td></tr>
-                <tr><td>Median ODCV Savings</td><td>26.9%</td></tr>
-                <tr><td>Savings Range</td><td>20% &ndash; 45%</td></tr>
+                <tr><td>Mean ODCV HVAC Savings</td><td>27.1%</td></tr>
+                <tr><td>Median ODCV HVAC Savings</td><td>26.9%</td></tr>
+                <tr><td>HVAC Savings Range</td><td>20% &ndash; 45%</td></tr>
             </tbody>
         </table>
     </section>
@@ -298,13 +298,13 @@ if (window.location.search.includes('embed=1')) {
                     <td>School at 75% utilization = <strong>25%</strong> opportunity</td>
                 </tr>
                 <tr>
-                    <td><strong>Limited-opportunity</strong><br><small>(Hospital, Lab, Residential Care)</small></td>
+                    <td><strong>Limited-opportunity</strong><br><small>(Lab, Residential Care)</small></td>
                     <td class="formula" style="background: none; border-left: none; padding: 8px;">Opportunity = (1 - Utilization) &times; 0.3</td>
-                    <td>Hospital at 75% utilization: (1 - 0.75) &times; 0.3 = <strong>7.5%</strong> opportunity</td>
+                    <td>Residential Care at 75% utilization: (1 - 0.75) &times; 0.3 = <strong>7.5%</strong> opportunity</td>
                 </tr>
             </tbody>
         </table>
-        <p><em>Limited-opportunity buildings have code-mandated ventilation for infection control (hospitals) or 24/7 residents (care facilities), limiting savings to non-clinical/common areas.</em></p>
+        <p><em>Limited-opportunity buildings have 24/7 residents (care facilities) or specialized ventilation requirements (labs), limiting savings to common areas. Note: Hospitals use the single-operator formula&mdash;waiting rooms, exam rooms, and admin areas offer significant ODCV opportunity (20-38% HVAC savings).</em></p>
 
         <h3>Building Type Details</h3>
         <table>
@@ -383,15 +383,15 @@ if (window.location.search.includes('embed=1')) {
                 </tr>
                 <tr>
                     <td>Inpatient Hospital</td>
-                    <td>Utilization (dampened)</td>
-                    <td>ASHRAE 170 mandates ventilation for infection control; savings limited to non-clinical areas only</td>
+                    <td>Utilization</td>
+                    <td>Waiting rooms, exam rooms, admin offices offer significant opportunity; clinical areas excluded</td>
                     <td>34% &ndash; 82%<br><small>(mean 75%)</small></td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
                 <tr>
                     <td>Specialty Hospital</td>
-                    <td>Utilization (dampened)</td>
-                    <td>Similar to inpatient; ASHRAE 170 constraints apply</td>
+                    <td>Utilization</td>
+                    <td>Similar to inpatient; non-clinical areas have high opportunity</td>
                     <td>42% &ndash; 75%<br><small>(mean 75%)</small></td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
@@ -450,8 +450,8 @@ if (window.location.search.includes('embed=1')) {
         No vacancy concept&mdash;the operator controls all space. Opportunity driven purely by when space is empty.</p>
         <div class="formula">Opportunity = 1 - Utilization</div>
         <p>Example: School at 45% utilization (summers, nights, weekends off) = 55% opportunity.</p>
-        <p><strong>Limited-opportunity buildings</strong> (hospital, lab, residential care):<br>
-        Code-mandated ventilation for infection control, fume hoods, or 24/7 residents limits savings to ~30% of theoretical.</p>
+        <p><strong>Limited-opportunity buildings</strong> (lab, residential care):<br>
+        Fume hoods or 24/7 residents limit savings to ~30% of theoretical. Note: Hospitals use the standard utilization formula&mdash;non-clinical areas offer 20-38% HVAC savings.</p>
         <div class="formula">Opportunity = (1 - Utilization) × 0.3</div>
     </section>
 
@@ -572,8 +572,8 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Hospital</td><td>78%</td><td>45%</td><td>DHW, sterilization, kitchens use gas</td></tr>
                 <tr><td>Retail</td><td>77%</td><td>45%</td><td>Lighting is major non-HVAC load</td></tr>
                 <tr><td>Higher Ed</td><td>80%</td><td>48%</td><td>Lab exhaust, semester schedules</td></tr>
-                <tr><td>Hotel</td><td>22%</td><td>43%</td><td><strong>Special case:</strong> ~42% DHW, ~33% cooking</td></tr>
-                <tr><td>Restaurant</td><td>20%</td><td>34%</td><td><strong>Special case:</strong> ~72% commercial cooking</td></tr>
+                <tr><td>Hotel</td><td>12-28%</td><td>43%</td><td><strong>Special case:</strong> Gas HVAC varies by intensity; ~42% DHW, ~33% cooking</td></tr>
+                <tr><td>Restaurant</td><td>18%</td><td>34%</td><td><strong>Special case:</strong> ~72% commercial cooking</td></tr>
                 <tr><td>Supermarket</td><td>77%</td><td>20%</td><td>Refrigeration excluded from HVAC</td></tr>
             </tbody>
         </table>
@@ -625,7 +625,7 @@ if (window.location.search.includes('embed=1')) {
         <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.</p>
 
         <h3>5. ODCV Savings</h3>
-        <p>Each building type has minimum (floor) and maximum (ceiling) savings potential. The master formula calculates actual ODCV% within these ranges:</p>
+        <p>Each building type has minimum (floor) and maximum (ceiling) HVAC savings potential. The master formula calculates actual ODCV% within these ranges:</p>
         <table>
             <thead>
                 <tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Why</th></tr>
@@ -696,14 +696,13 @@ if (window.location.search.includes('embed=1')) {
         <p>Where Range = Ceiling - Floor for each building type.</p>
         <p><strong>Component breakdown:</strong></p>
         <ul>
-            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max savings (e.g., Office 20-40%, Hospital 5-15%)</li>
+            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max HVAC savings (e.g., Office 20-40%, Hospital 20-38%)</li>
             <li><strong>Opportunity:</strong> 0-1 score based on vacancy and utilization</li>
             <li><strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1)</li>
             <li><strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste)</li>
             <li><strong>Climate Modifier:</strong> 1.10 Northern, 1.05 North-Central, 1.00 South-Central, 0.95 Southern</li>
         </ul>
-        <p>Example: Office (20-40% range), 59% opportunity, 0.875 automation, ES score 68 (1.0×), North-Central (1.05×):<br>
-        ODCV% = 20% + (59% × 0.875 × 20%) × 1.0 × 1.05 = 20% + 10.8% = 30.8%</p>
+        <p>Example: Office with 59% opportunity, 0.875 automation score, average efficiency (1.0×), North-Central climate (1.05×) yields approximately 27% HVAC energy savings.</p>
 
         <h3>Technical Detail: Annual Savings Calculation</h3>
         <p>ODCV reduces energy consumption for each fuel type proportional to its HVAC share.</p>
@@ -800,8 +799,8 @@ if (window.location.search.includes('embed=1')) {
             <li><strong>Peer-reviewed sources:</strong> HVAC percentages from EIA CBECS 2018 (6,436 buildings surveyed). Vacancy from CBRE/CommercialEdge. Utilization from Kastle badge-swipe data.</li>
             <li><strong>Conservative assumptions:</strong>
                 <ul>
-                    <li>Floor savings (20%) achievable even with minimal implementation</li>
-                    <li>Limited-opportunity buildings (hospitals, labs) use 0.3× multiplier</li>
+                    <li>Floor HVAC savings (20%) achievable even with minimal implementation</li>
+                    <li>Limited-opportunity buildings (labs, residential care) use 0.3× multiplier</li>
                     <li>Combined adjustment capped at ±12% to prevent outliers</li>
                 </ul>
             </li>
