@@ -745,7 +745,7 @@ DEFAULT_CAP_RATE = {'low': 6.0, 'high': 9.0, 'multiplier_low': 11, 'multiplier_h
 # Static fallback (dynamic functions below are preferred)
 ENERGY_COLUMN_TOOLTIPS = {
     'current': "From city benchmarking disclosure. Actual metered energy.",
-    'new': "Projected energy after ODCV implementation.",
+    'new': "Projected consumption if HVAC matched actual occupancy.",
     'change': "Annual energy reduction from ODCV.",
 }
 
@@ -811,15 +811,15 @@ def get_new_column_tooltip(row):
     city = safe_val(row, 'loc_city', '')
 
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
-        return f"""What consumption would look like if ventilation matched actual occupancy—accounting for vacant floors and low utilization on occupied floors.<br><br>
+        return f"""Projected consumption if ventilation matched actual occupancy—accounting for vacant floors and low utilization on occupied floors.<br><br>
 Uses {city} vacancy from CBRE/Cushman, attendance from Kastle badge swipes, and HVAC % from CBECS 2018."""
 
     elif bldg_type in ('K-12 School', 'Higher Ed'):
-        return f"""What consumption would look like if HVAC responded to school calendar—summers, weekends, afternoons, holidays—instead of fixed timers.<br><br>
+        return f"""Projected consumption if HVAC responded to school calendar—summers, weekends, afternoons, holidays—instead of fixed timers.<br><br>
 Uses {city} benchmarking, schedule data from NCES, and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Hotel':
-        return f"""What consumption would look like if room conditioning matched when guests are actually present.<br><br>
+        return f"""Projected consumption if room conditioning matched when guests are actually present.<br><br>
 Only HVAC responds to occupancy—hotel gas splits ~20% HVAC, ~42% hot water, ~33% kitchens. Uses {city} room occupancy from STR Global."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
@@ -831,35 +831,35 @@ Patient areas excluded per ASHRAE 170. Uses {city} benchmarking and HVAC % from 
 Uses {city} benchmarking, occupancy from NIC MAP Vision, and HVAC % from CBECS 2018."""
 
     elif bldg_type in ('Retail', 'Retail Store'):
-        return f"""What consumption would look like if ventilation matched foot traffic instead of running at peak capacity all day.<br><br>
+        return f"""Projected consumption if ventilation matched foot traffic instead of running at peak capacity all day.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Supermarket':
-        return f"""What consumption would look like if sales floor HVAC matched traffic. Refrigeration unchanged—it doesn't respond to occupancy.<br><br>
+        return f"""Projected consumption if sales floor HVAC matched traffic. Refrigeration unchanged—it doesn't respond to occupancy.<br><br>
 Uses {city} benchmarking and HVAC/refrigeration split from CBECS 2018."""
 
     elif bldg_type == 'Wholesale Club':
-        return f"""What consumption would look like if conditioning matched member traffic patterns.<br><br>
+        return f"""Projected consumption if conditioning matched member traffic patterns.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
     elif bldg_type in ('Venue', 'Theater'):
-        return f"""What consumption would look like if conditioning matched event schedules instead of running 24/7.<br><br>
+        return f"""Projected consumption if conditioning matched event schedules instead of running 24/7.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Restaurant/Bar':
-        return f"""What consumption would look like if dining area HVAC matched meal-time patterns. Kitchen unchanged—it doesn't respond to traffic.<br><br>
+        return f"""Projected consumption if dining area HVAC matched meal-time patterns. Kitchen unchanged—it doesn't respond to traffic.<br><br>
 Only ~18% of restaurant gas is space heating (rest is cooking). Uses {city} benchmarking."""
 
     elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
-        return f"""What consumption would look like if conditioning aligned with operating hours and visitor traffic.<br><br>
+        return f"""Projected consumption if conditioning aligned with operating hours and visitor traffic.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Outpatient Clinic':
-        return f"""What consumption would look like if ventilation matched appointment schedules and clinic hours.<br><br>
+        return f"""Projected consumption if ventilation matched appointment schedules and clinic hours.<br><br>
 Uses {city} benchmarking, scheduling from MGMA, and HVAC % from CBECS 2018."""
 
     else:
-        return f"""What consumption would look like if ventilation matched actual occupancy.<br><br>
+        return f"""Projected consumption if ventilation matched actual occupancy.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
 def get_change_column_tooltip(row):

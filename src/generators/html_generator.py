@@ -3611,6 +3611,85 @@ tr.pin-highlight {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* ============================================================================
+   HARD OVERRIDE: Responsive portfolio grid (placed at END for max specificity)
+   ============================================================================ */
+@media (max-width: 1100px) {
+    #portfolios-tab .portfolio-sort-header,
+    #portfolios-tab .portfolio-header {
+        display: grid !important;
+        width: 100% !important;
+        gap: 0 !important;
+        column-gap: 10px !important;
+        grid-template-columns: 96px minmax(70px, 0.7fr) minmax(90px, 1fr) minmax(110px, 1.2fr) !important;
+        align-items: center !important;
+    }
+
+    /* HIDE unused columns - nuclear option */
+    #portfolios-tab .portfolio-sort-header [data-col="type"],
+    #portfolios-tab .portfolio-sort-header [data-col="eui"],
+    #portfolios-tab .portfolio-sort-header [data-col="carbon"],
+    #portfolios-tab .portfolio-sort-header [data-col="valuation"],
+    #portfolios-tab .portfolio-header [data-col="type"],
+    #portfolios-tab .portfolio-header [data-col="eui"],
+    #portfolios-tab .portfolio-header [data-col="carbon"],
+    #portfolios-tab .portfolio-header [data-col="valuation"] {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+    }
+
+    /* Explicit column placement */
+    #portfolios-tab .portfolio-sort-header [data-col="portfolio"],
+    #portfolios-tab .portfolio-header [data-col="portfolio"] { grid-column: 1 !important; }
+
+    #portfolios-tab .portfolio-sort-header [data-col="buildings"],
+    #portfolios-tab .portfolio-header [data-col="buildings"] { grid-column: 2 !important; }
+
+    #portfolios-tab .portfolio-sort-header [data-col="sqft"],
+    #portfolios-tab .portfolio-header [data-col="sqft"] { grid-column: 3 !important; }
+
+    #portfolios-tab .portfolio-sort-header [data-col="savings"],
+    #portfolios-tab .portfolio-header [data-col="savings"] { grid-column: 4 !important; }
+
+    /* Ensure visible cells display properly */
+    #portfolios-tab .portfolio-header [data-col="buildings"],
+    #portfolios-tab .portfolio-header [data-col="sqft"],
+    #portfolios-tab .portfolio-header [data-col="savings"] {
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    /* Right-align header text */
+    #portfolios-tab .portfolio-sort-header [data-col="buildings"],
+    #portfolios-tab .portfolio-sort-header [data-col="sqft"],
+    #portfolios-tab .portfolio-sort-header [data-col="savings"] {
+        text-align: right !important;
+    }
+}
+
+/* Smaller adjustments for mobile */
+@media (max-width: 767px) {
+    #portfolios-tab .portfolio-sort-header,
+    #portfolios-tab .portfolio-header {
+        grid-template-columns: 70px minmax(50px, 0.7fr) minmax(70px, 1fr) minmax(90px, 1.2fr) !important;
+        column-gap: 6px !important;
+    }
+    #portfolios-tab .portfolio-header .stat-cell {
+        font-size: 11px !important;
+    }
+    #portfolios-tab .org-name-small {
+        font-size: 10px !important;
+    }
+}
 </style>'''
 
     # =========================================================================
