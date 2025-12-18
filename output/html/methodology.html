@@ -988,126 +988,186 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>Additional Data Sources</h3>
+        <h3>Reference Documents</h3>
+        <p>Local copies of key reference documents used in calculations (hosted on GitHub):</p>
         <table>
             <thead>
-                <tr><th>Data Type</th><th>Source</th><th>Link</th></tr>
+                <tr><th>Category</th><th>Document</th><th>Description</th></tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Office Vacancy Rates</td>
-                    <td>CBRE Q3 2025 Office Figures</td>
+                    <td rowspan="6">Office Market Data</td>
                     <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" class="source-link">CBRE_Vacancy_Rates_Q3_2025.csv</a></td>
+                    <td>City-by-city vacancy rates</td>
                 </tr>
                 <tr>
-                    <td>Office Utilization</td>
-                    <td>Kastle Back to Work Barometer</td>
                     <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" class="source-link">Kastle_Utilization_Rates.csv</a></td>
+                    <td>Office utilization by city</td>
                 </tr>
                 <tr>
-                    <td>HVAC Energy Share</td>
-                    <td>EIA CBECS 2018</td>
-                    <td><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Back_to_Work_Barometer.txt" class="source-link">Kastle_Back_to_Work_Barometer.txt</a></td>
+                    <td>Utilization methodology notes</td>
                 </tr>
                 <tr>
-                    <td>Grid Emission Factors</td>
-                    <td>EPA eGRID 2023</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" class="source-link">EPA_eGRID_2023.xlsx</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_US_Office_Figures_Q3_2025.pdf" class="source-link">CBRE_US_Office_Figures_Q3_2025.pdf</a></td>
+                    <td>National office market overview</td>
                 </tr>
                 <tr>
-                    <td>Utility Rates</td>
-                    <td>EIA State Electricity Data / NREL OpenEI</td>
-                    <td><a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">OpenEI</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" class="source-link">CommercialEdge_Office_Report.pdf</a></td>
+                    <td>Office market analysis</td>
                 </tr>
                 <tr>
-                    <td>Cap Rates</td>
-                    <td>CBRE Cap Rate Survey H1 2025</td>
-                    <td><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CushmanWakefield_US_Office_Q3_2025.pdf" class="source-link">CushmanWakefield_US_Office_Q3_2025.pdf</a></td>
+                    <td>Office market report</td>
                 </tr>
                 <tr>
-                    <td>LEED Certifications</td>
-                    <td>USGBC LEED Project Directory</td>
-                    <td><a href="https://www.usgbc.org/projects" class="source-link">USGBC</a></td>
-                </tr>
-                <tr>
-                    <td>BPS Policies</td>
-                    <td>IMT BPS Comparison Matrix</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf" class="source-link">IMT_BPS_Comparison_Matrix.pdf</a></td>
-                </tr>
-                <tr>
-                    <td>Ventilation Standards</td>
-                    <td>ASHRAE Standard 62.1</td>
+                    <td rowspan="4">Technical Standards</td>
                     <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" class="source-link">ASHRAE_Standard_62.1.pdf</a></td>
+                    <td>Ventilation rate requirements</td>
                 </tr>
                 <tr>
-                    <td>Data Center Energy</td>
-                    <td>LBNL Data Center Energy Report 2024</td>
-                    <td><a href="https://eta.lbl.gov/publications/data-center-energy-report" class="source-link">LBNL</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" class="source-link">EPA_eGRID_2023.xlsx</a></td>
+                    <td>Grid emission factors by region</td>
                 </tr>
                 <tr>
-                    <td>Hotel Industry Benchmarks</td>
-                    <td>AHLA State of the Industry Report 2025</td>
-                    <td><a href="https://www.ahla.com/state-of-the-industry" class="source-link">AHLA</a></td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf" class="source-link">IMT_BPS_Comparison_Matrix.pdf</a></td>
+                    <td>BPS policy comparison across cities</td>
                 </tr>
                 <tr>
-                    <td>Hotel Guest Presence</td>
-                    <td>DOE Guest Room HVAC Occupancy-Based Control Technology Report (2012)</td>
                     <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/DOE_Guest_Room_HVAC_Report.pdf" class="source-link">DOE_Guest_Room_HVAC_Report.pdf</a></td>
+                    <td>Hotel guest presence study</td>
                 </tr>
                 <tr>
-                    <td>Higher Ed Classroom Utilization</td>
-                    <td>APPA (Association of Physical Plant Administrators)</td>
+                    <td rowspan="10">Regional Market Reports</td>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Denver_Office_Figures_Q3_2025.pdf" class="source-link">Denver_Office_Figures_Q3_2025.pdf</a></td>
+                    <td>Denver office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_LosAngeles_Office_Q4_2025.pdf" class="source-link">Kidder_LosAngeles_Office_Q4_2025.pdf</a></td>
+                    <td>Los Angeles office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanFrancisco_Office_Q3_2025.pdf" class="source-link">Kidder_SanFrancisco_Office_Q3_2025.pdf</a></td>
+                    <td>San Francisco office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Seattle_Office_Q3_2025.pdf" class="source-link">Kidder_Seattle_Office_Q3_2025.pdf</a></td>
+                    <td>Seattle office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Portland_Office_Q3_2025.pdf" class="source-link">Kidder_Portland_Office_Q3_2025.pdf</a></td>
+                    <td>Portland office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanDiego_Office_Q3_2025.pdf" class="source-link">Kidder_SanDiego_Office_Q3_2025.pdf</a></td>
+                    <td>San Diego office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Sacramento_Office_Q3_2025.pdf" class="source-link">Kidder_Sacramento_Office_Q3_2025.pdf</a></td>
+                    <td>Sacramento office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SiliconValley_Office_Q3_2025.pdf" class="source-link">Kidder_SiliconValley_Office_Q3_2025.pdf</a></td>
+                    <td>Silicon Valley office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_OrangeCounty_Office_Q4_2025.pdf" class="source-link">Kidder_OrangeCounty_Office_Q4_2025.pdf</a></td>
+                    <td>Orange County office market</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_InlandEmpire_Office_Q4_2025.pdf" class="source-link">Kidder_InlandEmpire_Office_Q4_2025.pdf</a></td>
+                    <td>Inland Empire office market</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>External Data Sources</h3>
+        <p>Original sources for methodology inputs (links to publisher websites):</p>
+        <table>
+            <thead>
+                <tr><th>Category</th><th>Source</th><th>Used For</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="4">Energy Data</td>
+                    <td><a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a></td>
+                    <td>HVAC energy share by building type</td>
+                </tr>
+                <tr>
+                    <td><a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI</a></td>
+                    <td>Utility rates by location</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.energy.gov/eere/buildings/climate-zones" class="source-link">DOE Climate Zones</a></td>
+                    <td>Climate zone classifications</td>
+                </tr>
+                <tr>
+                    <td><a href="https://eta.lbl.gov/publications/data-center-energy-report" class="source-link">LBNL Data Center Report</a></td>
+                    <td>Data center energy benchmarks</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">Building Certifications</td>
+                    <td><a href="https://www.usgbc.org/projects" class="source-link">USGBC LEED Directory</a></td>
+                    <td>LEED certifications</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.energystar.gov/buildings/benchmark" class="source-link">ENERGY STAR Portfolio Manager</a></td>
+                    <td>Energy Star scores</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a></td>
+                    <td>Property valuation cap rates</td>
+                </tr>
+                <tr>
+                    <td rowspan="6">Industry Benchmarks</td>
+                    <td><a href="https://www.ahla.com/state-of-the-industry" class="source-link">AHLA</a></td>
+                    <td>Hotel occupancy rates</td>
+                </tr>
+                <tr>
                     <td><a href="https://www.appa.org/" class="source-link">APPA</a></td>
+                    <td>Higher ed classroom utilization</td>
                 </tr>
                 <tr>
-                    <td>Higher Ed Facilities Benchmarks</td>
-                    <td>SIGHTLINES/Gordian Higher Ed Facilities</td>
-                    <td><a href="https://www.gordian.com/solutions/higher-education/" class="source-link">Gordian</a></td>
+                    <td><a href="https://www.gordian.com/solutions/higher-education/" class="source-link">Gordian/SIGHTLINES</a></td>
+                    <td>Higher ed facilities benchmarks</td>
                 </tr>
                 <tr>
-                    <td>K-12 School Calendar</td>
-                    <td>Pew Research Center (180 school days standard)</td>
-                    <td><a href="https://www.pewresearch.org/" class="source-link">Pew</a></td>
-                </tr>
-                <tr>
-                    <td>K-12 Instructional Hours</td>
-                    <td>NCES Table 5.14 State Requirements</td>
-                    <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
-                </tr>
-                <tr>
-                    <td>K-12 Energy Efficiency</td>
-                    <td>DOE Energy Smart Schools O&amp;M Guide</td>
-                    <td><a href="https://www.energy.gov/eere/buildings/energy-smart-schools" class="source-link">DOE</a></td>
-                </tr>
-                <tr>
-                    <td>School DCV Studies</td>
-                    <td>Norwegian DCV Studies (Mysen et al.)</td>
-                    <td>&mdash;</td>
-                </tr>
-                <tr>
-                    <td>Retail Traffic Patterns</td>
-                    <td>StoreForce Retail Analytics</td>
-                    <td><a href="https://www.storeforce.com/" class="source-link">StoreForce</a></td>
-                </tr>
-                <tr>
-                    <td>Retail Industry Studies</td>
-                    <td>National Retail Federation (NRF)</td>
                     <td><a href="https://nrf.com/" class="source-link">NRF</a></td>
+                    <td>Retail traffic patterns</td>
                 </tr>
                 <tr>
-                    <td>Supermarket DCV Simulation</td>
-                    <td>ASHRAE RP-1747</td>
+                    <td><a href="https://www.storeforce.com/" class="source-link">StoreForce</a></td>
+                    <td>Retail analytics</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
+                    <td>Hospital occupancy rates</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">Education &amp; Schools</td>
+                    <td><a href="https://www.pewresearch.org/" class="source-link">Pew Research</a></td>
+                    <td>K-12 school calendar (180 days)</td>
+                </tr>
+                <tr>
+                    <td><a href="https://nces.ed.gov/" class="source-link">NCES</a></td>
+                    <td>K-12 instructional hours</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.energy.gov/eere/buildings/energy-smart-schools" class="source-link">DOE Energy Smart Schools</a></td>
+                    <td>K-12 energy efficiency</td>
+                </tr>
+                <tr>
+                    <td>&mdash;</td>
+                    <td>Norwegian DCV Studies (Mysen et al.)</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Technical Standards</td>
                     <td><a href="https://www.ashrae.org/" class="source-link">ASHRAE</a></td>
+                    <td>Standards 62.1 (ventilation), 170 (healthcare), RP-1747 (supermarkets)</td>
                 </tr>
                 <tr>
-                    <td>Supermarket HVAC Savings</td>
-                    <td>Purdue University DCV Research (~25% savings potential)</td>
-                    <td><a href="https://www.purdue.edu/" class="source-link">Purdue</a></td>
-                </tr>
-                <tr>
-                    <td>Hospital Ventilation Standards</td>
-                    <td>ASHRAE Standard 170</td>
-                    <td><a href="https://www.ashrae.org/" class="source-link">ASHRAE</a></td>
+                    <td><a href="https://www.purdue.edu/" class="source-link">Purdue University</a></td>
+                    <td>Supermarket DCV research</td>
                 </tr>
             </tbody>
         </table>
