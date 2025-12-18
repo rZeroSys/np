@@ -54,7 +54,7 @@ git commit -m "$COMMIT_MSG
 
 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 
-git push
+# git push
 
 echo ""
 echo "======================================"
