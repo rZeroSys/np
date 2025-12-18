@@ -4037,7 +4037,7 @@ tr.pin-highlight {
         info.textContent = 'Updated ' + d.toLocaleTimeString([], {{hour:'2-digit', minute:'2-digit'}});
       }}
 
-      async function refreshLeaderboard(){{
+      window.refreshLeaderboard = async function(){{
         try {{
           await firebase.firestore().enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
           btn.disabled = true;
@@ -5101,13 +5101,29 @@ function filterAllBuildings() {{
 }}
 
 function doFilterAllBuildings() {{
+    // DEBUG: Log filter state
+    console.log('=== doFilterAllBuildings DEBUG ===');
+    console.log('selectedBuildingType:', selectedBuildingType);
+    console.log('activeVertical:', activeVertical);
+    console.log('allBuildingsData length:', allBuildingsData?.length);
+
     // Filter by selected city card AND global search
+    let debugMatches = 0;
+    let debugMisses = 0;
+    let sampleTypes = new Set();
     filteredBuildingsData = allBuildingsData.filter(b => {{
         // FIX: Vertical filter - match Portfolio tab behavior
         if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
 
         // FIX: Building type filter - match Portfolio tab behavior
-        if (selectedBuildingType && b.type !== selectedBuildingType) return false;
+        if (selectedBuildingType) {{
+            sampleTypes.add(b.type);
+            if (b.type !== selectedBuildingType) {{
+                debugMisses++;
+                return false;
+            }}
+            debugMatches++;
+        }}
 
         // City filter
         if (selectedCityFilter && b.city !== selectedCityFilter) return false;
@@ -5129,6 +5145,14 @@ function doFilterAllBuildings() {{
         }}
         return true;
     }});
+
+    // DEBUG: Log filter results
+    if (selectedBuildingType) {{
+        console.log('DEBUG type matches:', debugMatches);
+        console.log('DEBUG type misses:', debugMisses);
+        console.log('DEBUG sample types in data:', Array.from(sampleTypes).slice(0, 10));
+        console.log('DEBUG filteredBuildingsData length:', filteredBuildingsData.length);
+    }}
 
     // Apply current sort
     sortFilteredBuildings();
@@ -5867,11 +5891,18 @@ function applySearchResults() {{
 
 // Filter by building type (called from table clicks)
 function filterByType(type) {{
-    // Find and click the matching building type button
-    const btn = document.querySelector(`.building-type-btn[data-type="${{type}}"]`);
-    if (btn && !btn.classList.contains('hidden')) {{
-        toggleBuildingType(btn);
+    // Look up vertical from HEADER_TOTALS data (keys are "type|vertical")
+    let vertical = 'Commercial';
+    for (const key of Object.keys(HEADER_TOTALS)) {{
+        if (key.startsWith(type + '|') && !key.endsWith('|all')) {{
+            vertical = key.split('|')[1];
+            break;
+        }}
     }}
+    selectedBuildingType = type;
+    selectVertical(vertical, true);
+    applyFilters();
+    if (window.allBuildingsInitialized) doFilterAllBuildings();
 }}
 
 // Filter portfolios by city (called from table clicks)
@@ -6281,6 +6312,8 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
     }}
 
     applyFilters();
+    // Sync to All Buildings tab
+    if (window.allBuildingsInitialized) doFilterAllBuildings();
 }}
 
 // Close vertical dropdowns when clicking outside
