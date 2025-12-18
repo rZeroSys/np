@@ -1,0 +1,424 @@
+id_building,property_name,address,issue_type,current_value,expected,org
+NYC_1010000001,Times Square Edition,20 Times Square,TENANT_TYPE_MISMATCH,"tenant=Marriott, type=Office",type should be Hotel,Marriott
+NYC_3020017501,Atlantic Terminal,139 Flatbush Avenue  New York  NY  11217,TENANT_TYPE_MISMATCH,"tenant=Target, type=Enclosed Mall",type should be Retail Store,Target
+SEA_5247800715,Cadillac Hotel/Historical Society,319 2Nd Ave S  Seattle  WA  98104,TENANT_TYPE_MISMATCH,"tenant=General Services Administration (GSA), type=Venue",type should be Office,General Services Administration (GSA)
+CA_36016167,,1200 Beryl Street  Redondo Beach  CA  90277,TENANT_TYPE_MISMATCH,"tenant=Albertsons Companies, type=Mixed Use",type should be Supermarket/Grocery,Albertsons Companies
+PDX_1S1E01CB-200-B1,,2800-2804 SE Hawthorne Blvd  Portland  OR  97214,TENANT_TYPE_MISMATCH,"tenant=Albertsons Companies, type=Mixed Use",type should be Supermarket/Grocery,Albertsons Companies
+PDX_1S1E21CB-4201-B1,,8039 SW Barbur Blvd  Portland  OR  97219,TENANT_TYPE_MISMATCH,"tenant=Albertsons Companies, type=Mixed Use",type should be Supermarket/Grocery,Albertsons Companies
+NYC_1002700032,,227 Madison St  New York  NY  10002,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1005440016,Pt the Public Theater,425 Lafayette St  New York  NY  10003,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_1007240082,Chelsea Health Ctr,303 9Th Ave  New York  NY  10001,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1007770001,,340 8Th Ave  New York  NY  10001,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Higher Ed",type should be Office,City Of New York
+NYC_1010080015,,130 West 56Th St  New York  NY  10019,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_1010090001,Ch Carnegie Hall,881 7Th Ave  New York  NY  10019,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_1011300001,Amnh American Museum of Natural History,200 Central Park West  New York  NY  10024,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_1011340005,Lincoln Center Koch Theater,20 Lincoln Ctr  New York  NY  10023,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_1013730050,H+H Coler-Goldwater Hospital: Coler Hospital,900 Main St  New York  NY  10044,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_1016090001,Mcny Museum of the City Of New York,1220 5Th Ave  New York  NY  10029,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_1016100001,Mb El Museo Del Barrio,1230 5Th Ave  New York  NY  10029,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_1016400147,East Harlem Health Ctr,158 East 115Th St  New York  NY  10029,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1016690001,Mount Sinai Hospital,1901 1St Ave  New York  NY  10029,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_1017340001,Harlem Hospital Brown Pavilion,46 West 137Th St  New York  NY  10037,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_1017340034,Central Harlem Health Ctr,2238 5Th Ave  New York  NY  10037,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1017470035,H+H Henry J. Carter Hospital,1879 Madison Ave  New York  NY  10035,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_1017470070,Henry Carter SNF,1752 Park Ave  New York  NY  10035,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1018520049,City New York Riverside Health Center,160 West 100Th St  New York  NY  10025,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_1020600001,H+H Lower Washington Heights Nfcc Clinic,1721 Amsterdam Ave  New York  NY  10031,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_1021380024,Washington Heights Health Ctr,600 West 168Th St  New York  NY  10032,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_2022690021,Ruiz Belvis Diagnostic Center,545 East 142Nd St  New York  NY  10454,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_2023350016,Lincoln Medical Center,234 East 149Th St  New York  NY  10451,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_2024620001,Bma Bronx Museum of the Arts,1040 Grand Concourse  New York  NY  10456,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_2024890060,H+H Morrisania Dtc Center,1225 Gerard Ave  New York  NY  10452,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_2024930001,Yankee Stadium,One East 161St Street  New York  NY  10451,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_2029250080,Morrisania Health Ctr,1309 Fulton Ave  New York  NY  10456,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_2029410001,Crotona Park Pool And Bathhouse,East 173Rd St At Fulton Ave  New York  NY  10457,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_2029450018,Tremont Health Ctr,1826 Arthur Ave  New York  NY  10457,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_2031200020,,2300 Southern Blvd  New York  NY  10460,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_2033270200,H+H North Central Bronx Hospital,3424 Kossuth Ave  New York  NY  10467,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_2042050001,Jacobi Medical Center,1400 Pelham Pkwy South  New York  NY  10461,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_2059370440,,675 West 252Nd St  New York  NY  10471,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_3002700001,Brooklyn Borough Hall,106 Court Street  New York  NY  11201,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_3011830026,Bkm Brooklyn Museum,200 Eastern Pkwy  New York  NY  11238,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_3012290001,Bkm Brooklyn Children'S Museum,145 Brooklyn Ave  New York  NY  11213,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_3012740001,,1561 Bedford Ave.  New York  NY  11225,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_3017230001,Woodhull Medical & Mental Health Center,760 Broadway  New York  NY  11206,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_3018260001,,485 Throop Ave  New York  NY  11221,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_3020390101,H+H Cumberland Diagnostic and Treatment Center,100 North Portland Ave  New York  NY  11205,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_3020790021,Fort Greene Health Ctr,295 Flatbush Ave Ext  New York  NY  11201,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_3020950045,BAM Harvey Theater,651 Fulton St  New York  NY  11217,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_3021110015,BAM Peter Jay Sharp Theater,30 Lafayette Ave  New York  NY  11217,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_3027880033,,151 Maujer St  New York  NY  11206,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_3033240001,,335 Central Ave  New York  NY  11221,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_3035590011,,259 Bristol St  New York  NY  11212,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_3037380015,H+H East NY Diagnostic & Treatment Center,2094 Pitkin Ave  New York  NY  11207,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_3048120001,Kings County Hospital Center,451 Clarkson Ave  New York  NY  11203,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_3070710130,Seaside Park,3052 W 21St St.  New York  NY  11224,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Theater",type should be Office,City Of New York
+NYC_3072390001,H+H Coney Island Hospital,2601 Ocean Pkwy  New York  NY  11235,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_3081560100,,567 East 105Th Street  New York  NY  11236,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Medical Office",type should be Office,City Of New York
+NYC_4000750001,,46-01 21St St  New York  NY  11101,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+NYC_4005180030,,12-26 31St Ave  New York  NY  11106,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_4014970001,Elmhurst Hospital,79-01 Broadway  New York  NY  11373,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Inpatient Hospital",type should be Office,City Of New York
+NYC_4017290027,Corona District Health Ctr,34-33 Junction Blvd  New York  NY  11372,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_4023510023,,58-65 52Nd Rd  New York  NY  11377,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Outpatient Clinic",type should be Office,City Of New York
+NYC_4043270001,NYPD Police Academy,130-30 28Th Ave  New York  NY  11354,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Higher Ed",type should be Office,City Of New York
+NYC_4049600001,Fth Flushing Town Hall,137-35 Northern Blvd  New York  NY  11354,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_4051070200,,43-50 Main St  New York  NY  11355,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_5000760200,Snug Harbor Cultural Center,1000 Richmond Ter  New York  NY  10310,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Venue",type should be Office,City Of New York
+NYC_5003140070,,614 Broadway  New York  NY  10310,TENANT_TYPE_MISMATCH,"tenant=City Of New York, type=Library/Museum",type should be Office,City Of New York
+CA_1250061,Kaiser Center,1 Kaiser Plaza  Oakland  CA  94612,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Office",type should be Medical Office,Kaiser Permanente
+CA_13070795,Granite Creek Business Center,5615 Scotts Valley Drive  Scotts Valley  CA  95066,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Office",type should be Medical Office,Kaiser Permanente
+CA_2551184,Downey Service Center,9521 Dalen Street  Downey  CA  90242,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Office",type should be Medical Office,Kaiser Permanente
+DC_5481800,Station Place,700 B 2nd St NE  Washington  DC 20002,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Mixed Use",type should be Medical Office,Kaiser Permanente
+LA_471758859208,,1630 N Kenmore Ave  Los Angeles  CA 90027,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Residential Care",type should be Medical Office,Kaiser Permanente
+PDX_1N1E22CC-10800-B1,Center for Health Research,3800 N Interstate Ave  Portland  OR  97227,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Office",type should be Medical Office,Kaiser Permanente
+PDX_1N1E35BB-2400-B1,Kp Office Building,500 NE Multnomah St  Portland  OR  97232,TENANT_TYPE_MISMATCH,"tenant=Kaiser Permanente, type=Office",type should be Medical Office,Kaiser Permanente
+CA_21311454,South Bay Galleria,1801 Hawthorne Boulevard  Redondo Beach  CA  90278,TENANT_TYPE_MISMATCH,"tenant=Macy's, type=Enclosed Mall",type should be Retail Store,Macy's
+LA_429606879738,Fashion Square,14006 Riverside Dr  Los Angeles  CA  91423,TENANT_TYPE_MISMATCH,"tenant=Macy's, type=Enclosed Mall",type should be Retail Store,Macy's
+SJ_473,Westfield Valley Fair South,3051 Stevens Creek Blvd  San Jose  CA  95128,TENANT_TYPE_MISMATCH,"tenant=Macy's, type=Enclosed Mall",type should be Retail Store,Macy's
+CAM_1380,MIT NE48 Technology Square,NE48  700 Technology Square  Cambridge  MA 02139,TENANT_TYPE_MISMATCH,"tenant=Massachusetts Institute Of Technology, type=Office",type should be Higher Ed,Massachusetts Institute Of Technology
+DC_5473774,Chevy Chase Community Center,5625 Connecticut Ave NW  Washington  DC  20015,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5473801,Arthur Capper Community Center,1000 5th St SE  Washington  DC  20003,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5473852,Columbia Heights Community Center,1480 Girard St NW  Washington  DC  20009,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5474322,Malcolm X Opportunity Center,1351 Alabama Ave SE  Washington  DC  20032,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5484151,Malcolm X Opportunity Center,1351 Alabama Ave SE  Washington  DC 20032,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5486938,Columbia Heights Community Center,1480 Girard St NW  Washington  DC 20009,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+DC_5497415,Stanton Commons,2375 Elvans Rd SE  Washington  DC 20020,TENANT_TYPE_MISMATCH,"tenant=District Of Columbia, type=Venue",type should be Office,District Of Columbia
+CA_26616,Education Center,4100 Normal St  San Diego  CA  92103,TENANT_TYPE_MISMATCH,"tenant=San Diego Unified School District, type=Office",type should be K-12 School,San Diego Unified School District
+CA_34522508,Education Center,2309 Tulare Street  Fresno  CA  93721,TENANT_TYPE_MISMATCH,"tenant=Fresno Unified School District, type=Office",type should be K-12 School,Fresno Unified School District
+NYC_1008890050,Perlmutter Cancer Center,160 E 34Th Street  New York  NY  10016,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Outpatient Clinic",type should be Higher Ed,New York University (NYU)
+NYC_1009187501,NYU Langone Ambulatory Care Center,240 E. 38Th St  New York  NY  10016,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Specialty Hospital",type should be Higher Ed,New York University (NYU)
+NYC_1009230001,NYU Langone Orthopedic Hospital,301 E. 17Th Street  New York  NY  10009,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Inpatient Hospital",type should be Higher Ed,New York University (NYU)
+NYC_1009627501,NYU Langone Medical Center,550 First Avenue  New York  NY  10016,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Inpatient Hospital",type should be Higher Ed,New York University (NYU)
+NYC_3008280001,NYU Langone Hospital - Brooklyn,150 55Th Street  New York  NY  11220,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Inpatient Hospital",type should be Higher Ed,New York University (NYU)
+NYC_3008440040,Nyulh Cancer Center Sunset Park,5718 2Nd Ave  New York  NY  11220,TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Medical Office",type should be Higher Ed,New York University (NYU)
+NYC_1005450015,NYU Health Center,"726 Broadway,  New York,  NY 10003",TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Office",type should be Higher Ed,New York University (NYU)
+NYC_1008010001,Lefcourt Clothing Center Building,"275 7 Ave, New York, NY 10001",TENANT_TYPE_MISMATCH,"tenant=New York University (NYU), type=Office",type should be Higher Ed,New York University (NYU)
+CA_12396101,,100 Rowland Way  Novato  CA  94945,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396118,,101 Rowland Way  Novato  CA  94945,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396192,,600 Coffee Road  Modesto  CA  95355,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396254,,3140 Kearney Street  Fremont  CA  94538,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396404,,795 El Camino Real  Palo Alto  CA  94301,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396450,,3200 Kearney Street  Fremont  CA  94538,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396500,,2720 Low Ct  Fairfield  CA  94533,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396511,Sunnyvale Center (301),596 Carroll Street  Sunnyvale  CA  94086,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396513,,4050 Dublin Boulevard  Dublin  CA  94568,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Outpatient Clinic",type should be Inpatient Hospital,Sutter Health
+CA_12396523,,3100 Telegraph Avenue  Oakland  CA  94609,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396533,,301 Industrial Way  San Carlos  CA  94070,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396544,,2545 West Hammer Lane  Stockton  CA  95209,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396556,,2200 River Plaza Drive  Sacramento  CA  95833,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Office",type should be Inpatient Hospital,Sutter Health
+CA_12396560,,460 Plumas Boulevard  Yuba City  CA  95991,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396562,,8170 Laguna Boulevard  Elk Grove  CA  95758,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396605,,701 East El Camino Real  Mountain View  CA  94040,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_12396644,,2025 Soquel Avenue  Santa Cruz  CA  95062,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Outpatient Clinic",type should be Inpatient Hospital,Sutter Health
+CA_17352669,Sutter Medical Center,20101 Lake Chabot Road  Castro Valley  CA  94546,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_25179003,,3 Medical Plaza Drive - Building  Roseville  CA  95661,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_27474263,Sutter Health Medical Office Building,50 Mark West Springs Road  Santa Rosa  CA  95403,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+CA_28011204,,8 Medical Plaza Drive  Roseville  CA  95661,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+SF_06130292024,Cpmc Pacific Campus - Annex Building,2340 Clay St  San Francisco  CA  94115,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+SF_06280142024,,2351 Clay St  San Francisco  CA  94115,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Specialty Hospital",type should be Inpatient Hospital,Sutter Health
+SF_65750052024,,1580 Valencia St  San Francisco  CA  94110,TENANT_TYPE_MISMATCH,"tenant=Sutter Health, type=Medical Office",type should be Inpatient Hospital,Sutter Health
+LA_479863837086,LA Convention Center,1201 S Figueroa St  Los Angeles  CA 90015,TENANT_TYPE_MISMATCH,"tenant=City Of Los Angeles, type=Venue",type should be Office,City Of Los Angeles
+CAM_1859,,340 River St  Cambridge  MA 02139,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+CA_18552147,Oakmont of Riverpark,650 Town Center Drive  Oxnard  CA  93036,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+CA_3878590,,230 Bay Place  Oakland  CA  94612,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+CA_6336358,Plaza El Segundo,760 South Sepulveda Boulevard  El Segundo  CA  90245,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+CHI_175850,Kbs Kingsbury So,1550 N. Kingsbury St  Chicago  IL  60622,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+DC_5491472,,2323 Wisconsin Ave NW  Washington  DC 20007,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+DC_5495460,,1440 P St NW  Washington  DC 20005,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+LA_419580823238,,201 Lincoln Blvd  Venice  CA 90291,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+PHL_97801,Pcc Philly City Center,2101 Pennsylvania Ave.  Philadelphia  PA  19130,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+SF_06470122024,,1745 California St  San Francisco  CA  94109,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+SF_36540412024,,3950 24Th Street  San Francisco  CA  94114,TENANT_TYPE_MISMATCH,"tenant=Amazon, type=Supermarket/Grocery",type should be Office,Amazon
+ATL_17,Emory University Midtown Medical Office Tower,550 Peachtree St NE  Atlanta  GA  30308,TENANT_TYPE_MISMATCH,"tenant=Emory University, type=Medical Office",type should be Higher Ed,Emory University
+ATL_242,Emory Healthcare Children's Specialty Services,2015 Upper Gate Dr NE  Atlanta  GA  30322,TENANT_TYPE_MISMATCH,"tenant=Emory University, type=Outpatient Clinic",type should be Higher Ed,Emory University
+ATL_244,Emory Clinic Building B,1327 Clifton Rd NE  Atlanta  GA  30322,TENANT_TYPE_MISMATCH,"tenant=Emory University, type=Outpatient Clinic",type should be Higher Ed,Emory University
+ATL_256,Emory University Hospital,1364 Clifton Rd NE  Atlanta  GA  30322,TENANT_TYPE_MISMATCH,"tenant=Emory University, type=Inpatient Hospital",type should be Higher Ed,Emory University
+ATL_371,Emory University Hospital Tower,1700 Clifton Rd NE  Atlanta  GA  30322,TENANT_TYPE_MISMATCH,"tenant=Emory University, type=Inpatient Hospital",type should be Higher Ed,Emory University
+NYC_1001420050,Chambers Street Building,199 Chambers St  New York  NY  10013,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1008780020,,17 Lexington Ave  New York  NY  10010,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1008800024,Baruch College Newman Vertical Campus,55 Lexington Ave  New York  NY  10010,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1010870005,John Jay College of Criminal Justice,524 West 59Th St  New York  NY  10019,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1011320001,,140 W 62Nd St  New York  NY  10023,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1014030001,Hunter College East Building,681 Park Ave  New York  NY  10016,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1019570005,,401 West 130Th Street  New York  NY  10027,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_1019570200,North Academic Center,160 Convent Ave  New York  NY  10031,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_2023430032,CUNY Cc > Hcc Hostos Cc: B Building,500 Grand Concourse  New York  NY  10451,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_2023460029,Hostos CC Allied Health Bldg,475 Grand Concourse  New York  NY  10451,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_2032460002,,2923 Paul Ave  New York  NY  10468,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_3000860018,Jay Street-MetroTech Complex,300 Jay St  New York  NY  11201,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_3000970002,CUNY Sc > CT Nycct: Voorhees Building,186 Jay St  New York  NY  11201,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_3001280026,CUNY Sc > CT Nycct: General Building,55 Johnson St / Tech Pl  New York  NY  11201,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_4002780001,Joseph Shenker Hall,31-10 Thomson Ave  New York  NY  11101,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_4065170001,Queens College Science Building,66-60 Kissena Blvd  New York  NY  11367,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_4074900002,Queens College,222-05 56Th Ave  New York  NY  11364,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_4101030016,,94-43 159Th St  New York  NY  11433,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+NYC_5020400001,College of Staten Island,2800 Victory Blvd  New York  NY  10314,TENANT_TYPE_MISMATCH,"tenant=State Of New York, type=Higher Ed",type should be Office,State Of New York
+DC_5488439,George Washington University Hospital,900 23rd St NW  Washington  DC 20037,TENANT_TYPE_MISMATCH,"tenant=George Washington University, type=Inpatient Hospital",type should be Higher Ed,George Washington University
+CA_1510974,Airport Tower,18881 Von Karman Ave  Irvine  CA  92612,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Office",type should be Higher Ed,University of California
+CA_19574631,Wilshire Center,10920 Wilshire Boulevard  Los Angeles  CA  90024,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Office",type should be Higher Ed,University of California
+CA_33630905,Uc Davis Health Roseville Clinic,1620 East Roseville Parkway  Roseville  CA  95661,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Medical Office",type should be Higher Ed,University of California
+CA_3881681,UC Irvine Medical Center,101 The City Drive South  Orange  CA  92868,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+CA_54955694,UCI Health Los Alamitos,3751 Katella Avenue  Los Alamitos  CA  90720,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+CA_55235592,UCI Health Lakewood,3700 South Street  Lakewood  CA  90712,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+CA_55235892,UCI Health Placentia,1301 North Rose Drive  Placentia  CA  92870,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+CA_6437103,Gov. Executive Center II,6256 Greenwich Drive  San Diego  CA  92122,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Office",type should be Higher Ed,University of California
+SD_286,UC San Diego Health East Campus Med Ctr,6655 Alvarado Rd.  San Diego  CA 92120,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+SD_287,UC San Diego Health East Campus Med Ctr,6645 Alvarado Rd.  San Diego  CA 92120,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Inpatient Hospital",type should be Higher Ed,University of California
+SF_87090182024,,1500 Owens St  San Francisco  CA  94158,TENANT_TYPE_MISMATCH,"tenant=University of California, type=Outpatient Clinic",type should be Higher Ed,University of California
+NYC_3015700031,Brookdale Hospital,1873 Eastern Parkway  New York  NY  11233,TENANT_TYPE_MISMATCH,"tenant=Brookdale Senior Living, type=Medical Office",type should be Residential Care,Brookdale Senior Living
+DC_5480573,Jemal'S Dupont Hotel,1733 N St NW  Washington  DC  20036,TENANT_TYPE_MISMATCH,"tenant=Douglas Development, type=Hotel",type should be Office,Douglas Development
+SEA_8725990000,Arnold Pavillion,1221 Madison St  Seattle  WA  98104,TENANT_TYPE_MISMATCH,"tenant=Healthcare Realty, type=Specialty Hospital",type should be Medical Office,Healthcare Realty
+CA_12427695,Adventist Glendale,1500 East Chevy Chase Drive  Glendale  CA  91206,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_34393543,,5400 West Hillsdale Avenue  Visalia  CA  93291,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343009,,1701 East Cesar E Chavez Avenue  Los Angeles  CA  90033,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343011,,1700 East Cesar E Chavez Avenue  Los Angeles  CA  90033,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343013,San Joaquin Community Hospital Mob,2700 Chester Avenue  Bakersfield  CA  93301,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343015,,1524 27Th Street  Bakersfield  CA  93301,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343016,,2620 Chester Avenue  Bakersfield  CA  93301,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6343083,,800 South Lower Sacramento Road  Lodi  CA  95242,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Outpatient Clinic",type should be Inpatient Hospital,Adventist Hospital
+CA_6343317,,1560 East Chevy Chase Drive  Glendale  CA  91206,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6344313,,1025 North Douty Street  Hanford  CA  93230,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6344314,,125 Mall Drive  Hanford  CA  93230,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6395637,,900 Mono Way  Sonora  CA  95370,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+CA_6734601,,1260 Williams Way  Yuba City  CA  95991,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Residential Care",type should be Inpatient Hospital,Adventist Hospital
+CA_7533573,Adventist-Ahrs-One Adventist Health Way,1 Adventist Health Way  Roseville  CA  95661,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Office",type should be Inpatient Hospital,Adventist Hospital
+PDX_1S2E03BC-1201-B1,,10201 SE Main St  Portland  OR  97216,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+PDX_1S2E04A-90000-B1,,10123 SE Market St  Portland  OR  97216,TENANT_TYPE_MISMATCH,"tenant=Adventist Hospital, type=Medical Office",type should be Inpatient Hospital,Adventist Hospital
+DC_5473328,Medstar - Georgetown University Hospital,3750 Reservoir Rd NW  Washington  DC 20007,TENANT_TYPE_MISMATCH,"tenant=Georgetown University, type=Inpatient Hospital",type should be Higher Ed,Georgetown University
+DC_5496409,Georgetown University Hospital,3750 Reservoir Rd NW  Washington  DC  20007,TENANT_TYPE_MISMATCH,"tenant=Georgetown University, type=Inpatient Hospital",type should be Higher Ed,Georgetown University
+NYC_1015060021,CUNY Sc > Hc Hunter: Hunter College High School,71 East 94Th St  New York  NY  10128,TENANT_TYPE_MISMATCH,"tenant=City University of New York (CUNY), type=K-12 School",type should be Higher Ed,City University of New York (CUNY)
+NYC_1005460026,Club Row Building,"21 W 4 St,  New York,  NY 10012",TENANT_TYPE_MISMATCH,"tenant=City University of New York (CUNY), type=Office",type should be Higher Ed,City University of New York (CUNY)
+BOS_101829,Paris Street Community Center,112-124 Paris St  Boston  MA  02128,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=Venue",type should be Office,City Of Boston
+BOS_101946,Vine Street Community Center,339 Dudley St  Boston  MA  02119,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=Venue",type should be Office,City Of Boston
+BOS_101983,Shelburne Community Center,2730 Washington St  Boston  MA  02119,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=Venue",type should be Office,City Of Boston
+BOS_102096,Hyde Park Community Center,11 Central Ave  Boston  MA  02136,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=Venue",type should be Office,City Of Boston
+BOS_102168,,43-55 Alleghany St  Boston  MA  02120,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=K-12 School",type should be Office,City Of Boston
+BOS_106924,,91-93 SAVIN ST  Boston  MA  02119,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=K-12 School",type should be Office,City Of Boston
+BOS_106928,,HARRISHOF ST  Boston  MA  02121,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=K-12 School",type should be Office,City Of Boston
+BOS_108047,Curley Community Center,1663 Columbia Road  Boston  MA  02171,TENANT_TYPE_MISMATCH,"tenant=City Of Boston, type=Venue",type should be Office,City Of Boston
+BOS_102539,,1620 Tremont St  Boston  MA  02120,TENANT_TYPE_MISMATCH,"tenant=Ahold Delhaize, type=Office",type should be Supermarket/Grocery,Ahold Delhaize
+DC_5494155,Cathedral Commons,3308 Wisconsin Ave NW  Washington  DC 20016,TENANT_TYPE_MISMATCH,"tenant=Ahold Delhaize, type=Mixed Use",type should be Supermarket/Grocery,Ahold Delhaize
+NYC_2051410810,Bay Plaza Shopping Center,2100 Bartow Ave  New York  NY  10475,TENANT_TYPE_MISMATCH,"tenant=Ahold Delhaize, type=Enclosed Mall",type should be Supermarket/Grocery,Ahold Delhaize
+NYC_3020020001,Atlantic Terminal Mall,197 Fort Greene Place  New York  NY  11217,TENANT_TYPE_MISMATCH,"tenant=Ahold Delhaize, type=Enclosed Mall",type should be Supermarket/Grocery,Ahold Delhaize
+CA_17604367,Uscofw - ST. Joseph Health,2212 East 4Th Street  Santa Ana  CA  92705,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_20470894,Sjhh Sjohmg Chapman,2501 East Chapman Avenue  Orange  CA  92869,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_20662848,Cancer Center,1000 West La Veta Avenue  Orange  CA  92868,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_4810228,Hoag Health Center Tustin Legacy,15000 Kensington Park Drive  Tustin  CA  92782,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_49224192,,1100 Trancas Street  Napa  CA  94558,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_6075427,Providence Medical Center,1950 Sunny Crest Drive  Fullerton  CA  92835,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_6124070,W. Center Street Promenade,200 West Center Street Promenade  Anaheim  CA  92805,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Office",type should be Inpatient Hospital,Providence Health
+LA_400198884737,,18411 Clark St  Los Angeles  CA  91356,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+LA_419956923328,,11333 Sepulveda Blvd  Los Angeles  CA  91345,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+LA_420010922342,,11165 Sepulveda Blvd  Los Angeles  CA  91345,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+LA_423560924689,,11550 Indian Hills Rd  Los Angeles  CA  91345,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+NYC_2054090100,,3304 Waterbury Avenue  New York  NY  10465,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Residential Care",type should be Inpatient Hospital,Providence Health
+PDX_1N2E31BB-2801-B1,Providence Office Park I,4400 NE Halsey St  Portland  OR  97213,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Office",type should be Inpatient Hospital,Providence Health
+PDX_1N2E31BD-3700-B2,Providence Professional Plaza,5050 NE Hoyt St  Portland  OR  97213,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+PDX_1N2E33AA-1102-B1,Gateway Medical Plaza,1321 NE 99th Ave  Portland  OR  97220,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+SEA_2324039001,Providence Mt St Vincent,4831 35Th Ave SW  Seattle  WA  98126,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Residential Care",type should be Inpatient Hospital,Providence Health
+SEA_8590900710,Swedish Hospital Med Ctr Cherry Bldg,1120 Cherry St  Seattle  WA  98104,TENANT_TYPE_MISMATCH,"tenant=Providence Health, type=Medical Office",type should be Inpatient Hospital,Providence Health
+CA_53244392,USC Arcadia Hospital,300 West Huntington Drive  Arcadia  CA  91007,TENANT_TYPE_MISMATCH,"tenant=University Of Southern California, type=Inpatient Hospital",type should be Higher Ed,University Of Southern California
+LA_112217100516,Engemann Student Health Ctr,1031 W 34Th St  Los Angeles  CA 90089,TENANT_TYPE_MISMATCH,"tenant=University Of Southern California, type=Medical Office",type should be Higher Ed,University Of Southern California
+LA_474875831275,Norris Dental Science Center,925 W 34Th St  Los Angeles  CA 90089,TENANT_TYPE_MISMATCH,"tenant=University Of Southern California, type=Medical Office",type should be Higher Ed,University Of Southern California
+LA_496960843954,Health Research Association,1640 Marengo St  Los Angeles  CA 90033,TENANT_TYPE_MISMATCH,"tenant=University Of Southern California, type=Outpatient Clinic",type should be Higher Ed,University Of Southern California
+LA_500307845234,Health Consultation Center II,1520 San Pablo St  Los Angeles  CA 90089,TENANT_TYPE_MISMATCH,"tenant=University Of Southern California, type=Outpatient Clinic",type should be Higher Ed,University Of Southern California
+CA_10924646,Zambrano Hall,641 Knight Way  Stanford  CA  94305,TENANT_TYPE_MISMATCH,"tenant=Stanford University, type=Theater",type should be Higher Ed,Stanford University
+CA_10924661,Bing Concert Hall,327 Lasuen Street  Stanford  CA  94305,TENANT_TYPE_MISMATCH,"tenant=Stanford University, type=Theater",type should be Higher Ed,Stanford University
+CA_3960822,Advanced Medicine Center,875 Blake Wilbur Drive  Palo Alto  CA  94304,TENANT_TYPE_MISMATCH,"tenant=Stanford University, type=Medical Office",type should be Higher Ed,Stanford University
+CA_3960826,Stanford Hospital Main Building,300 Pasteur Drive  Palo Alto  CA  94304,TENANT_TYPE_MISMATCH,"tenant=Stanford University, type=Inpatient Hospital",type should be Higher Ed,Stanford University
+CA_3962927,Hoover Pavilion,211 Quarry Road  Palo Alto  CA  94304,TENANT_TYPE_MISMATCH,"tenant=Stanford University, type=Medical Office",type should be Higher Ed,Stanford University
+DEN_1047,Montbello Rec Ctr,15555 E 53Rd Ave  Denver  CO  80239,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_1522,Martin Luther King Rec Ctr,3880 Newport St  Denver  CO  80207,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_1752,Central Park Rec Center,9651 E Martin Luther King Blvd  Denver  CO  80238,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_2378,National Western Center,1701 Bryant St.  Denver  CO  80204,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_2499,Colorado Convention Center,700 14Th Street  Denver  CO  80202,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_2552,Twentieth Street Rec Ctr,1009 20Th St  Denver  CO  80202,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_3038,Denver Art Museum,10 W 14Th Ave Pkwy  Denver  CO  80204,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Library/Museum",type should be Office,City Of Denver
+DEN_3595,Westwood Community Center,1000 S Lowell Blvd  Denver  CO  80219,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+DEN_3949,Montclair Rec Ctr,729 Ulster Way  Denver  CO  80220,TENANT_TYPE_MISMATCH,"tenant=City Of Denver, type=Venue",type should be Office,City Of Denver
+NYC_1019980017,Studebaker Building,"615 W 131 St,  New York,  NY 10027",TENANT_TYPE_MISMATCH,"tenant=Columbia University, type=Office",type should be Higher Ed,Columbia University
+CA_16069911,MacLaren Children's Center (El Monte),4024 Durfee Avenue  El Monte  CA  91732,TENANT_TYPE_MISMATCH,"tenant=Los Angeles County, type=Residential Care",type should be Office,Los Angeles County
+SF_37050422022,Westfield San Francisco Centre,865 Market St  San Francisco  CA  94103,TENANT_TYPE_MISMATCH,"tenant=Nordstrom, type=Enclosed Mall",type should be Retail Store,Nordstrom
+PHL_96091,Temple Women Health - Juanita,1331 E WYOMING AVE  Philadelphia  PA  19124,TENANT_TYPE_MISMATCH,"tenant=Temple University, type=Inpatient Hospital",type should be Higher Ed,Temple University
+PHL_97577,Boyer Pavilion,3501-17 N. Broad Street  Philadelphia  PA  19140,TENANT_TYPE_MISMATCH,"tenant=Temple University, type=Inpatient Hospital",type should be Higher Ed,Temple University
+CA_7726990,,8695 Spectrum Center Boulevard  San Diego  CA  92123,TENANT_TYPE_MISMATCH,"tenant=Sharp HealthCare, type=Office",type should be Medical Office,Sharp HealthCare
+CA_34806671,,2205 Vista Way  Oceanside  CA  92054,TENANT_TYPE_MISMATCH,"tenant=Scripps Health, type=Office",type should be Medical Office,Scripps Health
+CA_34554529,,82995 California 111  Indio  CA  92201,TENANT_TYPE_MISMATCH,"tenant=Riverside County, type=Library/Museum",type should be Office,Riverside County
+CHI_164090,The Salvation Army Adult Rehabilitation Center,2258 N. Clybourn Avenue  Chicago  IL  60614,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Hotel",type should be Venue,The Salvation Army
+CHI_252313,Salvation Army - Divisional Headouarters,5040 N. Pulaski Road  Chicago  IL  60641,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+DC_5496879,Salvation Army Harbor Light Center,2100 New York Ave NE  Washington  DC  20002,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Residential Care",type should be Venue,The Salvation Army
+DEN_2548,The Salvation Army Harbor Light Center,2136 Champa St  Denver  CO  80205,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Hotel",type should be Venue,The Salvation Army
+DEN_2996,The Salvation Army Dhq,1370 Pennsylvania Street  Denver  CO  80203,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+KC_061301340,The Salvation Army Arc,1351 E 10Th St  Kansas City  MO  64106,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Hotel",type should be Venue,The Salvation Army
+LA_475452842121,,947 S Hoover St  Los Angeles  CA 90006,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Residential Care",type should be Venue,The Salvation Army
+NYC_1006090023,The Salvation Army Dhq,120 West 14Th Street  New York  NY  10011,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+NYC_1010770012,The Salvation Army Adult Rehabilitation Center,535 West 48Th St.  New York  NY  10036,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Residential Care",type should be Venue,The Salvation Army
+PHL_157907,Salvation Army Divisional Headquarters,701 N Broad St  Philadelphia  PA  19123,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+PHL_157909,Salvation Army Kroc Center,4200 Wissahickon Ave  Philadelphia  PA 19129,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+SEA_1989200945,Salvation Army NW Div Headquarters,111 Queen Anne Ave N  Seattle  WA  98109,TENANT_TYPE_MISMATCH,"tenant=The Salvation Army, type=Office",type should be Venue,The Salvation Army
+PHL_154518,,2230 Cottman Ave  Philadelphia  PA  19149,TENANT_TYPE_MISMATCH,"tenant=City Of Philadelphia, type=Library/Museum",type should be Venue,City Of Philadelphia
+PHL_154520,Health Center #6,301 W Girard Ave  Philadelphia  PA  19123,TENANT_TYPE_MISMATCH,"tenant=City Of Philadelphia, type=Medical Office",type should be Venue,City Of Philadelphia
+PHL_161220,Health Center #5,1900 N 20th St  Philadelphia  PA  19121,TENANT_TYPE_MISMATCH,"tenant=City Of Philadelphia, type=Medical Office",type should be Venue,City Of Philadelphia
+PHL_161221,Health Center #3,4300 Chester Ave  Philadelphia  PA  19104,TENANT_TYPE_MISMATCH,"tenant=City Of Philadelphia, type=Medical Office",type should be Venue,City Of Philadelphia
+PHL_166235,Central Library,1901 Vine St  Philadelphia  PA  19103,TENANT_TYPE_MISMATCH,"tenant=City Of Philadelphia, type=Library/Museum",type should be Venue,City Of Philadelphia
+CA_11907300,,12555 Garden Grove Boulevard  Garden Grove  CA  92843,TENANT_TYPE_MISMATCH,"tenant=Prime Healthcare Services, type=Medical Office",type should be Inpatient Hospital,Prime Healthcare Services
+CA_12422105,,3300 East Guasti Road  Ontario  CA  91761,TENANT_TYPE_MISMATCH,"tenant=Prime Healthcare Services, type=Office",type should be Inpatient Hospital,Prime Healthcare Services
+DC_5487268,Howard University Hospital,2121 Georgia Ave NW  Washington  DC  20001,TENANT_TYPE_MISMATCH,"tenant=Howard University, type=Inpatient Hospital",type should be Higher Ed,Howard University
+DC_5487523,Howard University Hospital Complex,401 V St NW  Washington  DC 20001,TENANT_TYPE_MISMATCH,"tenant=Howard University, type=Inpatient Hospital",type should be Higher Ed,Howard University
+DEN_2720,University Club of Denver,1673 Sherman St.  Denver  CO  80203,TENANT_TYPE_MISMATCH,"tenant=University Of Denver, type=Restaurant/Bar",type should be Higher Ed,University Of Denver
+DEN_3771,Ricks Center (Denver),2040 S. York St.  Denver  CO  80208,TENANT_TYPE_MISMATCH,"tenant=University Of Denver, type=K-12 School",type should be Higher Ed,University Of Denver
+LA_427348836437,Lumen West La,11355 W Olympic Blvd  Los Angeles  CA  90064,TENANT_TYPE_MISMATCH,"tenant=CenturyLink, type=Office",type should be Specialty Hospital,CenturyLink
+SEA_4232903455,,1503 3Rd Ave W  Seattle  WA  98119,TENANT_TYPE_MISMATCH,"tenant=CenturyLink, type=Office",type should be Specialty Hospital,CenturyLink
+SEA_659000165,Bell Plaza,1600 7Th Ave  Seattle  WA  98101,TENANT_TYPE_MISMATCH,"tenant=CenturyLink, type=Office",type should be Specialty Hospital,CenturyLink
+CHI_250126,U of Chicago Comer Children's Hospital,5758 S Maryland Ave  Chicago  IL  60637,TENANT_TYPE_MISMATCH,"tenant=University Of Chicago, type=Office",type should be Higher Ed,University Of Chicago
+CHI_256838,University of Chicago Medical Center,5841 S Maryland Ave  Chicago  IL 60637,TENANT_TYPE_MISMATCH,"tenant=University Of Chicago, type=Inpatient Hospital",type should be Higher Ed,University Of Chicago
+PDX_Campus-24,Fred Meyer Office Building,3800 SE 22nd Ave  Portland  OR  97202,TENANT_TYPE_MISMATCH,"tenant=Fred Meyer, type=Office",type should be Supermarket/Grocery,Fred Meyer
+DC_5476497,Gallery Place,616 H St NW  Washington  DC  20001,TENANT_TYPE_MISMATCH,"tenant=Regal Entertainment, type=Library/Museum",type should be Theater,Regal Entertainment
+BOS_100648,,364-370 Brookline Ave  Boston  MA  02115,TENANT_TYPE_MISMATCH,"tenant=Beth Israel Deaconess Medical Center, type=Office",type should be Inpatient Hospital,Beth Israel Deaconess Medical Center
+BOS_100652,,110 Francis St  Boston  MA  02215,TENANT_TYPE_MISMATCH,"tenant=Beth Israel Deaconess Medical Center, type=Medical Office",type should be Inpatient Hospital,Beth Israel Deaconess Medical Center
+NYC_1008640032,,55 E 34Th St  New York  NY  10016,TENANT_TYPE_MISMATCH,"tenant=Beth Israel Deaconess Medical Center, type=Medical Office",type should be Inpatient Hospital,Beth Israel Deaconess Medical Center
+NYC_1009230011,Mount Sinai Health System. Msbi Fierman Hall,Fierman Hall  New York  NY  10003,TENANT_TYPE_MISMATCH,"tenant=Beth Israel Deaconess Medical Center, type=Medical Office",type should be Inpatient Hospital,Beth Israel Deaconess Medical Center
+SEA_1977200135,World Trade Center-West,2200 Alaskan Way  Seattle  WA  98121,TENANT_TYPE_MISMATCH,"tenant=Port Of Seattle, type=Office",type should be Mixed Use,Port Of Seattle
+SEA_1794501150,Queen Anne Community Center,1901 1St Ave W  Seattle  WA  98119,TENANT_TYPE_MISMATCH,"tenant=City Of Seattle, type=Venue",type should be Office,City Of Seattle
+SEA_2123700240,Rainier Beach Community Center,8825 Rainier Ave S  Seattle  WA  98118,TENANT_TYPE_MISMATCH,"tenant=City Of Seattle, type=Venue",type should be Office,City Of Seattle
+SEA_3624039172,Southwest Community Center,2801 SW Thistle St  Seattle  WA  98126,TENANT_TYPE_MISMATCH,"tenant=City Of Seattle, type=Venue",type should be Office,City Of Seattle
+SEA_7950304230,Rainier Community Center,4630 38Th Ave S  Seattle  WA  98118,TENANT_TYPE_MISMATCH,"tenant=City Of Seattle, type=Venue",type should be Office,City Of Seattle
+SEA_9528100790,Greenlake Community Center & Greenlake Park,7201 E Green Lake Dr N  Seattle  WA  98115,TENANT_TYPE_MISMATCH,"tenant=City Of Seattle, type=Venue",type should be Office,City Of Seattle
+CA_4099630,,28078 Baxter Road  Murrieta  CA  92563,TENANT_TYPE_MISMATCH,"tenant=Loma Linda University, type=Medical Office",type should be Higher Ed,Loma Linda University
+CA_5042751,,26001 Redlands Boulevard  Loma Linda  CA  92354,TENANT_TYPE_MISMATCH,"tenant=Loma Linda University, type=Medical Office",type should be Higher Ed,Loma Linda University
+CA_59252594,,28062 Baxter Road  Murrieta  CA  92563,TENANT_TYPE_MISMATCH,"tenant=Loma Linda University, type=Inpatient Hospital",type should be Higher Ed,Loma Linda University
+CA_60241093,Loma Linda University Nichol Hall,24951 North Circle Dr.  Loma Linda  CA  92350,TENANT_TYPE_MISMATCH,"tenant=Loma Linda University, type=Medical Office",type should be Higher Ed,Loma Linda University
+NYC_1015560040,,320 E 94Th St  New York  NY  10128,TENANT_TYPE_MISMATCH,"tenant=Mount Sinai Health System, type=Outpatient Clinic",type should be Inpatient Hospital,Mount Sinai Health System
+NYC_1016040013,,19 E 98Th St  New York  NY  10129,TENANT_TYPE_MISMATCH,"tenant=Mount Sinai Health System, type=Medical Office",type should be Inpatient Hospital,Mount Sinai Health System
+NYC_3076670074,,3131 Kings Hwy  New York  NY  11210,TENANT_TYPE_MISMATCH,"tenant=Mount Sinai Health System, type=Medical Office",type should be Inpatient Hospital,Mount Sinai Health System
+SEA_3646100850,Seattle Central College - Wood Construction,2310 S Lane St  Seattle  WA  98144,TENANT_TYPE_MISMATCH,"tenant=Seattle Central College, type=Higher Ed",type should be K-12 School,Seattle Central College
+SEA_6003001130,Seattle Central Community College Master Campus,1500 Harvard Ave  Seattle  WA  98122,TENANT_TYPE_MISMATCH,"tenant=Seattle Central College, type=Higher Ed",type should be K-12 School,Seattle Central College
+CA_24141427,Children'S Village MOB,2701 Atlantic Avenue  Long Beach  CA  90806,TENANT_TYPE_MISMATCH,"tenant=MemorialCare Health System, type=Medical Office",type should be Inpatient Hospital,MemorialCare Health System
+CA_53143292,,24452 Health Center Drive  Laguna Hills  CA  92653,TENANT_TYPE_MISMATCH,"tenant=MemorialCare Health System, type=Outpatient Clinic",type should be Inpatient Hospital,MemorialCare Health System
+CA_6059347,Women'S Medical Tower,24411 Health Center Drive  Laguna Hills  CA  92653,TENANT_TYPE_MISMATCH,"tenant=MemorialCare Health System, type=Medical Office",type should be Inpatient Hospital,MemorialCare Health System
+CA_6099914,Patient Care Pavilion,18111 Brookhurst Street  Fountain Valley  CA  92708,TENANT_TYPE_MISMATCH,"tenant=MemorialCare Health System, type=Medical Office",type should be Inpatient Hospital,MemorialCare Health System
+NYC_2023910001,,951 Brook Avenue  New York  NY  10451,TENANT_TYPE_MISMATCH,"tenant=Montefiore Medical Center, type=Medical Office",type should be Outpatient Clinic,Montefiore Medical Center
+NYC_2033380035,,3332 Rochambeau Avenue  New York  NY  10467,TENANT_TYPE_MISMATCH,"tenant=Montefiore Medical Center, type=Medical Office",type should be Outpatient Clinic,Montefiore Medical Center
+NYC_2033430283,,3400 Bainbridge Avenue  New York  NY  10467,TENANT_TYPE_MISMATCH,"tenant=Montefiore Medical Center, type=Inpatient Hospital",type should be Outpatient Clinic,Montefiore Medical Center
+NYC_2039940001,,2475 St. Raymond Avenue  New York  NY  10461,TENANT_TYPE_MISMATCH,"tenant=Montefiore Medical Center, type=Inpatient Hospital",type should be Outpatient Clinic,Montefiore Medical Center
+NYC_2048230024,Montefiore Medical Center Wakefield,600 East 233 Street  New York  NY  10466,TENANT_TYPE_MISMATCH,"tenant=Montefiore Medical Center, type=Inpatient Hospital",type should be Outpatient Clinic,Montefiore Medical Center
+CA_1339988,Valencia Town Center,24200 Magic Mountain Parkway  Santa Clarita  CA  91355,TENANT_TYPE_MISMATCH,"tenant=Unibail-Rodamco-Westfield, type=Office",type should be Enclosed Mall,Unibail-Rodamco-Westfield
+CA_6362377,,3050 Plaza Bonita Road  National City  CA  91950,TENANT_TYPE_MISMATCH,"tenant=Unibail-Rodamco-Westfield, type=Retail Store",type should be Enclosed Mall,Unibail-Rodamco-Westfield
+LA_473554858304,Children's Hospital LA : Research Inst,4661 W Sunset Blvd  Los Angeles  CA 90027,TENANT_TYPE_MISMATCH,"tenant=Children's Hospital Los Angeles, type=Office",type should be Inpatient Hospital,Children's Hospital Los Angeles
+CA_1050849,Fountain Valley III,11160 Warner Avenue  Fountain Valley  CA  92708,TENANT_TYPE_MISMATCH,"tenant=Uci Health, type=Medical Office",type should be Inpatient Hospital,Uci Health
+CA_14243120,Saddleback Medical Office Building,23961 Calle De La Magdalena  Laguna Hills  CA  92653,TENANT_TYPE_MISMATCH,"tenant=Uci Health, type=Medical Office",type should be Inpatient Hospital,Uci Health
+CA_15845671,,24022 Calle De La Plata  Laguna Hills  CA  92653,TENANT_TYPE_MISMATCH,"tenant=Uci Health, type=Medical Office",type should be Inpatient Hospital,Uci Health
+CA_6420337,,200 South Manchester Avenue  Orange  CA  92868,TENANT_TYPE_MISMATCH,"tenant=Uci Health, type=Medical Office",type should be Inpatient Hospital,Uci Health
+DC_5479950,,650 Pennsylvania Ave. SE  Washington  DC 20003,TENANT_TYPE_MISMATCH,"tenant=University Of Pennsylvania, type=Medical Office",type should be Inpatient Hospital,University Of Pennsylvania
+CHI_101960,Chicago Cultural Center,78 E. Washington St.  Chicago  IL  60602,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_107970,Taylor Park,41 W 47Th St  Chicago  IL 60609,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250014,Mann Park,2949 East 131st Street  Chicago  IL  60633,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250015,Hamilton Park,513 West 72nd Street  Chicago  IL  60621,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250016,Loyola Park,1230 West Greenleaf  Chicago  IL  60626,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250017,Humboldt Park,1440 North Sacramento  Chicago  IL  60622,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250018,Douglas Park,1401 South Sacramento  Chicago  IL  60622,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250019,Calumet Park,9801 South Avenue G  Chicago  IL  60617,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250020,Gage Park,2411 West 55th Street  Chicago  IL  60609,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250021,Pulaski Park,1419 West Blackhawk  Chicago  IL  60622,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250022,Fosco Park,1312 South Racine  Chicago  IL  60608,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250023,La Follette Park,1333 North Laramie  Chicago  IL  60651,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250027,Fieldhouse & Trades,300 North Central Park  Chicago  IL 60624,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250032,California Park / McFetridge,3843 North California  Chicago  IL  60618,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+CHI_250058,Martin Luther King Community Center,4314 S. Cottage Grove Ave.  Chicago  IL  60653,TENANT_TYPE_MISMATCH,"tenant=City Of Chicago, type=Venue",type should be Office,City Of Chicago
+SEA_6171900005,South Seattle College - Campus Master,6000 16Th Ave SW  Seattle  WA  98106,TENANT_TYPE_MISMATCH,"tenant=South Seattle College, type=Higher Ed",type should be K-12 School,South Seattle College
+STL_429,Microsoft St. Louis,4220 Duncan Ave  St. Louis  MO  63110,TENANT_TYPE_MISMATCH,"tenant=Microsoft, type=Medical Office",type should be Office,Microsoft
+CA_27459603,Raley'S Corporate Office #900,500 West Capitol Avenue  West Sacramento  CA  95605,TENANT_TYPE_MISMATCH,"tenant=Raley's, type=Office",type should be Supermarket/Grocery,Raley's
+PDX_1N1W01CD-10500-B1,North Portland Health Center,9000 N Lombard St  Portland  OR  97203,TENANT_TYPE_MISMATCH,"tenant=Multnomah County, type=Medical Office",type should be Office,Multnomah County
+PDX_1N2E34DA-103-B1,,221 NE 122nd Ave  Portland  OR  97230,TENANT_TYPE_MISMATCH,"tenant=Multnomah County, type=Library/Museum",type should be Office,Multnomah County
+NYC_1005770071,Arnhold Hall,55 W 13th St,TENANT_TYPE_MISMATCH,"tenant=The New School, type=Office",type should be Higher Ed,The New School
+CA_27503212,District Administration Offices,519 East Badillo St  Covina  CA  91723,TENANT_TYPE_MISMATCH,"tenant=Covina Valley Unified School District, type=Office",type should be K-12 School,Covina Valley Unified School District
+CA_9866849,Thomas Jefferson School Law,1155 Island Avenue  San Diego  CA  92101,TENANT_TYPE_MISMATCH,"tenant=Thomas Jefferson University, type=Higher Ed",type should be Office,Thomas Jefferson University
+PHL_97466,Medical Office Building,1100-04 Walnut Street  Philadelphia  PA  19107,TENANT_TYPE_MISMATCH,"tenant=Thomas Jefferson University, type=Medical Office",type should be Office,Thomas Jefferson University
+PHL_97626,Jhn Building,900 WALNUT STREET  Philadelphia  PA  19107,TENANT_TYPE_MISMATCH,"tenant=Thomas Jefferson University, type=Inpatient Hospital",type should be Office,Thomas Jefferson University
+PHL_97653,Foerderer Pavilion,117 South 11th Street  Philadelphia  PA  19107,TENANT_TYPE_MISMATCH,"tenant=Thomas Jefferson University, type=Inpatient Hospital",type should be Office,Thomas Jefferson University
+PHL_97960,Thomas Jefferson University Hospital Campus,833 Chestnut Street  Philadelphia  PA  19107,TENANT_TYPE_MISMATCH,"tenant=Thomas Jefferson University, type=Medical Office",type should be Office,Thomas Jefferson University
+BOS_101424,,3293-3297 Washington St  Boston  MA  02130,TENANT_TYPE_MISMATCH,"tenant=Brigham And Women's Hospital, type=Outpatient Clinic",type should be Inpatient Hospital,Brigham And Women's Hospital
+BOS_101425,,1245 Centre St  Boston  MA  02132,TENANT_TYPE_MISMATCH,"tenant=Brigham And Women's Hospital, type=Specialty Hospital",type should be Inpatient Hospital,Brigham And Women's Hospital
+BOS_106097,,75 Fenwood Rd  Boston  MA  02120,TENANT_TYPE_MISMATCH,"tenant=Brigham And Women's Hospital, type=Outpatient Clinic",type should be Inpatient Hospital,Brigham And Women's Hospital
+NYC_1014847501,Hospital For Special Surgery - Dana Center,510 East 73Rd St  New York  NY  10021,TENANT_TYPE_MISMATCH,"tenant=Hospital For Special Surgery, type=Specialty Hospital",type should be Medical Office,Hospital For Special Surgery
+NYC_1018850036,,1090 Amsterdam Avenue  New York  NY  10025,TENANT_TYPE_MISMATCH,"tenant=St. Luke's Hospital, type=Medical Office",type should be Inpatient Hospital,St. Luke's Hospital
+CHI_156856,Ascension Stone Professional Office Building,2800 - 2812 N Sheridan Rd  Chicago  IL  60657,TENANT_TYPE_MISMATCH,"tenant=Ascension Health, type=Medical Office",type should be Inpatient Hospital,Ascension Health
+CHI_251297,St Elizabeth Office Bldg,1431 N Western Ave  Chicago  IL  60622,TENANT_TYPE_MISMATCH,"tenant=Ascension Health, type=Medical Office",type should be Inpatient Hospital,Ascension Health
+CHI_252240,,331 W Surf St  Chicago  IL  60657,TENANT_TYPE_MISMATCH,"tenant=Ascension Health, type=Medical Office",type should be Inpatient Hospital,Ascension Health
+NYC_2026120007,,1276 Fulton Avenue  New York  NY  10456,TENANT_TYPE_MISMATCH,"tenant=Bronx-Lebanon Hospital Center, type=Specialty Hospital",type should be Medical Office,Bronx-Lebanon Hospital Center
+CA_36592907,,909 South Fair Oaks Avenue  Pasadena  CA  91105,TENANT_TYPE_MISMATCH,"tenant=Shriners Hospitals For Children, type=Specialty Hospital",type should be Inpatient Hospital,Shriners Hospitals For Children
+STL_313,,4400 Clayton Ave  St. Louis  MO  63110,TENANT_TYPE_MISMATCH,"tenant=Shriners Hospitals For Children, type=Specialty Hospital",type should be Inpatient Hospital,Shriners Hospitals For Children
+SEA_5016001680,Virginia Mason - Bailey Boushay House,2720 E Madison St  Seattle  WA  98112,TENANT_TYPE_MISMATCH,"tenant=Virginia Mason, type=Specialty Hospital",type should be Medical Office,Virginia Mason
+ATL_295,Atlanta Expo Center South,3850 Jonesboro Rd SE  Atlanta  GA  30354,TENANT_TYPE_MISMATCH,"tenant=City Of Atlanta, type=Venue",type should be Office,City Of Atlanta
+ATL_296,Atlanta Expo Center North,3650 Jonesboro Rd SE  Atlanta  GA  30354,TENANT_TYPE_MISMATCH,"tenant=City Of Atlanta, type=Venue",type should be Office,City Of Atlanta
+CA_56444492,,5201 White Lane  Bakersfield  CA  93309,TENANT_TYPE_MISMATCH,"tenant=HCA Healthcare, type=Specialty Hospital",type should be Outpatient Clinic,HCA Healthcare
+PDX_1S2E07BB-13300-B1,Cascadia Behavioral Healthcare,2415 SE 43rd Ave  Portland  OR  97206,TENANT_TYPE_MISMATCH,"tenant=HCA Healthcare, type=Medical Office",type should be Outpatient Clinic,HCA Healthcare
+CHI_103684,,676 N St. Clair St  Chicago  IL  60611,TENANT_TYPE_MISMATCH,"tenant=Northwestern Memorial Hospital, type=Medical Office",type should be Inpatient Hospital,Northwestern Memorial Hospital
+CHI_250155,,211 East Ontario  Chicago  IL  60611,TENANT_TYPE_MISMATCH,"tenant=Northwestern Memorial Hospital, type=Medical Office",type should be Inpatient Hospital,Northwestern Memorial Hospital
+CHI_244099,Trump International Hotel & Tower,401 N. Wabash  Chicago  IL  60611,TENANT_TYPE_MISMATCH,"tenant=Trump Organization, type=Hotel",type should be Office,Trump Organization
+LA_112217100603,Cedars-Sinai Medical Center,127 S San Vicente Blvd  Los Angeles  CA 90048,TENANT_TYPE_MISMATCH,"tenant=Cedars-Sinai, type=Specialty Hospital",type should be Medical Office,Cedars-Sinai
+CA_11897,,900 N Street  Sacramento  CA  95814,TENANT_TYPE_MISMATCH,"tenant=City Of Sacramento, type=Library/Museum",type should be Office,City Of Sacramento
+CA_3950832,,828 I Street  Sacramento  CA  95814,TENANT_TYPE_MISMATCH,"tenant=City Of Sacramento, type=Library/Museum",type should be Office,City Of Sacramento
+CA_3971672,Sacramento Convention Center,1400 J Street  Sacramento  CA  95814,TENANT_TYPE_MISMATCH,"tenant=City Of Sacramento, type=Venue",type should be Office,City Of Sacramento
+SEA_1145000310,Roosevelt - UW Medical Center,4245 Roosevelt Way NE  Seattle  WA  98105,TENANT_TYPE_MISMATCH,"tenant=University of Washington (UW), type=Outpatient Clinic",type should be Inpatient Hospital,University of Washington (UW)
+CA_37594494,,2707 Via De La Valle  Del Mar  CA  92014,TENANT_TYPE_MISMATCH,"tenant=Gelson's, type=Supermarket/Grocery",type should be Retail Store,Gelson's
+CA_37595699,Gelson's Santa Barbara,3305 State Street  Santa Barbara  CA  93105,TENANT_TYPE_MISMATCH,"tenant=Gelson's, type=Supermarket/Grocery",type should be Retail Store,Gelson's
+CA_37597394,Gelson's La Costa/Carlsbad,7660 El Camino Real  Carlsbad  CA  92009,TENANT_TYPE_MISMATCH,"tenant=Gelson's, type=Supermarket/Grocery",type should be Retail Store,Gelson's
+CA_37597693,Gelson's Irvine,5521 Alton Parkway  Irvine  CA  92618,TENANT_TYPE_MISMATCH,"tenant=Gelson's, type=Supermarket/Grocery",type should be Retail Store,Gelson's
+LA_441852879574,,4720 Laurel Canyon Blvd  Valley Village  CA 91607,TENANT_TYPE_MISMATCH,"tenant=Gelson's, type=Supermarket/Grocery",type should be Retail Store,Gelson's
+CA_28022020,,1020 Nut Tree Road  Vacaville  CA  95687,TENANT_TYPE_MISMATCH,"tenant=Northbay Health, type=Medical Office",type should be Inpatient Hospital,Northbay Health
+CA_28022425,,4500 Business Center Drive  Fairfield  CA  94534,TENANT_TYPE_MISMATCH,"tenant=Northbay Health, type=Medical Office",type should be Inpatient Hospital,Northbay Health
+BOS_101755,Boston Children's Hospital,300 Longwood Ave  Boston  MA  02115,TENANT_TYPE_MISMATCH,"tenant=Boston Children's Hospital, type=Specialty Hospital",type should be Medical Office,Boston Children's Hospital
+CA_6258202,The Pike Outlets Bldg B Bu#20124,285 Bay Street  Long Beach  CA  90802,TENANT_TYPE_MISMATCH,"tenant=H&M, type=Retail Store",type should be Mixed Use,H&M
+DEN_2645,,500 16Th Street North  Denver  CO  80202,TENANT_TYPE_MISMATCH,"tenant=H&M, type=Retail Store",type should be Mixed Use,H&M
+NYC_1008090045,,1293 Broadway  New York  NY  10001,TENANT_TYPE_MISMATCH,"tenant=H&M, type=Retail Store",type should be Mixed Use,H&M
+SF_03270262024,,150 Powell St  San Francisco  CA  94102,TENANT_TYPE_MISMATCH,"tenant=H&M, type=Retail Store",type should be Mixed Use,H&M
+CA_27461983,Napa County Health & Human Services Building a,2751 Napa Valley Corporate Drive  Napa  CA  94558,TENANT_TYPE_MISMATCH,"tenant=Napa County, type=Medical Office",type should be Office,Napa County
+CA_27461986,Napa County Health & Human Services Building B,2751 Napa Valley Corporate Drive  Building B  Napa  CA  94558,TENANT_TYPE_MISMATCH,"tenant=Napa County, type=Medical Office",type should be Office,Napa County
+CA_4005239,City Services Center Structure,227 W Ivy Ave  Inglewood  CA  90302,TENANT_TYPE_MISMATCH,"tenant=City Of Inglewood, type=Outpatient Clinic",type should be Office,City Of Inglewood
+STL_214,Barnes Jewish Hospital,300 S Taylor Ave  St. Louis  MO  63122,TENANT_TYPE_MISMATCH,"tenant=Barnes-Jewish Hospital, type=Inpatient Hospital",type should be Outpatient Clinic,Barnes-Jewish Hospital
+STL_229,Clayton Avenue Building,4353 Clayton Ave  St. Louis  MO  63110,TENANT_TYPE_MISMATCH,"tenant=Barnes-Jewish Hospital, type=Medical Office",type should be Outpatient Clinic,Barnes-Jewish Hospital
+NYC_1004290029,The Catholic Charities of Arch,137 East 2Nd Street  New York  NY  10009,TENANT_TYPE_MISMATCH,"tenant=Catholic Charities, type=Venue",type should be Office,Catholic Charities
+SEA_1493600000,,2101 E Yesler Way  Seattle  WA  98122,TENANT_TYPE_MISMATCH,"tenant=Seattle Children's Hospital, type=Medical Office",type should be Inpatient Hospital,Seattle Children's Hospital
+SEA_6418100005,Seattle Children'S Hospital Admin Bldg,6901 Sand Point Way NE  Seattle  WA  98115,TENANT_TYPE_MISMATCH,"tenant=Seattle Children's Hospital, type=Office",type should be Inpatient Hospital,Seattle Children's Hospital
+CA_27517388,,301 South Tippecanoe Avenue  San Bernardino  CA  92408,TENANT_TYPE_MISMATCH,"tenant=Stater Bros. Markets, type=Office",type should be Supermarket/Grocery,Stater Bros. Markets
+CA_1339990,Valencia Town Center,24305 Town Center Drive  Santa Clarita  CA  91355,TENANT_TYPE_MISMATCH,"tenant=Quest Diagnostics, type=Office",type should be Medical Office,Quest Diagnostics
+CA_2551177,Independence Park,12254 Bellflower Boulevard  Downey  CA  90242,TENANT_TYPE_MISMATCH,"tenant=Boeing, type=Office",type should be Mixed Use,Boeing
+CHI_101737,Boeing International Headquarters,100 N Riverside Plaza  Chicago  IL  60606,TENANT_TYPE_MISMATCH,"tenant=Boeing, type=Office",type should be Mixed Use,Boeing
+CHI_101887,Boeing Building,550 W. Adams  Chicago  IL  60661,TENANT_TYPE_MISMATCH,"tenant=Boeing, type=Office",type should be Mixed Use,Boeing
+STL_442,Slpl Administration Building,1415 Olive St  St. Louis  MO  63103,TENANT_TYPE_MISMATCH,"tenant=City Of St. Louis, type=Library/Museum",type should be Office,City Of St. Louis
+NYC_4093630008,,89-40 135Th Street  New York  NY  11418,TENANT_TYPE_MISMATCH,"tenant=Jamaica Hospital, type=Residential Care",type should be Inpatient Hospital,Jamaica Hospital
+NYC_4002970001,Silvercup Studios,34-35 Review Ave  New York  NY  11101,TENANT_TYPE_MISMATCH,"tenant=Silvercup Studios, type=Venue",type should be Mixed Use,Silvercup Studios
+NYC_4004270027,Silvercup Studios East,42-25 21St Street  New York  NY  11101,TENANT_TYPE_MISMATCH,"tenant=Silvercup Studios, type=Venue",type should be Mixed Use,Silvercup Studios
+NYC_3056310001,,4813 9Th Ave/910 48 Street  New York  NY  11220,TENANT_TYPE_MISMATCH,"tenant=Maimonides Medical Center, type=Medical Office",type should be Inpatient Hospital,Maimonides Medical Center
+CA_27375235,Aux Auxiliary Sites Campus View-Fm,3753 Bradview Drive  Sacramento  CA  95827,TENANT_TYPE_MISMATCH,"tenant=Mather, type=Higher Ed",type should be Office,Mather
+PDX_1S1E04AA-300-B1,Central Library,821 SW 10th Ave  Portland  OR  97205,TENANT_TYPE_MISMATCH,"tenant=City Of Portland, type=Library/Museum",type should be Office,City Of Portland
+PDX_1S2E17DB-12600-B1,Mt. Scott Community Center,5530 SE 72nd Ave  Portland  OR  97206,TENANT_TYPE_MISMATCH,"tenant=City Of Portland, type=Venue",type should be Office,City Of Portland
+NYC_1013050060,Tower 570,"570 Lexington Ave,  New York,  NY 10022",TENANT_TYPE_MISMATCH,"tenant=Cornell University, type=Office",type should be Higher Ed,Cornell University
+CA_35424668,Ontario Airport Towers,2855 East Guasti Road  Ontario  CA  91761,TENANT_TYPE_MISMATCH,"tenant=West Coast University, type=Office",type should be Higher Ed,West Coast University
+CA_9588585,ST. Jude Med Ctr - Medical Plaza I,2151 North Harbor Boulevard  Fullerton  CA  92835,TENANT_TYPE_MISMATCH,"tenant=St Jude Medical Center, type=Medical Office",type should be Inpatient Hospital,St Jude Medical Center
+CA_9588586,ST. Jude Med Ctr - Medical Plaza II,2141 North Harbor Boulevard  Fullerton  CA  92835,TENANT_TYPE_MISMATCH,"tenant=St Jude Medical Center, type=Medical Office",type should be Inpatient Hospital,St Jude Medical Center
+BOS_104498,,144 Tremont St  Boston  MA  02111,TENANT_TYPE_MISMATCH,"tenant=McDonald's, type=Office",type should be Restaurant/Bar,McDonald's
+CA_7956795,,901 South Long Beach Boulevard  Compton  CA  90221,TENANT_TYPE_MISMATCH,"tenant=McDonald's, type=Wholesale Club",type should be Restaurant/Bar,McDonald's
+CHI_256249,McDonald's Global Headquarters,110 N Carpenter  Chicago  IL  60607,TENANT_TYPE_MISMATCH,"tenant=McDonald's, type=Office",type should be Restaurant/Bar,McDonald's
+CA_4231640,,71800 California 111  Rancho Mirage  CA  92270,TENANT_TYPE_MISMATCH,"tenant=Darden Restaurants, type=Theater",type should be Office,Darden Restaurants
+ATL_417,Atlantic Station,1380 Atlantic Dr NW  Atlanta  GA  30363,TENANT_TYPE_MISMATCH,"tenant=Publix, type=Mixed Use",type should be Supermarket/Grocery,Publix
+NYC_1003730038,,25 Avenue D  New York  NY  10009,TENANT_TYPE_MISMATCH,"tenant=Educational Alliance, type=Residential Care",type should be Venue,Educational Alliance
+DC_5478308,Anchor Mental Health,1001 Lawrence St NE  Washington  DC 20017,TENANT_TYPE_MISMATCH,"tenant=Roman Catholic Archdiocese Of Washington, type=Medical Office",type should be Office,Roman Catholic Archdiocese Of Washington
+SEA_1361300028,Fhcrc-Building H,820 Yale Ave N  Seattle  WA  98109,TENANT_TYPE_MISMATCH,"tenant=Fred Hutchinson Cancer Center (Fred Hutch), type=Specialty Hospital",type should be Office,Fred Hutchinson Cancer Center (Fred Hutch)
+SEA_1984200280,Fred Hutchinson Cancer Center (Fred Hutch),1213 Valley St  Seattle  WA  98109,TENANT_TYPE_MISMATCH,"tenant=Fred Hutchinson Cancer Center (Fred Hutch), type=Medical Office",type should be Office,Fred Hutchinson Cancer Center (Fred Hutch)
+SEA_1978200625,Swedish Medical Center,1101 Madison St  Seattle  WA  98104,TENANT_TYPE_MISMATCH,"tenant=Swedish Medical Center, type=Medical Office",type should be Inpatient Hospital,Swedish Medical Center
+NYC_5010370006,,281 Port Richmond Avenue  New York  NY  10302,TENANT_TYPE_MISMATCH,"tenant=United Cerebral Palsy Of New York City, type=Medical Office",type should be Outpatient Clinic,United Cerebral Palsy Of New York City
+NYC_5017070046,,2324 Forest Ave Club  New York  NY  10303,TENANT_TYPE_MISMATCH,"tenant=United Cerebral Palsy Of New York City, type=Inpatient Hospital",type should be Outpatient Clinic,United Cerebral Palsy Of New York City
+STL_190,,3655 Vista Ave  St. Louis  MO  63110,TENANT_TYPE_MISMATCH,"tenant=SSM Health, type=Medical Office",type should be Inpatient Hospital,SSM Health
+DC_5489117,Brawner Building,1706 I St NW  Washington  DC 20006,TENANT_TYPE_MISMATCH,"tenant=Brawner Company, Inc., type=Office",type should be Medical Office,"Brawner Company, Inc."
+CA_5046136,Sony Pictures Studios,10202 Washington Boulevard  Culver City  CA  90232,TENANT_TYPE_MISMATCH,"tenant=Sony, type=Venue",type should be Office,Sony
+CA_54460092,,7777 Milliken Avenue  Rancho Cucamonga  CA  91730,TENANT_TYPE_MISMATCH,"tenant=San Antonio Regional Hospital, type=Medical Office",type should be Inpatient Hospital,San Antonio Regional Hospital
+BOS_100737,Boston Center For The Arts,19 Clarendon St  Boston  MA  02116,TENANT_TYPE_MISMATCH,"tenant=Boston Center For The Arts, type=Theater",type should be Restaurant/Bar,Boston Center For The Arts
+CHI_164787,Advocate Beverly Center,9831 South Western Avenue  Chicago  IL  60643,TENANT_TYPE_MISMATCH,"tenant=Advocate Health, type=Medical Office",type should be Inpatient Hospital,Advocate Health
+CA_9588428,,5215 Torrance Boulevard  Torrance  CA  90503,TENANT_TYPE_MISMATCH,"tenant=City Of Hope, type=Medical Office",type should be Residential Care,City Of Hope
+CA_6383713,Intel Santa Clara,2200 Mission College Boulevard  Santa Clara  CA  95054,TENANT_TYPE_MISMATCH,"tenant=Intel, type=Office",type should be Mixed Use,Intel
+SJ_46,,101 Innovation Dr  San Jose  CA  95134,TENANT_TYPE_MISMATCH,"tenant=Intel, type=Office",type should be Mixed Use,Intel
+CA_12414934,Ivy Park at Mission Viejo,27783 Center Drive  Mission Viejo  CA  92692,NON_CANONICAL_TENANT,Ivy Park,Check if this is valid org (18 occurrences),Ivy Park
+CAM_1070,Massachusetts Institute Of Technology,314 Main St  Cambridge  MA 02142,MISSING_TENANT_FROM_NAME,blank tenant,Might be Massachusetts Institute Of Technology,Massachusetts Institute Of Technology
+DC_5482978,Td Bank Washington Dc 2000 K St,2000 K St NW  Washington  DC  20006,MISSING_TENANT_FROM_NAME,blank tenant,Might be TD Bank,TD Bank

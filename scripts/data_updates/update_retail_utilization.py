@@ -143,8 +143,8 @@ def update_retail_utilization():
             utilization = DEFAULT_RETAIL_UTILIZATION
             default_used += 1
 
-        # Retail vacancy stays as-is (it's storefront vacancy, not relevant to DCV)
-        # The opportunity comes from traffic variability, not empty storefronts
+        # Retail = single operator, no vacancy concept
+        df.loc[idx, 'occ_vacancy_rate'] = 0.0
         df.loc[idx, 'occ_utilization_rate'] = utilization
 
     print(f"\nUpdates summary:")

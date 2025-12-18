@@ -27,25 +27,25 @@ TYPE_TO_VERTICAL = {
     'Inpatient Hospital': 'Healthcare',
     'Outpatient Clinic': 'Healthcare',
     'Specialty Hospital': 'Healthcare',
-    'Medical Office': 'Healthcare',
-    'Residential Care': 'Healthcare',
-
+    'Medical Office/Lab': 'Healthcare',
+    'Residential Care Facility': 'Healthcare',
+    
     # Government
     'Courthouse': 'Government',
     'Fire Station': 'Government',
     'Police Station': 'Government',
-
+    
     # Commercial (everything else)
     'Office': 'Commercial',
     'Hotel': 'Commercial',
-    'Retail': 'Commercial',
+    'Retail Store': 'Commercial',
     'Restaurant/Bar': 'Commercial',
     'Bank Branch': 'Commercial',
-    'Supermarket': 'Commercial',
+    'Supermarket/Grocery': 'Commercial',
     'Wholesale Club': 'Commercial',
     'Library/Museum': 'Commercial',
     'Theater': 'Commercial',
-    'Venue': 'Commercial',
+    'Gym': 'Commercial',
     'Mixed Use': 'Commercial',
     'Worship Facility': 'Commercial',
     'Vehicle Dealership': 'Commercial',
@@ -55,9 +55,9 @@ TYPE_TO_VERTICAL = {
 # Fix building types based on property name
 def fix_building_type(row):
     global fixes
-    name = str(row.get('id_property_name', '')).lower()
-    tenant = str(row.get('org_tenant', '')).lower()
-    current_type = row.get('bldg_type', '')
+    name = str(row.get('property_name', '')).lower()
+    tenant = str(row.get('tenant', '')).lower()
+    current_type = row.get('building type', '')
     
     combined = name + ' ' + tenant
     
@@ -94,18 +94,18 @@ def fix_building_type(row):
     return current_type
 
 # Fix building types
-df['bldg_type'] = df.apply(fix_building_type, axis=1)
+df['building type'] = df.apply(fix_building_type, axis=1)
 print(f"Fixed {fixes} building types")
 
 # Now fix verticals to match building types
 vertical_fixes = 0
 for idx, row in df.iterrows():
-    btype = row.get('bldg_type', '')
-    current_vertical = row.get('bldg_vertical', '')
+    btype = row.get('building type', '')
+    current_vertical = row.get('vertical', '')
     correct_vertical = TYPE_TO_VERTICAL.get(btype, 'Commercial')
-
+    
     if current_vertical != correct_vertical:
-        df.at[idx, 'bldg_vertical'] = correct_vertical
+        df.at[idx, 'vertical'] = correct_vertical
         vertical_fixes += 1
 
 print(f"Fixed {vertical_fixes} verticals")

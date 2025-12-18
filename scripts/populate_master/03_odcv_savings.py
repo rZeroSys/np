@@ -309,9 +309,6 @@ def process_file(input_file):
         # Apply modifiers
         final_odcv = base_odcv * efficiency_modifier * climate_modifier
 
-        # Apply 20% increase (multiplicative, not additive)
-        final_odcv = final_odcv * 1.20
-
         # Clamp to building type floor/ceiling first
         final_odcv = max(floor, min(ceiling, final_odcv))
 
