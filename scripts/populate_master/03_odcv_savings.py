@@ -19,6 +19,7 @@ import pandas as pd
 import numpy as np
 import os
 import shutil
+import csv
 from pathlib import Path
 from datetime import datetime
 
@@ -29,6 +30,16 @@ from datetime import datetime
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
+
+# Load zip income tiers for location score
+ZIP_INCOME_TIERS = {}
+zip_tiers_path = Path(__file__).parent.parent.parent / 'data/source/zip_income_tiers.csv'
+if zip_tiers_path.exists():
+    with open(zip_tiers_path, 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            ZIP_INCOME_TIERS[row['zip']] = row['price_tier']
+    print(f"Loaded {len(ZIP_INCOME_TIERS)} zip income tiers")
 
 INPUT_FILES = [str(PORTFOLIO_DATA_PATH)]
 BACKUP_DIR = str(CONFIG_BACKUP_DIR)
@@ -48,32 +59,32 @@ def create_backup(input_file):
 
 # Floor and ceiling for each building type
 BUILDING_TYPE_BOUNDS = {
-    'Office':                    (0.20, 0.40),
-    'Medical Office':            (0.20, 0.40),
-    'Mixed Use':                 (0.18, 0.38),
-    'K-12 School':               (0.20, 0.45),
-    'Higher Ed':                 (0.20, 0.45),
-    'Preschool/Daycare':         (0.18, 0.38),
-    'Retail':              (0.15, 0.35),
+    'Office':                    (0.20, 0.45),
+    'Medical Office':            (0.20, 0.45),
+    'Mixed Use':                 (0.18, 0.43),
+    'K-12 School':               (0.20, 0.50),
+    'Higher Ed':                 (0.20, 0.50),
+    'Preschool/Daycare':         (0.18, 0.43),
+    'Retail':              (0.20, 0.40),
     'Supermarket':       (0.10, 0.25),
-    'Wholesale Club':            (0.10, 0.25),
-    'Hotel':                     (0.15, 0.35),
+    'Wholesale Club':            (0.10, 0.30),
+    'Hotel':                     (0.20, 0.40),
     'Restaurant/Bar':            (0.10, 0.25),
-    'Gym':                       (0.15, 0.35),
-    'Event Space':               (0.20, 0.45),
-    'Venue':                     (0.20, 0.45),  # Same as Event Space
-    'Theater':                   (0.18, 0.40),
-    'Arts & Culture':            (0.15, 0.35),
-    'Library':                   (0.12, 0.28),
-    'Library/Museum':            (0.12, 0.28),  # Same as Library
-    'Bank Branch':               (0.12, 0.28),
-    'Vehicle Dealership':        (0.15, 0.35),
-    'Courthouse':                (0.10, 0.25),
-    'Public Service':            (0.10, 0.25),
-    'Outpatient Clinic':         (0.15, 0.32),
-    'Sports/Gaming Center':      (0.18, 0.40),
-    'Inpatient Hospital':        (0.20, 0.38),  # Waiting rooms, exam rooms, admin offices = big opportunity
-    'Specialty Hospital':        (0.20, 0.38),  # Same as Inpatient
+    'Gym':                       (0.15, 0.40),
+    'Event Space':               (0.20, 0.50),
+    'Venue':                     (0.20, 0.50),  # Same as Event Space
+    'Theater':                   (0.18, 0.45),
+    'Arts & Culture':            (0.15, 0.40),
+    'Library':                   (0.12, 0.32),
+    'Library/Museum':            (0.12, 0.32),  # Same as Library
+    'Bank Branch':               (0.12, 0.32),
+    'Vehicle Dealership':        (0.15, 0.40),
+    'Courthouse':                (0.10, 0.28),
+    'Public Service':            (0.10, 0.28),
+    'Outpatient Clinic':         (0.15, 0.37),
+    'Sports/Gaming Center':      (0.18, 0.45),
+    'Inpatient Hospital':        (0.20, 0.43),  # Waiting rooms, exam rooms, admin offices = big opportunity
+    'Specialty Hospital':        (0.20, 0.43),  # Same as Inpatient
     'Residential Care Facility': (0.05, 0.15),  # Legit low - residents actually there 24/7
     'Residential Care':          (0.05, 0.15),  # Same as Residential Care Facility
     'Laboratory':                (0.05, 0.15),
@@ -160,7 +171,7 @@ def calculate_size_score(sqft):
     """
     if sqft is None:
         return 0.5  # Middle value
-    
+
     if sqft < 50000:
         return 0.25
     elif sqft < 100000:
@@ -171,11 +182,56 @@ def calculate_size_score(sqft):
         return 1.0
 
 
-def calculate_automation_score(year_built, sqft):
-    """Combined automation score from year and size."""
+def normalize_zip(zip_val):
+    """Normalize zip to 5-digit string."""
+    if zip_val is None or zip_val == '':
+        return None
+    z = str(zip_val).strip()
+    # Remove .0 suffix from float conversion
+    if z.endswith('.0'):
+        z = z[:-2]
+    # Pad with leading zeros
+    return z.zfill(5)
+
+
+def calculate_location_score(zip_code):
+    """
+    Location score based on zip code income tier (0-1).
+    Buildings in high-income zips are more likely to have been retrofitted
+    recently - owners in expensive markets invest in upgrades to stay competitive.
+
+    Tiers based on median household income:
+    - High: >$85,000 (top ~10%)
+    - Medium: $50,000-$85,000 (middle ~40%)
+    - Low: <$50,000 (bottom ~50%)
+    """
+    z = normalize_zip(zip_code)
+    if z is None:
+        return 0.5  # Middle value for unknown
+
+    tier = ZIP_INCOME_TIERS.get(z, 'low')
+    if tier == 'high':
+        return 1.0
+    elif tier == 'medium':
+        return 0.6
+    else:
+        return 0.3
+
+
+def calculate_automation_score(year_built, sqft, zip_code):
+    """
+    Combined automation score from year, size, and location.
+    Weights: 50% year_built, 25% size, 25% location (zip income tier)
+
+    Year is strongest predictor of native automation capability.
+    Location matters because high-income areas retrofit more often.
+    Size indicates BMS sophistication level.
+    """
     year_score = calculate_year_score(year_built)
     size_score = calculate_size_score(sqft)
-    return (year_score + size_score) / 2.0
+    location_score = calculate_location_score(zip_code)
+
+    return (year_score * 0.50) + (size_score * 0.25) + (location_score * 0.25)
 
 
 def calculate_efficiency_modifier_energy_star(score):
@@ -286,12 +342,13 @@ def process_file(input_file):
         energy_star = safe_float(row['energy_star_score'])
         eui = safe_float(row['energy_site_eui'])
         climate_zone = row['energy_climate_zone'] if pd.notna(row['energy_climate_zone']) and row['energy_climate_zone'] else ''
+        zip_code = row['loc_zip'] if pd.notna(row['loc_zip']) else ''
 
         # Step 1: Opportunity score
         opportunity = calculate_opportunity_score(building_type, vacancy, utilization)
 
-        # Step 2: Automation score
-        automation = calculate_automation_score(year_built, sqft)
+        # Step 2: Automation score (year 50%, size 25%, zip income tier 25%)
+        automation = calculate_automation_score(year_built, sqft, zip_code)
 
         # Step 3: Efficiency modifier (Energy Star if available, else EUI)
         efficiency_modifier = calculate_efficiency_modifier_energy_star(energy_star)
@@ -309,11 +366,8 @@ def process_file(input_file):
         # Apply modifiers
         final_odcv = base_odcv * efficiency_modifier * climate_modifier
 
-        # Clamp to building type floor/ceiling first
+        # Clamp to building type floor/ceiling
         final_odcv = max(floor, min(ceiling, final_odcv))
-
-        # GLOBAL bounds: never below 20%, never above 50%
-        final_odcv = max(0.20, min(0.50, final_odcv))
 
         odcv_savings_list.append(round(final_odcv, 4))
 

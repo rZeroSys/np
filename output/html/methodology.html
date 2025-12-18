@@ -118,6 +118,16 @@
         .source-link:hover {
             border-bottom-style: solid;
         }
+        .footnote-ref {
+            vertical-align: super;
+            font-size: 0.75em;
+            color: var(--rzero-primary);
+            text-decoration: none;
+            margin-left: 1px;
+        }
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
         .file-badge {
             display: inline-block;
             padding: 2px 6px;
@@ -223,67 +233,7 @@ if (window.location.search.includes('embed=1')) {
 
     <div class="page-title">
         <h1>Technical Methodology</h1>
-        <p>How we estimate energy savings from Occupancy-Driven Control Ventilation (O-DCV) for 22,948 commercial buildings.</p>
     </div>
-
-    <!-- Section 0: Introduction -->
-    <section class="section" id="odcv">
-        <h2>What Is O-DCV?</h2>
-
-        <h3>The Problem: Ventilating Empty Space</h3>
-        <p>Every commercial building has a ventilation system that brings in fresh outdoor air. Building codes specify how much fresh air each space needs, typically measured in CFM per person. <strong>The problem:</strong> Most buildings ventilate based on how many people the space was <em>designed</em> for, not how many are actually there.</p>
-
-        <p>Consider a typical office floor designed for 200 people:</p>
-        <ul>
-            <li>The ventilation system delivers fresh air for 200 people</li>
-            <li>But only 120 show up (hybrid work means 40% work from home)</li>
-            <li>And 3 floors are completely vacant (no tenant)</li>
-            <li>The building pumps fresh air for 800 people who don't exist</li>
-        </ul>
-
-        <p>That fresh outdoor air isn't free:</p>
-        <ul>
-            <li><strong>In winter:</strong> 20&deg;F outside, 70&deg;F inside &mdash; every CFM must be heated</li>
-            <li><strong>In summer:</strong> 95&deg;F/humid outside, 72&deg;F/dry inside &mdash; every CFM must be cooled and dehumidified</li>
-        </ul>
-        <p><strong>Ventilating empty space is pure waste.</strong></p>
-
-        <h3>The Solution: O-DCV</h3>
-        <p>O-DCV (Occupancy-Driven Control Ventilation) uses real-time occupancy sensors to answer: <em>How many people are actually in this zone right now?</em> Then it adjusts ventilation to match actual occupancy rather than design capacity.</p>
-        <p><a href="https://www.ashrae.org/technical-resources/bookstore/standards-62-1-62-2" class="source-link">ASHRAE Standard 62.1</a> requires 15-20 CFM per person for most commercial spaces. When a conference room designed for 20 people has only 4 present, O-DCV reduces ventilation from 300-400 CFM to 60-80 CFM:</p>
-        <ul>
-            <li>Conference room for 20 people but only 4 present? Deliver air for 4.</li>
-            <li>Entire floor empty at 6pm? Reduce to minimum setback.</li>
-            <li>Big meeting happening? Ramp up for actual headcount.</li>
-        </ul>
-
-        <h3>Where the Savings Come From</h3>
-        <p>O-DCV reduces energy consumption in three ways:</p>
-        <table>
-            <thead>
-                <tr><th>Component</th><th>How It Saves Energy</th><th>Typical Share</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><strong>Fan Energy</strong></td><td>Fans run slower when less air is needed (fan affinity laws: half the airflow = 1/8 the energy)</td><td>20-30%</td></tr>
-                <tr><td><strong>Heating Energy</strong></td><td>Less cold outdoor air to heat in winter</td><td>40-50%</td></tr>
-                <tr><td><strong>Cooling Energy</strong></td><td>Less hot/humid outdoor air to cool and dehumidify in summer</td><td>30-40%</td></tr>
-            </tbody>
-        </table>
-
-        <h3>Dataset Overview</h3>
-        <p>This methodology is applied to <strong>22,948 commercial buildings</strong> across 12 states, representing over 4 billion square feet. The dataset includes buildings from city benchmarking disclosure programs (NYC LL84, LA, San Francisco, etc.) and EPA Portfolio Manager.</p>
-        <table>
-            <thead>
-                <tr><th>Metric</th><th>Value</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Total Buildings</td><td>22,948</td></tr>
-                <tr><td>Mean ODCV HVAC Savings</td><td>27.1%</td></tr>
-                <tr><td>Median ODCV HVAC Savings</td><td>26.9%</td></tr>
-                <tr><td>HVAC Savings Range</td><td>20% &ndash; 45%</td></tr>
-            </tbody>
-        </table>
-    </section>
 
     <!-- Section 1: Opportunity by Building Type -->
     <section class="section" id="opportunity">
@@ -320,156 +270,100 @@ if (window.location.search.includes('embed=1')) {
                 </tr>
             </tbody>
         </table>
-        <p><em>Limited-opportunity buildings have 24/7 residents (care facilities) or specialized ventilation requirements (labs), limiting savings to common areas. Note: Hospitals use the single-operator formula&mdash;waiting rooms, exam rooms, and admin areas offer significant ODCV opportunity (20-38% HVAC savings).</em></p>
-
         <h3>Building Type Details</h3>
         <table>
             <thead>
                 <tr>
                     <th>Building Type</th>
-                    <th>Formula</th>
-                    <th>How (Calculation)</th>
-                    <th>Why (Rationale)</th>
-                    <th>Utilization</th>
-                    <th>Sources</th>
+                    <th>Calculation</th>
+                    <th>Rationale</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Office</td>
-                    <td><strong>Multi-tenant</strong><br><small>V + (1-V)(1-U)</small></td>
                     <td>City-specific vacancy from CBRE/CommercialEdge; utilization from Kastle badge swipes as % of pre-pandemic baseline</td>
-                    <td>Multi-tenant buildings have TWO sources of empty space: (1) unleased suites with no tenant, and (2) leased suites where tenants work from home. Both are ventilated but empty.</td>
-                    <td>34% &ndash; 55%<br><small>(mean 42%)</small></td>
-                    <td><a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a>, <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a>, <a href="https://www.commercialedge.com/blog/national-office-report/" class="source-link">CommercialEdge</a></td>
+                    <td>Uses multi-tenant formula above. Highest opportunity among commercial types due to hybrid work (utilization down 40-60% from pre-pandemic).</td>
                 </tr>
                 <tr>
                     <td>Medical Office</td>
-                    <td><strong>Multi-tenant</strong><br><small>V + (1-V)(1-U)</small></td>
                     <td>MOB-specific vacancy (~9.5% vs ~20% office); utilization from exam room benchmarks (70% target utilization)</td>
                     <td>Healthcare is essential = stable tenant demand = lower vacancy than office. But exam rooms get 2-3x office ventilation per ASHRAE 62.1, even when empty between patients.</td>
-                    <td>52% &ndash; 58%<br><small>(mean 55%)</small></td>
-                    <td><a href="https://www.cbre.com/insights/reports/2025-us-healthcare-real-estate-outlook" class="source-link">CBRE Healthcare 2025</a>, ASHRAE 62.1</td>
                 </tr>
                 <tr>
                     <td>Mixed Use</td>
-                    <td><strong>Multi-tenant</strong><br><small>V + (1-V)(1-U)</small></td>
                     <td>Component-weighted blend: typically 60% office rates + 40% retail rates, using same sources as each component</td>
                     <td>Mixed-use buildings combine office floors (with hybrid work vacancy/utilization) and retail floors (with traffic patterns). Blending captures both behaviors in one building.</td>
-                    <td>36% &ndash; 52%<br><small>(mean 45%)</small></td>
-                    <td><a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle</a>, <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE</a></td>
                 </tr>
                 <tr>
                     <td>K-12 School</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>180 school days × 11 hrs HVAC / 8,760 hrs = 22.6% base; adjusted by state for year-round programs (CA, AZ higher)</td>
                     <td>Schools have fixed calendars set by law. No "vacancy" concept - district owns all classrooms. Empty summers (12 weeks), holidays, nights, weekends = huge ODCV opportunity.</td>
-                    <td>20% &ndash; 28%<br><small>(mean 22%)</small></td>
-                    <td><a href="https://www.pewresearch.org/" class="source-link">Pew Research</a> (180 days), <a href="https://nces.ed.gov/" class="source-link">NCES Table 5.14</a>, <a href="https://www.energy.gov/eere/buildings/energy-smart-schools" class="source-link">DOE Energy Smart Schools</a></td>
                 </tr>
                 <tr>
                     <td>Higher Ed</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>32 weeks in session × 35% classroom utilization + HVAC buffer; varies by institution type (research vs teaching)</td>
                     <td>University owns all space - no tenants. Classrooms scheduled for specific classes, empty the rest. APPA studies show only 30-40% of available hours have classes. 20 weeks/year of breaks.</td>
-                    <td>24% &ndash; 30%<br><small>(mean 26%)</small></td>
-                    <td><a href="https://www.appa.org/" class="source-link">APPA</a>, <a href="https://www.gordian.com/solutions/higher-education/" class="source-link">SIGHTLINES/Gordian</a></td>
                 </tr>
                 <tr>
                     <td>Hotel</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Room Occupancy × 45% Guest Presence Factor (from DOE studies)</td>
                     <td>Hotel owns all rooms - no "vacancy". But a booked room ≠ occupied room. Guests are OUT most of the day (business, sightseeing). DOE: guests in-room only ~10 hrs/day = 45% presence.</td>
-                    <td>23% &ndash; 39%<br><small>(mean 28%)</small></td>
-                    <td><a href="https://www.ahla.com/state-of-the-industry" class="source-link">AHLA 2025</a> (63% national), DOE Guest Room HVAC Report</td>
                 </tr>
                 <tr>
                     <td>Retail</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Traffic-weighted: morning lull (15-20%) + lunch rush (60-70%) + afternoon (20-30%) + evening rush (60-80%)</td>
                     <td>Store owns/leases entire space - no sub-tenants. Designed for peak Black Friday capacity, but "50% of week's traffic in busiest 20 hours" = 148 other hours much emptier.</td>
-                    <td>35% &ndash; 48%<br><small>(mean 40%)</small></td>
-                    <td><a href="https://www.storeforce.com/" class="source-link">StoreForce</a>, <a href="https://nrf.com/" class="source-link">NRF</a></td>
                 </tr>
                 <tr>
                     <td>Supermarket</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%); 24/7 stores average lower</td>
                     <td>Single operator (Kroger, Safeway, etc). Extended hours = more empty time. Peak 5-7pm is 80-100% capacity; overnight is 5-15%. Refrigeration separate from HVAC.</td>
-                    <td>43% &ndash; 55%<br><small>(mean 48%)</small></td>
-                    <td>ASHRAE RP-1747, <a href="https://www.purdue.edu/" class="source-link">Purdue DCV research</a></td>
                 </tr>
                 <tr>
                     <td>Wholesale Club</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Zone-weighted: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33%</td>
                     <td>Single operator (Costco, Sam's, BJ's). 30-40% of building is back-of-house stock rooms with only forklift drivers. Shorter hours (10am-8:30pm), weekend-heavy traffic.</td>
-                    <td>30% &ndash; 38%<br><small>(mean 33%)</small></td>
-                    <td>Costco/Sam's/BJ's operating patterns</td>
                 </tr>
                 <tr>
                     <td>Inpatient Hospital</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Zone-weighted by area: patient rooms (40% @ 70%), clinical/OR (20% @ 85%), waiting (10% @ 30%), exam (10% @ 35%), admin (10% @ 40%), cafe (10% @ 35%)</td>
                     <td>Hospital owns entire building. Not just patient rooms - huge non-clinical areas (waiting rooms, exam rooms, admin) get medical-grade ventilation 24/7 but are often empty.</td>
-                    <td>54% &ndash; 62%<br><small>(mean 56%)</small></td>
-                    <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA Fast Facts 2024</a> (65% bed occupancy), ASHRAE 170</td>
                 </tr>
                 <tr>
                     <td>Specialty Hospital</td>
-                    <td><strong>Limited</strong><br><small>(1-U) × 0.3</small></td>
                     <td>High base occupancy (72-82%) with 0.3× dampening multiplier due to code-mandated minimum ventilation</td>
                     <td>24/7 operation with strict infection control. ASHRAE 170 MANDATES minimum air changes regardless of occupancy - can't reduce below code. Opportunity limited to non-critical areas only.</td>
-                    <td>72% &ndash; 82%<br><small>(mean 74%)</small></td>
-                    <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA Fast Facts 2024</a>, ASHRAE 170</td>
                 </tr>
                 <tr>
                     <td>Outpatient Clinic</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Exam room occupancy (~25% actual patient time) × business hours (weekdays 8-5 = 30% of week)</td>
                     <td>Clinic owns/operates space. Patients in exam room only 15-30 min per appointment. Between patients: room empty but ventilated at medical-grade rates. Closed evenings/weekends.</td>
-                    <td>42% &ndash; 48%<br><small>(mean 44%)</small></td>
-                    <td>Appointment patterns analysis</td>
                 </tr>
                 <tr>
                     <td>Residential Care</td>
-                    <td><strong>Limited</strong><br><small>(1-U) × 0.3</small></td>
                     <td>Room Occupancy × 95% Resident Presence Factor</td>
                     <td>Unlike hotel guests who leave for sightseeing, residents LIVE there 24/7. They eat, sleep, socialize on-site. Only ~5% time away for doctor visits. High occupancy + high presence = limited opportunity.</td>
-                    <td>78% &ndash; 86%<br><small>(mean 83%)</small></td>
-                    <td>Industry benchmarks (87.2% national occupancy)</td>
                 </tr>
                 <tr>
                     <td>Theater</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>8 shows/week × 3 hrs = 24 hrs shows + 11 hrs pre/post/rehearsal = 35 hrs HVAC / 168 hrs × 70% avg capacity</td>
                     <td>Theater owns venue. Seats 2,000+ people but only 8 shows/week. Empty 80% of the time but must maintain climate for equipment, costumes, and pre-show conditioning.</td>
-                    <td>14% &ndash; 22%<br><small>(mean 16%)</small></td>
-                    <td>Broadway/professional theater schedules</td>
                 </tr>
                 <tr>
                     <td>Venue</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>60-80 events/year × 5 hrs + setup/teardown = ~550 hrs / 8,760 hrs = 6% of year active</td>
                     <td>Arena owns venue. 41 NBA games + 20 concerts + 20 other = 81 events/year. Building designed for 20,000 people sits EMPTY 93% of the year. Massive ODCV opportunity.</td>
-                    <td>15% &ndash; 22%<br><small>(mean 17%)</small></td>
-                    <td>Event schedule analysis (NBA, concerts, other)</td>
                 </tr>
                 <tr>
                     <td>Library/Museum</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small></td>
                     <td>Open 50 hrs/week (30% of time) × 40% average visitor density during open hours</td>
                     <td>Public institution owns building. HVAC runs 24/7 for collection preservation (temperature/humidity for artifacts) but visitors only come during limited public hours. Climate for objects, not people.</td>
-                    <td>25% &ndash; 36%<br><small>(mean 28%)</small></td>
-                    <td>Operating hours, visitor flow analysis</td>
                 </tr>
                 <tr>
                     <td>Restaurant/Bar</td>
-                    <td><strong>Single-operator</strong><br><small>1 - U</small><br><small>(dining only)</small></td>
                     <td>Dining area (60% of bldg) traffic-weighted by meal period; kitchen (40% of bldg) EXCLUDED from ODCV</td>
                     <td>Restaurant owns space. Kitchen exhaust hoods MUST run at full blast during all cooking hours (fire/health code). ODCV opportunity ONLY in dining area, between meal rushes when seats empty.</td>
-                    <td>36% &ndash; 42%<br><small>(mean 37%)</small></td>
-                    <td>Dining traffic patterns</td>
                 </tr>
             </tbody>
         </table>
@@ -480,7 +374,7 @@ if (window.location.search.includes('embed=1')) {
         <h2>Why Cities Differ</h2>
 
         <h3>Office Vacancy &amp; Utilization by City</h3>
-        <p>Office vacancy rates vary significantly by market, driven by local employment patterns, industry mix, and remote work adoption. Vacancy data from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" class="source-link">CBRE Q3 2025 U.S. Office Figures</a>. Utilization data from <a href="https://www.kastle.com/safety-wellness/getting-america-back-to-work/" class="source-link">Kastle Systems Back to Work Barometer</a>, which tracks building access badge swipes as a proxy for actual occupancy.</p>
+        <p>Office vacancy rates vary significantly by market, driven by local employment patterns, industry mix, and remote work adoption. Vacancy data from CBRE Q3 2025 U.S. Office Figures<a href="#data-sources" class="footnote-ref">[1]</a>. Utilization data from Kastle Systems Back to Work Barometer<a href="#data-sources" class="footnote-ref">[2]</a>, which tracks building access badge swipes as a proxy for actual occupancy.</p>
         <table>
             <thead>
                 <tr><th>City</th><th>Vacancy</th><th>Utilization</th></tr>
@@ -493,26 +387,20 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Portland</td><td>26.3%</td><td>36%</td></tr>
                 <tr><td>Atlanta</td><td>26.0%</td><td>48%</td></tr>
                 <tr><td>Los Angeles</td><td>24.9%</td><td>48%</td></tr>
-                <tr><td>Oakland</td><td>24.8%</td><td>41%</td></tr>
                 <tr><td>Philadelphia</td><td>24.7%</td><td>46%</td></tr>
-                <tr><td>Jacksonville</td><td>24.3%</td><td>46%</td></tr>
                 <tr><td>Washington DC</td><td>22.4%</td><td>64%</td></tr>
                 <tr><td>Boston</td><td>20.7%</td><td>42%</td></tr>
+                <tr><td>Cambridge</td><td>20.7%</td><td>42%</td></tr>
                 <tr><td>St. Louis</td><td>19.9%</td><td>38%</td></tr>
-                <tr><td>Sacramento</td><td>18.9%</td><td>43%</td></tr>
-                <tr><td>Kansas City</td><td>17.8%</td><td>46%</td></tr>
                 <tr><td>Orlando</td><td>17.0%</td><td>46%</td></tr>
                 <tr><td>San Jose</td><td>16.5%</td><td>49%</td></tr>
                 <tr><td>San Diego</td><td>14.9%</td><td>46%</td></tr>
-                <tr><td>Orange County</td><td>14.8%</td><td>48%</td></tr>
                 <tr><td>New York</td><td>13.5%</td><td>60%</td></tr>
-                <tr><td>Inland Empire</td><td>5.5%</td><td>46%</td></tr>
             </tbody>
         </table>
-        <p><em>Vacancy reflects unleased space; utilization reflects badge swipes as percentage of pre-pandemic baseline, converted to actual space use. Markets with higher tech employment (SF, Seattle) show lower utilization due to greater remote work adoption.</em></p>
 
         <h3>Emission Factors</h3>
-        <p>Carbon savings depend on local grid mix. Seattle's 98% hydroelectric grid is <strong>29× cleaner</strong> than NYC. Sources: <a href="https://www.epa.gov/egrid" class="source-link">EPA eGRID 2023</a>, <a href="https://www.epa.gov/climateleadership/ghg-emission-factors-hub" class="source-link">EPA GHG Emission Factors Hub</a>, and city BPS law definitions:</p>
+        <p>Carbon savings depend on local grid mix. Seattle's 98% hydroelectric grid is <strong>29× cleaner</strong> than NYC. Sources: EPA eGRID 2023<a href="#data-sources" class="footnote-ref">[3]</a>, EPA GHG Emission Factors Hub<a href="#data-sources" class="footnote-ref">[4]</a>, and city BPS law definitions:</p>
         <table>
             <thead>
                 <tr><th>City</th><th>Elec Factor (tCO2e/kBtu)</th><th>Relative to US Avg</th></tr>
@@ -530,10 +418,9 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Chicago / St. Louis</td><td>0.0001649</td><td>1.8× dirtier (coal)</td></tr>
             </tbody>
         </table>
-        <p><em>Note: Gas and steam emission factors are consistent nationwide (gas: 0.00005311, steam: 0.00004493 tCO2e/kBtu).</em></p>
 
         <h3>Climate Zones</h3>
-        <p>Northern climates use more HVAC energy. We adjust percentages by <a href="https://www.energy.gov/eere/buildings/climate-zones" class="source-link">DOE climate zone</a>:</p>
+        <p>Northern climates use more HVAC energy. We adjust percentages by DOE climate zone<a href="#data-sources" class="footnote-ref">[5]</a>:</p>
         <table>
             <thead>
                 <tr><th>Climate Zone</th><th>Gas HVAC %</th><th>Climate Modifier</th></tr>
@@ -585,7 +472,7 @@ if (window.location.search.includes('embed=1')) {
         <p><strong>Fuel Oil:</strong> Convert kBtu to MMBtu (÷1000), multiply by rate, apply 1.10× for delivery and taxes.</p>
 
         <h3>3. HVAC Energy Share</h3>
-        <p>Not all energy goes to HVAC. Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">CBECS 2018</a> microdata, calculated as weighted averages by building type (PBA code) and climate zone. Data Centers use 42% electric HVAC based on <a href="https://eta.lbl.gov/publications/data-center-energy-report" class="source-link">LBNL 2024 Data Center Energy Report</a>. Per-building adjustments for efficiency, age, and EUI. Verified against dataset of 22,948 buildings:</p>
+        <p>Not all energy goes to HVAC. Base values from CBECS 2018<a href="#data-sources" class="footnote-ref">[6]</a> microdata, calculated as weighted averages by building type (PBA code) and climate zone. Data Centers use 42% electric HVAC based on LBNL 2024 Data Center Energy Report<a href="#data-sources" class="footnote-ref">[7]</a>. Per-building adjustments for efficiency, age, and EUI. Verified against dataset of 22,948 buildings:</p>
         <table>
             <thead>
                 <tr><th>Building Type</th><th>Gas HVAC %</th><th>Elec HVAC %</th><th>Notes</th></tr>
@@ -597,12 +484,12 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Hospital</td><td>78%</td><td>45%</td><td>DHW, sterilization, kitchens use gas</td></tr>
                 <tr><td>Retail</td><td>77%</td><td>45%</td><td>Lighting is major non-HVAC load</td></tr>
                 <tr><td>Higher Ed</td><td>80%</td><td>48%</td><td>Lab exhaust, semester schedules</td></tr>
-                <tr><td>Hotel</td><td>12-28%</td><td>43%</td><td><strong>Special case:</strong> Gas HVAC varies by intensity; ~42% DHW, ~33% cooking</td></tr>
-                <tr><td>Restaurant</td><td>18%</td><td>34%</td><td><strong>Special case:</strong> ~72% commercial cooking</td></tr>
+                <tr><td>Hotel</td><td>12-28%</td><td>43%</td><td>See note below*</td></tr>
+                <tr><td>Restaurant</td><td>18%</td><td>34%</td><td>See note below*</td></tr>
                 <tr><td>Supermarket</td><td>77%</td><td>20%</td><td>Refrigeration excluded from HVAC</td></tr>
             </tbody>
         </table>
-        <p><strong>Why Hotels and Restaurants differ:</strong> In most buildings, nearly all gas goes to space heating. But hotels use gas for laundry, guest hot water, and restaurant kitchens. Restaurants use most gas for commercial cooking. ODCV only saves on the HVAC portion&mdash;you can't reduce guest hot water by sensing occupancy.</p>
+        <p><strong>*Why Hotels and Restaurants differ:</strong> In most buildings, nearly all gas goes to space heating. But hotels use gas for laundry, guest hot water, and restaurant kitchens. Restaurants use most gas for commercial cooking. ODCV only saves on the HVAC portion&mdash;you can't reduce guest hot water by sensing occupancy.</p>
         <p><strong>Adjustments applied per-building:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.</p>
 
         <h3>4. Apply Modifiers</h3>
@@ -632,6 +519,18 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Over 250,000</td><td>Advanced BMS, multiple AHUs, sophisticated zoning</td><td>1.00</td></tr>
             </tbody>
         </table>
+        <table>
+            <thead>
+                <tr><th>Income Tier</th><th>Median Household Income</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>High</td><td>&gt;$85,000</td><td>1.00</td></tr>
+                <tr><td>Medium</td><td>$50,000 - $85,000</td><td>0.60</td></tr>
+                <tr><td>Low</td><td>&lt;$50,000</td><td>0.30</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Why location matters:</strong> Buildings in high-income zip codes are more likely to have been retrofitted recently. Owners in expensive markets invest in upgrades to stay competitive, even in older buildings.</p>
+        <p><em>Source: <span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/zip_income_tiers.csv" class="source-link">zip_income_tiers.csv</a> derived from U.S. Census American Community Survey household income data.</em></p>
 
         <h4>Efficiency Modifier</h4>
         <p>Efficient buildings have less waste to capture; inefficient buildings have more:</p>
@@ -656,26 +555,22 @@ if (window.location.search.includes('embed=1')) {
                 <tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Why</th></tr>
             </thead>
             <tbody>
-                <tr><td>Office</td><td>20%</td><td>40%</td><td>Clear occupied/unoccupied hours, hybrid work impact</td></tr>
-                <tr><td>Medical Office</td><td>20%</td><td>40%</td><td>Multi-tenant like office</td></tr>
-                <tr><td>Mixed Use</td><td>20%</td><td>38%</td><td>Blended based on components</td></tr>
-                <tr><td>K-12 School</td><td>20%</td><td>45%</td><td>Empty summers, nights, weekends, holidays</td></tr>
-                <tr><td>Higher Ed</td><td>20%</td><td>45%</td><td>Semester breaks, variable schedules</td></tr>
-                <tr><td>Venue</td><td>20%</td><td>45%</td><td>Event-driven, empty 80%+ of the time</td></tr>
-                <tr><td>Theater</td><td>20%</td><td>40%</td><td>Shows only ~24 hours/week out of 168</td></tr>
-                <tr><td>Hotel</td><td>20%</td><td>35%</td><td>Room-by-room variability</td></tr>
-                <tr><td>Retail</td><td>20%</td><td>35%</td><td>Traffic swings peak to empty</td></tr>
-                <tr><td>Supermarket</td><td>20%</td><td>25%</td><td>Long hours, refrigeration runs 24/7</td></tr>
-                <tr><td>Wholesale Club</td><td>20%</td><td>25%</td><td>Large format retail, refrigeration</td></tr>
-                <tr><td>Restaurant/Bar</td><td>20%</td><td>25%</td><td>Kitchen exhaust must run; savings in dining only</td></tr>
-                <tr><td>Library/Museum</td><td>20%</td><td>28%</td><td>Climate runs 24/7 for preservation</td></tr>
-                <tr><td>Outpatient Clinic</td><td>20%</td><td>32%</td><td>Appointment-based, business hours</td></tr>
-                <tr><td>Inpatient Hospital</td><td>20%</td><td>38%</td><td>Waiting rooms, exam rooms, admin offices offer significant opportunity</td></tr>
-                <tr><td>Specialty Hospital</td><td>20%</td><td>38%</td><td>Similar to inpatient; non-clinical areas have high opportunity</td></tr>
-                <tr><td>Residential Care</td><td>20%</td><td>20%</td><td>Residents 24/7; limited opportunity (floor only)</td></tr>
+                <tr><td><strong>Office</strong><br><small>(Office, Medical Office)</small></td><td>20%</td><td>45%</td><td>Hybrid work reduces daily occupancy</td></tr>
+                <tr><td>Mixed Use</td><td>18%</td><td>43%</td><td>Mixed office and retail patterns</td></tr>
+                <tr><td><strong>Education</strong><br><small>(K-12 School, Higher Ed)</small></td><td>20%</td><td>50%</td><td>Empty summers, evenings, weekends</td></tr>
+                <tr><td>Venue</td><td>20%</td><td>50%</td><td>Empty between infrequent events</td></tr>
+                <tr><td>Theater</td><td>18%</td><td>45%</td><td>Empty between performances</td></tr>
+                <tr><td>Hotel</td><td>20%</td><td>40%</td><td>Guests away during daytime</td></tr>
+                <tr><td>Retail</td><td>20%</td><td>40%</td><td>Variable traffic throughout day</td></tr>
+                <tr><td>Supermarket</td><td>10%</td><td>25%</td><td>Long hours with steady traffic</td></tr>
+                <tr><td>Wholesale Club</td><td>10%</td><td>30%</td><td>Low-occupancy stock areas</td></tr>
+                <tr><td>Restaurant/Bar</td><td>10%</td><td>25%</td><td>Kitchen exhaust code-mandated</td></tr>
+                <tr><td>Library/Museum</td><td>12%</td><td>32%</td><td>Climate runs for preservation</td></tr>
+                <tr><td>Outpatient Clinic</td><td>15%</td><td>37%</td><td>Appointment-based schedules</td></tr>
+                <tr><td><strong>Hospital</strong><br><small>(Inpatient, Specialty)</small></td><td>20%</td><td>43%</td><td>Code-mandated clinical ventilation</td></tr>
+                <tr><td>Residential Care</td><td>5%</td><td>15%</td><td>Residents present 24/7</td></tr>
             </tbody>
         </table>
-        <p><em>Note: All building types have a 20% minimum floor based on baseline ODCV achievable with minimal implementation.</em></p>
         <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.</p>
 
         <h3>Technical Detail: Master Formula</h3>
@@ -683,13 +578,13 @@ if (window.location.search.includes('embed=1')) {
         <p>Where Range = Ceiling - Floor for each building type. Modifiers apply to the entire calculation.</p>
         <p><strong>Component breakdown:</strong></p>
         <ul>
-            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max HVAC savings (e.g., Office 20-40%, Hospital 20-38%)</li>
+            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max HVAC savings (e.g., Office 20-45%, Hospital 20-43%)</li>
             <li><strong>Opportunity:</strong> 0-1 score based on vacancy and utilization</li>
-            <li><strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1)</li>
+            <li><strong>Automation:</strong> Weighted combination: 50% year-built score + 25% size score + 25% zip income tier</li>
             <li><strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste)</li>
             <li><strong>Climate Modifier:</strong> 1.10 Northern, 1.05 North-Central, 1.00 South-Central, 0.95 Southern</li>
         </ul>
-        <p>Example: Office (floor 20%, ceiling 40%) with 50% opportunity, 0.75 automation score, average efficiency (1.0×), baseline climate (1.0×): (20% + 50% × 0.75 × 20%) × 1.0 × 1.0 = 27.5% HVAC savings.</p>
+        <p>Example: Office (floor 20%, ceiling 45%) with 50% opportunity, 0.80 automation score (2015 building in high-income zip), average efficiency (1.0×), baseline climate (1.0×): (20% + 50% × 0.80 × 25%) × 1.0 × 1.0 = 30% HVAC savings.</p>
 
         <h3>Technical Detail: Annual Savings Calculation</h3>
         <p>ODCV reduces energy consumption for each fuel type proportional to its HVAC share.</p>
@@ -723,11 +618,9 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>St. Louis</td><td>St. Louis BEPS</td><td>62</td><td>$/day non-compliance</td><td>$500/day</td><td>~65 kBtu/sqft</td></tr>
             </tbody>
         </table>
-        <p><strong>Dataset totals (Year 1):</strong> Baseline fines $913M &rarr; Post-ODCV fines $494M = <strong>$419M avoided</strong>.</p>
-        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.</p>
 
         <h3>Property Value</h3>
-        <p>Real estate value depends on Net Operating Income. OpEx savings increase NOI dollar-for-dollar. Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>:</p>
+        <p>Real estate value depends on Net Operating Income. OpEx savings increase NOI dollar-for-dollar. Cap rates from CBRE Cap Rate Survey<a href="#data-sources" class="footnote-ref">[9]</a>:</p>
         <table>
             <thead>
                 <tr><th>Building Type</th><th>Cap Rate</th><th>Value Multiplier</th><th>Buildings</th></tr>
@@ -749,9 +642,9 @@ if (window.location.search.includes('embed=1')) {
         <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.</p>
 
         <h3>Technical Detail: ENERGY STAR Score Improvement</h3>
-        <p><a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; 75+ qualifies for certification.</p>
+        <p>ENERGY STAR scores<a href="#data-sources" class="footnote-ref">[10]</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; 75+ qualifies for certification.</p>
         <p><strong>How scores are calculated:</strong><br>
-        EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.</p>
+        EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See EPA Technical Reference<a href="#data-sources" class="footnote-ref">[11]</a>.</p>
         <p><strong>Estimating post-ODCV score:</strong></p>
         <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
         <p>Lower EUI → higher percentile → higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.</p>
@@ -807,6 +700,10 @@ if (window.location.search.includes('embed=1')) {
                 <tr>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" class="source-link">cbecs2018_final_public.csv</a></td>
                     <td>EIA CBECS 2018 survey microdata for HVAC energy share calculations.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/nyc_office_data.zip" class="source-link">nyc_office_data.zip</a></td>
+                    <td>NYC office building data: LL97 savings projections, ODCV scores, energy data, tenant info (17 CSVs).</td>
                 </tr>
             </tbody>
         </table>
@@ -929,84 +826,6 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>NYC LL97 Analysis</h3>
-        <p>NYC-specific data files for Local Law 97 calculations and building-specific analysis.</p>
-        <table>
-            <thead>
-                <tr><th>File</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/buildings_BIG_with_emails_complete_verified.csv" class="source-link">buildings_BIG_with_emails_complete_verified.csv</a></td>
-                    <td>Master NYC building list with verified contact information.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/10_year_savings_by_building.csv" class="source-link">10_year_savings_by_building.csv</a></td>
-                    <td>LL97 10-year savings projections per building.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_scoring_CORRECTED.csv" class="source-link">odcv_scoring_CORRECTED.csv</a></td>
-                    <td>ODCV opportunity scores for each NYC building.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_noi_value_impact_analysis.csv" class="source-link">odcv_noi_value_impact_analysis.csv</a></td>
-                    <td>Net operating income and property value impact analysis.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/energy_BIG.csv" class="source-link">energy_BIG.csv</a></td>
-                    <td>Detailed energy consumption data by building.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/hvac_office_energy_BIG.csv" class="source-link">hvac_office_energy_BIG.csv</a></td>
-                    <td>HVAC energy breakdown for office buildings.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/office_energy_BIG.csv" class="source-link">office_energy_BIG.csv</a></td>
-                    <td>Office building energy consumption profiles.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/system_BIG.csv" class="source-link">system_BIG.csv</a></td>
-                    <td>Building mechanical systems and equipment data.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/equipment_counts.csv" class="source-link">equipment_counts.csv</a></td>
-                    <td>HVAC equipment counts by building.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_office_eui.csv" class="source-link">building_office_eui.csv</a></td>
-                    <td>Office building EUI benchmarks for NYC.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/new%20eui%20national%20avg.csv" class="source-link">new eui national avg.csv</a></td>
-                    <td>National EUI averages by building type.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/all_building_addresses.csv" class="source-link">all_building_addresses.csv</a></td>
-                    <td>Complete NYC building address database.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_heights.csv" class="source-link">building_heights.csv</a></td>
-                    <td>Building height data for NYC buildings.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/Tenants_Final_Aug%2025%20-%20Sheet1.csv" class="source-link">Tenants_Final_Aug 25 - Sheet1.csv</a></td>
-                    <td>NYC building tenant information.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/aerial_videos.csv" class="source-link">aerial_videos.csv</a></td>
-                    <td>Aerial video links for select NYC buildings.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/data%20center%20estimate.csv" class="source-link">data center estimate.csv</a></td>
-                    <td>Data center energy consumption estimates.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/portfolio_odcv_percentages.csv" class="source-link">portfolio_odcv_percentages.csv</a></td>
-                    <td>Portfolio-level ODCV savings percentages.</td>
-                </tr>
-            </tbody>
-        </table>
-
         <h3>Market Research</h3>
         <p>Office vacancy rates, utilization data, and regional market reports from CBRE, Kastle, and Kidder Mathews:</p>
         <table>
@@ -1023,86 +842,8 @@ if (window.location.search.includes('embed=1')) {
                     <td>Office utilization percentages by city from Kastle access data.</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge txt">TXT</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Back_to_Work_Barometer.txt" class="source-link">Kastle_Back_to_Work_Barometer.txt</a></td>
-                    <td>Methodology notes for Kastle's office utilization tracking.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_US_Office_Figures_Q3_2025.pdf" class="source-link">CBRE_US_Office_Figures_Q3_2025.pdf</a></td>
-                    <td>National office market overview with key metrics.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" class="source-link">CommercialEdge_Office_Report.pdf</a></td>
-                    <td>Office market analysis with rent and vacancy trends.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CushmanWakefield_US_Office_Q3_2025.pdf" class="source-link">CushmanWakefield_US_Office_Q3_2025.pdf</a></td>
-                    <td>US office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Denver_Office_Figures_Q3_2025.pdf" class="source-link">Denver_Office_Figures_Q3_2025.pdf</a></td>
-                    <td>Denver metro office market data.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_LosAngeles_Office_Q4_2025.pdf" class="source-link">Kidder_LosAngeles_Office_Q4_2025.pdf</a></td>
-                    <td>Los Angeles office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanFrancisco_Office_Q3_2025.pdf" class="source-link">Kidder_SanFrancisco_Office_Q3_2025.pdf</a></td>
-                    <td>San Francisco office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Seattle_Office_Q3_2025.pdf" class="source-link">Kidder_Seattle_Office_Q3_2025.pdf</a></td>
-                    <td>Seattle office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Portland_Office_Q3_2025.pdf" class="source-link">Kidder_Portland_Office_Q3_2025.pdf</a></td>
-                    <td>Portland office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanDiego_Office_Q3_2025.pdf" class="source-link">Kidder_SanDiego_Office_Q3_2025.pdf</a></td>
-                    <td>San Diego office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Sacramento_Office_Q3_2025.pdf" class="source-link">Kidder_Sacramento_Office_Q3_2025.pdf</a></td>
-                    <td>Sacramento office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SiliconValley_Office_Q3_2025.pdf" class="source-link">Kidder_SiliconValley_Office_Q3_2025.pdf</a></td>
-                    <td>Silicon Valley office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_OrangeCounty_Office_Q4_2025.pdf" class="source-link">Kidder_OrangeCounty_Office_Q4_2025.pdf</a></td>
-                    <td>Orange County office market quarterly report.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_InlandEmpire_Office_Q4_2025.pdf" class="source-link">Kidder_InlandEmpire_Office_Q4_2025.pdf</a></td>
-                    <td>Inland Empire office market quarterly report.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Technical Standards</h3>
-        <p>Industry standards and regulatory documents used for HVAC, emissions, and BPS calculations:</p>
-        <table>
-            <thead>
-                <tr><th>File</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" class="source-link">ASHRAE_Standard_62.1.pdf</a></td>
-                    <td>Ventilation rate requirements for acceptable indoor air quality.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" class="source-link">EPA_eGRID_2023.xlsx</a></td>
-                    <td>Grid emission factors by eGRID subregion for carbon calculations.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf" class="source-link">IMT_BPS_Comparison_Matrix.pdf</a></td>
-                    <td>Building Performance Standard policy comparison across jurisdictions.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/DOE_Guest_Room_HVAC_Report.pdf" class="source-link">DOE_Guest_Room_HVAC_Report.pdf</a></td>
-                    <td>DOE study on hotel guest room occupancy and HVAC patterns.</td>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/market_research_pdfs.zip" class="source-link">market_research_pdfs.zip</a></td>
+                    <td>Office market quarterly reports from CBRE, Kidder Mathews (11 PDFs covering major metros).</td>
                 </tr>
             </tbody>
         </table>
@@ -1122,55 +863,6 @@ if (window.location.search.includes('embed=1')) {
                     <td><span class="file-badge md">MD</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/docs/DEVELOPER_GUIDE.md" class="source-link">DEVELOPER_GUIDE.md</a></td>
                     <td>Project documentation covering directory structure, data files, and AWS setup.</td>
                 </tr>
-            </tbody>
-        </table>
-
-        <h3>Data Freshness</h3>
-        <p>Building energy data is updated annually as cities release new disclosure reports. Most programs require buildings to report by May-June for the previous calendar year's data. Dataset last updated: December 2024.</p>
-    </section>
-
-    <!-- Section 6: Validation & Limitations -->
-    <section class="section" id="validation">
-        <h2>Validation &amp; Limitations</h2>
-
-        <h3>Why This Methodology Is Defensible</h3>
-        <ul>
-            <li><strong>Building-level data:</strong> All calculations use actual energy consumption from official city benchmarking disclosures (NYC LL84, LA, San Francisco, Seattle, etc.) and EPA Portfolio Manager&mdash;not estimates or averages.</li>
-            <li><strong>Peer-reviewed sources:</strong> HVAC percentages from EIA CBECS 2018 (6,436 buildings surveyed). Vacancy from CBRE/CommercialEdge. Utilization from Kastle badge-swipe data.</li>
-            <li><strong>Conservative assumptions:</strong>
-                <ul>
-                    <li>Floor HVAC savings (20%) achievable even with minimal implementation</li>
-                    <li>Limited-opportunity buildings (labs, residential care) use 0.3× multiplier</li>
-                    <li>Combined adjustment capped at ±12% to prevent outliers</li>
-                </ul>
-            </li>
-            <li><strong>Verified formulas:</strong> Energy cost calculations validated against 22,948 buildings with known costs (match rate: 100%, max deviation: &lt;0.01%).</li>
-        </ul>
-
-        <h3>Known Limitations</h3>
-        <ul>
-            <li><strong>HVAC controllability varies:</strong> Buildings with pneumatic controls, split systems, or no BMS may achieve lower savings than predicted. We use year-built as a proxy for automation capability.</li>
-            <li><strong>Occupancy data lag:</strong> Vacancy rates are quarterly; utilization is monthly. Rapid market changes may not be reflected.</li>
-            <li><strong>Fuel type assumptions:</strong> Hotels and restaurants have lower gas HVAC percentages due to cooking/DHW. These are building-type averages; individual buildings may differ.</li>
-            <li><strong>BPS Year 1 only:</strong> Fine calculations use 2024-2029 caps. Future periods have stricter limits&mdash;actual fine avoidance may be higher in later years.</li>
-            <li><strong>Property valuations are indicative:</strong> Actual values depend on location, condition, lease terms, tenant quality, and market conditions beyond energy costs.</li>
-            <li><strong>Geographic coverage:</strong> Dataset covers 12 states with disclosure laws. Buildings in non-disclosure jurisdictions are not included.</li>
-        </ul>
-
-        <h3>Dataset Summary</h3>
-        <table>
-            <thead>
-                <tr><th>Metric</th><th>Value</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Total buildings</td><td>22,948</td></tr>
-                <tr><td>Building types</td><td>17</td></tr>
-                <tr><td>States covered</td><td>12 (CA, NY, DC, IL, MA, WA, CO, PA, OR, MO, GA, FL)</td></tr>
-                <tr><td>Buildings with Energy Star scores</td><td>18,212 (79%)</td></tr>
-                <tr><td>Buildings in BPS jurisdictions</td><td>6,419 (28%)</td></tr>
-                <tr><td>Total annual HVAC cost</td><td>$12.1B</td></tr>
-                <tr><td>Total projected annual savings</td><td>$3.6B (utility) + $0.4B (fines) = $4.0B</td></tr>
-                <tr><td>Total valuation impact</td><td>$38.5B</td></tr>
             </tbody>
         </table>
     </section>
