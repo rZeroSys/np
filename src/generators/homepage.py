@@ -30,6 +30,7 @@ CONFIG = {
     # AWS S3 bucket for images
     'aws_bucket': AWS_BASE_URL,
 
+    # NOTE: we may need to change this in the future
     # Mapbox token (same as NYC tool)
     'mapbox_token': 'pk.eyJ1IjoiZm1pbGxlcnJ6ZXJvIiwiYSI6ImNtY2NnZGl6dTAxMzkya29qeHl6c2tibDgifQ.8h1GAYRfrv-fldoXorqFlw',
 
@@ -37,13 +38,14 @@ CONFIG = {
     'google_api_key': 'REMOVED_GOOGLE_KEY',
 
     # Firebase configuration (same project as NYC tool)
-    'firebase_config': {
-        'apiKey': 'AIzaSyAsxPRzyj7z6Nk3QPhOBK5CfyblY2LqAjk',
-        'authDomain': 'prospector-leaderl-board.firebaseapp.com',
-        'projectId': 'prospector-leaderl-board',
-        'storageBucket': 'prospector-leaderl-board.firebasestorage.app',
-        'messagingSenderId': '70489892630',
-        'appId': '1:70489892630:web:51052e8b0b5da2e6779237'
+    'firebase_config':{
+        'apiKey': "AIzaSyCvE4tk5ppdPPMOjaFjJvGSf-xPPrsG8V4",
+        'authDomain': "nationwide-prospector.firebaseapp.com",
+        'projectId': "nationwide-prospector",
+        'storageBucket': "nationwide-prospector.firebasestorage.app",
+        'messagingSenderId': "658358032774",
+        'appId': "1:658358032774:web:7d4d7db32863dbb9813407",
+        'measurementId': "G-DTJ97EC5KH"
     },
 
     # Output paths

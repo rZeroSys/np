@@ -381,23 +381,24 @@ function initMap() {{
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script>
-      // Firebase web app config — prospector-leaderl-board
+      // Firebase web app config — nationwide-prospector
       window.firebaseConfig = {{
-        apiKey: "AIzaSyAsxPRzyj7z6Nk3QPhOBK5CfyblY2LqAjk",
-        authDomain: "prospector-leaderl-board.firebaseapp.com",
-        projectId: "prospector-leaderl-board",
-        storageBucket: "prospector-leaderl-board.firebasestorage.app",
-        messagingSenderId: "70489892630",
-        appId: "1:70489892630:web:51052e8b0b5da2e6779237"
-      }};
+        apiKey: "AIzaSyCvE4tk5ppdPPMOjaFjJvGSf-xPPrsG8V4",
+        authDomain: "nationwide-prospector.firebaseapp.com",
+        projectId: "nationwide-prospector",
+        storageBucket: "nationwide-prospector.firebasestorage.app",
+        messagingSenderId: "658358032774",
+        appId: "1:658358032774:web:7d4d7db32863dbb9813407",
+        measurementId: "G-DTJ97EC5KH"
+        }};
 
       /* --- Firebase config sanity guard --------------------------------------- */
       (function enforceFirebaseConfig() {{
         try {{
-          const EXPECTED_PROJECT_ID   = "prospector-leaderl-board";
-          const EXPECTED_AUTH_DOMAIN  = "prospector-leaderl-board.firebaseapp.com";
-          const ALT_AUTH_DOMAIN       = "prospector-leaderl-board.web.app";
-          const GH_PAGES_HOST         = "fmillerrzero.github.io";
+          const EXPECTED_PROJECT_ID   = "nationwide-prospector";
+          const EXPECTED_AUTH_DOMAIN  = "nationwide-prospector.firebaseapp.com";
+          const ALT_AUTH_DOMAIN       = "nationwide-prospector.web.app";
+          const GH_PAGES_HOST         = "rzerosys.github.io";
 
           const c = window.firebaseConfig || {{}};
           const required = ["apiKey","projectId","authDomain"];

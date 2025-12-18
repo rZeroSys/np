@@ -2377,12 +2377,13 @@ for count, (i, row) in enumerate(scoring.iterrows(), 1):
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script>
       window.firebaseConfig = {{
-        apiKey: "AIzaSyAsxPRzyj7z6Nk3QPhOBK5CfyblY2LqAjk",
-        authDomain: "prospector-leaderl-board.firebaseapp.com",
-        projectId: "prospector-leaderl-board",
-        storageBucket: "prospector-leaderl-board.firebasestorage.app",
-        messagingSenderId: "70489892630",
-        appId: "1:70489892630:web:51052e8b0b5da2e6779237"
+        apiKey: "AIzaSyCvE4tk5ppdPPMOjaFjJvGSf-xPPrsG8V4",
+        authDomain: "nationwide-prospector.firebaseapp.com",
+        projectId: "nationwide-prospector",
+        storageBucket: "nationwide-prospector.firebasestorage.app",
+        messagingSenderId: "658358032774",
+        appId: "1:658358032774:web:7d4d7db32863dbb9813407",
+        measurementId: "G-DTJ97EC5KH"
       }};
 
       function initFirebase() {{
@@ -3199,9 +3200,9 @@ We allocate 90% of gas and steam usage to HVAC, as office buildings have minimal
 
     // Salesify Configuration
     const GAS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwEKnYMVnYOYYY0dUnC0WqVJyYxHO-VaS7u4SyoTJ0M3MsZ_5x9e0dJQKPt8l-Xtdo/exec'; // Production Apps Script URL
-    const PEER_CSV_URL = 'https://raw.githubusercontent.com/fmillerrzero/nyc-test-site/main/data/building_office_eui.csv';
-    const CONTACTS_JSON_URL = 'https://raw.githubusercontent.com/fmillerrzero/nyc-odcv-site/main/data/salesify_recipients.json';
-    const BUILDINGS_EMAILS_JSON_URL = 'https://raw.githubusercontent.com/fmillerrzero/nyc-test-site/main/data/building_emails.json';
+    const PEER_CSV_URL = 'https://raw.githubusercontent.com/rzerosys/np-nyc-test-site/main/data/building_office_eui.csv';
+    const CONTACTS_JSON_URL = 'https://raw.githubusercontent.com/rzerosys/np-nyc-test-site/main/data/salesify_recipients.json';
+    const BUILDINGS_EMAILS_JSON_URL = 'https://raw.githubusercontent.com/rzerosys/np-nyc-test-site/main/data/building_emails.json';
     const totalODCVSavings = {total_odcv_savings}; // From Python variable
 
     // Redefine with full implementation now that DOM is ready
