@@ -4467,7 +4467,7 @@ tr.pin-highlight {
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/occupier" onchange="applyTypeFilter()"> Owner/Occupier</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/operator" onchange="applyTypeFilter()"> Owner/Operator</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant" onchange="applyTypeFilter()"> Tenant</label>
-                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant_sub_org" onchange="applyTypeFilter()"> Tenant Sub-Org</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant_sub_org" onchange="applyTypeFilter()"> TENANT SUB-ORG</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="property manager" onchange="applyTypeFilter()"> Prop Manager</label>
             </div>
         </div>
@@ -4751,7 +4751,7 @@ tr.pin-highlight {
             {logo_html}
         </div>
         <span class="stat-cell building-count" data-col="buildings"><span class="building-count-value">{p['building_count']}</span></span>
-        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}" data-col="type">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
+        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}" data-col="type">{'TENANT<br>SUB-ORG' if classification == 'tenant_sub_org' else (classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-')}</span>
         <span class="stat-cell sqft-value" data-col="sqft">{sqft_display}</span>
         <span class="stat-cell eui-value" data-col="eui" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
         <span class="stat-cell carbon-value" data-col="carbon">{format_carbon(p['total_carbon_reduction'])}</span>

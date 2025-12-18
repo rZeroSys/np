@@ -212,7 +212,7 @@ if (window.location.search.includes('embed=1')) {
     </div>
 
     <!-- Section 0: Introduction -->
-    <section class="section">
+    <section class="section" id="odcv">
         <h2>What Is O-DCV?</h2>
 
         <h3>The Problem: Ventilating Empty Space</h3>
@@ -270,7 +270,7 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 1: Opportunity by Building Type -->
-    <section class="section">
+    <section class="section" id="opportunity">
         <h2>Opportunity by Building Type</h2>
 
         <h3>Vacancy vs. Utilization: Two Types of Empty Space</h3>
@@ -456,7 +456,7 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 2: Regional Variations -->
-    <section class="section">
+    <section class="section" id="cities">
         <h2>Why Cities Differ</h2>
 
         <h3>Office Vacancy &amp; Utilization by City</h3>
@@ -523,7 +523,7 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 3: From Opportunity to Savings -->
-    <section class="section">
+    <section class="section" id="savings">
         <h2>Calculating Savings</h2>
 
         <h3>1. Measure the opportunity</h3>
@@ -718,7 +718,7 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 4: Beyond Utility Savings -->
-    <section class="section">
+    <section class="section" id="benefits">
         <h2>Additional Benefits</h2>
 
         <h3>BPS Fines</h3>
@@ -791,7 +791,7 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 5: Validation & Limitations -->
-    <section class="section">
+    <section class="section" id="validation">
         <h2>Validation &amp; Limitations</h2>
 
         <h3>Why This Methodology Is Defensible</h3>
@@ -846,6 +846,7 @@ if (window.location.search.includes('embed=1')) {
 // Section collapse functionality
 document.addEventListener('DOMContentLoaded', function() {
     const allSections = document.querySelectorAll('.section');
+    const sectionToggles = {};
 
     allSections.forEach(function(section) {
         const header = section.querySelector('h2');
@@ -872,8 +873,18 @@ document.addEventListener('DOMContentLoaded', function() {
             el.style.display = 'none';
         });
 
+        function expandSection() {
+            if (!arrow.classList.contains('collapsed')) return;
+            header.setAttribute('aria-expanded', 'true');
+            contentElements.forEach(el => {
+                el.style.display = el.getAttribute('data-original-display') || '';
+            });
+            arrow.classList.remove('collapsed');
+            section.classList.remove('collapsed');
+        }
+
         function toggleSection(event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             const isCollapsed = arrow.classList.contains('collapsed');
 
             header.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
@@ -897,7 +908,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleSection(e);
             }
         });
+
+        // Store expand function by section ID
+        if (section.id) {
+            sectionToggles[section.id] = expandSection;
+        }
     });
+
+    // Auto-expand section if URL has hash
+    function expandFromHash() {
+        const hash = window.location.hash.slice(1);
+        if (hash && sectionToggles[hash]) {
+            sectionToggles[hash]();
+            // Scroll to section after short delay for DOM update
+            setTimeout(function() {
+                document.getElementById(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }
+
+    expandFromHash();
+    window.addEventListener('hashchange', expandFromHash);
 });
 </script>
 
