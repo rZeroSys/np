@@ -271,12 +271,11 @@ SINGLE_TENANT_TYPES = [
     'Supermarket', 'Wholesale Club', 'Hotel',
     'Restaurant/Bar', 'Theater', 'Library/Museum', 'Venue',
     'Bank Branch', 'Vehicle Dealership', 'Courthouse', 'Outpatient Clinic',
-    'Sports/Gaming Center'
+    'Sports/Gaming Center', 'Inpatient Hospital', 'Specialty Hospital'
 ]
 
 CONSTRAINED_TYPES = [
-    'Inpatient Hospital', 'Specialty Hospital', 'Residential Care',
-    'Laboratory', 'Police Station', 'Fire Station'
+    'Residential Care', 'Laboratory', 'Police Station', 'Fire Station'
 ]
 
 #===============================================================================
@@ -293,7 +292,7 @@ BUILDING_TYPE_INFO = {
         'gas_hvac_typical': 0.875,
         'load_factor': 0.45,
         'demand_rate_typical': 35.0,
-        'explanation': 'Centralized HVAC ventilates vacant floors at design capacity. Hybrid work (avg 52% utilization) + vacancy creates 50-60% opportunity in typical buildings.'
+        'explanation': 'City-specific vacancy from CBRE/CommercialEdge; utilization from Kastle badge swipes as % of pre-pandemic baseline. Hybrid work (34-55% utilization) + vacancy creates 50-70% opportunity. Both vacant AND leased-but-empty spaces are ventilated. (CBRE, Kastle Systems, CommercialEdge)'
     },
     'Medical Office': {
         'category': 'Multi-Tenant',
@@ -304,18 +303,18 @@ BUILDING_TYPE_INFO = {
         'gas_hvac_typical': 0.848,
         'load_factor': 0.45,
         'demand_rate_typical': 35.0,
-        'explanation': 'Like office buildings, medical offices have centralized systems that condition empty exam rooms and suites. ODCV adjusts ventilation to actual patient presence.'
+        'explanation': 'MOB-specific vacancy (~9.5% vs ~20% office); utilization from exam room benchmarks (70% target). Healthcare is essential = lower vacancy than office. But exam rooms get 2-3x office ventilation per ASHRAE 62.1, even when empty between patients. (CBRE Healthcare 2025, ASHRAE 62.1)'
     },
     'Mixed Use': {
         'category': 'Multi-Tenant',
-        'floor': 0.18, 'ceiling': 0.38,
+        'floor': 0.20, 'ceiling': 0.38,
         'uses_vacancy': True,
         'formula': 'Vacancy + (1-Vacancy) × (1-Utilization)',
         'elec_hvac_typical': 0.55,
         'gas_hvac_typical': 0.80,
         'load_factor': 0.45,
         'demand_rate_typical': 35.0,
-        'explanation': 'Combination of office, retail, residential uses. Savings vary by tenant mix but centralized systems still ventilate vacant spaces.'
+        'explanation': 'Component-weighted blend: typically 60% office rates + 40% retail rates. Office floors have hybrid work vacancy/utilization; retail floors have traffic patterns. Centralized systems ventilate vacant spaces. (CBRE, Kastle Systems)'
     },
     'K-12 School': {
         'category': 'Single-Tenant',
@@ -326,7 +325,7 @@ BUILDING_TYPE_INFO = {
         'gas_hvac_typical': 0.796,
         'load_factor': 0.35,
         'demand_rate_typical': 8.0,
-        'explanation': 'Schools empty after 3pm daily, all weekends, 10+ weeks summer. Total "empty" time exceeds 55% of year. Highest ceiling (45%) reflects extreme schedule-driven opportunity.'
+        'explanation': '180 school days × 11 hrs HVAC / 8,760 hrs = 22.6% base utilization. Schools empty during summer break (12 weeks), nights, weekends, holidays. Adjusted by state for year-round programs (CA, AZ higher). Highest ceiling (45%) reflects extreme schedule-driven opportunity. (Pew Research, NCES, DOE Energy Smart Schools)'
     },
     'Higher Ed': {
         'category': 'Single-Tenant',
@@ -337,62 +336,62 @@ BUILDING_TYPE_INFO = {
         'gas_hvac_typical': 0.796,
         'load_factor': 0.35,
         'demand_rate_typical': 8.0,
-        'explanation': 'Semester breaks (winter, spring, summer), variable class schedules, evening/weekend classes in some buildings. Similar to K-12 but more diverse usage patterns.'
+        'explanation': '32 weeks in session × 35% classroom utilization + HVAC buffer. APPA studies show only 30-40% of available hours have classes. 20 weeks/year of breaks (winter, spring, summer). Research buildings may have higher utilization. (APPA, SIGHTLINES/Gordian)'
     },
     'Hotel': {
         'category': 'Single-Tenant',
-        'floor': 0.15, 'ceiling': 0.35,
+        'floor': 0.20, 'ceiling': 0.35,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.47,
         'gas_hvac_typical': 0.197,
         'load_factor': 0.55,
         'demand_rate_typical': 28.7,
-        'explanation': 'Room-level variability: 60-80% occupancy typical, plus guests out during day. Note: Only 20% of gas goes to HVAC (rest is hot water 42%, cooking 33%).'
+        'explanation': 'Room-level variability: booked room ≠ occupied. Guests out 10+ hrs/day (business, sightseeing). DOE studies show 45% guest presence factor. Note: Only 20% of gas goes to HVAC (rest is hot water 42%, cooking 33%). (AHLA 2025, DOE Guest Room HVAC Report)'
     },
     'Retail': {
         'category': 'Single-Tenant',
-        'floor': 0.15, 'ceiling': 0.35,
+        'floor': 0.20, 'ceiling': 0.35,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.56,
         'gas_hvac_typical': 0.777,
         'load_factor': 0.40,
         'demand_rate_typical': 35.0,
-        'explanation': 'Significant intra-day variability: opening/closing with staff only, mid-morning lulls, lunch/evening rushes. Opportunity comes from modulating to actual customer traffic.'
+        'explanation': 'Traffic-weighted by time of day: morning lull (15-20%), lunch/evening rushes (60-80%). Designed for peak Black Friday capacity, but 50% of weekly traffic in busiest 20 hours—148 other hours much emptier. (StoreForce, NRF)'
     },
     'Supermarket': {
         'category': 'Single-Tenant',
-        'floor': 0.10, 'ceiling': 0.25,
+        'floor': 0.20, 'ceiling': 0.25,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.32,
         'gas_hvac_typical': 0.75,
         'load_factor': 0.65,
         'demand_rate_typical': 35.0,
-        'explanation': 'Long hours (often 6am-midnight or 24/7) with steady traffic reduce empty-space opportunity.'
+        'explanation': 'Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). Extended hours = more empty time. Refrigeration runs 24/7 but is separate from HVAC. (ASHRAE RP-1747, Purdue DCV research)'
     },
     'Restaurant/Bar': {
         'category': 'Single-Tenant',
-        'floor': 0.10, 'ceiling': 0.25,
+        'floor': 0.20, 'ceiling': 0.25,
         'uses_vacancy': False,
-        'formula': '1 - Utilization',
+        'formula': '1 - Utilization (dining only)',
         'elec_hvac_typical': 0.45,
         'gas_hvac_typical': 0.176,
         'load_factor': 0.45,
         'demand_rate_typical': 35.0,
-        'explanation': 'Predictable meal-time peaks with low occupancy between lunch and dinner rushes.'
+        'explanation': 'Dining area (60% of bldg) traffic-weighted by meal period. Kitchen exhaust hoods MUST run at full blast during cooking hours (fire/health code)—ODCV opportunity ONLY in dining area, between meal rushes.'
     },
     'Theater': {
         'category': 'Single-Tenant',
-        'floor': 0.18, 'ceiling': 0.40,
+        'floor': 0.20, 'ceiling': 0.40,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.50,
         'gas_hvac_typical': 0.80,
         'load_factor': 0.35,
         'demand_rate_typical': 22.0,
-        'explanation': 'Performance schedules create extreme variability—completely empty for hours then full capacity for shows. High opportunity during non-show periods.'
+        'explanation': '8 shows/week × 3 hrs = 24 hrs shows + 11 hrs pre/post/rehearsal = 35 hrs HVAC / 168 hrs. Seats 2,000+ people but only 8 shows/week—empty 80% of the time. (Broadway/professional theater schedules)'
     },
     'Venue': {
         'category': 'Single-Tenant',
@@ -403,73 +402,73 @@ BUILDING_TYPE_INFO = {
         'gas_hvac_typical': 0.80,
         'load_factor': 0.35,
         'demand_rate_typical': 22.0,
-        'explanation': 'Convention centers, banquet halls have most extreme occupancy variability—empty for days/weeks then full capacity for single events.'
+        'explanation': '60-80 events/year × 5 hrs + setup/teardown = ~550 hrs / 8,760 hrs = 6% of year active. Arenas designed for 20,000 people sit EMPTY 93% of the year. Massive ODCV opportunity. (Event schedule analysis)'
     },
     'Library/Museum': {
         'category': 'Single-Tenant',
-        'floor': 0.12, 'ceiling': 0.28,
+        'floor': 0.20, 'ceiling': 0.28,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.50,
         'gas_hvac_typical': 0.80,
         'load_factor': 0.35,
         'demand_rate_typical': 6.0,
-        'explanation': 'Open ~50 hours/week with 30-40% visitor occupancy during those hours. Galleries sit mostly empty nights and weekends.'
+        'explanation': 'Open 50 hrs/week (30% of time) × 40% average visitor density during open hours. HVAC runs 24/7 for collection preservation (temperature/humidity for artifacts) but visitors only come during limited public hours. Climate for objects, not people.'
     },
     'Wholesale Club': {
         'category': 'Single-Tenant',
-        'floor': 0.10, 'ceiling': 0.25,
+        'floor': 0.20, 'ceiling': 0.25,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.35,
         'gas_hvac_typical': 0.75,
         'load_factor': 0.60,
         'demand_rate_typical': 35.0,
-        'explanation': '30-40% of building is back-of-house warehouse with minimal staff. Sales floor sees weekend-heavy traffic patterns.'
+        'explanation': 'Zone-weighted: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33%. Shorter hours (10am-8:30pm), weekend-heavy traffic. (Costco/Sam\'s/BJ\'s operating patterns)'
     },
     'Outpatient Clinic': {
         'category': 'Single-Tenant',
-        'floor': 0.15, 'ceiling': 0.32,
+        'floor': 0.20, 'ceiling': 0.32,
         'uses_vacancy': False,
         'formula': '1 - Utilization',
         'elec_hvac_typical': 0.54,
         'gas_hvac_typical': 0.60,
         'load_factor': 0.50,
         'demand_rate_typical': 22.0,
-        'explanation': 'Appointment-driven: exam rooms occupied just 25-35% of operating hours, empty between patients.'
+        'explanation': 'Exam room occupancy (~25% actual patient time) × business hours (weekdays 8-5 = 30% of week). Patients in exam room only 15-30 min per appointment. Between patients: room empty but ventilated at medical-grade rates. Closed evenings/weekends.'
     },
     'Inpatient Hospital': {
-        'category': 'Constrained',
-        'floor': 0.05, 'ceiling': 0.15,
+        'category': 'Single-Tenant',
+        'floor': 0.20, 'ceiling': 0.38,
         'uses_vacancy': False,
-        'formula': '(1 - Utilization) × 0.3',
+        'formula': '1 - Utilization',
         'elec_hvac_typical': 0.54,
         'gas_hvac_typical': 0.603,
         'load_factor': 0.65,
         'demand_rate_typical': 22.0,
-        'explanation': '24/7 operation limits opportunity, but non-clinical areas (waiting rooms, admin, cafeteria) have variable occupancy.'
+        'explanation': 'Zone-weighted by area: patient rooms (40% @ 70%), clinical/OR (20% @ 85%), waiting (10% @ 30%), exam (10% @ 35%), admin (10% @ 40%), cafeteria (10% @ 35%). Hospital owns entire building—waiting rooms, exam rooms, admin areas get medical-grade ventilation 24/7 but are often empty. 20-38% HVAC savings. (AHA Fast Facts 2024, ASHRAE 170)'
     },
     'Specialty Hospital': {
-        'category': 'Constrained',
-        'floor': 0.05, 'ceiling': 0.15,
+        'category': 'Single-Tenant',
+        'floor': 0.20, 'ceiling': 0.38,
         'uses_vacancy': False,
-        'formula': '(1 - Utilization) × 0.3',
+        'formula': '1 - Utilization',
         'elec_hvac_typical': 0.54,
         'gas_hvac_typical': 0.603,
         'load_factor': 0.65,
         'demand_rate_typical': 22.0,
-        'explanation': '24/7 operation limits opportunity, but admin areas and waiting rooms have variable occupancy.'
+        'explanation': 'Similar to inpatient—non-clinical areas have high opportunity. Admin offices, waiting rooms, and cafeterias empty at different times while patient areas stay occupied. 20-38% HVAC savings. (AHA Fast Facts 2024, ASHRAE 170)'
     },
     'Residential Care': {
         'category': 'Constrained',
-        'floor': 0.05, 'ceiling': 0.15,
+        'floor': 0.20, 'ceiling': 0.20,
         'uses_vacancy': False,
         'formula': '(1 - Utilization) × 0.3',
         'elec_hvac_typical': 0.50,
         'gas_hvac_typical': 0.70,
         'load_factor': 0.65,
         'demand_rate_typical': 22.0,
-        'explanation': 'Residents live there 24/7—unlike offices that empty at night. Common areas have some variability, but overall building load is relatively constant.'
+        'explanation': 'Unlike hotel guests who leave for sightseeing, residents LIVE there 24/7. They eat, sleep, socialize on-site. Only ~5% time away for doctor visits. High occupancy (87.2% national) + high presence = limited opportunity. Opportunity limited to common areas only. (Industry benchmarks)'
     },
 }
 
@@ -551,39 +550,39 @@ DEFAULT_ENERGY_NOTES = {
 #===============================================================================
 
 BUILDING_TYPE_STORIES = {
-    'Office': "We calculate office savings using federal CBECS survey data for HVAC energy shares, city-specific vacancy rates from CBRE, and badge-swipe occupancy data from Kastle Systems. Hybrid work has dramatically reduced office attendance, while vacancy remains elevated in most markets. Buildings condition all spaces regardless of actual presence—ODCV captures the gap between design capacity and reality. (CBRE, Kastle Systems)",
+    'Office': "We calculate office savings using federal CBECS survey data for HVAC energy shares, city-specific vacancy rates from CBRE Q3 2025 Office Figures, and badge-swipe occupancy data from Kastle Systems Back to Work Barometer. Hybrid work has dramatically reduced office attendance (34-55% utilization), while vacancy remains elevated in most markets. Buildings condition all spaces regardless of actual presence—ODCV captures the gap between design capacity and reality. (CBRE, Kastle Systems, CommercialEdge)",
 
-    'Hotel': "We calculate hotel savings using STR room occupancy data combined with guest presence patterns—guests are typically out during daytime hours. Even booked rooms sit empty most of the day. Markets with higher occupancy show less savings potential than lower-occupancy markets. (STR)",
+    'Hotel': "We calculate hotel savings using AHLA 2025 State of the Industry room occupancy data (63% national average) combined with DOE Guest Room HVAC Report guest presence patterns—guests are out 10+ hrs/day for business or sightseeing. DOE studies show only 45% guest presence factor. Even booked rooms sit empty most of the day. (AHLA 2025, DOE Guest Room HVAC Report)",
 
-    'K-12 School': "We calculate school savings using NCES instructional day requirements and state calendar data. Schools are empty during summer break, weekends, holidays, and after dismissal. Year-round calendar schools have higher utilization than traditional calendar schools. Most school buildings sit empty the majority of annual hours. (NCES)",
+    'K-12 School': "We calculate school savings using 180 school days standard from Pew Research, NCES Table 5.14 state requirements, and DOE Energy Smart Schools O&M Guide. Schools are empty during summer break (12 weeks), weekends, holidays, and after dismissal (3pm daily). Year-round calendar schools (CA, AZ) have higher utilization. Most school buildings sit empty 75%+ of annual hours. (Pew Research, NCES, DOE Energy Smart Schools)",
 
-    'Retail': "We calculate retail savings using traffic patterns—stores are built for peak capacity but see much lower average attendance. Mornings are slow, evenings busier, overnight closed. Urban locations with steadier foot traffic show less savings than suburban stores with sharper peaks and valleys. (CBECS 2018)",
+    'Retail': "We calculate retail savings using StoreForce retail analytics and NRF industry studies. Traffic-weighted by time: morning lull (15-20%), lunch rush (60-70%), afternoon (20-30%), evening rush (60-80%). Stores designed for peak Black Friday capacity, but 50% of week's traffic in busiest 20 hours—148 other hours much emptier. (StoreForce, NRF)",
 
-    'Higher Ed': "We calculate university savings using NCES data and academic calendars. Only a portion of the year has classes in session, and during those weeks most classrooms sit empty between lectures. Entire buildings empty during breaks. (NCES)",
+    'Higher Ed': "We calculate university savings using APPA (Association of Physical Plant Administrators) classroom utilization studies and SIGHTLINES/Gordian higher ed facilities benchmarks. 32 weeks in session × 35% classroom utilization + HVAC buffer. APPA studies show only 30-40% of available hours have classes. 20 weeks/year of breaks. (APPA, SIGHTLINES/Gordian)",
 
-    'Residential Care': "We calculate residential care savings using NIC MAP Vision occupancy data. Unlike hotels where guests leave during the day, residents live on-site continuously. Savings are limited to common areas during overnight hours when residents are in their rooms. (NIC MAP Vision)",
+    'Residential Care': "We calculate residential care savings using industry benchmarks (87.2% national occupancy). Unlike hotels where guests leave during the day, residents LIVE there 24/7—they eat, sleep, socialize on-site. Only ~5% time away for doctor visits. Savings are limited to common areas during overnight hours when residents are in their rooms. (Industry benchmarks)",
 
-    'Medical Office': "We calculate medical office savings using CBRE vacancy data and MGMA provider productivity benchmarks. Medical offices have low vacancy compared to regular offices, but exam rooms are occupied only during brief patient appointments. (CBRE, MGMA)",
+    'Medical Office': "We calculate medical office savings using CBRE Healthcare 2025 report (MOB-specific vacancy ~9.5% vs ~20% office) and exam room benchmarks (70% target utilization). Medical offices have low vacancy compared to regular offices, but exam rooms get 2-3x office ventilation per ASHRAE 62.1, even when empty between patients. (CBRE Healthcare 2025, ASHRAE 62.1)",
 
-    'Supermarket': "We calculate supermarket savings using traffic patterns. Supermarkets operate long hours with steady traffic, but still swing between evening peaks and quiet early mornings. (CBECS 2018)",
+    'Supermarket': "We calculate supermarket savings using ASHRAE RP-1747 DCV simulation and Purdue University DCV research (~25% savings potential). Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). Peak 5-7pm is 80-100% capacity; overnight is 5-15%. Refrigeration is separate from HVAC. (ASHRAE RP-1747, Purdue DCV research)",
 
-    'Specialty Hospital': "We calculate specialty hospital savings using AHA hospital data. Continuous operations limit savings in patient areas, but admin offices, waiting rooms, and cafeterias have variable occupancy—especially during off-hours. (AHA)",
+    'Specialty Hospital': "We calculate specialty hospital savings using AHA Fast Facts 2024 data and ASHRAE Standard 170. High base occupancy (72-82%) but non-clinical areas have high opportunity. Admin offices, waiting rooms, and cafeterias empty at different times while patient areas stay occupied. 20-38% HVAC savings potential. (AHA Fast Facts 2024, ASHRAE 170)",
 
-    'Inpatient Hospital': "We calculate inpatient hospital savings using AHA data. Hospitals run continuously, but non-clinical areas have highly variable occupancy—waiting rooms, admin offices, and cafeterias empty at different times while patient areas stay occupied. (AHA)",
+    'Inpatient Hospital': "We calculate inpatient hospital savings using AHA Fast Facts 2024 data (65% bed occupancy) and ASHRAE Standard 170. Not just patient rooms—huge non-clinical areas (waiting rooms 30% util, exam rooms 35%, admin offices 40%, cafeterias 35%) get medical-grade ventilation 24/7 but are often empty. 20-38% HVAC savings. (AHA Fast Facts 2024, ASHRAE 170)",
 
-    'Mixed Use': "We calculate mixed-use savings using the same methodology as offices—CBRE vacancy data and Kastle badge-swipe utilization. Office floors follow hybrid work patterns while retail floors see variable traffic. Centralized HVAC conditions all spaces regardless of occupancy. (CBRE, Kastle Systems)",
+    'Mixed Use': "We calculate mixed-use savings using the same methodology as offices—CBRE vacancy data and Kastle badge-swipe utilization. Component-weighted blend: typically 60% office rates + 40% retail rates. Office floors follow hybrid work patterns while retail floors see variable traffic. Centralized HVAC conditions all spaces regardless of occupancy. (CBRE, Kastle Systems)",
 
-    'Wholesale Club': "We calculate wholesale club savings by weighting the sales floor against large back-of-house warehouse areas with minimal staff. Sales floor traffic concentrates on weekends while warehouse areas see sparse occupancy. (CBECS 2018)",
+    'Wholesale Club': "We calculate wholesale club savings by zone-weighting: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33% utilization. Shorter hours (10am-8:30pm), weekend-heavy traffic. 30-40% of building is back-of-house stock rooms with only forklift drivers. (Costco/Sam's/BJ's operating patterns)",
 
-    'Venue': "We calculate venue savings using event schedules. Arenas, convention centers, and concert halls host events sporadically but typically condition continuously. These massive spaces sit empty the vast majority of annual hours. (CBECS 2018)",
+    'Venue': "We calculate venue savings using event schedules. 60-80 events/year × 5 hrs + setup/teardown = ~550 hrs / 8,760 hrs = 6% of year active. 41 NBA games + 20 concerts + 20 other = 81 events/year. Buildings designed for 20,000 people sit EMPTY 93% of the year. Massive ODCV opportunity. (Event schedule analysis)",
 
-    'Theater': "We calculate theater savings using performance schedules. Shows run just a few hours at a time, a few days per week—but HVAC often conditions the space continuously. (CBECS 2018)",
+    'Theater': "We calculate theater savings using Broadway and professional theater schedules. 8 shows/week × 3 hrs = 24 hrs shows + 11 hrs pre/post/rehearsal = 35 hrs HVAC / 168 hrs. Seats 2,000+ people but only 8 shows/week—empty 80% of the time but must maintain climate for equipment, costumes, and pre-show conditioning. (Broadway/professional theater schedules)",
 
-    'Restaurant/Bar': "We calculate restaurant savings from dining areas—kitchens have exhaust requirements that can't be reduced. Dining rooms swing between busy meal rushes and empty periods between. (CBECS 2018)",
+    'Restaurant/Bar': "We calculate restaurant savings from dining areas only—kitchen exhaust hoods MUST run at full blast during cooking hours (fire/health code). Dining area (60% of bldg) traffic-weighted by meal period. Dining rooms swing between busy meal rushes and empty periods between. ODCV opportunity ONLY in dining area. (Dining traffic patterns)",
 
-    'Library/Museum': "We calculate library and museum savings from visitor traffic patterns. Climate control runs continuously for collection preservation, but visitor presence varies widely. Galleries and reading rooms designed for crowds often see sparse attendance. (CBECS 2018)",
+    'Library/Museum': "We calculate library and museum savings from visitor traffic patterns. Open 50 hrs/week (30% of time) × 40% average visitor density during open hours. Climate control runs 24/7 for collection preservation (temperature/humidity for artifacts) but visitors only come during limited public hours. Climate for objects, not people. (Operating hours, visitor flow analysis)",
 
-    'Outpatient Clinic': "We calculate clinic savings using MGMA provider productivity benchmarks. Exam rooms are occupied only during brief patient appointments, then sit empty until the next patient. (MGMA)",
+    'Outpatient Clinic': "We calculate clinic savings using appointment patterns analysis. Exam room occupancy (~25% actual patient time) × business hours (weekdays 8-5 = 30% of week). Patients in exam room only 15-30 min per appointment. Between patients: room empty but ventilated at medical-grade rates. Closed evenings/weekends. (Appointment patterns analysis)",
 
 }
 
@@ -595,16 +594,23 @@ DEFAULT_BUILDING_STORY = "We calculate savings using federal CBECS survey data f
 #===============================================================================
 
 UTILIZATION_RANGES = {
-    'Office': {'low': 55, 'high': 93, 'source': 'CBRE, Kastle Systems'},
-    'Medical Office': {'low': 75, 'high': 75, 'source': 'CBRE Healthcare'},
-    'K-12 School': {'low': 54, 'high': 85, 'source': 'NCES'},
-    'Higher Ed': {'low': 66, 'high': 66, 'source': 'NCES'},
-    'Hotel': {'low': 67, 'high': 73, 'source': 'STR/CoStar'},
-    'Retail': {'low': 55, 'high': 65, 'source': 'CBECS 2018'},
-    'Inpatient Hospital': {'low': 76, 'high': 78, 'source': 'AHA'},
-    'Outpatient Clinic': {'low': 70, 'high': 70, 'source': 'MGMA'},
-    'Library/Museum': {'low': 42, 'high': 55, 'source': 'CBECS 2018'},
-    'Restaurant/Bar': {'low': 50, 'high': 60, 'source': 'CBECS 2018'},
+    'Office': {'low': 34, 'high': 55, 'mean': 42, 'source': 'CBRE, Kastle Systems'},
+    'Medical Office': {'low': 52, 'high': 58, 'mean': 55, 'source': 'CBRE Healthcare 2025'},
+    'Mixed Use': {'low': 36, 'high': 52, 'mean': 45, 'source': 'CBRE, Kastle Systems'},
+    'K-12 School': {'low': 20, 'high': 28, 'mean': 22, 'source': 'Pew Research, NCES, DOE Energy Smart Schools'},
+    'Higher Ed': {'low': 24, 'high': 30, 'mean': 26, 'source': 'APPA, SIGHTLINES/Gordian'},
+    'Hotel': {'low': 23, 'high': 39, 'mean': 28, 'source': 'AHLA 2025, DOE Guest Room HVAC Report'},
+    'Retail': {'low': 35, 'high': 48, 'mean': 40, 'source': 'StoreForce, NRF'},
+    'Supermarket': {'low': 43, 'high': 55, 'mean': 48, 'source': 'ASHRAE RP-1747, Purdue DCV research'},
+    'Wholesale Club': {'low': 30, 'high': 38, 'mean': 33, 'source': 'Costco/Sam\'s/BJ\'s operating patterns'},
+    'Inpatient Hospital': {'low': 54, 'high': 62, 'mean': 56, 'source': 'AHA Fast Facts 2024, ASHRAE 170'},
+    'Specialty Hospital': {'low': 72, 'high': 82, 'mean': 74, 'source': 'AHA Fast Facts 2024, ASHRAE 170'},
+    'Outpatient Clinic': {'low': 42, 'high': 48, 'mean': 44, 'source': 'Appointment patterns analysis'},
+    'Residential Care': {'low': 78, 'high': 86, 'mean': 83, 'source': 'Industry benchmarks (87.2% national occupancy)'},
+    'Theater': {'low': 14, 'high': 22, 'mean': 16, 'source': 'Broadway/professional theater schedules'},
+    'Venue': {'low': 15, 'high': 22, 'mean': 17, 'source': 'Event schedule analysis (NBA, concerts, other)'},
+    'Library/Museum': {'low': 25, 'high': 36, 'mean': 28, 'source': 'Operating hours, visitor flow analysis'},
+    'Restaurant/Bar': {'low': 36, 'high': 42, 'mean': 37, 'source': 'Dining traffic patterns'},
 }
 
 #===============================================================================
@@ -756,46 +762,46 @@ ENERGY_COLUMN_TOOLTIPS = {
 # NEW column: Methodology + data sources by building type
 # Sources get auto-hyperlinked by inject_source_links()
 NEW_COLUMN_SOURCES = {
-    'Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy rates, Kastle badge-swipe occupancy data.",
-    'Medical Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy data, MGMA exam room utilization benchmarks.",
-    'Hotel': "HVAC reduced using CBECS 2018 fuel splits, STR room occupancy data, guest presence patterns.",
-    'K-12 School': "HVAC reduced using CBECS 2018 fuel splits, NCES instructional day requirements, state calendar data.",
-    'Higher Ed': "HVAC reduced using CBECS 2018 fuel splits, NCES data, semester and break schedules.",
-    'Retail': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
-    'Supermarket': "HVAC reduced using CBECS 2018 fuel splits, operating hours and traffic patterns.",
-    'Restaurant/Bar': "HVAC reduced using CBECS 2018 fuel splits, meal-time traffic patterns.",
-    'Inpatient Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
-    'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
-    'Residential Care': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
-    'Mixed Use': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy, Kastle occupancy for office portion.",
+    'Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy rates, Kastle Systems occupancy data, CommercialEdge market data.",
+    'Medical Office': "HVAC reduced using CBECS 2018 fuel splits, CBRE Healthcare 2025 vacancy data, ASHRAE 62.1 ventilation requirements.",
+    'Hotel': "HVAC reduced using CBECS 2018 fuel splits, AHLA 2025 room occupancy data, DOE Guest Room HVAC Report presence patterns.",
+    'K-12 School': "HVAC reduced using CBECS 2018 fuel splits, Pew Research (180 days), NCES instructional requirements, DOE Energy Smart Schools.",
+    'Higher Ed': "HVAC reduced using CBECS 2018 fuel splits, APPA classroom utilization, SIGHTLINES/Gordian facilities benchmarks.",
+    'Retail': "HVAC reduced using CBECS 2018 fuel splits, StoreForce traffic patterns, NRF retail analytics.",
+    'Supermarket': "HVAC reduced using CBECS 2018 fuel splits, ASHRAE RP-1747 DCV simulation, Purdue DCV research.",
+    'Restaurant/Bar': "HVAC reduced using CBECS 2018 fuel splits, dining traffic patterns.",
+    'Inpatient Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA Fast Facts 2024 bed occupancy, ASHRAE 170 ventilation standards.",
+    'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA Fast Facts 2024 data, ASHRAE 170 ventilation standards.",
+    'Residential Care': "HVAC reduced using CBECS 2018 fuel splits, industry benchmarks (87.2% national occupancy).",
+    'Mixed Use': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy, Kastle Systems occupancy for office portion.",
     'Venue': "HVAC reduced using event schedules, industry utilization data.",
-    'Theater': "HVAC reduced using performance schedules, Broadway/regional theater utilization data.",
+    'Theater': "HVAC reduced using Broadway/professional theater schedules, performance utilization data.",
     'Library/Museum': "HVAC reduced using visitor traffic data, operating hours patterns.",
-    'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, MGMA provider productivity benchmarks.",
-    'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
+    'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, appointment patterns analysis.",
+    'Wholesale Club': "HVAC reduced using Costco/Sam's/BJ's operating patterns, sales floor vs back-of-house weighting.",
     'default': "HVAC reduced using CBECS 2018 fuel splits, building type utilization benchmarks.",
 }
 
 # CHANGE column: Human-readable insight (WHY savings exist) by building type
 # Sources at end get auto-hyperlinked by inject_source_links()
 CHANGE_COLUMN_INSIGHTS = {
-    'Office': "Offices have massive ODCV opportunity. Hybrid work means most workers come in only part of the week, and many floors sit entirely vacant—but centralized HVAC conditions all spaces at design capacity regardless. (CBRE, Kastle Systems)",
-    'Medical Office': "Medical offices have strong ODCV potential. Exam rooms are occupied only during brief patient appointments, then sit empty until the next visit. (CBRE, MGMA)",
-    'Hotel': "Hotels have significant ODCV opportunity. Many rooms are unoccupied on any given night, and even booked rooms sit empty during daytime hours when guests are out. (STR)",
-    'K-12 School': "Schools have the highest ODCV potential of any building type. Buildings are completely empty during summer break, weekends, holidays, and after dismissal each day. (NCES)",
-    'Higher Ed': "Universities have extreme ODCV opportunity. Classrooms sit empty between lectures, and entire buildings empty during semester breaks. (NCES)",
-    'Retail': "Retail has meaningful ODCV opportunity. Stores are designed for peak capacity but see much lower average traffic—slow mornings, busier afternoons, closed overnight. (CBECS 2018)",
-    'Supermarket': "Supermarkets have limited but real ODCV opportunity. Traffic swings between busy evening periods and quiet early mornings. (CBECS 2018)",
-    'Restaurant/Bar': "Restaurants have ODCV opportunity in dining areas. Tables swing between packed meal rushes and empty mid-afternoon lulls. (CBECS 2018)",
-    'Inpatient Hospital': "Hospitals have constrained but real ODCV opportunity. Non-clinical areas—waiting rooms, admin offices, cafeterias—have variable occupancy while patient areas stay occupied. (AHA)",
-    'Specialty Hospital': "Specialty hospitals have similar ODCV patterns to inpatient facilities. Support areas have variable occupancy during off-hours. (AHA)",
-    'Residential Care': "Residential care has limited ODCV opportunity. Unlike hotels, residents live on-site continuously. Savings come from common areas during overnight hours. (NIC MAP Vision)",
-    'Mixed Use': "Mixed-use buildings combine office and retail ODCV opportunities. Office floors follow hybrid work patterns while retail floors see variable traffic throughout the day. (CBRE, Kastle Systems)",
-    'Venue': "Venues have massive ODCV opportunity. Arenas and convention centers host events sporadically but condition continuously—these huge spaces sit empty most of the year. (CBECS 2018)",
-    'Theater': "Theaters have strong ODCV potential. Shows run just a few hours at a time, a few days per week—but HVAC often conditions the space continuously. (CBECS 2018)",
-    'Library/Museum': "Libraries and museums have moderate ODCV opportunity. Climate control runs for collection preservation, but visitor traffic varies widely. (CBECS 2018)",
-    'Outpatient Clinic': "Clinics have strong ODCV potential. Exam rooms are occupied only during brief appointments, then sit empty until the next patient. (MGMA)",
-    'Wholesale Club': "Wholesale clubs have moderate ODCV opportunity. Large back-of-house warehouse areas have minimal staff, and sales floor traffic concentrates on weekends. (CBECS 2018)",
+    'Office': "Offices have massive ODCV opportunity. Hybrid work means most workers come in only part of the week (34-55% utilization), and many floors sit entirely vacant—but centralized HVAC conditions all spaces at design capacity regardless. (CBRE, Kastle Systems, CommercialEdge)",
+    'Medical Office': "Medical offices have strong ODCV potential. Exam rooms get 2-3x office ventilation per ASHRAE 62.1, even when empty between patients. (CBRE Healthcare 2025, ASHRAE 62.1)",
+    'Hotel': "Hotels have significant ODCV opportunity. 37% of rooms unoccupied on any given night, and even booked rooms sit empty 10+ hours daily while guests are out. DOE studies show only 45% guest presence factor. (AHLA 2025, DOE Guest Room HVAC Report)",
+    'K-12 School': "Schools have the highest ODCV potential of any building type. 180 school days × 11 hrs = 22% of annual hours. Empty during summer (12 weeks), weekends, holidays, and after 3pm daily. (Pew Research, NCES, DOE Energy Smart Schools)",
+    'Higher Ed': "Universities have extreme ODCV opportunity. 32 weeks in session × 35% classroom utilization. APPA studies show only 30-40% of available hours have classes. 20 weeks/year of breaks. (APPA, SIGHTLINES/Gordian)",
+    'Retail': "Retail has meaningful ODCV opportunity. Traffic-weighted by time: morning lull (15-20%), lunch/evening rushes (60-80%). Designed for peak Black Friday capacity. (StoreForce, NRF)",
+    'Supermarket': "Supermarkets have limited but real ODCV opportunity. Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). (ASHRAE RP-1747, Purdue DCV research)",
+    'Restaurant/Bar': "Restaurants have ODCV opportunity in dining areas only. Kitchen exhaust hoods MUST run at full blast during cooking (fire/health code). Dining area (60% of bldg) traffic-weighted by meal period.",
+    'Inpatient Hospital': "Hospitals have 20-38% HVAC savings potential. Not just patient rooms—huge non-clinical areas (waiting rooms 30% util, exam rooms 35%, admin 40%, cafeterias 35%) get medical-grade ventilation 24/7 but are often empty. (AHA Fast Facts 2024, ASHRAE 170)",
+    'Specialty Hospital': "Specialty hospitals have similar ODCV patterns to inpatient facilities. Non-clinical areas have high opportunity—admin, waiting rooms, cafeterias. 20-38% HVAC savings. (AHA Fast Facts 2024, ASHRAE 170)",
+    'Residential Care': "Residential care has limited ODCV opportunity. Unlike hotel guests who leave for sightseeing, residents LIVE there 24/7. Only ~5% time away for doctor visits. Opportunity limited to common areas. (Industry benchmarks, 87.2% national occupancy)",
+    'Mixed Use': "Mixed-use buildings combine office and retail ODCV opportunities. Office floors follow hybrid work patterns (34-55% utilization) while retail floors see variable traffic throughout the day. (CBRE, Kastle Systems)",
+    'Venue': "Venues have massive ODCV opportunity. 60-80 events/year × 5 hrs = 6% of year active. Buildings designed for 20,000 people sit EMPTY 93% of the year.",
+    'Theater': "Theaters have strong ODCV potential. 8 shows/week × 3 hrs = 24 hrs shows + 11 hrs pre/post = 35 hrs HVAC / 168 hrs. Seats 2,000+ but empty 80% of the time. (Broadway/professional theater schedules)",
+    'Library/Museum': "Libraries and museums have moderate ODCV opportunity. Open 50 hrs/week (30% of time) × 40% visitor density. HVAC runs 24/7 for collection preservation but visitors only come during limited public hours.",
+    'Outpatient Clinic': "Clinics have strong ODCV potential. Exam room occupancy (~25% actual patient time) × business hours (weekdays 8-5 = 30% of week). Patients in room only 15-30 min per appointment.",
+    'Wholesale Club': "Wholesale clubs have moderate ODCV opportunity. Zone-weighted: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33% utilization. Shorter hours, weekend-heavy traffic.",
     'default': "Most buildings are ventilated at design capacity regardless of actual occupancy. ODCV adjusts airflow to match real presence, capturing the gap between design and reality. (CBECS 2018)",
 }
 
@@ -812,51 +818,55 @@ def get_new_column_tooltip(row):
 
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
         return f"""Projected consumption if ventilation matched actual occupancy—accounting for vacant floors and low utilization on occupied floors.<br><br>
-Uses {city} vacancy from CBRE/Cushman, attendance from Kastle badge swipes, and HVAC % from CBECS 2018."""
+Uses {city} vacancy from CBRE Q3 2025/CommercialEdge, attendance from Kastle Systems, and HVAC % from CBECS 2018."""
 
-    elif bldg_type in ('K-12 School', 'Higher Ed'):
-        return f"""Projected consumption if HVAC responded to school calendar—summers, weekends, afternoons, holidays—instead of fixed timers.<br><br>
-Uses {city} benchmarking, schedule data from NCES, and HVAC % from CBECS 2018."""
+    elif bldg_type == 'K-12 School':
+        return f"""Projected consumption if HVAC responded to school calendar—summers (12 weeks), weekends, afternoons after 3pm, holidays—instead of fixed timers.<br><br>
+Uses {city} benchmarking, schedule data from Pew Research, NCES, DOE Energy Smart Schools, and HVAC % from CBECS 2018."""
+
+    elif bldg_type == 'Higher Ed':
+        return f"""Projected consumption if HVAC responded to academic calendar—32 weeks in session × 35% classroom utilization, plus 20 weeks of breaks.<br><br>
+Uses {city} benchmarking, classroom utilization from APPA, SIGHTLINES/Gordian, and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Hotel':
-        return f"""Projected consumption if room conditioning matched when guests are actually present.<br><br>
-Only HVAC responds to occupancy—hotel gas splits ~20% HVAC, ~42% hot water, ~33% kitchens. Uses {city} room occupancy from STR Global."""
+        return f"""Projected consumption if room conditioning matched when guests are actually present. DOE studies show only 45% guest presence factor—guests out 10+ hrs/day.<br><br>
+Only HVAC responds to occupancy—hotel gas splits ~20% HVAC, ~42% hot water, ~33% kitchens. Uses room occupancy from AHLA 2025, presence patterns from DOE Guest Room HVAC Report."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
-        return f"""What consumption would look like with occupancy-based ventilation in <b>non-clinical areas only</b>—lobbies, offices, cafeterias, conference rooms.<br><br>
-Patient areas excluded per ASHRAE 170. Uses {city} benchmarking and HVAC % from CBECS 2018."""
+        return f"""Projected consumption with occupancy-based ventilation across all zones. Not just patient areas—huge non-clinical areas (waiting rooms, exam rooms, admin, cafeterias) also have opportunity.<br><br>
+Zone-weighted by occupancy. Uses {city} benchmarking, AHA Fast Facts 2024, ASHRAE 170, and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Residential Care':
-        return f"""What consumption would look like with occupancy-based conditioning in common areas only. Resident rooms unchanged.<br><br>
-Uses {city} benchmarking, occupancy from NIC MAP Vision, and HVAC % from CBECS 2018."""
+        return f"""What consumption would look like with occupancy-based conditioning in common areas only. Resident rooms unchanged—unlike hotel guests, residents LIVE there 24/7.<br><br>
+Uses {city} benchmarking, industry benchmarks (87.2% national occupancy), and HVAC % from CBECS 2018."""
 
     elif bldg_type in ('Retail', 'Retail Store'):
-        return f"""Projected consumption if ventilation matched foot traffic instead of running at peak capacity all day.<br><br>
-Uses {city} benchmarking and HVAC % from CBECS 2018."""
+        return f"""Projected consumption if ventilation matched foot traffic instead of running at peak capacity all day. Traffic-weighted: morning lull (15-20%), lunch/evening rushes (60-80%).<br><br>
+Uses {city} benchmarking, traffic patterns from StoreForce, NRF, and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Supermarket':
-        return f"""Projected consumption if sales floor HVAC matched traffic. Refrigeration unchanged—it doesn't respond to occupancy.<br><br>
-Uses {city} benchmarking and HVAC/refrigeration split from CBECS 2018."""
+        return f"""Projected consumption if sales floor HVAC matched traffic. Refrigeration unchanged—it runs 24/7 regardless.<br><br>
+Uses {city} benchmarking, DCV simulation from ASHRAE RP-1747, Purdue DCV research, and HVAC/refrigeration split from CBECS 2018."""
 
     elif bldg_type == 'Wholesale Club':
-        return f"""Projected consumption if conditioning matched member traffic patterns.<br><br>
-Uses {city} benchmarking and HVAC % from CBECS 2018."""
+        return f"""Projected consumption if conditioning matched member traffic patterns. Zone-weighted: Sales floor (60%) × 48% traffic + Stock areas (40%) × 10%.<br><br>
+Uses {city} benchmarking, operating patterns from Costco/Sam's/BJ's, and HVAC % from CBECS 2018."""
 
     elif bldg_type in ('Venue', 'Theater'):
-        return f"""Projected consumption if conditioning matched event schedules instead of running 24/7.<br><br>
-Uses {city} benchmarking and HVAC % from CBECS 2018."""
+        return f"""Projected consumption if conditioning matched event/performance schedules instead of running 24/7. Buildings designed for 20,000 people sit EMPTY 93% of the year.<br><br>
+Uses {city} benchmarking, event schedules, and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Restaurant/Bar':
-        return f"""Projected consumption if dining area HVAC matched meal-time patterns. Kitchen unchanged—it doesn't respond to traffic.<br><br>
+        return f"""Projected consumption if dining area HVAC matched meal-time patterns. Kitchen unchanged—exhaust hoods MUST run at full blast during cooking (fire/health code).<br><br>
 Only ~18% of restaurant gas is space heating (rest is cooking). Uses {city} benchmarking."""
 
     elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
-        return f"""Projected consumption if conditioning aligned with operating hours and visitor traffic.<br><br>
+        return f"""Projected consumption if conditioning aligned with operating hours and visitor traffic. Open 50 hrs/week (30% of time) × 40% visitor density.<br><br>
 Uses {city} benchmarking and HVAC % from CBECS 2018."""
 
     elif bldg_type == 'Outpatient Clinic':
-        return f"""Projected consumption if ventilation matched appointment schedules and clinic hours.<br><br>
-Uses {city} benchmarking, scheduling from MGMA, and HVAC % from CBECS 2018."""
+        return f"""Projected consumption if ventilation matched appointment schedules and clinic hours. Exam room occupancy ~25% actual patient time.<br><br>
+Uses {city} benchmarking, appointment patterns analysis, and HVAC % from CBECS 2018."""
 
     else:
         return f"""Projected consumption if ventilation matched actual occupancy.<br><br>
@@ -903,73 +913,49 @@ TOOLTIPS = {
 # Source text to URL mapping for tooltip hyperlinks
 # Order matters - longer/more specific patterns first to avoid partial matches
 SOURCE_TEXT_TO_URL = [
-    # EPA / EIA Sources
-    ('EPA eGRID 2023', 'https://www.epa.gov/egrid'),
-    ('EPA eGRID', 'https://www.epa.gov/egrid'),
-    ('EIA CBECS 2018', 'https://www.eia.gov/consumption/commercial/'),
-    ('CBECS 2018', 'https://www.eia.gov/consumption/commercial/'),
-    ('CBECS', 'https://www.eia.gov/consumption/commercial/'),
-    ('EIA standard', 'https://www.eia.gov/environment/emissions/co2_vol_mass.php'),
+    # GitHub base: https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/
 
-    # Real Estate / Occupancy Sources
-    ('CBRE Cap Rate Survey Q4 2024', 'https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025'),
-    ('CBRE Q4 2024', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
-    ('CBRE/Cushman', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
-    ('CBRE', 'https://www.cbre.com/insights/figures/q3-2025-us-office-figures'),
-    ('Cushman', 'https://www.cushmanwakefield.com/en/insights'),
-    ('Kastle Systems', 'https://www.kastle.com/safety-wellness/getting-america-back-to-work/'),
-    ('Kastle', 'https://www.kastle.com/safety-wellness/getting-america-back-to-work/'),
+    # Market Research (reference_documents)
+    ('CBRE Q3 2025', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv'),
+    ('CBRE', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv'),
+    ('Kastle Systems', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv'),
+    ('Kastle', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv'),
+    ('CommercialEdge', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf'),
+    ('Cushman', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CushmanWakefield_US_Office_Q3_2025.pdf'),
 
-    # Industry-Specific Sources
-    ('STR', 'https://www.hospitalitynet.org/news/4129415.html'),
-    ('NCES', 'https://nces.ed.gov/'),
-    ('AHA Hospital Statistics', 'https://www.aha.org/statistics/fast-facts-us-hospitals'),
-    ('AHA', 'https://www.aha.org/statistics/fast-facts-us-hospitals'),
-    ('MGMA', 'https://www.mgma.com/'),
-    ('NIC MAP Vision', 'https://www.nic.org/blog/senior-housing-occupancy-continues-climbing-in-first-quarter-2025/'),
-    ('IHRSA', 'https://www.ihrsa.org/'),
-    ('ICSC', 'https://www.icsc.com/'),
-    ('CoStar', 'https://www.costar.com/'),
-    ('NADA', 'https://www.nada.org/'),
-    ('NAEYC', 'https://www.naeyc.org/'),
-    ('FDIC', 'https://www.fdic.gov/'),
+    # Technical Standards (reference_documents)
+    ('ASHRAE 62.1', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf'),
+    ('ASHRAE 170', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf'),
+    ('ASHRAE', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf'),
+    ('EPA eGRID 2023', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx'),
+    ('EPA eGRID', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx'),
+    ('IMT BPS Comparison Matrix', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf'),
+    ('IMT', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf'),
+    ('DOE Guest Room HVAC Report', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/DOE_Guest_Room_HVAC_Report.pdf'),
 
-    # ENERGY STAR / Portfolio Manager
-    ('ENERGY STAR Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
-    ('EPA Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
-    ('Portfolio Manager', 'https://portfoliomanager.energystar.gov/'),
-    ('ENERGY STAR', 'https://www.energystar.gov/'),
+    # CBECS Data
+    ('EIA CBECS 2018', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv'),
+    ('CBECS 2018', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv'),
+    ('CBECS', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv'),
 
-    # BPS Laws - NYC
-    ('NYC Local Law 97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
-    ('Local Law 97 of 2019', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
-    ('Local Law 97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
-    ('LL97', 'https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page'),
-    ('LL84', 'https://www.nyc.gov/site/buildings/codes/ll84-benchmarking-law.page'),
+    # City Benchmarking Data
+    ('NYC LL84', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv'),
+    ('LL84', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv'),
+    ('Boston BERDO', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx'),
+    ('BERDO', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx'),
+    ('Cambridge BEUDO', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv'),
+    ('BEUDO', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv'),
+    ('DC BEPS', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/DC_BEPS.csv'),
+    ('Energize Denver', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv'),
+    ('Seattle BEPS', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Seattle_Energy_Benchmarking.csv'),
+    ('St. Louis BEPS', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/St_Louis_BEPS.xlsx'),
+    ('California AB 802', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx'),
+    ('AB 802', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx'),
 
-    # BPS Laws - Boston
-    ('BERDO 2.0', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
-    ('BERDO', 'https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure'),
+    # Source Data
+    ('market_vacancy_utilization', 'https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/market_vacancy_utilization_Q3_2025.csv'),
 
-    # BPS Laws - Other Cities
-    ('Cambridge BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabledevelopment/buildingenergydisclosureordinance'),
-    ('BEUDO', 'https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabledevelopment/buildingenergydisclosureordinance'),
-    ('DC BEPS', 'https://doee.dc.gov/service/building-energy-performance-standards-beps'),
-    ('DC DOEE', 'https://doee.dc.gov/'),
-    ('Energize Denver', 'https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub'),
-    ('Seattle BEPS', 'https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards'),
-    ('St. Louis BEPS', 'https://www.stlouis-mo.gov/government/departments/public-safety/building/'),
-    ('California AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
-    ('AB 802', 'https://www.energy.ca.gov/programs-and-topics/programs/building-energy-benchmarking-program'),
-
-    # ASHRAE Standards
-    ('ASHRAE 170', 'https://www.ashrae.org/technical-resources/standards-and-guidelines'),
-    ('ASHRAE', 'https://www.ashrae.org/'),
-
-    # Other
-    ('NREL utility rate database', 'https://openei.org/wiki/Utility_Rate_Database'),
-    ('NREL', 'https://www.nrel.gov/'),
-    ('Con Edison', 'https://www.coned.com/'),
+    # No GitHub-hosted file - keep short reference only (no link created)
 ]
 
 def inject_source_links(text):
@@ -1033,67 +1019,67 @@ def get_odcv_savings_tooltip(row):
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
         return f"""How much HVAC energy you could save by matching ventilation to actual occupancy.<br><br>
 We combine vacancy (empty floors) with utilization (how full the occupied floors are). A building with 25% vacancy and 55% utilization on leased floors has about 59% opportunity. Newer and larger buildings score higher because they typically have better controls.<br><br>
-<b>Data:</b> {city} vacancy from CBRE/Cushman, office attendance from Kastle badge swipes, plus year built, sqft, Energy Star score, and climate zone."""
+<b>Data:</b> {city} vacancy from CBRE Q3 2025/CommercialEdge, office attendance from Kastle Systems Back to Work Barometer, plus year built, sqft, Energy Star score, and climate zone."""
 
     elif bldg_type == 'K-12 School':
         return f"""How much HVAC energy you could save by aligning ventilation with the school calendar.<br><br>
-Schools are empty more than half the year—summers, weekends, afternoons, holidays—but HVAC often runs on fixed timers regardless. Calendars are predictable and public, so savings are straightforward to calculate.<br><br>
-<b>Data:</b> Schedule patterns from NCES, year built, sqft, efficiency, climate."""
+Schools are empty more than 75% of annual hours—summers (12 weeks), weekends, afternoons after 3pm, holidays—but HVAC often runs on fixed timers regardless. 180 school days × 11 hrs HVAC / 8,760 hrs = 22.6% base utilization.<br><br>
+<b>Data:</b> Schedule patterns from Pew Research, NCES, DOE Energy Smart Schools, year built, sqft, efficiency, climate."""
 
     elif bldg_type == 'Higher Ed':
         return f"""How much HVAC energy you could save by matching ventilation to academic schedules.<br><br>
-Universities have the same calendar gaps as K-12 (summer, winter, spring breaks) plus daily variability—a lecture hall might be packed three days a week and empty the rest. Schedules are well-documented, making savings predictable.<br><br>
-<b>Data:</b> Academic calendar and classroom utilization from NCES, year built, size."""
+32 weeks in session × 35% classroom utilization. APPA studies show only 30-40% of available hours have classes. 20 weeks/year of breaks (winter, spring, summer). Schedules are well-documented, making savings predictable.<br><br>
+<b>Data:</b> Academic calendar and classroom utilization from APPA, SIGHTLINES/Gordian, year built, size."""
 
     elif bldg_type == 'Hotel':
         return f"""How much HVAC energy you could save by matching room conditioning to when guests are actually present.<br><br>
-Two waste sources: unsold rooms (about 37% unoccupied on any given night) and sold rooms when guests are out. Even sold rooms are only occupied about 10 hours a day.<br><br>
-<b>Data:</b> {city} room-night occupancy from STR Global, guest-in-room hours, year built, sqft."""
+Two waste sources: unsold rooms (about 37% unoccupied on any given night) and sold rooms when guests are out. DOE studies show only 45% guest presence factor—guests out 10+ hrs/day for business or sightseeing.<br><br>
+<b>Data:</b> Room occupancy from AHLA 2025, guest presence patterns from DOE Guest Room HVAC Report, year built, sqft."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
-        return f"""How much HVAC energy you could save in <b>non-clinical areas only</b>. Patient care areas maintain required airflow per ASHRAE 170—we don't touch those.<br><br>
-Hospitals are mostly non-clinical space: lobbies, offices, cafeterias, conference rooms. Those areas can use standard occupancy control. We're conservative here because care comes first.<br><br>
-<b>Data:</b> Census patterns, clinical vs non-clinical sqft breakdown from AHA Hospital Statistics, year built, efficiency."""
+        return f"""How much HVAC energy you could save. Not just patient rooms—huge non-clinical areas (waiting rooms, exam rooms, admin offices, cafeterias) get medical-grade ventilation 24/7 but are often empty. 20-38% HVAC savings potential.<br><br>
+Zone-weighted by area: patient rooms (40% @ 70% util), clinical/OR (20% @ 85%), waiting (10% @ 30%), exam (10% @ 35%), admin (10% @ 40%), cafeteria (10% @ 35%).<br><br>
+<b>Data:</b> Bed occupancy and zone breakdown from AHA Fast Facts 2024, ventilation standards from ASHRAE 170, year built, efficiency."""
 
     elif bldg_type == 'Residential Care':
         return f"""How much HVAC energy you could save in common areas while keeping resident rooms unchanged.<br><br>
-Resident rooms have specific ventilation requirements, but common areas and admin spaces can use standard occupancy control. We're conservative here—care standards come first.<br><br>
-<b>Data:</b> Occupancy rates from NIC MAP Vision ({city} area), resident vs common area breakdown, year built, size."""
+Unlike hotel guests who leave for sightseeing, residents LIVE there 24/7—they eat, sleep, socialize on-site. Only ~5% time away for doctor visits. Opportunity limited to common areas only.<br><br>
+<b>Data:</b> Occupancy rates from industry benchmarks (87.2% national), resident vs common area breakdown, year built, size."""
 
     elif bldg_type in ('Retail', 'Retail Store'):
         return f"""How much HVAC energy you could save by matching ventilation to foot traffic instead of running at peak capacity all day.<br><br>
-Traffic swings wildly—packed on weekends, nearly empty on weekday mornings—but HVAC runs the same regardless. Retail traffic patterns are well-studied and predictable.<br><br>
-<b>Data:</b> Traffic patterns by day/time from retail studies (Placer.ai, etc), year built, size."""
+Traffic-weighted by time: morning lull (15-20%), lunch/evening rushes (60-80%). Designed for peak Black Friday capacity, but 50% of weekly traffic in busiest 20 hours—148 other hours much emptier.<br><br>
+<b>Data:</b> Traffic patterns from StoreForce, NRF, year built, size."""
 
     elif bldg_type == 'Supermarket':
-        return f"""How much sales floor HVAC energy you could save by matching conditioning to traffic. Refrigeration is excluded—it runs continuously regardless of traffic.<br><br>
-We isolate space conditioning from refrigeration. The sales floor HVAC can respond to traffic patterns just like any retail store.<br><br>
-<b>Data:</b> Traffic patterns, HVAC/refrigeration split from CBECS 2018, year built, size."""
+        return f"""How much sales floor HVAC energy you could save by matching conditioning to traffic. Refrigeration is excluded—it runs 24/7 regardless of traffic.<br><br>
+Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). Peak 5-7pm is 80-100% capacity; overnight is 5-15%.<br><br>
+<b>Data:</b> DCV simulation from ASHRAE RP-1747, Purdue DCV research (~25% savings potential), year built, size."""
 
     elif bldg_type == 'Wholesale Club':
         return f"""How much HVAC energy you could save by matching conditioning to member traffic.<br><br>
-Wholesale clubs have predictable patterns—heavy on weekends, quiet on weekdays—but HVAC runs at peak regardless. High ceilings mean large HVAC loads, so matching to traffic captures significant waste.<br><br>
-<b>Data:</b> Traffic by day/time from retail studies, year built, size."""
+Zone-weighted: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33% utilization. Shorter hours (10am-8:30pm), weekend-heavy traffic. High ceilings mean large HVAC loads.<br><br>
+<b>Data:</b> Operating patterns from Costco/Sam's/BJ's, year built, size."""
 
     elif bldg_type in ('Venue', 'Theater'):
         return f"""How much HVAC energy you could save by matching conditioning to event schedules instead of running 24/7.<br><br>
-Venues sit empty most of the time but often condition around the clock. Event schedules are predictable and published.<br><br>
-<b>Data:</b> Event scheduling, operating vs event hours, year built, size."""
+60-80 events/year × 5 hrs + setup/teardown = ~550 hrs / 8,760 hrs = 6% of year active. Buildings designed for 20,000 people sit EMPTY 93% of the year.<br><br>
+<b>Data:</b> Event schedules, Broadway/professional theater schedules, year built, size."""
 
     elif bldg_type == 'Restaurant/Bar':
-        return f"""How much <b>dining area</b> HVAC energy you could save. Kitchen excluded—it doesn't vary with traffic.<br><br>
-Only about 18% of restaurant gas goes to space heating (rest is cooking). Savings come from matching dining area ventilation to meal-time traffic.<br><br>
-<b>Data:</b> Meal-time traffic patterns from CBECS 2018, year built, size."""
+        return f"""How much <b>dining area</b> HVAC energy you could save. Kitchen excluded—exhaust hoods MUST run at full blast during cooking (fire/health code).<br><br>
+Dining area (60% of bldg) traffic-weighted by meal period. Only about 18% of restaurant gas goes to space heating (rest is cooking). ODCV opportunity ONLY in dining area.<br><br>
+<b>Data:</b> Dining traffic patterns, year built, size."""
 
     elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
         return f"""How much HVAC energy you could save by aligning conditioning with operating hours and visitor traffic.<br><br>
-Clear open/closed hours, but HVAC often runs beyond them. Additional savings from slow periods when open.<br><br>
-<b>Data:</b> Operating hours, visitor traffic patterns, year built, size."""
+Open 50 hrs/week (30% of time) × 40% average visitor density during open hours. HVAC runs 24/7 for collection preservation (temperature/humidity for artifacts) but visitors only come during limited public hours.<br><br>
+<b>Data:</b> Operating hours, visitor flow analysis, year built, size."""
 
     elif bldg_type == 'Outpatient Clinic':
         return f"""How much HVAC energy you could save by matching ventilation to appointment schedules and clinic hours.<br><br>
-Unlike hospitals, clinics have clear business hours and no 24/7 care requirements. Appointment schedules are predictable.<br><br>
-<b>Data:</b> Appointment patterns from MGMA, clinic hours, year built, size."""
+Exam room occupancy (~25% actual patient time) × business hours (weekdays 8-5 = 30% of week). Patients in exam room only 15-30 min per appointment. Closed evenings/weekends.<br><br>
+<b>Data:</b> Appointment patterns analysis, clinic hours, year built, size."""
 
     else:
         return f"""How much HVAC energy you could save by matching ventilation to actual occupancy.<br><br>
@@ -1182,17 +1168,20 @@ def get_electricity_kwh_tooltip(row):
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
         return f"""Most of an office building's electricity goes to HVAC—fans moving air, chillers cooling it, pumps circulating water. The system runs at design capacity even when floors are empty. When you reduce airflow to match actual occupancy, fan energy drops dramatically (cut airflow in half, fan energy drops by 75%). Data from {city} benchmarking plus CBRE vacancy and Kastle attendance data."""
 
-    elif bldg_type in ('K-12 School', 'Higher Ed'):
-        return f"""School HVAC typically runs on fixed schedules set years ago, regardless of the actual calendar. The fans and cooling run all summer, every weekend, every afternoon after dismissal. Aligning the schedule to when people are actually there saves significant electricity. Data from {city} benchmarking and NCES school schedules."""
+    elif bldg_type == 'K-12 School':
+        return f"""School HVAC typically runs on fixed schedules set years ago. The fans and cooling run all summer (12 weeks), every weekend, every afternoon after 3pm dismissal. 180 school days × 11 hrs = 22% of annual hours. Aligning the schedule to when students are actually there saves significant electricity. Data from {city} benchmarking, Pew Research, NCES, DOE Energy Smart Schools."""
+
+    elif bldg_type == 'Higher Ed':
+        return f"""University HVAC often runs on legacy schedules. 32 weeks in session × 35% classroom utilization—APPA studies show only 30-40% of available hours have classes. 20 weeks of breaks annually. Aligning to actual academic schedules saves significant electricity. Data from {city} benchmarking, APPA, SIGHTLINES/Gordian."""
 
     elif bldg_type == 'Hotel':
-        return f"""Hotels condition every room around the clock, but about 37% of rooms are unsold on any given night, and even sold rooms are only occupied about 10 hours a day. That's a lot of electricity cooling empty rooms. Room sensors or key card systems can set back the HVAC when guests aren't there. Data from {city} benchmarking and STR Global occupancy."""
+        return f"""Hotels condition every room around the clock, but about 37% of rooms are unsold on any given night, and even sold rooms are only occupied about 10 hours a day—DOE studies show only 45% guest presence factor. That's a lot of electricity cooling empty rooms. Data from {city} benchmarking, AHLA 2025, DOE Guest Room HVAC Report."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
-        return f"""Hospitals use a lot of electricity for HVAC because patient areas have strict ventilation requirements. We can't touch those—but hospitals are mostly non-clinical space: lobbies, offices, cafeterias, conference rooms. Those areas can use normal occupancy-based control. Data from {city} benchmarking, savings limited to non-clinical areas per ASHRAE 170."""
+        return f"""Hospitals have 20-38% HVAC savings potential. Not just patient areas—huge non-clinical areas (waiting rooms 30% util, exam rooms 35%, admin 40%, cafeterias 35%) get medical-grade ventilation 24/7 but are often empty. Data from {city} benchmarking, AHA Fast Facts 2024, ASHRAE 170."""
 
     elif bldg_type == 'Residential Care':
-        return f"""Senior care facilities have HVAC in both resident rooms and common areas. Resident rooms need to maintain certain conditions, but common areas and admin spaces can use standard occupancy control. Data from {city} benchmarking and NIC MAP Vision occupancy rates."""
+        return f"""Unlike hotel guests who leave for sightseeing, senior care residents LIVE there 24/7—only ~5% time away for doctor visits. Opportunity limited to common areas only. Data from {city} benchmarking, industry benchmarks (87.2% national occupancy)."""
 
     elif bldg_type in ('Retail', 'Retail Store'):
         return f"""Retail HVAC typically runs at full capacity from open to close, even though traffic swings wildly—packed on weekends, nearly empty on weekday mornings. Matching ventilation to actual traffic (using CO2 sensors as a proxy) saves significant electricity. Data from {city} benchmarking."""
@@ -1217,17 +1206,20 @@ def get_natural_gas_tooltip(row):
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
         return f"""In offices, about 88% of gas goes to heating. Every cubic foot of outdoor air the ventilation system pulls in has to be heated in winter. When you're conditioning empty floors and half-empty occupied floors, that's a lot of gas heating air nobody needs. Data from {city} benchmarking, vacancy from CBRE, attendance from Kastle."""
 
-    elif bldg_type in ('K-12 School', 'Higher Ed'):
-        return f"""School boilers often run through winter break, spring break, even summer in some cases—heating empty buildings. About 80% of school gas goes to HVAC, so aligning the heating schedule to when students are actually there saves significant gas. Data from {city} benchmarking and NCES school schedules."""
+    elif bldg_type == 'K-12 School':
+        return f"""School boilers often run through winter break, spring break, even summer (12 weeks)—heating empty buildings. About 80% of school gas goes to HVAC. 180 school days × 11 hrs = 22% of annual hours. Aligning heating to the school calendar saves significant gas. Data from {city} benchmarking, Pew Research, NCES, DOE Energy Smart Schools."""
+
+    elif bldg_type == 'Higher Ed':
+        return f"""University boilers often run through all breaks—heating buildings during 20 weeks of annual breaks. About 80% of campus building gas goes to HVAC. 32 weeks in session × 35% classroom utilization. Aligning to academic schedules saves significant gas. Data from {city} benchmarking, APPA, SIGHTLINES/Gordian."""
 
     elif bldg_type == 'Hotel':
-        return f"""Hotel gas splits three ways: about 20% to space heating, 42% to hot water, and 33% to kitchens. Only the space heating portion responds to room occupancy—you can't reduce hot water or cooking based on how many guests are in the building. So gas savings are limited to that 20%. Data from {city} benchmarking and STR Global occupancy."""
+        return f"""Hotel gas splits three ways: about 20% to space heating, 42% to hot water, and 33% to kitchens. Only the space heating portion responds to room occupancy—you can't reduce hot water or cooking based on guests. So gas savings are limited to that 20%. Data from {city} benchmarking, AHLA 2025, DOE Guest Room HVAC Report."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
-        return f"""Hospital patient areas have to maintain temperature regardless of census—that's a code requirement (ASHRAE 170). But hospitals are mostly non-clinical space: lobbies, offices, cafeterias, conference rooms. Gas savings come from those areas only. Data from {city} benchmarking."""
+        return f"""Hospitals have 20-38% HVAC savings potential in non-clinical areas. Not just patient rooms—waiting rooms (30% util), exam rooms (35%), admin offices (40%), cafeterias (35%) get heated 24/7 but are often empty. Gas savings come from all these areas. Data from {city} benchmarking, AHA Fast Facts 2024, ASHRAE 170."""
 
     elif bldg_type == 'Residential Care':
-        return f"""Senior care facilities heat both resident rooms and common areas. Resident rooms need to maintain certain temperatures, but common areas and admin spaces can reduce heating when unoccupied. Data from {city} benchmarking and NIC MAP Vision occupancy."""
+        return f"""Unlike hotel guests who leave, senior care residents LIVE there 24/7. Resident rooms need to maintain certain temperatures, but common areas and admin spaces can reduce heating when unoccupied. Limited opportunity. Data from {city} benchmarking, industry benchmarks (87.2% national occupancy)."""
 
     elif bldg_type == 'Restaurant/Bar':
         return f"""Only about 18% of restaurant gas goes to space heating—the rest is cooking. Kitchen gas usage doesn't change with traffic, so savings are limited to heating the dining area during slow periods. Data from {city} benchmarking."""
@@ -1249,8 +1241,11 @@ def get_fuel_oil_tooltip(row):
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
         return f"""Some older buildings use fuel oil for heating instead of gas. Nearly 100% of fuel oil goes to space heating, so when you're heating empty floors, that's all waste. Fuel oil also produces more carbon per unit of heat than gas, so reducing it has an outsized impact on emissions and BPS compliance. Data from {city} benchmarking."""
 
-    elif bldg_type in ('K-12 School', 'Higher Ed'):
-        return f"""Schools with oil heat often run the boilers year-round, even through summer. Aligning heating to the school calendar—cutting back during summers, weekends, afternoons, holidays—saves significant fuel oil. Data from {city} benchmarking and NCES schedules."""
+    elif bldg_type == 'K-12 School':
+        return f"""Schools with oil heat often run the boilers year-round, even through summer (12 weeks). Aligning heating to the school calendar—180 school days × 11 hrs = 22% of annual hours—saves significant fuel oil. Data from {city} benchmarking, Pew Research, NCES, DOE Energy Smart Schools."""
+
+    elif bldg_type == 'Higher Ed':
+        return f"""Universities with oil heat often run boilers through 20 weeks of annual breaks. 32 weeks in session × 35% classroom utilization. Aligning to academic schedules saves significant fuel oil. Data from {city} benchmarking, APPA, SIGHTLINES/Gordian."""
 
     else:
         return f"""Fuel oil goes almost entirely to heating. When you're heating empty spaces, that's wasted oil. Fuel oil also produces more carbon per unit of heat than natural gas, so reducing it has a bigger emissions impact. Data from {city} benchmarking."""
@@ -1435,22 +1430,22 @@ def get_utility_cost_savings_tooltip(row):
     city = safe_val(row, 'loc_city', '')
 
     if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
-        return f"""Annual savings from matching ventilation to actual occupancy. Centralized HVAC conditions vacant and underutilized floors the same as full ones—the savings come from stopping that. Vacancy from CBRE/Cushman, attendance from Kastle badge data, energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from matching ventilation to actual occupancy. Centralized HVAC conditions vacant and underutilized floors the same as full ones—the savings come from stopping that. Vacancy from CBRE Q3 2025/CommercialEdge, attendance from Kastle Systems, energy from {city} benchmarking, rates from NREL."""
 
     elif bldg_type == 'K-12 School':
-        return f"""Annual savings from matching ventilation to schedules. Schools are empty summers, weekends, afternoons, holidays—but HVAC often runs on legacy timers. Calendar from NCES, energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from matching ventilation to schedules. Schools are empty summers (12 weeks), weekends, afternoons after 3pm, holidays—180 school days × 11 hrs = 22% of annual hours. Calendar from Pew Research, NCES, DOE Energy Smart Schools, energy from {city} benchmarking, rates from NREL."""
 
     elif bldg_type == 'Higher Ed':
-        return f"""Annual savings from matching ventilation to schedules. Lecture halls packed 3 days, empty the rest. Big calendar gaps between semesters. Academic calendar from NCES, energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from matching ventilation to schedules. 32 weeks in session × 35% classroom utilization. 20 weeks of breaks annually. Academic calendar from APPA, SIGHTLINES/Gordian, energy from {city} benchmarking, rates from NREL."""
 
     elif bldg_type == 'Hotel':
-        return f"""Annual savings from matching ventilation to actual occupancy. Room HVAC runs 24/7 whether the room is sold or not—and even sold rooms are only occupied about 10 hours a day. Occupancy from STR Global, energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from matching ventilation to actual occupancy. Room HVAC runs 24/7 whether the room is sold or not—and DOE studies show only 45% guest presence factor (guests out 10+ hrs/day). Occupancy from AHLA 2025, DOE Guest Room HVAC Report, energy from {city} benchmarking, rates from NREL."""
 
     elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
-        return f"""Annual savings from occupancy control in non-clinical areas. Patient areas need minimum air changes for infection control, but hospitals are mostly lobbies, offices, and cafeterias—those can use occupancy control. Energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from occupancy control across all zones. Not just patient areas—huge non-clinical areas (waiting rooms 30% util, exam rooms 35%, admin 40%, cafeterias 35%) get medical-grade ventilation 24/7 but are often empty. 20-38% HVAC savings. Energy from {city} benchmarking, AHA Fast Facts 2024, ASHRAE 170, rates from NREL."""
 
     elif bldg_type == 'Residential Care':
-        return f"""Annual savings from occupancy control in common areas. Resident rooms have ventilation requirements, but common areas and admin spaces can respond to occupancy. Occupancy from NIC MAP Vision, energy from {city} benchmarking, rates from NREL."""
+        return f"""Annual savings from occupancy control in common areas only. Unlike hotel guests, residents LIVE there 24/7—only ~5% time away for doctor visits. Limited opportunity in common areas. Industry benchmarks (87.2% national occupancy), energy from {city} benchmarking, rates from NREL."""
 
     elif bldg_type in ('Retail', 'Retail Store'):
         return f"""Annual savings from matching ventilation to traffic. No vacancy—stores are owner-occupied—but traffic swings wildly: packed weekends, empty weekday mornings. HVAC runs the same regardless. Energy from {city} benchmarking, rates from NREL."""
