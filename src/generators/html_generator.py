@@ -649,6 +649,14 @@ body.all-buildings-active .city-filter-bar {
     display: inline;
 }
 
+/* Button icon and label for responsive hiding */
+.btn-icon {
+    margin-right: 6px;
+}
+.btn-label {
+    /* Will be hidden on mobile */
+}
+
 /* Building type filter chip */
 .building-type-chip {
     display: none;
@@ -959,6 +967,16 @@ body.all-buildings-active .city-filter-bar {
     border-bottom: 3px solid var(--rzero-blue);
     border-radius: 0;
     background: transparent;
+}
+
+/* Tab icon and label for responsive */
+.tab-icon {
+    vertical-align: -3px;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+.tab-label {
+    /* Will be hidden on mobile */
 }
 
 /* Tab Content */
@@ -2246,10 +2264,11 @@ body.methodology-active .main-tabs {
     white-space: nowrap;
 }
 .classification-badge.owner { color: #0066cc; }
-.classification-badge.tenant { color: #0066cc; }
-.classification-badge.property-manager { color: #1d4ed8; }
-.classification-badge.owner-occupier { color: #0052a3; }
-.classification-badge.owner-operator { color: #0052a3; }
+.classification-badge.owner-occupier { color: #0891b2; }
+.classification-badge.owner-operator { color: #7c3aed; }
+.classification-badge.tenant { color: #1a3870; }
+.classification-badge.tenant_sub_org { color: #b45309; }
+.classification-badge.property-manager { color: #475569; }
 
 .stat-cell.classification-cell {
     font-size: 11px;
@@ -2257,11 +2276,12 @@ body.methodology-active .main-tabs {
     text-transform: uppercase;
     color: var(--gray-600);
 }
-.classification-cell.classification-owner { color: var(--primary); }
-.classification-cell.classification-tenant { color: var(--gray-700); }
-.classification-cell.classification-property-manager { color: var(--primary-dark); }
-.classification-cell.classification-owner-occupier { color: var(--gray-600); }
-.classification-cell.classification-owner-operator { color: var(--gray-800); }
+.classification-cell.classification-owner { color: #0066cc; }
+.classification-cell.classification-owner-occupier { color: #0891b2; }
+.classification-cell.classification-owner-operator { color: #7c3aed; }
+.classification-cell.classification-tenant { color: #1a3870; }
+.classification-cell.classification-tenant_sub_org { color: #b45309; }
+.classification-cell.classification-property-manager { color: #475569; }
 
 /* TYPE column filter dropdown */
 .type-filter-wrapper {
@@ -3242,6 +3262,46 @@ tr.pin-highlight {
     .portfolio-header [data-col="savings"] {
         display: flex !important;
     }
+
+    /* Compact vertical filter bar */
+    .vertical-filter-bar {
+        padding: 8px 12px !important;
+    }
+    .vertical-filter-inner {
+        gap: 8px !important;
+    }
+    .vertical-buttons-group {
+        gap: 6px !important;
+    }
+    .vertical-btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+    }
+    .vertical-btn-wrapper .vertical-btn {
+        padding-right: 8px !important;
+    }
+    .vertical-dropdown-arrow {
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+    }
+    /* Hide info tooltip on small screens */
+    .info-tooltip {
+        display: none !important;
+    }
+    /* Compact export and leaderboard buttons */
+    .export-dropdown .export-btn,
+    .leaderboard-dropdown .export-btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+    }
+    /* Compact main tabs */
+    .main-tab {
+        padding: 10px 18px !important;
+        font-size: 14px !important;
+    }
+    .main-tabs {
+        padding: 8px 16px !important;
+    }
 }
 
 /* Responsive: below 768px - smaller mobile adjustments */
@@ -3271,6 +3331,37 @@ tr.pin-highlight {
     .all-buildings-section {
         padding-left: 8px !important;
         padding-right: 8px !important;
+    }
+    /* Hide button text labels on mobile - icon only */
+    .btn-label {
+        display: none !important;
+    }
+    .btn-icon {
+        margin-right: 0 !important;
+    }
+    .vertical-btn {
+        min-width: auto !important;
+        padding: 8px 10px !important;
+    }
+    .vertical-btn-wrapper .vertical-btn {
+        padding-right: 6px !important;
+    }
+    .export-btn {
+        padding: 8px 10px !important;
+    }
+    /* Hide main tab labels on mobile - icon only */
+    .tab-label {
+        display: none !important;
+    }
+    .tab-icon {
+        margin-right: 0 !important;
+    }
+    .main-tab {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+    }
+    .main-tabs {
+        padding: 8px 12px !important;
     }
 }
 
@@ -3937,7 +4028,7 @@ tr.pin-highlight {
                 f'<div class="vertical-btn-wrapper">'
                 f'<button class="vertical-btn" data-vertical="{v}" '
                 f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
-                f'<span style="font-size: 14px; margin-right: 4px;">{icon}</span> {v}'
+                f'<span class="btn-icon" style="font-size: 14px;">{icon}</span><span class="btn-label">{v}</span>'
                 f'<span class="btn-x" onclick="event.stopPropagation(); clearVerticalBuildingTypeFilter(\'{v}\')">✕</span>'
                 f'</button>'
                 f'<button class="vertical-dropdown-arrow" data-vertical="{v}" '
@@ -3958,7 +4049,7 @@ tr.pin-highlight {
         </div>
         <div class="export-dropdown" style="margin-left: auto;">
             <button class="export-btn" onclick="toggleExportMenu(event)" style="background: #1e3a5f;">
-                <span style="font-size: 14px;">&#8595;</span> Export CSV
+                <span class="btn-icon" style="font-size: 14px;">&#8595;</span><span class="btn-label">Export CSV</span>
             </button>
             <div id="export-menu" class="export-menu">
                 <button onclick="exportAllBuildingsCSV()">All Buildings</button>
@@ -3968,7 +4059,7 @@ tr.pin-highlight {
         </div>
         <div class="leaderboard-dropdown" style="margin-left: 8px;">
             <button class="export-btn" onclick="toggleLeaderboardMenu(event)" style="background: #5ba3d9;">
-                <span style="font-size: 14px;">&#9733;</span> Leaderboard
+                <span class="btn-icon" style="font-size: 14px;">&#9733;</span><span class="btn-label">Leaderboard</span>
             </button>
             <div id="leaderboard-menu" class="leaderboard-menu">
                 <div class="lb-header">
@@ -4303,9 +4394,9 @@ tr.pin-highlight {
 </header>
 <div class="main-tabs" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 1002; background: white; border-bottom: 1px solid var(--gray-200); padding: 12px 32px;">
     <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: stretch;">
-        <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>Portfolios</button>
-        <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>Cities</button>
-        <button class="main-tab" data-tab="methodology" onclick="switchMainTab('methodology')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Methodology</button>
+        <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')"><svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg><span class="tab-label">Portfolios</span></button>
+        <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg><span class="tab-label">Cities</span></button>
+        <button class="main-tab" data-tab="methodology" onclick="switchMainTab('methodology')"><svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span class="tab-label">Methodology</span></button>
     </div>
 </div>
 <div id="mainContent" style="display: none;">
@@ -4379,7 +4470,7 @@ tr.pin-highlight {
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/occupier" onchange="applyTypeFilter()"> Owner/Occupier</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="owner/operator" onchange="applyTypeFilter()"> Owner/Operator</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant" onchange="applyTypeFilter()"> Tenant</label>
-                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant_sub_org" onchange="applyTypeFilter()"> Tenant Sub-Org</label>
+                <label class="type-filter-option"><input type="radio" name="type-filter" data-type="tenant_sub_org" onchange="applyTypeFilter()"> TENANT SUB-ORG</label>
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="property manager" onchange="applyTypeFilter()"> Prop Manager</label>
             </div>
         </div>
@@ -4663,7 +4754,7 @@ tr.pin-highlight {
             {logo_html}
         </div>
         <span class="stat-cell building-count" data-col="buildings"><span class="building-count-value">{p['building_count']}</span></span>
-        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}" data-col="type">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
+        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}" data-col="type">{'TENANT<br>SUB-ORG' if classification == 'tenant_sub_org' else (classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-')}</span>
         <span class="stat-cell sqft-value" data-col="sqft">{sqft_display}</span>
         <span class="stat-cell eui-value" data-col="eui" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
         <span class="stat-cell carbon-value" data-col="carbon">{format_carbon(p['total_carbon_reduction'])}</span>
@@ -7797,17 +7888,17 @@ function renderPortfolioCard(p, overrides = {{}}) {{
 
     return `<div class="portfolio-card" data-idx="${{p.idx}}" data-org="${{p.org_name}}" data-displayname="${{p.display_name || p.org_name}}" data-buildings="${{count}}" data-sqft="${{sqft || 0}}" data-eui="${{p.median_eui}}" data-valuation="${{valuation}}" data-carbon="${{carbon}}" data-opex="${{opex}}" data-classification="${{p.classification || ''}}">
         <div class="portfolio-header" onclick="togglePortfolio(this)">
-            <div class="org-logo-stack">
+            <div class="org-logo-stack" data-col="portfolio">
                 <span class="org-name-small" title="${{fullTitle}}">${{p.display_name || p.org_name}}${{parentHtml}}</span>
                 ${{logoHtml}}
             </div>
-            <span class="stat-cell building-count"><span class="building-count-value">${{count.toLocaleString()}}</span></span>
-            <span class="stat-cell classification-cell">${{(p.classification || '-').replace(/\\//g, '<br>').replace(/ /g, '<br>')}}</span>
-            <span class="stat-cell sqft-value">${{formatSqftJS(sqft)}}</span>
-            <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
-            <span class="stat-cell carbon-value">${{formatCarbon(carbon)}}</span>
-            <span class="stat-cell valuation-value">${{formatMoney(valuation)}}</span>
-            <span class="stat-cell opex-value">${{formatMoney(opex)}}</span>
+            <span class="stat-cell building-count" data-col="buildings"><span class="building-count-value">${{count.toLocaleString()}}</span></span>
+            <span class="stat-cell classification-cell" data-col="type">${{(p.classification || '-').replace(/\\//g, '<br>').replace(/ /g, '<br>')}}</span>
+            <span class="stat-cell sqft-value" data-col="sqft">${{formatSqftJS(sqft)}}</span>
+            <span class="stat-cell eui-value" data-col="eui" title="Median EUI of all buildings in this portfolio">${{formatEuiRating(p.median_eui, p.median_eui_benchmark)}}</span>
+            <span class="stat-cell carbon-value" data-col="carbon">${{formatCarbon(carbon)}}</span>
+            <span class="stat-cell valuation-value" data-col="valuation">${{formatMoney(valuation)}}</span>
+            <span class="stat-cell opex-value" data-col="savings">${{formatMoney(opex)}}</span>
         </div>
         <div class="portfolio-buildings">
             <div class="building-rows-container"></div>
@@ -7873,17 +7964,55 @@ document.addEventListener('DOMContentLoaded', function() {{
         mapboxgl: typeof mapboxgl !== 'undefined'
     }});
 
-    // Responsive breakpoint debugging - verifies actual element visibility
+    // Responsive breakpoint debugging - shows header vs data column comparison
     function logResponsiveBreakpoint() {{
         const w = window.innerWidth;
-        const opex = document.querySelector('.portfolio-header .opex-value');
-        const buildings = document.querySelector('.portfolio-header .building-count');
-        const opexVisible = opex ? (getComputedStyle(opex).display !== 'none') : false;
-        const buildingsVisible = buildings ? (getComputedStyle(buildings).display !== 'none') : false;
         let breakpoint = 'desktop-full';
         if (w <= 767) breakpoint = 'mobile';
         else if (w <= 1100) breakpoint = 'small-desktop';
-        console.log('[Responsive] ' + w + 'px -> ' + breakpoint + ' | buildings: ' + buildingsVisible + ', savings: ' + opexVisible);
+
+        console.log('\\n[GRID DEBUG] ========== ' + w + 'px (' + breakpoint + ') ==========');
+
+        const header = document.querySelector('#portfolios-tab .portfolio-sort-header');
+        const row = document.querySelector('#portfolios-tab .portfolio-header');
+
+        if (!header || !row) {{
+            console.log('[GRID DEBUG] Header or row not found!');
+            return;
+        }}
+
+        const cols = ['portfolio', 'buildings', 'type', 'sqft', 'eui', 'carbon', 'valuation', 'savings'];
+
+        console.log('[GRID DEBUG] HEADERS visible:');
+        cols.forEach(col => {{
+            const el = header.querySelector('[data-col="' + col + '"]');
+            if (el) {{
+                const cs = getComputedStyle(el);
+                const vis = cs.display !== 'none' && cs.visibility !== 'hidden';
+                console.log('  ' + col + ': ' + (vis ? 'VISIBLE' : 'hidden') + ' (display=' + cs.display + ', visibility=' + cs.visibility + ')');
+            }} else {{
+                console.log('  ' + col + ': NO ELEMENT');
+            }}
+        }});
+
+        console.log('[GRID DEBUG] DATA ROW visible:');
+        cols.forEach(col => {{
+            const el = row.querySelector('[data-col="' + col + '"]');
+            if (el) {{
+                const cs = getComputedStyle(el);
+                const vis = cs.display !== 'none' && cs.visibility !== 'hidden';
+                const text = el.textContent.trim().substring(0, 20);
+                console.log('  ' + col + ': ' + (vis ? 'VISIBLE' : 'hidden') + ' (display=' + cs.display + ') content="' + text + '"');
+            }} else {{
+                console.log('  ' + col + ': NO ELEMENT');
+            }}
+        }});
+
+        // Check grid template
+        const headerCS = getComputedStyle(header);
+        const rowCS = getComputedStyle(row);
+        console.log('[GRID DEBUG] Header gridTemplateColumns: ' + headerCS.gridTemplateColumns);
+        console.log('[GRID DEBUG] Row gridTemplateColumns: ' + rowCS.gridTemplateColumns);
     }}
     logResponsiveBreakpoint();
     window.addEventListener('resize', (function() {{

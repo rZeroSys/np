@@ -634,7 +634,7 @@ def aggregate_portfolios(buildings_df, portfolio_orgs, logo_mappings, image_map)
         classification = org_info.get('classification', '')
         parent_tenant = ''
         parent_logo_url = ''
-        if classification == 'org_tenant_subunit':
+        if classification == 'tenant_sub_org':
             parent_tenant = sub_org_to_parent.get(org_name, '')
             if parent_tenant:
                 parent_info = logo_mappings.get(parent_tenant, {})

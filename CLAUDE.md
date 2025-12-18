@@ -21,6 +21,30 @@ This single script does EVERYTHING:
 **DO NOT create new orchestration scripts - use MASTER_ORCHESTRATE.py.**
 
 ================================================================================
+##            HOMEPAGE ONLY (NO BUILDING REPORTS)
+================================================================================
+
+**TO REGENERATE JUST THE HOMEPAGE (fast, ~10 seconds):**
+
+```bash
+./regen_homepage.sh
+```
+
+OR:
+
+```bash
+python3 -m src.generators.html_generator
+```
+
+Use this when you've only changed:
+- CSS styles in html_generator.py
+- Homepage layout/UI
+- Filter logic
+- JavaScript functionality
+
+This does NOT regenerate building report HTML files.
+
+================================================================================
 
 ---
 

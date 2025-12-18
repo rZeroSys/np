@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Methodology | Nationwide Prospector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://rzero.com">
     <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -115,37 +118,6 @@
         .source-link:hover {
             border-bottom-style: solid;
         }
-        .footnote-ref {
-            color: var(--rzero-primary);
-            font-size: 0.8em;
-            vertical-align: super;
-            text-decoration: none;
-        }
-        .footnotes {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 40px;
-            margin-top: 40px;
-        }
-        .footnotes h2 {
-            color: var(--text-light);
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        .footnote {
-            margin-bottom: 20px;
-            padding-left: 30px;
-            position: relative;
-            font-size: 0.9em;
-            color: #555;
-        }
-        .footnote-num {
-            position: absolute;
-            left: 0;
-            color: var(--rzero-primary);
-            font-weight: 600;
-        }
         .formula {
             background: white;
             border-left: 3px solid var(--rzero-primary);
@@ -161,6 +133,50 @@
             color: var(--text-light);
             font-size: 0.9em;
         }
+
+        /* Collapsed section state */
+        .section.collapsed {
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            box-shadow: none;
+            border-color: rgba(0, 102, 204, 0.15);
+        }
+        .section.collapsed h2 {
+            font-size: 1.15em;
+            margin: 0;
+            padding: 4px 0;
+            border: 0;
+            line-height: 1.25;
+        }
+        .section.collapsed .collapse-arrow {
+            font-size: 18px;
+        }
+
+        /* Collapse arrow styling */
+        .collapse-arrow {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: var(--rzero-primary);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .collapse-arrow::before {
+            content: '▼';
+        }
+        .collapse-arrow.collapsed {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        /* Section header clickable area */
+        .section h2 {
+            position: relative;
+            cursor: pointer;
+            padding-right: 35px;
+        }
+
     </style>
 </head>
 <body>
@@ -196,7 +212,7 @@ if (window.location.search.includes('embed=1')) {
     </div>
 
     <!-- Section 0: Introduction -->
-    <section class="section">
+    <section class="section" id="odcv">
         <h2>What Is O-DCV?</h2>
 
         <h3>The Problem: Ventilating Empty Space</h3>
@@ -246,16 +262,16 @@ if (window.location.search.includes('embed=1')) {
             </thead>
             <tbody>
                 <tr><td>Total Buildings</td><td>22,948</td></tr>
-                <tr><td>Mean ODCV Savings</td><td>27.1%</td></tr>
-                <tr><td>Median ODCV Savings</td><td>26.9%</td></tr>
-                <tr><td>Savings Range</td><td>20% &ndash; 45%</td></tr>
+                <tr><td>Mean ODCV HVAC Savings</td><td>27.1%</td></tr>
+                <tr><td>Median ODCV HVAC Savings</td><td>26.9%</td></tr>
+                <tr><td>HVAC Savings Range</td><td>20% &ndash; 45%</td></tr>
             </tbody>
         </table>
     </section>
 
-    <!-- Section 1: Building Type Opportunity -->
-    <section class="section">
-        <h2>Building Type Opportunity</h2>
+    <!-- Section 1: Opportunity by Building Type -->
+    <section class="section" id="opportunity">
+        <h2>Opportunity by Building Type</h2>
 
         <h3>Vacancy vs. Utilization: Two Types of Empty Space</h3>
         <p>Understanding the difference between vacancy and utilization is critical:</p>
@@ -282,13 +298,13 @@ if (window.location.search.includes('embed=1')) {
                     <td>School at 75% utilization = <strong>25%</strong> opportunity</td>
                 </tr>
                 <tr>
-                    <td><strong>Limited-opportunity</strong><br><small>(Hospital, Lab, Residential Care)</small></td>
+                    <td><strong>Limited-opportunity</strong><br><small>(Lab, Residential Care)</small></td>
                     <td class="formula" style="background: none; border-left: none; padding: 8px;">Opportunity = (1 - Utilization) &times; 0.3</td>
-                    <td>Hospital at 75% utilization: (1 - 0.75) &times; 0.3 = <strong>7.5%</strong> opportunity</td>
+                    <td>Residential Care at 75% utilization: (1 - 0.75) &times; 0.3 = <strong>7.5%</strong> opportunity</td>
                 </tr>
             </tbody>
         </table>
-        <p><em>Limited-opportunity buildings have code-mandated ventilation for infection control (hospitals) or 24/7 residents (care facilities), limiting savings to non-clinical/common areas.</em></p>
+        <p><em>Limited-opportunity buildings have 24/7 residents (care facilities) or specialized ventilation requirements (labs), limiting savings to common areas. Note: Hospitals use the single-operator formula&mdash;waiting rooms, exam rooms, and admin areas offer significant ODCV opportunity (20-38% HVAC savings).</em></p>
 
         <h3>Building Type Details</h3>
         <table>
@@ -367,15 +383,15 @@ if (window.location.search.includes('embed=1')) {
                 </tr>
                 <tr>
                     <td>Inpatient Hospital</td>
-                    <td>Utilization (dampened)</td>
-                    <td>ASHRAE 170 mandates ventilation for infection control; savings limited to non-clinical areas only</td>
+                    <td>Utilization</td>
+                    <td>Waiting rooms, exam rooms, admin offices offer significant opportunity; clinical areas excluded</td>
                     <td>34% &ndash; 82%<br><small>(mean 75%)</small></td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
                 <tr>
                     <td>Specialty Hospital</td>
-                    <td>Utilization (dampened)</td>
-                    <td>Similar to inpatient; ASHRAE 170 constraints apply</td>
+                    <td>Utilization</td>
+                    <td>Similar to inpatient; non-clinical areas have high opportunity</td>
                     <td>42% &ndash; 75%<br><small>(mean 75%)</small></td>
                     <td><a href="https://www.aha.org/statistics/fast-facts-us-hospitals" class="source-link">AHA</a></td>
                 </tr>
@@ -423,10 +439,24 @@ if (window.location.search.includes('embed=1')) {
                 </tr>
             </tbody>
         </table>
+
+        <h3>Technical Detail: Opportunity Score Formula</h3>
+        <p>Measures how much conditioned space is empty and available for ventilation reduction.</p>
+        <p><strong>Multi-tenant buildings</strong> (office, medical office, mixed use):<br>
+        Vacant space has no tenant but is still ventilated. Leased space may be underutilized due to hybrid work.</p>
+        <div class="formula">Opportunity = Vacancy + (1 - Vacancy) × (1 - Utilization)</div>
+        <p>Example: 25% vacancy + 75% leased at 55% utilization = 25% + (75% × 45%) = 59% opportunity.</p>
+        <p><strong>Single-operator buildings</strong> (hotel, school, retail):<br>
+        No vacancy concept&mdash;the operator controls all space. Opportunity driven purely by when space is empty.</p>
+        <div class="formula">Opportunity = 1 - Utilization</div>
+        <p>Example: School at 45% utilization (summers, nights, weekends off) = 55% opportunity.</p>
+        <p><strong>Limited-opportunity buildings</strong> (lab, residential care):<br>
+        Fume hoods or 24/7 residents limit savings to ~30% of theoretical. Note: Hospitals use the standard utilization formula&mdash;non-clinical areas offer 20-38% HVAC savings.</p>
+        <div class="formula">Opportunity = (1 - Utilization) × 0.3</div>
     </section>
 
     <!-- Section 2: Regional Variations -->
-    <section class="section">
+    <section class="section" id="cities">
         <h2>Why Cities Differ</h2>
 
         <h3>Office Vacancy &amp; Utilization by City</h3>
@@ -493,14 +523,14 @@ if (window.location.search.includes('embed=1')) {
     </section>
 
     <!-- Section 3: From Opportunity to Savings -->
-    <section class="section">
+    <section class="section" id="savings">
         <h2>Calculating Savings</h2>
 
         <h3>1. Measure the opportunity</h3>
-        <p>Using vacancy and/or utilization data, calculate how much conditioned space is actually empty.<a href="#fn1" class="footnote-ref">1</a></p>
+        <p>Using vacancy and/or utilization data, calculate how much conditioned space is actually empty.</p>
 
         <h3>2. Convert energy usage to energy cost</h3>
-        <p>Buildings report energy <em>consumption</em> (kWh, therms, Mlb steam). We convert this to <em>cost</em> using real utility rates sourced by zip code from EIA data and local utility tariff filings:<a href="#fn2" class="footnote-ref">2</a></p>
+        <p>Buildings report energy <em>consumption</em> (kWh, therms, Mlb steam). We convert this to <em>cost</em> using real utility rates sourced by zip code from EIA data and local utility tariff filings:</p>
 
         <p><strong>Electricity</strong> has two cost components:</p>
         <ul>
@@ -542,13 +572,13 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Hospital</td><td>78%</td><td>45%</td><td>DHW, sterilization, kitchens use gas</td></tr>
                 <tr><td>Retail</td><td>77%</td><td>45%</td><td>Lighting is major non-HVAC load</td></tr>
                 <tr><td>Higher Ed</td><td>80%</td><td>48%</td><td>Lab exhaust, semester schedules</td></tr>
-                <tr><td>Hotel</td><td>22%</td><td>43%</td><td><strong>Special case:</strong> ~42% DHW, ~33% cooking</td></tr>
-                <tr><td>Restaurant</td><td>20%</td><td>34%</td><td><strong>Special case:</strong> ~72% commercial cooking</td></tr>
+                <tr><td>Hotel</td><td>12-28%</td><td>43%</td><td><strong>Special case:</strong> Gas HVAC varies by intensity; ~42% DHW, ~33% cooking</td></tr>
+                <tr><td>Restaurant</td><td>18%</td><td>34%</td><td><strong>Special case:</strong> ~72% commercial cooking</td></tr>
                 <tr><td>Supermarket</td><td>77%</td><td>20%</td><td>Refrigeration excluded from HVAC</td></tr>
             </tbody>
         </table>
         <p><strong>Why Hotels and Restaurants differ:</strong> In most buildings, nearly all gas goes to space heating. But hotels use gas for laundry, guest hot water, and restaurant kitchens. Restaurants use most gas for commercial cooking. ODCV only saves on the HVAC portion&mdash;you can't reduce guest hot water by sensing occupancy.</p>
-        <p><strong>Adjustments applied per-building:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.<a href="#fn3" class="footnote-ref">3</a></p>
+        <p><strong>Adjustments applied per-building:</strong> Energy Star score (±5%), Year built (±4%), EUI vs peers (±6%). Electric HVAC has 15% minimum floor (fans/pumps always run). Combined adjustment capped at ±12%.</p>
 
         <h3>4. Apply Modifiers</h3>
         <p>Age and size indicate automation capability. Current efficiency determines available waste to capture.</p>
@@ -592,10 +622,10 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Below 25</td><td>1.10×</td><td>Bottom quartile &mdash; lots of waste</td></tr>
             </tbody>
         </table>
-        <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.<a href="#fn4" class="footnote-ref">4</a></p>
+        <p>When ENERGY STAR score is unavailable, we compare EUI to peer median: &gt;1.5× median = 1.10×, &lt;0.7× median = 0.90×.</p>
 
         <h3>5. ODCV Savings</h3>
-        <p>Each building type has minimum (floor) and maximum (ceiling) savings potential. The master formula calculates actual ODCV% within these ranges:</p>
+        <p>Each building type has minimum (floor) and maximum (ceiling) HVAC savings potential. The master formula calculates actual ODCV% within these ranges:</p>
         <table>
             <thead>
                 <tr><th>Building Type</th><th>Floor</th><th>Ceiling</th><th>Why</th></tr>
@@ -606,7 +636,7 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Mixed Use</td><td>18%</td><td>38%</td><td>Blended based on components</td></tr>
                 <tr><td>K-12 School</td><td>20%</td><td>45%</td><td>Empty summers, nights, weekends, holidays</td></tr>
                 <tr><td>Higher Ed</td><td>20%</td><td>45%</td><td>Semester breaks, variable schedules</td></tr>
-                <tr><td>Venue</td><td>27%</td><td>45%</td><td>Event-driven, empty 80%+ of the time</td></tr>
+                <tr><td>Venue</td><td>20%</td><td>45%</td><td>Event-driven, empty 80%+ of the time</td></tr>
                 <tr><td>Theater</td><td>18%</td><td>40%</td><td>Shows only ~24 hours/week out of 168</td></tr>
                 <tr><td>Hotel</td><td>15%</td><td>35%</td><td>Room-by-room variability</td></tr>
                 <tr><td>Retail</td><td>15%</td><td>35%</td><td>Traffic swings peak to empty</td></tr>
@@ -615,16 +645,79 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Restaurant/Bar</td><td>10%</td><td>25%</td><td>Kitchen exhaust must run; savings in dining only</td></tr>
                 <tr><td>Library/Museum</td><td>12%</td><td>28%</td><td>Climate runs 24/7 for preservation</td></tr>
                 <tr><td>Outpatient Clinic</td><td>15%</td><td>32%</td><td>Appointment-based, business hours</td></tr>
-                <tr><td>Inpatient Hospital</td><td>5%</td><td>15%</td><td>Code-mandated ventilation; savings in non-clinical only</td></tr>
-                <tr><td>Specialty Hospital</td><td>5%</td><td>15%</td><td>Similar constraints to inpatient</td></tr>
+                <tr><td>Inpatient Hospital</td><td>20%</td><td>38%</td><td>Waiting rooms, exam rooms, admin offices offer significant opportunity</td></tr>
+                <tr><td>Specialty Hospital</td><td>20%</td><td>38%</td><td>Similar to inpatient; non-clinical areas have high opportunity</td></tr>
                 <tr><td>Residential Care</td><td>5%</td><td>15%</td><td>Residents 24/7; limited opportunity</td></tr>
             </tbody>
         </table>
-        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn5" class="footnote-ref">5</a></p>
+        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.</p>
+
+        <h3>Technical Detail: Energy Cost Formulas</h3>
+        <p>Utility rates from <a href="https://www.eia.gov/electricity/data/state/" class="source-link">EIA State Electricity Data</a> and <a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI Utility Rate Database</a>.</p>
+        <p><strong>Electricity (two components):</strong></p>
+        <div class="formula">Peak_kW = Annual_kWh ÷ (8,760 hours × Load_Factor)</div>
+        <div class="formula">Energy_Cost = kWh × Rate_kWh × 1.10</div>
+        <div class="formula">Demand_Cost = Peak_kW × Rate_kW × 12 months × 1.265</div>
+        <ul>
+            <li><strong>1.10× energy multiplier:</strong> Accounts for taxes, distribution charges, transmission fees, and surcharges beyond base commodity rate (typically 8-15% on real bills).</li>
+            <li><strong>1.265× demand multiplier:</strong> Accounts for demand ratchet clauses (paying for historical peaks), seasonal rate differentials (summer 20-40% higher), and power factor penalties.</li>
+            <li><strong>Load factor:</strong> Ratio of average to peak demand. Default 0.45 (office); hospitals 0.60-0.70; warehouses 0.30-0.40.</li>
+        </ul>
+        <p><strong>Natural Gas:</strong></p>
+        <div class="formula">Gas_Cost = (kBtu ÷ 100) × Rate_therm × 1.10</div>
+        <p>Conversion: 1 therm = 100 kBtu. 1.10× multiplier for delivery charges and taxes.</p>
+        <p><strong>District Steam:</strong></p>
+        <div class="formula">Steam_Cost = (kBtu ÷ 909) × Rate_Mlb</div>
+        <p>Conversion: 1 Mlb (thousand lbs) &asymp; 909 kBtu. No multiplier&mdash;steam rates from utilities like ConEd are all-inclusive.</p>
+        <p><strong>Fuel Oil:</strong></p>
+        <div class="formula">Fuel_Oil_Cost = (kBtu ÷ 1000) × Rate_MMBtu × 1.10</div>
+
+        <h3>Technical Detail: HVAC Percentages</h3>
+        <p>Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> national survey of 6,436 commercial buildings, cross-referenced by building type and climate zone.</p>
+        <p><strong>Adjustments applied to each building:</strong></p>
+        <ul>
+            <li>ENERGY STAR score: ±5% (efficient buildings use less HVAC share)</li>
+            <li>Year built: ±4% (older buildings have less efficient envelopes)</li>
+            <li>EUI vs peer median: ±6% (high-EUI buildings often have HVAC issues)</li>
+            <li>Combined adjustment capped at ±12%</li>
+        </ul>
+        <p><strong>Electric HVAC minimum: 15%</strong><br>
+        Ventilation fans (8-12%), chilled water pumps (2-4%), condenser pumps (1-3%), and controls (1-2%) run continuously regardless of occupancy.</p>
+        <p><strong>Special cases by building type:</strong></p>
+        <ul>
+            <li><strong>Hotels:</strong> Only 21.5% of gas → HVAC. The rest: ~42% domestic hot water, ~33% cooking.</li>
+            <li><strong>Restaurants:</strong> Only 19.9% of gas → HVAC. The rest: ~72% commercial cooking.</li>
+            <li><strong>Supermarkets:</strong> Electric HVAC only 20% (refrigeration excluded from savings calculations).</li>
+            <li><strong>Offices:</strong> 92% of gas → HVAC (space heating dominates), 47% of electricity → HVAC.</li>
+        </ul>
+
+        <h3>Technical Detail: Master Formula</h3>
+        <div class="formula">ODCV% = Floor + (Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
+        <p>Where Range = Ceiling - Floor for each building type.</p>
+        <p><strong>Component breakdown:</strong></p>
+        <ul>
+            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max HVAC savings (e.g., Office 20-40%, Hospital 20-38%)</li>
+            <li><strong>Opportunity:</strong> 0-1 score based on vacancy and utilization</li>
+            <li><strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1)</li>
+            <li><strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste)</li>
+            <li><strong>Climate Modifier:</strong> 1.10 Northern, 1.05 North-Central, 1.00 South-Central, 0.95 Southern</li>
+        </ul>
+        <p>Example: Office with 59% opportunity, 0.875 automation score, average efficiency (1.0×), North-Central climate (1.05×) yields approximately 27% HVAC energy savings.</p>
+
+        <h3>Technical Detail: Annual Savings Calculation</h3>
+        <p>ODCV reduces energy consumption for each fuel type proportional to its HVAC share.</p>
+        <p><strong>Step 1: Calculate HVAC cost by fuel type</strong></p>
+        <div class="formula">Elec_HVAC_cost = Elec_cost × hvac_pct_elec</div>
+        <div class="formula">Gas_HVAC_cost = Gas_cost × hvac_pct_gas</div>
+        <div class="formula">Steam_HVAC_cost = Steam_cost × hvac_pct_steam</div>
+        <div class="formula">Total_HVAC_cost = Elec + Gas + Steam + Fuel_Oil</div>
+        <p><strong>Step 2: Apply ODCV savings percentage</strong></p>
+        <div class="formula">Annual_savings = Total_HVAC_cost × ODCV%</div>
+        <p>Example: Building with $500K total energy, 45% to HVAC ($225K), 30% ODCV savings = $67,500/year.</p>
     </section>
 
     <!-- Section 4: Beyond Utility Savings -->
-    <section class="section">
+    <section class="section" id="benefits">
         <h2>Additional Benefits</h2>
 
         <h3>BPS Fines</h3>
@@ -644,7 +737,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
         <p><strong>Dataset totals (Year 1):</strong> Baseline fines $913M &rarr; Post-ODCV fines $494M = <strong>$419M avoided</strong>.</p>
-        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.<a href="#fn6" class="footnote-ref">6</a></p>
+        <p>ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines. See the <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.</p>
 
         <h3>Property Value</h3>
         <p>Real estate value depends on Net Operating Income. OpEx savings increase NOI dollar-for-dollar. Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>:</p>
@@ -663,14 +756,41 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
         <p><strong>Dataset totals:</strong> Total valuation impact = <strong>$38.5B</strong> (mean $2.28M per building).</p>
-        <p>Example: $100K annual savings ÷ 7% cap rate = $1.43M property value increase.<a href="#fn7" class="footnote-ref">7</a></p>
+        <p>Example: $100K annual savings ÷ 7% cap rate = $1.43M property value increase.</p>
 
         <h3>ENERGY STAR Impact</h3>
-        <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.<a href="#fn8" class="footnote-ref">8</a></p>
+        <p>Lower energy consumption improves ENERGY STAR score. We estimate post-ODCV scores using EPA methodology.</p>
+
+        <h3>Technical Detail: BPS Fine Calculations</h3>
+        <p>Each city calculates fines differently. ODCV reduces energy → reduces emissions → reduces or avoids fines.</p>
+        <ul>
+            <li><strong><a href="https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page" class="source-link">NYC Local Law 97</a>:</strong> $268/tCO2e over emissions cap (0.00758 tCO2e/sqft for office).</li>
+            <li><strong><a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" class="source-link">Boston BERDO 2.0</a>:</strong> $234/tCO2e Alternative Compliance Payment over cap (0.0053 tCO2e/sqft).</li>
+            <li><strong>Cambridge BEUDO:</strong> $234/tCO2e, but target is 20% below building's own baseline.</li>
+            <li><strong><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" class="source-link">DC BEPS</a>:</strong> Up to $10/sqft (max $7.5M), prorated by gap from ENERGY STAR target.</li>
+            <li><strong><a href="https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub" class="source-link">Denver Energize</a>:</strong> $0.15/kBtu over EUI target.</li>
+            <li><strong><a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards" class="source-link">Seattle BEPS</a>:</strong> $10/sqft per 5-year cycle if over 0.00081 tCO2e/sqft.</li>
+            <li><strong>St. Louis BEPS:</strong> $500/day non-compliance if EUI exceeds ~65 kBtu/sqft target.</li>
+        </ul>
+        <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
+
+        <h3>Technical Detail: Property Valuation (Income Capitalization)</h3>
+        <p>Commercial real estate is valued on Net Operating Income (NOI). Every $1 of operating expense avoided increases NOI by $1, which increases property value via the capitalization rate.</p>
+        <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
+        <p><strong>Example:</strong> $100K annual savings ÷ 7% cap rate = $1.43M property value increase.</p>
+        <p><strong>Cap rate interpretation:</strong> Lower cap rates (5-6%) mean higher value multipliers (16-20×). Higher cap rates (8-10%) mean lower multipliers (10-12×). Riskier assets command higher cap rates.</p>
+
+        <h3>Technical Detail: ENERGY STAR Score Improvement</h3>
+        <p><a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; 75+ qualifies for certification.</p>
+        <p><strong>How scores are calculated:</strong><br>
+        EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.</p>
+        <p><strong>Estimating post-ODCV score:</strong></p>
+        <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
+        <p>Lower EUI → higher percentile → higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.</p>
     </section>
 
     <!-- Section 5: Validation & Limitations -->
-    <section class="section">
+    <section class="section" id="validation">
         <h2>Validation &amp; Limitations</h2>
 
         <h3>Why This Methodology Is Defensible</h3>
@@ -679,8 +799,8 @@ if (window.location.search.includes('embed=1')) {
             <li><strong>Peer-reviewed sources:</strong> HVAC percentages from EIA CBECS 2018 (6,436 buildings surveyed). Vacancy from CBRE/CommercialEdge. Utilization from Kastle badge-swipe data.</li>
             <li><strong>Conservative assumptions:</strong>
                 <ul>
-                    <li>Floor savings (20%) achievable even with minimal implementation</li>
-                    <li>Limited-opportunity buildings (hospitals, labs) use 0.3× multiplier</li>
+                    <li>Floor HVAC savings (20%) achievable even with minimal implementation</li>
+                    <li>Limited-opportunity buildings (labs, residential care) use 0.3× multiplier</li>
                     <li>Combined adjustment capped at ±12% to prevent outliers</li>
                 </ul>
             </li>
@@ -715,139 +835,101 @@ if (window.location.search.includes('embed=1')) {
         </table>
     </section>
 
-    <!-- Footnotes: Formulas -->
-    <div class="footnotes">
-        <h2>Technical Formulas</h2>
-
-        <div class="footnote" id="fn1">
-            <span class="footnote-num">1</span>
-            <strong>Opportunity Score</strong><br>
-            Measures how much conditioned space is empty and available for ventilation reduction.<br><br>
-            <strong>Multi-tenant buildings</strong> (office, medical office, mixed use):<br>
-            Vacant space has no tenant but is still ventilated. Leased space may be underutilized due to hybrid work.
-            <div class="formula">Opportunity = Vacancy + (1 - Vacancy) × (1 - Utilization)</div>
-            Example: 25% vacancy + 75% leased at 55% utilization = 25% + (75% × 45%) = 59% opportunity.<br><br>
-            <strong>Single-operator buildings</strong> (hotel, school, retail):<br>
-            No vacancy concept&mdash;the operator controls all space. Opportunity driven purely by when space is empty.
-            <div class="formula">Opportunity = 1 - Utilization</div>
-            Example: School at 45% utilization (summers, nights, weekends off) = 55% opportunity.<br><br>
-            <strong>Limited-opportunity buildings</strong> (hospital, lab, residential care):<br>
-            Code-mandated ventilation for infection control, fume hoods, or 24/7 residents limits savings to ~30% of theoretical.
-            <div class="formula">Opportunity = (1 - Utilization) × 0.3</div>
-        </div>
-
-        <div class="footnote" id="fn2">
-            <span class="footnote-num">2</span>
-            <strong>Energy Cost Formulas</strong><br>
-            Utility rates from <a href="https://www.eia.gov/electricity/data/state/" class="source-link">EIA State Electricity Data</a> and <a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI Utility Rate Database</a>.<br><br>
-            <strong>Electricity (two components):</strong>
-            <div class="formula">Peak_kW = Annual_kWh ÷ (8,760 hours × Load_Factor)</div>
-            <div class="formula">Energy_Cost = kWh × Rate_kWh × 1.10</div>
-            <div class="formula">Demand_Cost = Peak_kW × Rate_kW × 12 months × 1.265</div>
-            &bull; <strong>1.10× energy multiplier:</strong> Accounts for taxes, distribution charges, transmission fees, and surcharges beyond base commodity rate (typically 8-15% on real bills).<br>
-            &bull; <strong>1.265× demand multiplier:</strong> Accounts for demand ratchet clauses (paying for historical peaks), seasonal rate differentials (summer 20-40% higher), and power factor penalties.<br>
-            &bull; <strong>Load factor:</strong> Ratio of average to peak demand. Default 0.45 (office); hospitals 0.60-0.70; warehouses 0.30-0.40.<br><br>
-            <strong>Natural Gas:</strong>
-            <div class="formula">Gas_Cost = (kBtu ÷ 100) × Rate_therm × 1.10</div>
-            Conversion: 1 therm = 100 kBtu. 1.10× multiplier for delivery charges and taxes.<br><br>
-            <strong>District Steam:</strong>
-            <div class="formula">Steam_Cost = (kBtu ÷ 909) × Rate_Mlb</div>
-            Conversion: 1 Mlb (thousand lbs) &asymp; 909 kBtu. No multiplier&mdash;steam rates from utilities like ConEd are all-inclusive.<br><br>
-            <strong>Fuel Oil:</strong>
-            <div class="formula">Fuel_Oil_Cost = (kBtu ÷ 1000) × Rate_MMBtu × 1.10</div>
-            Conversion: 1 MMBtu = 1,000 kBtu. 1.10× for delivery and taxes.
-        </div>
-
-        <div class="footnote" id="fn3">
-            <span class="footnote-num">3</span>
-            <strong>HVAC Percentages</strong><br>
-            Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> national survey of 6,436 commercial buildings, cross-referenced by building type and climate zone.<br><br>
-            <strong>Adjustments applied to each building:</strong><br>
-            &bull; ENERGY STAR score: ±5% (efficient buildings use less HVAC share)<br>
-            &bull; Year built: ±4% (older buildings have less efficient envelopes)<br>
-            &bull; EUI vs peer median: ±6% (high-EUI buildings often have HVAC issues)<br>
-            &bull; Combined adjustment capped at ±12%<br><br>
-            <strong>Electric HVAC minimum: 15%</strong><br>
-            Ventilation fans (8-12%), chilled water pumps (2-4%), condenser pumps (1-3%), and controls (1-2%) run continuously regardless of occupancy.<br><br>
-            <strong>Special cases by building type:</strong><br>
-            &bull; <strong>Hotels:</strong> Only 21.5% of gas &rarr; HVAC. The rest: ~42% domestic hot water, ~33% cooking. This is why hotel gas savings are much lower than offices.<br>
-            &bull; <strong>Restaurants:</strong> Only 19.9% of gas &rarr; HVAC. The rest: ~72% commercial cooking. Kitchen exhaust must run continuously.<br>
-            &bull; <strong>Supermarkets:</strong> Electric HVAC only 20% (refrigeration excluded from savings calculations).<br>
-            &bull; <strong>Offices:</strong> 92% of gas &rarr; HVAC (space heating dominates), 47% of electricity &rarr; HVAC (fans, chillers, pumps).
-        </div>
-
-        <div class="footnote" id="fn4">
-            <span class="footnote-num">4</span>
-            <strong>Master Formula</strong>
-            <div class="formula">ODCV% = Floor + (Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
-            Where Range = Ceiling - Floor for each building type.<br><br>
-            <strong>Component breakdown:</strong><br>
-            &bull; <strong>Floor/Ceiling:</strong> Building-type-specific min/max savings (e.g., Office 20-40%, Hospital 5-15%)<br>
-            &bull; <strong>Opportunity:</strong> 0-1 score based on vacancy and utilization (see footnote 1)<br>
-            &bull; <strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1). Newer, larger buildings more likely to have BMS capable of implementing ODCV.<br>
-            &bull; <strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste to capture)<br>
-            &bull; <strong>Climate Modifier:</strong> 1.10 Northern (heating penalty), 1.05 North-Central, 1.00 South-Central, 0.95 Southern<br><br>
-            Example: Office (20-40% range), 59% opportunity, 0.875 automation, ES score 68 (1.0×), North-Central (1.05×):<br>
-            ODCV% = 20% + (59% × 0.875 × 20%) × 1.0 × 1.05 = 20% + 10.8% = 30.8%
-        </div>
-
-        <div class="footnote" id="fn5">
-            <span class="footnote-num">5</span>
-            <strong>Annual Savings</strong><br>
-            ODCV reduces energy consumption for each fuel type proportional to its HVAC share.<br><br>
-            <strong>Step 1: Calculate HVAC cost by fuel type</strong>
-            <div class="formula">Elec_HVAC_cost = Elec_cost × hvac_pct_elec</div>
-            <div class="formula">Gas_HVAC_cost = Gas_cost × hvac_pct_gas</div>
-            <div class="formula">Steam_HVAC_cost = Steam_cost × hvac_pct_steam</div>
-            <div class="formula">Total_HVAC_cost = Elec + Gas + Steam + Fuel_Oil</div>
-            <strong>Step 2: Apply ODCV savings percentage</strong>
-            <div class="formula">Annual_savings = Total_HVAC_cost × ODCV%</div>
-            Example: Building with $500K total energy, 45% to HVAC ($225K), 30% ODCV savings = $67,500/year.
-        </div>
-
-        <div class="footnote" id="fn6">
-            <span class="footnote-num">6</span>
-            <strong>BPS Fine Calculations</strong><br>
-            Each city calculates fines differently. ODCV reduces energy &rarr; reduces emissions &rarr; reduces or avoids fines.<br><br>
-            <strong><a href="https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page" class="source-link">NYC Local Law 97</a>:</strong> $268/tCO2e over emissions cap (0.00758 tCO2e/sqft for office). Buildings exceeding cap pay per ton over.<br>
-            <strong><a href="https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure" class="source-link">Boston BERDO 2.0</a>:</strong> $234/tCO2e Alternative Compliance Payment over cap (0.0053 tCO2e/sqft).<br>
-            <strong>Cambridge BEUDO:</strong> $234/tCO2e, but target is 20% below building's own baseline (not fixed cap).<br>
-            <strong><a href="https://doee.dc.gov/service/building-energy-performance-standards-beps" class="source-link">DC BEPS</a>:</strong> Up to $10/sqft (max $7.5M), prorated by gap from ENERGY STAR target. Target varies by building type (Office: 71, Hotel: 54).<br>
-            <strong><a href="https://www.denvergov.org/Government/Agencies-Departments-Offices/Agencies-Departments-Offices-Directory/Climate-Action-Sustainability-and-Resiliency/Cutting-Denvers-Carbon-Pollution/High-Performance-Buildings-and-Homes/Energize-Denver-Hub" class="source-link">Denver Energize</a>:</strong> $0.15/kBtu over EUI target. Target follows glide path from 2019 baseline to 2032 final.<br>
-            <strong><a href="https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards" class="source-link">Seattle BEPS</a>:</strong> $10/sqft per 5-year cycle if over 0.00081 tCO2e/sqft (binary: compliant or not).<br>
-            <strong>St. Louis BEPS:</strong> $500/day non-compliance if EUI exceeds ~65 kBtu/sqft target.<br><br>
-            <div class="formula">Fine_avoided = Fine_baseline - Fine_postODCV</div>
-            See <a href="https://imt.org/wp-content/uploads/2023/07/IMT-BPS-Matrix.pdf" class="source-link">IMT BPS Comparison Matrix</a> for full details.
-        </div>
-
-        <div class="footnote" id="fn7">
-            <span class="footnote-num">7</span>
-            <strong>Property Valuation (Income Capitalization)</strong><br>
-            Commercial real estate is valued on Net Operating Income (NOI). Every $1 of operating expense avoided increases NOI by $1, which increases property value via the capitalization rate.<br><br>
-            <div class="formula">Value_increase = (Utility_savings + Fine_avoidance) / Cap_rate</div>
-            <strong>Example:</strong> $100K annual savings ÷ 7% cap rate = $1.43M property value increase.<br><br>
-            <strong>Cap rate interpretation:</strong> Lower cap rates (5-6%) mean higher value multipliers (16-20×). Higher cap rates (8-10%) mean lower multipliers (10-12×). Riskier assets command higher cap rates.<br><br>
-            Cap rates from <a href="https://www.cbre.com/insights/reports/us-cap-rate-survey-h1-2025" class="source-link">CBRE Cap Rate Survey</a>.
-        </div>
-
-        <div class="footnote" id="fn8">
-            <span class="footnote-num">8</span>
-            <strong>ENERGY STAR Score Improvement</strong><br>
-            <a href="https://www.energystar.gov/buildings/benchmark/understand-metrics/how-score-calculated" class="source-link">ENERGY STAR scores</a> compare a building's energy use to similar buildings nationwide. A score of 50 means median performance; higher is better (75+ qualifies for certification).<br><br>
-            <strong>How scores are calculated:</strong><br>
-            EPA uses a gamma distribution regression model that maps source EUI to percentile rank, normalized for weather, operating hours, and building characteristics. See <a href="https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf" class="source-link">EPA Technical Reference</a>.<br><br>
-            <strong>Estimating post-ODCV score:</strong>
-            <div class="formula">New_EUI = Current_EUI × (1 - ODCV% × Weighted_HVAC%)</div>
-            Lower EUI &rarr; higher percentile &rarr; higher score. A 10% EUI reduction typically improves score by 5-15 points depending on starting position on the distribution curve.
-        </div>
-
-    </div>
-
 </main>
 
 <footer class="footer">
     <p>&copy; R-Zero | Nationwide Prospector Technical Methodology</p>
 </footer>
+
+<script>
+// Section collapse functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const allSections = document.querySelectorAll('.section');
+    const sectionToggles = {};
+
+    allSections.forEach(function(section) {
+        const header = section.querySelector('h2');
+        if (!header) return;
+
+        // Create collapse arrow
+        const arrow = document.createElement('div');
+        arrow.className = 'collapse-arrow collapsed';
+        header.appendChild(arrow);
+
+        // A11y + keyboard support
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-expanded', 'false');
+        header.title = 'Click to expand/collapse';
+
+        // Get all content elements (everything after h2)
+        const contentElements = section.querySelectorAll('h3, h4, p, ul, ol, table, .formula');
+
+        // Start collapsed
+        section.classList.add('collapsed');
+        contentElements.forEach(el => {
+            el.setAttribute('data-original-display', getComputedStyle(el).display);
+            el.style.display = 'none';
+        });
+
+        function expandSection() {
+            if (!arrow.classList.contains('collapsed')) return;
+            header.setAttribute('aria-expanded', 'true');
+            contentElements.forEach(el => {
+                el.style.display = el.getAttribute('data-original-display') || '';
+            });
+            arrow.classList.remove('collapsed');
+            section.classList.remove('collapsed');
+        }
+
+        function toggleSection(event) {
+            if (event) event.stopPropagation();
+            const isCollapsed = arrow.classList.contains('collapsed');
+
+            header.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+
+            contentElements.forEach(el => {
+                if (isCollapsed) {
+                    el.style.display = el.getAttribute('data-original-display') || '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            arrow.classList.toggle('collapsed');
+            section.classList.toggle('collapsed');
+        }
+
+        header.addEventListener('click', toggleSection);
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSection(e);
+            }
+        });
+
+        // Store expand function by section ID
+        if (section.id) {
+            sectionToggles[section.id] = expandSection;
+        }
+    });
+
+    // Auto-expand section if URL has hash
+    function expandFromHash() {
+        const hash = window.location.hash.slice(1);
+        if (hash && sectionToggles[hash]) {
+            sectionToggles[hash]();
+            // Scroll to section after short delay for DOM update
+            setTimeout(function() {
+                document.getElementById(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }
+
+    expandFromHash();
+    window.addEventListener('hashchange', expandFromHash);
+});
+</script>
 
 </body>
 </html>
