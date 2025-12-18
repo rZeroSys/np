@@ -985,6 +985,17 @@ body.all-buildings-active .main-tabs {
     left: 0 !important;
 }
 
+/* Hide everything except methodology iframe when Methodology tab is active */
+body.methodology-active .vertical-filter-bar,
+body.methodology-active .city-filter-bar,
+body.methodology-active .portfolio-section {
+    display: none !important;
+}
+
+body.methodology-active .main-tabs {
+    left: 0 !important;
+}
+
 /* All Buildings Tab Styles */
 .all-buildings-section {
     padding: 185px 32px 32px 32px;
@@ -4398,12 +4409,8 @@ tr.pin-highlight {
     </div>
 </div>
 </div>
-<div id="methodology-tab" class="tab-content" style="display: none; padding: 180px 32px 40px 32px;">
-    <div style="max-width: 1000px; margin: 0 auto;">
-        <div id="methodology-content" style="text-align: center; padding: 100px 0; color: var(--gray-500);">
-            Loading methodology...
-        </div>
-    </div>
+<div id="methodology-tab" class="tab-content" style="display: none; padding-top: 140px;">
+    <iframe id="methodology-iframe" src="" style="width: 100%; height: calc(100vh - 140px); border: none;"></iframe>
 </div>'''
 
     def _generate_main_building_table(self):
@@ -4967,8 +4974,9 @@ function switchMainTab(tabId) {{
         t.classList.toggle('active', t.dataset.tab === tabId);
     }});
 
-    // Toggle body class to hide/show sidebar (hide on cities and methodology tabs)
-    document.body.classList.toggle('all-buildings-active', tabId === 'all-buildings' || tabId === 'methodology');
+    // Toggle body classes for different tabs
+    document.body.classList.toggle('all-buildings-active', tabId === 'all-buildings');
+    document.body.classList.toggle('methodology-active', tabId === 'methodology');
 
     // Show/hide tab content
     document.getElementById('portfolios-tab').style.display = tabId === 'portfolios' ? 'block' : 'none';
@@ -4994,28 +5002,10 @@ function switchMainTab(tabId) {{
         doFilterAllBuildings();
     }}
 
-    // Lazy load methodology content on first view
+    // Load methodology iframe on first view (embed mode hides header)
     if (tabId === 'methodology' && !window.methodologyLoaded) {{
-        fetch('methodology.html')
-            .then(response => response.text())
-            .then(html => {{
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const mainContent = doc.querySelector('.main-content');
-                const container = document.getElementById('methodology-content');
-                if (mainContent && container) {{
-                    container.innerHTML = mainContent.innerHTML;
-                    // Reset padding since we're injecting the content
-                    container.style.textAlign = 'left';
-                    container.style.padding = '0';
-                    container.style.color = 'inherit';
-                }}
-                window.methodologyLoaded = true;
-            }})
-            .catch(err => {{
-                console.error('Failed to load methodology:', err);
-                document.getElementById('methodology-content').innerHTML = '<p style="color: red;">Failed to load methodology content.</p>';
-            }});
+        document.getElementById('methodology-iframe').src = 'methodology.html?embed=1';
+        window.methodologyLoaded = true;
     }}
 
     // Show/hide tutorial button - only on portfolios tab

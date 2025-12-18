@@ -164,6 +164,18 @@
     </style>
 </head>
 <body>
+<script>
+// Hide header/footer when embedded in iframe
+if (window.location.search.includes('embed=1')) {
+    document.documentElement.classList.add('embed-mode');
+}
+</script>
+<style>
+.embed-mode .header,
+.embed-mode .page-title,
+.embed-mode .footer { display: none !important; }
+.embed-mode .main-content { padding-top: 20px !important; }
+</style>
 
 <header class="header">
     <div class="header-inner">
