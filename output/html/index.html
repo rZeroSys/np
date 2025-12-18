@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 03:11:04 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 03:12:57 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6936,6 +6936,9 @@ function toggleVerticalDropdown(event, vertical) {
 }
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {
+    console.log('=== selectBuildingTypeFromDropdown CALLED ===');
+    console.log('buildingType:', buildingType);
+    console.log('vertical:', vertical);
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
@@ -6973,7 +6976,14 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {
 
     applyFilters();
     // Sync to All Buildings tab
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    console.log('window.allBuildingsInitialized:', window.allBuildingsInitialized);
+    console.log('selectedBuildingType after set:', selectedBuildingType);
+    if (window.allBuildingsInitialized) {
+        console.log('Calling doFilterAllBuildings...');
+        doFilterAllBuildings();
+    } else {
+        console.log('allBuildingsInitialized is false, NOT calling doFilterAllBuildings');
+    }
 }
 
 // Close vertical dropdowns when clicking outside
@@ -9066,7 +9076,7 @@ function logResponsiveDiagnostics() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-18 03:11:04 EST
+        Build: 2025-12-18 03:12:57 EST
       </div>
     </footer>
 
@@ -9203,7 +9213,7 @@ function logResponsiveDiagnostics() {
     }
 
     function showBuildDate() {
-        alert("Build: 12/18/2025 12:11 AM PST");
+        alert("Build: 12/18/2025 12:12 AM PST");
     }
 
     // Check auth on page load

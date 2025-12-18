@@ -6276,6 +6276,9 @@ function toggleVerticalDropdown(event, vertical) {{
 }}
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {{
+    console.log('=== selectBuildingTypeFromDropdown CALLED ===');
+    console.log('buildingType:', buildingType);
+    console.log('vertical:', vertical);
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
@@ -6313,7 +6316,14 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
 
     applyFilters();
     // Sync to All Buildings tab
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    console.log('window.allBuildingsInitialized:', window.allBuildingsInitialized);
+    console.log('selectedBuildingType after set:', selectedBuildingType);
+    if (window.allBuildingsInitialized) {{
+        console.log('Calling doFilterAllBuildings...');
+        doFilterAllBuildings();
+    }} else {{
+        console.log('allBuildingsInitialized is false, NOT calling doFilterAllBuildings');
+    }}
 }}
 
 // Close vertical dropdowns when clicking outside
