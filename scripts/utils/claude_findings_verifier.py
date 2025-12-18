@@ -1,0 +1,494 @@
+#!/usr/bin/env python3
+"""
+Claude Findings Verifier - Verify research findings using Anthropic Claude API
+Polls research_results.csv for new findings and verifies them independently.
+
+Run test: python3 claude_findings_verifier.py --test
+Run full: python3 claude_findings_verifier.py
+
+Requires: export ANTHROPIC_API_KEY="your-key"
+"""
+
+import pandas as pd
+import json
+import csv
+import os
+import time
+import argparse
+import subprocess
+import signal
+import atexit
+from datetime import datetime
+
+try:
+    import anthropic
+except ImportError:
+    print("ERROR: anthropic package not installed.")
+    print("Run: pip3 install anthropic")
+    exit(1)
+
+# Paths
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector'
+
+INPUT_RESULTS = f'{SCRIPT_DIR}/research_results.csv'
+OUTPUT_VERIFIED = f'{SCRIPT_DIR}/verified_findings.csv'
+PROGRESS_FILE = f'{SCRIPT_DIR}/verification_progress.txt'
+PORTFOLIO_DATA = f'{PROJECT_DIR}/data/source/portfolio_data.csv'
+
+# Caffeinate process to prevent Mac sleep
+caffeinate_proc = None
+
+def start_caffeinate():
+    global caffeinate_proc
+    try:
+        caffeinate_proc = subprocess.Popen(['caffeinate', '-dims'])
+        log("[CAFFEINATE] Mac will not sleep during run")
+    except Exception as e:
+        log(f"[CAFFEINATE] Could not start: {e}")
+
+def stop_caffeinate():
+    global caffeinate_proc
+    if caffeinate_proc:
+        caffeinate_proc.terminate()
+        log("[CAFFEINATE] Stopped")
+
+def log(msg):
+    ts = datetime.now().strftime('%H:%M:%S')
+    print(f"[{ts}] {msg}")
+
+def save_progress(idx):
+    with open(PROGRESS_FILE, 'w') as f:
+        f.write(str(idx))
+
+def load_progress():
+    if os.path.exists(PROGRESS_FILE):
+        with open(PROGRESS_FILE, 'r') as f:
+            content = f.read().strip()
+            return int(content) if content else 0
+    return 0
+
+def get_output_fieldnames():
+    return [
+        'id_building',
+        'issue_type',
+        'property_name',
+        'address',
+        'city',
+        'original_finding',
+        'original_confidence',
+        'original_recommendation',
+        'source_count',
+        'avg_source_quality',
+        'claude_verified',
+        'claude_confidence',
+        'claude_reasoning',
+        'verification_timestamp'
+    ]
+
+def append_verified_result(result, is_first=False):
+    mode = 'w' if is_first else 'a'
+    with open(OUTPUT_VERIFIED, mode, newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=get_output_fieldnames())
+        if is_first:
+            writer.writeheader()
+        writer.writerow(result)
+
+def load_portfolio_context():
+    """Load portfolio data for building context enrichment"""
+    if os.path.exists(PORTFOLIO_DATA):
+        df = pd.read_csv(PORTFOLIO_DATA, low_memory=False)
+        return df.set_index('id_building').to_dict('index')
+    return {}
+
+def safe_str_prompt(val, default=''):
+    """Safely convert value to string for prompts, handling NaN/None"""
+    if val is None or (isinstance(val, float) and pd.isna(val)):
+        return default
+    return str(val)
+
+def build_verification_prompt(finding, portfolio_context):
+    """Build prompt for Claude to verify a finding"""
+
+    id_building = safe_str_prompt(finding.get('id_building', ''))
+    issue_type = safe_str_prompt(finding.get('issue_type', ''))
+    property_name = safe_str_prompt(finding.get('property_name', ''))
+    address = safe_str_prompt(finding.get('address', ''))
+    city = safe_str_prompt(finding.get('city', ''))
+
+    # Get original finding (owner or tenant)
+    original_finding = safe_str_prompt(finding.get('found_owner', '')) or safe_str_prompt(finding.get('found_tenant', ''))
+    original_confidence = safe_str_prompt(finding.get('confidence', ''))
+    gpt_reasoning = safe_str_prompt(finding.get('gpt_reasoning', '')) or safe_str_prompt(finding.get('gpt_analysis', ''))
+    source_urls = safe_str_prompt(finding.get('source_urls', ''))
+    source_count = finding.get('source_count', 0) or 0
+    avg_quality = finding.get('avg_source_quality', 0) or 0
+    recommendation = safe_str_prompt(finding.get('recommendation', ''))
+
+    # Get additional context from portfolio if available
+    building_context = portfolio_context.get(id_building, {})
+    bldg_type = building_context.get('bldg_type', finding.get('bldg_type', ''))
+    bldg_sqft = building_context.get('bldg_sqft', '')
+    bldg_vertical = building_context.get('bldg_vertical', '')
+    val_current = building_context.get('val_current_usd', '')
+
+    # Format building value if present
+    val_str = f"${float(val_current)/1e6:.1f}M" if val_current and pd.notna(val_current) and float(val_current) > 0 else "Unknown"
+    sqft_str = f"{int(float(bldg_sqft)):,}" if bldg_sqft and pd.notna(bldg_sqft) else "Unknown"
+
+    prompt = f"""You are verifying a real estate research finding that was generated by another AI system using web search results.
+
+BUILDING INFORMATION:
+- Building ID: {id_building}
+- Property Name: {property_name or 'Not specified'}
+- Address: {address}, {city}
+- Building Type: {bldg_type or 'Unknown'}
+- Sector: {bldg_vertical or 'Unknown'}
+- Square Feet: {sqft_str}
+- Estimated Value: {val_str}
+
+RESEARCH FINDING TO VERIFY:
+- Issue Type: {issue_type}
+- Finding: {original_finding}
+- Original Confidence: {original_confidence}
+- Recommendation: {recommendation}
+- Number of Sources: {source_count}
+- Average Source Quality (1-10): {avg_quality}
+
+ORIGINAL REASONING:
+{gpt_reasoning[:500] if gpt_reasoning else 'No reasoning provided'}
+
+SOURCE URLS (sample):
+{source_urls[:500] if source_urls else 'No URLs provided'}
+
+YOUR TASK:
+Assess whether this finding is plausible and well-supported. Consider:
+1. Does the entity name make sense for this type/size of property?
+2. Is the original reasoning logical and well-supported?
+3. Based on source count and quality, is there enough evidence?
+4. Are there any red flags (e.g., entity name seems made up, mismatch with property type)?
+
+Return your assessment as JSON:
+{{
+  "verified": true or false,
+  "confidence": "HIGH" or "MEDIUM" or "LOW",
+  "reasoning": "Your brief explanation (1-2 sentences)"
+}}
+
+Only return the JSON object, nothing else."""
+
+    return prompt, original_finding
+
+def verify_with_claude(client, finding, portfolio_context):
+    """Use Claude to verify a finding"""
+    prompt, original_finding = build_verification_prompt(finding, portfolio_context)
+
+    try:
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        response_text = response.content[0].text.strip()
+
+        # Parse JSON response
+        # Clean up response if needed
+        if response_text.startswith('```'):
+            response_text = response_text.replace('```json', '').replace('```', '').strip()
+
+        # Find JSON in response
+        start = response_text.find('{')
+        end = response_text.rfind('}') + 1
+        if start >= 0 and end > start:
+            response_text = response_text[start:end]
+
+        result = json.loads(response_text)
+        return {
+            'verified': result.get('verified', False),
+            'confidence': result.get('confidence', 'LOW'),
+            'reasoning': result.get('reasoning', 'No reasoning provided')
+        }
+
+    except json.JSONDecodeError as e:
+        log(f"    JSON parse error: {e}")
+        log(f"    Raw response: {response_text[:200]}")
+        return {
+            'verified': False,
+            'confidence': 'LOW',
+            'reasoning': f'JSON parse error: {str(e)[:50]}'
+        }
+    except Exception as e:
+        log(f"    Claude API error: {e}")
+        return {
+            'verified': False,
+            'confidence': 'LOW',
+            'reasoning': f'API error: {str(e)[:50]}'
+        }
+
+def safe_str(val, default=''):
+    """Safely convert value to string, handling NaN/None"""
+    if val is None or (isinstance(val, float) and pd.isna(val)):
+        return default
+    return str(val)
+
+def process_finding(client, finding, portfolio_context, idx, total, is_first_write=False):
+    """Process and verify a single finding"""
+
+    id_building = safe_str(finding.get('id_building', ''))
+    issue_type = safe_str(finding.get('issue_type', ''))
+    property_name = safe_str(finding.get('property_name', '')) or safe_str(finding.get('address', ''))[:30]
+    address = safe_str(finding.get('address', ''))
+    city = safe_str(finding.get('city', ''))
+    original_finding = safe_str(finding.get('found_owner', '')) or safe_str(finding.get('found_tenant', '')) or ''
+    original_confidence = safe_str(finding.get('confidence', ''))
+    original_recommendation = safe_str(finding.get('recommendation', ''))
+    source_count = finding.get('source_count', 0) or 0
+    avg_quality = finding.get('avg_source_quality', 0) or 0
+
+    # Verbose output - header
+    log("=" * 60)
+    log(f"VERIFYING [{idx}/{total}]: {id_building} - {property_name[:35]}")
+    log(f"Issue Type: {issue_type}")
+    log(f"Original Finding: {original_finding[:50]}... ({original_confidence} confidence)")
+    log(f"Sources: {source_count} (avg quality: {avg_quality})")
+    log("=" * 60)
+
+    # Call Claude
+    claude_result = verify_with_claude(client, finding, portfolio_context)
+
+    # Verbose output - result
+    verified_str = "VERIFIED" if claude_result['verified'] else "NOT VERIFIED"
+    log(f"Claude says: {verified_str} ({claude_result['confidence']} confidence)")
+    log(f"Reasoning: \"{claude_result['reasoning'][:100]}...\"")
+
+    # Build result row
+    result = {
+        'id_building': id_building,
+        'issue_type': issue_type,
+        'property_name': property_name,
+        'address': address,
+        'city': city,
+        'original_finding': original_finding,
+        'original_confidence': original_confidence,
+        'original_recommendation': original_recommendation,
+        'source_count': source_count,
+        'avg_source_quality': avg_quality,
+        'claude_verified': str(claude_result['verified']),
+        'claude_confidence': claude_result['confidence'],
+        'claude_reasoning': claude_result['reasoning'][:200],
+        'verification_timestamp': datetime.now().isoformat()
+    }
+
+    # Save to CSV
+    append_verified_result(result, is_first=is_first_write)
+    log(f"Saved to {OUTPUT_VERIFIED}")
+    log("")
+
+    return result
+
+def run_test_mode(client, findings_df, portfolio_context):
+    """Run test mode: 3 rounds of 3 verifications each"""
+    log("=" * 60)
+    log("TEST MODE: 3 rounds x 3 verifications = 9 total")
+    log("=" * 60)
+    log("")
+
+    total_findings = len(findings_df)
+    if total_findings < 9:
+        log(f"WARNING: Only {total_findings} findings available, will process all")
+
+    test_count = min(9, total_findings)
+    round_size = 3
+
+    all_results = []
+
+    for round_num in range(1, 4):
+        start_idx = (round_num - 1) * round_size
+        end_idx = min(start_idx + round_size, test_count)
+
+        if start_idx >= test_count:
+            break
+
+        log("")
+        log("#" * 60)
+        log(f"ROUND {round_num} OF 3")
+        log("#" * 60)
+        log("")
+
+        round_results = []
+
+        for i in range(start_idx, end_idx):
+            finding = findings_df.iloc[i].to_dict()
+            is_first = (i == 0)
+            result = process_finding(client, finding, portfolio_context, i + 1, test_count, is_first_write=is_first)
+            round_results.append(result)
+            all_results.append(result)
+            time.sleep(0.5)  # Rate limiting
+
+        # Round summary
+        verified_count = sum(1 for r in round_results if r['claude_verified'] == 'True')
+        log("-" * 60)
+        log(f"ROUND {round_num} SUMMARY:")
+        log(f"  Verified: {verified_count}/{len(round_results)}")
+        for r in round_results:
+            status = "OK" if r['claude_verified'] == 'True' else "XX"
+            log(f"    [{status}] {r['id_building']}: {r['original_finding'][:30]}... -> {r['claude_confidence']}")
+        log("-" * 60)
+
+        if round_num < 3:
+            log("Waiting 2 seconds before next round...")
+            time.sleep(2)
+
+    # Final summary
+    log("")
+    log("=" * 60)
+    log("TEST COMPLETE")
+    log("=" * 60)
+    total_verified = sum(1 for r in all_results if r['claude_verified'] == 'True')
+    log(f"Total Verified: {total_verified}/{len(all_results)}")
+
+    confidence_counts = {}
+    for r in all_results:
+        conf = r['claude_confidence']
+        confidence_counts[conf] = confidence_counts.get(conf, 0) + 1
+
+    log("Confidence Distribution:")
+    for conf, count in sorted(confidence_counts.items()):
+        log(f"  {conf}: {count}")
+
+    log("")
+    log(f"Results saved to: {OUTPUT_VERIFIED}")
+    log("")
+    log("To run full verification with polling, use:")
+    log("  python3 claude_findings_verifier.py")
+
+def run_polling_mode(client, portfolio_context, poll_interval, limit=None):
+    """Run in polling mode, watching for new findings"""
+    log("=" * 60)
+    log("POLLING MODE")
+    log(f"Watching: {INPUT_RESULTS}")
+    log(f"Poll interval: {poll_interval} seconds")
+    if limit:
+        log(f"Limit: {limit} findings")
+    log("=" * 60)
+    log("")
+
+    last_processed = load_progress()
+    total_processed = 0
+
+    if last_processed > 0:
+        log(f"Resuming from finding #{last_processed}")
+
+    while True:
+        try:
+            # Load current findings
+            if not os.path.exists(INPUT_RESULTS):
+                log(f"Waiting for {INPUT_RESULTS} to exist...")
+                time.sleep(poll_interval)
+                continue
+
+            findings_df = pd.read_csv(INPUT_RESULTS)
+            current_count = len(findings_df)
+
+            if current_count <= last_processed:
+                log(f"[Polling] No new findings. Current: {current_count}, Processed: {last_processed}")
+                time.sleep(poll_interval)
+                continue
+
+            # Process new findings
+            new_count = current_count - last_processed
+            log(f"[Polling] Found {new_count} new finding(s)!")
+
+            for idx in range(last_processed, current_count):
+                if limit and total_processed >= limit:
+                    log(f"Reached limit of {limit} findings. Stopping.")
+                    return
+
+                finding = findings_df.iloc[idx].to_dict()
+                is_first = (idx == 0 and not os.path.exists(OUTPUT_VERIFIED))
+
+                process_finding(client, finding, portfolio_context, idx + 1, current_count, is_first_write=is_first)
+
+                last_processed = idx + 1
+                save_progress(last_processed)
+                total_processed += 1
+
+                time.sleep(0.5)  # Rate limiting between API calls
+
+            log(f"[Polling] Caught up. Processed {total_processed} total. Waiting for more...")
+
+        except KeyboardInterrupt:
+            log("\n\nInterrupted! Progress saved.")
+            save_progress(last_processed)
+            break
+        except Exception as e:
+            log(f"Error: {e}")
+            time.sleep(poll_interval)
+
+        time.sleep(poll_interval)
+
+def main():
+    parser = argparse.ArgumentParser(description='Verify research findings using Claude API')
+    parser.add_argument('--test', action='store_true', help='Run test mode (3 rounds x 3 verifications)')
+    parser.add_argument('--poll-interval', type=int, default=10, help='Seconds between polls (default: 10)')
+    parser.add_argument('--limit', type=int, help='Max findings to verify')
+    parser.add_argument('--fresh', action='store_true', help='Start fresh, ignore progress')
+    args = parser.parse_args()
+
+    # Check for API key
+    api_key = os.environ.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        print("ERROR: ANTHROPIC_API_KEY environment variable not set!")
+        print("")
+        print("Set it with:")
+        print("  export ANTHROPIC_API_KEY='your-api-key-here'")
+        print("")
+        print("Get your API key from: https://console.anthropic.com/settings/keys")
+        exit(1)
+
+    # Start caffeinate
+    start_caffeinate()
+    atexit.register(stop_caffeinate)
+
+    log("=" * 60)
+    log("CLAUDE FINDINGS VERIFIER")
+    log("=" * 60)
+
+    # Initialize Claude client
+    client = anthropic.Anthropic(api_key=api_key)
+    log("Claude API client initialized")
+
+    # Load portfolio context
+    log(f"Loading portfolio context from {PORTFOLIO_DATA}...")
+    portfolio_context = load_portfolio_context()
+    log(f"  {len(portfolio_context)} buildings loaded")
+
+    # Check input file
+    if not os.path.exists(INPUT_RESULTS):
+        log(f"ERROR: {INPUT_RESULTS} not found!")
+        log("Run smart_api_validator.py first to generate findings")
+        return
+
+    # Load findings
+    log(f"Loading findings from {INPUT_RESULTS}...")
+    findings_df = pd.read_csv(INPUT_RESULTS)
+    log(f"  {len(findings_df)} findings available")
+
+    # Reset progress if fresh
+    if args.fresh and os.path.exists(PROGRESS_FILE):
+        os.remove(PROGRESS_FILE)
+        log("Progress reset (--fresh)")
+
+    log("")
+
+    if args.test:
+        run_test_mode(client, findings_df, portfolio_context)
+    else:
+        run_polling_mode(client, portfolio_context, args.poll_interval, args.limit)
+
+    log("")
+    log("Done.")
+
+if __name__ == "__main__":
+    main()

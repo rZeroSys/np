@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 """
-Update office vacancy AND utilization rates with real 2024-2025 data by city.
+Update office vacancy AND utilization rates with real Q3 2025 data by city.
 
 Sources:
-- Kastle Systems Return-to-Office data (2024-2025)
-- CommercialEdge National Office Report (Jan 2025)
-- CBRE Market Reports (Q4 2024)
-- Cushman & Wakefield MarketBeats (2024-2025)
-- Kidder Mathews Market Reports (2025)
-- Colliers Market Reports (2024)
-- CommercialCafe Market Trends (2024)
+- CBRE Q3 2025 Market Reports (vacancy)
+- Kastle Systems Return-to-Office data (utilization)
+- Data file: data/source/market_vacancy_utilization_Q3_2025.csv
 """
 
 import pandas as pd
@@ -19,71 +15,67 @@ from datetime import datetime
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
+from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR, SOURCE_DATA_DIR
 
 # Paths
 INPUT_FILE = str(PORTFOLIO_DATA_PATH)
 BACKUP_DIR = str(CONFIG_BACKUP_DIR)
+MARKET_DATA_FILE = str(SOURCE_DATA_DIR / 'market_vacancy_utilization_Q3_2025.csv')
 
-# City data: (vacancy_rate, utilization_rate) - both as decimals
-# Utilization = weekday avg % of seats used (Kastle Systems)
-# Vacancy = % of leasable SF vacant
-CITY_DATA = {
-    # Major metros - from user-provided table (Kastle + market reports)
-    'San Francisco': (0.34, 0.38),   # 34% vacancy, 38% utilization
-    'San Diego': (0.16, 0.45),       # 16% vacancy, 45% utilization
-    'Los Angeles': (0.239, 0.48),    # 23.9% vacancy, 48% utilization
-    'San Jose': (0.222, 0.49),       # 22.2% vacancy, 49% utilization
-    'Sacramento': (0.188, 0.43),     # 18.8% vacancy, 43% utilization
-    'Portland': (0.266, 0.34),       # 26.6% vacancy, 34% utilization
-    'New York': (0.15, 0.55),        # 15% vacancy (Manhattan), 55% utilization
-    'Washington': (0.224, 0.34),     # 22.4% vacancy, 34% utilization
-    'Boston': (0.236, 0.42),         # 23.6% vacancy, 42% utilization
-    'Atlanta': (0.25, 0.48),         # 25% vacancy, 48% utilization
-    'Denver': (0.26, 0.39),          # 26% vacancy, 39% utilization
-    'Seattle': (0.27, 0.42),         # 27% vacancy, 42% utilization
-    'Chicago': (0.255, 0.37),        # 25.5% vacancy, 37% utilization
-    'Philadelphia': (0.193, 0.44),   # 19.3% vacancy, 44% utilization
-    'Kansas City': (0.178, 0.49),    # 17.8% vacancy, 49% utilization
+# Kastle-based utilization estimates for cities without utilization in CSV
+# These are kept from original research when CSV only has vacancy
+KASTLE_UTILIZATION_ESTIMATES = {
+    'San Francisco': 0.38,   # Tech WFH heavy
+    'San Diego': 0.45,
+    'Los Angeles': 0.48,
+    'San Jose': 0.49,        # Silicon Valley
+    'Sacramento': 0.43,
+    'Portland': 0.34,        # WFH heavy
+    'Boston': 0.42,
+    'Denver': 0.39,
+    'Seattle': 0.42,
+    'Chicago': 0.37,
+    'Philadelphia': 0.44,
+    'Kansas City': 0.49,
+    'St. Louis': 0.40,
+    'Orlando': 0.45,
+    'Jacksonville': 0.45,
+    'Oakland': 0.38,         # SF-area
+    'Irvine': 0.48,          # OC market
+    'Anaheim': 0.48,
+    'Santa Ana': 0.48,
+    'Newport Beach': 0.48,
+    'Costa Mesa': 0.48,
+    'Ontario': 0.45,         # Inland Empire
+    'Riverside': 0.45,
+    'San Bernardino': 0.45,
+}
 
-    # Other cities - vacancy from market reports, utilization estimated from similar metros
-    'St. Louis': (0.33, 0.40),       # 33% CBD vacancy, ~40% util (Midwest)
-    'Orlando': (0.20, 0.45),         # ~20% vacancy, ~45% util (Sunbelt)
-    'Cambridge': (0.12, 0.42),       # 12% vacancy (LPC), Boston-area util
-
-    # Bay Area / Silicon Valley
-    'Oakland': (0.24, 0.38),         # 24% vacancy, SF-area utilization
-    'Berkeley': (0.21, 0.38),        # East Bay market
-    'Sunnyvale': (0.21, 0.49),       # Silicon Valley, San Jose-like util
-    'Santa Clara': (0.18, 0.49),     # Silicon Valley
-    'Mountain View': (0.20, 0.49),   # Silicon Valley
-    'Palo Alto': (0.20, 0.49),       # Silicon Valley
-    'Fremont': (0.21, 0.45),         # East Bay/Silicon Valley blend
-    'Pleasanton': (0.20, 0.45),      # Tri-Valley
-
-    # Orange County / Irvine
-    'Irvine': (0.15, 0.48),          # OC market, LA-like util
-    'Newport Beach': (0.15, 0.48),
-    'Santa Ana': (0.15, 0.48),
-    'Anaheim': (0.15, 0.48),
-    'Costa Mesa': (0.15, 0.48),
-    'Carlsbad': (0.16, 0.45),        # San Diego North
+# Additional cities not in CSV - keep full (vacancy, utilization) data
+ADDITIONAL_CITIES = {
+    # Bay Area suburbs
+    'Berkeley': (0.21, 0.38),
+    'Sunnyvale': (0.21, 0.49),
+    'Santa Clara': (0.18, 0.49),
+    'Mountain View': (0.20, 0.49),
+    'Palo Alto': (0.20, 0.49),
+    'Fremont': (0.21, 0.45),
+    'Pleasanton': (0.20, 0.45),
+    'Cambridge': (0.12, 0.42),
 
     # LA suburbs
-    'Long Beach': (0.10, 0.48),      # 10% vacancy, LA-area util
+    'Long Beach': (0.10, 0.48),
     'Santa Monica': (0.20, 0.48),
     'Pasadena': (0.15, 0.48),
     'Glendale': (0.19, 0.48),
     'Burbank': (0.22, 0.48),
     'Torrance': (0.16, 0.48),
     'El Segundo': (0.16, 0.48),
-    'Ontario': (0.16, 0.45),         # Inland Empire
-    'Riverside': (0.16, 0.45),
-    'San Bernardino': (0.18, 0.45),
     'Corona': (0.16, 0.45),
+    'Carlsbad': (0.16, 0.45),
 
     # Central Valley CA
-    'Fresno': (0.12, 0.43),          # Sacramento-like util
+    'Fresno': (0.12, 0.43),
     'Bakersfield': (0.15, 0.43),
     'Roseville': (0.14, 0.43),
     'Rancho Cordova': (0.14, 0.43),
@@ -102,9 +94,50 @@ def create_backup():
     print(f"Backup created: {backup_path}")
     return backup_path
 
+def load_market_data():
+    """Load Q3 2025 market data from CSV and combine with estimates."""
+    print(f"Loading market data from {MARKET_DATA_FILE}...")
+    market_df = pd.read_csv(MARKET_DATA_FILE)
+
+    # Build city data dictionary
+    city_data = {}
+    csv_cities = 0
+
+    for _, row in market_df.iterrows():
+        city = row['loc_city']
+        vacancy = row['occ_vacancy_rate']
+
+        # Use CSV utilization if available, otherwise use Kastle estimate
+        if pd.notna(row['occ_utilization_rate']):
+            utilization = row['occ_utilization_rate']
+            source = "CSV"
+        elif city in KASTLE_UTILIZATION_ESTIMATES:
+            utilization = KASTLE_UTILIZATION_ESTIMATES[city]
+            source = "Kastle estimate"
+        else:
+            utilization = DEFAULT_UTILIZATION
+            source = "default"
+
+        city_data[city] = (vacancy, utilization)
+        csv_cities += 1
+
+    # Add additional cities not in CSV
+    for city, (vac, util) in ADDITIONAL_CITIES.items():
+        if city not in city_data:
+            city_data[city] = (vac, util)
+
+    print(f"  - {csv_cities} cities from Q3 2025 CSV")
+    print(f"  - {len(ADDITIONAL_CITIES)} additional cities from estimates")
+    print(f"  - {len(city_data)} total cities in lookup")
+
+    return city_data
+
 def update_vacancy_and_utilization():
     """Update vacancy AND utilization rates for office buildings by city."""
-    print("Loading portfolio data...")
+    # Load market data
+    city_data = load_market_data()
+
+    print("\nLoading portfolio data...")
     df = pd.read_csv(INPUT_FILE, low_memory=False)
     print(f"Loaded {len(df)} buildings")
 
@@ -120,8 +153,8 @@ def update_vacancy_and_utilization():
         city = str(df.loc[idx, 'loc_city']).strip()
 
         # Look up city data
-        if city in CITY_DATA:
-            vacancy, utilization = CITY_DATA[city]
+        if city in city_data:
+            vacancy, utilization = city_data[city]
             df.loc[idx, 'occ_vacancy_rate'] = vacancy
             df.loc[idx, 'occ_utilization_rate'] = utilization
             city_match += 1
@@ -142,10 +175,12 @@ def update_vacancy_and_utilization():
 
     # Show sample of updates by city
     print("\nSample rates applied (vacancy / utilization):")
-    for city in ['San Francisco', 'Seattle', 'Denver', 'Chicago', 'Boston', 'Los Angeles', 'New York', 'Kansas City']:
-        if city in CITY_DATA:
-            vac, util = CITY_DATA[city]
-            print(f"  {city}: {vac*100:.1f}% vacancy, {util*100:.0f}% utilization")
+    sample_cities = ['San Francisco', 'Seattle', 'Denver', 'Chicago', 'Boston',
+                     'Los Angeles', 'New York', 'Washington', 'Atlanta']
+    for city in sample_cities:
+        if city in city_data:
+            vac, util = city_data[city]
+            print(f"  {city}: {vac*100:.1f}% vacancy, {util*100:.1f}% utilization")
 
 if __name__ == '__main__':
     create_backup()
