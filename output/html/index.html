@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 03:28:39 EST -->
+<!-- Nationwide ODCV Prospector - Generated: 2025-12-18 07:56:06 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6081,8 +6081,10 @@ function applyFilters() {
             }
         }
 
-        // Search filter
-        if (globalQuery) {
+        // Search filter - use searchMatchingIndices if available (populated by globalSearch)
+        if (searchMatchingIndices !== null) {
+            if (!searchMatchingIndices.includes(p.idx)) count = 0;
+        } else if (globalQuery) {
             const searchStr = [p.org_name, p.display_name, ...(p.search_aliases || [])].join(' ').toLowerCase();
             if (!searchStr.includes(globalQuery)) count = 0;
         }
@@ -6266,51 +6268,6 @@ function clearVerticalBuildingTypeFilter(vertical) {
     applyFilters();
 }
 
-function applyMainTableFilters() {
-    const mainTableBody = document.getElementById('main-table-body');
-    if (!mainTableBody) return;
-
-    const cityFilterEl = document.getElementById('city-filter');
-    const typeFilterEl = document.getElementById('type-filter');
-    const cityFilter = cityFilterEl ? cityFilterEl.value : 'all';
-    const typeFilter = typeFilterEl ? typeFilterEl.value : 'all';
-
-    const rows = mainTableBody.querySelectorAll('.building-row');
-    let visible = 0;
-
-    rows.forEach(row => {
-        const city = row.dataset.city || '';
-        const type = row.dataset.type || '';
-        const owner = (row.dataset.owner || '').toLowerCase();
-        const manager = (row.dataset.manager || '').toLowerCase();
-        const tenant = (row.dataset.tenant || '').toLowerCase();
-        const subOrg = (row.dataset.subOrg || '').toLowerCase();
-        const vertical = row.dataset.vertical || '';
-        const radioType = row.dataset.radioType || '';
-        const address = (row.dataset.address || '').toLowerCase();
-
-        const matchesVertical = activeVertical === 'all' || vertical === activeVertical;
-        const matchesCity = cityFilter === 'all' || city === cityFilter;
-        const matchesType = typeFilter === 'all' || type === typeFilter;
-        const matchesOwner = !selectedOwner || owner.toLowerCase() === selectedOwner.toLowerCase();
-        const matchesBuildingType = !selectedBuildingType || radioType === selectedBuildingType;
-
-        const searchText = owner + ' ' + tenant + ' ' + subOrg + ' ' + manager + ' ' +
-            city.toLowerCase() + ' ' + type.toLowerCase() + ' ' + address;
-        const matchesSearch = !globalQuery || searchText.includes(globalQuery);
-
-        if (matchesVertical && matchesCity && matchesType && matchesOwner && matchesSearch && matchesBuildingType) {
-            row.classList.remove('hidden');
-            visible++;
-        } else {
-            row.classList.add('hidden');
-        }
-    });
-
-    const visibleCountEl = document.getElementById('visible-count');
-    if (visibleCountEl) visibleCountEl.textContent = visible;
-}
-
 function scheduleMapUpdate() {
     clearTimeout(mapUpdateTimeout);
     mapUpdateTimeout = setTimeout(() => {
@@ -6439,76 +6396,7 @@ function globalSearch(query) {
 }
 
 function applySearchResults() {
-    const container = document.getElementById('portfolios-list');
-    if (!container) return;
-
-    // Get all portfolio cards currently in DOM
-    const existingCards = container.querySelectorAll('.portfolio-card');
-    const existingIndices = new Set();
-    existingCards.forEach(card => existingIndices.add(parseInt(card.dataset.idx)));
-
-    if (searchMatchingIndices === null) {
-        // No search - show all existing cards
-        existingCards.forEach(card => card.classList.remove('hidden'));
-        // Update visible count
-        const visibleCountEl = document.getElementById('visible-count');
-        if (visibleCountEl) visibleCountEl.textContent = existingCards.length;
-    } else {
-        // Search active - show only matching cards
-        const matchSet = new Set(searchMatchingIndices);
-
-        // First, load any matching cards not in DOM yet
-        searchMatchingIndices.forEach(idx => {
-            if (!existingIndices.has(idx)) {
-                const p = PORTFOLIO_CARDS[idx];
-                if (p) {
-                    // FIX: Check if card would pass vertical/building type filters before inserting
-                    const agg = FILTER_DATA[idx] || {};
-                    let hasMatchingBuildings = false;
-
-                    for (const [key, vals] of Object.entries(agg)) {
-                        // Special '|all' key for buildings without type/vertical - always include
-                        if (key === '|all') {
-                            if (vals && vals.count > 0) {
-                                hasMatchingBuildings = true;
-                                break;
-                            }
-                            continue;
-                        }
-                        const parts = key.split('|');
-                        if (parts.length !== 2) continue;
-                        const [t, v] = parts;
-                        if (selectedBuildingType && t !== selectedBuildingType) continue;
-                        if (activeVertical !== 'all' && v !== activeVertical) continue;
-                        // FILTER_DATA uses named properties: vals.count, vals.opex, etc.
-                        if (vals && vals.count > 0) {
-                            hasMatchingBuildings = true;
-                            break;
-                        }
-                    }
-
-                    if (hasMatchingBuildings) {
-                        container.insertAdjacentHTML('beforeend', renderPortfolioCard(p));
-                        existingIndices.add(idx);
-                    }
-                }
-            }
-        });
-
-        // Now show/hide cards based on match
-        container.querySelectorAll('.portfolio-card').forEach(card => {
-            const idx = parseInt(card.dataset.idx);
-            if (matchSet.has(idx)) {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-
-        // Update visible count
-        const visibleCountEl = document.getElementById('visible-count');
-        if (visibleCountEl) visibleCountEl.textContent = searchMatchingIndices.length;
-    }
+    // 100% data-based: applyFilters() uses searchMatchingIndices to filter data, then re-renders
     applyFilters();
 }
 
@@ -9043,7 +8931,7 @@ function logResponsiveDiagnostics() {
 
     <footer id="visitor-footer" style="margin: 20px auto; max-width: 600px; text-align: center; font-size:12px; color:#666;">
       <div class="build-footer" style="padding-top: 8px; font-size: 10px; color: #aaa;">
-        Build: 2025-12-18 03:28:39 EST
+        Build: 2025-12-18 07:56:06 EST
       </div>
     </footer>
 
@@ -9180,7 +9068,7 @@ function logResponsiveDiagnostics() {
     }
 
     function showBuildDate() {
-        alert("Build: 12/18/2025 12:28 AM PST");
+        alert("Build: 12/18/2025 04:56 AM PST");
     }
 
     // Check auth on page load
