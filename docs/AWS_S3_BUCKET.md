@@ -14,18 +14,25 @@
 The bucket stores two types of assets:
 
 ### 1. Organization Logos (`logos/` prefix)
-- Company/organization logos displayed on portfolio cards and building reports
+- Full-size company/organization logos
 - Format: PNG with transparent backgrounds
 - Naming: `{Organization_Name}.png` (spaces converted to underscores)
 - Example: `logos/Marriott_International.png`
 
-### 2. Building Images (`images/` prefix)
+### 2. Logo Thumbnails (`logo-thumbnails/` prefix)
+- 64x64 pixel thumbnails of logos for fast homepage loading
+- Format: PNG
+- Same naming as full logos
+- Example: `logo-thumbnails/Marriott_International.png`
+- **Homepage uses thumbnails with full-size fallback automatically**
+
+### 3. Building Images (`images/` prefix)
 - Exterior photos of buildings
 - Format: JPEG
 - Naming: `{building_id}_{source}.jpg` (source = streetview, Serpapi, Bing, etc.)
 - Example: `images/CHI_12345_streetview.jpg`
 
-### 3. Thumbnails (`thumbnails/` prefix)
+### 4. Building Thumbnails (`thumbnails/` prefix)
 - Smaller versions of building images for faster loading
 - Format: JPEG
 - Size: 300x200 pixels
@@ -34,13 +41,16 @@ The bucket stores two types of assets:
 ## URL Patterns
 
 ```
-# Logo URL
+# Full-size Logo URL
 https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/{filename}.png
+
+# Logo Thumbnail URL (64x64)
+https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logo-thumbnails/{filename}.png
 
 # Building Image URL
 https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/{filename}.jpg
 
-# Thumbnail URL
+# Building Thumbnail URL
 https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/thumbnails/{filename}.jpg
 ```
 
@@ -131,6 +141,98 @@ python scripts/images/fetch_validate_upload.py --reset    # Start fresh
 **`scripts/logos/upload_darkened_logos.py`**
 
 Uploads specific logos that have been darkened for visibility on white backgrounds.
+
+### Logo Thumbnail Generator
+**`scripts/logos/create_logo_thumbnails.py`**
+
+Creates 64x64 thumbnails from existing full-size logos and uploads to S3.
+
+```bash
+python3 scripts/logos/create_logo_thumbnails.py
+```
+
+Features:
+- Reads logo URLs from `portfolio_organizations.csv`
+- Downloads each logo, creates 64x64 thumbnail
+- Uploads to `s3://nationwide-odcv-images/logo-thumbnails/`
+- Parallel processing (30 threads)
+- Saves local copies to `/Users/forrestmiller/Desktop/logo-thumbnails/`
+
+---
+
+## Adding New Organization Logos
+
+### Complete Workflow
+
+When adding a new organization logo, you need BOTH full-size and thumbnail versions:
+
+#### Step 1: Prepare the full-size logo
+- Format: PNG with transparent background
+- Recommended size: 200-400px wide
+- Filename: `{Organization_Name}.png` (spaces → underscores)
+
+#### Step 2: Upload full-size logo to S3
+```bash
+aws s3 cp /path/to/Logo_Name.png s3://nationwide-odcv-images/logos/Logo_Name.png \
+    --content-type "image/png" \
+    --cache-control "max-age=86400"
+```
+
+#### Step 3: Create and upload thumbnail
+Option A - Run the thumbnail script (regenerates ALL thumbnails):
+```bash
+python3 scripts/logos/create_logo_thumbnails.py
+```
+
+Option B - Manually create and upload single thumbnail:
+```python
+from PIL import Image
+from io import BytesIO
+import boto3
+
+# Create 64x64 thumbnail
+img = Image.open('/path/to/Logo_Name.png')
+if img.mode != 'RGBA':
+    img = img.convert('RGBA')
+background = Image.new('RGBA', img.size, (255, 255, 255, 255))
+background.paste(img, mask=img.split()[3] if len(img.split()) == 4 else None)
+background = background.convert('RGB')
+background.thumbnail((64, 64), Image.Resampling.LANCZOS)
+
+final = Image.new('RGB', (64, 64), (255, 255, 255))
+offset = ((64 - background.width) // 2, (64 - background.height) // 2)
+final.paste(background, offset)
+final.save('/tmp/Logo_Name.png', 'PNG', optimize=True)
+
+# Upload to S3
+s3 = boto3.client('s3', region_name='us-east-2')
+s3.upload_file('/tmp/Logo_Name.png', 'nationwide-odcv-images', 'logo-thumbnails/Logo_Name.png',
+               ExtraArgs={'ContentType': 'image/png', 'CacheControl': 'max-age=31536000'})
+```
+
+#### Step 4: Update portfolio_organizations.csv
+Add/update the row with the `aws_logo_url` column pointing to the FULL-SIZE logo:
+```
+aws_logo_url: https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Logo_Name.png
+```
+
+**IMPORTANT: The CSV only stores full-size logo URLs.** The homepage automatically converts `/logos/` to `/logo-thumbnails/` at runtime with fallback to full-size if thumbnail fails.
+
+#### Step 5: Regenerate homepage
+```bash
+python3 -m src.generators.html_generator
+```
+
+### Quick Reference
+
+| What | Where | Notes |
+|------|-------|-------|
+| Full-size logos | `s3://nationwide-odcv-images/logos/` | Stored in CSV |
+| Logo thumbnails | `s3://nationwide-odcv-images/logo-thumbnails/` | NOT in CSV - auto-derived |
+| CSV column | `aws_logo_url` | Always points to `/logos/` |
+| Homepage behavior | Uses thumbnail, falls back to full-size | Automatic |
+
+---
 
 ## Upload Function Pattern
 
