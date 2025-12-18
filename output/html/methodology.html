@@ -118,6 +118,22 @@
         .source-link:hover {
             border-bottom-style: solid;
         }
+        .file-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-right: 6px;
+            font-family: 'SF Mono', monospace;
+            vertical-align: middle;
+        }
+        .file-badge.csv { background: #28a745; color: white; }
+        .file-badge.xlsx { background: #217346; color: white; }
+        .file-badge.pdf { background: #dc3545; color: white; }
+        .file-badge.zip { background: #6f42c1; color: white; }
+        .file-badge.md { background: #0366d6; color: white; }
+        .file-badge.txt { background: #6c757d; color: white; }
         .formula {
             background: white;
             border-left: 3px solid var(--rzero-primary);
@@ -746,362 +762,366 @@ if (window.location.search.includes('embed=1')) {
     <section class="section" id="data-sources">
         <h2>Data Sources</h2>
 
-        <h3>City Benchmarking Disclosure Programs</h3>
-        <p>Building energy data comes from official city benchmarking disclosure programs. These programs require commercial and multifamily buildings to report annual energy usage to their respective cities, which then publish the data publicly.</p>
-
-        <table>
-            <thead>
-                <tr><th>City</th><th>Program</th><th>Data Portal</th><th>Buildings</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>New York City</td>
-                    <td>Local Law 84 (LL84)</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv" class="source-link">NYC_LL84.csv</a></td>
-                    <td>3,421</td>
-                </tr>
-                <tr>
-                    <td>Los Angeles</td>
-                    <td>EBEWE Program</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/LA_EBEWE.csv" class="source-link">LA_EBEWE.csv</a></td>
-                    <td>1,847</td>
-                </tr>
-                <tr>
-                    <td>San Francisco</td>
-                    <td>Existing Buildings Ordinance</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/SF_Existing_Buildings_Ordinance.csv" class="source-link">SF_Existing_Buildings_Ordinance.csv</a></td>
-                    <td>568</td>
-                </tr>
-                <tr>
-                    <td>Chicago</td>
-                    <td>Chicago Energy Benchmarking</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Chicago_Energy_Benchmarking.csv" class="source-link">Chicago_Energy_Benchmarking.csv</a></td>
-                    <td>384</td>
-                </tr>
-                <tr>
-                    <td>Seattle</td>
-                    <td>Building Energy Benchmarking</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Seattle_Energy_Benchmarking.csv" class="source-link">Seattle_Energy_Benchmarking.csv</a></td>
-                    <td>398</td>
-                </tr>
-                <tr>
-                    <td>Washington DC</td>
-                    <td>DC BEPS</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/DC_BEPS.csv" class="source-link">DC_BEPS.csv</a></td>
-                    <td>748</td>
-                </tr>
-                <tr>
-                    <td>Boston</td>
-                    <td>BERDO</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx" class="source-link">Boston_BERDO.xlsx</a></td>
-                    <td>327</td>
-                </tr>
-                <tr>
-                    <td>Denver</td>
-                    <td>Energize Denver</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" class="source-link">Denver_Energize_Denver.csv</a></td>
-                    <td>349</td>
-                </tr>
-                <tr>
-                    <td>Philadelphia</td>
-                    <td>Building Energy Benchmarking</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Philadelphia_Energy_Benchmarking.csv" class="source-link">Philadelphia_Energy_Benchmarking.csv</a></td>
-                    <td>136</td>
-                </tr>
-                <tr>
-                    <td>Portland</td>
-                    <td>Energy Performance Reporting</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Portland_Energy_Performance_Reporting.xlsx" class="source-link">Portland_Energy_Performance_Reporting.xlsx</a></td>
-                    <td>266</td>
-                </tr>
-                <tr>
-                    <td>Cambridge</td>
-                    <td>BEUDO</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv" class="source-link">Cambridge_BEUDO.csv</a></td>
-                    <td>125</td>
-                </tr>
-                <tr>
-                    <td>Atlanta</td>
-                    <td>CBEEO</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Atlanta_CBEEO.csv" class="source-link">Atlanta_CBEEO.csv</a></td>
-                    <td>171</td>
-                </tr>
-                <tr>
-                    <td>San Diego</td>
-                    <td>Building Energy Benchmarking</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Diego_Energy_Benchmarking.xlsx" class="source-link">San_Diego_Energy_Benchmarking.xlsx</a></td>
-                    <td>293</td>
-                </tr>
-                <tr>
-                    <td>San Jose</td>
-                    <td>Building Performance Ordinance</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Jose_Building_Performance_Ordinance.csv" class="source-link">San_Jose_Building_Performance_Ordinance.csv</a></td>
-                    <td>386</td>
-                </tr>
-                <tr>
-                    <td>St. Louis</td>
-                    <td>BEPS</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/St_Louis_BEPS.xlsx" class="source-link">St_Louis_BEPS.xlsx</a></td>
-                    <td>62</td>
-                </tr>
-                <tr>
-                    <td>Kansas City</td>
-                    <td>Energy Empowerment Ordinance</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Kansas_City_Energy_Empowerment_Ordinance.csv" class="source-link">Kansas_City_Energy_Empowerment_Ordinance.csv</a></td>
-                    <td>98</td>
-                </tr>
-                <tr>
-                    <td>Orlando</td>
-                    <td>BEWES</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Orlando_BEWES.csv" class="source-link">Orlando_BEWES.csv</a></td>
-                    <td>142</td>
-                </tr>
-                <tr>
-                    <td>California (Statewide)</td>
-                    <td>AB 802</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx" class="source-link">California_AB_802.xlsx</a></td>
-                    <td>5,200+</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Dataset Downloads</h3>
-        <p>The consolidated building dataset and supporting files are available on GitHub:</p>
-        <table>
-            <thead>
-                <tr><th>File</th><th>Description</th><th>Records</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_data.csv" class="source-link">portfolio_data.csv</a></td>
-                    <td>Main building database with energy, location, organization, and calculated fields</td>
-                    <td>~23,000</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_organizations.csv" class="source-link">portfolio_organizations.csv</a></td>
-                    <td>Organization metadata (owners, tenants) with logos and classifications</td>
-                    <td>~1,200</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_certified_buildings.csv" class="source-link">leed_certified_buildings.csv</a></td>
-                    <td>Complete USGBC LEED certification database</td>
-                    <td>~33,000</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_matches.csv" class="source-link">leed_matches.csv</a></td>
-                    <td>Buildings matched to LEED certifications by address proximity</td>
-                    <td>~2,000</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/building_type_to_vertical.csv" class="source-link">building_type_to_vertical.csv</a></td>
-                    <td>Maps building types to vertical categories</td>
-                    <td>17</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/column_rename_lookup.csv" class="source-link">column_rename_lookup.csv</a></td>
-                    <td>Column naming definitions and mappings</td>
-                    <td>70</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/utility_logos.csv" class="source-link">utility_logos.csv</a></td>
-                    <td>Utility company logo mappings</td>
-                    <td>21</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/eui_post_odcv.csv" class="source-link">eui_post_odcv.csv</a></td>
-                    <td>Post-ODCV EUI calculations for all buildings</td>
-                    <td>~24,000</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/market_vacancy_utilization_Q3_2025.csv" class="source-link">market_vacancy_utilization_Q3_2025.csv</a></td>
-                    <td>Vacancy and utilization rates by city (CBRE/Kastle Q3 2025)</td>
-                    <td>21 markets</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" class="source-link">cbecs2018_final_public.csv</a></td>
-                    <td>EIA CBECS 2018 microdata for HVAC energy share calculations</td>
-                    <td>6,436</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/raw/main/data/scripts_source_code.zip" class="source-link">scripts_source_code.zip</a></td>
-                    <td>All Python scripts for data processing, calculations, and HTML generation</td>
-                    <td>100 files</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/docs/DEVELOPER_GUIDE.md" class="source-link">DEVELOPER_GUIDE.md</a></td>
-                    <td>Project documentation: directory structure, CSV files, scripts, AWS S3 bucket</td>
-                    <td>&mdash;</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>NYC Building Data</h3>
-        <p>Detailed NYC building data files used for LL97 calculations and building-specific analysis:</p>
+        <h3>Core Dataset</h3>
+        <p>Main building database files powering the application.</p>
         <table>
             <thead>
                 <tr><th>File</th><th>Description</th></tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/buildings_BIG_with_emails_complete_verified.csv" class="source-link">buildings_BIG_with_emails_complete_verified.csv</a></td>
-                    <td>NYC building data with verified contact information</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_data.csv" class="source-link">portfolio_data.csv</a></td>
+                    <td>Master database of ~23,000 buildings with energy, location, and calculated fields.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/10_year_savings_by_building.csv" class="source-link">10_year_savings_by_building.csv</a></td>
-                    <td>LL97 10-year savings projections by building</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_organizations.csv" class="source-link">portfolio_organizations.csv</a></td>
+                    <td>Organization metadata including logos, classifications, and search aliases.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_scoring_CORRECTED.csv" class="source-link">odcv_scoring_CORRECTED.csv</a></td>
-                    <td>ODCV scoring data for NYC buildings</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_certified_buildings.csv" class="source-link">leed_certified_buildings.csv</a></td>
+                    <td>Complete USGBC LEED certification database for building matching.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_noi_value_impact_analysis.csv" class="source-link">odcv_noi_value_impact_analysis.csv</a></td>
-                    <td>NOI and property value impact analysis</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_matches.csv" class="source-link">leed_matches.csv</a></td>
+                    <td>Buildings matched to LEED certifications by address proximity.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/energy_BIG.csv" class="source-link">energy_BIG.csv</a></td>
-                    <td>Detailed energy consumption data</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/building_type_to_vertical.csv" class="source-link">building_type_to_vertical.csv</a></td>
+                    <td>Lookup table mapping building types to vertical categories.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/hvac_office_energy_BIG.csv" class="source-link">hvac_office_energy_BIG.csv</a></td>
-                    <td>HVAC energy breakdown for office buildings</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/column_rename_lookup.csv" class="source-link">column_rename_lookup.csv</a></td>
+                    <td>Data dictionary with column naming definitions and mappings.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/office_energy_BIG.csv" class="source-link">office_energy_BIG.csv</a></td>
-                    <td>Office building energy profiles</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/utility_logos.csv" class="source-link">utility_logos.csv</a></td>
+                    <td>Utility company logo URL mappings for building reports.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/system_BIG.csv" class="source-link">system_BIG.csv</a></td>
-                    <td>Building systems and equipment data</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/eui_post_odcv.csv" class="source-link">eui_post_odcv.csv</a></td>
+                    <td>Pre-calculated post-ODCV EUI values for all buildings.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/equipment_counts.csv" class="source-link">equipment_counts.csv</a></td>
-                    <td>HVAC equipment counts by building</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/market_vacancy_utilization_Q3_2025.csv" class="source-link">market_vacancy_utilization_Q3_2025.csv</a></td>
+                    <td>City-level vacancy and utilization rates from CBRE/Kastle Q3 2025.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_office_eui.csv" class="source-link">building_office_eui.csv</a></td>
-                    <td>Office building EUI benchmarks</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/new%20eui%20national%20avg.csv" class="source-link">new eui national avg.csv</a></td>
-                    <td>National EUI averages by building type</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/all_building_addresses.csv" class="source-link">all_building_addresses.csv</a></td>
-                    <td>Complete NYC building address database</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_heights.csv" class="source-link">building_heights.csv</a></td>
-                    <td>Building height data</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/Tenants_Final_Aug%2025%20-%20Sheet1.csv" class="source-link">Tenants_Final_Aug 25 - Sheet1.csv</a></td>
-                    <td>NYC building tenant information</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/aerial_videos.csv" class="source-link">aerial_videos.csv</a></td>
-                    <td>Aerial video links for NYC buildings</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/data%20center%20estimate.csv" class="source-link">data center estimate.csv</a></td>
-                    <td>Data center energy estimates</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/portfolio_odcv_percentages.csv" class="source-link">portfolio_odcv_percentages.csv</a></td>
-                    <td>Portfolio-level ODCV savings percentages</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" class="source-link">cbecs2018_final_public.csv</a></td>
+                    <td>EIA CBECS 2018 survey microdata for HVAC energy share calculations.</td>
                 </tr>
             </tbody>
         </table>
 
-        <h3>Reference Documents</h3>
-        <p>Local copies of key reference documents used in calculations (hosted on GitHub):</p>
+        <h3>City Benchmarking Data</h3>
+        <p>Building energy data from official city disclosure programs requiring commercial and multifamily buildings to report annual energy usage.</p>
         <table>
             <thead>
-                <tr><th>Category</th><th>Document</th><th>Description</th></tr>
+                <tr><th>City</th><th>Program</th><th>File</th><th>Buildings</th></tr>
             </thead>
             <tbody>
                 <tr>
-                    <td rowspan="6">Office Market Data</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" class="source-link">CBRE_Vacancy_Rates_Q3_2025.csv</a></td>
-                    <td>City-by-city vacancy rates</td>
+                    <td>New York City</td>
+                    <td>Local Law 84</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv" class="source-link">NYC_LL84.csv</a></td>
+                    <td>3,421</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" class="source-link">Kastle_Utilization_Rates.csv</a></td>
-                    <td>Office utilization by city</td>
+                    <td>Los Angeles</td>
+                    <td>EBEWE</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/LA_EBEWE.csv" class="source-link">LA_EBEWE.csv</a></td>
+                    <td>1,847</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Back_to_Work_Barometer.txt" class="source-link">Kastle_Back_to_Work_Barometer.txt</a></td>
-                    <td>Utilization methodology notes</td>
+                    <td>San Francisco</td>
+                    <td>Existing Buildings</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/SF_Existing_Buildings_Ordinance.csv" class="source-link">SF_Existing_Buildings_Ordinance.csv</a></td>
+                    <td>568</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_US_Office_Figures_Q3_2025.pdf" class="source-link">CBRE_US_Office_Figures_Q3_2025.pdf</a></td>
-                    <td>National office market overview</td>
+                    <td>Chicago</td>
+                    <td>Energy Benchmarking</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Chicago_Energy_Benchmarking.csv" class="source-link">Chicago_Energy_Benchmarking.csv</a></td>
+                    <td>384</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" class="source-link">CommercialEdge_Office_Report.pdf</a></td>
-                    <td>Office market analysis</td>
+                    <td>Seattle</td>
+                    <td>Energy Benchmarking</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Seattle_Energy_Benchmarking.csv" class="source-link">Seattle_Energy_Benchmarking.csv</a></td>
+                    <td>398</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CushmanWakefield_US_Office_Q3_2025.pdf" class="source-link">CushmanWakefield_US_Office_Q3_2025.pdf</a></td>
-                    <td>Office market report</td>
+                    <td>Washington DC</td>
+                    <td>BEPS</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/DC_BEPS.csv" class="source-link">DC_BEPS.csv</a></td>
+                    <td>748</td>
                 </tr>
                 <tr>
-                    <td rowspan="4">Technical Standards</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" class="source-link">ASHRAE_Standard_62.1.pdf</a></td>
-                    <td>Ventilation rate requirements</td>
+                    <td>Boston</td>
+                    <td>BERDO</td>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx" class="source-link">Boston_BERDO.xlsx</a></td>
+                    <td>327</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" class="source-link">EPA_eGRID_2023.xlsx</a></td>
-                    <td>Grid emission factors by region</td>
+                    <td>Denver</td>
+                    <td>Energize Denver</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" class="source-link">Denver_Energize_Denver.csv</a></td>
+                    <td>349</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf" class="source-link">IMT_BPS_Comparison_Matrix.pdf</a></td>
-                    <td>BPS policy comparison across cities</td>
+                    <td>Philadelphia</td>
+                    <td>Energy Benchmarking</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Philadelphia_Energy_Benchmarking.csv" class="source-link">Philadelphia_Energy_Benchmarking.csv</a></td>
+                    <td>136</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/DOE_Guest_Room_HVAC_Report.pdf" class="source-link">DOE_Guest_Room_HVAC_Report.pdf</a></td>
-                    <td>Hotel guest presence study</td>
+                    <td>Portland</td>
+                    <td>Energy Performance</td>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Portland_Energy_Performance_Reporting.xlsx" class="source-link">Portland_Energy_Performance_Reporting.xlsx</a></td>
+                    <td>266</td>
                 </tr>
                 <tr>
-                    <td rowspan="10">Regional Market Reports</td>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Denver_Office_Figures_Q3_2025.pdf" class="source-link">Denver_Office_Figures_Q3_2025.pdf</a></td>
-                    <td>Denver office market</td>
+                    <td>Cambridge</td>
+                    <td>BEUDO</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv" class="source-link">Cambridge_BEUDO.csv</a></td>
+                    <td>125</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_LosAngeles_Office_Q4_2025.pdf" class="source-link">Kidder_LosAngeles_Office_Q4_2025.pdf</a></td>
-                    <td>Los Angeles office market</td>
+                    <td>Atlanta</td>
+                    <td>CBEEO</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Atlanta_CBEEO.csv" class="source-link">Atlanta_CBEEO.csv</a></td>
+                    <td>171</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanFrancisco_Office_Q3_2025.pdf" class="source-link">Kidder_SanFrancisco_Office_Q3_2025.pdf</a></td>
-                    <td>San Francisco office market</td>
+                    <td>San Diego</td>
+                    <td>Energy Benchmarking</td>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Diego_Energy_Benchmarking.xlsx" class="source-link">San_Diego_Energy_Benchmarking.xlsx</a></td>
+                    <td>293</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Seattle_Office_Q3_2025.pdf" class="source-link">Kidder_Seattle_Office_Q3_2025.pdf</a></td>
-                    <td>Seattle office market</td>
+                    <td>San Jose</td>
+                    <td>Building Performance</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Jose_Building_Performance_Ordinance.csv" class="source-link">San_Jose_Building_Performance_Ordinance.csv</a></td>
+                    <td>386</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Portland_Office_Q3_2025.pdf" class="source-link">Kidder_Portland_Office_Q3_2025.pdf</a></td>
-                    <td>Portland office market</td>
+                    <td>St. Louis</td>
+                    <td>BEPS</td>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/St_Louis_BEPS.xlsx" class="source-link">St_Louis_BEPS.xlsx</a></td>
+                    <td>62</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanDiego_Office_Q3_2025.pdf" class="source-link">Kidder_SanDiego_Office_Q3_2025.pdf</a></td>
-                    <td>San Diego office market</td>
+                    <td>Kansas City</td>
+                    <td>Energy Empowerment</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Kansas_City_Energy_Empowerment_Ordinance.csv" class="source-link">Kansas_City_Energy_Empowerment_Ordinance.csv</a></td>
+                    <td>98</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Sacramento_Office_Q3_2025.pdf" class="source-link">Kidder_Sacramento_Office_Q3_2025.pdf</a></td>
-                    <td>Sacramento office market</td>
+                    <td>Orlando</td>
+                    <td>BEWES</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Orlando_BEWES.csv" class="source-link">Orlando_BEWES.csv</a></td>
+                    <td>142</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SiliconValley_Office_Q3_2025.pdf" class="source-link">Kidder_SiliconValley_Office_Q3_2025.pdf</a></td>
-                    <td>Silicon Valley office market</td>
+                    <td>California</td>
+                    <td>AB 802</td>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx" class="source-link">California_AB_802.xlsx</a></td>
+                    <td>5,200+</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>NYC LL97 Analysis</h3>
+        <p>NYC-specific data files for Local Law 97 calculations and building-specific analysis.</p>
+        <table>
+            <thead>
+                <tr><th>File</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/buildings_BIG_with_emails_complete_verified.csv" class="source-link">buildings_BIG_with_emails_complete_verified.csv</a></td>
+                    <td>Master NYC building list with verified contact information.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_OrangeCounty_Office_Q4_2025.pdf" class="source-link">Kidder_OrangeCounty_Office_Q4_2025.pdf</a></td>
-                    <td>Orange County office market</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/10_year_savings_by_building.csv" class="source-link">10_year_savings_by_building.csv</a></td>
+                    <td>LL97 10-year savings projections per building.</td>
                 </tr>
                 <tr>
-                    <td><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_InlandEmpire_Office_Q4_2025.pdf" class="source-link">Kidder_InlandEmpire_Office_Q4_2025.pdf</a></td>
-                    <td>Inland Empire office market</td>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_scoring_CORRECTED.csv" class="source-link">odcv_scoring_CORRECTED.csv</a></td>
+                    <td>ODCV opportunity scores for each NYC building.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/odcv_noi_value_impact_analysis.csv" class="source-link">odcv_noi_value_impact_analysis.csv</a></td>
+                    <td>Net operating income and property value impact analysis.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/energy_BIG.csv" class="source-link">energy_BIG.csv</a></td>
+                    <td>Detailed energy consumption data by building.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/hvac_office_energy_BIG.csv" class="source-link">hvac_office_energy_BIG.csv</a></td>
+                    <td>HVAC energy breakdown for office buildings.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/office_energy_BIG.csv" class="source-link">office_energy_BIG.csv</a></td>
+                    <td>Office building energy consumption profiles.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/system_BIG.csv" class="source-link">system_BIG.csv</a></td>
+                    <td>Building mechanical systems and equipment data.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/equipment_counts.csv" class="source-link">equipment_counts.csv</a></td>
+                    <td>HVAC equipment counts by building.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_office_eui.csv" class="source-link">building_office_eui.csv</a></td>
+                    <td>Office building EUI benchmarks for NYC.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/new%20eui%20national%20avg.csv" class="source-link">new eui national avg.csv</a></td>
+                    <td>National EUI averages by building type.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/all_building_addresses.csv" class="source-link">all_building_addresses.csv</a></td>
+                    <td>Complete NYC building address database.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/building_heights.csv" class="source-link">building_heights.csv</a></td>
+                    <td>Building height data for NYC buildings.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/Tenants_Final_Aug%2025%20-%20Sheet1.csv" class="source-link">Tenants_Final_Aug 25 - Sheet1.csv</a></td>
+                    <td>NYC building tenant information.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/aerial_videos.csv" class="source-link">aerial_videos.csv</a></td>
+                    <td>Aerial video links for select NYC buildings.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/data%20center%20estimate.csv" class="source-link">data center estimate.csv</a></td>
+                    <td>Data center energy consumption estimates.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/nyc/portfolio_odcv_percentages.csv" class="source-link">portfolio_odcv_percentages.csv</a></td>
+                    <td>Portfolio-level ODCV savings percentages.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Market Research</h3>
+        <p>Office vacancy rates, utilization data, and regional market reports from CBRE, Kastle, and Kidder Mathews:</p>
+        <table>
+            <thead>
+                <tr><th>File</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" class="source-link">CBRE_Vacancy_Rates_Q3_2025.csv</a></td>
+                    <td>Office vacancy rates by metro area from CBRE Q3 2025 report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge csv">CSV</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" class="source-link">Kastle_Utilization_Rates.csv</a></td>
+                    <td>Office utilization percentages by city from Kastle access data.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge txt">TXT</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Back_to_Work_Barometer.txt" class="source-link">Kastle_Back_to_Work_Barometer.txt</a></td>
+                    <td>Methodology notes for Kastle's office utilization tracking.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_US_Office_Figures_Q3_2025.pdf" class="source-link">CBRE_US_Office_Figures_Q3_2025.pdf</a></td>
+                    <td>National office market overview with key metrics.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" class="source-link">CommercialEdge_Office_Report.pdf</a></td>
+                    <td>Office market analysis with rent and vacancy trends.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CushmanWakefield_US_Office_Q3_2025.pdf" class="source-link">CushmanWakefield_US_Office_Q3_2025.pdf</a></td>
+                    <td>US office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Denver_Office_Figures_Q3_2025.pdf" class="source-link">Denver_Office_Figures_Q3_2025.pdf</a></td>
+                    <td>Denver metro office market data.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_LosAngeles_Office_Q4_2025.pdf" class="source-link">Kidder_LosAngeles_Office_Q4_2025.pdf</a></td>
+                    <td>Los Angeles office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanFrancisco_Office_Q3_2025.pdf" class="source-link">Kidder_SanFrancisco_Office_Q3_2025.pdf</a></td>
+                    <td>San Francisco office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Seattle_Office_Q3_2025.pdf" class="source-link">Kidder_Seattle_Office_Q3_2025.pdf</a></td>
+                    <td>Seattle office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Portland_Office_Q3_2025.pdf" class="source-link">Kidder_Portland_Office_Q3_2025.pdf</a></td>
+                    <td>Portland office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SanDiego_Office_Q3_2025.pdf" class="source-link">Kidder_SanDiego_Office_Q3_2025.pdf</a></td>
+                    <td>San Diego office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_Sacramento_Office_Q3_2025.pdf" class="source-link">Kidder_Sacramento_Office_Q3_2025.pdf</a></td>
+                    <td>Sacramento office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_SiliconValley_Office_Q3_2025.pdf" class="source-link">Kidder_SiliconValley_Office_Q3_2025.pdf</a></td>
+                    <td>Silicon Valley office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_OrangeCounty_Office_Q4_2025.pdf" class="source-link">Kidder_OrangeCounty_Office_Q4_2025.pdf</a></td>
+                    <td>Orange County office market quarterly report.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kidder_InlandEmpire_Office_Q4_2025.pdf" class="source-link">Kidder_InlandEmpire_Office_Q4_2025.pdf</a></td>
+                    <td>Inland Empire office market quarterly report.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Technical Standards</h3>
+        <p>Industry standards and regulatory documents used for HVAC, emissions, and BPS calculations:</p>
+        <table>
+            <thead>
+                <tr><th>File</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" class="source-link">ASHRAE_Standard_62.1.pdf</a></td>
+                    <td>Ventilation rate requirements for acceptable indoor air quality.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge xlsx">XLSX</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" class="source-link">EPA_eGRID_2023.xlsx</a></td>
+                    <td>Grid emission factors by eGRID subregion for carbon calculations.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/IMT_BPS_Comparison_Matrix.pdf" class="source-link">IMT_BPS_Comparison_Matrix.pdf</a></td>
+                    <td>Building Performance Standard policy comparison across jurisdictions.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge pdf">PDF</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/DOE_Guest_Room_HVAC_Report.pdf" class="source-link">DOE_Guest_Room_HVAC_Report.pdf</a></td>
+                    <td>DOE study on hotel guest room occupancy and HVAC patterns.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Developer Resources</h3>
+        <p>Source code and documentation for reproducing or extending this analysis:</p>
+        <table>
+            <thead>
+                <tr><th>File</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/scripts_source_code.zip" class="source-link">scripts_source_code.zip</a></td>
+                    <td>All 100 Python scripts for data processing and HTML generation.</td>
+                </tr>
+                <tr>
+                    <td><span class="file-badge md">MD</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/docs/DEVELOPER_GUIDE.md" class="source-link">DEVELOPER_GUIDE.md</a></td>
+                    <td>Project documentation covering directory structure, data files, and AWS setup.</td>
                 </tr>
             </tbody>
         </table>
