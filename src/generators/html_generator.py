@@ -5389,6 +5389,9 @@ function updateHeaderTooltips() {{
 }}
 
 function applyFilters() {{
+    console.log('=== applyFilters DEBUG ===');
+    console.log('selectedBuildingType:', selectedBuildingType);
+    console.log('activeVertical:', activeVertical);
     // Get classification filter (type dropdown) once, outside the loop
     const selectedClassification = (() => {{
         const sel = document.querySelector('#typeFilterDropdown input[name="type-filter"]:checked');
@@ -5404,6 +5407,8 @@ function applyFilters() {{
     let totalBuildings = 0;
     let totalSqft = 0;
 
+    let debugMatchedPortfolios = 0;
+    let debugTotalK12Count = 0;
     cards.forEach(card => {{
         const idx = parseInt(card.dataset.idx);
         const agg = FILTER_DATA[idx] || {{}};
@@ -5420,6 +5425,10 @@ function applyFilters() {{
             if (selectedBuildingType && t !== selectedBuildingType) continue;
             // Filter by vertical
             if (activeVertical !== 'all' && v !== activeVertical) continue;
+            // DEBUG: track K-12 matches
+            if (selectedBuildingType === 'K-12 School' && t === 'K-12 School') {{
+                debugTotalK12Count += vals.count || 0;
+            }}
             // Accumulate matching - using named object properties for clarity
             if (vals && typeof vals === 'object') {{
                 count += vals.count || 0;
@@ -5477,7 +5486,16 @@ function applyFilters() {{
             totalBuildings += count;
             totalSqft += sqft;
         }}
+        if (count > 0) debugMatchedPortfolios++;
     }});
+
+    // DEBUG output
+    if (selectedBuildingType === 'K-12 School') {{
+        console.log('DEBUG K-12 portfolios matched:', debugMatchedPortfolios);
+        console.log('DEBUG K-12 total building count:', debugTotalK12Count);
+        console.log('DEBUG visible portfolios:', visible.length);
+        console.log('DEBUG totalBuildings:', totalBuildings);
+    }}
 
     // Sort by current sort column and reorder DOM
     visible.sort((a, b) => {{
@@ -6315,14 +6333,11 @@ function selectBuildingTypeFromDropdown(buildingType, vertical) {{
     }}
 
     applyFilters();
-    // Sync to All Buildings tab
-    console.log('window.allBuildingsInitialized:', window.allBuildingsInitialized);
-    console.log('selectedBuildingType after set:', selectedBuildingType);
-    if (window.allBuildingsInitialized) {{
+    // Sync to All Buildings tab - filter if data is loaded
+    console.log('allBuildingsData length:', allBuildingsData?.length);
+    if (allBuildingsData && allBuildingsData.length > 0) {{
         console.log('Calling doFilterAllBuildings...');
         doFilterAllBuildings();
-    }} else {{
-        console.log('allBuildingsInitialized is false, NOT calling doFilterAllBuildings');
     }}
 }}
 
