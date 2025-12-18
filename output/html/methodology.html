@@ -161,6 +161,65 @@
             color: var(--text-light);
             font-size: 0.9em;
         }
+
+        /* Collapsed section state */
+        .section.collapsed {
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            box-shadow: none;
+            border-color: rgba(0, 102, 204, 0.15);
+        }
+        .section.collapsed h2 {
+            font-size: 1.15em;
+            margin: 0;
+            padding: 4px 0;
+            border: 0;
+            line-height: 1.25;
+        }
+        .section.collapsed .collapse-arrow {
+            font-size: 18px;
+        }
+
+        /* Collapse arrow styling */
+        .collapse-arrow {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: var(--rzero-primary);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .collapse-arrow::before {
+            content: '▼';
+        }
+        .collapse-arrow.collapsed {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        /* Section header clickable area */
+        .section h2 {
+            position: relative;
+            cursor: pointer;
+            padding-right: 35px;
+        }
+
+        /* Footnotes collapsible */
+        .footnotes.collapsed {
+            padding: 12px 20px;
+            margin-bottom: 10px;
+        }
+        .footnotes.collapsed h2 {
+            font-size: 1.1em;
+            margin: 0;
+            padding: 4px 0;
+        }
+        .footnotes h2 {
+            position: relative;
+            cursor: pointer;
+            padding-right: 35px;
+        }
     </style>
 </head>
 <body>
@@ -253,9 +312,9 @@ if (window.location.search.includes('embed=1')) {
         </table>
     </section>
 
-    <!-- Section 1: Building Type Opportunity -->
+    <!-- Section 1: Opportunity by Building Type -->
     <section class="section">
-        <h2>Building Type Opportunity</h2>
+        <h2>Opportunity by Building Type</h2>
 
         <h3>Vacancy vs. Utilization: Two Types of Empty Space</h3>
         <p>Understanding the difference between vacancy and utilization is critical:</p>
@@ -423,6 +482,20 @@ if (window.location.search.includes('embed=1')) {
                 </tr>
             </tbody>
         </table>
+
+        <h3>Technical Detail: Opportunity Score Formula</h3>
+        <p>Measures how much conditioned space is empty and available for ventilation reduction.</p>
+        <p><strong>Multi-tenant buildings</strong> (office, medical office, mixed use):<br>
+        Vacant space has no tenant but is still ventilated. Leased space may be underutilized due to hybrid work.</p>
+        <div class="formula">Opportunity = Vacancy + (1 - Vacancy) × (1 - Utilization)</div>
+        <p>Example: 25% vacancy + 75% leased at 55% utilization = 25% + (75% × 45%) = 59% opportunity.</p>
+        <p><strong>Single-operator buildings</strong> (hotel, school, retail):<br>
+        No vacancy concept&mdash;the operator controls all space. Opportunity driven purely by when space is empty.</p>
+        <div class="formula">Opportunity = 1 - Utilization</div>
+        <p>Example: School at 45% utilization (summers, nights, weekends off) = 55% opportunity.</p>
+        <p><strong>Limited-opportunity buildings</strong> (hospital, lab, residential care):<br>
+        Code-mandated ventilation for infection control, fume hoods, or 24/7 residents limits savings to ~30% of theoretical.</p>
+        <div class="formula">Opportunity = (1 - Utilization) × 0.3</div>
     </section>
 
     <!-- Section 2: Regional Variations -->
@@ -620,7 +693,71 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Residential Care</td><td>5%</td><td>15%</td><td>Residents 24/7; limited opportunity</td></tr>
             </tbody>
         </table>
-        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.<a href="#fn5" class="footnote-ref">5</a></p>
+        <p>Apply the ODCV savings percentage to the HVAC portion of utility costs.</p>
+
+        <h3>Technical Detail: Energy Cost Formulas</h3>
+        <p>Utility rates from <a href="https://www.eia.gov/electricity/data/state/" class="source-link">EIA State Electricity Data</a> and <a href="https://openei.org/wiki/Utility_Rate_Database" class="source-link">NREL OpenEI Utility Rate Database</a>.</p>
+        <p><strong>Electricity (two components):</strong></p>
+        <div class="formula">Peak_kW = Annual_kWh ÷ (8,760 hours × Load_Factor)</div>
+        <div class="formula">Energy_Cost = kWh × Rate_kWh × 1.10</div>
+        <div class="formula">Demand_Cost = Peak_kW × Rate_kW × 12 months × 1.265</div>
+        <ul>
+            <li><strong>1.10× energy multiplier:</strong> Accounts for taxes, distribution charges, transmission fees, and surcharges beyond base commodity rate (typically 8-15% on real bills).</li>
+            <li><strong>1.265× demand multiplier:</strong> Accounts for demand ratchet clauses (paying for historical peaks), seasonal rate differentials (summer 20-40% higher), and power factor penalties.</li>
+            <li><strong>Load factor:</strong> Ratio of average to peak demand. Default 0.45 (office); hospitals 0.60-0.70; warehouses 0.30-0.40.</li>
+        </ul>
+        <p><strong>Natural Gas:</strong></p>
+        <div class="formula">Gas_Cost = (kBtu ÷ 100) × Rate_therm × 1.10</div>
+        <p>Conversion: 1 therm = 100 kBtu. 1.10× multiplier for delivery charges and taxes.</p>
+        <p><strong>District Steam:</strong></p>
+        <div class="formula">Steam_Cost = (kBtu ÷ 909) × Rate_Mlb</div>
+        <p>Conversion: 1 Mlb (thousand lbs) &asymp; 909 kBtu. No multiplier&mdash;steam rates from utilities like ConEd are all-inclusive.</p>
+        <p><strong>Fuel Oil:</strong></p>
+        <div class="formula">Fuel_Oil_Cost = (kBtu ÷ 1000) × Rate_MMBtu × 1.10</div>
+
+        <h3>Technical Detail: HVAC Percentages</h3>
+        <p>Base values from <a href="https://www.eia.gov/consumption/commercial/data/2018/" class="source-link">EIA CBECS 2018</a> national survey of 6,436 commercial buildings, cross-referenced by building type and climate zone.</p>
+        <p><strong>Adjustments applied to each building:</strong></p>
+        <ul>
+            <li>ENERGY STAR score: ±5% (efficient buildings use less HVAC share)</li>
+            <li>Year built: ±4% (older buildings have less efficient envelopes)</li>
+            <li>EUI vs peer median: ±6% (high-EUI buildings often have HVAC issues)</li>
+            <li>Combined adjustment capped at ±12%</li>
+        </ul>
+        <p><strong>Electric HVAC minimum: 15%</strong><br>
+        Ventilation fans (8-12%), chilled water pumps (2-4%), condenser pumps (1-3%), and controls (1-2%) run continuously regardless of occupancy.</p>
+        <p><strong>Special cases by building type:</strong></p>
+        <ul>
+            <li><strong>Hotels:</strong> Only 21.5% of gas → HVAC. The rest: ~42% domestic hot water, ~33% cooking.</li>
+            <li><strong>Restaurants:</strong> Only 19.9% of gas → HVAC. The rest: ~72% commercial cooking.</li>
+            <li><strong>Supermarkets:</strong> Electric HVAC only 20% (refrigeration excluded from savings calculations).</li>
+            <li><strong>Offices:</strong> 92% of gas → HVAC (space heating dominates), 47% of electricity → HVAC.</li>
+        </ul>
+
+        <h3>Technical Detail: Master Formula</h3>
+        <div class="formula">ODCV% = Floor + (Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
+        <p>Where Range = Ceiling - Floor for each building type.</p>
+        <p><strong>Component breakdown:</strong></p>
+        <ul>
+            <li><strong>Floor/Ceiling:</strong> Building-type-specific min/max savings (e.g., Office 20-40%, Hospital 5-15%)</li>
+            <li><strong>Opportunity:</strong> 0-1 score based on vacancy and utilization</li>
+            <li><strong>Automation:</strong> Average of year-built score (0-1) and size score (0-1)</li>
+            <li><strong>Efficiency Modifier:</strong> 0.85 for ENERGY STAR 90+ (less waste), 1.10 for ES &lt;25 (more waste)</li>
+            <li><strong>Climate Modifier:</strong> 1.10 Northern, 1.05 North-Central, 1.00 South-Central, 0.95 Southern</li>
+        </ul>
+        <p>Example: Office (20-40% range), 59% opportunity, 0.875 automation, ES score 68 (1.0×), North-Central (1.05×):<br>
+        ODCV% = 20% + (59% × 0.875 × 20%) × 1.0 × 1.05 = 20% + 10.8% = 30.8%</p>
+
+        <h3>Technical Detail: Annual Savings Calculation</h3>
+        <p>ODCV reduces energy consumption for each fuel type proportional to its HVAC share.</p>
+        <p><strong>Step 1: Calculate HVAC cost by fuel type</strong></p>
+        <div class="formula">Elec_HVAC_cost = Elec_cost × hvac_pct_elec</div>
+        <div class="formula">Gas_HVAC_cost = Gas_cost × hvac_pct_gas</div>
+        <div class="formula">Steam_HVAC_cost = Steam_cost × hvac_pct_steam</div>
+        <div class="formula">Total_HVAC_cost = Elec + Gas + Steam + Fuel_Oil</div>
+        <p><strong>Step 2: Apply ODCV savings percentage</strong></p>
+        <div class="formula">Annual_savings = Total_HVAC_cost × ODCV%</div>
+        <p>Example: Building with $500K total energy, 45% to HVAC ($225K), 30% ODCV savings = $67,500/year.</p>
     </section>
 
     <!-- Section 4: Beyond Utility Savings -->

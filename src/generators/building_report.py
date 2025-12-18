@@ -2251,8 +2251,8 @@ def generate_energy_section(row):
         <table style="margin-bottom:0;">
             <tr>
                 <th style="width:35%;"></th>
-                <th style="width:22%;">Current Estimate{col_tooltip(current_tooltip)}</th>
-                <th style="width:22%;">Proposed Estimate with RZero{col_tooltip(new_tooltip)}</th>
+                <th style="width:22%;">Current Usage{col_tooltip(current_tooltip)}</th>
+                <th style="width:22%;">Usage w/ ODCV{col_tooltip(new_tooltip)}</th>
                 <th style="width:21%;">Change{col_tooltip(change_tooltip)}</th>
             </tr>
 """
@@ -2430,8 +2430,8 @@ def generate_impact_section(row):
         <table style="margin-bottom:0;">
             <tr>
                 <th style="width:35%;"></th>
-                <th style="width:22%;">Current Estimate</th>
-                <th style="width:22%;">Proposed Estimate with RZero</th>
+                <th style="width:22%;">Current Usage</th>
+                <th style="width:22%;">Usage w/ ODCV</th>
                 <th style="width:21%;">Change</th>
             </tr>
 """
