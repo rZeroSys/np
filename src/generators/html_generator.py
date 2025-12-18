@@ -3139,28 +3139,6 @@ tr.pin-highlight {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .stat-cell {
-        display: none;
-    }
-
-    .stat-cell.building-count {
-        display: block;
-        grid-column: 2;
-        grid-row: 2;
-        font-size: 12px;
-        text-align: left;
-    text-transform: none;
-    }
-
-    .stat-cell.opex-value {
-        display: flex !important;
-    }
-
-    .portfolio-sort-header .sort-col:nth-child(8) {
-        display: block !important;
-    }
-
 }
 
 /* Responsive: 768-1024px */
@@ -3191,61 +3169,81 @@ tr.pin-highlight {
     }
 }
 
-/* Responsive: 768-1100px - smaller desktop/split-screen - show key metrics */
-@media (max-width: 1100px) and (min-width: 768px) {
+/* Responsive: Compact portfolio view for smaller screens (split-screen/tablet) */
+@media (max-width: 1100px) {
     .portfolio-sort-header,
     .portfolio-header {
-        grid-template-columns: 132px 1fr 1fr !important;
+        display: grid;
+        width: 100%;
+        grid-template-columns: 96px minmax(70px, 0.7fr) minmax(90px, 1fr) minmax(110px, 1.2fr);
+        column-gap: 10px;
+        align-items: center;
     }
-    /* Hide: Type (3), Sq Ft (4), EUI (5), Carbon (6), Valuation (7) */
-    .portfolio-sort-header .sort-col:nth-child(3),
-    .portfolio-sort-header .sort-col:nth-child(4),
-    .portfolio-sort-header .sort-col:nth-child(5),
-    .portfolio-sort-header .sort-col:nth-child(6),
-    .portfolio-sort-header .sort-col:nth-child(7),
-    .portfolio-header > *:nth-child(3),
-    .portfolio-header > *:nth-child(4),
-    .portfolio-header > *:nth-child(5),
-    .portfolio-header > *:nth-child(6),
-    .portfolio-header > *:nth-child(7) {
+
+    /* Hide unused columns using data-col (Type, EUI, Carbon, Valuation) */
+    .portfolio-sort-header [data-col="type"],
+    .portfolio-sort-header [data-col="eui"],
+    .portfolio-sort-header [data-col="carbon"],
+    .portfolio-sort-header [data-col="valuation"],
+    .portfolio-header [data-col="type"],
+    .portfolio-header [data-col="eui"],
+    .portfolio-header [data-col="carbon"],
+    .portfolio-header [data-col="valuation"] {
         display: none !important;
     }
-    /* Keep visible: Logo (1), Buildings (2), Savings/yr (8) */
-    .stat-cell.opex-value {
-        display: flex !important;
+
+    /* Explicit grid placement - header */
+    .portfolio-sort-header [data-col="portfolio"] { grid-column: 1 !important; }
+    .portfolio-sort-header [data-col="buildings"] { grid-column: 2 !important; }
+    .portfolio-sort-header [data-col="sqft"] { grid-column: 3 !important; }
+    .portfolio-sort-header [data-col="savings"] { grid-column: 4 !important; }
+
+    /* Explicit grid placement - data rows */
+    .portfolio-header [data-col="portfolio"] { grid-column: 1 !important; }
+    .portfolio-header [data-col="buildings"] { grid-column: 2 !important; }
+    .portfolio-header [data-col="sqft"] { grid-column: 3 !important; }
+    .portfolio-header [data-col="savings"] { grid-column: 4 !important; }
+
+    /* Right-align numbers */
+    .portfolio-sort-header [data-col="buildings"],
+    .portfolio-sort-header [data-col="sqft"],
+    .portfolio-sort-header [data-col="savings"],
+    .portfolio-header [data-col="buildings"],
+    .portfolio-header [data-col="sqft"],
+    .portfolio-header [data-col="savings"] {
+        text-align: right;
+        justify-content: flex-end;
     }
-    .portfolio-sort-header .sort-col:nth-child(8) {
-        display: block !important;
+
+    /* Prevent org name overflow */
+    .portfolio-header [data-col="portfolio"] .org-name-small,
+    .portfolio-sort-header [data-col="portfolio"] {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Ensure visible cells display properly */
+    .portfolio-header [data-col="buildings"],
+    .portfolio-header [data-col="sqft"],
+    .portfolio-header [data-col="savings"] {
+        display: flex !important;
     }
 }
 
-/* Responsive: below 768px - mobile layout with key metrics */
+/* Responsive: below 768px - smaller mobile adjustments */
 @media (max-width: 767px) {
     .portfolio-sort-header,
     .portfolio-header {
-        grid-template-columns: 1fr auto auto !important;
+        grid-template-columns: 70px minmax(50px, 0.7fr) minmax(70px, 1fr) minmax(90px, 1.2fr) !important;
+        column-gap: 6px !important;
     }
-    /* Hide columns 3-7, keep 1, 2, 8 */
-    .portfolio-sort-header .sort-col:nth-child(3),
-    .portfolio-sort-header .sort-col:nth-child(4),
-    .portfolio-sort-header .sort-col:nth-child(5),
-    .portfolio-sort-header .sort-col:nth-child(6),
-    .portfolio-sort-header .sort-col:nth-child(7),
-    .portfolio-header > *:nth-child(3),
-    .portfolio-header > *:nth-child(4),
-    .portfolio-header > *:nth-child(5),
-    .portfolio-header > *:nth-child(6),
-    .portfolio-header > *:nth-child(7) {
-        display: none !important;
+    .portfolio-header .stat-cell {
+        font-size: 11px !important;
     }
-    .portfolio-header .stat-cell.building-count {
-        display: flex !important;
-    }
-    .stat-cell.opex-value {
-        display: flex !important;
-    }
-    .portfolio-sort-header .sort-col:nth-child(8) {
-        display: block !important;
+    .org-name-small {
+        font-size: 10px !important;
     }
     .cities-header,
     .cities-row {
@@ -4216,7 +4214,7 @@ tr.pin-highlight {
     <div style="max-width: 1400px; margin: 0 auto; display: flex; gap: 0; align-items: stretch;">
         <button class="main-tab active" data-tab="portfolios" onclick="switchMainTab('portfolios')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>Portfolios</button>
         <button class="main-tab" data-tab="all-buildings" onclick="switchMainTab('all-buildings')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>Cities</button>
-        <a href="methodology.html" class="main-tab" style="text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Methodology</a>
+        <button class="main-tab" data-tab="methodology" onclick="switchMainTab('methodology')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Methodology</button>
     </div>
 </div>
 <div id="mainContent" style="display: none;">
@@ -4279,9 +4277,9 @@ tr.pin-highlight {
 <div id="portfolios-tab" class="tab-content active">
 <div class="portfolio-section" style="padding: 210px 0 20px 0;">
     <div class="portfolio-sort-header">
-        <span class="sort-col" id="header-name" onclick="sortPortfolios('name')" style="cursor:pointer">Portfolio</span>
-        <span class="sort-col" id="header-buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
-        <div class="sort-col type-filter-wrapper" id="typeFilterWrapper">
+        <span class="sort-col" id="header-name" data-col="portfolio" onclick="sortPortfolios('name')" style="cursor:pointer">Portfolio</span>
+        <span class="sort-col" id="header-buildings" data-col="buildings" onclick="sortPortfolios('buildings')" style="cursor:pointer" data-total="{total_buildings:,} Total Buildings">Buildings</span>
+        <div class="sort-col type-filter-wrapper" id="typeFilterWrapper" data-col="type">
             <span onclick="sortPortfolios('type')" style="cursor:pointer">Type</span>
             <span class="type-active-indicator" onclick="event.stopPropagation(); clearTypeFilter()">×</span>
             <svg class="type-filter-icon" onclick="toggleTypeFilter(event)" style="cursor:pointer" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
@@ -4294,11 +4292,11 @@ tr.pin-highlight {
                 <label class="type-filter-option"><input type="radio" name="type-filter" data-type="property manager" onchange="applyTypeFilter()"> Prop Manager</label>
             </div>
         </div>
-        <span class="sort-col" id="header-sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
-        <span class="sort-col" id="header-eui" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
-        <span class="sort-col" id="header-carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
-        <span class="sort-col" id="header-valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
-        <span class="sort-col" id="header-opex" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr (Avoided utility costs + avoided carbon fines)">Savings/yr</span>
+        <span class="sort-col" id="header-sqft" data-col="sqft" onclick="sortPortfolios('sqft')" style="cursor:pointer" data-total="{fmt_sqft(total_sqft)} Total Sq Ft">Sq Ft</span>
+        <span class="sort-col" id="header-eui" data-col="eui" onclick="sortPortfolios('eui')" style="cursor:pointer">EUI</span>
+        <span class="sort-col" id="header-carbon" data-col="carbon" onclick="sortPortfolios('carbon')" style="cursor:pointer" data-total="{fmt_carbon(total_carbon)} Total tCO2e/yr">tCO2e/yr</span>
+        <span class="sort-col" id="header-valuation" data-col="valuation" onclick="sortPortfolios('valuation')" style="cursor:pointer" data-total="{fmt_valuation(total_valuation)} Total Val. Impact">Val. Impact</span>
+        <span class="sort-col" id="header-opex" data-col="savings" onclick="sortPortfolios('opex')" style="cursor:pointer" data-total="{fmt_money_global(total_opex)} Total Savings/yr (Avoided utility costs + avoided carbon fines)">Savings/yr</span>
     </div>
     <div class="portfolios-list" id="portfolios-list">
         {''.join(portfolio_cards)}
@@ -4399,6 +4397,13 @@ tr.pin-highlight {
         <div id="ab-loading-trigger" class="ab-loading-trigger"></div>
     </div>
 </div>
+</div>
+<div id="methodology-tab" class="tab-content" style="display: none; padding: 180px 32px 40px 32px;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+        <div id="methodology-content" style="text-align: center; padding: 100px 0; color: var(--gray-500);">
+            Loading methodology...
+        </div>
+    </div>
 </div>'''
 
     def _generate_main_building_table(self):
@@ -4566,17 +4571,17 @@ tr.pin-highlight {
         return f'''
 <div class="portfolio-card" data-idx="{index}" data-org="{attr_escape(p['org_name'])}" data-displayname="{attr_escape(display_name)}" data-verticals="{verticals_data}" data-cities="{cities_data}" data-types="{types_data}" data-radio-types="{radio_types_data}" data-tenants="{attr_escape(tenants_data)}" data-sub-orgs="{attr_escape(sub_orgs_data)}" data-buildings="{p['building_count']}" data-total-buildings="{p['building_count']}" data-sqft="{total_sqft}" data-eui="{p.get('median_eui', 0) or 0}" data-eui-rating="{eui_rating_cat}" data-opex="{p['total_opex_avoidance']}" data-valuation="{p['total_valuation_impact']}" data-carbon="{p['total_carbon_reduction']}" data-classification="{attr_escape(classification)}">
     <div class="portfolio-header" onclick="togglePortfolio(this)">
-        <div class="org-logo-stack">
+        <div class="org-logo-stack" data-col="portfolio">
             <span class="org-name-small" title="{attr_escape(full_title)}">{escape(display_name)}{parent_html}</span>
             {logo_html}
         </div>
-        <span class="stat-cell building-count"><span class="building-count-value">{p['building_count']}</span></span>
-        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
-        <span class="stat-cell sqft-value">{sqft_display}</span>
-        <span class="stat-cell eui-value" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
-        <span class="stat-cell carbon-value">{format_carbon(p['total_carbon_reduction'])}</span>
-        <span class="stat-cell valuation-value">{fmt_money(p['total_valuation_impact'])}</span>
-        <span class="stat-cell opex-value">{fmt_money(p['total_opex_avoidance'])}</span>
+        <span class="stat-cell building-count" data-col="buildings"><span class="building-count-value">{p['building_count']}</span></span>
+        <span class="stat-cell classification-cell classification-{classification.replace('/', '-').replace(' ', '-') if classification else 'none'}" data-col="type">{classification.replace('/', '<br>').replace(' ', '<br>') if classification else '-'}</span>
+        <span class="stat-cell sqft-value" data-col="sqft">{sqft_display}</span>
+        <span class="stat-cell eui-value" data-col="eui" title="Median EUI of all buildings in this portfolio">{eui_display}</span>
+        <span class="stat-cell carbon-value" data-col="carbon">{format_carbon(p['total_carbon_reduction'])}</span>
+        <span class="stat-cell valuation-value" data-col="valuation">{fmt_money(p['total_valuation_impact'])}</span>
+        <span class="stat-cell opex-value" data-col="savings">{fmt_money(p['total_opex_avoidance'])}</span>
     </div>
     <div class="portfolio-buildings">
         <div class="building-rows-container"></div>
@@ -4962,12 +4967,13 @@ function switchMainTab(tabId) {{
         t.classList.toggle('active', t.dataset.tab === tabId);
     }});
 
-    // Toggle body class to hide/show sidebar
-    document.body.classList.toggle('all-buildings-active', tabId === 'all-buildings');
+    // Toggle body class to hide/show sidebar (hide on cities and methodology tabs)
+    document.body.classList.toggle('all-buildings-active', tabId === 'all-buildings' || tabId === 'methodology');
 
     // Show/hide tab content
     document.getElementById('portfolios-tab').style.display = tabId === 'portfolios' ? 'block' : 'none';
     document.getElementById('all-buildings-tab').style.display = tabId === 'all-buildings' ? 'block' : 'none';
+    document.getElementById('methodology-tab').style.display = tabId === 'methodology' ? 'block' : 'none';
 
     // Update search placeholder based on tab
     const searchInput = document.getElementById('global-search');
@@ -4986,6 +4992,30 @@ function switchMainTab(tabId) {{
     // FIX: Re-filter All Buildings tab when switching to it (applies current vertical/type filters)
     if (tabId === 'all-buildings' && window.allBuildingsInitialized) {{
         doFilterAllBuildings();
+    }}
+
+    // Lazy load methodology content on first view
+    if (tabId === 'methodology' && !window.methodologyLoaded) {{
+        fetch('methodology.html')
+            .then(response => response.text())
+            .then(html => {{
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const mainContent = doc.querySelector('.main-content');
+                const container = document.getElementById('methodology-content');
+                if (mainContent && container) {{
+                    container.innerHTML = mainContent.innerHTML;
+                    // Reset padding since we're injecting the content
+                    container.style.textAlign = 'left';
+                    container.style.padding = '0';
+                    container.style.color = 'inherit';
+                }}
+                window.methodologyLoaded = true;
+            }})
+            .catch(err => {{
+                console.error('Failed to load methodology:', err);
+                document.getElementById('methodology-content').innerHTML = '<p style="color: red;">Failed to load methodology content.</p>';
+            }});
     }}
 
     // Show/hide tutorial button - only on portfolios tab
