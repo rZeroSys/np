@@ -1,0 +1,390 @@
+================================================================================
+NATIONWIDE PROSPECTOR - REGULATORY COMPLIANCE
+================================================================================
+
+Building Performance Standards (BPS) Calculator Methodology
+
+TOTAL BUILDINGS IN DATASET: 22,954
+BUILDINGS IN BPS JURISDICTIONS: 6,419 (28.0%)
+
+================================================================================
+SECTION 1: CORE METHODOLOGY
+================================================================================
+
+Emissions are calculated from RAW ENERGY DATA (kBtu), NOT from pre-calculated
+emissions columns. This matches the methodology used in the original NYC LL97
+HTML calculator.
+
+--------------------------------------------------------------------------------
+BPS COVERAGE IN DATASET
+--------------------------------------------------------------------------------
+
+Law                     Buildings    % of Dataset
+--------------------------------------------------
+NYC LL97                3,421         14.9%
+DC BEPS                 1,021         4.4%
+Seattle BEPS            679         3.0%
+Energize Denver         642         2.8%
+Boston BERDO 2.0        469         2.0%
+Cambridge BEUDO         125         0.5%
+St. Louis BEPS          62         0.3%
+No BPS law             16,535        72.0%
+
+--------------------------------------------------------------------------------
+CITY-SPECIFIC EMISSION FACTORS (tCO2e per kBtu)
+--------------------------------------------------------------------------------
+
+City              Electricity   Gas         Steam        Source
+------------------------------------------------------------------------
+New York          0.0000847     0.00005311  0.00004493   NYC LL97 (2024-2029)
+Seattle           0.0000029     0.000053    0.000081     Seattle BEPS (98% hydro)
+Boston            0.0000717     0.00005311  0.00004493   EPA eGRID NEWE
+Washington DC     0.0000794     0.00005311  0.00004493   EPA eGRID RFCE
+Denver            0.0001378     0.00005311  0.00004493   EPA eGRID RMPA
+San Francisco     0.0000570     0.00005311  0.00004493   EPA eGRID CAMX
+St. Louis         0.0001649     0.00005311  0.00004493   EPA eGRID SRMW
+Los Angeles       0.0000570     0.00005311  0.00004493   EPA eGRID CAMX
+Chicago           0.0001649     0.00005311  0.00004493   EPA eGRID SRMW
+Portland          0.0000595     0.00005311  0.00004493   EPA eGRID NWPP
+Atlanta           0.0000988     0.00005311  0.00004493   EPA eGRID SRSO
+Default           0.0000922     0.00005311  0.00004493   US National Average
+
+KEY OBSERVATIONS:
+  - Seattle's grid is 29x cleaner than NYC (Seattle City Light is ~98% hydro)
+  - Chicago/St. Louis grids are 2x dirtier than NYC (coal-heavy SRMW region)
+  - California cities have cleaner grids than the US average
+
+--------------------------------------------------------------------------------
+BASELINE EMISSIONS CALCULATION
+--------------------------------------------------------------------------------
+
+  baseline_emissions = (
+    electricity_use_kbtu x factors['elec'] +
+    natural_gas_use_kbtu x factors['gas'] +
+    district_steam_use_kbtu x factors['steam']
+  )
+
+--------------------------------------------------------------------------------
+ODCV REDUCTION APPLIED PER FUEL TYPE
+--------------------------------------------------------------------------------
+
+ODCV savings are applied per fuel type based on HVAC percentages:
+
+  elec_reduction = electricity_use_kbtu x pct_elec_hvac x odcv_savings_pct
+  gas_reduction = natural_gas_use_kbtu x pct_gas_hvac x odcv_savings_pct
+  steam_reduction = district_steam_use_kbtu x pct_steam_hvac x odcv_savings_pct
+
+  net_elec = electricity_use_kbtu - elec_reduction
+  net_gas = natural_gas_use_kbtu - gas_reduction
+  net_steam = district_steam_use_kbtu - steam_reduction
+
+  carbon_emissions_reduction_yr1 = (
+    elec_reduction x factors['elec'] +
+    gas_reduction x factors['gas'] +
+    steam_reduction x factors['steam']
+  )
+
+DATASET CARBON STATISTICS:
+  Mean carbon emissions: 1,026.9 metric tons CO2e
+  Mean ODCV carbon reduction: 174.9 metric tons CO2e
+
+NaN HANDLING:
+If energy is 0 or NaN for a fuel type, its contribution is 0 regardless of
+HVAC percentage.
+
+
+================================================================================
+SECTION 2: BPS LAW SUMMARIES
+================================================================================
+
+Law              City            Fine Type     Fine Rate     Min Sqft   Start
+-----------------------------------------------------------------------------
+Local Law 97     New York, NY    $/tCO2e       $268          25,000     2026
+BERDO 2.0        Boston, MA      $/tCO2e       $234          20,000     2025
+BEUDO            Cambridge, MA   $/tCO2e       $234          25,000     2025
+DC BEPS          Washington, DC  $/sqft        $10 (max $7.5M) 50,000   2026
+Energize Denver  Denver, CO      $/kBtu        $0.15         25,000     2029
+Seattle BEPS     Seattle, WA     $/sqft        $10/cycle     20,000     2031
+St. Louis BEPS   St. Louis, MO   Daily         $500/day      50,000     2025
+EBEPO            San Francisco   Daily         $100/day      10,000     N/A (reporting)
+
+
+================================================================================
+SECTION 3: FINE CALCULATION BY CITY
+================================================================================
+
+DATASET FINE STATISTICS:
+  Total baseline fines (Year 1): $912,840,192
+  Total fines avoided (Year 1): $418,637,048
+  Mean baseline fine: $41,806
+  Mean fine avoided: $18,238
+
+--------------------------------------------------------------------------------
+NYC LOCAL LAW 97 (3,421 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $268 per metric ton CO2e over cap
+Cap (2024-2029): 0.00758 tCO2e/sqft for office/commercial
+Minimum building size: 25,000 sqft
+
+FORMULA:
+  cap = square_footage x 0.00758
+  baseline_overage = max(0, baseline_emissions - cap)
+  with_odcv_overage = max(0, with_odcv_emissions - cap)
+  fine_avoidance = (baseline_overage - with_odcv_overage) x $268
+
+NYC LL97 sets annual carbon emission limits for buildings over 25,000 sqft.
+The 2024 limits are strict - most office buildings can emit only 8.46 kgCO2e/sqft
+before fines kick in.
+
+Source: NYC Mayor's Office of Climate & Environmental Justice,
+        Local Law 97 of 2019 as amended
+
+--------------------------------------------------------------------------------
+BOSTON BERDO 2.0 (469 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $234/tCO2e Alternative Compliance Payment (ACP)
+Cap (2025-2029): 0.0053 tCO2e/sqft (5.3 kgCO2e/sqft)
+Minimum building size: 20,000 sqft
+
+FORMULA:
+  cap = square_footage x 0.0053
+  baseline_overage = max(0, baseline_emissions - cap)
+  with_odcv_overage = max(0, with_odcv_emissions - cap)
+  fine_avoidance = (baseline_overage - with_odcv_overage) x $234
+
+Boston's BERDO 2.0 sets emissions limits starting at 0.0053 metric tons CO2e
+per square foot for offices, declining to net-zero by 2050.
+
+Source: City of Boston Environment Department, BERDO 2.0 emissions standards
+
+--------------------------------------------------------------------------------
+CAMBRIDGE BEUDO (125 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $234/tCO2e Alternative Compliance Payment
+Target: 20% reduction from building's own baseline emissions (NOT fixed cap)
+Minimum building size: 25,000 sqft
+Note: Multifamily buildings only report, no emission reduction fines
+
+FORMULA:
+  target = baseline_emissions x 0.80  (20% reduction = keep 80%)
+  baseline_overage = max(0, baseline_emissions - target)
+  with_odcv_overage = max(0, with_odcv_emissions - target)
+  fine_avoidance = (baseline_overage - with_odcv_overage) x $234
+
+KEY DIFFERENCE FROM BOSTON: Boston uses a fixed cap per sqft. Cambridge
+requires each building to reduce 20% from its own historical baseline -
+meaning high-emitting buildings have higher targets and low-emitting
+buildings have lower targets.
+
+Source: Cambridge Community Development Department, BEUDO regulations
+
+--------------------------------------------------------------------------------
+WASHINGTON DC BEPS (1,020 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $10/sqft (max $7.5M per property), prorated by gap from target
+Metric: ENERGY STAR score with building-type-specific targets
+Minimum building size: 50,000 sqft
+
+ENERGY STAR TARGETS BY BUILDING TYPE:
+  Type             Target    Type              Target
+  --------------------------------------------------------
+  Office           71        Hotel             54
+  Multifamily      66        K-12 School       36
+  Hospital         50        Medical Office    71
+
+FORMULA:
+  target = DC_ENERGY_STAR_TARGETS[bldg_type] (default 71)
+  max_fine = min(sqft x $10, $7,500,000)
+
+  If baseline_score >= target:
+    baseline_fine = 0
+  Else:
+    gap = target - baseline_score
+    baseline_fine = max_fine x (gap / target)
+
+  If post_odcv_score >= target:
+    post_odcv_fine = 0
+  Else:
+    gap = target - post_odcv_score
+    post_odcv_fine = max_fine x (gap / target)
+
+  fine_avoidance = baseline_fine - post_odcv_fine
+
+DC's BEPS requires buildings to meet an ENERGY STAR score target, with
+alternative compliance pathways for buildings that can't reach the target.
+
+Source: DC Department of Energy & Environment, Clean Energy DC Omnibus Act
+
+--------------------------------------------------------------------------------
+DENVER ENERGIZE DENVER (642 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $0.15/kBtu above EUI target (50% reduced per April 2025 rules)
+Minimum building size: 25,000 sqft
+K-12 schools exempt (alternative compliance pathway)
+Timeline: 2028 interim target, 2032 final target (no fines until late 2029)
+
+2032 FINAL EUI TARGETS BY BUILDING TYPE (kBtu/sqft):
+  Type                Target    Type                Target
+  -------------------------------------------------------------
+  Office              48.3      Multifamily         44.2
+  Hotel               61.1      Retail Store        43.5
+  Restaurant/Bar      194.1     Supermarket/Grocery 164.4
+  Higher Ed           60.6      Medical Office      69.0
+  Hospital            165.2     Warehouse           27.2
+
+GLIDE PATH FORMULA (2028 interim target):
+Denver uses LINEAR GLIDE PATH from 2019 baseline to 2032 target.
+2028 = 9 years into 13-year path (2019-2032)
+
+  final_target = DENVER_EUI_TARGETS[bldg_type] (default 48.3)
+  target_eui = site_eui - (site_eui - final_target) x (9 / 13)
+
+  energy_reduction = elec x elec_hvac x odcv_pct + gas x gas_hvac x odcv_pct
+  eui_reduction = energy_reduction / square_footage
+  with_odcv_eui = max(0, site_eui - eui_reduction)
+
+  baseline_overage_kbtu = max(0, site_eui - target_eui) x square_footage
+  with_odcv_overage_kbtu = max(0, with_odcv_eui - target_eui) x square_footage
+  fine_avoidance = (baseline_overage_kbtu - with_odcv_overage_kbtu) x $0.15
+
+A building with 100 kBtu/sqft baseline and 48.3 final target would have
+2028 interim target of ~64 kBtu/sqft (9/13 = 69% progress toward final).
+
+Source: City of Denver Office of Climate Action, Energize Denver Ordinance
+
+--------------------------------------------------------------------------------
+SEATTLE BEPS (679 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $10/sqft per 5-year compliance cycle
+Cap (2031-2035): 0.00081 tCO2e/sqft (0.81 kgCO2e/sqft)
+Minimum building size: 20,000 sqft
+Uses Seattle-specific emission factors (cleaner grid)
+
+SEATTLE EMISSION FACTORS (tCO2e/kBtu):
+  Electricity: 0.0000029 (Seattle City Light - very clean)
+  Gas: 0.000053
+  Steam: 0.000081
+
+FORMULA:
+  baseline_intensity = baseline_emissions / square_footage
+  with_odcv_intensity = with_odcv_emissions / square_footage
+  cap = 0.00081
+
+  If baseline_intensity > cap AND with_odcv_intensity <= cap:
+    fine_avoidance = square_footage x $10 / 5  (annualized)
+  Else:
+    fine_avoidance = 0
+
+Seattle's BEPS requires buildings to meet emissions intensity targets,
+with compliance assessments every 5 years.
+
+Source: Seattle Office of Sustainability & Environment,
+        Building Emissions Performance Standard rules
+
+--------------------------------------------------------------------------------
+ST. LOUIS BEPS (62 buildings)
+--------------------------------------------------------------------------------
+
+Penalty: $500/day for non-compliance
+Target EUI: ~65 kBtu/sqft (35th percentile local benchmark)
+Minimum building size: 50,000 sqft
+
+FORMULA:
+  target_eui = 65
+  energy_reduction = calc_energy_reduction(elec, gas, steam, odcv_pct, hvac_pcts)
+  eui_reduction = energy_reduction / square_footage
+  with_odcv_eui = max(0, site_eui - eui_reduction)
+
+  If site_eui > target_eui AND with_odcv_eui <= target_eui:
+    fine_avoidance = $500 x 365 = $182,500/year
+  Else:
+    fine_avoidance = 0
+
+Source: City of St. Louis Building Division, BEPS Ordinance
+
+--------------------------------------------------------------------------------
+SAN FRANCISCO EBEPO
+--------------------------------------------------------------------------------
+
+Fine: $100/day (>50k sqft), $50/day (<50k sqft), max 25 days
+Status: No emission performance standard yet - reporting ordinance only
+
+FORMULA:
+  fine_avoidance = 0  (no cap to exceed)
+
+Carbon reduction is still calculated for SF buildings.
+
+Source: SF Environment Department, EBEPO
+
+
+================================================================================
+SECTION 4: OFFICIAL SOURCES
+================================================================================
+
+BPS LAW SOURCES:
+  1. NYC Local Law 97:
+     https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page
+
+  2. Boston BERDO:
+     https://www.boston.gov/departments/environment/berdo
+
+  3. Cambridge BEUDO:
+     https://www.cambridgema.gov/beudo
+
+  4. DC BEPS:
+     https://doee.dc.gov/service/building-energy-performance-standards-beps
+
+  5. Denver Energize:
+     https://denvergov.org/Government/Agencies-Departments-Offices/Climate-Action-Sustainability-and-Resiliency/Energize-Denver
+
+  6. Seattle BEPS:
+     https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-emissions-performance-standard
+
+  7. San Francisco EBEPO:
+     https://www.sfenvironment.org/existing-buildings-energy-performance-ordinance
+
+  8. St. Louis BEPS:
+     https://www.stlouis-mo.gov/government/departments/public-safety/building/building-performance/index.cfm
+
+EMISSION FACTOR SOURCES:
+  9. EPA eGRID 2023:
+     https://www.epa.gov/egrid/summary-data
+
+  10. Seattle GHGI Targets:
+      https://www.seattle.gov/documents/Departments/OSE/Building%20Energy/BEPS-GHGI-Targets.pdf
+
+  11. EPA GHG Emission Factors Hub:
+      https://www.epa.gov/climateleadership/ghg-emission-factors-hub
+
+
+================================================================================
+SECTION 5: LIMITATIONS
+================================================================================
+
+1. DC BEPS uses energy_star_score column with building-type-specific targets;
+   buildings without scores excluded from fine calculation
+
+2. San Francisco has no emission caps to calculate fine avoidance
+   (EBEPO is reporting-only)
+
+3. Building type assumptions: All buildings treated as Office/Commercial
+
+4. Future period caps: Only Year 1 caps used; stricter future caps not modeled
+
+5. Emission factors: Non-BPS cities use EPA eGRID regional averages;
+   actual utility-specific factors may vary
+
+
+================================================================================
+DOCUMENT INFO
+================================================================================
+
+Last Updated: December 2025
+Total Buildings: 22,954
+BPS Buildings: 6,419

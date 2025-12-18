@@ -1,0 +1,307 @@
+================================================================================
+NATIONWIDE PROSPECTOR - TOOLTIP REFERENCE
+================================================================================
+
+This document describes the tooltip system used in building reports. Tooltips
+provide methodology explanations when users hover over data points.
+
+Source file: src/generators/building_report.py
+
+
+================================================================================
+SECTION 1: TOOLTIP STRUCTURE
+================================================================================
+
+All tooltips follow a consistent 5-part structure:
+
+1. MEANING — What this represents conceptually (lead with this)
+2. METHOD — How it's calculated (conceptual, no numbers)
+3. DATA USED — Which inputs from this specific building
+4. SOURCE — Where inputs come from (with explicit regional callouts)
+5. JUSTIFICATION — Why this approach is valid/industry-standard
+
+Key principles:
+- NO NUMBERS in tooltip text (user already sees the values)
+- CUSTOMIZE for each building type where methodology differs
+- FLAG REGIONAL DATA explicitly ("using [CITY] market data" vs "using national")
+
+
+================================================================================
+SECTION 2: BUILDING TYPE CUSTOMIZATION
+================================================================================
+
+Every tooltip is customized for the building type where methodology differs:
+
+| Building Type          | Key Differences                                    |
+|------------------------|---------------------------------------------------|
+| Office/Medical/Mixed   | Vacancy + utilization dual waste streams          |
+| K-12 School            | Calendar-driven emptiness, no vacancy             |
+| Higher Ed              | Calendar gaps + daily classroom scheduling        |
+| Hotel                  | Room-level, STR data, gas split (hot water/kitchen)|
+| Inpatient Hospital     | ASHRAE 170 constraints, non-clinical areas only   |
+| Specialty Hospital     | Same as Inpatient Hospital                        |
+| Residential Care       | AHA/NIC data, partial constraints                 |
+| Retail Store           | Traffic-based, owner-occupied                     |
+| Supermarket            | Refrigeration carved out                          |
+| Wholesale Club         | Similar to retail, weekend traffic concentration  |
+| Restaurant/Bar         | Kitchen exhaust constraints, 18% HVAC portion     |
+| Venue/Theater          | Event-schedule-based                              |
+| Library/Museum         | Operating hours based                             |
+| Outpatient Clinic      | Appointment schedule, MGMA data                   |
+
+
+================================================================================
+SECTION 3: REGIONAL DATA CALLOUTS
+================================================================================
+
+Tooltips explicitly flag when using regional vs national data:
+
+VACANCY DATA:
+- "using [CITY] market data" - CBRE/Cushman & Wakefield quarterly reports
+- Office vacancy varies significantly by market
+
+HOTEL OCCUPANCY:
+- "using [CITY] market data" - STR Global room-night occupancy
+- Occupancy varies by market and season
+
+UTILITY RATES:
+- "utility rates for this ZIP code" - NREL database by location
+- Rates vary dramatically by utility provider
+
+GRID EMISSION FACTORS:
+- "using [CITY]'s regional grid factors" - EPA eGRID by subregion
+- Clean grid (Seattle 98% hydro) vs dirty grid (Chicago coal/gas)
+- "using NYC's official LL97 factors" - legally binding coefficients
+
+CAP RATES:
+- "using [CITY] market data" - CBRE quarterly survey by property type
+- Varies by market and property type
+
+SPECIFIC REGIONAL DISTINCTIONS:
+- Seattle: "grid is 98% hydroelectric—one of the cleanest in the country"
+- NYC: "Con Edison steam has its own emission factor"
+- Boston: "New England grid is cleaner than national average"
+
+
+================================================================================
+SECTION 4: DYNAMIC TOOLTIP FUNCTIONS
+================================================================================
+
+Each function returns structured text based on building type and city.
+
+--------------------------------------------------------------------------------
+TIER 1: FINANCIAL IMPACT
+--------------------------------------------------------------------------------
+
+get_property_value_tooltip(row)
+- Explains income capitalization method
+- Cap rates customized by building type and city
+- Source: CBRE quarterly Cap Rate Survey
+
+get_utility_cost_savings_tooltip(row)
+- Explains HVAC cost isolation and savings calculation
+- Data sources customized by building type (STR for hotels, NCES for schools)
+- Flags when using city-specific occupancy data
+
+get_fine_avoidance_tooltip(row)
+- Customized for each BPS city (NYC, Boston, Cambridge, DC, Seattle, Denver, St. Louis)
+- Explains city-specific methodology (carbon caps vs EUI targets vs Energy Star)
+- Flags regional emission factors
+
+--------------------------------------------------------------------------------
+TIER 2: ODCV METHODOLOGY
+--------------------------------------------------------------------------------
+
+get_odcv_savings_tooltip(row)
+- Explains waste mechanism for each building type
+- Dual waste (vacancy + utilization) for offices
+- Calendar-driven for schools
+- Room-level for hotels
+- Flags market-specific data sources
+
+get_new_column_tooltip(row)
+- Explains projected consumption calculation
+- Describes what changes and why it's achievable
+- Customized for each building type's waste mechanism
+
+get_change_column_tooltip(row)
+- Explains what the reduction represents
+- Describes the specific waste being recovered
+- Customized by building type
+
+--------------------------------------------------------------------------------
+TIER 3: ENERGY & EMISSIONS
+--------------------------------------------------------------------------------
+
+get_energy_star_tooltip(row)
+- Explains percentile ranking methodology
+- Notes building types with separate peer groups (hotels, hospitals)
+- Explains relevance to DC BEPS (Energy Star targets)
+
+get_site_eui_tooltip(row)
+- Explains normalization by square footage
+- Formula shown conceptually (not with numbers)
+- Notes types with unusual EUI (hospitals, supermarkets)
+
+get_total_ghg_tooltip(row)
+- Explains emissions calculation by fuel type
+- Flags regional grid carbon intensity
+- Notes NYC LL97 steam factors
+
+get_carbon_reduction_tooltip(row)
+- Explains which fuel reductions matter most by region
+- Clean grids: gas matters more than electricity
+- Dirty grids: electricity savings have bigger impact
+- NYC: legally binding factors for compliance
+
+--------------------------------------------------------------------------------
+TIER 4: CONSUMPTION
+--------------------------------------------------------------------------------
+
+get_electricity_kwh_tooltip(row)
+- Explains how electricity is used in HVAC (fans, chillers, pumps)
+- Fan affinity laws explanation for offices
+- Room-level explanation for hotels
+- Refrigeration exclusion for supermarkets
+
+get_natural_gas_tooltip(row)
+- Explains heating load and ventilation preheat
+- Hotel gas split: 20% HVAC, 42% hot water, 33% cooking
+- Restaurant gas: 18% HVAC, 72% cooking
+- CBECS percentages by building type
+
+get_fuel_oil_tooltip(row)
+- Explains older building heating
+- Carbon intensity note (higher than gas)
+- Nearly 100% HVAC percentage
+
+get_district_steam_tooltip(row)
+- Con Edison system explanation for NYC
+- LL97 steam emission factor
+- HVAC percentage from CBECS
+
+--------------------------------------------------------------------------------
+SUPPORTING TOOLTIPS
+--------------------------------------------------------------------------------
+
+get_hvac_pct_tooltip(row)
+- Explains why HVAC percentage varies by building type
+- Hotel gas split: only 20% is controllable HVAC
+- Restaurant: only 18% is controllable HVAC
+- Supermarket: refrigeration carved out
+
+get_size_tooltip(row)
+- BPS threshold relevance
+- Control sophistication correlation
+
+get_year_built_tooltip(row)
+- Control system evolution by era
+- Pre-1970: pneumatic
+- 1970s-80s: early electronic
+- 1990s-2000s: digital
+- 2010+: modern BMS
+
+get_utility_tooltip(row)
+- Provider name and rate
+- NREL database source
+
+
+================================================================================
+SECTION 5: DATA SOURCES
+================================================================================
+
+All data sources referenced in tooltips:
+
+ENERGY & EMISSIONS
+- EPA eGRID 2023: https://www.epa.gov/egrid
+- EIA CBECS 2018: https://www.eia.gov/consumption/commercial/
+- EIA Emission Factors: https://www.eia.gov/environment/emissions/co2_vol_mass.php
+- ENERGY STAR Portfolio Manager: https://portfoliomanager.energystar.gov/
+
+REAL ESTATE & OCCUPANCY
+- CBRE Office Figures: https://www.cbre.com/insights/figures
+- CBRE Cap Rate Survey: https://www.cbre.com/insights/reports
+- Cushman & Wakefield: https://www.cushmanwakefield.com/en/insights
+- Kastle Systems: https://www.kastle.com/safety-wellness/getting-america-back-to-work/
+
+INDUSTRY-SPECIFIC
+- STR (Hotels): https://www.hospitalitynet.org/
+- NCES (Education): https://nces.ed.gov/
+- AHA Hospital Statistics: https://www.aha.org/statistics
+- MGMA (Medical): https://www.mgma.com/
+- NIC MAP Vision (Senior Housing): https://www.nic.org/
+- Placer.ai (Retail Traffic): https://www.placer.ai/
+
+BPS LAWS
+- NYC Local Law 97: https://www.nyc.gov/site/buildings/codes/ll97-greenhouse-gas-emissions-reductions.page
+- NYC LL84 Benchmarking: https://www.nyc.gov/site/buildings/codes/ll84-benchmarking-law.page
+- Boston BERDO: https://www.boston.gov/departments/environment/building-emissions-reduction-and-disclosure
+- Cambridge BEUDO: https://www.cambridgema.gov/CDD/zoninganddevelopment/sustainabledevelopment/buildingenergydisclosureordinance
+- DC BEPS: https://doee.dc.gov/service/building-energy-performance-standards-beps
+- Energize Denver: https://www.denvergov.org/
+- Seattle BEPS: https://www.seattle.gov/environment/climate-change/buildings-and-energy/building-performance-standards
+
+STANDARDS & UTILITIES
+- ASHRAE 170: https://www.ashrae.org/
+- NREL Utility Rate Database: https://openei.org/wiki/Utility_Rate_Database
+- Con Edison: https://www.coned.com/
+
+
+================================================================================
+SECTION 6: IMPLEMENTATION NOTES
+================================================================================
+
+DYNAMIC GENERATION
+Tooltips are generated at report creation time using Python functions that take
+a pandas DataFrame row containing all building data.
+
+STRUCTURE CONSISTENCY
+All tooltip functions follow the same 5-part pattern:
+```python
+meaning = "What this represents: ..."
+method = "How it's calculated: ..."
+data_used = "Data used: ..."
+source = "Sources: ..." (with f-strings for city names)
+justification = "Why this works: ..."
+
+return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+```
+
+BUILDING TYPE BRANCHING
+Each function uses if/elif chains to customize text by building type:
+- Office/Medical Office/Mixed Use
+- K-12 School
+- Higher Ed
+- Hotel
+- Inpatient Hospital/Specialty Hospital
+- Residential Care
+- Retail/Retail Store
+- Supermarket
+- Wholesale Club
+- Restaurant/Bar
+- Venue/Theater
+- Library/Museum
+- Outpatient Clinic
+- Default (catch-all)
+
+CITY BRANCHING
+Several functions also branch by city:
+- Clean grid cities (Seattle, Portland, SF, LA, San Diego)
+- Dirty grid cities (Chicago, St. Louis, Denver)
+- NYC (special steam factors)
+- Boston/Cambridge (New England grid)
+- BPS cities (7 jurisdictions with fines)
+
+
+================================================================================
+DOCUMENT INFO
+================================================================================
+
+Last Updated: December 2025
+Source File: src/generators/building_report.py
+Total Tooltip Functions: 19
+
+Structure Version: 2.0 (5-part structured format)
+- MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+- Building-type customization for all tooltips
+- Regional data callouts throughout

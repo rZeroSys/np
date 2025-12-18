@@ -15,24 +15,28 @@ import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
 
-# NYC special buildings - use NYC building.py for these
-NYC_BUILDING_SCRIPT = "/Users/forrestmiller/Desktop/New/Scripts/building.py"
-NYC_BBLS = set()
-try:
-    nyc_df = pd.read_csv("/Users/forrestmiller/Desktop/New/data/10_year_savings_by_building.csv")
-    NYC_BBLS = set(str(bbl) for bbl in nyc_df['bbl'].dropna())
-    print(f"✓ Loaded {len(NYC_BBLS)} special NYC BBLs")
-except Exception as e:
-    print(f"Warning: Could not load NYC BBLs: {e}")
-
 # Import functions from modules
 from src.data.loader import load_csv, extract_filename
 from src.config import (
     BUILDING_DATA_PATH, BUILDINGS_OUTPUT_DIR,
     IMAGES_DIR as CONFIG_IMAGES_DIR,
     AWS_BASE_URL,
-    PORTFOLIO_ORGS_PATH
+    PORTFOLIO_ORGS_PATH,
+    NYC_BUILDING_SCRIPT as CONFIG_NYC_BUILDING_SCRIPT,
+    NYC_10YR_SAVINGS_PATH,
+    EUI_POST_ODCV_PATH,
+    LEED_MATCHES_PATH
 )
+
+# NYC special buildings - use NYC building.py for these
+NYC_BUILDING_SCRIPT = str(CONFIG_NYC_BUILDING_SCRIPT)
+NYC_BBLS = set()
+try:
+    nyc_df = pd.read_csv(str(NYC_10YR_SAVINGS_PATH))
+    NYC_BBLS = set(str(bbl) for bbl in nyc_df['bbl'].dropna())
+    print(f"✓ Loaded {len(NYC_BBLS)} special NYC BBLs")
+except Exception as e:
+    print(f"Warning: Could not load NYC BBLs: {e}")
 
 # Configuration - use centralized config
 CSV_PATH = str(BUILDING_DATA_PATH)
@@ -61,7 +65,7 @@ except Exception as e:
 # Load post-ODCV EUI lookup
 EUI_POST_ODCV = {}
 try:
-    eui_df = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/eui_post_odcv.csv')
+    eui_df = pd.read_csv(str(EUI_POST_ODCV_PATH))
     for _, eui_row in eui_df.iterrows():
         bid = eui_row.get('id_building', '')
         eui_val = eui_row.get('energy_site_eui_post_odcv')
@@ -73,7 +77,7 @@ except Exception as e:
 # Load LEED certification data
 LEED_DATA = {}
 try:
-    leed_df = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/leed_matches.csv')
+    leed_df = pd.read_csv(str(LEED_MATCHES_PATH))
     for _, leed_row in leed_df.iterrows():
         p_idx = leed_row.get('portfolio_idx')
         if pd.notna(p_idx):
@@ -104,6 +108,31 @@ try:
     print(f"✓ Loaded {len(UTILITY_LOGOS)} utility logo mappings")
 except Exception as e:
     print(f"Warning: Could not load utility logos: {e}")
+
+# Utility rate page URLs - click logo to view commercial rates
+UTILITY_RATE_URLS = {
+    'PG&E': 'https://www.pge.com/tariffs/en/rate-information/electric-rates.html',
+    'Con Ed': 'https://www.coned.com/en/rates-tariffs/rates/electric-rates-schedule',
+    'SoCal Edison': 'https://www.sce.com/regulatory/regulatory-information/tariff-books',
+    'Pepco': 'https://www.pepco.com/MyAccount/MyBillUsage/Pages/CurrentElectric.aspx',
+    'LADWP': 'https://www.ladwp.com/account/understanding-your-rates/commercial-electric-rates',
+    'SDG&E': 'https://www.sdge.com/rates-and-regulations/current-and-effective-tariffs',
+    'ComEd': 'https://www.comed.com/MyAccount/MyBillUsage/Pages/RatePamphlets.aspx',
+    'Eversource': 'https://www.eversource.com/business/account-billing/manage-bill/about-your-bill/rates-tariffs/summary-of-electric-rates',
+    'Xcel Energy': 'https://www.xcelenergy.com/company/rates_and_regulations/rates/rate_books',
+    'City Light': 'https://www.seattle.gov/city-light/business-solutions/business-billing-and-account-information/business-rates',
+    'PECO': 'https://www.puc.pa.gov/filing-resources/tariffs/electric-tariffs/',
+    'Portland General': 'https://portlandgeneral.com/about/info/rates-and-regulatory/tariff',
+    'SMUD': 'https://www.smud.org/Rate-Information/Business-rates',
+    'Georgia Power': 'https://www.georgiapower.com/business/billing-and-rates/power-and-light-tariffs.html',
+    'Evergy': 'https://www.evergy.com/manage-account/rate-information-link/how-rates-are-set/rate-overviews/detailed-tariffs',
+    'PSE': 'https://www.pse.com/en/pages/rates/electric-tariffs-and-rules',
+    'Ameren': 'https://www.ameren.com/bill/rates/business',
+    'Duke Energy': 'https://www.duke-energy.com/home/billing/rates/index-of-rate-schedules?jur=FL01',
+    'Glendale Water & Power': 'https://www.glendaleca.gov/government/departments/glendale-water-and-power/rates',
+    'Pasadena Water & Power': 'https://pwp.cityofpasadena.net/rates-information/',
+    'Burbank Water & Power': 'https://www.burbankwaterandpower.com/electric/rates-and-charges',
+}
 
 #===============================================================================
 # CITY & BUILDING TYPE CLASSIFICATIONS
@@ -442,28 +471,6 @@ BUILDING_TYPE_INFO = {
         'demand_rate_typical': 22.0,
         'explanation': 'Residents live there 24/7—unlike offices that empty at night. Common areas have some variability, but overall building load is relatively constant.'
     },
-    'Laboratory': {
-        'category': 'Constrained',
-        'floor': 0.05, 'ceiling': 0.15,
-        'uses_vacancy': False,
-        'formula': '(1 - Utilization) × 0.3',
-        'elec_hvac_typical': 0.50,
-        'gas_hvac_typical': 0.825,
-        'load_factor': 0.50,
-        'demand_rate_typical': 35.0,
-        'explanation': 'Labs have limited opportunity due to 24/7 research schedules and specialized equipment.'
-    },
-    'Data Center': {
-        'category': 'N/A',
-        'floor': 0.0, 'ceiling': 0.0,
-        'uses_vacancy': False,
-        'formula': '0 (Not applicable)',
-        'elec_hvac_typical': 0.42,
-        'gas_hvac_typical': 0.0,
-        'load_factor': 0.80,
-        'demand_rate_typical': 35.0,
-        'explanation': 'Cooling is for equipment heat removal, not people. A data center at 3am with one technician has identical cooling load to 3pm—occupancy is irrelevant.'
-    },
 }
 
 # Default building type info for unknown types
@@ -499,11 +506,6 @@ BUILDING_TYPE_ENERGY_NOTES = {
         'gas_note': "75% of gas used for HVAC - higher than average due to makeup air for exhaust.",
         'load_factor_note': "High load factor (65%) from continuous refrigeration systems running 24/7.",
     },
-    'Data Center': {
-        'elec_note': "42% of electricity is cooling. No occupancy-driven savings - cooling is for equipment heat.",
-        'gas_note': "No natural gas usage for HVAC - cooling is 100% electric.",
-        'load_factor_note': "Highest load factor (80%) - servers run 24/7 at near-constant load.",
-    },
     'K-12 School': {
         'elec_note': "55% of electricity is HVAC. Large spaces, older systems, extreme seasonal variability.",
         'gas_note': "80% of gas is HVAC - mostly heating in cooler months. Minimal cooking/DHW.",
@@ -534,18 +536,13 @@ BUILDING_TYPE_ENERGY_NOTES = {
         'gas_note': "60% of gas is HVAC. Medical sterilization, DHW, and kitchen use remaining 40%.",
         'load_factor_note': "High load factor (65%) - 24/7 operation with critical care requirements.",
     },
-    'Laboratory': {
-        'elec_note': "50% of electricity is HVAC. Fume hoods require constant exhaust with makeup air.",
-        'gas_note': "82% of gas is HVAC. Lab fume hood makeup air increases heating load significantly.",
-        'load_factor_note': "Moderate load factor (50%) - equipment runs 24/7 but some labs have off-hours.",
-    },
 }
 
 # Default notes for building types not in the dictionary
 DEFAULT_ENERGY_NOTES = {
-    'elec_note': "Based on EIA CBECS 2018 survey of 6,436 buildings, adjusted for building type and climate.",
-    'gas_note': "Based on EIA CBECS 2018 survey of 6,436 buildings, adjusted for building type and climate.",
-    'load_factor_note': "Load factor estimated from building type and operating patterns.",
+    'elec_note': "Electricity HVAC shares from EIA CBECS 2018 survey, adjusted for building type and climate. (CBECS 2018)",
+    'gas_note': "Natural gas HVAC shares from EIA CBECS 2018 survey, adjusted for building type and climate. (CBECS 2018)",
+    'load_factor_note': "Load factor estimated from building type and operating patterns. (CBECS 2018)",
 }
 
 #===============================================================================
@@ -554,50 +551,192 @@ DEFAULT_ENERGY_NOTES = {
 #===============================================================================
 
 BUILDING_TYPE_STORIES = {
-    'Office': "We calculate savings using federal CBECS survey data for how much energy goes to HVAC, city-specific office vacancy rates from CBRE, and real occupancy data from Kastle Systems badge swipes. Buildings in cities with lower office attendance (San Francisco at 38%) show higher savings potential than cities with stronger return-to-office (New York at 55%). Adjusted for building age and current efficiency.",
+    'Office': "We calculate office savings using federal CBECS survey data for HVAC energy shares, city-specific vacancy rates from CBRE, and badge-swipe occupancy data from Kastle Systems. Hybrid work has dramatically reduced office attendance, while vacancy remains elevated in most markets. Buildings condition all spaces regardless of actual presence—ODCV captures the gap between design capacity and reality. (CBRE, Kastle Systems)",
 
-    'Hotel': "Room occupancy (STR data: NYC 87%, national 63%) times guest presence (~45% of the day—the rest they're out at meetings, sightseeing, dining) gives true utilization. A 63%-occupied hotel runs just 28% actual utilization—meaning 72% of ventilation conditions empty rooms. High-occupancy markets like NYC show less savings potential than lower-occupancy markets like Denver or Atlanta.",
+    'Hotel': "We calculate hotel savings using STR room occupancy data combined with guest presence patterns—guests are typically out during daytime hours. Even booked rooms sit empty most of the day. Markets with higher occupancy show less savings potential than lower-occupancy markets. (STR)",
 
-    'K-12 School': "Schools operate roughly 180 days per year, 7 hours per day—just 22-28% of annual hours depending on state. We calculate utilization using NCES instructional day requirements and state-level data on year-round school adoption. California schools (more year-round programs) run 28% utilization; Minnesota schools (traditional calendar, harsh winters) run 21%. Buildings empty 72-80% of the time.",
+    'K-12 School': "We calculate school savings using NCES instructional day requirements and state calendar data. Schools are empty during summer break, weekends, holidays, and after dismissal. Year-round calendar schools have higher utilization than traditional calendar schools. Most school buildings sit empty the majority of annual hours. (NCES)",
 
-    'Retail': "Stores are built for peak crowds but average 35-45% capacity: slow mornings at 15-20%, lunch and evening rushes at 60-80%, overnight at zero. Urban locations with steadier foot traffic (NYC ~45%) show less savings than suburban stores with sharper peaks and valleys (~35%). The opportunity is in not ventilating for a full store during slow periods.",
+    'Retail': "We calculate retail savings using traffic patterns—stores are built for peak capacity but see much lower average attendance. Mornings are slow, evenings busier, overnight closed. Urban locations with steadier foot traffic show less savings than suburban stores with sharper peaks and valleys. (CBECS 2018)",
 
-    'Higher Ed': "Universities have extreme schedule-driven vacancy: only ~32 weeks in session per year, and during those weeks classrooms average just 35% utilization—most rooms sit empty between classes. Total building utilization runs 24-30% depending on academic calendar. Buildings empty 70-76% of the time.",
+    'Higher Ed': "We calculate university savings using NCES data and academic calendars. Only a portion of the year has classes in session, and during those weeks most classrooms sit empty between lectures. Entire buildings empty during breaks. (NCES)",
 
-    'Residential Care': "Unlike hotels or offices, residents live on-site 24/7—sleeping, eating, spending most hours in the building. We use NIC MAP Vision Q4 2024 occupancy data: Boston 91%, Denver 86%, Atlanta 84%. With residents present ~95% of the time, there's far less empty space to recover compared to offices or schools that clear out nights and weekends.",
+    'Residential Care': "We calculate residential care savings using NIC MAP Vision occupancy data. Unlike hotels where guests leave during the day, residents live on-site continuously. Savings are limited to common areas during overnight hours when residents are in their rooms. (NIC MAP Vision)",
 
-    'Medical Office': "Medical offices have just 9.5% vacancy (vs 20%+ for regular offices), but exam rooms are only occupied 25-35% of operating hours—patients are there for 15-30 minute appointments, then the room sits empty until the next one. (CBRE 2024-2025, MGMA)",
+    'Medical Office': "We calculate medical office savings using CBRE vacancy data and MGMA provider productivity benchmarks. Medical offices have low vacancy compared to regular offices, but exam rooms are occupied only during brief patient appointments. (CBRE, MGMA)",
 
-    'Supermarket': "Supermarkets operate long hours with steady traffic—but still swing between peaks and lulls. Peak hours (5-7pm) hit 80-100% capacity, off-peak (early morning, late night) drops to 15-30%. Weighted average: 45-55% of design.",
+    'Supermarket': "We calculate supermarket savings using traffic patterns. Supermarkets operate long hours with steady traffic, but still swing between evening peaks and quiet early mornings. (CBECS 2018)",
 
-    'Specialty Hospital': "Specialty hospitals run 24/7 with 65-80% bed occupancy (AHA data). Limited opportunity in patient areas, but admin offices, waiting rooms, and cafeterias have variable occupancy—especially off-hours.",
+    'Specialty Hospital': "We calculate specialty hospital savings using AHA hospital data. Continuous operations limit savings in patient areas, but admin offices, waiting rooms, and cafeterias have variable occupancy—especially during off-hours. (AHA)",
 
-    'Inpatient Hospital': "Hospitals run 24/7, but non-clinical areas have variable occupancy: waiting rooms empty overnight, exam rooms idle between appointments, admin offices with business-hours staff, cafeterias with meal-time peaks. Patient areas are limited opportunity, but support spaces offer savings.",
+    'Inpatient Hospital': "We calculate inpatient hospital savings using AHA data. Hospitals run continuously, but non-clinical areas have highly variable occupancy—waiting rooms, admin offices, and cafeterias empty at different times while patient areas stay occupied. (AHA)",
 
-    'Mixed Use': "Mixed-use buildings—typically office towers with ground-floor retail—run centralized HVAC that ventilates vacant floors at near-design rates. We use the same sources as offices: city vacancy from CBRE (14-30% by market) and Kastle badge-swipe utilization (36-52%). Opportunity comes from both vacant space and leased space with low actual attendance.",
+    'Mixed Use': "We calculate mixed-use savings using the same methodology as offices—CBRE vacancy data and Kastle badge-swipe utilization. Office floors follow hybrid work patterns while retail floors see variable traffic. Centralized HVAC conditions all spaces regardless of occupancy. (CBRE, Kastle Systems)",
 
-    'Wholesale Club': "Wholesale clubs have 30-40% of the building in back-of-house stock and warehouse space with almost nobody in it—just occasional forklift operators restocking shelves. We weight the sales floor (60% of building at ~48% customer traffic) against these giant empty stock areas (40% at ~10% occupancy), giving 30-38% true building-wide utilization.",
+    'Wholesale Club': "We calculate wholesale club savings by weighting the sales floor against large back-of-house warehouse areas with minimal staff. Sales floor traffic concentrates on weekends while warehouse areas see sparse occupancy. (CBECS 2018)",
 
-    'Venue': "Arenas, concert halls, and convention centers are empty 80%+ of the time—a typical arena hosts 60-80 events per year, totaling just 300-400 hours of actual use out of 8,760 hours annually. An NBA arena with 41 home games plus 30-40 concerts runs ~550 hours of HVAC-on time. That's 6-7% of the year. True utilization runs 15-22%.",
+    'Venue': "We calculate venue savings using event schedules. Arenas, convention centers, and concert halls host events sporadically but typically condition continuously. These massive spaces sit empty the vast majority of annual hours. (CBECS 2018)",
 
-    'Theater': "Theaters sit empty most of the time—Broadway runs 8 shows per week × 3 hours = just 24 hours of performances out of 168 weekly hours. Adding pre-show HVAC warmup and tech rehearsals brings total conditioned time to ~35 hours per week—21% of the time. During shows, occupancy averages 70-80%. True utilization: 14-22%.",
+    'Theater': "We calculate theater savings using performance schedules. Shows run just a few hours at a time, a few days per week—but HVAC often conditions the space continuously. (CBECS 2018)",
 
-    'Restaurant/Bar': "Dining areas (~60% of building) follow meal patterns: packed during lunch (50-70% capacity) and dinner (60-90%), nearly empty between. Weighted utilization runs 35-45%.",
+    'Restaurant/Bar': "We calculate restaurant savings from dining areas—kitchens have exhaust requirements that can't be reduced. Dining rooms swing between busy meal rushes and empty periods between. (CBECS 2018)",
 
-    'Library/Museum': "Open ~50 hours/week with 30-40% visitor occupancy during those hours. Galleries and reading rooms designed for crowds see true utilization of just 10-15%.",
+    'Library/Museum': "We calculate library and museum savings from visitor traffic patterns. Climate control runs continuously for collection preservation, but visitor presence varies widely. Galleries and reading rooms designed for crowds often see sparse attendance. (CBECS 2018)",
 
-    'Outpatient Clinic': "Providers see 20-25 patients per day across 6-8 exam rooms—each room is occupied just 25-35% of operating hours. Between appointments, rooms sit empty. Weighted building utilization runs 42-48%.",
-
-    'Data Center': "Data centers have zero ODCV savings. Cooling is driven by server heat loads, not people—a data center with 2 people or 20 requires the same cooling. No opportunity to reduce based on human presence.",
-
-    'Bank Branch': "Bank branches operate limited hours—typically 9am-5pm weekdays, Saturday mornings—totaling just 45-50 hours per week (27-30% of time). During those hours, modern branches see minimal foot traffic as banking shifts online: 20-40 customers per day in spaces designed for queues of 30-50. Teller areas get full conditioning regardless of traffic.",
-
-    'Vehicle Dealership': "Dealerships present a split opportunity: showrooms (30-40% of building) follow retail traffic with variable customer presence, while service bays (40-50%) have controlled utilization from scheduled appointments. Showroom traffic averages 35-45% of design, peaking on Saturdays. Service bays run 60-70% utilization during business hours. Showrooms with high ceilings and large glass have significant conditioning load for 40% average occupancy.",
+    'Outpatient Clinic': "We calculate clinic savings using MGMA provider productivity benchmarks. Exam rooms are occupied only during brief patient appointments, then sit empty until the next patient. (MGMA)",
 
 }
 
 # Default story for building types not in the dictionary
 DEFAULT_BUILDING_STORY = "We calculate savings using federal CBECS survey data for HVAC energy shares, adjusted for this building's age, efficiency rating, and local climate. ODCV reduces ventilation when spaces are unoccupied—the savings depend on how much of the time this building sits empty or underutilized."
+
+#===============================================================================
+# UTILIZATION RANGES BY BUILDING TYPE (from methodology)
+#===============================================================================
+
+UTILIZATION_RANGES = {
+    'Office': {'low': 55, 'high': 93, 'source': 'CBRE, Kastle Systems'},
+    'Medical Office': {'low': 75, 'high': 75, 'source': 'CBRE Healthcare'},
+    'K-12 School': {'low': 54, 'high': 85, 'source': 'NCES'},
+    'Higher Ed': {'low': 66, 'high': 66, 'source': 'NCES'},
+    'Hotel': {'low': 67, 'high': 73, 'source': 'STR/CoStar'},
+    'Retail': {'low': 55, 'high': 65, 'source': 'CBECS 2018'},
+    'Inpatient Hospital': {'low': 76, 'high': 78, 'source': 'AHA'},
+    'Outpatient Clinic': {'low': 70, 'high': 70, 'source': 'MGMA'},
+    'Library/Museum': {'low': 42, 'high': 55, 'source': 'CBECS 2018'},
+    'Restaurant/Bar': {'low': 50, 'high': 60, 'source': 'CBECS 2018'},
+}
+
+#===============================================================================
+# CITY ELECTRICITY EMISSION FACTORS (from methodology - EPA eGRID 2023)
+#===============================================================================
+
+CITY_EMISSION_FACTORS = {
+    'Seattle': {
+        'factor': 0.0000029,
+        'relative': '32× cleaner than US average',
+        'grid': '98% hydroelectric',
+        'implication': 'gas reduction is more impactful for carbon savings'
+    },
+    'San Francisco': {
+        'factor': 0.0000570,
+        'relative': '1.6× cleaner than US average',
+        'grid': 'California renewable mix',
+        'implication': 'gas reduction often has more carbon impact than electricity'
+    },
+    'Los Angeles': {
+        'factor': 0.0000570,
+        'relative': '1.6× cleaner than US average',
+        'grid': 'California renewable mix',
+        'implication': 'gas reduction often has more carbon impact than electricity'
+    },
+    'Portland': {
+        'factor': 0.0000595,
+        'relative': '1.5× cleaner than US average',
+        'grid': 'Pacific Northwest hydro mix',
+        'implication': 'gas reduction has higher carbon impact'
+    },
+    'Boston': {
+        'factor': 0.0000717,
+        'relative': '1.3× cleaner than US average',
+        'grid': 'New England natural gas',
+        'implication': 'both electricity and gas reductions matter for carbon'
+    },
+    'Cambridge': {
+        'factor': 0.0000717,
+        'relative': '1.3× cleaner than US average',
+        'grid': 'New England natural gas',
+        'implication': 'both electricity and gas reductions matter for carbon'
+    },
+    'Washington': {
+        'factor': 0.0000794,
+        'relative': '1.2× cleaner than US average',
+        'grid': 'PJM regional mix',
+        'implication': 'both electricity and gas reductions matter'
+    },
+    'New York': {
+        'factor': 0.0000847,
+        'relative': '1.1× cleaner than US average',
+        'grid': 'natural gas, nuclear, and renewables',
+        'implication': 'ODCV reduces emissions from both electricity and gas'
+    },
+    'Atlanta': {
+        'factor': 0.0000988,
+        'relative': '1.1× dirtier than US average',
+        'grid': 'Southern natural gas and coal mix',
+        'implication': 'electricity reduction has moderate carbon impact'
+    },
+    'Denver': {
+        'factor': 0.0001378,
+        'relative': '1.5× dirtier than US average',
+        'grid': 'Colorado coal transitioning to renewables',
+        'implication': 'electricity reduction has significant carbon impact'
+    },
+    'Chicago': {
+        'factor': 0.0001649,
+        'relative': '1.8× dirtier than US average',
+        'grid': 'Midwest coal-heavy grid',
+        'implication': 'electricity reduction has major carbon impact'
+    },
+    'St. Louis': {
+        'factor': 0.0001649,
+        'relative': '1.8× dirtier than US average',
+        'grid': 'Midwest coal-heavy grid',
+        'implication': 'electricity reduction has major carbon impact'
+    },
+}
+
+US_AVG_EMISSION_FACTOR = 0.0000922  # tCO2e/kBtu baseline
+
+#===============================================================================
+# AUTOMATION SCORE BY YEAR BUILT (from methodology)
+#===============================================================================
+
+def get_automation_score(year_built):
+    """Return automation score (0-1) based on year built."""
+    if year_built is None:
+        return 0.50  # default
+    if year_built < 1970:
+        return 0.00  # pneumatic controls, constant volume
+    elif year_built < 1990:
+        return 0.25  # early electronic, limited DDC
+    elif year_built < 2005:
+        return 0.50  # DDC becoming standard, basic BMS
+    elif year_built < 2015:
+        return 0.75  # modern BMS, IP-based controls
+    else:
+        return 1.00  # smart building ready, integrated systems
+
+def get_automation_description(year_built):
+    """Return plain-language description of automation capability."""
+    if year_built is None:
+        return "moderate automation capability"
+    if year_built < 1970:
+        return "limited automation (pneumatic controls typical of pre-1970 buildings)"
+    elif year_built < 1990:
+        return "basic automation (early electronic controls)"
+    elif year_built < 2005:
+        return "moderate automation (basic building management systems)"
+    elif year_built < 2015:
+        return "good automation (modern BMS with IP-based controls)"
+    else:
+        return "excellent automation (smart building ready systems)"
+
+#===============================================================================
+# CAP RATE RANGES BY BUILDING TYPE (from methodology - CBRE)
+#===============================================================================
+
+CAP_RATE_RANGES = {
+    'Office': {'low': 5.0, 'high': 10.2, 'multiplier_low': 10, 'multiplier_high': 20},
+    'Hotel': {'low': 5.0, 'high': 9.5, 'multiplier_low': 11, 'multiplier_high': 20},
+    'Retail': {'low': 5.0, 'high': 9.0, 'multiplier_low': 11, 'multiplier_high': 20},
+    'Medical Office': {'low': 6.2, 'high': 8.5, 'multiplier_low': 12, 'multiplier_high': 16},
+    'K-12 School': {'low': 7.0, 'high': 8.0, 'multiplier_low': 12, 'multiplier_high': 14},
+    'Inpatient Hospital': {'low': 7.0, 'high': 8.0, 'multiplier_low': 12, 'multiplier_high': 14},
+    'Higher Ed': {'low': 7.0, 'high': 8.0, 'multiplier_low': 12, 'multiplier_high': 14},
+}
+
+DEFAULT_CAP_RATE = {'low': 6.0, 'high': 9.0, 'multiplier_low': 11, 'multiplier_high': 17}
 
 #===============================================================================
 # ENERGY SECTION COLUMN TOOLTIPS
@@ -629,65 +768,190 @@ NEW_COLUMN_SOURCES = {
     'Specialty Hospital': "HVAC reduced using CBECS 2018 fuel splits, AHA bed occupancy data.",
     'Residential Care': "HVAC reduced using CBECS 2018 fuel splits, NIC MAP Vision occupancy data.",
     'Mixed Use': "HVAC reduced using CBECS 2018 fuel splits, CBRE vacancy, Kastle occupancy for office portion.",
-    'Data Center': "No ODCV reduction. Cooling is for equipment heat, not people.",
     'Venue': "HVAC reduced using event schedules, industry utilization data.",
     'Theater': "HVAC reduced using performance schedules, Broadway/regional theater utilization data.",
     'Library/Museum': "HVAC reduced using visitor traffic data, operating hours patterns.",
     'Outpatient Clinic': "HVAC reduced using CBECS 2018 fuel splits, MGMA provider productivity benchmarks.",
-    'Bank Branch': "HVAC reduced using FDIC transaction trends, branch traffic patterns.",
     'Wholesale Club': "HVAC reduced using member traffic data, sales floor vs back-of-house weighting.",
-    'Vehicle Dealership': "HVAC reduced using NADA traffic data, showroom vs service bay weighting.",
-    'Laboratory': "HVAC reduced using CBECS 2018 fuel splits, research schedule patterns.",
-    'Courthouse': "HVAC reduced using court administration docket data, public area patterns.",
     'default': "HVAC reduced using CBECS 2018 fuel splits, building type utilization benchmarks.",
 }
 
 # CHANGE column: Human-readable insight (WHY savings exist) by building type
 # Sources at end get auto-hyperlinked by inject_source_links()
 CHANGE_COLUMN_INSIGHTS = {
-    'Office': "Most office space sits empty due to hybrid work and vacancies. Workers come in 2-3 days/week, and many floors have no tenants at all—but HVAC runs full blast regardless. (CBECS 2018, CBRE, Kastle)",
-    'Medical Office': "Exam rooms are occupied just 25-35% of operating hours—patients are there for 15-30 minute appointments, then the room sits empty until the next one. (CBECS 2018, CBRE, MGMA)",
-    'Hotel': "Most hotel rooms sit empty—national average is just 63% occupied. Even booked rooms are empty most of the day while guests are out at meetings, sightseeing, or meals. HVAC conditions empty rooms around the clock. (CBECS 2018, STR)",
-    'K-12 School': "Schools are empty most of the year—summers off, weekends, holidays, and after 3pm daily. Buildings ventilate for students who aren't there 70-80% of the time. (CBECS 2018, NCES)",
-    'Higher Ed': "Classrooms sit empty most of the year—semester breaks, weekends, summers, and between classes. Even when school's in session, most rooms are unused. (CBECS 2018, NCES)",
-    'Retail': "Stores are built to handle Black Friday crowds, but most of the day they're nearly empty—slow mornings, quiet afternoons, closed overnight. HVAC runs as if the store were packed. (CBECS 2018)",
-    'Supermarket': "Supermarkets run long hours with steadier traffic than most retail, but still swing between busy evenings and empty early mornings. (CBECS 2018)",
-    'Restaurant/Bar': "Dining rooms are packed at meal times but empty the rest of the day—lunch rush, dinner rush, then dead time between and overnight. (CBECS 2018)",
-    'Inpatient Hospital': "Hospitals run 24/7, but admin offices, waiting rooms, and cafeterias empty at night while patient areas stay occupied. (CBECS 2018, AHA)",
-    'Specialty Hospital': "Specialty hospitals run 24/7, but non-clinical spaces like admin and waiting rooms empty during off-hours. (CBECS 2018, AHA)",
-    'Residential Care': "Unlike hotels, residents live here 24/7—they don't leave for work or sightseeing. With people present ~95% of the time, there's less empty space to save on. (CBECS 2018, NIC MAP Vision)",
-    'Mixed Use': "The office floors follow hybrid work patterns—workers come in 2-3 days/week, and vacant floors have no tenants at all. Ground-floor retail adds its own traffic variability. (CBECS 2018, CBRE, Kastle)",
-    'Venue': "Arenas and convention centers sit empty 80%+ of the year. A typical arena hosts 60-80 events totaling just 300-400 hours—out of 8,760 hours annually. (CBECS 2018)",
-    'Theater': "Theaters run just 8 shows per week, about 3 hours each—that's 21% of weekly hours at best. The rest of the time, seats sit empty. (CBECS 2018)",
-    'Library/Museum': "Open ~50 hours/week, but visitors only occupy galleries 10-15% of the time. Reading rooms and exhibit halls designed for crowds often sit mostly empty. (CBECS 2018)",
-    'Outpatient Clinic': "Patients occupy exam rooms for 15-30 minute appointments, then rooms sit empty until the next patient. Rooms designed for constant use are idle most of the day. (CBECS 2018, MGMA)",
-    'Wholesale Club': "30-40% of the building is back-of-house warehouse with minimal staff. The sales floor is only busy on weekends. (CBECS 2018)",
-    'default': "Most buildings are empty more often than people realize. HVAC runs at design capacity regardless of actual occupancy. (CBECS 2018)",
+    'Office': "Offices have massive ODCV opportunity. Hybrid work means most workers come in only part of the week, and many floors sit entirely vacant—but centralized HVAC conditions all spaces at design capacity regardless. (CBRE, Kastle Systems)",
+    'Medical Office': "Medical offices have strong ODCV potential. Exam rooms are occupied only during brief patient appointments, then sit empty until the next visit. (CBRE, MGMA)",
+    'Hotel': "Hotels have significant ODCV opportunity. Many rooms are unoccupied on any given night, and even booked rooms sit empty during daytime hours when guests are out. (STR)",
+    'K-12 School': "Schools have the highest ODCV potential of any building type. Buildings are completely empty during summer break, weekends, holidays, and after dismissal each day. (NCES)",
+    'Higher Ed': "Universities have extreme ODCV opportunity. Classrooms sit empty between lectures, and entire buildings empty during semester breaks. (NCES)",
+    'Retail': "Retail has meaningful ODCV opportunity. Stores are designed for peak capacity but see much lower average traffic—slow mornings, busier afternoons, closed overnight. (CBECS 2018)",
+    'Supermarket': "Supermarkets have limited but real ODCV opportunity. Traffic swings between busy evening periods and quiet early mornings. (CBECS 2018)",
+    'Restaurant/Bar': "Restaurants have ODCV opportunity in dining areas. Tables swing between packed meal rushes and empty mid-afternoon lulls. (CBECS 2018)",
+    'Inpatient Hospital': "Hospitals have constrained but real ODCV opportunity. Non-clinical areas—waiting rooms, admin offices, cafeterias—have variable occupancy while patient areas stay occupied. (AHA)",
+    'Specialty Hospital': "Specialty hospitals have similar ODCV patterns to inpatient facilities. Support areas have variable occupancy during off-hours. (AHA)",
+    'Residential Care': "Residential care has limited ODCV opportunity. Unlike hotels, residents live on-site continuously. Savings come from common areas during overnight hours. (NIC MAP Vision)",
+    'Mixed Use': "Mixed-use buildings combine office and retail ODCV opportunities. Office floors follow hybrid work patterns while retail floors see variable traffic throughout the day. (CBRE, Kastle Systems)",
+    'Venue': "Venues have massive ODCV opportunity. Arenas and convention centers host events sporadically but condition continuously—these huge spaces sit empty most of the year. (CBECS 2018)",
+    'Theater': "Theaters have strong ODCV potential. Shows run just a few hours at a time, a few days per week—but HVAC often conditions the space continuously. (CBECS 2018)",
+    'Library/Museum': "Libraries and museums have moderate ODCV opportunity. Climate control runs for collection preservation, but visitor traffic varies widely. (CBECS 2018)",
+    'Outpatient Clinic': "Clinics have strong ODCV potential. Exam rooms are occupied only during brief appointments, then sit empty until the next patient. (MGMA)",
+    'Wholesale Club': "Wholesale clubs have moderate ODCV opportunity. Large back-of-house warehouse areas have minimal staff, and sales floor traffic concentrates on weekends. (CBECS 2018)",
+    'default': "Most buildings are ventilated at design capacity regardless of actual occupancy. ODCV adjusts airflow to match real presence, capturing the gap between design and reality. (CBECS 2018)",
 }
 
 def get_current_column_tooltip(row):
-    """CURRENT column tooltip - explains data source by city."""
+    """CURRENT column tooltip - explains data source."""
     city = safe_val(row, 'loc_city', '')
-    state = safe_val(row, 'loc_state', '')
-
-    if city in CITY_DISCLOSURE_LAWS:
-        law = CITY_DISCLOSURE_LAWS[city]
-        return f"Based on regional disclosure laws, from {law} benchmarking disclosure. Actual metered energy reported by the building."
-    elif state == 'CA':
-        return "Based on regional disclosure laws, from California AB 802 disclosure. Actual metered energy reported by the building."
-    else:
-        return "From public energy benchmarking data. Actual metered energy."
+    law = CITY_DISCLOSURE_LAWS.get(city, 'benchmarking')
+    return f"Actual metered consumption from the building's utility bills, as reported to {city} through mandatory {law} disclosure. This is real data, not an estimate. It is what the building actually used."
 
 def get_new_column_tooltip(row):
-    """NEW column tooltip - explains methodology + data sources by building type."""
+    """NEW column tooltip - explains projection by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    base_text = NEW_COLUMN_SOURCES.get(bldg_type, NEW_COLUMN_SOURCES['default'])
-    return f"Based on building type: {base_text}"
+    city = safe_val(row, 'loc_city', '')
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        meaning = "What this represents: Projected energy consumption if ventilation matched actual occupancy instead of running at design capacity."
+        method = "How it's calculated: We apply the ODCV savings percentage to the HVAC portion of current consumption. The reduction reflects not conditioning empty floors due to vacancy and not ventilating unused desks on occupied floors due to low utilization."
+        data_used = "Data used: Current consumption from city benchmarking, HVAC percentage by fuel type, vacancy rate for this market, and actual office attendance patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Vacancy from CBRE/Cushman & Wakefield using {city} market data. Utilization from Kastle Systems badge swipes. HVAC percentages from CBECS 2018."
+        justification = "Why this is achievable: Office HVAC is centralized and can be modulated with occupancy sensors. When you reduce airflow, fan energy drops dramatically due to fan affinity laws. Cooling load drops too because you condition less air."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        meaning = "What this represents: Projected energy consumption if HVAC responded to the actual school calendar instead of running fixed schedules."
+        method = "How it's calculated: We apply schedule-based savings to the HVAC portion of current consumption. The reduction reflects summers, weekends, afternoons after dismissal, and holiday breaks when buildings sit empty but systems often keep running."
+        data_used = "Data used: Current consumption from city benchmarking, HVAC percentage by fuel type, and school calendar patterns showing actual days and hours of student presence."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Schedule data from NCES. HVAC percentages from CBECS 2018 for educational buildings."
+        justification = "Why this is achievable: Schools have predictable, published calendars. ODCV replaces legacy timers with calendar-aware controls. The building can maintain deep setback when empty and recover before students arrive."
+
+    elif bldg_type == 'Hotel':
+        meaning = "What this represents: Projected energy consumption if room ventilation matched guest presence instead of conditioning every room around the clock."
+        method = "How it's calculated: We apply room-level occupancy savings to the HVAC portion of current consumption. The reduction reflects unoccupied rooms plus hours when guests are out during the day. Note that hotel gas is split between HVAC, hot water, and kitchens—only the HVAC portion responds to occupancy."
+        data_used = "Data used: Current consumption from city benchmarking, hotel-specific HVAC percentages (which account for hot water and kitchen loads), and room-night occupancy for this market."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Room occupancy from STR Global using {city} market data. HVAC percentages from CBECS 2018 hotel-specific data."
+        justification = "Why this is achievable: Each guest room has its own HVAC unit. Room-level sensors or door/key card integration enables setback when unoccupied. Even sold rooms are only occupied about ten hours per day."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        meaning = "What this represents: Projected energy consumption with occupancy-based ventilation in non-clinical areas only. Patient care spaces maintain required airflow regardless."
+        method = "How it's calculated: We apply conservatively capped savings to the HVAC portion of current consumption, limiting to non-clinical zones only. Lobbies, offices, cafeterias, and conference rooms can use occupancy control. Patient care areas are excluded."
+        data_used = "Data used: Current consumption from city benchmarking, healthcare-specific HVAC percentages, and square footage breakdown by clinical vs. non-clinical space."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Ventilation requirements from ASHRAE 170. HVAC percentages from CBECS 2018 for healthcare buildings."
+        justification = "Why this is achievable: Hospitals are mostly non-clinical space. Those areas can use standard occupancy-based control while patient areas maintain required air changes. The projection is conservative because care requirements come first."
+
+    elif bldg_type == 'Residential Care':
+        meaning = "What this represents: Projected energy consumption with occupancy-based conditioning in common areas and non-resident spaces. Resident rooms maintain required ventilation."
+        method = "How it's calculated: We apply conservatively capped savings limited to controllable zones (common areas, administrative spaces). Resident room ventilation is not reduced."
+        data_used = "Data used: Current consumption from city benchmarking, senior housing HVAC percentages, and space breakdown by resident vs. common areas."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Occupancy from NIC MAP Vision using {city}-area market data. HVAC percentages from CBECS 2018."
+        justification = "Why this is achievable: Common areas and administrative spaces can use occupancy-based control while resident rooms maintain required levels. The projection reflects only the controllable portion."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        meaning = "What this represents: Projected energy consumption if ventilation matched actual foot traffic instead of running at peak capacity all day."
+        method = "How it's calculated: We apply traffic-based savings to the HVAC portion of current consumption. The reduction reflects slow periods when stores have few customers but systems run full blast."
+        data_used = "Data used: Current consumption from city benchmarking, retail-specific HVAC percentages, and foot traffic patterns by day and time."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Traffic patterns from retail studies. HVAC percentages from CBECS 2018 for retail buildings."
+        justification = "Why this is achievable: Retail HVAC can modulate based on CO2 sensors as a proxy for occupancy. Stores are packed on weekends but nearly empty on weekday mornings. Matching ventilation to traffic captures the waste."
+
+    elif bldg_type == 'Supermarket':
+        meaning = "What this represents: Projected energy consumption if sales floor conditioning matched customer traffic. Refrigeration is unchanged because it runs continuously regardless of traffic."
+        method = "How it's calculated: We apply traffic-based savings only to the HVAC portion—refrigeration is carved out. The reduction reflects slow traffic periods when HVAC can respond to fewer customers."
+        data_used = "Data used: Current consumption from city benchmarking, HVAC vs. refrigeration breakdown, and customer traffic patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. HVAC/refrigeration breakdown from CBECS 2018. Traffic patterns from retail studies."
+        justification = "Why this is achievable: Refrigeration must run continuously—that can't change. But sales floor HVAC can respond to traffic. We isolate the controllable portion and apply savings there."
+
+    elif bldg_type == 'Wholesale Club':
+        meaning = "What this represents: Projected energy consumption if conditioning matched member traffic patterns, which are concentrated on weekends."
+        method = "How it's calculated: We apply traffic-based savings to the HVAC portion of current consumption. The reduction reflects slower weekday periods when HVAC can modulate down."
+        data_used = "Data used: Current consumption from city benchmarking, big-box retail HVAC percentages, and member traffic patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Traffic patterns from retail studies. HVAC percentages from CBECS 2018."
+        justification = "Why this is achievable: Wholesale clubs have high ceilings and large HVAC loads. Traffic is predictable and concentrated on weekends. Matching ventilation to traffic during slower periods captures significant waste."
+
+    elif bldg_type in ('Venue', 'Theater'):
+        meaning = "What this represents: Projected energy consumption if conditioning matched actual event schedules instead of running continuously."
+        method = "How it's calculated: We apply event-schedule-based savings to the HVAC portion of current consumption. The reduction reflects the gap between event hours and total operating hours."
+        data_used = "Data used: Current consumption from city benchmarking, venue HVAC percentages, and event scheduling patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. HVAC percentages from CBECS 2018 for entertainment buildings."
+        justification = "Why this is achievable: Venues sit empty most of the time. Event schedules are known in advance. Matching conditioning to actual events instead of running around the clock captures significant waste."
+
+    elif bldg_type == 'Restaurant/Bar':
+        meaning = "What this represents: Projected energy consumption if dining area HVAC matched meal-time patterns. Kitchen ventilation is unchanged because exhaust hoods cannot be demand-controlled."
+        method = "How it's calculated: We apply savings only to dining area conditioning—kitchen exhaust and makeup air are excluded. Most restaurant gas goes to cooking, not space heating."
+        data_used = "Data used: Current consumption from city benchmarking, restaurant-specific HVAC percentages (which are much lower than other building types), and meal-time traffic patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. CBECS 2018 shows only about 18% of restaurant gas goes to space heating—the rest is cooking."
+        justification = "Why this is achievable: Kitchen exhaust must run continuously—that can't change. But dining area HVAC can respond to customer traffic. We apply savings only to the controllable portion."
+
+    elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
+        meaning = "What this represents: Projected energy consumption if conditioning aligned with operating hours and visitor traffic patterns."
+        method = "How it's calculated: We apply operating-hours-based savings to the HVAC portion of current consumption. The reduction reflects hours when closed but systems keep running, plus slower periods during open hours."
+        data_used = "Data used: Current consumption from city benchmarking, public building HVAC percentages, and operating hour patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. HVAC percentages from CBECS 2018 for public buildings."
+        justification = "Why this is achievable: Public buildings have clear open/closed hours. HVAC often runs beyond operating hours. Aligning conditioning with actual use captures that waste."
+
+    elif bldg_type == 'Outpatient Clinic':
+        meaning = "What this represents: Projected energy consumption if ventilation matched appointment schedules and clinic operating hours."
+        method = "How it's calculated: We apply schedule-based savings to the HVAC portion of current consumption. Unlike hospitals, clinics don't have 24/7 care or the same strict ventilation codes."
+        data_used = "Data used: Current consumption from city benchmarking, medical office HVAC percentages, and appointment scheduling patterns."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. Scheduling patterns from MGMA. HVAC percentages from CBECS 2018."
+        justification = "Why this is achievable: Clinics operate on appointment schedules with clear business hours. Matching ventilation to the appointment schedule and reducing conditioning outside clinic hours captures real waste."
+
+    else:
+        meaning = "What this represents: Projected energy consumption if ventilation matched actual occupancy instead of running at design capacity around the clock."
+        method = "How it's calculated: We apply an occupancy-based savings percentage to the HVAC portion of current consumption. The reduction reflects periods when spaces are empty but HVAC keeps running."
+        data_used = "Data used: Current consumption from city benchmarking, HVAC percentages by fuel type, and occupancy patterns for this building type."
+        source = f"Sources: Current consumption from {city} benchmarking disclosure. HVAC percentages from CBECS 2018."
+        justification = "Why this is achievable: HVAC systems run at design capacity regardless of actual occupancy. Matching ventilation to when people are actually present captures the waste from conditioning empty spaces."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_change_column_tooltip(row):
-    """CHANGE column tooltip - the WHY punchline by building type."""
-    # Delegate to get_odcv_savings_tooltip which has detailed building-type explanations
-    return get_odcv_savings_tooltip(row)
+    """CHANGE column tooltip - explains what the difference represents.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+
+    # MEANING is the same across types
+    meaning = "What this represents: The difference between current and projected consumption—this is energy currently being wasted conditioning empty or underutilized spaces."
+
+    # METHOD is the same across types
+    method = "How it's calculated: Current consumption minus projected consumption. The reduction equals the HVAC portion of energy times the savings percentage for this building type."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption, vacancy rate for this market, and office attendance patterns."
+        justification = "What this means: HVAC running at full capacity for vacant floors, conference rooms with no meetings, and desks with no one sitting at them. This is the recoverable waste from conditioning spaces as if they were full when they're not."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption and school calendar patterns."
+        justification = "What this means: HVAC running during summers, weekends, afternoons after dismissal, and holiday breaks when the building sits empty. This is the recoverable waste from running on fixed timers instead of responding to the academic calendar."
+
+    elif bldg_type == 'Hotel':
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption and room occupancy patterns for this market."
+        justification = "What this means: Guest rooms being conditioned around the clock when guests are present only a fraction of that time. This includes both unsold rooms and rooms where the guest is out during the day."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital', 'Residential Care'):
+        data_used = "Data used: The current and projected values shown in this row, limited to non-clinical and common areas where occupancy-based control is safe."
+        justification = "What this means: Non-clinical spaces (lobbies, offices, cafeterias) being conditioned at full capacity regardless of use. Patient care areas are excluded—this reflects only the controllable portion."
+
+    elif bldg_type in ('Retail', 'Retail Store', 'Supermarket', 'Wholesale Club'):
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption and customer traffic patterns."
+        justification = "What this means: HVAC running at peak capacity during slow periods when the store has few customers. This is the waste from conditioning for the busiest hour all day long."
+
+    elif bldg_type in ('Venue', 'Theater'):
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption and event scheduling."
+        justification = "What this means: Conditioning running around the clock for a venue designed for intermittent use. This is the waste from maintaining conditions during the many hours between events."
+
+    elif bldg_type == 'Restaurant/Bar':
+        data_used = "Data used: The current and projected values shown in this row, limited to dining area HVAC (kitchen exhaust is excluded)."
+        justification = "What this means: Dining area conditioning running during dead hours between meals. Kitchen ventilation is unchanged—this reflects only the controllable portion."
+
+    else:
+        data_used = "Data used: The current and projected values shown in this row, derived from this building's actual consumption and occupancy patterns for this building type."
+        justification = "What this means: HVAC running at design capacity regardless of actual occupancy. This is the recoverable waste from conditioning spaces when they're empty or underutilized."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{justification}"
 
 #===============================================================================
 # TOOLTIP DEFINITIONS
@@ -698,30 +962,6 @@ TOOLTIPS = {
     'owner': "Building ownership from public records and regulatory filings.",
     'utility_provider': "Electric utility serving this building's location. Rates from NREL utility rate database by ZIP code.",
 }
-
-def get_energy_rate_tooltip(row):
-    """Dynamic tooltip explaining energy rate concept - for ODCV provider audience."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"Based on regional utility rates, base electricity rate before demand charges. Multiplier applied for taxes, distribution, and transmission fees not in the commodity rate. (NREL utility rate database)"
-
-def get_demand_rate_tooltip(row):
-    """Dynamic tooltip explaining demand rate concept - for ODCV provider audience."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"Based on regional utility rates, utilities charge for peak power draw each month, not just consumption. Includes adjustments for demand ratchet clauses and seasonal rate premiums. (NREL utility rate database)"
-
-def get_peak_demand_tooltip(row):
-    """Dynamic tooltip explaining peak demand concept - for ODCV provider audience."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    context = {
-        'Office': "offices peak mid-afternoon when HVAC, lighting, and equipment all run together.",
-        'K-12 School': "schools peak when HVAC ramps up before students arrive and during hot afternoons.",
-        'Hotel': "hotels peak in early evening when guests return and restaurant/laundry run simultaneously.",
-        'Retail': "retail peaks during store hours when lighting, HVAC, and point-of-sale all operate.",
-        'Inpatient Hospital': "hospitals have relatively flat demand since they run around the clock.",
-        'Data Center': "data centers have very flat demand—servers run constantly.",
-    }
-    type_context = context.get(bldg_type, "peak typically occurs when HVAC, lighting, and equipment all run at once.")
-    return f"Highest instantaneous power draw. Based on building type, {type_context} Calculated from annual usage and load factor."
 
 # Source text to URL mapping for tooltip hyperlinks
 # Order matters - longer/more specific patterns first to avoid partial matches
@@ -851,369 +1091,915 @@ def safe_val(row, column, default=''):
 def get_odcv_savings_tooltip(row):
     """Dynamic ODCV opportunity explanation by building type.
 
-    Explains WHY this building type has its specific ODCV savings potential.
-    Uses hybrid style: real-world patterns + key data points + source citations.
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
     """
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    city = safe_val(row, 'loc_city', '')
 
-    # Building-type specific explanations - hybrid style with data + sources
-    tooltips = {
-        # HIGH OPPORTUNITY (30%+ savings)
-        'Office': "Post-COVID reality: Kastle Systems shows 50% average badge-ins nationally. Add 15-25% vacancy rates (SF: 34%, NYC: 15%) and you get massive over-ventilation. A building designed for 1,000 people often has 300-400 present. (CBECS 2018, CBRE, Kastle Systems)",
+    # MEANING is similar across types but customized
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching ventilation to actual occupancy instead of running at design capacity."
+        method = """How it's calculated: Savings % = Floor + (Opportunity × Automation × Range) × Modifiers.
 
-        'Medical Office': "Exam rooms sit empty between patients—each 15-30 minute appointment means the room is unoccupied 50-70% of operating hours. MGMA benchmarks show providers see 20-25 patients/day across 6-8 exam rooms. Add nights/weekends = closed. (CBECS 2018, MGMA)",
+Opportunity Score combines two waste streams: Vacancy + (1 − Vacancy) × (1 − Utilization). Example: 25% vacancy plus 75% leased at 55% utilization = 59% opportunity.
 
-        'K-12 School': "Schools are empty 3+ months/year (summer, holidays, weekends) but HVAC often runs year-round. During school days, classrooms average 65-75% occupancy with significant empty periods between classes. Gyms, auditoriums, and cafeterias sit empty most of the day. (CBECS 2018, NCES)",
+Automation Score averages year built (newer = better controls) and size (larger = more sophisticated BMS). A 2018 building over 250,000 sqft scores 1.0; a 1975 building under 50,000 sqft scores ~0.35.
 
-        'Higher Ed': "Universities have dramatic occupancy swings: summer break (12+ weeks), winter break, spring break, plus evenings and weekends. Lecture halls designed for 300 students often have 50. Research buildings run 24/7 HVAC for 9-5 occupancy. (CBECS 2018, NCES)",
+Modifiers adjust for efficiency (already-efficient buildings have less waste to capture) and climate (colder climates have higher heating penalties per CFM reduced)."""
+        data_used = f"Data used: Vacancy rate for {city} market, actual office attendance patterns for this region, building year built, building square footage, Energy Star score (or EUI if no score), and climate zone."
+        source = f"Sources: Vacancy from CBRE and Cushman & Wakefield quarterly reports, using {city} market data—not national averages. Utilization from Kastle Systems badge swipe tracking—measured values from real buildings. Climate zones from ASHRAE. Efficiency from EPA Portfolio Manager."
+        justification = "Why this works: Office HVAC is centralized—landlords cannot just shut off vacant floors due to fire codes and BMS limitations. Vacant space gets conditioned like occupied space. And the leased floors are not full either—hybrid work means many desks sit empty. Both waste streams are real and measurable."
 
-        'Venue': "Arenas, concert halls, and convention centers are empty 80%+ of the time. A typical arena hosts 60-80 events/year—that's only 300-400 hours of actual use out of 8,760 hours/year. Yet HVAC conditions these massive spaces continuously. (CBECS 2018)",
+    elif bldg_type == 'K-12 School':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by aligning ventilation with the school calendar instead of running on fixed timers."
+        method = """How it's calculated: Savings % = Floor + (Opportunity × Automation × Range) × Modifiers.
 
-        'Theater': "Broadway runs 8 shows/week x 3 hours = 24 hours of performances out of 168 hours/week. Even adding rehearsals and pre-show HVAC, theaters operate at 15-20% utilization. Movie theaters fare slightly better but still average 30% seat occupancy. (CBECS 2018)",
+Opportunity Score for schools = 1 − Utilization. Schools don't have vacancy like offices—there's one tenant. But they have extreme schedule-driven emptiness: summers, weekends, afternoons after 3pm, holidays. Total empty time often exceeds 50% of the year.
 
-        'Inpatient Hospital': "Hospitals run 24/7, but non-clinical areas have variable occupancy: waiting rooms (30% occupied), exam rooms (35%), admin offices (40%), cafeterias (35%)—yet all receive the same aggressive ventilation as patient rooms. (CBECS 2018, AHA, ASHRAE 170)",
+Automation Score averages year built and size (same as offices).
 
-        'Mixed Use': "Office floors follow Kastle data (45-55% occupancy), retail floors follow traffic patterns (40-50%). Multi-tenant means vacancy challenges similar to office. Central HVAC controlled by landlord = same over-ventilation problem. (CBECS 2018, CBRE)",
+Modifiers adjust for efficiency and climate."""
+        data_used = "Data used: School calendar patterns showing actual days and hours of student presence, building year built, building square footage, efficiency rating, and climate zone."
+        source = "Sources: Schedule data from NCES (National Center for Education Statistics). School calendars are public, predictable, and standardized across districts. Not estimated—these are actual operating schedules."
+        justification = "Why this works: Schools are designed for full classrooms but sit empty over half the calendar year. HVAC often runs on fixed timers that ignore the calendar entirely. The gap between designed capacity and actual student presence is recoverable waste."
 
-        # MODERATE OPPORTUNITY (22-29%)
-        'Specialty Hospital': "Rehab facilities, psychiatric hospitals, and specialty care have similar patterns to inpatient hospitals. Large waiting areas, admin offices, and therapy rooms are over-ventilated. True utilization 55-60%. (CBECS 2018, AHA)",
+    elif bldg_type == 'Higher Ed':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching ventilation to academic schedules and classroom utilization."
+        method = "How it's calculated: We account for calendar gaps (summer, winter, spring breaks) plus daily variability—classrooms packed some hours and empty others. A lecture hall might be used three days a week and sit empty the rest."
+        data_used = "Data used: Academic calendar patterns, classroom utilization rates, building year built, and building size."
+        source = "Sources: Academic scheduling data from NCES. University schedules and classroom utilization are well documented through institutional reporting."
+        justification = "Why this works: Universities have the same calendar gaps as K-12 plus even more daily variability. Academic schedules are predictable. Matching ventilation to actual class schedules captures significant waste."
 
-        'Hotel': "Average US hotel occupancy: 63%. But rooms are only occupied ~10 hours/day (evening to morning). Meeting rooms: booked 40% of time. Lobbies: 30% capacity average. HVAC runs 24/7 in all spaces regardless of occupancy. (CBECS 2018, STR)",
+    elif bldg_type == 'Hotel':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching room conditioning to guest presence instead of running continuously."
+        method = """How it's calculated: Savings % = Floor + (Opportunity × Automation × Range) × Modifiers.
 
-        'Outpatient Clinic': "Same pattern as medical office—exam rooms ventilated at medical-grade rates but patients only present for brief appointments. Operating hours: 8am-5pm weekdays. Effective utilization across exam rooms, waiting areas, and admin: 42-48%. (CBECS 2018, MGMA)",
+Opportunity Score for hotels = 1 − Utilization. Two waste sources: unsold rooms (average US occupancy ~63%) plus rooms where guest is out during the day. Even sold rooms are only occupied ~10 hours/day. True utilization runs ~28%.
 
-        'Retail': "Foot traffic varies dramatically: weekday mornings see 15-25% of design capacity, weekend afternoons hit 60-80%. Stores condition for peak traffic 100% of operating hours. Back rooms and stockrooms (20-30% of space) see minimal occupancy. (CBECS 2018)",
+Automation Score averages year built and size. Many hotels already have room-level sensing (key cards, motion detectors).
 
-        'Library': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
+Modifiers adjust for efficiency and climate."""
+        data_used = f"Data used: Room-night occupancy for {city} market, typical guest-in-room hours, building year built, building square footage, efficiency rating, and climate zone."
+        source = f"Sources: Room occupancy from STR Global, using {city} market data—not national averages. STR is the hotel industry's authoritative tracking source. This is the same data hotel operators use internally for revenue management."
+        justification = "Why this works: Hotels condition every room around the clock, but even sold rooms are only occupied about ten hours per day. Room-level sensors enable setback when guests are out. The opportunity is well-documented through industry tracking."
 
-        'Museum': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        meaning = "What this represents: The percentage of HVAC energy that can be saved in non-clinical areas while maintaining required airflow in patient care spaces."
+        method = """How it's calculated: Savings % = Floor + (Opportunity × Automation × Range) × Modifiers.
 
-        'Library/Museum': "HVAC runs 24/7 for collection preservation (temperature/humidity control), but visitors are sparse. Open ~50 hours/week with 30-40% average occupancy during those hours. True utilization: 12-15%. (CBECS 2018)",
+Opportunity Score for hospitals = (1 − Utilization) × 0.3. We apply a 0.3 multiplier because patient care areas cannot reduce ventilation regardless of census. ASHRAE 170 mandates minimum air changes for infection control.
 
-        # LIMITED OPPORTUNITY (20-22%)
-        'Wholesale Club': "30-40% of the building is back-of-house warehouse with only forklift drivers present. Sales floor averages 48% traffic, stock areas 10%. Shorter hours than grocery (10am-8:30pm) and weekend-heavy traffic. (CBECS 2018)",
+The savings range is capped lower than other building types. Only non-clinical zones (lobbies, offices, cafeterias, conference rooms) can use occupancy-based control."""
+        data_used = "Data used: Hospital census patterns, square footage breakdown by clinical vs. non-clinical space, building year built, building square footage, and efficiency rating."
+        source = "Sources: Occupancy patterns from AHA Hospital Statistics. Ventilation requirements from ASHRAE 170 standards for healthcare facilities. These are code requirements, not optional."
+        justification = "Why this works: ASHRAE 170 mandates minimum air changes in patient areas—we don't touch those. But hospitals are mostly non-clinical space. Those areas can use standard occupancy-based control. The calculation is conservative because patient care comes first."
 
-        'Restaurant/Bar': "Kitchen exhaust hoods must run at full blast during all cooking—not demand-controllable. ODCV opportunity exists only in dining areas (~60% of space). Dining follows meal patterns: packed at lunch/dinner, empty between. (CBECS 2018)",
+    elif bldg_type == 'Residential Care':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved in common areas and non-resident spaces while maintaining care standards."
+        method = "How it's calculated: We apply savings only to controllable zones (common areas, administrative spaces) and cap conservatively. Resident room ventilation maintains required levels."
+        data_used = "Data used: Facility occupancy rates, space breakdown by resident vs. common areas, building year built, and building size."
+        source = f"Sources: Occupancy data from NIC MAP Vision, using {city}-area senior housing market data. Care requirements from facility licensing standards."
+        justification = "Why this works: Residential care has ventilation requirements for resident rooms, but common areas and administrative spaces can use occupancy-based control. We limit savings to those zones for a conservative, defensible estimate."
 
-        'Supermarket': "Longer hours (6am-midnight) than most retail, but still variable traffic. Open 126 hrs/week, but mornings and late nights see 20-30% of design. Food safety requirements limit how much ventilation can be reduced. (CBECS 2018)",
+    elif bldg_type in ('Retail', 'Retail Store'):
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching ventilation to actual foot traffic instead of running at peak capacity all day."
+        method = "How it's calculated: We look at traffic patterns throughout operating hours. Retail doesn't have vacancy—it's owner-occupied. But traffic swings wildly between busy periods and slow hours."
+        data_used = "Data used: Foot traffic patterns by day and time, building year built, and building size."
+        source = "Sources: Traffic patterns from retail studies and sources like Placer.ai. Retail traffic is well-studied and predictable."
+        justification = "Why this works: Stores are packed on weekends but nearly empty on weekday mornings. HVAC runs at the same capacity regardless. Matching ventilation to actual traffic captures the waste from over-conditioning during slow periods."
 
-        'Residential Care': "Unlike hotels where guests leave during the day, residents actually live here 24/7. Savings limited to common areas during overnight hours—dining rooms, activity areas, lobbies when unoccupied. (CBECS 2018, NIC MAP Vision)",
+    elif bldg_type == 'Supermarket':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching sales floor conditioning to customer traffic. Refrigeration is excluded because it runs continuously regardless of traffic."
+        method = "How it's calculated: We isolate HVAC from refrigeration and apply occupancy-based savings only to the space conditioning portion. Refrigeration cannot respond to occupancy."
+        data_used = "Data used: Customer traffic patterns, HVAC vs. refrigeration energy breakdown, building year built, and building size."
+        source = "Sources: HVAC/refrigeration breakdown from CBECS 2018 for grocery buildings. Traffic patterns from retail studies."
+        justification = "Why this works: Supermarkets have unique energy profiles. Refrigeration runs continuously—that can't change. But HVAC conditioning the sales floor can respond to traffic. We isolate the controllable portion."
 
-        # VERY LIMITED OPPORTUNITY (5-15%)
-        'Laboratory': "Labs have limited opportunity due to fume hoods requiring constant exhaust and specialized equipment. Negative pressure requirements override occupancy-based control. (CBECS 2018, ASHRAE)",
+    elif bldg_type == 'Wholesale Club':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching conditioning to member traffic patterns, which are concentrated on weekends."
+        method = "How it's calculated: We look at traffic patterns—wholesale clubs see heavy weekend traffic but are much quieter on weekdays. HVAC runs at peak capacity regardless."
+        data_used = "Data used: Member traffic patterns by day and time, building year built, and building size."
+        source = "Sources: Traffic patterns from retail studies. Wholesale club traffic is predictable and concentrated on weekends."
+        justification = "Why this works: Wholesale clubs have high ceilings and large HVAC loads. Traffic is predictable and concentrated on weekends. Matching ventilation to traffic during slower periods captures significant waste."
 
-        'Police Station': "24/7 staffing requirement. Holding areas have specific ventilation requirements under detention standards. Savings limited to administrative and training spaces during off-hours. (CBECS 2018)",
+    elif bldg_type in ('Venue', 'Theater'):
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching conditioning to actual event schedules instead of running continuously."
+        method = "How it's calculated: We look at the gap between event hours and total hours. Venues are designed for intermittent peak use but often condition around the clock."
+        data_used = "Data used: Event scheduling patterns, typical hours of operation vs. event hours, building year built, and building size."
+        source = "Sources: Venue operating patterns. Event schedules are predictable and published."
+        justification = "Why this works: Event venues sit empty most of the time. HVAC often maintains conditions around the clock for intermittent use. Matching conditioning to actual event schedules captures the waste from conditioning empty spaces."
 
-        'Fire Station': "24/7 staffing requirement. Living quarters, apparatus bays, and ready rooms must maintain comfortable conditions for crews who may be called out at any moment. Response capability must remain immediate. (CBECS 2018, NFPA)",
+    elif bldg_type == 'Restaurant/Bar':
+        meaning = "What this represents: The percentage of dining area HVAC energy that can be saved. Kitchen ventilation is excluded because exhaust hoods cannot be demand-controlled."
+        method = "How it's calculated: We apply savings only to dining area conditioning, not kitchen exhaust. CBECS data shows most restaurant gas goes to cooking, not space heating. Only the small HVAC portion is controllable."
+        data_used = "Data used: Meal-time traffic patterns, HVAC vs. cooking energy breakdown, building year built, and building size."
+        source = "Sources: Energy breakdown from CBECS 2018 showing only about 18% of restaurant gas goes to space heating—the rest is cooking."
+        justification = "Why this works: Kitchen exhaust hoods require constant makeup air that must be heated—that can't be demand-controlled. Only dining area HVAC responds to occupancy. The calculation is conservative but accurate to what's actually controllable."
 
-        'Public Transit': "Station utilization follows commute patterns: packed 7-9am and 5-7pm, sparse overnight. But underground stations have specific ventilation requirements for tunnel air quality and emergency smoke evacuation. (CBECS 2018, NFPA 130)",
+    elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by aligning conditioning with operating hours and visitor traffic patterns."
+        method = "How it's calculated: We look at operating hours plus traffic patterns when open. The opportunity comes from hours when closed but systems keep running, plus slower periods during open hours."
+        data_used = "Data used: Operating hours, visitor traffic patterns, building year built, and building size."
+        source = "Sources: Public building operating patterns. Hours are fixed and predictable."
+        justification = "Why this works: Public buildings have clear open/closed hours and relatively steady traffic when open. HVAC often runs beyond operating hours. Aligning conditioning with actual use captures that waste."
 
-        'Courthouse': "Security requirements and unpredictable docket schedules limit flexibility. Courtrooms may sit empty between cases but require rapid climate recovery when sessions begin. (CBECS 2018)",
+    elif bldg_type == 'Outpatient Clinic':
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching ventilation to appointment schedules and clinic operating hours."
+        method = "How it's calculated: We look at appointment scheduling patterns and clinic hours. Unlike hospitals, outpatient clinics don't have 24/7 care or the same strict ventilation codes."
+        data_used = "Data used: Appointment scheduling patterns, clinic operating hours, building year built, and building size."
+        source = "Sources: Scheduling patterns from MGMA medical office benchmarks. Clinic schedules are predictable."
+        justification = "Why this works: Clinics operate on appointment schedules with clear business hours. Matching ventilation to the appointment schedule and reducing conditioning outside clinic hours captures real waste."
 
-        'Bank Branch': "Limited hours—typically 9am-5pm weekdays, Saturday mornings (27-30% of time). During those hours, modern branches see minimal foot traffic: 20-40 customers/day in spaces designed for queues of 30-50. (CBECS 2018, FDIC)",
+    else:
+        meaning = "What this represents: The percentage of HVAC energy that can be saved by matching ventilation to actual occupancy patterns."
+        method = "How it's calculated: We estimate opportunity based on how much of the time spaces sit empty while HVAC keeps running. The method varies by building type—multi-tenant buildings factor in vacancy, single-tenant buildings look at operating schedules."
+        data_used = "Data used: Occupancy patterns appropriate for this building type, building year built, and building size."
+        source = "Sources: Occupancy data from industry sources appropriate for this building type."
+        justification = "Why this works: HVAC systems typically run at design capacity regardless of actual occupancy. Matching ventilation to when people are actually present captures the waste from conditioning empty spaces."
 
-        'Public Service': "DMVs, permit centers operate standard business hours with variable public traffic. Waiting areas designed for 100 people often have 20-40 present except during peak periods. (CBECS 2018, GSA)",
-
-        # OTHER TYPES
-        'Arts & Culture': "Galleries require 24/7 climate control for artwork but see visitors only during limited hours. Performance spaces follow theater patterns with sparse scheduling. 15-25% visitor utilization. (CBECS 2018)",
-
-        'Sports/Gaming Center': "Bowling alleys, ice rinks, arcades run 12-16 hours daily but average 35-45% utilization. Weekend afternoons hit 70-90% capacity; Tuesday mornings run 10-20%. Ice rinks need continuous cooling regardless of skaters. (CBECS 2018)",
-
-        'Vehicle Dealership': "Showrooms (30-40% of building) follow retail traffic with variable customer presence. Service bays (40-50%) have controlled utilization from scheduled appointments. Showroom traffic averages 35-45% of design. (CBECS 2018, NADA)",
-
-        # ZERO OPPORTUNITY
-        'Data Center': "Data centers have zero ODCV savings potential. Cooling requirements are driven entirely by server heat loads, not human occupancy. A data center with 2 people or 20 people requires the same precise temperature and humidity control. (CBECS 2018)",
-    }
-
-    # Return building-type specific tooltip, or fallback for unknown types
-    return tooltips.get(bldg_type, "Most buildings are ventilated at design capacity regardless of actual occupancy. Adjusting airflow to match real occupancy reduces waste during low-traffic periods. (CBECS 2018)")
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 
 def get_property_value_tooltip(row):
-    """Dynamic property value tooltip - conceptual explanation only."""
-    bldg_type = safe_val(row, 'bldg_type', '')
-    city = safe_val(row, 'loc_city', '')
-    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0) or 0
+    """Property value tooltip - explains method, data source, justification by building type.
 
-    story = f"Commercial property values are based on Net Operating Income divided by capitalization rate—the standard income capitalization method used throughout real estate. "
-    story += "Lower operating costs (like HVAC savings) flow directly to NOI, multiplying their impact on asset value. "
-    if fine_avoided > 0:
-        story += "Avoided BPS fines also reduce expenses, increasing NOI further. "
-    story += f"Based on building type, cap rates for {bldg_type.lower()}s from CBRE Cap Rate Survey Q4 2024."
-    return story
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    city = safe_val(row, 'loc_city', '')
+
+    # MEANING (same for all types)
+    meaning = "What this represents: The increase in property value from reducing annual operating costs."
+
+    # METHOD (same for all types)
+    method = """How it's calculated: Valuation Impact = Total Annual OpEx Avoidance ÷ Cap Rate.
+
+Total Annual OpEx Avoidance includes both utility savings and BPS fine avoidance (for buildings in cities with Building Performance Standards). Both are operating expenses that reduce when HVAC waste is eliminated.
+
+The cap rate acts as a multiplier. A lower cap rate means investors pay more for each dollar of income, so the same dollar of savings creates a larger value increase. Cap rates vary by property type (hotels higher, grocery-anchored retail lower) and market (gateway cities lower, secondary markets higher)."""
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        data_used = "Data used: This building's projected utility savings and fine avoidance (if in a BPS city), plus the cap rate for office properties in this market."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey, using {city} market data. Savings calculated from this building's actual energy consumption reported through city benchmarking disclosure."
+        justification = "Why this works: Every dollar of reduced operating expense flows directly to Net Operating Income. Office landlords capture utility savings directly. Lower expenses mean higher income, which investors capitalize into higher property value."
+
+    elif bldg_type == 'Hotel':
+        data_used = "Data used: This hotel's projected utility savings (accounting for the split between HVAC, hot water, and kitchen gas use), plus the cap rate for hotels."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey, using {city}-area hotel market data. Savings calculated from actual energy consumption, with HVAC portion isolated using CBECS hotel-specific breakdowns."
+        justification = "Why this works: Hotels trade at higher cap rates than offices, so the value multiplier per dollar saved is lower. But hotel operating costs are a larger share of revenue, making efficiency gains proportionally more impactful on absolute value."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        data_used = "Data used: This building's projected utility savings from aligning HVAC with the academic calendar, plus the cap rate for educational properties."
+        source = "Sources: Cap rate from CBRE's quarterly Cap Rate Survey for institutional properties. Savings calculated from actual energy consumption and NCES schedule data."
+        justification = "Why this works: Educational buildings are income-producing assets (tuition, state funding per pupil). Lower operating costs free budget for educational priorities. The same income capitalization logic applies even for non-profit operators."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        data_used = "Data used: This hospital's projected utility savings from non-clinical areas only (lobbies, offices, cafeterias), plus healthcare facility cap rates."
+        source = "Sources: Cap rate from CBRE's quarterly Cap Rate Survey for healthcare properties. Savings are conservatively capped because clinical areas cannot reduce ventilation under ASHRAE 170."
+        justification = "Why this works: Healthcare facilities are valued like other commercial properties. Operating cost reductions flow to NOI. We apply savings only to non-clinical spaces, so the improvement is conservative but defensible."
+
+    elif bldg_type == 'Residential Care':
+        data_used = "Data used: This facility's projected utility savings from common areas and non-patient spaces, plus senior housing cap rates."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey, using {city}-area senior housing data. Occupancy patterns from NIC MAP Vision. Savings conservatively applied only to controllable zones."
+        justification = "Why this works: Senior housing is valued on NOI like other commercial properties. Care requirements limit where savings can be captured, but common areas and administrative spaces offer real opportunity."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        data_used = "Data used: This store's projected utility savings from traffic-based ventilation control, plus retail property cap rates."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey for {city}-area retail. Savings calculated from actual energy consumption and traffic pattern data."
+        justification = "Why this works: Retail properties are income-producing assets. Net lease structures may affect whether landlord or tenant captures savings, but the property value impact is real regardless of who pays the utility bills."
+
+    elif bldg_type == 'Supermarket':
+        data_used = "Data used: This supermarket's projected HVAC savings (refrigeration excluded), plus grocery-anchored retail cap rates."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey for {city}-area grocery-anchored retail. Refrigeration is carved out because it cannot respond to occupancy."
+        justification = "Why this works: Supermarkets have unique energy profiles. Refrigeration runs continuously regardless of traffic. But HVAC for the sales floor can respond to occupancy. We isolate the controllable portion."
+
+    elif bldg_type == 'Wholesale Club':
+        data_used = "Data used: This building's projected HVAC savings from matching conditioning to member traffic patterns, plus big-box retail cap rates."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey for {city}-area big-box retail. Traffic patterns from retail studies."
+        justification = "Why this works: Wholesale clubs have high ceilings and large HVAC loads. Traffic is predictable and concentrated on weekends. Matching ventilation to traffic yields significant savings that flow to property value."
+
+    elif bldg_type == 'Restaurant/Bar':
+        data_used = "Data used: This restaurant's projected HVAC savings (kitchen exhaust excluded), plus restaurant property cap rates."
+        source = "Sources: Cap rate from CBRE's quarterly Cap Rate Survey for restaurant properties. CBECS data shows only about 18% of restaurant gas goes to space heating—the rest is cooking."
+        justification = "Why this works: Restaurant HVAC savings are limited because kitchen exhaust hoods require constant makeup air. We apply savings only to the small controllable portion. The calculation is conservative but accurate."
+
+    elif bldg_type in ('Venue', 'Theater'):
+        data_used = "Data used: This venue's projected savings from event-schedule-based conditioning, plus entertainment venue cap rates."
+        source = "Sources: Cap rate from CBRE's quarterly Cap Rate Survey for entertainment/special purpose properties. Savings reflect the gap between event hours and total operating hours."
+        justification = "Why this works: Venues are designed for intermittent peak use but often condition continuously. Matching HVAC to event schedules captures significant waste. The value impact flows through NOI like any commercial property."
+
+    elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
+        data_used = "Data used: This building's projected savings from operating-hours-based conditioning, plus institutional property cap rates."
+        source = "Sources: Cap rate from CBRE's quarterly Cap Rate Survey for institutional/special purpose properties. Operating hours are fixed and predictable."
+        justification = "Why this works: Public buildings have clear open/closed hours. HVAC often runs beyond operating hours. Aligning conditioning with actual use reduces waste that flows to operating budgets and property value."
+
+    elif bldg_type == 'Outpatient Clinic':
+        data_used = "Data used: This clinic's projected savings from appointment-schedule-based conditioning, plus medical office cap rates."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey, using {city} medical office market data. Scheduling patterns from MGMA medical office benchmarks."
+        justification = "Why this works: Outpatient clinics operate on appointment schedules with clear business hours, unlike hospitals with 24/7 care. This makes them more like offices for HVAC purposes—predictable schedules yield predictable savings."
+
+    else:
+        data_used = "Data used: This building's projected utility savings plus the appropriate cap rate for this property type."
+        source = f"Sources: Cap rate from CBRE's quarterly Cap Rate Survey, using market data appropriate for {city} and this building type."
+        justification = "Why this works: Every dollar of reduced operating expense flows directly to Net Operating Income. Investors value properties as a multiple of NOI. Lower expenses mean higher income, which capitalizes into higher property value."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_energy_star_tooltip(row):
-    """Dynamic methodology explanation for Energy Star score - for ODCV provider audience."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return (f"Based on building type, ENERGY STAR® ranks this {bldg_type.lower()} against similar buildings nationwide using source energy (not site energy), "
-            "normalized for weather and operating hours. Score of 75+ qualifies for EPA certification. "
-            "Post-ODCV scores estimated by modeling how HVAC savings reduce source energy use. (EPA Portfolio Manager)")
+    """Energy Star tooltip - explains method, data source, justification by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', '')
+    city = safe_val(row, 'loc_city', '')
+
+    # MEANING (same for all types)
+    meaning = "What this represents: A percentile ranking of this building's energy efficiency compared to similar buildings nationwide. A score of 50 means average; 75 or above earns EPA certification."
+
+    # METHOD (same for all types)
+    method = "How it's calculated: EPA uses source energy (not site energy), normalized for weather, operating hours, and other factors. Buildings are compared only to peers of the same type and climate zone."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        data_used = "Data used: This building's energy consumption from city benchmarking disclosure, compared to the national database of office buildings with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Peer comparison from EPA's CBECS-based regression models."
+        justification = "Why this matters: Reducing HVAC waste improves efficiency relative to peers who are still conditioning empty space. Getting from below-average to certification territory can meaningfully affect tenant perception and lease negotiations."
+
+    elif bldg_type == 'Hotel':
+        data_used = "Data used: This hotel's energy consumption from city benchmarking disclosure, compared to the national database of hotels with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Hotels have their own peer group separate from offices."
+        justification = "Why this matters: Hotels have their own Energy Star category with different benchmarks. Improving room-level efficiency moves you up in the hotel peer group. DC's BEPS uses Energy Star targets—hotels have a specific threshold different from offices."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        data_used = "Data used: This hospital's energy consumption from city benchmarking disclosure, compared to the national database of hospitals with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Hospitals are scored only against other hospitals."
+        justification = "Why this matters: Hospitals are scored against other hospitals, which all have high energy use due to ventilation requirements. Even modest improvements can move you up several percentiles since the peer group is tightly clustered around high consumption."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        data_used = "Data used: This school's energy consumption from city benchmarking disclosure, compared to the national database of educational buildings with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Educational buildings have their own peer group."
+        justification = "Why this matters: Schools with better schedule-aligned HVAC rank higher than those running equipment continuously. Matching ventilation to the academic calendar improves efficiency relative to schools still running on legacy timers."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        data_used = "Data used: This store's energy consumption from city benchmarking disclosure, compared to the national database of retail buildings with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Retail buildings have their own peer group."
+        justification = "Why this matters: Retail buildings that match ventilation to traffic patterns will rank higher than stores conditioning at peak capacity all day. Efficiency improvements move you up relative to less optimized peers."
+
+    elif bldg_type == 'Supermarket':
+        data_used = "Data used: This supermarket's energy consumption from city benchmarking disclosure, compared to the national database of supermarkets with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Supermarkets have their own peer group that accounts for refrigeration loads."
+        justification = "Why this matters: Supermarkets are compared only to other supermarkets, which all have high refrigeration loads. The score reflects efficiency in space conditioning and other controllable areas relative to grocery peers."
+
+    elif bldg_type in ('Residential Care',):
+        data_used = "Data used: This facility's energy consumption from city benchmarking disclosure, compared to the national database of senior care facilities with similar characteristics."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology. Senior care facilities have their own peer group."
+        justification = "Why this matters: Senior housing that reduces conditioning in common areas while maintaining care standards will rank higher than facilities running at full capacity regardless of occupancy."
+
+    else:
+        data_used = "Data used: This building's energy consumption from city benchmarking disclosure, compared to the national database of similar buildings."
+        source = f"Sources: Current score from {city} benchmarking disclosure or estimated using EPA Portfolio Manager methodology."
+        justification = "Why this matters: Less energy means better efficiency relative to peer buildings, which means a higher percentile ranking. The score reflects how this building compares to similar buildings nationwide."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_electricity_kwh_tooltip(row):
-    """ROW tooltip - static per building type, with data year."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    data_year = safe_val(row, 'data_year', '')
-    year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
-    tooltips = {
-        'Data Center': "data centers use ~42% of electricity for cooling—but it removes server heat, not affected by occupancy. The rest powers IT equipment.",
-        'Supermarket': "supermarkets use ~35% of electricity for HVAC. Refrigeration takes 40-50%, with lighting and equipment making up the rest.",
-        'Inpatient Hospital': "hospitals use ~40-45% of electricity for HVAC. Medical imaging, life support, and 24/7 critical systems take the rest.",
-        'Specialty Hospital': "specialty hospitals use ~40-45% of electricity for HVAC. Medical equipment and critical systems take the rest.",
-        'Hotel': "hotels use ~45-50% of electricity for HVAC. Lighting, elevators, laundry, and kitchen equipment take the rest.",
-        'Restaurant/Bar': "restaurants use ~30-35% of electricity for HVAC. Kitchen equipment, refrigeration, and lighting take the bulk.",
-        'K-12 School': "schools use ~45-50% of electricity for HVAC. Lighting, computers, and cafeteria equipment take the rest.",
-        'Higher Ed': "universities use ~45-50% of electricity for HVAC. Labs, computers, and lighting take the rest.",
-        'Office': "offices use ~40-50% of electricity for HVAC. Lighting and plug loads (computers, equipment) take the rest.",
-        'Medical Office': "medical offices use ~45-50% of electricity for HVAC. Medical equipment and lighting take the rest.",
-        'Retail': "retail stores use ~40-45% of electricity for HVAC. Lighting is a major load, especially in display-heavy stores.",
-    }
-    base_text = tooltips.get(bldg_type, "commercial buildings typically use 40-50% of electricity for HVAC. Lighting and equipment take the rest.")
-    return f"Based on building type, {base_text}" + year_suffix
+    """ROW tooltip for electricity consumption - explains the concept of electrical waste by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', '')
+    city = safe_val(row, 'loc_city', '')
+
+    # MEANING (same for all)
+    meaning = "What this represents: The electricity consumption row shows current usage, projected usage after ODCV, and the reduction in kilowatt-hours per year."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        method = "How electricity is used: Fans, chillers, and pumps run the HVAC system. Air handling units run at design capacity regardless of how many people are present. Chillers cool that air even when floors sit empty."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, HVAC percentage for electricity (which varies by building efficiency), vacancy rate for this market, and office attendance patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Vacancy from CBRE/Cushman & Wakefield using {city} market data. Utilization from Kastle Systems badge swipes. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: ODCV uses occupancy sensors to modulate fans. When you reduce airflow, fan energy drops dramatically due to fan affinity laws (cubic relationship). Cooling load drops too because you're conditioning less air."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        method = "How electricity is used: HVAC fans, cooling equipment, and pumps run on fixed schedules regardless of the academic calendar. Systems pull the same air whether students are present or not."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, educational building HVAC percentage, and school calendar patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Schedule data from NCES. HVAC percentage from CBECS 2018 for educational buildings."
+        justification = "Why savings are possible: ODCV replaces legacy timer schedules with calendar-aware controls. The building can reduce conditioning during summers, weekends, afternoons after dismissal, and holidays—all times when students are absent but systems currently run."
+
+    elif bldg_type == 'Hotel':
+        method = "How electricity is used: Each guest room has its own HVAC unit running continuously. Common areas run 24/7. Waste comes from unsold rooms and rooms where guests are out during the day."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, hotel-specific HVAC percentage, and room-night occupancy for this market."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Room occupancy from STR Global using {city} market data. HVAC percentage from CBECS 2018 hotel-specific data."
+        justification = "Why savings are possible: Room-level sensors or key card integration allows setback when rooms are unoccupied. Even sold rooms are only occupied about ten hours per day—the rest is recoverable waste."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        method = "How electricity is used: HVAC runs at high capacity for ventilation requirements. Patient areas must maintain minimum air changes under ASHRAE 170 regardless of occupancy."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, healthcare-specific HVAC percentage, and conservative savings ceiling limited to non-clinical areas."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018 for healthcare. Ventilation requirements from ASHRAE 170."
+        justification = "Why savings are limited: Patient care areas cannot reduce ventilation—infection control requirements come first. But hospitals are mostly non-clinical space: lobbies, cafeterias, offices, conference rooms. Those areas can use standard ODCV."
+
+    elif bldg_type == 'Residential Care':
+        method = "How electricity is used: HVAC runs for both resident rooms and common areas. Care requirements affect what can be controlled."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, senior housing HVAC percentage, and occupancy patterns limited to controllable zones."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Occupancy from NIC MAP Vision using {city}-area market data. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: Common areas and administrative spaces can use occupancy-based control while resident rooms maintain required levels. We limit savings to controllable zones."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        method = "How electricity is used: HVAC runs at full capacity from open to close regardless of foot traffic. Traffic swings wildly between busy periods and slow hours."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, retail HVAC percentage, and foot traffic patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Traffic patterns from retail studies. HVAC percentage from CBECS 2018 for retail."
+        justification = "Why savings are possible: ODCV can modulate based on CO2 sensors as a proxy for occupancy. Stores are packed on weekends but nearly empty on weekday mornings. Matching ventilation to traffic captures the waste."
+
+    elif bldg_type == 'Supermarket':
+        method = "How electricity is used: Refrigeration runs continuously—that cannot change. But HVAC conditioning the sales floor can respond to traffic."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, HVAC vs. refrigeration breakdown, and customer traffic patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC/refrigeration breakdown from CBECS 2018. Traffic patterns from retail studies."
+        justification = "Why savings are limited: We isolate HVAC from refrigeration and apply savings only to the space conditioning portion. Refrigeration is a continuous load that cannot respond to occupancy."
+
+    elif bldg_type in ('Venue', 'Theater'):
+        method = "How electricity is used: HVAC often maintains conditions around the clock for venues designed for intermittent peak use. Most hours, the space sits empty."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, venue HVAC percentage, and event scheduling patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018 for entertainment buildings."
+        justification = "Why savings are possible: ODCV matches conditioning to actual event schedules. The gap between event hours and total operating hours is where the waste occurs."
+
+    elif bldg_type == 'Restaurant/Bar':
+        method = "How electricity is used: Kitchen exhaust fans run continuously during cooking hours—that cannot change. Only dining area HVAC can respond to occupancy."
+        data_used = "Data used: Actual electricity consumption from city benchmarking, restaurant-specific HVAC percentage (which is lower than other types), and meal-time patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC/cooking breakdown from CBECS 2018."
+        justification = "Why savings are limited: Kitchen exhaust requires constant makeup air. Only the dining area HVAC portion is controllable. We apply savings only to that portion."
+
+    else:
+        method = "How electricity is used: Fans, chillers, and pumps run the HVAC system at design capacity regardless of actual occupancy."
+        data_used = "Data used: Actual electricity consumption from city benchmarking and HVAC percentage by building type."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: ODCV detects when spaces are empty and reduces airflow. You only condition air for people who are actually there."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_natural_gas_tooltip(row):
-    """ROW tooltip - static per building type, with data year."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    data_year = safe_val(row, 'data_year', '')
-    year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
-    tooltips = {
-        'Hotel': "only ~20% of hotel gas goes to HVAC. The rest (~40% hot water, ~33% kitchen cooking) can't be reduced by occupancy controls.",
-        'Restaurant/Bar': "just ~18% of restaurant gas is HVAC. The bulk (~72%) fires cooking equipment—that can't change with occupancy.",
-        'Inpatient Hospital': "hospitals use ~60% of gas for HVAC. The rest goes to sterilization, hot water, and cafeteria.",
-        'Specialty Hospital': "specialty hospitals use ~60% of gas for HVAC. The rest goes to sterilization and hot water.",
-        'K-12 School': "schools use ~80% of gas for heating. The rest is cafeteria cooking and hot water.",
-        'Higher Ed': "universities use ~80% of gas for heating. Labs, cafeterias, and hot water take the rest.",
-        'Supermarket': "supermarkets use ~65-75% of gas for HVAC. Bakery ovens and deli equipment take the rest.",
-        'Office': "offices use ~85-90% of gas for heating. Hot water takes the small remainder.",
-        'Medical Office': "medical offices use ~85% of gas for heating. Hot water and sterilization take the rest.",
-        'Retail': "retail stores use ~75-80% of gas for heating. Hot water takes the rest.",
-        'Data Center': "data centers use almost no gas for HVAC—cooling is electric. Any gas goes to backup generators or office areas.",
-    }
-    base_text = tooltips.get(bldg_type, "commercial buildings typically use 75-85% of gas for heating. Hot water and process loads take the rest.")
-    return f"Based on building type, {base_text}" + year_suffix
+    """ROW tooltip for natural gas consumption - explains the concept of gas heating waste by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', '')
+    city = safe_val(row, 'loc_city', '')
+
+    # MEANING (same for all)
+    meaning = "What this represents: The natural gas consumption row shows current usage, projected usage after ODCV, and the reduction in therms per year."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        method = "How gas is used: Gas heats the building, including all the fresh outdoor air that ventilation pulls in. In winter, every cubic foot of cold outside air must be heated before delivery to occupied spaces."
+        data_used = "Data used: Actual gas consumption from city benchmarking, HVAC percentage for gas (CBECS shows nearly 88% of office gas goes to space heating), vacancy rate for this market, and office attendance patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Vacancy from CBRE/Cushman & Wakefield using {city} market data. Utilization from Kastle Systems. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: When you reduce ventilation to empty spaces, you heat less air. The reduction comes from not heating air for vacant floors and underutilized occupied floors."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        method = "How gas is used: Gas heats the building. Boilers often run through winter break, spring break, and sometimes maintain temperatures all summer. Schools routinely heat empty buildings."
+        data_used = "Data used: Actual gas consumption from city benchmarking, educational building HVAC percentage (CBECS shows about 80% of school gas goes to HVAC), and school calendar patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Schedule data from NCES. HVAC percentage from CBECS 2018 for educational buildings."
+        justification = "Why savings are possible: ODCV allows deep setback when the calendar shows empty days, then recovery before students arrive. Aligning heating with actual school schedules captures significant waste."
+
+    elif bldg_type == 'Hotel':
+        method = "How gas is used: Hotels split gas three ways—space heating gets about 20%, domestic hot water for guests gets about 42%, and cooking gets about 33%. Hot water and kitchen demand do not change with room occupancy because guests still shower and restaurants still cook."
+        data_used = "Data used: Actual gas consumption from city benchmarking, hotel-specific gas breakdown (only the 20% heating portion responds to occupancy), and room-night occupancy for this market."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Room occupancy from STR Global using {city} market data. Gas breakdown from CBECS 2018 hotel-specific data."
+        justification = "Why savings are limited: Only the space heating portion responds to occupancy—hot water and cooking cannot be reduced. We are explicit about this split because overstating hotel gas savings would be misleading."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        method = "How gas is used: Gas heats the building, but patient areas must maintain temperature regardless of census. ASHRAE 170 requirements mandate this."
+        data_used = "Data used: Actual gas consumption from city benchmarking, healthcare-specific HVAC percentage, and conservative savings limited to non-clinical zones."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018 for healthcare. Temperature requirements from ASHRAE 170."
+        justification = "Why savings are limited: Healthcare requirements come first. We limit savings to non-clinical zones only—lobbies, offices, cafeterias, conference rooms—where occupancy-based control is safe."
+
+    elif bldg_type == 'Residential Care':
+        method = "How gas is used: Gas heats the building, including resident rooms and common areas. Care requirements affect what can be controlled."
+        data_used = "Data used: Actual gas consumption from city benchmarking, senior housing HVAC percentage, and occupancy patterns limited to controllable zones."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Occupancy from NIC MAP Vision using {city}-area market data. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: Common areas and administrative spaces can use occupancy-based control while resident rooms maintain required levels."
+
+    elif bldg_type == 'Restaurant/Bar':
+        method = "How gas is used: Restaurants use gas primarily for cooking. CBECS shows only about 18% goes to space heating while 72% goes to cooking. Kitchen exhaust hoods require constant makeup air that must be heated."
+        data_used = "Data used: Actual gas consumption from city benchmarking, restaurant-specific gas breakdown (cooking vs. HVAC), and meal-time patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Gas breakdown from CBECS 2018 showing restaurant-specific end uses."
+        justification = "Why savings are limited: ODCV savings are limited to the small HVAC portion because most gas use is cooking, not conditioning. Kitchen makeup air cannot be demand-controlled."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        method = "How gas is used: Gas heats the sales floor. CBECS shows about 78% of retail gas goes to HVAC."
+        data_used = "Data used: Actual gas consumption from city benchmarking, retail HVAC percentage, and foot traffic patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Traffic patterns from retail studies. HVAC percentage from CBECS 2018 for retail."
+        justification = "Why savings are possible: The reduction reflects not heating at full capacity during slow traffic periods. Traffic patterns are predictable—weekday mornings are much slower than weekends."
+
+    elif bldg_type == 'Supermarket':
+        method = "How gas is used: Gas heats the building and makeup air for refrigeration exhaust. Refrigeration creates baseline heating demand that cannot be avoided."
+        data_used = "Data used: Actual gas consumption from city benchmarking, HVAC vs. refrigeration breakdown, and customer traffic patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC/refrigeration breakdown from CBECS 2018."
+        justification = "Why savings are limited: The reduction reflects slower traffic periods, but refrigeration exhaust requires constant makeup air regardless of customer count."
+
+    else:
+        method = "How gas is used: Gas heats the building and the outdoor air that ventilation brings in. Every cubic foot of cold outside air must be heated in winter."
+        data_used = "Data used: Actual gas consumption from city benchmarking and HVAC percentage for this building type."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: When you reduce ventilation to empty spaces, you heat less air. The reduction reflects not heating air for people who are not there."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_fuel_oil_tooltip(row):
-    """ROW tooltip - static per building type, with data year."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    data_year = safe_val(row, 'data_year', '')
-    year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
-    tooltips = {
-        'Inpatient Hospital': "hospitals use ~50-60% of fuel oil for HVAC. The rest runs backup generators and sterilization equipment.",
-        'Specialty Hospital': "specialty hospitals use ~50-60% of fuel oil for HVAC. Backup generators and sterilization take the rest.",
-        'Hotel': "hotels use ~70-80% of fuel oil for HVAC. The rest heats hot water.",
-        'Laboratory': "labs use only ~12% of fuel oil for HVAC. Most powers backup generators and specialized equipment.",
-        'Mixed Use': "mixed-use buildings use ~10-15% of fuel oil for HVAC. Much goes to backup power.",
-        'Residential Care': "care facilities use ~40-50% of fuel oil for HVAC. Hot water for residents takes the rest.",
-        'Retail': "retail stores use ~95%+ of fuel oil for heating—it's almost pure HVAC fuel.",
-    }
-    base_text = tooltips.get(bldg_type, "fuel oil is primarily a heating fuel—typically 80-95% goes to HVAC in commercial buildings.")
-    return f"Based on building type, {base_text}" + year_suffix
+    """ROW tooltip for fuel oil consumption - explains method, data source, justification.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', '')
+    city = safe_val(row, 'loc_city', '')
+
+    # MEANING (same for all)
+    meaning = "What this represents: The fuel oil consumption row shows current usage, projected usage after ODCV, and the reduction in gallons per year."
+
+    # METHOD (same for all)
+    method = "How fuel oil is used: Fuel oil heats the building, typically in older buildings or areas without natural gas service. Nearly all fuel oil goes to space heating."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        data_used = "Data used: Actual fuel oil consumption from city benchmarking, HVAC percentage (nearly 100% for fuel oil), vacancy rate for this market, and office attendance patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Vacancy from CBRE using {city} market data. Utilization from Kastle badge swipes. HVAC percentage from CBECS 2018."
+        justification = "Why this matters: The reduction comes from not heating air for empty floors. Fuel oil produces more carbon per unit of heat than natural gas, so reducing it has outsized emissions impact for BPS compliance."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        data_used = "Data used: Actual fuel oil consumption from city benchmarking, educational building HVAC percentage, and school calendar patterns."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. Schedule data from NCES. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: Schools with oil heat often run boilers year-round at some level. The reduction comes from aligning heating with the school calendar—summers, weekends, afternoons, and holidays when buildings sit empty."
+
+    else:
+        data_used = "Data used: Actual fuel oil consumption from city benchmarking and HVAC percentage (nearly 100% for fuel oil since it's used almost exclusively for heating)."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018."
+        justification = "Why this matters: The reduction reflects not heating air for empty spaces. Fuel oil produces more carbon per unit of heat than natural gas, so reducing it has outsized emissions impact."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 def get_district_steam_tooltip(row):
-    """ROW tooltip - static per building type, with data year."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    city = safe_val(row, 'loc_city', '')
-    data_year = safe_val(row, 'data_year', '')
-    year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
-    tooltips = {
-        'Inpatient Hospital': "hospitals use ~85-90% of district steam for HVAC. Some runs sterilization equipment.",
-        'Specialty Hospital': "specialty hospitals use ~85-90% of district steam for HVAC. Sterilization takes the rest.",
-    }
-    # NYC gets special mention of Con Edison
-    if 'New York' in city or city == 'NYC':
-        base = tooltips.get(bldg_type, "district steam is ~95%+ HVAC—piped from Con Edison's central plants. It's a heating-only fuel.")
-        if bldg_type not in tooltips:
-            return f"Based on building type and regional utility, {base}" + year_suffix
-        return f"Based on building type and regional utility, {tooltips[bldg_type]} Piped from Con Edison." + year_suffix
-    base_text = tooltips.get(bldg_type, "district steam is ~95%+ HVAC—a heating-only fuel from central plants.")
-    return f"Based on building type, {base_text}" + year_suffix
+    """ROW tooltip for district steam consumption - explains method, data source, justification.
 
-def get_site_eui_tooltip(row):
-    """EUI tooltip - explains what EUI is and provides benchmark context."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    data_year = safe_val(row, 'data_year', '')
-    year_suffix = f" ({int(float(data_year))} data)" if data_year else ""
-
-    # Building type median EUIs from CBECS 2018
-    benchmarks = {
-        'Office': 70, 'Medical Office': 85, 'Hotel': 95, 'K-12 School': 55,
-        'Higher Ed': 90, 'Retail': 50, 'Restaurant/Bar': 250,
-        'Supermarket': 180, 'Inpatient Hospital': 200, 'Specialty Hospital': 180,
-        'Data Center': 800, 'Warehouse': 25, 'Residential Care': 100,
-        'Mixed Use': 75, 'default': 70
-    }
-    type_benchmark = benchmarks.get(bldg_type, benchmarks['default'])
-
-    return f"Energy Use Intensity measures total annual energy per square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area (sq ft). Lower values mean better efficiency. Based on building type, {bldg_type.lower()} median: ~{type_benchmark} kBtu/sq ft/year.{year_suffix}"
-
-def get_hvac_pct_tooltip(row):
-    """Brief tooltip for HVAC percentage."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-    return f"Based on building type, % of energy used by HVAC for {bldg_type.lower()}s. Adjusted for age, efficiency, and climate. (EIA CBECS 2018)"
-
-def get_load_factor_tooltip(row):
-    """Load factor tooltip - conceptual explanation with building-type context."""
-    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
-
-    # Building type context (conceptual)
-    context = {
-        'Data Center': "data centers have very high load factors—servers run around the clock at steady power.",
-        'Inpatient Hospital': "hospitals have high load factors due to 24/7 operations.",
-        'Specialty Hospital': "hospitals have high load factors due to 24/7 operations.",
-        'Supermarket': "grocery stores have high load factors—refrigeration runs constantly.",
-        'Office': "offices have lower load factors—busy during business hours, quiet nights and weekends.",
-        'K-12 School': "schools have low load factors—empty summers, evenings, and weekends.",
-        'Higher Ed': "universities have moderate load factors—semester schedules with breaks.",
-        'Hotel': "hotels have moderate load factors—variable occupancy patterns.",
-    }
-    type_context = context.get(bldg_type, "load factor depends on how consistently the building operates.")
-
-    return f"Load factor measures how evenly electricity is used (average load ÷ peak load). Higher values mean steadier usage, lower values mean sharp peaks. Based on building type, {type_context} Used to estimate peak demand for utility billing. (CBECS 2018)"
-
-def get_total_ghg_tooltip(row):
-    """Dynamic tooltip explaining total GHG emissions - city-specific grid context."""
-    city = safe_val(row, 'loc_city', '')
-
-    # City-specific grid context (conceptual, no numbers)
-    grid_context = {
-        'Seattle': "Seattle's grid is almost entirely hydroelectric, so electricity here has very low carbon intensity.",
-        'New York': "NYC's grid uses a mix of natural gas, nuclear, and renewables.",
-        'Chicago': "The Midwest grid relies heavily on coal, so electricity here has higher carbon intensity.",
-        'Denver': "Colorado's grid is transitioning from coal but still has significant fossil fuel generation.",
-        'Boston': "New England's grid is primarily natural gas with growing renewables.",
-        'Los Angeles': "California's grid has significant solar and natural gas.",
-        'San Francisco': "California's grid has significant solar and natural gas.",
-    }
-
-    city_note = grid_context.get(city, "")
-
-    base = "Total emissions from all fuel types: electricity (varies by regional grid), natural gas (standard combustion), plus any steam or fuel oil. "
-    if city_note:
-        base += f"Based on regional grid mix, {city_note.lower()} "
-    base += "(EPA eGRID 2023)"
-
-    return base
-
-def get_carbon_reduction_tooltip(row):
-    """Dynamic carbon reduction tooltip with city-specific grid context."""
-    city = safe_val(row, 'loc_city', '')
-
-    # City-specific grid context (conceptual, no numbers)
-    grid_context = {
-        'Seattle': "Seattle's nearly all-hydro grid means most building emissions come from gas, not electricity.",
-        'New York': "NYC's mixed grid means both electricity and gas contribute significantly to emissions.",
-        'Chicago': "The coal-heavy Midwest grid means electricity reduction has a big emissions impact here.",
-        'Denver': "Colorado's transitioning grid still has significant coal, making electricity cuts impactful.",
-        'Boston': "New England's gas-heavy grid means both electricity and gas contribute to emissions.",
-        'Los Angeles': "California's cleaner grid means gas is often the bigger emissions driver.",
-        'San Francisco': "California's cleaner grid means gas is often the bigger emissions driver.",
-    }
-
-    city_note = grid_context.get(city, "")
-    base = "Based on regional grid mix, carbon per kWh varies dramatically. "
-    if city_note:
-        base += city_note + " "
-    base += "(EPA eGRID 2023)"
-
-    return base
-
-def get_fine_avoidance_tooltip(row):
-    """Brief tooltip for BPS fine avoidance."""
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
     city = safe_val(row, 'loc_city', '')
     bldg_type = safe_val(row, 'bldg_type', '')
-    bldg_vertical = safe_val(row, 'bldg_vertical', '')
-    sqft = safe_num(row, 'bldg_sqft', 0) or 0
-    fine_avoided = safe_num(row, 'bps_fine_avoided_yr1_usd', 0) or 0
-    carbon = safe_num(row, 'carbon_emissions_total_mt', 0) or 0
-    eui = safe_num(row, 'energy_site_eui', 0) or 0
-    es_score = safe_num(row, 'energy_star_score', 0) or 0
 
-    bps_info = BPS_TOOLTIP_INFO.get(city)
+    # MEANING (same for all)
+    meaning = "What this represents: The district steam consumption row shows current usage, projected usage after ODCV, and the reduction in MMBtu per year."
 
-    if not bps_info:
-        return "No Building Performance Standard law in this city yet."
+    if 'New York' in city or city == 'NYC':
+        method = "How steam is used: Con Edison operates one of the world's largest district steam systems, piping steam directly to Manhattan buildings for heating. Steam replaces on-site boilers—the building receives heat without burning fuel locally."
 
-    law = bps_info['law']
-    min_sqft = bps_info.get('min_sqft', 0)
+        if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+            data_used = "Data used: Actual steam consumption from NYC LL84 benchmarking (this is real utility data from Con Edison, not an estimate), HVAC percentage for steam (nearly all goes to space heating), vacancy rate for NYC, and office attendance patterns."
+            source = "Sources: Consumption from NYC LL84 benchmarking disclosure. Vacancy from CBRE using NYC market data. Utilization from Kastle Systems badge swipes. HVAC percentage from CBECS 2018. Steam emission factors from NYC Local Law 97."
+            justification = "Why this matters: The reduction comes from not heating air for empty floors. For LL97 compliance, steam has its own emission factor set by NYC—different from electricity and gas. Reducing steam consumption directly reduces carbon penalties."
+        else:
+            data_used = "Data used: Actual steam consumption from NYC LL84 benchmarking (real Con Edison utility data), HVAC percentage for steam, and occupancy patterns for this building type."
+            source = "Sources: Consumption from NYC LL84 benchmarking disclosure. HVAC percentage from CBECS 2018. Steam emission factors from NYC Local Law 97."
+            justification = "Why this matters: The reduction comes from cutting ventilation heating to unoccupied spaces. For LL97 compliance, steam has its own emission factor. Reducing consumption directly reduces carbon penalties."
 
-    exempt_types = bps_info.get('exempt_types', [])
-    if bldg_type in exempt_types or bldg_vertical in exempt_types:
-        return f"Based on local regulations, {law} provides {bldg_type.lower()}s alternative compliance pathways."
+    else:
+        method = "How steam is used: District steam from a central plant heats this building. Steam replaces on-site boilers—the building receives heat without burning fuel locally."
+        data_used = "Data used: Actual steam consumption from city benchmarking disclosure and HVAC percentage for steam (nearly all goes to space heating)."
+        source = f"Sources: Consumption from {city} benchmarking disclosure. HVAC percentage from CBECS 2018."
+        justification = "Why savings are possible: The reduction comes from cutting ventilation heating to unoccupied spaces. Less air to heat means less steam required."
 
-    if sqft > 0 and sqft < min_sqft:
-        return f"Based on local regulations, {law} covers larger buildings—this one is below the size threshold."
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
-    if city == 'New York':
-        return "Based on local regulations: NYC Local Law 97 sets annual carbon emission limits. Buildings exceeding the cap pay fines per metric ton over the limit. ODCV reduces emissions by cutting HVAC energy waste. (NYC Local Law 97)"
+def get_site_eui_tooltip(row):
+    """EUI tooltip - explains method, data source, justification by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    city = safe_val(row, 'loc_city', '')
+    bldg_type = safe_val(row, 'bldg_type', '')
+
+    # MEANING (same for all types)
+    meaning = "What this represents: Site Energy Use Intensity—total energy consumption normalized by building size, measured in kBtu per square foot per year."
+
+    # METHOD (same for all types)
+    method = "How it's calculated: Total site energy (electricity kWh × 3.412 + gas therms × 100 + steam MMBtu × 1000 + fuel oil gallons × 138.5) divided by gross floor area."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        data_used = "Data used: This building's actual electricity, gas, steam, and fuel oil consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure—this is real metered consumption, not an estimate. Building area from the same disclosure."
+        justification = "Why this matters: When you stop conditioning empty floors and underutilized workspaces, EUI drops. This metric matters for Energy Star certification, tenant perception, and BPS compliance where EUI-based targets apply (Denver, St. Louis)."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        data_used = "Data used: This school's actual electricity and gas consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: Schools often have high EUI despite limited operating hours because HVAC runs continuously on timers. Matching ventilation to actual school hours dramatically improves this efficiency metric."
+
+    elif bldg_type == 'Hotel':
+        data_used = "Data used: This hotel's actual electricity, gas, and any steam consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: Hotels have unusual EUI patterns—high base load from 24/7 common areas but variable load from guest rooms. Room-level occupancy control can significantly improve this efficiency metric."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        data_used = "Data used: This hospital's actual electricity, gas, and any steam consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: Healthcare buildings have inherently high EUI due to ventilation requirements. Improvements come only from non-clinical areas. Do not compare hospital EUI to other building types—they have fundamentally different requirements."
+
+    elif bldg_type == 'Supermarket':
+        data_used = "Data used: This supermarket's actual electricity and gas consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: Supermarket EUI is high due to refrigeration. Improvements in space conditioning reduce EUI, but refrigeration creates a baseline that cannot be reduced through occupancy-based control. Compare only to other supermarkets."
+
+    elif bldg_type == 'Restaurant/Bar':
+        data_used = "Data used: This restaurant's actual electricity and gas consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: Restaurant EUI is high because most energy goes to cooking and kitchen exhaust. The controllable HVAC portion is small. Compare only to other restaurants—they have fundamentally different loads than offices."
+
+    elif bldg_type in ('Retail', 'Retail Store', 'Wholesale Club'):
+        data_used = "Data used: This store's actual electricity and gas consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure. Building area from the same disclosure."
+        justification = "Why this matters: When you match conditioning to traffic instead of running at peak capacity all day, EUI drops. Lower EUI signals efficiency and can affect operating costs and property value."
+
+    else:
+        data_used = "Data used: This building's actual electricity, gas, and any steam or fuel oil consumption from city benchmarking disclosure, plus building square footage."
+        source = f"Sources: All energy data from {city} benchmarking disclosure—this is real metered consumption, not an estimate."
+        justification = "Why this matters: When you stop conditioning empty spaces, the building uses less energy per square foot. Lower EUI signals better efficiency to tenants, investors, and regulators."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+
+def get_hvac_pct_tooltip(row):
+    """HVAC percentage tooltip - explains method, data source, justification.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+
+    # MEANING (same for all)
+    meaning = "What this represents: The percentage of this building's energy consumption that goes to heating, cooling, and ventilation—the portion that ODCV can reduce."
+
+    if bldg_type == 'Hotel':
+        method = "How it's determined: Hotels have a unique energy breakdown. Electricity mostly goes to HVAC (fans, chillers, room units). But gas splits three ways—only about 20% goes to space heating, while 42% goes to domestic hot water and 33% to cooking."
+        data_used = "Data used: Building-type-specific HVAC percentages by fuel type, adjusted for this building's efficiency rating."
+        source = "Sources: HVAC percentages from CBECS 2018 hotel-specific tables. Adjustments based on building age and Energy Star score."
+        justification = "Why this matters: Only the HVAC portion responds to occupancy. Hot water and cooking demand don't change based on room occupancy—guests still shower and restaurants still cook. We are explicit about this split to avoid overstating savings."
+
+    elif bldg_type == 'Restaurant/Bar':
+        method = "How it's determined: Restaurants have a unique energy breakdown. Gas primarily goes to cooking—CBECS shows only about 18% goes to space heating while 72% goes to cooking. Kitchen exhaust requires constant makeup air."
+        data_used = "Data used: Restaurant-specific HVAC percentages by fuel type."
+        source = "Sources: HVAC percentages from CBECS 2018 restaurant-specific tables."
+        justification = "Why this matters: Only the small HVAC portion is controllable. Kitchen exhaust and makeup air cannot be demand-controlled. We apply savings only to the dining area conditioning portion."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        method = "How it's determined: Hospitals have high HVAC percentages due to ventilation requirements, but much of that cannot be reduced due to ASHRAE 170 infection control mandates."
+        data_used = "Data used: Healthcare-specific HVAC percentages by fuel type."
+        source = "Sources: HVAC percentages from CBECS 2018 healthcare tables. Ventilation requirements from ASHRAE 170."
+        justification = "Why this matters: Patient care areas must maintain minimum air changes regardless of census. The HVAC percentage is high, but the controllable portion is limited to non-clinical spaces."
+
+    elif bldg_type == 'Supermarket':
+        method = "How it's determined: Supermarkets have significant electricity going to refrigeration, which is separate from HVAC. We isolate space conditioning from refrigeration loads."
+        data_used = "Data used: Grocery-specific HVAC and refrigeration percentages by fuel type."
+        source = "Sources: HVAC/refrigeration breakdown from CBECS 2018 grocery-specific tables."
+        justification = "Why this matters: Refrigeration runs continuously regardless of customer traffic—that cannot change. We apply savings only to the space conditioning portion."
+
+    elif bldg_type in ('K-12 School', 'Higher Ed'):
+        method = "How it's determined: Educational buildings have high HVAC percentages—CBECS shows about 80% of school gas goes to HVAC because schools don't have the hot water and cooking loads of hotels."
+        data_used = "Data used: Educational building HVAC percentages by fuel type."
+        source = "Sources: HVAC percentages from CBECS 2018 educational building tables."
+        justification = "Why this matters: The high HVAC percentage means most energy consumption is controllable through schedule-based optimization. Calendar alignment captures a large share of total building energy."
+
+    elif bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        method = "How it's determined: Office buildings have high HVAC percentages—CBECS shows nearly 88% of office gas goes to space heating, and a large share of electricity goes to fans, chillers, and pumps."
+        data_used = "Data used: Office building HVAC percentages by fuel type, adjusted for this building's efficiency rating."
+        source = "Sources: HVAC percentages from CBECS 2018 office tables. Adjustments based on building age and Energy Star score."
+        justification = "Why this matters: The high HVAC percentage means occupancy-based control affects a large share of total building energy. The rest goes to lighting, plug loads, and equipment unaffected by ventilation control."
+
+    else:
+        method = "How it's determined: The HVAC percentage varies by building type and fuel. It represents the share of energy going to heating, cooling, and ventilation versus lighting, plug loads, and other uses."
+        data_used = "Data used: Building-type-specific HVAC percentages by fuel type."
+        source = "Sources: HVAC percentages from CBECS 2018, adjusted for building type and efficiency."
+        justification = "Why this matters: Only the HVAC portion responds to occupancy-based control. The rest goes to lighting, plug loads, and equipment that are not affected by ventilation changes."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+
+def get_size_tooltip(row):
+    """Size tooltip - explains method, data source, justification."""
+    return "Square footage from city benchmarking disclosure filings. Size affects both the opportunity and system sophistication. Larger buildings have more zones to optimize. Bigger buildings typically have more advanced controls. Size also determines BPS applicability. Most laws only cover buildings above 20,000 to 50,000 sqft thresholds."
+
+def get_year_built_tooltip(row):
+    """Year built tooltip - explains method, data source, justification."""
+    return "Building age indicates control system sophistication. Pre-1970 buildings typically have pneumatic controls that cannot easily implement occupancy-based adjustments. Buildings from the 1970s and 80s have early electronic controls with limited flexibility. The 1990s and 2000s saw digital controls become standard. Buildings from 2010 and later usually have modern BMS systems ready for smart ventilation control. Older buildings can still benefit but may need control upgrades first."
+
+def get_utility_tooltip(row):
+    """Utility tooltip - explains how we convert energy usage into energy costs.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    utility = safe_val(row, 'cost_utility_name', '')
+    city = safe_val(row, 'loc_city', '')
+    rate = safe_num(row, 'cost_elec_rate_kwh')
+
+    meaning = "What this represents: How we convert this building's energy consumption into annual energy costs, using the actual utility rates for this specific ZIP code."
+
+    method = """How electricity costs are calculated: Commercial electricity bills have two components.
+
+Energy charges: Annual kWh × energy rate × 1.10 multiplier. The 1.10 accounts for distribution charges, transmission charges, taxes, and surcharges that appear on real utility bills beyond the base commodity rate.
+
+Demand charges: Peak kW × demand rate × 12 months × 1.265 multiplier. Peak demand is estimated as annual kWh ÷ (8,760 hours × load factor). The 1.265 accounts for demand ratchet clauses (utilities bill minimum 60-80% of your annual peak), seasonal rate differentials (summer rates 20-40% higher), and power factor penalties.
+
+How gas costs are calculated: Therms (kBtu ÷ 100) × rate × 1.10 multiplier.
+
+How steam costs are calculated: Mlb (kBtu ÷ 909) × rate. No multiplier—steam rates are typically all-inclusive.
+
+How fuel oil costs are calculated: MMBtu (kBtu ÷ 1000) × rate × 1.10 multiplier."""
+
+    if utility:
+        data_used = f"Data used: This building's metered consumption from city benchmarking. Electricity rate specific to this ZIP code from {utility} commercial tariff schedules. Gas rate specific to this ZIP code. Load factor assigned by building type (offices typically 0.40-0.50, hospitals 0.60-0.70, data centers 0.70-0.85)."
+    else:
+        data_used = "Data used: This building's metered consumption from city benchmarking. Electricity and gas rates specific to this ZIP code from local utility tariff schedules. Load factor assigned by building type."
+
+    source = f"Sources: Energy consumption from {city} benchmarking disclosure. Electricity and gas rates from NREL Utility Rate Database, looked up by this building's ZIP code. We use ZIP-specific rates because electricity prices vary nearly 5x across the country ($0.11/kWh in cheap markets to $0.52/kWh in expensive ones) and gas varies 10x ($0.23 to $2.42/therm). Using national averages would badly misrepresent costs."
+
+    justification = "Why this matters: A building in San Francisco pays completely different utility rates than one in Atlanta. We pull the actual rate for each ZIP code so the cost calculations reflect what this building actually pays—not a national average that could be off by 3-4x."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+
+def get_total_ghg_tooltip(row):
+    """Total GHG tooltip - explains method, data source, justification by grid type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    city = safe_val(row, 'loc_city', '')
+    bldg_type = safe_val(row, 'bldg_type', '')
+
+    # MEANING (same for all)
+    meaning = "What this represents: This building's total greenhouse gas emissions in metric tons of CO2 equivalent per year."
+
+    # METHOD (same for all)
+    method = "How it's calculated: Electricity consumption × grid emission factor + gas consumption × combustion factor + any steam or fuel oil × their respective factors."
+
+    # Clean grid cities
+    if city in ('Seattle', 'Portland', 'San Francisco', 'Los Angeles', 'San Diego'):
+        data_used = "Data used: This building's actual electricity, gas, and any steam or fuel oil consumption from city benchmarking disclosure."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Emission factors from EPA eGRID 2023 for this region's electric grid—not national averages. This region uses hydro and renewables, so electricity has low carbon intensity."
+        justification = f"Regional context: Because {city}'s grid is relatively clean, most of this building's emissions come from burning natural gas for heating, not electricity. Cutting gas consumption has the biggest emissions impact in this region."
+
+    # Dirty grid cities
+    elif city in ('Chicago', 'St. Louis', 'Denver'):
+        data_used = "Data used: This building's actual electricity, gas, and any steam or fuel oil consumption from city benchmarking disclosure."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Emission factors from EPA eGRID 2023 for this region's electric grid. This region relies heavily on coal and natural gas generation."
+        justification = f"Regional context: {city}'s grid has high carbon intensity—significantly higher than coastal cities. Every kWh saved here prevents more emissions than in cleaner-grid regions. Both electricity and gas reductions contribute meaningfully."
+
+    # NYC with steam
+    elif city in ('New York', 'NYC', 'Manhattan'):
+        data_used = "Data used: This building's actual electricity, gas, and Con Edison steam consumption from city benchmarking disclosure."
+        source = "Sources: Energy data from NYC LL84 benchmarking disclosure. Emission factors from NYC Local Law 97—these are the legally binding coefficients, including specific factors for Con Edison's district steam network."
+        justification = "Regional context: NYC has its own emission factors set by law for LL97 compliance. The steam factor is specific to Con Edison's Manhattan district system. These are the exact factors the city uses to calculate BPS penalties."
+
+    # Boston area
+    elif city in ('Boston', 'Cambridge'):
+        data_used = "Data used: This building's actual electricity, gas, and any steam consumption from city benchmarking disclosure."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Emission factors from EPA eGRID 2023 for the New England grid region—cleaner than the national average due to nuclear and renewables."
+        justification = "Regional context: The New England grid has moderate carbon intensity. Both electricity and gas reductions contribute to emissions reduction. For BPS compliance, these factors determine whether the building exceeds its carbon cap."
+
+    else:
+        data_used = "Data used: This building's actual electricity, gas, and any steam or fuel oil consumption from city benchmarking disclosure."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Emission factors from EPA eGRID 2023 for this region's electric grid plus EIA standard combustion factors for gas."
+        justification = "Regional context: Grid carbon intensity varies significantly by region. We use the specific factors for the electric grid serving this location—not national averages."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+
+def get_carbon_reduction_tooltip(row):
+    """Carbon reduction tooltip - explains method, data source, justification by grid type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    city = safe_val(row, 'loc_city', '')
+    bldg_type = safe_val(row, 'bldg_type', '')
+
+    # MEANING (same for all)
+    meaning = "What this represents: The reduction in greenhouse gas emissions from implementing ODCV, in metric tons of CO2 equivalent per year."
+
+    # METHOD (same for all)
+    method = "How it's calculated: Current emissions minus projected emissions. The reduction reflects energy savings by fuel type, each multiplied by its respective emission factor."
+
+    # Clean grid cities
+    if city in ('Seattle', 'Portland', 'San Francisco', 'Los Angeles', 'San Diego'):
+        data_used = "Data used: This building's projected electricity and gas savings, each multiplied by the appropriate emission factor for this region."
+        source = f"Sources: Emission factors from EPA eGRID 2023 specific to {city}'s electric grid—not national averages. This region has relatively clean electricity from hydro and renewables."
+        justification = f"Regional context: Because {city}'s grid is clean, most emissions come from burning natural gas. Cutting gas consumption through reduced ventilation heating has the biggest emissions impact here. Electricity savings have smaller carbon impact in this region."
+
+    # Dirty grid cities
+    elif city in ('Chicago', 'St. Louis', 'Denver'):
+        data_used = "Data used: This building's projected electricity and gas savings, each multiplied by the appropriate emission factor for this region."
+        source = f"Sources: Emission factors from EPA eGRID 2023 specific to {city}'s electric grid. This region relies heavily on coal and natural gas generation, giving electricity high carbon intensity."
+        justification = f"Regional context: {city}'s grid has high carbon intensity—much higher than the West Coast. Every kWh saved here prevents more emissions than in cleaner-grid cities. Both electricity and gas reductions have meaningful carbon impact."
+
+    # NYC with steam
+    elif city in ('New York', 'NYC', 'Manhattan'):
+        data_used = "Data used: This building's projected electricity, gas, and steam savings, each multiplied by NYC's official LL97 emission factors."
+        source = "Sources: Emission factors from NYC Local Law 97—these are the exact same factors the city uses to calculate BPS penalties. They include specific values for electricity, gas, and Con Edison steam."
+        justification = "Regional context: The reduction uses the legally binding methodology, not our own assumptions. Steam from Con Edison's district system has its own emission factor. This is the carbon reduction NYC will recognize for LL97 compliance."
+
+    # Boston area
+    elif city in ('Boston', 'Cambridge'):
+        data_used = "Data used: This building's projected electricity and gas savings, each multiplied by the appropriate emission factor for the New England grid."
+        source = f"Sources: Emission factors from EPA eGRID 2023 for the New England grid region. This grid is cleaner than the national average due to nuclear and renewables."
+        justification = "Regional context: Both electricity and gas reductions contribute to carbon reduction in this region. For BERDO/BEUDO compliance, this reduction determines whether the building meets its carbon cap."
+
+    else:
+        data_used = "Data used: This building's projected electricity and gas savings, each multiplied by the appropriate emission factor for this region."
+        source = f"Sources: Emission factors from EPA eGRID 2023 for {city}'s regional electric grid. This is published data on actual power plant emissions in this area, not national averages."
+        justification = "Regional context: The reduction reflects tons of CO2 avoided based on this building's specific fuel mix and local grid carbon intensity. Grid factors vary significantly by region."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
+
+def get_fine_avoidance_tooltip(row):
+    """Fine avoidance tooltip - explains method, data source, justification by city/law.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
+    city = safe_val(row, 'loc_city', '')
+    bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+
+    # NYC Local Law 97
+    if city in ('New York', 'NYC', 'Manhattan'):
+        meaning = "What this represents: The Building Performance Standard penalty this building avoids by reducing carbon emissions below the legal cap."
+        method = "How it's calculated: We calculate current emissions from metered energy, compare to the carbon cap for this building type, determine the penalty for excess tons, then calculate post-ODCV emissions and compare. The difference is avoided fines."
+        data_used = "Data used: This building's electricity, gas, and steam consumption converted to carbon using NYC's official coefficients. The carbon cap is set by building type and applies per square foot."
+        source = "Sources: Emission factors from NYC Department of Buildings Local Law 97 regulations—these are the legally binding coefficients for electricity, gas, and Con Edison steam, not our estimates. Penalty rates set by city law for the 2024-2029 compliance period."
+        justification = "Why this works: LL97 is real law with real fines. The calculation uses the exact same methodology the city will use to assess penalties. Reducing energy reduces emissions reduces fines. The emission factors are NYC-specific—steam has its own coefficient for the Con Edison district system."
+
+    # Boston BERDO
     elif city == 'Boston':
-        return "Based on local regulations: Boston's BERDO 2.0 sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions by cutting the electricity and gas that generate them. (BERDO 2.0)"
-    elif city == 'Cambridge':
-        return "Based on local regulations: Cambridge BEUDO sets emissions limits with per-ton penalties for excess emissions. ODCV reduces emissions proportionally to energy savings. (Cambridge BEUDO)"
-    elif city == 'Washington':
-        return "Based on local regulations: DC BEPS requires buildings to meet an ENERGY STAR score threshold. Buildings below face fines based on how far below target they score. ODCV improves scores by reducing energy use. (DC BEPS)"
-    elif city == 'Denver':
-        return "Based on local regulations: Energize Denver fines buildings based on how far they exceed their EUI target. ODCV directly lowers EUI by reducing HVAC energy waste. (Energize Denver)"
-    elif city == 'Seattle':
-        return "Based on local regulations: Seattle BEPS sets emissions intensity targets with penalties for non-compliance. Seattle's nearly all-hydro grid means most building emissions come from gas—making HVAC gas reduction especially impactful. (Seattle Clean Buildings Act)"
-    elif city == 'St. Louis':
-        return "Based on local regulations: St. Louis BEPS sets EUI targets with daily fines for non-compliance. ODCV directly lowers EUI by reducing HVAC energy waste. (St. Louis BEPS)"
+        meaning = "What this represents: The Building Performance Standard penalty this building avoids by reducing carbon emissions below the BERDO 2.0 cap."
+        method = "How it's calculated: We calculate current emissions from metered energy using regional grid factors, compare to Boston's carbon cap for this building type, then calculate how ODCV reduction affects the penalty."
+        data_used = "Data used: This building's electricity and gas consumption converted to carbon. The carbon cap is set by building type and compliance period."
+        source = "Sources: Emission factors from EPA eGRID for the New England grid region—not national averages. Caps and penalty rates from Boston Environment Department BERDO 2.0 regulations."
+        justification = "Why this works: BERDO 2.0 sets carbon caps that tighten over time. Buildings exceeding the cap pay per excess ton as an alternative compliance payment. The New England grid is cleaner than many regions, so Boston's electricity has lower carbon intensity than Midwest cities."
 
-    return f"Based on local regulations, currently compliant with {law}."
+    # Cambridge BEUDO
+    elif city == 'Cambridge':
+        meaning = "What this represents: The penalty this building avoids by meeting Cambridge's building-specific emissions reduction requirement."
+        method = "How it's calculated: Unlike fixed caps, BEUDO requires each building to cut emissions a percentage from its own baseline. We calculate this building's baseline emissions, apply the reduction target, and determine penalties for any shortfall after ODCV implementation."
+        data_used = "Data used: This building's baseline energy consumption establishing its individual target, plus current consumption converted to carbon."
+        source = "Sources: Emission factors from EPA eGRID for the New England grid region. Reduction targets and penalty rates from Cambridge BEUDO regulations."
+        justification = "Why this works: BEUDO's building-specific approach means each property has its own reduction requirement based on where it started. This is fairer to already-efficient buildings but means every building has a compliance obligation. The target is this building's specific requirement, not a generic benchmark."
+
+    # DC BEPS
+    elif city in ('Washington', 'Washington DC', 'DC'):
+        meaning = "What this represents: The penalty this building avoids by meeting DC's Energy Star score target."
+        method = "How it's calculated: DC BEPS uses Energy Star score targets instead of carbon caps. We calculate how much ODCV improves this building's score based on EPA's methodology, then determine if it meets the threshold for this building type."
+        if bldg_type == 'Hotel':
+            data_used = "Data used: This hotel's current Energy Star score and projected improvement from reduced energy consumption. Hotels have a specific target different from offices."
+        elif bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+            data_used = "Data used: This office building's current Energy Star score and projected improvement from reduced energy consumption. Offices have a specific target."
+        else:
+            data_used = "Data used: This building's current Energy Star score and projected improvement from reduced energy consumption. The target varies by building type."
+        source = "Sources: Energy Star score targets from DC's Clean Energy DC Building Code—these are the actual thresholds by building type. Penalty rates from DC DOEE regulations."
+        justification = "Why this works: DC chose Energy Star scores instead of carbon caps because they normalize for weather and building type. Meeting the score threshold means the building is performing at or above the target percentile for its peer group."
+
+    # Seattle BEPS
+    elif city == 'Seattle':
+        meaning = "What this represents: The Building Performance Standard penalty this building avoids by reducing carbon intensity below Seattle's cap."
+        method = "How it's calculated: We calculate current emissions using Seattle-specific grid factors, compare to the carbon intensity cap for this building type, then determine avoided penalties from ODCV-driven reduction."
+        data_used = "Data used: This building's electricity and gas consumption converted to carbon using regional factors. Seattle's grid is 98% hydroelectric—one of the cleanest in the country."
+        source = "Sources: Emission factors from EPA eGRID for the Northwest Power Pool region—these are much lower than national average for electricity because Seattle's grid is almost entirely hydro. Penalty rates from Seattle Office of Sustainability BEPS regulations."
+        justification = "Why this works: Because Seattle's grid is so clean, the emissions math is different than NYC or Boston. Most of this building's carbon footprint comes from burning natural gas for heating, not electricity. Cutting gas consumption through reduced ventilation heating has the biggest emissions impact in this region."
+
+    # Denver Energize Denver
+    elif city == 'Denver':
+        meaning = "What this represents: The penalty this building avoids by meeting Denver's EUI target for its building type."
+        method = "How it's calculated: Energize Denver sets EUI (energy use intensity) targets by building type with a glide path to 2032 goals. We calculate current EUI from benchmarking data, compare to the interim target, and determine penalties for overages."
+        data_used = "Data used: This building's actual Site EUI from benchmarking disclosure compared to the target for this building type and compliance period."
+        source = "Sources: EUI targets and penalty rates from Denver's Office of Climate Action Energize Denver regulations. Targets are building-type-specific and tighten over time."
+        justification = "Why this works: Denver chose EUI targets because they directly measure energy efficiency regardless of fuel mix. Meeting the target means the building uses energy at or below the threshold for its type. The glide path gives buildings time to improve but requires steady progress."
+
+    # St. Louis BEPS
+    elif city == 'St. Louis':
+        meaning = "What this represents: The penalty this building avoids by meeting St. Louis's EUI target for its building type."
+        method = "How it's calculated: St. Louis BEPS sets EUI targets roughly at the 35th percentile for local buildings of each type. We calculate whether this building's energy reduction brings it under the target."
+        data_used = "Data used: This building's actual Site EUI from benchmarking disclosure compared to the local target for this building type."
+        source = "Sources: EUI targets from St. Louis BEPS regulations based on local building stock. Penalty structure from city ordinance."
+        justification = "Why this works: The 35th percentile target means buildings need to be better than roughly two-thirds of their local peers. This is achievable for most buildings with efficiency improvements but requires action from the worst performers."
+
+    else:
+        meaning = "What this represents: This building is not currently in a city with Building Performance Standard fines."
+        method = "How it applies: No BPS law currently covers this building, so there are no fines to avoid."
+        data_used = "Data used: We checked this building's city against the seven major BPS jurisdictions (NYC, Boston, Cambridge, DC, Seattle, Denver, St. Louis)."
+        source = "Sources: Current BPS law coverage as of 2025. Many additional cities are considering or passing BPS laws."
+        justification = "Why this matters: While no fines apply today, many cities are adopting these laws. Reducing energy consumption now builds a track record, demonstrates leadership, and avoids scrambling when regulations arrive in this market."
+
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 
 def get_utility_cost_savings_tooltip(row):
-    """Dynamic tooltip for utility cost savings - building-type HVAC context."""
-    city = safe_val(row, 'loc_city', '')
-    state = safe_val(row, 'loc_state', '')
+    """Utility cost savings tooltip - explains method, data source, justification by building type.
+
+    Structure: MEANING → METHOD → DATA USED → SOURCE → JUSTIFICATION
+    """
     bldg_type = safe_val(row, 'bldg_type', 'Commercial')
+    city = safe_val(row, 'loc_city', '')
 
-    # City-specific disclosure law
-    if city in CITY_DISCLOSURE_LAWS:
-        law_name = CITY_DISCLOSURE_LAWS[city]
-        source = f"{law_name} disclosure"
-    elif state == 'CA':
-        source = "California AB 802 disclosure"
+    # MEANING (same for all types)
+    meaning = "What this represents: Annual dollar savings from reducing HVAC energy waste by matching ventilation to actual occupancy."
+
+    if bldg_type in ('Office', 'Medical Office', 'Mixed Use'):
+        method = "How it's calculated: We isolate the HVAC portion of energy costs using CBECS building-type breakdowns, then apply the savings percentage based on this market's vacancy rate and utilization patterns."
+        data_used = "Data used: This building's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, HVAC percentage by fuel type, vacancy rate for this market, and office attendance patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Vacancy data from CBRE and Cushman & Wakefield quarterly reports, using {city} market data. Utilization from Kastle Systems badge swipe tracking. HVAC percentages from CBECS 2018."
+        justification = "Why this works: Office HVAC is centralized—landlords condition vacant floors and underutilized occupied floors the same as full ones. The vacancy and utilization data are measured, not assumed. This is what buildings like this one actually experience."
+
+    elif bldg_type == 'K-12 School':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply the savings percentage based on how much of the year the building sits empty while systems run."
+        data_used = "Data used: This school's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, HVAC percentage by fuel type, and school calendar patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Schedule data from NCES (National Center for Education Statistics). HVAC percentages from CBECS 2018 for educational buildings."
+        justification = "Why this works: Schools don't have vacancy like offices—they have schedule-driven emptiness. Buildings sit empty summers, weekends, afternoons, and holidays, but HVAC often runs on legacy timers. The gap between designed capacity and actual student presence is the opportunity."
+
+    elif bldg_type == 'Higher Ed':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on academic calendar gaps and daily classroom utilization patterns."
+        data_used = "Data used: This building's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, HVAC percentage by fuel type, and academic calendar patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Academic scheduling data from NCES. HVAC percentages from CBECS 2018 for educational buildings."
+        justification = "Why this works: Universities have calendar gaps like K-12 (summer, winter, spring breaks) plus daily variability. A lecture hall might be packed three days a week and empty the rest. Academic schedules are documented and predictable."
+
+    elif bldg_type == 'Hotel':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs—accounting for the fact that most hotel gas goes to hot water and kitchens, not heating—then apply savings based on room occupancy and guest presence patterns."
+        data_used = "Data used: This hotel's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, hotel-specific HVAC percentage (which is lower than offices because gas serves hot water and kitchens), and room-night occupancy for this market."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Room occupancy from STR Global, using {city} market data. STR is the hotel industry's authoritative tracking source. HVAC percentages from CBECS 2018 hotel-specific data."
+        justification = "Why this works: Each guest room has its own HVAC running continuously. Waste comes from unsold rooms plus rooms where the guest is out. Even when sold, a room is only occupied about ten hours per day. Room-level sensors enable setback during empty periods."
+
+    elif bldg_type in ('Inpatient Hospital', 'Specialty Hospital'):
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply a conservatively capped savings percentage that reflects opportunity only in non-clinical areas."
+        data_used = "Data used: This hospital's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, healthcare-specific HVAC percentages, and a conservative ceiling on savings."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. HVAC percentages from CBECS 2018 for healthcare buildings. Occupancy patterns from AHA Hospital Statistics. Savings capped per ASHRAE 170 clinical ventilation requirements."
+        justification = "Why this works: Patient care areas must maintain minimum air changes for infection control—we don't touch those. But hospitals are mostly non-clinical space: lobbies, offices, cafeterias, conference rooms. Those areas can use standard occupancy-based control. We apply savings only there."
+
+    elif bldg_type == 'Residential Care':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply a conservatively capped savings percentage reflecting opportunity only in common areas and non-patient spaces."
+        data_used = "Data used: This facility's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, senior housing HVAC percentages, and occupancy patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Occupancy data from NIC MAP Vision, using {city}-area senior housing market data. HVAC percentages from CBECS 2018."
+        justification = "Why this works: Residential care has ventilation requirements for patient rooms, but common areas and administrative spaces can use occupancy-based control. We limit savings to those zones for a conservative, defensible estimate."
+
+    elif bldg_type in ('Retail', 'Retail Store'):
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on foot traffic patterns throughout operating hours."
+        data_used = "Data used: This store's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, retail-specific HVAC percentages, and traffic pattern data."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Traffic patterns from retail studies. HVAC percentages from CBECS 2018 for retail buildings."
+        justification = "Why this works: Retail doesn't have vacancy—it's owner-occupied. But traffic swings wildly. Stores are packed on weekends but nearly empty on weekday mornings. HVAC runs at the same capacity regardless. Matching ventilation to actual traffic captures the waste."
+
+    elif bldg_type == 'Supermarket':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs—excluding refrigeration, which runs continuously regardless of traffic—then apply savings based on customer traffic patterns."
+        data_used = "Data used: This supermarket's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, grocery-specific HVAC percentage (refrigeration carved out), and traffic patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. HVAC percentages from CBECS 2018, with refrigeration isolated from space conditioning."
+        justification = "Why this works: Supermarkets have unique energy profiles. Refrigeration runs continuously—that can't change. But HVAC conditioning the sales floor can respond to traffic. We isolate the controllable portion and apply savings only there."
+
+    elif bldg_type == 'Wholesale Club':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on member traffic patterns concentrated on weekends."
+        data_used = "Data used: This building's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, big-box retail HVAC percentages, and member traffic patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Traffic patterns from retail studies. HVAC percentages from CBECS 2018."
+        justification = "Why this works: Wholesale clubs have high ceilings and large HVAC loads. Member traffic is predictable and concentrated on weekends. Matching ventilation to traffic patterns during slower periods captures significant waste."
+
+    elif bldg_type == 'Restaurant/Bar':
+        method = "How it's calculated: We isolate the small HVAC portion of energy costs—kitchen gas and exhaust are excluded because they can't be demand-controlled—then apply savings based on meal-time patterns."
+        data_used = "Data used: This restaurant's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, and restaurant-specific HVAC percentage (which is much lower than other building types)."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. CBECS 2018 shows only about 18% of restaurant gas goes to space heating—the rest is cooking."
+        justification = "Why this works: Restaurant savings are limited because kitchen exhaust hoods require constant makeup air that must be heated. We apply savings only to the dining area HVAC portion. The calculation is conservative but accurate to what's actually controllable."
+
+    elif bldg_type in ('Venue', 'Theater'):
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on the gap between event hours and total operating hours."
+        data_used = "Data used: This venue's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, venue-specific HVAC percentages, and event scheduling patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. HVAC percentages from CBECS 2018 for entertainment buildings."
+        justification = "Why this works: Event venues sit empty most of the time—they're designed for intermittent peak use. Yet HVAC often maintains conditions around the clock. Matching conditioning to actual event schedules captures significant waste."
+
+    elif bldg_type in ('Library/Museum', 'Library', 'Museum'):
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on operating hours and visitor traffic patterns."
+        data_used = "Data used: This building's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, public building HVAC percentages, and operating hour patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. HVAC percentages from CBECS 2018 for public buildings."
+        justification = "Why this works: Public buildings have fixed operating hours and relatively steady traffic when open. The opportunity comes from hours when closed but systems keep running, plus slower periods during open hours."
+
+    elif bldg_type == 'Outpatient Clinic':
+        method = "How it's calculated: We isolate the HVAC portion of energy costs, then apply savings based on appointment schedules and clinic operating hours."
+        data_used = "Data used: This clinic's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, medical office HVAC percentages, and scheduling patterns."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. Scheduling patterns from MGMA medical office benchmarks. HVAC percentages from CBECS 2018."
+        justification = "Why this works: Outpatient clinics operate on appointment schedules with clear business hours. Unlike hospitals, they don't have 24/7 care or the same strict ventilation codes. Matching ventilation to the appointment schedule and reducing conditioning outside clinic hours captures real waste."
+
     else:
-        source = "public energy benchmarking data"
+        method = "How it's calculated: We isolate the HVAC portion of energy costs using building-type-specific percentages, then apply a savings rate based on occupancy patterns for this building type."
+        data_used = "Data used: This building's actual energy consumption from city benchmarking disclosure, utility rates for this ZIP code, and HVAC percentages by fuel type."
+        source = f"Sources: Energy data from {city} benchmarking disclosure. Utility rates from NREL database. HVAC percentages from CBECS 2018."
+        justification = "Why this works: The result reflects dollars currently spent conditioning spaces that sit empty or underutilized. The method is tailored to this building type's specific occupancy patterns."
 
-    # Building-type HVAC context (conceptual)
-    hvac_context = {
-        'Office': "offices use a large share of electricity and most gas for HVAC.",
-        'Hotel': "hotels use less gas for HVAC than you'd expect—hot water and kitchens take a large share.",
-        'Restaurant/Bar': "restaurants use most gas for cooking, not HVAC.",
-        'K-12 School': "schools use most gas for heating and a large share of electricity for cooling.",
-        'Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
-        'Inpatient Hospital': "hospitals have high ventilation requirements but also significant non-HVAC loads.",
-        'Retail': "retail uses a significant share of electricity for HVAC, with lighting as another major load.",
-        'Data Center': "data centers use almost no HVAC for occupancy—cooling is for equipment heat removal.",
-    }
-    type_note = hvac_context.get(bldg_type, "HVAC is a significant portion of energy use for this building type.")
-
-    return f"Annual savings from conditioning less empty space. Based on regional disclosure laws, energy data from {source}. Based on building type, {type_note} (CBECS 2018)"
+    return f"{meaning}\n\n{method}\n\n{data_used}\n\n{source}\n\n{justification}"
 
 
 # Map of dynamic tooltip keys to their generator functions
 DYNAMIC_TOOLTIPS = {
-    # Building Type Opportunity (Property section)
     'bldg_type_opportunity': get_odcv_savings_tooltip,
-    # Impact Section
     'utility_cost_savings': get_utility_cost_savings_tooltip,
     'property_value_increase': get_property_value_tooltip,
     'fine_avoidance': get_fine_avoidance_tooltip,
     'energy_star_score': get_energy_star_tooltip,
     'carbon_reduction': get_carbon_reduction_tooltip,
-    # Energy Table - ENERGY SAVINGS ONLY (no $ talk)
     'energy_elec_kwh': get_electricity_kwh_tooltip,
     'natural_gas': get_natural_gas_tooltip,
     'fuel_oil': get_fuel_oil_tooltip,
     'district_steam': get_district_steam_tooltip,
     'energy_site_eui': get_site_eui_tooltip,
     'pct_hvac_elec': get_hvac_pct_tooltip,
-    # Electricity Details - now dynamic
-    'energy_rate': get_energy_rate_tooltip,
-    'demand_rate': get_demand_rate_tooltip,
-    'peak_demand': get_peak_demand_tooltip,
-    'load_factor': get_load_factor_tooltip,
     'total_ghg': get_total_ghg_tooltip,
+    'size': get_size_tooltip,
+    'year_built': get_year_built_tooltip,
+    'utility': get_utility_tooltip,
 }
 
 #===============================================================================
@@ -1530,7 +2316,7 @@ def generate_building_info(row):
     # Size
     sqft = safe_num(row, 'bldg_sqft')
     if sqft:
-        html += f"<tr><td>Size</td><td>{format_number(sqft)} sqft</td></tr>\n"
+        html += f"<tr><td>Size{tooltip('size', row)}</td><td>{format_number(sqft)} sqft</td></tr>\n"
 
     # Type (with opportunity level tooltip explaining WHY this building type has savings potential)
     bldg_type = safe_val(row, 'bldg_type')
@@ -1540,7 +2326,7 @@ def generate_building_info(row):
     # Year Built - only show if it's a reasonable year (1800-2030)
     year = safe_num(row, 'bldg_year_built')
     if year and 1800 <= year <= 2030:
-        html += f"<tr><td>Year Built</td><td>{int(year)}</td></tr>\n"
+        html += f"<tr><td>Year Built{tooltip('year_built', row)}</td><td>{int(year)}</td></tr>\n"
 
     # Owner/Tenant/Property Manager - collapsed when matching
     owner = safe_val(row, 'org_owner')
@@ -1657,10 +2443,20 @@ def generate_building_info(row):
     utility = safe_val(row, 'cost_utility_name')
     if utility and str(utility).lower() not in ['nan', '', 'none']:
         utility_logo_url = UTILITY_LOGOS.get(utility, '')
+        utility_rate_url = UTILITY_RATE_URLS.get(utility, '')
         if utility_logo_url:
-            html += f'<tr><td>Utility</td><td><span class="org-logo" data-org-name="{escape(utility)}"><img src="{utility_logo_url}" alt="{escape(utility)}" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';"><span style="display:none;">⚡ {escape(utility)}</span></span></td></tr>\n'
+            # Wrap logo in link to rate page if URL exists
+            logo_html = f'<img src="{utility_logo_url}" alt="{escape(utility)}" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\';">'
+            fallback_html = f'<span style="display:none;">⚡ {escape(utility)}</span>'
+            if utility_rate_url:
+                logo_html = f'<a href="{utility_rate_url}" target="_blank" rel="noopener" title="View {escape(utility)} commercial rates" style="text-decoration:none;">{logo_html}</a>'
+            html += f'<tr><td>Utility{tooltip("utility", row)}</td><td><span class="org-logo" data-org-name="{escape(utility)}">{logo_html}{fallback_html}</span></td></tr>\n'
         else:
-            html += f"<tr><td>Utility</td><td>⚡ {escape(utility)}</td></tr>\n"
+            # No logo - show text, link if URL exists
+            if utility_rate_url:
+                html += f'<tr><td>Utility{tooltip("utility", row)}</td><td><a href="{utility_rate_url}" target="_blank" rel="noopener" title="View {escape(utility)} commercial rates">⚡ {escape(utility)}</a></td></tr>\n'
+            else:
+                html += f'<tr><td>Utility{tooltip("utility", row)}</td><td>⚡ {escape(utility)}</td></tr>\n'
 
     # LEED Certification (only show if certified, with logo) - lookup from leed_matches.csv
     row_idx = row.name if hasattr(row, 'name') else None

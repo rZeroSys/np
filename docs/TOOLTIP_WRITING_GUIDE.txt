@@ -1,0 +1,464 @@
+================================================================================
+                        TOOLTIP WRITING BEST PRACTICES
+================================================================================
+
+A comprehensive guide to writing effective, accessible, and user-friendly
+tooltips for interface design.
+
+--------------------------------------------------------------------------------
+1. WHAT IS A TOOLTIP?
+--------------------------------------------------------------------------------
+
+A tooltip is a brief, informative message that appears when a user interacts
+with an element in a graphical user interface. Tooltips are triggered by mouse
+hover or keyboard focus and provide supplementary context about UI elements.
+
+PURPOSE:
+- Clarify unfamiliar fields or unusual requests
+- Explain the function of unlabeled icons
+- Provide helpful context without cluttering the interface
+- Guide users through complex features
+
+
+--------------------------------------------------------------------------------
+2. WHEN TO USE TOOLTIPS
+--------------------------------------------------------------------------------
+
+USE TOOLTIPS FOR:
+  - Unlabeled or ambiguous icons
+  - Form fields that require clarification
+  - Features that may be unfamiliar to users
+  - Supplementary information that enhances understanding
+  - Explaining truncated text on hover
+
+DO NOT USE TOOLTIPS FOR:
+  - Critical information required to complete a task
+  - Essential warnings or error messages
+  - Content that should be permanently visible
+  - Self-explanatory interface elements
+  - Repeating the label of the trigger element
+  - Hiding poor design decisions (tooltips are not band-aids)
+
+
+--------------------------------------------------------------------------------
+3. CHARACTER LIMITS & FORMATTING
+--------------------------------------------------------------------------------
+
+RECOMMENDED LIMITS:
+  - Header text: 80 characters maximum
+  - Body text: Up to 200 characters (use judgment based on context)
+  - Total lines: 5 lines maximum
+  - Longer tooltips are acceptable when:
+      * Explaining complex concepts that require detail
+      * Providing calculation breakdowns or formulas
+      * Showing data context that aids decision-making
+      * The alternative would be hiding useful information
+
+WHEN TO USE LONGER TOOLTIPS:
+  - Technical explanations that can't be simplified further
+  - Data-driven insights with specific values
+  - Multi-part information (e.g., "Based on X, calculated as Y, resulting in Z")
+  - Educational content for less experienced users
+
+FORMATTING RULES:
+  - Use sentence case throughout (including headers)
+  - Include periods only for complete sentences
+  - Apply consistently across all tooltips
+  - Text only - no images, headings, or interactive elements
+  - Avoid links (users are already in workflow interruption)
+  - For longer tooltips: use line breaks to separate distinct ideas
+  - Bold key terms or values if your system supports it
+
+
+--------------------------------------------------------------------------------
+4. WRITING PRINCIPLES
+--------------------------------------------------------------------------------
+
+A. LEAD WITH THE VERB
+   Start with the action, not the setup.
+
+   BAD:  "This is the name that will be shown on your public profile"
+   GOOD: "Shows your public profile name"
+
+   BAD:  "This button is used to save your changes"
+   GOOD: "Save your changes"
+
+B. BE CONCISE
+   Every word must earn its place. Cut ruthlessly.
+
+   BAD:  "Click here in order to be able to download the file to your computer"
+   GOOD: "Download file"
+
+   BAD:  "This field is where you can enter your email address"
+   GOOD: "Enter your email address"
+
+C. BE SPECIFIC AND CONTEXTUAL
+   Tailor the message to the exact element and situation.
+
+   BAD:  "Click for more options"
+   GOOD: "Filter by date, status, or category"
+
+   BAD:  "Edit settings"
+   GOOD: "Edit notification preferences"
+
+D. USE CONCRETE EXAMPLES
+   Anchor abstract fields with clear, formatted examples.
+
+   BAD:  "Enter your project identifier"
+   GOOD: "Enter project ID (e.g., PROJ-123)"
+
+   BAD:  "Enter date"
+   GOOD: "Enter date (MM/DD/YYYY)"
+
+E. AVOID JARGON
+   Use plain language your users understand.
+
+   BAD:  "Initialize the API handshake protocol"
+   GOOD: "Connect to the service"
+
+
+--------------------------------------------------------------------------------
+5. CONTENT DO'S AND DON'TS
+--------------------------------------------------------------------------------
+
+DO:
+  [ ] Provide genuinely useful information
+  [ ] Keep content short and scannable
+  [ ] Match the brand's tone of voice
+  [ ] Test tooltips with real users
+  [ ] Position tooltips to avoid obscuring related content
+  [ ] Use arrows in crowded layouts to show association
+  [ ] Maintain high contrast for visibility
+  [ ] Be consistent - apply tooltips uniformly across similar elements
+
+DON'T:
+  [ ] Repeat the trigger element's label
+  [ ] Include marketing language or value propositions
+  [ ] Use directional language ("at the top", "on the left")
+  [ ] Explain entire task flows in a single tooltip
+  [ ] Create "information pollution" with obvious content
+  [ ] Hide critical task-completion information
+  [ ] Use tooltips to compensate for confusing design
+
+
+--------------------------------------------------------------------------------
+6. ACCESSIBILITY REQUIREMENTS
+--------------------------------------------------------------------------------
+
+KEYBOARD ACCESS:
+  - Tooltips MUST be triggerable via keyboard focus, not just mouse hover
+  - Users who rely on keyboards must have equal access to tooltip content
+
+TIMING:
+  - Tooltips should appear immediately on hover/focus
+  - They must remain visible long enough to be read
+  - Don't disappear too quickly - users need time to process
+
+SCREEN READERS:
+  - Follow WAI-ARIA guidelines for tooltip implementation
+  - Ensure tooltip content is announced to assistive technologies
+
+AVOID:
+  - Directional language that assumes visual layout perception
+  - Tooltips that only work with a mouse
+
+
+--------------------------------------------------------------------------------
+7. EXAMPLES: GOOD VS. BAD
+--------------------------------------------------------------------------------
+
+EXAMPLE 1: Icon Button
+  BAD:  "Button" (redundant)
+  BAD:  "This button will allow you to delete the selected items" (too long)
+  GOOD: "Delete selected items"
+
+EXAMPLE 2: Form Field
+  BAD:  "Password" (repeats label)
+  BAD:  "Your password must contain letters and numbers and symbols" (clunky)
+  GOOD: "Must include letters, numbers, and symbols"
+
+EXAMPLE 3: Feature Explanation
+  BAD:  "Click here to see more" (vague)
+  BAD:  "This is a very useful feature that helps you track your progress
+         over time and see how much you've accomplished" (way too long)
+  GOOD: "View your progress history"
+
+EXAMPLE 4: Data Input
+  BAD:  "Enter number" (too vague)
+  GOOD: "Building square footage (e.g., 50,000)"
+
+EXAMPLE 5: Toggle Switch
+  BAD:  "Toggle" (useless)
+  BAD:  "Use this toggle to turn on or off the dark mode feature" (wordy)
+  GOOD: "Enable dark mode"
+
+
+REAL-WORLD EXAMPLES FROM A BUILDING ENERGY APPLICATION
+------------------------------------------------------
+These production tooltips demonstrate the principles above.
+
+EXAMPLE 6: Concrete Value + Consequence
+  Field: "Carbon Limit"
+  GOOD: "NYC's legal maximum emissions for office buildings (0.00758 metric
+        tons CO2 per square foot annually). Exceeding this triggers fines."
+  WHY:  Gives the exact number users need, explains what happens if exceeded.
+        No fluff - just the fact and its consequence.
+
+EXAMPLE 7: Explains "So What?"
+  Field: "Units"
+  GOOD: "Data from NYC Department of City Planning. More units = more tenants
+        = greater complexity"
+  WHY:  Doesn't just define the field - tells users why they should care.
+        The "= greater complexity" transforms raw data into insight.
+
+EXAMPLE 8: Demystifies Jargon With Benchmark
+  Field: "ENERGY STAR Score"
+  GOOD: "Data from building's most recent LL84 report (NYC's energy data
+        disclosure law). Score of 75 = better than 75% of similar buildings
+        nationwide."
+  WHY:  Explains the acronym (LL84), then anchors the score with a concrete
+        comparison. Users instantly understand what "75" means.
+
+EXAMPLE 9: Formula + Real-World Context
+  Field: "Building EUI"
+  GOOD: "Energy Use Intensity (EUI) measures total annual energy use per
+        square foot. Formula: EUI = Annual Energy (kBtu) ÷ Building Area
+        (sq ft). Lower values mean better efficiency. NYC office median:
+        ~65 kBtu/sq ft/year."
+  WHY:  Defines the term, shows the formula, tells direction (lower=better),
+        and provides a benchmark. User can now interpret any EUI value.
+
+EXAMPLE 10: Source Attribution + Implication
+  Field: "LL33 Grade"
+  GOOD: "NYC gov's most recent energy efficiency letter grade for the
+        building. Under LL33, NYC buildings must post these grades in public
+        view (usually in the lobby). A low grade can jeopardize buildings'
+        class A status"
+  WHY:  Cites the source, explains where grades appear physically, and adds
+        business context (class A status). Transforms a letter into stakes.
+
+EXAMPLE 11: Data Provenance
+  Field: "Class"
+  GOOD: "Measure of office property quality. A= premium, B= good, C= basic.
+        Source: CoStar"
+  WHY:  Quick definition with clear scale, plus source attribution. Users
+        know exactly what A/B/C mean and where the data came from.
+
+
+--------------------------------------------------------------------------------
+8. DECISION FRAMEWORK CHECKLIST
+--------------------------------------------------------------------------------
+
+Before writing a tooltip, ask:
+
+[ ] Is the design obvious enough without explanation?
+    -> If YES, skip the tooltip
+
+[ ] Would this tooltip hide critical information?
+    -> If YES, display the information permanently instead
+
+[ ] Am I just repeating the element's label?
+    -> If YES, skip the tooltip
+
+[ ] Can this content fit outside a tooltip?
+    -> If YES, consider inline text instead
+
+[ ] Will this tooltip raise more questions than it answers?
+    -> If YES, rethink the design or provide more context elsewhere
+
+[ ] Is this a band-aid for a confusing design?
+    -> If YES, fix the design instead
+
+FINAL QUESTION: "Is this information necessary for task completion?"
+  - If NO -> Tooltip is appropriate
+  - If YES -> Display it permanently on-screen
+
+
+--------------------------------------------------------------------------------
+9. TOOLTIP SEQUENCES (GUIDED TOURS)
+--------------------------------------------------------------------------------
+
+When using multiple tooltips in a sequence:
+
+  - Limit to 3-4 tooltips per tour (mobile: 1 only)
+  - Beyond 6 tooltips, use alternative formats (videos, help articles)
+  - Avoid directional language for accessibility
+  - Inform users where to find help content after dismissal
+  - Ensure each tooltip can stand alone if others are dismissed
+
+
+--------------------------------------------------------------------------------
+10. MOBILE CONSIDERATIONS
+--------------------------------------------------------------------------------
+
+  - Keep tooltips even shorter than desktop versions
+  - Users tap to trigger (not hover)
+  - Users tap elsewhere to dismiss
+  - Test across different viewport sizes
+  - Ensure tooltips don't get cut off by screen edges
+  - Consider if a tooltip is necessary at all on mobile
+
+
+--------------------------------------------------------------------------------
+11. DYNAMIC DATA IN TOOLTIPS
+--------------------------------------------------------------------------------
+
+Dynamic tooltips use real-time data to provide personalized, contextual
+information. This transforms generic explanations into specific insights.
+
+WHY USE DYNAMIC DATA:
+  - Makes tooltips immediately relevant to the user's context
+  - Replaces abstract explanations with concrete values
+  - Reduces cognitive load (user doesn't have to do mental math)
+  - Creates a more intelligent, responsive interface
+
+TYPES OF DYNAMIC DATA TO INCLUDE:
+
+  A. CALCULATED VALUES
+     Show the result, not just the formula.
+
+     STATIC:  "Energy use per square foot"
+     DYNAMIC: "142 kBtu/sq ft (based on 2.1M kBtu / 14,800 sq ft)"
+
+  B. COMPARISONS & BENCHMARKS
+     Context makes numbers meaningful.
+
+     STATIC:  "Building energy score"
+     DYNAMIC: "Score: 72 — 18% better than similar office buildings"
+
+     STATIC:  "Annual energy cost"
+     DYNAMIC: "$847,000/year — $4.20/sq ft (avg for this type: $5.10/sq ft)"
+
+  C. PERCENTILES & RANKINGS
+     Show where this item falls in the distribution.
+
+     STATIC:  "Energy efficiency rating"
+     DYNAMIC: "Top 15% of office buildings in this climate zone"
+
+  D. TIME-BASED DATA
+     Show trends and changes.
+
+     STATIC:  "Usage history"
+     DYNAMIC: "Down 12% from last year (was 162 kBtu/sq ft in 2023)"
+
+  E. USER-SPECIFIC DATA
+     Personalize based on user's portfolio or selections.
+
+     STATIC:  "Portfolio average"
+     DYNAMIC: "Your portfolio avg: 128 kBtu/sq ft (this building: 142)"
+
+FORMATTING DYNAMIC TOOLTIPS:
+
+  Pattern 1: Value + Explanation
+  -----------------------------
+  "[VALUE] — [what it means or how it compares]"
+
+  Examples:
+  - "142 kBtu/sq ft — 11% above the national median"
+  - "$4.2M potential savings — based on upgrading to LED + smart HVAC"
+  - "Grade C — meets minimum code but not ENERGY STAR qualified"
+
+  Pattern 2: Calculation Breakdown
+  --------------------------------
+  "[RESULT] (calculated as [FORMULA with values])"
+
+  Examples:
+  - "142 kBtu/sq ft (2,100,000 kBtu ÷ 14,800 sq ft)"
+  - "23% reduction potential (from 142 to 109 kBtu/sq ft)"
+
+  Pattern 3: Comparison Format
+  ----------------------------
+  "[THIS VALUE] vs [BENCHMARK]: [DIFFERENCE]"
+
+  Examples:
+  - "This building: 142 vs. peer avg: 127 (+12%)"
+  - "Current: $4.20/sq ft — Target: $3.50/sq ft (savings: $0.70/sq ft)"
+
+  Pattern 4: Conditional Messaging
+  --------------------------------
+  Show different text based on the data.
+
+  If ABOVE benchmark:
+    "142 kBtu/sq ft — 12% above peer average. Efficiency upgrades recommended."
+
+  If BELOW benchmark:
+    "109 kBtu/sq ft — 14% below peer average. High performer."
+
+  If AT benchmark:
+    "127 kBtu/sq ft — On par with similar buildings."
+
+IMPLEMENTATION TIPS:
+
+  1. TEMPLATE STRINGS
+     Use placeholders that get replaced at render time:
+     "{{eui}} kBtu/sq ft — {{comparison_text}}"
+
+  2. NULL/MISSING DATA
+     Always have fallback text when data isn't available:
+     - "Energy data not available for this building"
+     - "Comparison pending — insufficient peer data"
+     Don't show broken tooltips with "undefined" or "NaN"
+
+  3. NUMBER FORMATTING
+     - Use commas for thousands: 1,234,567 not 1234567
+     - Round appropriately: $4.2M not $4,217,843.29
+     - Include units: 142 kBtu/sq ft not just 142
+
+  4. FRESHNESS INDICATORS
+     If data can be stale, indicate when it was last updated:
+     "142 kBtu/sq ft (as of Dec 2024)"
+
+  5. SOURCE ATTRIBUTION
+     When data comes from external sources, credit it:
+     "ENERGY STAR score: 72 (source: EPA Portfolio Manager)"
+
+EXAMPLES: STATIC VS. DYNAMIC
+
+  EXAMPLE 1: Energy Use Intensity
+  Static:  "Site EUI measures energy consumption per square foot"
+  Dynamic: "Site EUI: 142 kBtu/sq ft. This is 12% above the median
+           for office buildings in Climate Zone 4A (127 kBtu/sq ft)."
+
+  EXAMPLE 2: Cost Savings
+  Static:  "Potential annual savings from efficiency upgrades"
+  Dynamic: "Potential savings: $127,000/year. Based on reducing EUI
+           from 142 to 109 kBtu/sq ft through HVAC optimization."
+
+  EXAMPLE 3: Compliance Status
+  Static:  "Building performance standard compliance"
+  Dynamic: "NYC LL97 Status: Non-compliant. Current emissions: 4.2
+           kgCO2/sq ft. 2030 limit: 3.1 kgCO2/sq ft. Gap: 1.1 kgCO2/sq ft."
+
+  EXAMPLE 4: Score Explanation
+  Static:  "ENERGY STAR score from 1-100"
+  Dynamic: "ENERGY STAR: 72. Outperforms 72% of similar buildings
+           nationwide. Top quartile threshold is 75."
+
+
+--------------------------------------------------------------------------------
+SOURCES & REFERENCES
+--------------------------------------------------------------------------------
+
+This guide synthesizes best practices from:
+
+  - Nielsen Norman Group (NN/g) - Tooltip Guidelines
+    https://www.nngroup.com/articles/tooltip-guidelines/
+
+  - Intuit Content Design System - Tooltips
+    https://contentdesign.intuit.com/product-and-ui/tooltips/
+
+  - Red Hat Design System - Tooltip Guidelines
+    https://ux.redhat.com/elements/tooltip/guidelines/
+
+  - U.S. Web Design System (USWDS) - Tooltip Component
+    https://designsystem.digital.gov/components/tooltip/
+
+  - LogRocket UX Design - Designing Better Tooltips
+    https://blog.logrocket.com/ux-design/designing-better-tooltips-improved-ux/
+
+  - Userpilot - Tooltip Best Practices
+    https://userpilot.com/blog/tooltip-best-practices/
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================

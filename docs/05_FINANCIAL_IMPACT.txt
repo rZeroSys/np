@@ -1,0 +1,400 @@
+================================================================================
+NATIONWIDE PROSPECTOR - FINANCIAL IMPACT
+================================================================================
+
+This document describes the methodology for calculating property valuation
+impact, operating expense avoidance, and financial metrics from ODCV
+implementation.
+
+TOTAL BUILDINGS IN DATASET: 22,954
+
+================================================================================
+SECTION 1: VALUATION IMPACT METHODOLOGY
+================================================================================
+
+SCOPE
+-----
+Building types covered (17 types):
+  Office: 9,910
+  K-12 School: 2,580
+  Hotel: 2,464
+  Retail: 2,010
+  Higher Ed: 1,337
+  Residential Care: 963
+  Medical Office: 804
+  Supermarket: 693
+  Mixed Use: 500
+  Inpatient Hospital: 397
+  Venue: 291
+  Theater: 289
+  Wholesale Club: 265
+  Library/Museum: 220
+  Outpatient Clinic: 102
+  Restaurant/Bar: 66
+  Specialty Hospital: 63
+
+BPS Jurisdictions: 7 cities (NYC LL97, Boston BERDO, Cambridge BEUDO,
+DC BEPS, Denver Energize, Seattle BEPS, St. Louis BEPS)
+
+--------------------------------------------------------------------------------
+DATASET FINANCIAL STATISTICS
+--------------------------------------------------------------------------------
+
+HVAC Costs:
+  Total annual HVAC costs: $12,161,155,047
+  Mean annual HVAC cost: $529,805
+
+ODCV Utility Savings:
+  Total annual savings: $3,648,519,120
+  Mean annual savings: $158,949
+  Median annual savings: $56,778
+
+Total OpEx Avoided (Utility + BPS Fine Avoidance):
+  Total annual: $4,067,156,168
+  Mean annual: $177,187
+
+Valuation Impact:
+  Total impact: $38,961,779,270
+  Mean impact: $2,298,901
+
+Property Values:
+  Mean current value: $72,031,862
+  Mean post-ODCV value: $74,335,305
+
+--------------------------------------------------------------------------------
+CALCULATION METHODOLOGY
+--------------------------------------------------------------------------------
+
+STEP 1: Calculate Annual HVAC Costs by Fuel Type
+
+  Electricity HVAC Cost = total_annual_electricity_cost x pct_elec_hvac
+  Gas HVAC Cost = annual_gas_cost x pct_gas_hvac
+  Steam HVAC Cost = annual_steam_cost x pct_steam_hvac
+  Fuel Oil HVAC Cost = annual_fuel_oil_cost x pct_fuel_oil_hvac
+
+  Total HVAC Cost = Sum of all fuel HVAC costs
+
+
+STEP 2: Calculate Annual ODCV Utility Savings
+
+  odcv_dollar_savings = Total HVAC Cost x odcv_savings_pct
+
+The odcv_hvac_savings_pct ranges from 20-40% for office buildings, with
+type-specific ranges for other building types based on:
+  - Vacancy rates (for multi-tenant buildings)
+  - Utilization rates (for owner-occupied buildings)
+  - Building age and size (automation likelihood proxy)
+  - Energy efficiency (Energy Star score or EUI)
+  - Climate zone (heating/cooling intensity)
+
+
+STEP 3: Calculate Total Annual OpEx Avoidance (Including BPS Fine Avoidance)
+
+For buildings in BPS jurisdictions, ODCV reduces carbon emissions, which
+can help avoid or reduce regulatory penalties:
+
+  total_annual_opex_avoidance = odcv_dollar_savings + fine_avoidance_yr1
+
+Where:
+  odcv_hvac_savings_annual_usd: Annual utility cost savings
+  bps_fine_avoided_yr1_usd: Year 1 BPS penalty avoidance
+
+Both utility savings and regulatory penalty avoidance contribute to
+increased Net Operating Income (NOI).
+
+
+STEP 4: Calculate Valuation Impact (Income Capitalization Approach)
+
+Commercial real estate is valued based on income-producing potential.
+Operating expense reductions directly increase NOI, which increases value:
+
+  odcv_valuation_impact_usd = total_annual_opex_avoidance / (cap_rate / 100)
+
+IMPORTANT: The val_cap_rate_pct column stores values as decimals
+(e.g., 0.075 for 7.5%). For valuation calculation, use directly.
+
+In income-producing properties, a $1 reduction in operating expenses
+increases NOI by $1. The capitalization rate converts this income stream
+into property value.
+
+Example:
+  $100,000 annual benefit / 0.07 (7% cap rate) = $1,428,571 valuation increase
+
+
+VALUE MULTIPLIER BY CAP RATE:
+  Cap Rate    Value Multiplier    Example Impact
+  --------------------------------------------------
+  6.00%       16.67x              $100K savings = $1.67M value
+  7.00%       14.29x              $100K savings = $1.43M value
+  8.00%       12.50x              $100K savings = $1.25M value
+  9.00%       11.11x              $100K savings = $1.11M value
+
+
+STEP 5: Estimate Current and Post-ODCV Valuations
+
+Current Valuation (estimated):
+  Estimated Gross Income = Total Energy Cost / 0.12
+    (Energy typically ~12% of gross income for commercial properties)
+
+  Estimated NOI = Estimated Gross Income x 0.60
+    (Operating expenses typically 35-45% of gross income)
+
+  current_valuation_usd = Estimated NOI / cap_rate
+
+Post-ODCV Valuation:
+  post_odcv_valuation_usd = current_valuation_usd + odcv_valuation_impact_usd
+
+
+================================================================================
+SECTION 2: CAP RATES BY BUILDING TYPE
+================================================================================
+
+CAP RATE DISTRIBUTION IN DATASET:
+  5.00%: 264 buildings
+  5.50%: 113 buildings
+  5.75%: 600 buildings
+  6.00%: 761 buildings
+  6.25%: 959 buildings
+  6.50%: 144 buildings
+  6.75%: 24 buildings
+  7.00%: 3,962 buildings
+  7.25%: 606 buildings
+  7.50%: 5,714 buildings
+  7.66%: 76 buildings
+  7.70%: 40 buildings
+  7.80%: 112 buildings
+  8.00%: 2,294 buildings
+  8.33%: 31 buildings
+
+TYPICAL CAP RATES BY BUILDING TYPE:
+  Building Type         Cap Rate
+  --------------------------------
+  Office                7.50%
+  Medical Office        7.50%
+  Mixed Use             7.00%
+  Retail Store          6.25%
+  Hotel                 8.00%
+  Supermarket/Grocery   6.00%
+  Restaurant/Bar        7.00%
+  Wholesale Club        5.75%
+
+Source: CBRE Cap Rate Survey
+
+
+================================================================================
+SECTION 3: TOTAL ANNUAL OPEX AVOIDANCE
+================================================================================
+
+WHAT IS TOTAL ANNUAL OPEX AVOIDANCE?
+------------------------------------
+Operating expenses avoided each year from ODCV implementation:
+
+  total_annual_opex_avoidance = odcv_dollar_savings + fine_avoidance_yr1
+
+Component                      What It Is
+---------------------------------------------------------
+odcv_hvac_savings_annual_usd   Utility bills not paid (lower energy use)
+bps_fine_avoided_yr1_usd       BPS fines not paid (lower emissions)
+
+Both are operating expenses (OpEx) the building avoids paying.
+
+
+WHY "OPEX AVOIDANCE" AND NOT "TOTAL BENEFIT"?
+---------------------------------------------
+The total benefit of ODCV includes:
+
+Benefit                  Column                         In OpEx Avoidance?
+---------------------------------------------------------------------------
+Utility savings          odcv_hvac_savings_annual_usd   Yes
+Fine avoidance           bps_fine_avoided_yr1_usd       Yes
+Property value increase  val_odcv_impact_usd            No
+
+Calling it "total benefit" would be wrong because valuation increase is
+ALSO a benefit. "Total Annual OpEx Avoidance" accurately describes the
+operating expenses avoided, not all benefits.
+
+
+HOW IT FLOWS TO VALUATION
+-------------------------
+  total_annual_opex_avoidance  -->  odcv_valuation_impact_usd
+  (annual cash savings)             (property value increase)
+
+The OpEx avoidance improves NOI, which capitalizes into higher property value.
+
+
+EXAMPLE
+-------
+Building: 500,000 sqft office in Washington, DC
+
+  Item                          Amount
+  -------------------------------------------
+  Utility savings               $300,000/year
+  Fine avoidance                $800,000/year
+  Total Annual OpEx Avoidance   $1,100,000/year
+  Valuation Impact ($1.1M / 7%) $15,714,286
+
+
+================================================================================
+SECTION 4: FORMULA CHAIN
+================================================================================
+
+1. odcv_dollar_savings = total_hvac_energy_cost x odcv_savings_pct
+
+2. fine_avoidance_yr1 = (emissions over cap) x penalty rate
+
+3. total_annual_opex_avoidance = odcv_dollar_savings + fine_avoidance_yr1
+
+4. odcv_valuation_impact_usd = total_annual_opex_avoidance / cap_rate
+
+5. post_odcv_valuation_usd = current_valuation_usd + odcv_valuation_impact_usd
+
+
+================================================================================
+SECTION 5: HVAC PERCENTAGES (MEDIANS FOR GAP-FILLING)
+================================================================================
+
+Fuel Type         HVAC % of Total Use
+---------------------------------------
+Natural Gas       85%
+District Steam    99%
+Fuel Oil          78%
+Electricity       Building-specific
+
+
+================================================================================
+SECTION 6: ENERGY COST ASSUMPTIONS
+================================================================================
+
+- Energy costs represent approximately 12% of gross rental income
+- Operating expense ratio: 40% of gross income (60% NOI margin)
+- These are industry-standard benchmarks for commercial properties
+
+
+================================================================================
+SECTION 7: KEY POINTS
+================================================================================
+
+1. Both components are OpEx - utility costs and fines are operating expenses
+
+2. Non-BPS buildings have $0 fine avoidance, so OpEx avoidance = utility
+   savings only
+
+3. Fine avoidance is Year 1 - BPS caps get stricter over time, so future
+   years will differ
+
+4. Valuation is separate - the property value increase is calculated FROM
+   the OpEx avoidance
+
+
+================================================================================
+SECTION 8: OUTPUT COLUMNS
+================================================================================
+
+odcv_hvac_savings_annual_usd     Annual utility cost savings from ODCV ($)
+savings_opex_avoided_annual_usd  Combined utility savings + BPS fine avoidance ($)
+val_current_usd                  Estimated current property value
+val_post_odcv_usd                Estimated property value after ODCV
+val_odcv_impact_usd              Dollar increase in property value
+
+
+================================================================================
+SECTION 9: IMPACT METRICS EXPLANATIONS
+================================================================================
+
+These explanations are used in the UI to help users understand each metric.
+
+UTILITY COST SAVINGS
+--------------------
+Annual dollar savings from reducing HVAC energy waste. Calculated by:
+(1) Taking actual energy costs from city benchmarking disclosure filings
+(2) Applying CBECS data to determine HVAC percentage by building type -
+    offices average 44% electricity and 60% gas to HVAC; hotels just 20%
+    gas due to hot water and kitchen loads
+(3) Multiplying by ODCV savings percentage, which accounts for vacancy
+    (CBRE/Cushman & Wakefield data) and utilization (Kastle Systems badge
+    swipes for offices, STR data for hotels, NCES for schools)
+
+PROPERTY VALUE INCREASE
+-----------------------
+Commercial property values are determined by Net Operating Income (NOI)
+divided by capitalization rate. Every dollar of annual operating cost
+savings flows directly to NOI. At a 7% cap rate, $100,000 in annual
+savings adds $1.43M to property value. For buildings with fine avoidance,
+we also capitalize the avoided penalties.
+
+Source: CBRE Cap Rate Survey Q4 2024, income capitalization methodology
+per Appraisal Institute standards.
+
+ENERGY STAR SCORE
+-----------------
+Ranks building from 1-100 against similar buildings nationwide - score of
+50 means median performance, 75+ earns certification. EPA calculates using
+source energy (not site energy), normalized for weather, hours of operation,
+and other factors. Post-ODCV score improvement projected using EPA regression
+equations. Reducing electricity by 10% typically improves score by 3-5 points.
+
+Source: EPA ENERGY STAR Portfolio Manager Technical Reference
+
+CARBON REDUCTION
+----------------
+Calculated from actual fuel consumption using EPA eGRID emission factors for
+electricity (varies by grid region - California at 0.21 kg CO2/kWh vs Midwest
+at 0.41 kg CO2/kWh) and standard combustion factors for natural gas (5.3 kg
+CO2 per therm), fuel oil (10.2 kg CO2 per gallon), and district steam.
+
+Source: EPA eGRID 2022, EIA emission factors
+
+SITE EUI
+--------
+Site EUI (Energy Use Intensity) measures total energy consumption per square
+foot in kBtu/sqft. Calculated from benchmarking disclosure:
+(electricity kWh x 3.412 + gas therms x 100 + steam MMBtu x 1000 + fuel oil
+gallons x 138.5) / gross floor area.
+
+Buildings above the median have more waste to capture; buildings below are
+already efficient.
+
+LOAD FACTOR
+-----------
+Measures how evenly building uses electricity throughout the month -
+calculated as average demand / peak demand. A low load factor means sharp
+demand spikes that utilities penalize; a high load factor means steady,
+predictable consumption. ODCV can improve load factor by reducing
+ventilation during unoccupied periods.
+
+TOTAL GHG EMISSIONS
+-------------------
+Total greenhouse gas emissions in metric tons CO2e/year, calculated from
+actual fuel consumption: electricity x grid factor + natural gas x 5.3 kg
+CO2/therm + steam x steam factor. For context, one metric ton CO2 equals
+driving 2,500 miles or powering a home for 1.2 months.
+
+
+================================================================================
+SECTION 10: LIMITATIONS AND CAVEATS
+================================================================================
+
+1. Valuation estimates are indicative: Actual property values depend on
+   many factors beyond energy costs (location, condition, lease terms, etc.)
+
+2. Cap rates are market-dependent: Actual cap rates vary by market,
+   property class, and economic conditions
+
+3. ODCV savings are estimated: Actual savings depend on existing HVAC
+   systems, building controls, and implementation quality
+
+4. Year 1 fine avoidance only: BPS penalties may escalate in future
+   compliance periods; this analysis uses Year 1 values as baseline
+
+5. BPS law changes: Building Performance Standards are evolving; caps
+   and penalties may change
+
+
+================================================================================
+DOCUMENT INFO
+================================================================================
+
+Last Updated: December 2025
+Total Buildings: 22,954
+Total Annual ODCV Savings: $3,648,519,120
+Total Valuation Impact: $38,961,779,270

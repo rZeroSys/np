@@ -1,0 +1,1084 @@
+================================================================================
+NATIONWIDE PROSPECTOR - DATA REFERENCE
+================================================================================
+
+This document defines all data columns, portfolio identification methodology,
+and vacancy/utilization data sources.
+
+Generated: 2025-12-17
+Source: portfolio_data.csv
+Total Rows: 22,954
+Total Columns: 92
+
+================================================================================
+SECTION 1: DETAILED DATA DICTIONARY
+================================================================================
+
+The portfolio_data.csv file contains 92 columns organized by category prefix.
+
+NAMING CONVENTION:
+  id_      Identifiers
+  loc_     Location data
+  bldg_    Building characteristics
+  data_    Data metadata
+  org_     Organization names
+  energy_  Energy consumption
+  cost_    Utility costs
+  hvac_    HVAC-specific data
+  carbon_  Carbon emissions
+  occ_     Occupancy data
+  odcv_    ODCV savings (HVAC-related)
+  bps_     Building Performance Standards
+  savings_ Combined savings totals
+  val_     Valuation data
+  meta_    Metadata
+  leed_    LEED certification data
+
+--------------------------------------------------------------------------------
+IDENTIFIERS (id_)
+--------------------------------------------------------------------------------
+
+id_building
+  Description: Unique identifier for each building record
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,954
+  Format: CITY_NUMBER (e.g., NYC_1000160125, ATL_1)
+  Sample Values: ATL_1, ATL_10, ATL_100, ATL_101, ATL_105
+
+id_property_name
+  Description: Name of the property/building
+  Data Type: object
+  Non-Null: 8,192 (35.7%)
+  Null: 14,762 (64.3%)
+  Unique Values: 7,739
+  Sample Values: Peachtree Tower, One Georgia Center, 999 Peachtree Street
+
+id_source_plant_id
+  Description: Source system plant/facility ID number
+  Data Type: float64
+  Non-Null: 14,916 (65.0%)
+  Null: 8,038 (35.0%)
+  Unique Values: 14,887
+  Min: 38.91 | Max: 360,935,680 | Mean: 41,010,183 | Median: 13,112,346
+
+id_source_url
+  Description: URL link to the original data source
+  Data Type: object
+  Non-Null: 22,790 (99.3%)
+  Null: 164 (0.7%)
+  Unique Values: 22,349
+  Example: https://www.energystar.gov/buildings/certified_buildings_and_plants/b_11793
+
+--------------------------------------------------------------------------------
+LOCATION (loc_)
+--------------------------------------------------------------------------------
+
+loc_address
+  Description: Street address of the building
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,948
+  Sample: 191 Peachtree St NE  Atlanta  GA  30303
+
+loc_city
+  Description: City where the building is located
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 543
+
+loc_lat
+  Description: Latitude coordinate (geographic)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,496
+  Min: 28.37 | Max: 47.73 | Mean: 38.42 | Median: 38.81
+
+loc_lon
+  Description: Longitude coordinate (geographic)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,224
+  Min: -124.20 | Max: -71.01 | Mean: -101.35 | Median: -117.20
+
+loc_state
+  Description: US state abbreviation (e.g., CA, NY, DC)
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 12
+
+  VALUE DISTRIBUTION:
+    CA: 11,000 (47.9%)
+    NY: 4,436 (19.3%)
+    DC: 1,525 (6.6%)
+    IL: 1,191 (5.2%)
+    MA: 1,099 (4.8%)
+    WA: 933 (4.1%)
+    CO: 795 (3.5%)
+    PA: 541 (2.4%)
+    OR: 496 (2.2%)
+    MO: 432 (1.9%)
+    GA: 370 (1.6%)
+    FL: 136 (0.6%)
+
+loc_zip
+  Description: ZIP/postal code
+  Data Type: object
+  Non-Null: 22,416 (97.7%)
+  Null: 538 (2.3%)
+  Unique Values: 1,727
+
+--------------------------------------------------------------------------------
+BUILDING CHARACTERISTICS (bldg_)
+--------------------------------------------------------------------------------
+
+bldg_sqft
+  Description: Building gross square footage
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 19,431
+  Min: 25,000 | Max: 11,398,733 | Mean: 175,638 | Median: 90,810
+
+bldg_type
+  Description: Building use type (e.g., Office, Hotel, K-12 School)
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 17
+
+  VALUE DISTRIBUTION:
+    Office: 9,910 (43.2%)
+    K-12 School: 2,580 (11.2%)
+    Hotel: 2,464 (10.7%)
+    Retail: 2,010 (8.8%)
+    Higher Ed: 1,337 (5.8%)
+    Residential Care: 963 (4.2%)
+    Medical Office: 804 (3.5%)
+    Supermarket: 693 (3.0%)
+    Mixed Use: 500 (2.2%)
+    Inpatient Hospital: 397 (1.7%)
+    Venue: 291 (1.3%)
+    Theater: 289 (1.3%)
+    Wholesale Club: 265 (1.2%)
+    Library/Museum: 220 (1.0%)
+    Outpatient Clinic: 102 (0.4%)
+    Restaurant/Bar: 66 (0.3%)
+    Specialty Hospital: 63 (0.3%)
+
+bldg_type_benchmark
+  Description: Building type used for energy benchmarking
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 17
+  (Same distribution as bldg_type)
+
+bldg_type_filter
+  Description: Building type used for filtering/categorization
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 17
+  (Same distribution as bldg_type)
+
+bldg_vertical
+  Description: Industry vertical (Commercial, Education, Healthcare)
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 3
+
+  VALUE DISTRIBUTION:
+    Commercial: 16,488 (71.8%)
+    Education: 4,137 (18.0%)
+    Healthcare: 2,329 (10.1%)
+
+bldg_year_built
+  Description: Year the building was constructed
+  Data Type: float64
+  Non-Null: 21,291 (92.8%)
+  Null: 1,663 (7.2%)
+  Unique Values: 184
+  Min: 1800 | Max: 2026 | Mean: 1977 | Median: 1985
+
+bldg_hq_org
+  Description: Organization headquartered in this building
+  Data Type: object
+  Non-Null: 130 (0.6%)
+  Null: 22,824 (99.4%)
+  Unique Values: 116
+  Sample Values: Carters, Suffolk Construction, Central Garden Pet, CalPERS
+
+--------------------------------------------------------------------------------
+DATA METADATA (data_)
+--------------------------------------------------------------------------------
+
+data_year
+  Description: Year the energy/utility data was reported
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 13
+  Min: 2012 | Max: 2024 | Mean: 2023.3 | Median: 2024
+
+  VALUE DISTRIBUTION:
+    2024: 13,711 (59.7%)
+    2023: 6,991 (30.5%)
+    2021: 736 (3.2%)
+    2022: 507 (2.2%)
+    2020: 301 (1.3%)
+    2018: 220 (1.0%)
+    2019: 114 (0.5%)
+    2017: 113 (0.5%)
+    2016: 93 (0.4%)
+    2015: 60 (0.3%)
+    2012-2014: 108 (0.5%)
+
+--------------------------------------------------------------------------------
+ORGANIZATIONS (org_)
+--------------------------------------------------------------------------------
+
+org_manager
+  Description: Property management company name
+  Data Type: object
+  Non-Null: 3,431 (14.9%)
+  Null: 19,523 (85.1%)
+  Unique Values: 660
+  Sample Values: Banyan Street Capital, Lincoln Property Company, JLL
+
+org_owner
+  Description: Building owner name/organization
+  Data Type: object
+  Non-Null: 16,815 (73.3%)
+  Null: 6,139 (26.7%)
+  Unique Values: 7,130
+  Sample Values: General Services Administration (GSA), Highwoods Properties
+
+org_tenant
+  Description: Primary tenant name/organization
+  Data Type: object
+  Non-Null: 16,265 (70.9%)
+  Null: 6,689 (29.1%)
+  Unique Values: 9,310
+  Sample Values: Cooper Carry, General Services Administration (GSA)
+
+org_tenant_subunit
+  Description: Tenant subunit or department (e.g., hotel brand under parent)
+  Data Type: object
+  Non-Null: 1,147 (5.0%)
+  Null: 21,807 (95.0%)
+  Unique Values: 123
+  Sample Values: Ritz-Carlton, Westin, Hyatt Regency, Residence Inn
+
+--------------------------------------------------------------------------------
+ENERGY CONSUMPTION (energy_)
+--------------------------------------------------------------------------------
+
+energy_climate_zone
+  Description: Climate zone classification
+  Data Type: object
+  Non-Null: 22,953 (100.0%)
+  Unique Values: 4
+
+  VALUE DISTRIBUTION:
+    South-Central: 11,143 (48.5%)
+    North-Central: 7,109 (31.0%)
+    Northern: 4,550 (19.8%)
+    Southern: 151 (0.7%)
+
+energy_elec_kbtu
+  Description: Electricity consumption in kBtu
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,903
+  Min: 80 | Max: 1,505,230,173 | Mean: 8,013,059 | Median: 3,410,842
+
+energy_elec_kwh
+  Description: Electricity consumption in kilowatt-hours
+  Data Type: float64
+  Non-Null: 22,953 (100.0%)
+  Unique Values: 22,903
+  Min: 24 | Max: 441,157,730 | Mean: 2,342,878 | Median: 1,001,967
+
+energy_eui_benchmark
+  Description: Energy Use Intensity benchmark value for building type
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 19
+  Min: 40.1 | Max: 325.6 | Mean: 70.2 | Median: 52.9
+
+  TOP VALUES:
+    52.9 (Office): 9,821 (42.8%)
+    48.5 (K-12 School): 2,581 (11.2%)
+    63.0 (Hotel): 2,433 (10.6%)
+    51.4 (Retail): 2,270 (9.9%)
+
+energy_fuel_oil_kbtu
+  Description: Fuel oil consumption in kBtu
+  Data Type: float64
+  Non-Null: 5,116 (22.3%)
+  Null: 17,838 (77.7%)
+  Unique Values: 1,895
+  Min: 0 | Max: 458,547,240 | Mean: 2,265,321 | Median: 0
+
+energy_gas_kbtu
+  Description: Natural gas consumption in kBtu
+  Data Type: float64
+  Non-Null: 17,123 (74.6%)
+  Null: 5,831 (25.4%)
+  Unique Values: 15,823
+  Min: 0 | Max: 1,463,033,112 | Mean: 5,572,035 | Median: 1,594,637
+
+energy_site_eui
+  Description: Site Energy Use Intensity (kBtu per square foot)
+  Data Type: float64
+  Non-Null: 22,952 (100.0%)
+  Unique Values: 21,663
+  Min: 1.52 | Max: 1,450.98 | Mean: 73.24 | Median: 54.9
+
+energy_star_score
+  Description: EPA ENERGY STAR score (1-100, higher is better)
+  Data Type: float64
+  Non-Null: 18,216 (79.4%)
+  Null: 4,738 (20.6%)
+  Unique Values: 101
+  Min: 0 | Max: 100 | Mean: 69.8 | Median: 78
+
+energy_steam_kbtu
+  Description: District steam consumption in kBtu
+  Data Type: float64
+  Non-Null: 3,680 (16.0%)
+  Null: 19,274 (84.0%)
+  Unique Values: 1,220
+  Min: 0 | Max: 804,899,286 | Mean: 5,513,181 | Median: 0
+
+energy_total_kbtu
+  Description: Total energy consumption in kBtu (all fuel types)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,913
+  Min: 128,554 | Max: 1,885,874,198 | Mean: 13,558,404 | Median: 5,277,500
+
+--------------------------------------------------------------------------------
+UTILITY COSTS (cost_)
+--------------------------------------------------------------------------------
+
+cost_calc_notes
+  Description: Notes about how costs were calculated (methodology)
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 55
+
+  TOP METHODS:
+    Demand: NREL: 8,599 (37.5%)
+    Demand: NREL | Min floor $35.0/kW: 3,406 (14.8%)
+    Demand: NREL | Min floor $22.0/kW: 2,925 (12.7%)
+    Demand: NREL | Special rate for K-12 School: 2,467 (10.7%)
+    Actual cost from NYC data: 1,025 (4.5%)
+
+cost_elec_demand_annual
+  Description: Annual electricity demand charges ($)
+  Data Type: float64
+  Non-Null: 22,940 (99.9%)
+  Unique Values: 22,621
+  Min: 0 | Max: 118,917,860 | Mean: 372,614 | Median: 158,831
+
+cost_elec_energy_annual
+  Description: Annual electricity energy charges ($)
+  Data Type: float64
+  Non-Null: 22,940 (99.9%)
+  Unique Values: 22,889
+  Min: 0.03 | Max: 193,103,914 | Mean: 656,613 | Median: 288,599
+
+cost_elec_load_factor
+  Description: Electric load factor (ratio of avg to peak demand)
+  Data Type: float64
+  Non-Null: 22,939 (99.9%)
+  Unique Values: 10
+  Min: 0.25 | Max: 0.70 | Mean: 0.45 | Median: 0.45
+
+  VALUE DISTRIBUTION:
+    0.45: 11,104 (48.4%)
+    0.30: 2,688 (11.7%)
+    0.55: 2,525 (11.0%)
+    0.40: 1,833 (8.0%)
+    0.35: 1,749 (7.6%)
+
+cost_elec_peak_kw
+  Description: Peak electricity demand in kilowatts
+  Data Type: float64
+  Non-Null: 22,940 (99.9%)
+  Unique Values: 19,831
+  Min: 0 | Max: 111,912 | Mean: 591 | Median: 262
+
+cost_elec_rate_demand_kw
+  Description: Electricity demand rate ($/kW)
+  Data Type: float64
+  Non-Null: 22,939 (99.9%)
+  Unique Values: 51
+  Min: 0 | Max: 70 | Mean: 41.02 | Median: 38.12
+
+cost_elec_rate_kwh
+  Description: Electricity energy rate ($/kWh)
+  Data Type: float64
+  Non-Null: 22,940 (99.9%)
+  Unique Values: 54
+  Min: 0.1062 | Max: 0.5175 | Mean: 0.2705 | Median: 0.2632
+
+cost_elec_total_annual
+  Description: Total annual electricity cost ($)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,917
+  Min: 0.03 | Max: 312,021,774 | Mean: 1,029,732 | Median: 452,855
+
+cost_fuel_oil_annual
+  Description: Annual fuel oil cost ($)
+  Data Type: float64
+  Non-Null: 2,236 (9.7%)
+  Null: 20,718 (90.3%)
+  Unique Values: 1,891
+  Min: 0.02 | Max: 6,557,226 | Mean: 98,932 | Median: 17,410
+
+cost_fuel_oil_rate_mmbtu
+  Description: Fuel oil rate ($/MMBtu)
+  Data Type: float64
+  Non-Null: 2,234 (9.7%)
+  Unique Values: 4
+  Values: 13, 17, 20, 22
+
+cost_gas_annual
+  Description: Annual natural gas cost ($)
+  Data Type: float64
+  Non-Null: 16,795 (73.2%)
+  Null: 6,159 (26.8%)
+  Unique Values: 15,875
+  Min: 0 | Max: 18,805,880 | Mean: 96,003 | Median: 28,225
+
+cost_gas_rate_therm
+  Description: Natural gas rate ($/therm)
+  Data Type: float64
+  Non-Null: 16,004 (69.7%)
+  Unique Values: 13
+  Min: 0.229 | Max: 2.42 | Mean: 1.57 | Median: 1.73
+
+cost_steam_annual
+  Description: Annual district steam cost ($)
+  Data Type: float64
+  Non-Null: 3,684 (16.0%)
+  Null: 19,270 (84.0%)
+  Unique Values: 1,226
+  Min: -24,971,682 | Max: 29,752,053 | Mean: 176,689 | Median: 0
+
+cost_steam_rate_mlb
+  Description: District steam rate ($/Mlb - per thousand pounds)
+  Data Type: float64
+  Non-Null: 3,308 (14.4%)
+  Unique Values: 11
+  Min: 5.6 | Max: 85.27 | Mean: 20.31 | Median: 22.57
+
+cost_utility_name
+  Description: Name of the electric utility provider
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22
+
+  VALUE DISTRIBUTION:
+    PG&E: 4,786 (20.9%)
+    Con Ed: 3,317 (14.5%)
+    SoCal Edison: 3,099 (13.5%)
+    Pepco: 1,525 (6.6%)
+    LADWP: 1,253 (5.5%)
+    SDG&E: 1,239 (5.4%)
+    ComEd: 1,191 (5.2%)
+    Consolidated Edison Co-NY Inc: 1,119 (4.9%)
+    Eversource: 1,099 (4.8%)
+    Xcel Energy: 795 (3.5%)
+    City Light: 787 (3.4%)
+    PECO: 541 (2.4%)
+    Portland General: 496 (2.2%)
+    SMUD: 441 (1.9%)
+    Georgia Power: 370 (1.6%)
+    Others: 896 (3.9%)
+
+--------------------------------------------------------------------------------
+HVAC DATA (hvac_)
+--------------------------------------------------------------------------------
+
+hvac_cost_total_annual
+  Description: Total annual HVAC-related energy cost ($)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,931
+  Min: 42 | Max: 170,065,407 | Mean: 529,805 | Median: 218,232
+
+hvac_energy_total_kbtu
+  Description: Total HVAC energy consumption in kBtu
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,929
+  Min: 33,454 | Max: 1,339,184,501 | Mean: 8,122,706 | Median: 2,759,904
+
+hvac_pct_elec
+  Description: Percentage of HVAC energy from electricity
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 1,730
+  Min: 0.15 | Max: 0.78 | Mean: 0.45 | Median: 0.46
+
+hvac_pct_fuel_oil
+  Description: Percentage of HVAC energy from fuel oil
+  Data Type: float64
+  Non-Null: 2,238 (9.7%)
+  Null: 20,716 (90.3%)
+  Unique Values: 1
+  Value: 0.93 (all records)
+
+hvac_pct_gas
+  Description: Percentage of HVAC energy from natural gas
+  Data Type: float64
+  Non-Null: 16,365 (71.3%)
+  Null: 6,589 (28.7%)
+  Unique Values: 508
+  Min: 0.08 | Max: 0.98 | Mean: 0.77 | Median: 0.86
+
+hvac_pct_method
+  Description: Method used to calculate HVAC percentages
+  Data Type: object
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 2
+
+  VALUE DISTRIBUTION:
+    cbecs_adjusted: 21,835 (95.1%)
+    nyc_real_data: 1,119 (4.9%)
+
+hvac_pct_steam
+  Description: Percentage of HVAC energy from district steam
+  Data Type: float64
+  Non-Null: 848 (3.7%)
+  Null: 22,106 (96.3%)
+  Unique Values: 150
+  Min: 0.50 | Max: 1.00 | Mean: 0.90 | Median: 0.94
+
+--------------------------------------------------------------------------------
+CARBON EMISSIONS (carbon_)
+--------------------------------------------------------------------------------
+
+carbon_emissions_total_mt
+  Description: Total carbon emissions in metric tons CO2e
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,899
+  Min: 0.58 | Max: 158,998 | Mean: 1,027 | Median: 396
+
+carbon_emissions_post_odcv_mt
+  Description: Projected carbon emissions after ODCV (metric tons)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Null: 1,119 (4.9%)
+  Unique Values: 19,625
+  Min: 0.52 | Max: 128,442 | Mean: 813 | Median: 329
+
+--------------------------------------------------------------------------------
+OCCUPANCY DATA (occ_)
+--------------------------------------------------------------------------------
+
+occ_utilization_rate
+  Description: Building occupancy/utilization rate (0-1)
+  Data Type: float64
+  Non-Null: 22,014 (95.9%)
+  Null: 940 (4.1%)
+  Unique Values: 50
+  Min: 0.075 | Max: 0.95 | Mean: 0.59 | Median: 0.60
+
+  TOP VALUES:
+    0.55: 2,536 (11.0%)
+    0.45: 2,121 (9.2%)
+    0.75: 2,019 (8.8%)
+    0.65: 1,865 (8.1%)
+    0.70: 1,552 (6.8%)
+
+occ_vacancy_rate
+  Description: Building vacancy rate (0-1)
+  Data Type: float64
+  Non-Null: 15,224 (66.3%)
+  Null: 7,730 (33.7%)
+  Unique Values: 553
+  Min: 0 | Max: 1.0 | Mean: 0.16 | Median: 0.16
+
+--------------------------------------------------------------------------------
+ODCV SAVINGS (odcv_)
+--------------------------------------------------------------------------------
+
+odcv_carbon_reduction_yr1_mt
+  Description: Year 1 carbon reduction from ODCV in metric tons
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,788
+  Min: 0.03 | Max: 30,556 | Mean: 175 | Median: 52
+
+odcv_hvac_savings_annual_usd
+  Description: Annual HVAC savings from ODCV implementation ($)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,923
+  Min: 15 | Max: 56,546,748 | Mean: 158,949 | Median: 56,778
+
+odcv_hvac_savings_pct
+  Description: Percentage HVAC savings from ODCV
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 1,864
+  Min: 0.20 | Max: 0.45 | Mean: 0.27 | Median: 0.27
+
+--------------------------------------------------------------------------------
+BUILDING PERFORMANCE STANDARDS (bps_)
+--------------------------------------------------------------------------------
+
+bps_fine_avoided_yr1_usd
+  Description: Year 1 BPS fine avoided through compliance ($)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 2,397
+  Min: 0 | Max: 8,562,504 | Mean: 18,238 | Median: 0
+
+bps_law_name
+  Description: Building Performance Standard law name
+  Data Type: object
+  Non-Null: 6,419 (28.0%)
+  Null: 16,535 (72.0%)
+  Unique Values: 7
+
+  VALUE DISTRIBUTION:
+    NYC LL97: 3,421 (14.9%)
+    DC BEPS: 1,021 (4.4%)
+    Seattle BEPS: 679 (3.0%)
+    Energize Denver: 642 (2.8%)
+    Boston BERDO 2.0: 469 (2.0%)
+    Cambridge BEUDO: 125 (0.5%)
+    St. Louis BEPS: 62 (0.3%)
+
+bps_fine_baseline_yr1_usd
+  Description: Year 1 BPS fine at baseline (before ODCV) ($)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 2,712
+  Min: 0 | Max: 17,482,316 | Mean: 41,806 | Median: 0
+
+bps_fine_post_odcv_yr1_usd
+  Description: Year 1 BPS fine after ODCV implementation ($)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 1,724
+  Min: 0 | Max: 12,169,922 | Mean: 23,199 | Median: 0
+
+--------------------------------------------------------------------------------
+COMBINED SAVINGS (savings_)
+--------------------------------------------------------------------------------
+
+savings_opex_avoided_annual_usd
+  Description: Annual operating expense savings ($)
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,923
+  Min: 15 | Max: 56,546,748 | Mean: 177,187 | Median: 60,789
+  Formula: odcv_hvac_savings + bps_fine_avoided
+
+savings_pct_of_energy_cost
+  Description: Savings as percentage of total energy cost
+  Data Type: float64
+  Non-Null: 22,954 (100.0%)
+  Unique Values: 22,938
+  Min: 0.025 | Max: 0.90 | Mean: 0.13 | Median: 0.13
+
+--------------------------------------------------------------------------------
+VALUATION (val_)
+--------------------------------------------------------------------------------
+
+val_cap_rate_pct
+  Description: Capitalization rate for property valuation
+  Data Type: float64
+  Non-Null: 17,281 (75.3%)
+  Null: 5,673 (24.7%)
+  Unique Values: 30
+  Min: 0.05 | Max: 0.10 | Mean: 0.073 | Median: 0.075
+
+  TOP VALUES:
+    0.075: 5,714 (24.9%)
+    0.070: 3,962 (17.3%)
+    0.080: 2,294 (10.0%)
+    0.0625: 959 (4.2%)
+
+val_current_usd
+  Description: Current estimated property value ($)
+  Data Type: float64
+  Non-Null: 15,830 (69.0%)
+  Null: 7,124 (31.0%)
+  Unique Values: 15,820
+  Min: 3,072 | Max: 22,853,453,094 | Mean: 72,031,862 | Median: 38,600,189
+
+val_market_rent_sqft
+  Description: Market rent per square foot ($/sqft)
+  Data Type: float64
+  Non-Null: 18,219 (79.4%)
+  Null: 4,735 (20.6%)
+  Unique Values: 62
+  Min: 0.68 | Max: 220 | Mean: 55.95 | Median: 42
+
+val_odcv_impact_usd
+  Description: Property value impact from ODCV ($)
+  Data Type: float64
+  Non-Null: 16,948 (73.8%)
+  Null: 6,006 (26.2%)
+  Unique Values: 16,945
+  Min: 183 | Max: 807,810,686 | Mean: 2,298,901 | Median: 947,285
+
+val_opex_ratio
+  Description: Operating expense ratio
+  Data Type: float64
+  Non-Null: 16,504 (71.9%)
+  Null: 6,450 (28.1%)
+  Unique Values: 28
+  Min: 0.25 | Max: 0.90 | Mean: 0.49 | Median: 0.48
+
+val_post_odcv_usd
+  Description: Property value after ODCV implementation ($)
+  Data Type: float64
+  Non-Null: 15,830 (69.0%)
+  Null: 7,124 (31.0%)
+  Unique Values: 15,827
+  Min: 3,255 | Max: 23,661,263,780 | Mean: 74,335,305 | Median: 39,767,486
+
+--------------------------------------------------------------------------------
+METADATA (meta_)
+--------------------------------------------------------------------------------
+
+meta_photo_url
+  Description: URL to building photo
+  Data Type: object
+  Non-Null: 961 (4.2%)
+  Null: 21,993 (95.8%)
+  Unique Values: 961
+
+--------------------------------------------------------------------------------
+POST-ODCV PROJECTIONS (*_post_odcv)
+--------------------------------------------------------------------------------
+
+energy_star_score_post_odcv
+  Description: Projected ENERGY STAR score after ODCV
+  Data Type: float64
+  Non-Null: 16,170 (70.4%)
+  Null: 6,784 (29.6%)
+  Unique Values: 99
+  Min: 1 | Max: 99 | Mean: 73.1 | Median: 81
+
+energy_elec_kwh_post_odcv
+  Description: Projected electricity usage after ODCV (kWh)
+  Data Type: float64
+  Non-Null: 21,834 (95.1%)
+  Unique Values: 21,812
+  Min: 22 | Max: 364,837,553 | Mean: 1,901,196 | Median: 845,343
+
+energy_elec_kbtu_post_odcv
+  Description: Projected electricity usage after ODCV (kBtu)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 21,813
+  Min: 76 | Max: 1,244,825,729 | Mean: 6,486,771 | Median: 2,884,380
+
+energy_gas_kbtu_post_odcv
+  Description: Projected natural gas usage after ODCV (kBtu)
+  Data Type: float64
+  Non-Null: 15,246 (66.4%)
+  Null: 7,708 (33.6%)
+  Unique Values: 15,214
+  Min: 1.48 | Max: 1,113,384,292 | Mean: 4,618,595 | Median: 1,418,777
+
+energy_steam_kbtu_post_odcv
+  Description: Projected steam usage after ODCV (kBtu)
+  Data Type: float64
+  Non-Null: 848 (3.7%)
+  Null: 22,106 (96.3%)
+  Unique Values: 848
+  Min: 136 | Max: 577,741,736 | Mean: 11,900,827 | Median: 3,536,998
+
+energy_fuel_oil_kbtu_post_odcv
+  Description: Projected fuel oil usage after ODCV (kBtu)
+  Data Type: float64
+  Non-Null: 2,238 (9.7%)
+  Null: 20,716 (90.3%)
+  Unique Values: 2,048
+  Min: 0.63 | Max: 327,925,932 | Mean: 3,731,766 | Median: 618,539
+
+energy_total_kbtu_post_odcv
+  Description: Projected total energy after ODCV (kBtu)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Null: 1,119 (4.9%)
+  Unique Values: 21,813
+  Min: 128,327 | Max: 1,502,196,283 | Mean: 10,556,324 | Median: 4,339,948
+
+cost_elec_energy_annual_post_odcv
+  Description: Projected annual electricity energy cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 21,809
+  Min: 0.03 | Max: 159,696,985 | Mean: 527,289 | Median: 242,459
+
+cost_elec_demand_annual_post_odcv
+  Description: Projected annual electricity demand cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 21,525
+  Min: 0 | Max: 98,345,100 | Mean: 284,207 | Median: 130,361
+
+cost_elec_total_annual_post_odcv
+  Description: Projected total annual electricity cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 21,835 (95.1%)
+  Unique Values: 21,817
+  Min: 0.03 | Max: 258,042,085 | Mean: 811,496 | Median: 376,951
+
+cost_gas_annual_post_odcv
+  Description: Projected annual gas cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 15,246 (66.4%)
+  Null: 7,708 (33.6%)
+  Unique Values: 15,184
+  Min: 0.02 | Max: 13,349,568 | Mean: 77,254 | Median: 24,135
+
+cost_steam_annual_post_odcv
+  Description: Projected annual steam cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 848 (3.7%)
+  Null: 22,106 (96.3%)
+  Unique Values: 848
+  Min: 4.60 | Max: 21,355,470 | Mean: 387,902 | Median: 112,458
+
+cost_fuel_oil_annual_post_odcv
+  Description: Projected annual fuel oil cost after ODCV ($)
+  Data Type: float64
+  Non-Null: 2,234 (9.7%)
+  Null: 20,720 (90.3%)
+  Unique Values: 1,912
+  Min: 0.01 | Max: 4,689,341 | Mean: 71,167 | Median: 12,733
+
+--------------------------------------------------------------------------------
+LEED CERTIFICATION (leed_)
+--------------------------------------------------------------------------------
+
+leed_certification_level
+  Description: LEED certification level
+  Data Type: object
+  Non-Null: 3,523 (15.3%)
+  Null: 19,431 (84.7%)
+  Unique Values: 4
+
+  VALUE DISTRIBUTION:
+    Gold: 1,829 (8.0%)
+    Silver: 846 (3.7%)
+    Certified: 432 (1.9%)
+    Platinum: 416 (1.8%)
+
+leed_certification_date
+  Description: Date of LEED certification
+  Data Type: object
+  Non-Null: 3,522 (15.3%)
+  Null: 19,432 (84.7%)
+  Unique Values: 2,016
+
+leed_rating_system
+  Description: LEED rating system used
+  Data Type: object
+  Non-Null: 3,523 (15.3%)
+  Null: 19,431 (84.7%)
+  Unique Values: 16
+
+  VALUE DISTRIBUTION:
+    Existing Buildings: 1,176 (5.1%)
+    Commercial Interiors: 864 (3.8%)
+    New Construction: 722 (3.1%)
+    Core and Shell: 437 (1.9%)
+    Schools - New Construction: 127 (0.6%)
+    Retail - Commercial Interiors: 126 (0.5%)
+    Others: 71 (0.3%)
+
+leed_project_url
+  Description: URL to LEED project page
+  Data Type: object
+  Non-Null: 3,523 (15.3%)
+  Null: 19,431 (84.7%)
+  Unique Values: 2,890
+  Example: https://www.usgbc.org/projects/metro-atlanta-chamber-commerce
+
+leed_project_id
+  Description: LEED project ID number
+  Data Type: float64
+  Non-Null: 3,523 (15.3%)
+  Null: 19,431 (84.7%)
+  Unique Values: 2,890
+  Min: 10,000,006 | Max: 1,000,127,830 | Mean: 767,703,940 | Median: 1,000,035,005
+
+
+================================================================================
+SECTION 2: PORTFOLIO IDENTIFICATION METHODOLOGY
+================================================================================
+
+DEFINITION
+----------
+A portfolio organization is any entity that appears in 3 or more separate
+building rows (not 3 mentions total).
+
+RULES:
+- We count ROWS, not occurrences
+- If an org appears in multiple columns of the same row, that counts as 1 row
+- The org can appear in any combination of org_owner, org_manager, or org_tenant
+
+EXAMPLE - NOT A PORTFOLIO ORG:
+  Row 1: Acme Corp as owner AND manager
+  Row 2: Acme Corp as manager
+  Result: 3 appearances but only 2 rows = NOT a portfolio org
+
+EXAMPLE - IS A PORTFOLIO ORG:
+  Row 1: Acme Corp as owner
+  Row 2: Acme Corp as manager
+  Row 3: Acme Corp as tenant
+  Result: 3 rows = IS a portfolio org
+
+CONSOLIDATION PROCESS
+---------------------
+
+Round 1: Suffix Normalization
+  Removed LLC, Inc, Corp, LP suffixes to find duplicate org names
+  41 mappings, 85 replacements
+
+Round 2: Rare Words + Management Variations
+  Used rare word frequency analysis to find brand identifiers
+  Normalized "Management" vs "Mgmt" variations
+  34 mappings, 57 replacements, +22 buildings to portfolios
+
+Round 3: Signature Words
+  Frequency analysis of words appearing in only 2-10 org names
+  22 mappings, 234 replacements, +16 buildings to portfolios
+
+Round 4: Cross-Column Brand Matching
+  Cross-referenced owner/tenant/manager with property_name column
+  11 mappings, 40 replacements, +4 buildings to portfolios
+
+Round 5: Final Cleanup
+  LP/LLC/Inc suffix variations, "The" prefix removal, location suffixes
+
+FALSE POSITIVES REMOVED
+-----------------------
+The following were identified but NOT consolidated (different entities):
+  - Archdiocese: Each city is a separate entity
+  - Cornell: University vs Weill Cornell Medicine vs Elementary - different
+  - Embarcadero: Capital Partners, Center, Realty Services - different companies
+  - MGR: Different companies using same abbreviation
+  - Newmark: Company vs Theater vs Newmarket Center - different
+  - Northeastern: Illinois University vs Northeastern University - different
+  - Winter: M A Winter Company LLC vs Winter Organization - different
+
+
+================================================================================
+SECTION 3: VACANCY & UTILIZATION DATA
+================================================================================
+
+Updated December 2025 to replace hardcoded defaults with real city-specific
+and building-type-specific data.
+
+BACKGROUND
+----------
+Prior to this update, most buildings used hardcoded defaults:
+  Default vacancy rate: 15% (0.15)
+  Default utilization rate: 60% (0.60)
+
+NYC buildings had real vacancy data from LL84 "% Leased" field.
+
+--------------------------------------------------------------------------------
+OFFICE BUILDING VACANCY RATES (City-Specific)
+--------------------------------------------------------------------------------
+
+City              Vacancy Rate    Source
+----------------------------------------------------------------
+San Francisco     29%             CommercialEdge Jan 2025
+Seattle           27%             CommercialEdge Oct 2025
+Austin            27%             CommercialEdge Sep 2025
+Denver            23%             CommercialEdge Oct 2025
+Chicago           22%             Moody's 2024
+Philadelphia      19.4%           CommercialEdge Dec 2024
+Boston            18.6%           CommercialEdge 2024
+San Diego         18.4%           CommercialEdge May 2024
+Los Angeles       16.5%           CommercialEdge Mar 2025
+Portland          16.2%           CommercialEdge May 2024
+New York          13%             NYC LL84 (existing data)
+National default  18.6%           CommercialEdge Sep 2025
+
+--------------------------------------------------------------------------------
+OFFICE BUILDING UTILIZATION RATES (City-Specific)
+--------------------------------------------------------------------------------
+
+City              Utilization Rate    Notes
+----------------------------------------------------------------
+Kansas City       93%                 High return-to-office
+Santa Clara       92%                 Tech hub
+Portland          92%
+Cambridge         91%
+Philadelphia      90%
+Berkeley          90%
+Chicago           89%
+Denver            87%
+Seattle           84%
+Sacramento        83%
+San Francisco     77%                 Low RTO due to tech WFH
+Boston            75%
+New York          55-73%              Varies by building type
+
+--------------------------------------------------------------------------------
+BUILDING TYPE-SPECIFIC UTILIZATION RATES
+--------------------------------------------------------------------------------
+
+Building Type         Utilization    Rationale
+----------------------------------------------------------------
+K-12 School           54-85%         Summers off, after-school empty
+Higher Ed             66%            Similar pattern, more evening use
+Hotel                 66.8-73.3%     Room occupancy varies by market
+Inpatient Hospital    76-78%         24/7 but not always at capacity
+Outpatient Clinic     70%            Business hours only
+Medical Office        75%            Similar to office but consistent
+Library/Museum        42-55%         Public hours only, weekends vary
+Retail                55-65%         Operating hours, seasonal
+Restaurant            50-60%         Peak meal times, otherwise low
+
+--------------------------------------------------------------------------------
+HOW VALUES ARE USED IN CALCULATIONS
+--------------------------------------------------------------------------------
+
+For Multi-Tenant Office Buildings:
+  Opportunity = Vacancy + (1 - Vacancy) x (1 - Utilization)
+
+  Example: 25% vacancy, 55% utilization:
+    25% of space is vacant but still ventilated
+    75% is leased, only 55% used = 75% x 45% = 33.75% waste
+    Total opportunity = 58.75%
+
+For Single-Tenant Buildings (Schools, Retail, Hotels):
+  Opportunity = 1 - Utilization
+
+--------------------------------------------------------------------------------
+DATA SOURCES
+--------------------------------------------------------------------------------
+
+Vacancy Rate Sources:
+  - U.S. Office Market Report (CommercialCafe)
+  - CommercialEdge National Office Reports
+  - Moody's Office Vacancy Analysis
+
+Utilization Rate Sources:
+  - Kastle Systems Return-to-Office Tracker
+  - CBRE Office Occupancy Reports
+  - Building-specific data from EPA Portfolio Manager
+
+
+================================================================================
+DOCUMENT INFO
+================================================================================
+
+Last Updated: December 2025
+Total Buildings: 22,954
+Total Columns: 92

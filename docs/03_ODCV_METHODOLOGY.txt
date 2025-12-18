@@ -1,0 +1,557 @@
+================================================================================
+NATIONWIDE PROSPECTOR - ODCV METHODOLOGY
+================================================================================
+
+This document describes how we estimate energy savings from Occupancy-Driven
+Control Ventilation (O-DCV) for commercial buildings.
+
+TOTAL BUILDINGS IN DATASET: 22,954
+
+================================================================================
+SECTION 1: THE PROBLEM WE'RE SOLVING
+================================================================================
+
+BUILDINGS WASTE ENERGY VENTILATING EMPTY SPACE
+----------------------------------------------
+
+Every commercial building has a ventilation system that brings in fresh outdoor
+air. Building codes specify how much fresh air each space needs, typically
+measured in CFM per person.
+
+THE PROBLEM: Most buildings ventilate based on how many people the space was
+DESIGNED for, not how many people are actually there.
+
+Example - A typical office floor designed for 200 people:
+  - The ventilation system delivers fresh air for 200 people
+  - But only 120 people show up (hybrid work)
+  - And 3 floors are completely vacant (no tenant)
+  - The building pumps fresh air for 800 people who don't exist
+
+That fresh outdoor air isn't free:
+  - In winter: 20F outside, 70F inside - every CFM must be heated
+  - In summer: 95F/humid outside, 72F/dry inside - every CFM must be cooled
+
+VENTILATING EMPTY SPACE IS PURE WASTE.
+
+--------------------------------------------------------------------------------
+WHAT O-DCV DOES
+--------------------------------------------------------------------------------
+
+O-DCV uses real-time occupancy sensors to answer: How many people are actually
+in this zone right now?
+
+Then it adjusts ventilation to match:
+  - Conference room for 20 people but only 4 present? Deliver air for 4.
+  - Entire floor empty at 6pm? Reduce to minimum setback.
+  - Big meeting happening? Ramp up for actual headcount.
+
+THE SAVINGS COME FROM THREE PLACES:
+  1. Fan energy - fans run slower when less air is needed
+  2. Heating energy - less cold outdoor air to heat in winter
+  3. Cooling energy - less hot/humid outdoor air to cool in summer
+
+
+================================================================================
+SECTION 2: THE ESTIMATION APPROACH
+================================================================================
+
+We have data on 22,954 commercial buildings. For each one, we estimate:
+What percentage of HVAC energy could O-DCV save?
+
+We don't have occupancy sensor data for these buildings. So we use available
+data to estimate the OPPORTUNITY for savings.
+
+DATASET ODCV SAVINGS STATISTICS:
+  Mean savings: 27.1%
+  Median savings: 26.9%
+  Range: 20.0% - 45.0%
+
+--------------------------------------------------------------------------------
+THE FACTORS THAT MATTER
+--------------------------------------------------------------------------------
+
+Factor            What It Tells Us
+-----------------------------------------------------------------
+Vacancy Rate      How much space has no tenant at all?
+Utilization Rate  When space is leased, how fully is it used?
+Building Type     Does this type of building have variable occupancy?
+Year Built        Does the building have controls that can implement O-DCV?
+Square Footage    Larger buildings typically have more sophisticated systems
+
+Plus two modifiers:
+  - Energy Efficiency (Energy Star score or EUI)
+  - Climate Zone (colder climates have higher heating penalties)
+
+
+================================================================================
+SECTION 3: THE FORMULA
+================================================================================
+
+BASIC STRUCTURE
+---------------
+
+  ODCV Savings % = Floor + (Opportunity x Automation x Range) x Modifiers
+
+Where:
+  Floor       = Minimum savings even in worst case (building type specific)
+  Ceiling     = Maximum realistic savings (building type specific)
+  Range       = Ceiling - Floor
+  Opportunity = How much empty/underutilized space exists (0 to 1)
+  Automation  = How likely the building can implement O-DCV (0 to 1)
+  Modifiers   = Adjustments for efficiency and climate
+
+--------------------------------------------------------------------------------
+OPPORTUNITY SCORE: THE HEART OF THE CALCULATION
+--------------------------------------------------------------------------------
+
+The critical question: When space is empty, is it still being ventilated?
+
+DATASET OCCUPANCY STATISTICS:
+  Vacancy Rate: Mean 16.0%, Median 16.0%
+  Utilization Rate: Mean 58.9%, Median 60.0%
+
+MULTI-TENANT COMMERCIAL BUILDINGS (Office, Medical Office, Mixed Use)
+---------------------------------------------------------------------
+These have centralized HVAC systems controlled by the landlord.
+
+When a floor is vacant, the landlord typically can't shut off ventilation:
+  - Fire code requires minimum ventilation in occupied buildings
+  - BMS treats "unoccupied" as "nighttime setback," not "zero"
+  - Vacant floors are shown to prospective tenants
+  - Systems are interconnected
+
+Result: Vacant space is often ventilated at or near design capacity.
+
+On top of that, leased space has its own utilization problem. With hybrid work,
+a floor leased for 100 people might only have 60 on any given day.
+
+FORMULA:
+  Opportunity = Vacancy + (1 - Vacancy) x (1 - Utilization)
+
+Example: 25% vacancy, 55% utilization
+  - 25% of building is vacant but still ventilated = 25% waste
+  - 75% is leased, but only 55% utilized = 75% x 45% = 34% waste
+  - Total opportunity: 59%
+
+
+SINGLE-TENANT / OWNER-OCCUPIED BUILDINGS (Schools, Hotels, Retail)
+------------------------------------------------------------------
+These don't have "vacancy" in the traditional sense.
+
+The opportunity is driven purely by utilization - how much of the operating
+time the space is actually occupied.
+
+FORMULA:
+  Opportunity = 1 - Utilization
+
+Examples:
+  - K-12 School at 45% utilization (empty summers, after 3pm) = 55% opportunity
+  - Retail store at 60% utilization = 40% opportunity
+
+
+24/7 AND HIGH-VENTILATION BUILDINGS (Hospitals, Labs)
+-----------------------------------------------------
+Some buildings can't reduce ventilation much, regardless of occupancy:
+  - Hospitals must maintain high air change rates for infection control
+  - Laboratories have fume hoods and safety requirements
+  - Police/Fire stations operate 24/7
+
+For these, we apply a 0.3 MULTIPLIER to the opportunity score.
+
+FORMULA:
+  Opportunity = (1 - Utilization) x 0.3
+
+
+DATA CENTERS
+------------
+Data centers ventilate to remove heat from equipment, not for people.
+Occupancy is irrelevant.
+
+FORMULA:
+  Opportunity = 0
+
+--------------------------------------------------------------------------------
+AUTOMATION SCORE
+--------------------------------------------------------------------------------
+
+The building needs controls sophisticated enough to implement O-DCV.
+
+YEAR BUILT SCORE:
+  Construction Era      Typical Systems                       Score
+  -------------------------------------------------------------------
+  Before 1970           Pneumatic controls, constant volume   0.00
+  1970-1989             Early electronic, limited DDC         0.25
+  1990-2004             DDC becoming standard, basic BMS      0.50
+  2005-2014             Modern BMS, IP-based controls         0.75
+  2015+                 Smart building ready, integrated      1.00
+
+SIZE SCORE:
+  Square Footage        Typical Sophistication                Score
+  -------------------------------------------------------------------
+  Under 50,000          Rooftop units, simple thermostats     0.25
+  50,000-100,000        Basic BMS, some VAV                   0.50
+  100,000-250,000       Full BMS, VAV throughout              0.75
+  Over 250,000          Advanced BMS, sophisticated zoning    1.00
+
+COMBINED AUTOMATION SCORE:
+  Automation Score = (Year Score + Size Score) / 2
+
+  A 2018 building of 300,000 sqft: (1.0 + 1.0) / 2 = 1.0
+  A 1975 building of 60,000 sqft: (0.25 + 0.5) / 2 = 0.375
+
+--------------------------------------------------------------------------------
+EFFICIENCY MODIFIER
+--------------------------------------------------------------------------------
+
+Buildings that are already efficient have less waste to capture.
+
+USING ENERGY STAR SCORE (when available):
+  Score         Modifier    Meaning
+  ------------------------------------------
+  90+           0.85        Less waste to find
+  75-89         0.95
+  50-74         1.00        Average
+  25-49         1.05
+  Below 25      1.10        Lots of waste
+
+USING EUI AS FALLBACK:
+  EUI vs. Peer Median     Modifier
+  ----------------------------------
+  More than 1.5x median   1.10
+  1.2x to 1.5x median     1.05
+  0.85x to 1.2x median    1.00
+  0.7x to 0.85x median    0.95
+  Less than 0.7x median   0.90
+
+--------------------------------------------------------------------------------
+CLIMATE MODIFIER
+--------------------------------------------------------------------------------
+
+Every CFM of outdoor air must be conditioned. The "penalty" varies by climate:
+
+  Climate Zone      HDD        CDD           Modifier
+  ------------------------------------------------------
+  Northern          6,000+     500-1,500     1.10
+  North-Central     4,000-6,000  1,000-2,000   1.05
+  South-Central     2,000-4,000  2,000-3,000   1.00
+  Southern          Under 2,000  3,000+        0.95
+
+In Northern climates, reducing 1 CFM saves more energy because the temperature
+differential is larger and the heating season is longer.
+
+
+================================================================================
+SECTION 4: BUILDING TYPE RANGES
+================================================================================
+
+Different buildings get different ranges because a hospital at 100% opportunity
+still can't achieve the same savings as an office - the physics and code
+requirements are different.
+
+Floor and ceiling values are set based on:
+  1. Operating hours and patterns
+  2. Code-mandated ventilation requirements
+  3. Occupancy variability
+  4. System configurability
+  5. Industry benchmarks and case studies
+
+BUILDING TYPES IN DATASET (17 types):
+  Office: 9,910 (43.2%)
+  K-12 School: 2,580 (11.2%)
+  Hotel: 2,464 (10.7%)
+  Retail: 2,010 (8.8%)
+  Higher Ed: 1,337 (5.8%)
+  Residential Care: 963 (4.2%)
+  Medical Office: 804 (3.5%)
+  Supermarket: 693 (3.0%)
+  Mixed Use: 500 (2.2%)
+  Inpatient Hospital: 397 (1.7%)
+  Venue: 291 (1.3%)
+  Theater: 289 (1.3%)
+  Wholesale Club: 265 (1.2%)
+  Library/Museum: 220 (1.0%)
+  Outpatient Clinic: 102 (0.4%)
+  Restaurant/Bar: 66 (0.3%)
+  Specialty Hospital: 63 (0.3%)
+
+--------------------------------------------------------------------------------
+HIGH-OPPORTUNITY BUILDING TYPES (20%+ Ceiling)
+--------------------------------------------------------------------------------
+
+OFFICE (20% - 40%) - 9,910 buildings
+Ideal O-DCV profile:
+  - Clear "occupied" vs "unoccupied" hours (7am-7pm weekdays)
+  - High design occupancy rarely achieved
+  - Massive impact from hybrid work (40-50% desks empty daily)
+  - Significant vacancy (20-30% in many markets)
+  - Centralized VAV systems respond well to zone control
+
+Industry case studies show 25-35% HVAC savings from O-DCV in offices.
+
+Floor of 20%: Even fully-occupied offices have weekends, holidays, evenings.
+Ceiling of 40%: High-vacancy building in cold climate with good controls.
+
+
+K-12 SCHOOL (20% - 45%) - 2,580 buildings
+Extreme schedule-driven vacancy:
+  - Empty every day after 3pm (25% of weekday hours)
+  - Empty every weekend (29% of week)
+  - Empty for summer break (10-12 weeks = 20-25% of year)
+  - Empty for winter break, spring break, holidays
+
+Total "empty" time often exceeds 50% of the year.
+
+
+HIGHER EDUCATION (20% - 45%) - 1,337 buildings
+Similar to K-12 but with even more variability:
+  - Semester breaks (winter, spring, summer)
+  - Variable class schedules (some rooms used twice a week)
+  - Evening/weekend classes in some buildings, empty in others
+
+
+VENUE (27% - 45%) - 291 buildings
+Arenas, concert halls, convention centers are EMPTY 80%+ of the time.
+A typical arena hosts 60-80 events/year - just 300-400 hours of actual use
+out of 8,760 hours/year.
+
+
+THEATER (18% - 40%) - 289 buildings
+Broadway runs 8 shows/week x 3 hours = 24 hours of performances out of 168.
+Even adding rehearsals and pre-show HVAC, theaters operate at 15-20% utilization.
+
+--------------------------------------------------------------------------------
+MEDIUM-OPPORTUNITY BUILDING TYPES (15% - 35%)
+--------------------------------------------------------------------------------
+
+RETAIL STORE (15% - 35%) - 2,010 buildings
+Significant intra-day variability:
+  - Opening/closing: staff only (5% of design)
+  - Mid-morning lull: 15-20% capacity
+  - Lunch/evening rushes: 60-80% capacity
+  - After close: 0%
+
+
+HOTEL (15% - 35%) - 2,464 buildings
+Unique room-by-room variability:
+  - Occupancy rates typically 60-80% (20-40% rooms empty nightly)
+  - Occupied rooms have variable presence (guests out during day)
+  - Many hotels already have room-level occupancy sensing
+
+Average US hotel occupancy: 63%. But rooms only occupied ~10 hours/day
+(evening to morning). True utilization runs ~28%.
+
+
+MEDICAL OFFICE (15% - 35%) - 804 buildings
+Similar to office but with more predictable schedules:
+  - Appointment-based occupancy
+  - Clear business hours
+  - Multi-tenant buildings have vacancy issues
+
+
+MIXED USE (18% - 38%) - 500 buildings
+Combination of office, retail, and sometimes residential:
+  - Varied occupancy patterns
+  - Complex HVAC zoning
+
+--------------------------------------------------------------------------------
+LOWER-OPPORTUNITY BUILDING TYPES (10% - 28%)
+--------------------------------------------------------------------------------
+
+SUPERMARKET/GROCERY (10% - 25%) - 693 buildings
+Operate long hours (often 6am-midnight or 24/7) with steadier traffic.
+Refrigeration cases and kitchen/deli areas have specific ventilation
+requirements less dependent on customer count.
+
+
+RESTAURANT/BAR (10% - 25%) - 66 buildings
+Predictable meal-time peaks, but kitchen runs at relatively constant
+ventilation regardless of dining room occupancy (cooking exhaust requirements).
+Kitchen exhaust hoods must run at full blast during all cooking - not
+demand-controllable.
+
+
+LIBRARY/MUSEUM (12% - 28%) - 220 buildings
+Public-facing buildings with fixed operating hours, relatively steady
+occupancy during open hours, limited extreme peaks or valleys.
+
+
+WHOLESALE CLUB (10% - 25%) - 265 buildings
+Large format retail with steady traffic patterns.
+
+--------------------------------------------------------------------------------
+LIMITED-OPPORTUNITY BUILDING TYPES (5% - 15%)
+--------------------------------------------------------------------------------
+
+INPATIENT HOSPITAL (5% - 15%) - 397 buildings
+Fundamental constraints on ventilation reduction:
+  - Infection control: Many areas require 15-25 ACH
+  - 24/7 operation
+  - ASHRAE 170 specifies minimum ventilation regardless of occupancy
+  - Pressure relationships between zones are critical
+
+O-DCV can help in waiting rooms, admin areas, non-clinical spaces.
+
+
+SPECIALTY HOSPITAL (5% - 15%) - 63 buildings
+Similar constraints to inpatient hospitals.
+
+
+RESIDENTIAL CARE FACILITY (5% - 15%) - 963 buildings
+Residents live there 24/7. Unlike an office that empties at night, nursing
+homes have constant occupancy in resident rooms.
+
+
+OUTPATIENT CLINIC (15% - 32%) - 102 buildings
+More opportunity than inpatient - appointment-based schedules,
+business hours operation, less stringent ventilation requirements.
+
+
+================================================================================
+SECTION 5: COMPLETE CALCULATION EXAMPLE
+================================================================================
+
+Building: 350,000 sqft Class A office in Chicago
+  Vacancy: 28%
+  Utilization: 52%
+  Built: 2008
+  Energy Star: 68
+  Climate: North-Central
+
+STEP 1: OPPORTUNITY SCORE
+  Opportunity = Vacancy + (1 - Vacancy) x (1 - Utilization)
+  Opportunity = 0.28 + (0.72 x 0.48)
+  Opportunity = 0.28 + 0.346
+  Opportunity = 0.626
+
+STEP 2: AUTOMATION SCORE
+  Year Score: 2008 = 0.75
+  Size Score: 350,000 sqft = 1.0
+  Automation = (0.75 + 1.0) / 2 = 0.875
+
+STEP 3: EFFICIENCY MODIFIER
+  Energy Star 68 = 1.00 (average efficiency)
+
+STEP 4: CLIMATE MODIFIER
+  North-Central = 1.05
+
+STEP 5: CALCULATE SAVINGS
+  Floor = 20%, Ceiling = 40%, Range = 20%
+
+  Base ODCV = 0.20 + (0.626 x 0.875 x 0.20)
+  Base ODCV = 0.20 + 0.110
+  Base ODCV = 0.310
+
+  Final ODCV = 0.310 x 1.00 x 1.05
+  Final ODCV = 0.326 = 32.6%
+
+This building could save approximately 32.6% of its HVAC energy through O-DCV.
+
+
+================================================================================
+SECTION 6: BUILDING TYPE REFERENCE TABLE
+================================================================================
+
+Building Type                Floor   Ceiling   Driver           Formula
+---------------------------------------------------------------------------
+Office                       20%     40%       Vacancy + Util   V+(1-V)(1-U)
+Medical Office               20%     40%       Vacancy + Util   V+(1-V)(1-U)
+Mixed Use                    18%     38%       Vacancy + Util   V+(1-V)(1-U)
+K-12 School                  20%     45%       Utilization      1 - U
+Higher Ed                    20%     45%       Utilization      1 - U
+Retail Store                 15%     35%       Utilization      1 - U
+Supermarket/Grocery          10%     25%       Utilization      1 - U
+Wholesale Club               10%     25%       Utilization      1 - U
+Hotel                        15%     35%       Utilization      1 - U
+Restaurant/Bar               10%     25%       Utilization      1 - U
+Theater                      18%     40%       Utilization      1 - U
+Venue                        27%     45%       Utilization      1 - U
+Library/Museum               12%     28%       Utilization      1 - U
+Outpatient Clinic            15%     32%       Utilization      1 - U
+Inpatient Hospital           5%      15%       Util (capped)    (1-U) x 0.3
+Specialty Hospital           5%      15%       Util (capped)    (1-U) x 0.3
+Residential Care Facility    5%      15%       Util (capped)    (1-U) x 0.3
+
+
+================================================================================
+SECTION 7: DATA SOURCES
+================================================================================
+
+VACANCY RATES:
+  - CBRE Office Vacancy Index
+  - Cushman & Wakefield quarterly reports
+  - CommercialEdge National Office Reports
+  - Moody's Office Vacancy Analysis
+
+UTILIZATION/OCCUPANCY:
+  - Kastle Systems Back to Work Barometer (office badge swipes)
+  - STR Global (hotel occupancy)
+  - NCES (National Center for Education Statistics - schools)
+  - MGMA (Medical Group Management Association - medical offices)
+  - Placer.ai (retail foot traffic)
+  - NIC MAP Vision (residential care occupancy)
+  - AHA (American Hospital Association - hospital statistics)
+
+HVAC PERCENTAGES:
+  - CBECS 2018 (Commercial Buildings Energy Consumption Survey)
+
+BUILDING SYSTEMS:
+  - ASHRAE standards (ventilation requirements)
+  - LBNL (Lawrence Berkeley National Laboratory - data centers)
+
+
+================================================================================
+SECTION 8: VALIDATION AND LIMITATIONS
+================================================================================
+
+WHAT MAKES THIS METHODOLOGY DEFENSIBLE
+--------------------------------------
+1. Grounded in physics: Ventilation energy is proportional to airflow and
+   temperature differential. Reducing airflow for unoccupied spaces directly
+   reduces energy.
+
+2. Consistent with industry benchmarks: Our 20-40% range for offices aligns
+   with documented O-DCV case studies showing 25-35% HVAC savings.
+
+3. Building-type specific: Accounts for real operational differences between
+   building types.
+
+4. Uses available data appropriately: Vacancy, utilization, building
+   characteristics, and efficiency metrics are reasonable proxies.
+
+5. Conservative by design: Ranges cap savings at realistic maximums.
+
+KNOWN LIMITATIONS
+-----------------
+1. No actual occupancy data: We estimate from vacancy/utilization.
+
+2. Automation assumptions: Year built and size are proxies for system
+   sophistication, not direct assessments.
+
+3. Building type averages: Individual buildings may vary significantly.
+
+4. No system-specific analysis: We don't know if a building has VAV vs
+   constant volume, or actual control capabilities.
+
+5. Utility rates not considered: Savings in kBtu don't account for
+   time-of-use rates, demand charges, or fuel cost differences.
+
+RECOMMENDED USE
+---------------
+These estimates are appropriate for:
+  - Portfolio-level screening and prioritization
+  - Initial savings projections for prospect identification
+  - Benchmarking relative opportunity across buildings
+
+For individual building proposals, these estimates should be validated with:
+  - On-site assessment of HVAC systems
+  - Actual occupancy data collection
+  - Detailed energy modeling
+
+
+================================================================================
+DOCUMENT INFO
+================================================================================
+
+Methodology Version: 2.0
+Last Updated: December 2025
+Total Buildings: 22,954

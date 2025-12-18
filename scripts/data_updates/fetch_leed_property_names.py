@@ -9,10 +9,16 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import re
+import sys
+from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# Add project root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR, LEED_MATCHES_PATH
+
 # Output file
-OUTPUT_FILE = '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/leed_property_names.csv'
+OUTPUT_FILE = str(SOURCE_DATA_DIR / 'leed_property_names.csv')
 
 def extract_name_from_url(url):
     """Extract project name from URL slug as fallback"""
@@ -80,8 +86,8 @@ def process_building(row_data):
 
 def main():
     print("Loading data...")
-    portfolio = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv', low_memory=False)
-    leed = pd.read_csv('/Users/forrestmiller/Desktop/nationwide-prospector/data/source/leed_matches.csv')
+    portfolio = pd.read_csv(str(PORTFOLIO_DATA_PATH), low_memory=False)
+    leed = pd.read_csv(str(LEED_MATCHES_PATH))
 
     # Get LEED buildings missing property name
     leed_indices = set(leed['portfolio_idx'].tolist())

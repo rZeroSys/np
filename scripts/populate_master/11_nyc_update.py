@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Update NYC buildings in portfolio_data.csv
-using data from the NYC folder (/Users/forrestmiller/Desktop/New/data/).
+using data from the NYC folder (path defined in src/config.py).
 
 This script copies data for ~1k NYC buildings from:
 - energy_BIG.csv (costs - summed from monthly values)
@@ -17,27 +17,33 @@ import pandas as pd
 import numpy as np
 import re
 from datetime import datetime
-
-# ============================================================================
-# FILE PATHS
-# ============================================================================
-
-# NYC source data
-NYC_DATA_PATH = '/Users/forrestmiller/Desktop/New/data/'
-NYC_BUILDINGS = NYC_DATA_PATH + 'buildings_BIG_with_emails_complete_verified.csv'
-NYC_10YR_SAVINGS = NYC_DATA_PATH + '10_year_savings_by_building.csv'
-NYC_ENERGY = NYC_DATA_PATH + 'energy_BIG.csv'
-NYC_ADDRESSES = NYC_DATA_PATH + 'all_building_addresses.csv'
-NYC_BUILDING_LINKS = NYC_DATA_PATH + 'TOP_250_BUILDING_LINKS_VALID.csv'
-NYC_SCORING = NYC_DATA_PATH + 'odcv_scoring_CORRECTED.csv'
-NYC_HVAC = NYC_DATA_PATH + 'hvac_office_energy_BIG.csv'
-NYC_OFFICE = NYC_DATA_PATH + 'office_energy_BIG.csv'
-NYC_VALUATION = NYC_DATA_PATH + 'odcv_noi_value_impact_analysis.csv'
-
 import sys
 from pathlib import Path as PathLib
+
+# Add project root to path for imports
 sys.path.insert(0, str(PathLib(__file__).parent.parent.parent))
-from src.config import PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR, BACKUP_DIR as CONFIG_BACKUP_DIR
+
+from src.config import (
+    PORTFOLIO_DATA_PATH, SOURCE_DATA_DIR, BACKUP_DIR as CONFIG_BACKUP_DIR,
+    NYC_BUILDINGS_PATH, NYC_10YR_SAVINGS_PATH, NYC_ENERGY_PATH,
+    NYC_ADDRESSES_PATH, NYC_BUILDING_LINKS_PATH, NYC_SCORING_PATH,
+    NYC_HVAC_PATH, NYC_OFFICE_PATH, NYC_VALUATION_PATH
+)
+
+# ============================================================================
+# FILE PATHS (using centralized config)
+# ============================================================================
+
+# NYC source data - paths from config.py
+NYC_BUILDINGS = str(NYC_BUILDINGS_PATH)
+NYC_10YR_SAVINGS = str(NYC_10YR_SAVINGS_PATH)
+NYC_ENERGY = str(NYC_ENERGY_PATH)
+NYC_ADDRESSES = str(NYC_ADDRESSES_PATH)
+NYC_BUILDING_LINKS = str(NYC_BUILDING_LINKS_PATH)
+NYC_SCORING = str(NYC_SCORING_PATH)
+NYC_HVAC = str(NYC_HVAC_PATH)
+NYC_OFFICE = str(NYC_OFFICE_PATH)
+NYC_VALUATION = str(NYC_VALUATION_PATH)
 
 # Nationwide prospector target files
 PROSPECTOR_PATH = str(SOURCE_DATA_DIR) + '/'

@@ -27,8 +27,9 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from src.config import PORTFOLIO_DATA_PATH, BACKUP_DIR as CONFIG_BACKUP_DIR
 
-# External data source - keep hardcoded as it's outside the project
-BERKELEY_CSV = '/Users/forrestmiller/Desktop/berkeley_buildings_fetch/data/05_final_new_buildings.csv'
+# External data source - this is a SIBLING project, not in this repo
+# Update this path if the berkeley_buildings_fetch project is in a different location
+BERKELEY_CSV = str(Path(__file__).parent.parent.parent.parent / 'berkeley_buildings_fetch' / 'data' / '05_final_new_buildings.csv')
 PORTFOLIO_CSV = str(PORTFOLIO_DATA_PATH)
 BACKUP_DIR = str(CONFIG_BACKUP_DIR)
 

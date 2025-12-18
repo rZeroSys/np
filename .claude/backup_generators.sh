@@ -3,7 +3,10 @@
 # Called by Claude Code hooks before editing
 # Receives JSON input via stdin
 
-GENERATORS_DIR="/Users/forrestmiller/Desktop/nationwide-prospector/src/generators"
+# Get project root from script location (script is in .claude/)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+GENERATORS_DIR="$PROJECT_ROOT/src/generators"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
 # Read file path from JSON stdin

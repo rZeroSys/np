@@ -78,6 +78,29 @@ CBECS_DATA_PATH = CBECS_DIR / 'cbecs2018_final_public.csv'
 # =============================================================================
 
 EUI_POST_ODCV_PATH = SOURCE_DATA_DIR / 'eui_post_odcv.csv'
+LEED_MATCHES_PATH = SOURCE_DATA_DIR / 'leed_matches.csv'
+
+# =============================================================================
+# NYC DATA (External location - special building reports)
+# These files live outside the project. Update this path if you move them.
+# =============================================================================
+
+NYC_DATA_DIR = Path('/Users/forrestmiller/Desktop/New/data')
+NYC_SCRIPTS_DIR = Path('/Users/forrestmiller/Desktop/New/Scripts')
+
+# NYC source files
+NYC_10YR_SAVINGS_PATH = NYC_DATA_DIR / '10_year_savings_by_building.csv'
+NYC_BUILDINGS_PATH = NYC_DATA_DIR / 'buildings_BIG_with_emails_complete_verified.csv'
+NYC_ENERGY_PATH = NYC_DATA_DIR / 'energy_BIG.csv'
+NYC_ADDRESSES_PATH = NYC_DATA_DIR / 'all_building_addresses.csv'
+NYC_BUILDING_LINKS_PATH = NYC_DATA_DIR / 'TOP_250_BUILDING_LINKS_VALID.csv'
+NYC_SCORING_PATH = NYC_DATA_DIR / 'odcv_scoring_CORRECTED.csv'
+NYC_HVAC_PATH = NYC_DATA_DIR / 'hvac_office_energy_BIG.csv'
+NYC_OFFICE_PATH = NYC_DATA_DIR / 'office_energy_BIG.csv'
+NYC_VALUATION_PATH = NYC_DATA_DIR / 'odcv_noi_value_impact_analysis.csv'
+
+# NYC building report script
+NYC_BUILDING_SCRIPT = NYC_SCRIPTS_DIR / 'building.py'
 
 # =============================================================================
 # AWS S3 CONFIGURATION
