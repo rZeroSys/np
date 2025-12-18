@@ -1,0 +1,631 @@
+building id alt,address,site_eui,reporting_year,building type,year_built,energy_star_score,property_name,square_footage,building_owner,total_site_energy_kbtu,electricity_use_kbtu,natural_gas_use_kbtu,district_steam_use_kbtu,other_fuels_use_kbtu,total_ghg_emissions_mt_co2e,building_url,costar_property_type,Property/Plant ID,latitude,longitude,tenant,building_id
+,"191 Peachtree St NE, Atlanta, GA, 30303",49.8,2022,Office,,72.0,191 PEACHTREE TOWER,1416004,,,,,,,,,,,,,,ATL_1
+,"3424 Peachtree Rd NE, Atlanta, GA, 30326",49.4,2022,Office,,79.0,MONARCH TOWER,572876,,,,,,,,,,,,,,ATL_2
+,"3414 Peachtree Rd NE, Atlanta, GA, 30326",41.7,2022,Office,,87.0,MONARCH PLAZA,392942,,,,,,,,,,,,,,ATL_3
+,"3445 Peachtree Rd NE, Atlanta, GA, 30326",50.5,2021,Office,1969.0,74.0,Two Live Oak Center,286806,,,,,,,,,,,,,,ATL_4
+,"3399 Peachtree Rd NE, Atlanta, GA, 30326",48.2,2022,Office,,65.0,BUCKHEAD TOWER AT LENOX SQUARE,374005,,,,,,,,,,,,,,ATL_5
+,"3455 Peachtree Rd NE, Atlanta, GA, 30326",50.3,2022,Office,,73.0,THE PINNACLE,458482,,,,,,,,,,,,,,ATL_6
+,"1360 Peachtree St NE, Atlanta, GA, 30309",41.8,2022,Office,,89.0,ONE MIDTOWN PLAZA,250128,,,,,,,,,,,,,,ATL_7
+,"675 W Peachtree St NE, Atlanta, GA, 30308",53.0,2019,Office,1981.0,66.0,,2029292,,,,,,,,,,,,,,ATL_8
+,"1175 Peachtree St NE, Atlanta, GA, 30361",75.9,2022,Office,,68.0,100 COLONY SQUARE,362898,,,,,,,,,,,,,,ATL_9
+,"1201 Peachtree St NE, Atlanta, GA, 30361",70.5,2022,Office,,76.0,400 COLONY SQUARE,436115,,,,,,,,,,,,,,ATL_10
+,"1349 W Peachtree St NE, Atlanta, GA, 30309",38.2,2022,Office,,84.0,TWO MIDTOWN PLAZA,296954,,,,,,,,,,,,,,ATL_11
+,"950 E Paces Ferry Rd NE, Atlanta, GA, 30326",49.4,2022,Office,,72.0,SALESFORCE TOWER,690100,,,,,,,,,,,,,,ATL_12
+,"50 Hurt Plz SE, Atlanta, GA, 30303",48.2,2019,Office,1913.0,74.0,,538213,,,,,,,,,,,,,,ATL_13
+,"133 Luckie St NW, Atlanta, GA, 30303",102.9,2019,Office,1926.0,35.0,The Turner Building,57690,,,,,,,,,,,,,,ATL_14
+,"3350 Peachtree Rd NE, Atlanta, GA, 30326",44.2,2022,Office,,74.0,ONE CAPITAL CITY PLAZA,441852,,,,,,,,,,,,,,ATL_15
+,"1201 W Peachtree St, Atlanta, GA, 30309",51.4,2022,Office,,,ONE ATLANTIC CENTER,1172547,,,,,,,,,,,,,,ATL_16
+,"550 Peachtree St NE, Atlanta, GA, 30308",89.9,2022,Medical Office,,93.0,EMORY UNIVERSITY HOSPITAL MIDTOWN MOT,382548,,,,,,,,,,,,,,ATL_17
+,"250 Williams St NW, Atlanta, GA, 30303",171.2,2020,Office,1989.0,4.0,AMERICAN CANCER SOCIETY CENTER,1175228,,,,,,,,,,,,,,ATL_18
+,"3280 Peachtree Rd NE, Atlanta, GA, 30305",42.2,2022,Office,,82.0,TERMINUS 100,648864,,,,,,,,,,,,,,ATL_19
+,"3525 Piedmont Rd NE, Atlanta, GA, 30305",62.2,2021,Office,1982.0,74.0,PIEDMONT CENTER 5-8,505113,,,,,,,,,,,,,,ATL_20
+,"1 Coca Cola Plz NW, Atlanta, GA, 30313",48.2,2019,Office,1985.0,82.0,Coca-Cola Office/Lab Facility/EDC,929139,,,,,,,,,,,,,,ATL_21
+,"285 Peachtree Center Ave NE, Atlanta, GA, 30303",32.0,2022,Office,,,MARQUIS II,508213,,,,,,,,,,,,,,ATL_22
+,"245 Peachtree Center Ave NE, Atlanta, GA, 30303",46.2,2022,Office,,75.0,PTC - MARQUIS I,508098,,,,,,,,,,,,,,ATL_23
+,"1180 Peachtree St NE, Atlanta, GA, 30309",39.9,2022,Office,,89.0,1180 PEACHTREE,784972,,,,,,,,,,,,,,ATL_24
+,"3500 Lenox Rd NE, Atlanta, GA, 30326",58.0,2022,Office,,59.0,ONE ALLIANCE CENTER,531897,,,,,,,,,,,,,,ATL_25
+,"1180 W Peachtree St NW, Atlanta, GA, 30309",46.1,2022,Office,,85.0,ATLANTIC CENTER PLAZA,539821,,,,,,,,,,,,,,ATL_26
+,"75 5Th St NW, Atlanta, GA, 30308",47.1,2019,Office,2003.0,81.0,,507979,,,,,,,,,,,,,,ATL_27
+,"3340 Peachtree Rd NE, Atlanta, GA, 30326",53.5,2022,Office,,73.0,TOWER PLACE 100,651041,,,,,,,,,,,,,,ATL_28
+,"210 Peachtree St, Atlanta, GA, 30303",144.9,2021,Hotel,1976.0,26.0,84SAI - THE WESTIN PEACHTREE PLAZA,1168000,,,,,,,,,,,,,,ATL_29
+,"265 Peachtree St NE, Atlanta, GA, 30303",60.8,2022,Hotel,,94.0,HYATT REGENCY,1494550,,,,,,,,,,,,,,ATL_30
+,"1275 Caroline St NE, Atlanta, GA, 30307",57.7,2021,Retail Store,2005.0,77.0,Atlanta Edgewood Target,131673,,,,,,,,,,,,,,ATL_31
+,"3535 Peachtree Rd NE, Atlanta, GA, 30326",51.7,2021,Retail Store,1999.0,66.0,TARGET-LENOX MARKETPLACE,163744,,,,,,,,,,,,,,ATL_32
+,"3060 Peachtree Rd NW, Atlanta, GA, 30305",43.0,2022,Office,,83.0,ONE BUCKHEAD PLAZA,456424,,,,,,,,,,,,,,ATL_33
+,"375 18Th St NW, Atlanta, GA, 30363",113.0,2021,Retail Store,2007.0,24.0,TARGET,158392,,,,,,,,,,,,,,ATL_34
+,"241 Ralph Mcgill Blvd NE, Atlanta, GA, 30308",58.3,2020,Office,1980.0,87.0,GEORGIA POWER BLDG,853075,,,,,,,,,,,,,,ATL_35
+,"2539 Piedmont Rd NE, Atlanta, GA, 30324",61.5,2019,Retail Store,2006.0,59.0,,135871,,,,,,,,,,,,,,ATL_36
+,"3475 Lenox Rd NE, Atlanta, GA, 30326",53.2,2022,Office,,74.0,ONE LIVE OAK CENTER,200273,,,,,,,,,,,,,,ATL_37
+,"55 Ivan Allen Jr Blvd NW, Atlanta, GA, 30308",35.6,2022,Office,,93.0,55 ALLEN PLAZA (EY BUILDING),368171,,,,,,,,,,,,,,ATL_38
+,"10 10Th St NW, Atlanta, GA, 30309",34.3,2022,Office,,93.0,TEN 10TH STREET-MILLENNIUM IN MIDTOWN,455264,,,,,,,,,,,,,,ATL_39
+,"3344 Peachtree Rd NE, Atlanta, GA, 30326",37.8,2022,Office,,86.0,SOVEREIGN,816320,,,,,,,,,,,,,,ATL_40
+,"1275 Peachtree St NE, Atlanta, GA, 30309",57.2,2020,Office,1984.0,70.0,BOYS & GIRLS CLUBS OF AMERICA HEADQUARTERS,150988,,,,,,,,,,,,,,ATL_41
+,"2535 Chantilly Dr NE, Atlanta, GA, 30324",43.9,2021,Hotel,1990.0,78.0,La Quinta Inn,44444,,,,,,,,,,,,,,ATL_42
+,"3575 Piedmont Rd NE, Atlanta, GA, 30305",47.2,2021,Office,1998.0,74.0,PIEDMONT CENTER 15,342276,,,,,,,,,,,,,,ATL_43
+,"3565 Piedmont Rd NE, Atlanta, GA, 30305",51.2,2022,Office,,,PIEDMONT CENTER 1-2,261560,,,,,,,,,,,,,,ATL_44
+,"100 Peachtree St NW, Atlanta, GA, 30303",44.4,2021,Office,1967.0,76.0,100 PEACHTREE,639914,,,,,,,,,,,,,,ATL_45
+,"3379 Peachtree Rd NE, Atlanta, GA, 30326",56.3,2020,Mixed Use Property,1963.0,84.0,Peachtree Lenox,125129,,,,,,,,,,,,,,ATL_46
+,"230 Peachtree St NW, Atlanta, GA, 30303",55.8,2019,Office,1966.0,60.0,,539180,,,,,,,,,,,,,,ATL_47
+,"133 Peachtree St NE, Atlanta, GA, 30303",47.9,2022,Office,,82.0,GEORGIA-PACIFIC CENTER,1379293,,,,,,,,,,,,,,ATL_48
+,"30 Ivan Allen Jr Blvd NW, Atlanta, GA, 30308",58.4,2019,Office,2005.0,74.0,,324872,,,,,,,,,,,,,,ATL_49
+,"945 E Paces Ferry Rd NE, Atlanta, GA, 30326",34.1,2021,Office,1988.0,93.0,RESURGENS PLAZA,438580,,,,,,,,,,,,,,ATL_50
+,"575 Morosgo Dr NE, Atlanta, GA, 30324",24.5,2022,Office,,96.0,AT&T - TOWER 1,1060239,,,,,,,,,,,,,,ATL_51
+,"271 17Th St NW, Atlanta, GA, 30363",58.9,2022,Office,,77.0,271 17TH STREET,571720,,,,,,,,,,,,,,ATL_52
+,"3333 Piedmont Rd NE, Atlanta, GA, 30305",43.1,2022,Office,,77.0,TERMINUS 200,578927,,,,,,,,,,,,,,ATL_53
+,"754 Peachtree St NE, Atlanta, GA, 30308",48.5,2022,Office,,75.0,MIDTOWN CENTER I,525310,,,,,,,,,,,,,,ATL_54
+,"725 W Peachtree St NW, Atlanta, GA, 30308",161.3,2019,Office,1985.0,2.0,,303596,,,,,,,,,,,,,,ATL_55
+,"3353 Peachtree Rd NE, Atlanta, GA, 30326",48.7,2022,Office,,81.0,ATLANTA FINANCIAL CENTER,1005232,,,,,,,,,,,,,,ATL_56
+,"1420 Peachtree St NE, Atlanta, GA, 30309",34.2,2022,Office,,88.0,PERSHING PARK PLAZA,201847,,,,,,,,,,,,,,ATL_57
+,"1355 Peachtree St NE, Atlanta, GA, 30309",34.1,2022,Office,,91.0,THE PEACHTREE,395439,,,,,,,,,,,,,,ATL_58
+,"1800 Howell Mill Rd NW, Atlanta, GA, 30318",91.5,2020,Medical Office,2008.0,60.0,PIEDMONT WEST MEDICAL OFFICE,271140,,,,,,,,,,,,,,ATL_59
+,"130 W Paces Ferry Rd NW, Atlanta, GA, 30305",145.8,2022,,,,,179691,,,,,,,,,,,,,,ATL_60
+,"3285 Peachtree Rd NE, Atlanta, GA, 30305",73.2,2022,Hotel,,68.0,EMBASSY SUITES,275000,,,,,,,,,,,,,,ATL_61
+,"979 Crescent Ave NE, Atlanta, GA, 30309",35.2,2022,,,,,6096,,,,,,,,,,,,,,ATL_62
+,"990 Peachtree St NE, Atlanta, GA, 30309",104.1,2022,,,,,7000,,,,,,,,,,,,,,ATL_63
+,"1065 Peachtree St NE, Atlanta, GA, 30309",69.4,2022,Hotel,,47.0,LOEWS ATLANTA HOTEL,381419,,,,,,,,,,,,,,ATL_64
+,"1 Cnn Center, Atlanta, GA, 30303",160.1,2019,Mixed Use Property,1976.0,,,1784778,,,,,,,,,,,,,,ATL_65
+,"3330 Piedmont Rd NE, Atlanta, GA, 30305",216.9,2020,Supermarket/Grocery Store,1975.0,61.0,,61959,,,,,,,,,,,,,,ATL_66
+,"1700 Monroe Dr NE, Atlanta, GA, 30324",228.5,2020,Supermarket/Grocery Store,1982.0,65.0,Kroger,53635,,,,,,,,,,,,,,ATL_67
+,"2685 Stewart Ave SW, Atlanta, GA, 30315",155.5,2020,Supermarket/Grocery Store,1987.0,77.0,,84400,,,,,,,,,,,,,,ATL_68
+,"1715 Howell Mill Rd NW, Atlanta, GA, 30318",117.1,2022,Non-Refrigerated Warehouse,,,PHASE I,98709,,,,,,,,,,,,,,ATL_69
+,"590 Cascade Ave SW, Atlanta, GA, 30310",0.9,2022,Office,,100.0,CASCADE CITI CENTER,34860,,,,,,,,,,,,,,ATL_70
+,"1160 Moreland Ave SE, Atlanta, GA, 30316",180.7,2020,Supermarket/Grocery Store,2002.0,75.0,SUNSHINE PLAZA,50000,,,,,,,,,,,,,,ATL_71
+,"3030 Headland Dr SW, Atlanta, GA, 30311",156.8,2020,Supermarket/Grocery Store,2002.0,79.0,GREENBRIAR CROSSING,65855,,,,,,,,,,,,,,ATL_72
+,"1225 Caroline St NE, Atlanta, GA, 30307",210.3,2020,Supermarket/Grocery Store,2005.0,73.0,Kroger,62387,,,,,,,,,,,,,,ATL_73
+,"240 Peachtree St NW, Atlanta, GA, 30303",29.3,2021,Convention Center,1961.0,,AMERICASMART BUILDING 1,2313029,,,,,,,,,,,,,,ATL_74
+,"230 Spring St NW, Atlanta, GA, 30303",25.7,2021,Convention Center,1992.0,,ATLANTA GIFT MART BLDG 2,2285681,,,,,,,,,,,,,,ATL_75
+,"250 Spring St NW, Atlanta, GA, 30303",15.2,2021,Convention Center,1979.0,,AMERICA'S MART BLDG 3,2454612,,,,,,,,,,,,,,ATL_76
+,"730 Peachtree St NE, Atlanta, GA, 30308",66.6,2019,Office,1966.0,67.0,730 MIDTOWN,223752,,,,,,,,,,,,,,ATL_77
+,"650 Bishop St NW, Atlanta, GA, 30318",372.4,2019,Drinking Water Treatment & Distribution,1891.0,,,242855,,,,,,,,,,,,,,ATL_78
+,"600 Peachtree St NE, Atlanta, GA, 30308",45.3,2021,Office,1992.0,71.0,BANK OF AMERICA PLAZA,1490112,,,,,,,,,,,,,,ATL_79
+,"3560 Lenox Rd NE, Atlanta, GA, 30326",54.8,2022,Office,,69.0,TWO ALLIANCE CENTER,505877,,,,,,,,,,,,,,ATL_80
+,"3500 Piedmont Rd NE, Atlanta, GA, 30305",51.6,2020,Office,1982.0,83.0,TWO SECURITIES CENTRE,250760,,,,,,,,,,,,,,ATL_81
+,"2960 Piedmont Rd NE, Atlanta, GA, 30305",68.7,2021,Hotel,1987.0,83.0,ATLANTA BUCKHEAD RESIDENCE INN,88200,,,,,,,,,,,,,,ATL_82
+,"660 Peachtree St NE, Atlanta, GA, 30308",90.2,2019,Performing Arts,1929.0,,THE FOX THEATRE,213272,,,,,,,,,,,,,,ATL_83
+,"3780 Southside Industrial Ct SE, Atlanta, GA, 30354",19.2,2019,Distribution Center,2000.0,72.0,,406980,,,,,,,,,,,,,,ATL_84
+,"35 14Th St NE, Atlanta, GA, 30309",73.1,2019,Hotel,1990.0,74.0,ATLANTA MARRIOTT SUITES MIDTOWN,342000,,,,,,,,,,,,,,ATL_85
+,"265 Peachtree Center Ave NE, Atlanta, GA, 30303",82.9,2021,Hotel,1985.0,78.0,MARRIOTT MARQUIS,1636560,,,,,,,,,,,,,,ATL_86
+,"3300 Lenox Rd NE, Atlanta, GA, 30326",51.8,2022,Hotel,,95.0,JW MARRIOTT HOTEL BUCKHEAD ATLANTA,518881,,,,,,,,,,,,,,ATL_87
+,"1132 Techwood Dr NW, Atlanta, GA, 30318",54.8,2021,Hotel,1991.0,87.0,Courtyard Marriott Midtowm,94646,,,,,,,,,,,,,,ATL_88
+,"133 Carnegie Way NW, Atlanta, GA, 30303",77.1,2021,Hotel,2011.0,56.0,COURTYARD BY MARRIOTT DOWNTOWN,100526,,,,,,,,,,,,,,ATL_89
+,"3459 Buckhead Loop NE, Atlanta, GA, 30326",55.3,2021,Hotel,1990.0,91.0,SPRINGHILL SUITES ATLANTA BUCKHEAD,190487,,,,,,,,,,,,,,ATL_90
+,"181 Peachtree St NE, Atlanta, GA, 30303",73.5,2021,Hotel,1990.0,64.0,RITZ CARLTON ATLANTA,349940,,,,,,,,,,,,,,ATL_91
+,"101 Marietta St NW, Atlanta, GA, 30303",49.4,2022,Office,,73.0,CENTENNIAL TOWER,685326,,,,,,,,,,,,,,ATL_92
+,"3355 Lenox Rd NE, Atlanta, GA, 30326",51.2,2020,Office,1962.0,85.0,LENOX CENTER,141877,,,,,,,,,,,,,,ATL_93
+,"3384 Peachtree Rd NE, Atlanta, GA, 30326",66.1,2020,Office,1962.0,72.0,LENOX PLAZA,102487,,,,,,,,,,,,,,ATL_94
+,"1100 Spring St NW, Atlanta, GA, 30309",89.9,2019,Office,1970.0,63.0,1100 SPRING STREET,156000,,,,,,,,,,,,,,ATL_95
+,"3490 Piedmont Rd NE, Atlanta, GA, 30305",46.1,2020,Office,1985.0,82.0,ONE SECURITIES CENTRE,280391,,,,,,,,,,,,,,ATL_96
+,"3348 Peachtree Rd NE, Atlanta, GA, 30326",43.4,2022,Office,,83.0,TOWER PLACE 200,281000,,,,,,,,,,,,,,ATL_97
+,"3434 Peachtree Rd NE, Atlanta, GA, 30326",99.5,2021,Hotel,1990.0,43.0,"THE RITZ-CARLTON, BUCKHEAD",420533,,,,,,,,,,,,,,ATL_98
+,"501 W Peachtree St NE, Atlanta, GA, 30308",3.8,2019,Parking,2002.0,,EUHM- SUMMIT PARKING DECK,665252,,,,,,,,,,,,,,ATL_99
+,"180 Ted Turner Dr SW, Atlanta, GA, 30303",48.6,2022,Office,,91.0,DEPARTMENT OF HOMELAND SECURITY,97069,,,,,,,,,,,,,,ATL_100
+,"600 W Peachtree St NW, Atlanta, GA, 30308",70.2,2022,Office,,52.0,ONE GEORGIA CENTER,394750,,,,,,,,,,,,,,ATL_101
+,"600 Virginia Ave NE, Atlanta, GA, 30306",11.0,2021,Self-Storage Facility,2009.0,,1338-ATLANTA - VIRGINIA AVE - EXTRA SPACE STORAGE,81568,,,,,,,,,,,,,,ATL_102
+,"2489 Cheshire Bridge Rd NE, Atlanta, GA, 30324",11.1,2022,Self-Storage Facility,,,1304-ATLANTA - CHESHIRE BRIDGE RD NE - EXTRA SPACE SELF STORAGE,104791,,,,,,,,,,,,,,ATL_103
+,"660 Edgewood Ave SE, Atlanta, GA, 30312",10.1,2022,Self-Storage Facility,,,8396- ATLANTA - EDGEWOOD AVE SE OC - EXTRA SPACE STORAGE,51515,,,,,,,,,,,,,,ATL_104
+,"999 Peachtree St NE, Atlanta, GA, 30309",36.1,2022,Office,,82.0,999 PEACHTREE STREET,654356,,,,,,,,,,,,,,ATL_105
+,"1075 Peachtree St NE, Atlanta, GA, 30309",48.4,2022,Office,,82.0,12TH & MIDTOWN,824012,,,,,,,,,,,,,,ATL_106
+,"1100 Peachtree St NE, Atlanta, GA, 30309",44.3,2022,Office,,84.0,ELEVEN HUNDRED PEACHTREE STREET,630195,,,,,,,,,,,,,,ATL_107
+,"120 Anderson Ave NW, Atlanta, GA, 30314",78.4,2019,Other - Recreation,1980.0,,DPRCA-Anderson Park Rec Center,20602,,,,,,,,,,,,,,ATL_108
+,"1500 Mclendon Ave NE, Atlanta, GA, 30307",85.0,2019,Other,1980.0,,,2874,,,,,,,,,,,,,,ATL_109
+,"1690 Martin Luther King Jr Dr SW, Atlanta, GA, 30314",5.3,2021,Other - Recreation,1965.0,,DPRCA-Cornelius Adolphous Scott Rec.,3000,,,,,,,,,,,,,,ATL_110
+,"3460 Jonesboro Rd SE, Atlanta, GA, 30354",36.7,2019,Other - Recreation,1979.0,,DPRCA-S.side Sports Cmplx Rec Bldg.,3659,,,,,,,,,,,,,,ATL_111
+,"590 Manford Rd SW, Atlanta, GA, 30310",144.2,2019,Fire Station,1928.0,,Fire Station 20,4849,,,,,,,,,,,,,,ATL_112
+,"3201 Roswell Rd NE, Atlanta, GA, 30305",222.8,2019,Fire Station,1984.0,,Fire Station 21,8925,,,,,,,,,,,,,,ATL_113
+,"817 Hollywood Rd NW, Atlanta, GA, 30318",98.4,2019,Fire Station,1939.0,,Fire Station 22,3408,,,,,,,,,,,,,,ATL_114
+,"1545 Howell Mill Rd NW, Atlanta, GA, 30318",130.3,2019,Fire Station,1948.0,,Fire Station 23,5265,,,,,,,,,,,,,,ATL_115
+,"2167 Monroe Dr NE, Atlanta, GA, 30324",171.5,2019,Fire Station,1958.0,,Fire Station 29,3565,,,,,,,,,,,,,,ATL_116
+,"4260 Northside Dr NW, Atlanta, GA, 30327",140.1,2019,Fire Station,1953.0,,Fire Station 27,3409,,,,,,,,,,,,,,ATL_117
+,"1925 Hollywood Rd NW, Atlanta, GA, 30318",69.0,2019,Fire Station,2008.0,,Fire Station 28,12000,,,,,,,,,,,,,,ATL_118
+,"10 Cleveland Ave SW, Atlanta, GA, 30315",361.6,2019,Fire Station,1956.0,,Fire Station 30,2873,,,,,,,,,,,,,,ATL_119
+,"820 Murphy Ave SW, Atlanta, GA, 30310",69.8,2019,Other - Recreation,2001.0,,,16479,,,,,,,,,,,,,,ATL_120
+,"2051 Delano Dr NE, Atlanta, GA, 30317",88.1,2019,Other - Recreation,1980.0,,,19763,,,,,,,,,,,,,,ATL_121
+,"3691 Collier Dr NW, Atlanta, GA, 30331",37.7,2019,Other - Recreation,1985.0,,DPRCA-Collier Park-Recreation Center,9480,,,,,,,,,,,,,,ATL_122
+,"2405 Fairburn Rd SW, Atlanta, GA, 30331",41.5,2019,Other - Recreation,1997.0,,DPRCA-Ben Hill - Recreation Center,52446,,,,,,,,,,,,,,ATL_123
+,"1565 Martin Luther King Jr Dr NW, Atlanta, GA, 30314",101.9,2019,Other - Recreation,2005.0,,DPRCA-Cornelius Adolphous Scott Rec.,5824,,,,,,,,,,,,,,ATL_124
+,"750 Francis Pl NW, Atlanta, GA, 30318",58.0,2019,Other,1987.0,,,30613,,,,,,,,,,,,,,ATL_125
+,"100 Flat Shoals Ave SE, Atlanta, GA, 30316",45.6,2021,Other - Recreation,1987.0,,DPRCA-Lang-Carson Rec Center,17550,,,,,,,,,,,,,,ATL_126
+,"248 Oakland Ave SE, Atlanta, GA, 30312",101.2,2019,Other - Utility,1850.0,1.0,DPRCA-Oakland Cemetery-Sexton Bldg.,4294,,,,,,,,,,,,,,ATL_127
+,"770 Deckner Ave SW, Atlanta, GA, 30310",151.1,2019,Other - Recreation,1940.0,,DPRCA-Perkerson Park ~ Rec Center,6621,,,,,,,,,,,,,,ATL_128
+,"102 Ollie St NW, Atlanta, GA, 30314",336.2,2019,Other - Recreation,2003.0,,DPRCA-Washington Park Natatorium,28250,,,,,,,,,,,,,,ATL_129
+,"2000 Lakewood Ave SE, Atlanta, GA, 30315",130.7,2019,Other,1979.0,,,45663,,,,,,,,,,,,,,ATL_130
+,"880 Cherokee Ave SE, Atlanta, GA, 30315",106.1,2019,Other - Public Services,1990.0,,Police Zone 3 - Cherokee Ave,3292,,,,,,,,,,,,,,ATL_131
+,"1530 Woodbine Ave SE, Atlanta, GA, 30317",122.6,2019,Other - Recreation,1975.0,,DPRCA-Wesley Coan Park-Rec Center,13200,,,,,,,,,,,,,,ATL_132
+,"1955 Compton Dr SE, Atlanta, GA, 30315",0.6,2021,Other - Education,2005.0,,DPRCA-Southbend Ctr Arts ~ Culture,6200,,,,,,,,,,,,,,ATL_133
+,"1050 Techwood Dr NW, Atlanta, GA, 30318",159.8,2021,Office,2001.0,,TURNER TECHWOOD CAMPUS,1054227,,,,,,,,,,,,,,ATL_134
+,"410 Englewood Ave SE, Atlanta, GA, 30315",8.0,2020,Distribution Center,1962.0,85.0,Atlanta Community Toolbank,27200,,,,,,,,,,,,,,ATL_135
+,"71 Elliott St SW, Atlanta, GA, 30313",225.7,2019,Fire Station,1961.0,,Fire Station 1,6087,,,,,,,,,,,,,,ATL_136
+,"1288 Dekalb Ave NE, Atlanta, GA, 30307",78.9,2019,Fire Station,1959.0,,Fire Station 12,8822,,,,,,,,,,,,,,ATL_137
+,"1203 Lee St SW, Atlanta, GA, 30310",111.3,2019,Fire Station,2002.0,,Fire Station 14,8000,,,,,,,,,,,,,,ATL_138
+,"2007 Oakview Rd SE, Atlanta, GA, 30317",60.5,2019,Fire Station,2009.0,,Fire Station 18,10845,,,,,,,,,,,,,,ATL_139
+,"2305 Donald Lee Hollowell Pkwy NW, Atlanta, GA, 30318",15.0,2019,Other,2002.0,,,5790,,,,,,,,,,,,,,ATL_140
+,"447 Boulevard SE, Atlanta, GA, 30312",75.4,2019,Fire Station,1959.0,,Fire Station 10,8862,,,,,,,,,,,,,,ATL_141
+,"1063 N Highland Ave NE, Atlanta, GA, 30306",100.9,2019,Fire Station,1925.0,,Fire Station 19,5024,,,,,,,,,,,,,,ATL_142
+,"2970 Howell Mill Rd NW, Atlanta, GA, 30327",204.8,2019,Fire Station,1954.0,,Fire Station 26,4974,,,,,,,,,,,,,,ATL_143
+,"254 Peachtree St, Atlanta, GA, 30303",84.3,2019,Other,2005.0,,,592786,,,,,,,,,,,,,,ATL_144
+,"2406 Fairburn Rd SW, Atlanta, GA, 30331",222.1,2019,Fire Station,1957.0,,Fire Station 31,2873,,,,,,,,,,,,,,ATL_145
+,"1711 Marietta Blvd NW, Atlanta, GA, 30318",62.9,2019,Fire Station,1967.0,,Fire Station 8,10525,,,,,,,,,,,,,,ATL_146
+,"2825 Campbellton Rd SW, Atlanta, GA, 30311",36.9,2019,Fire Station,1910.0,,,6178,,,,,,,,,,,,,,ATL_147
+,"3501 Martin Luther King Jr Dr SW, Atlanta, GA, 30331",121.9,2019,Fire Station,1957.0,,Fire Station 9,5831,,,,,,,,,,,,,,ATL_148
+,"165 16Th St NE, Atlanta, GA, 30309",67.3,2019,Fire Station,2010.0,,,14445,,,,,,,,,,,,,,ATL_149
+,"176 10Th St NE, Atlanta, GA, 30309",90.7,2019,Fire Station,1986.0,,,6500,,,,,,,,,,,,,,ATL_150
+,"431 Flat Shoals Ave SE, Atlanta, GA, 30316",70.4,2019,Fire Station,2010.0,,Fire Station 13,9659,,,,,,,,,,,,,,ATL_151
+,"309 Edgewood Ave NE, Atlanta, GA, 30312",101.3,2019,Fire Station,2001.0,,FIRE STATION 4,8964,,,,,,,,,,,,,,ATL_152
+,"3671 Southside Industrial Pkwy SE, Atlanta, GA, 30354",86.5,2019,Fire Station,1989.0,,,10000,,,,,,,,,,,,,,ATL_153
+,"1048 Joseph E Boone Blvd NW, Atlanta, GA, 30314",152.2,2019,Fire Station,1963.0,,Fire Station 16,5580,,,,,,,,,,,,,,ATL_154
+,"1489 Ralph David Abernathy Blvd SW, Atlanta, GA, 30310",87.6,2019,Fire Station,1987.0,,Fire Station 17,7468,,,,,,,,,,,,,,ATL_155
+,"211 Thornton St SW, Atlanta, GA, 30315",48.9,2019,Other - Utility,1965.0,,,9496,,,,,,,,,,,,,,ATL_156
+,"3201 Martin Luther King Jr Dr SW, Atlanta, GA, 30311",71.1,2019,Other - Utility,2004.0,,DPRCA-Adamsville Recreation Center,137650,,,,,,,,,,,,,,ATL_157
+,"2349 Benjamin E Mays Dr SW, Atlanta, GA, 30311",158.1,2019,Fire Station,1949.0,,Fire Station 25,5549,,,,,,,,,,,,,,ATL_158
+,"1340 Bolton Rd NW, Atlanta, GA, 30331",73.6,2019,Other - Utility,1980.0,,,4697,,,,,,,,,,,,,,ATL_159
+,"400 Merritts Ave NE, Atlanta, GA, 30308",17.9,2021,Fitness Center/Health Club/Gym,1990.0,,DPRCA-Central Park-Rec Center ~ Gym,21780,,,,,,,,,,,,,,ATL_160
+,"537 Park Ave SE, Atlanta, GA, 30312",50.1,2019,Other - Recreation,1975.0,,,21735,,,,,,,,,,,,,,ATL_161
+,"544 Angier Ave NE, Atlanta, GA, 30308",90.2,2019,Other - Recreation,2005.0,,DPRCA-J. D. Sims Rec Center,5766,,,,,,,,,,,,,,ATL_162
+,"Bankhead Hwy NW, Atlanta, GA, 30331",181.0,2019,Fire Station,1972.0,,,8000,,,,,,,,,,,,,,ATL_163
+,"90 Boulevard NE, Atlanta, GA, 30312",33.3,2021,Fitness Center/Health Club/Gym,2002.0,,DPRCA-M.L.K. RECREATION CENTER,39862,,,,,,,,,,,,,,ATL_164
+,"950 Garibaldi St SW, Atlanta, GA, 30310",69.1,2019,Other - Recreation,1949.0,,,28000,,,,,,,,,,,,,,ATL_165
+,"30312, Atlanta, GA",27.7,2019,Other,2005.0,,,9583,,,,,,,,,,,,,,ATL_166
+,"241 Daniel Ave SE, Atlanta, GA, 30317",36.8,2019,Other - Utility,1940.0,,,8100,,,,,,,,,,,,,,ATL_167
+,"365 Cleveland Ave SE, Atlanta, GA, 30354",108.5,2019,Other - Utility,1994.0,,,59200,,,,,,,,,,,,,,ATL_168
+,"1835 Henry Thomas Dr SE, Atlanta, GA, 30315",32.0,2019,Other - Recreation,1976.0,,DPRCA-Thomasville Heights-Rec Ctr,19500,,,,,,,,,,,,,,ATL_169
+,"721 Phipps Blvd NE, Atlanta, GA, 30326",42.1,2019,Other - Utility,1993.0,,Phipps Plaza 14,9162,,,,,,,,,,,,,,ATL_170
+,"308 Peachtree Hills Ave NE, Atlanta, GA, 30305",102.5,2019,Other - Utility,2002.0,,DPRCA-P.Tree Hills Rec Center ~ Gym,8200,,,,,,,,,,,,,,ATL_171
+,"1230 Peachtree St NE, Atlanta, GA, 30309",36.7,2022,Office,,91.0,PROMENADE,899558,,,,,,,,,,,,,,ATL_172
+,"395 Piedmont Ave NE, Atlanta, GA, 30308",11.9,2022,Office,,,DPRCA-ATLANTA CIVIC CENTER,231161,,,,,,,,,,,,,,ATL_173
+,"3475 Piedmont Rd NE, Atlanta, GA, 30305",51.4,2022,Office,,63.0,PROMINENCE IN BUCKHEAD,461346,,,,,,,,,,,,,,ATL_174
+,"1600 Pryor Rd SW, Atlanta, GA, 30315",105.9,2021,Fitness Center/Health Club/Gym,2007.0,,Villages at Carver Family YMCA,55245,,,,,,,,,,,,,,ATL_175
+,"2220 Campbellton Rd SW, Atlanta, GA, 30311",85.4,2021,Fitness Center/Health Club/Gym,1950.0,,ANDREW AND WALTER YOUNG SOUTHWEST FAMILY YMCA,84351,,,,,,,,,,,,,,ATL_176
+,"387 Technology Cir NW, Atlanta, GA, 30313",264.7,2019,Laboratory,2008.0,,,134423,,,,,,,,,,,,,,ATL_177
+,"3284 Northside Pkwy NW, Atlanta, GA, 30327",37.9,2022,Office,,78.0,THE MEDICI,162179,,,,,,,,,,,,,,ATL_178
+,"3630 Peachtree Rd NE, Atlanta, GA, 30326",54.1,2019,Office,2009.0,75.0,3630 PEACHTREE,775720,,,,,,,,,,,,,,ATL_179
+,"1602 Fishburne Dr, Atlanta, GA, 30322",59.6,2020,College/University,1946.0,,,47373,,,,,,,,,,,,,,ATL_180
+,"1300 Clifton Rd NE, Atlanta, GA, 30322",114.8,2020,College/University,1996.0,,,121917,,,,,,,,,,,,,,ATL_181
+,"515 S Kilgo Cir NE, Atlanta, GA, 30322",117.7,2020,College/University,1979.0,,0800 - Cannon Chapel,27684,,,,,,,,,,,,,,ATL_182
+,"100 Woodruff Cir NE, Atlanta, GA, 30322",166.7,2020,College/University,2008.0,,,176850,,,,,,,,,,,,,,ATL_183
+,"200 Dowman Dr NE, Atlanta, GA, 30322",57.8,2020,Office,1985.0,79.0,,42147,,,,,,,,,,,,,,ATL_184
+,"400 Dowman Dr NE, Atlanta, GA, 30322",203.0,2020,College/University,2001.0,,,170949,,,,,,,,,,,,,,ATL_185
+,"301 Dowman Dr NE, Atlanta, GA, 30322",107.6,2020,College/University,1976.0,,,52401,,,,,,,,,,,,,,ATL_186
+,Atlanta History Center,37.6,2021,Museum,1830.0,,,708,,,,,,,,,,,,,,ATL_187
+,"26 Eagle Row NE, Atlanta, GA, 30322",129.7,2020,Fitness Center/Health Club/Gym,1982.0,,1400 - Woodruff PE Center,281205,,,,,,,,,,,,,,ATL_188
+,"1520 Clifton Rd NE, Atlanta, GA, 30322",86.0,2020,College/University,2000.0,,1515 - Woodruff School of Nursing,99632,,,,,,,,,,,,,,ATL_189
+,"1518 Clifton Rd NE, Atlanta, GA, 30322",101.1,2020,College/University,1993.0,,,144060,,,,,,,,,,,,,,ATL_190
+,"537 S Kilgo Cir NE, Atlanta, GA, 30322",70.4,2020,College/University,1958.0,,1535 - Callaway Memorial Center,83412,,,,,,,,,,,,,,ATL_191
+,"1525 Clifton Rd NE, Atlanta, GA, 30322",148.0,2020,Parking,1996.0,,,86331,,,,,,,,,,,,,,ATL_192
+,"401 Rollins Way NE, Atlanta, GA, 30329",131.4,2020,College/University,2010.0,,,212901,,,,,,,,,,,,,,ATL_193
+,"550 Asbury Cir, Atlanta, GA, 30322",56.1,2020,College/University,1924.0,,,69609,,,,,,,,,,,,,,ATL_194
+,"561 S Kilgo Cir NE, Atlanta, GA, 30322",142.6,2020,College/University,1950.0,,1560 - Bowden Hall,33242,,,,,,,,,,,,,,ATL_195
+,"1447 Peachtree St NE, Atlanta, GA, 30309",56.9,2019,Office,1964.0,85.0,SILHOUETTE MIDTOWN,132933,,,,,,,,,,,,,,ATL_196
+,"505 S Kilgo Cir NE, Atlanta, GA, 30322",70.7,2020,College/University,1953.0,,,39490,,,,,,,,,,,,,,ATL_197
+,"101 Woodruff Cir S, Atlanta, GA, 30322",417.3,2020,College/University,1950.0,,,349556,,,,,,,,,,,,,,ATL_198
+,"615 Michael St NE, Atlanta, GA, 30322",493.1,2020,College/University,1999.0,,,324632,,,,,,,,,,,,,,ATL_199
+,"1784 N Decatur Rd NE, Atlanta, GA, 30322",141.5,2020,Office,1993.0,6.0,,135300,,,,,,,,,,,,,,ATL_200
+,"1510 Clifton Rd NE, Atlanta, GA, 30322",480.3,2020,College/University,1988.0,,1940 - O. Wayne Rollins Research Center,258395,,,,,,,,,,,,,,ATL_201
+,"1515 Dickey Dr NE, Atlanta, GA, 30322",404.8,2020,College/University,1972.0,,,201162,,,,,,,,,,,,,,ATL_202
+,"540 Asbury Cir, Atlanta, GA, 30322",122.7,2020,Library,1967.0,,,304172,,,,,,,,,,,,,,ATL_203
+,"1531 Dickey Dr NE, Atlanta, GA, 30322",116.9,2020,College/University,2008.0,,2043 - Rita Anne Rollins Building/Ethics (Theology),150616,,,,,,,,,,,,,,ATL_204
+,"36 Eagle Row NE, Atlanta, GA, 30322",85.8,2020,College/University,2007.0,,2045 - Psychology & Interdisciplinary Sciences,121762,,,,,,,,,,,,,,ATL_205
+,"1301 Clifton Rd NE, Atlanta, GA, 30322",93.3,2020,College/University,1971.0,,,189286,,,,,,,,,,,,,,ATL_206
+,"569 Asbury Cir, Atlanta, GA, 30322",267.0,2020,Fast Food Restaurant,1958.0,,1990 - EUH Education Annex,89774,,,,,,,,,,,,,,ATL_207
+,"104 Trinity Ave SW, Atlanta, GA, 30303",83.5,2019,Office,2005.0,18.0,,454030,,,,,,,,,,,,,,ATL_208
+,"150 Garnett St SW, Atlanta, GA, 30303",57.1,2021,Courthouse,2005.0,52.0,OEAM-MUNICIPAL COURT,214560,,,,,,,,,,,,,,ATL_209
+,"1555 Dickey Dr NE, Atlanta, GA, 30322",74.1,2020,College/University,1950.0,,1170 - Tarbutton Hall,49759,,,,,,,,,,,,,,ATL_210
+,"1700 N Decatur Rd NE, Atlanta, GA, 30322",156.2,2020,Performing Arts,2001.0,,,100317,,,,,,,,,,,,,,ATL_211
+,"1557 Dickey Dr NE, Atlanta, GA, 30322",166.2,2020,College/University,1950.0,,1460 - Anthropology,31626,,,,,,,,,,,,,,ATL_212
+,"226 Peachtree St, Atlanta, GA, 30303",47.9,2021,Office,2002.0,71.0,OEAM-PUBLIC SAFETY HQTRS BUILDING,180932,,,,,,,,,,,,,,ATL_213
+,"1462 Clifton Rd NE, Atlanta, GA, 30322",291.1,2020,College/University,1968.0,,1370 - 1462 Clifton Road,190145,,,,,,,,,,,,,,ATL_214
+,"532 S Kilgo Cir NE, Atlanta, GA, 30322",76.6,2020,College/University,1950.0,,,29846,,,,,,,,,,,,,,ATL_215
+,"201 Dowman Dr NE, Atlanta, GA, 30322",98.8,2020,Office,1954.0,70.0,1000 - University Administration,44906,,,,,,,,,,,,,,ATL_216
+,"1804 N Decatur Rd NE, Atlanta, GA, 30322",164.2,2020,College/University,1948.0,,1804 - Burlington Road - Performing Arts,36000,,,,,,,,,,,,,,ATL_217
+,"1440 Clifton Rd NE, Atlanta, GA, 30322",206.9,2020,Office,1975.0,16.0,1440 - Woodruff Health Sciences Administration,73109,,,,,,,,,,,,,,ATL_218
+,"581 S Kilgo Cir NE, Atlanta, GA, 30322",258.8,2020,College/University,1983.0,,1560 - Bowden Hall,34932,,,,,,,,,,,,,,ATL_219
+,"1599 Clifton Rd NE, Atlanta, GA, 30322",71.5,2020,Office,1988.0,45.0,,174016,,,,,,,,,,,,,,ATL_220
+,"575 Asbury Cir, Atlanta, GA, 30322",115.6,2020,Residence Hall/Dormitory,1954.0,56.0,3010 - Alabama Hall,31600,,,,,,,,,,,,,,ATL_221
+,"531 Asbury Cir, Atlanta, GA, 30322",268.9,2020,Hospital (General Medical & Surgical),1967.0,99.0,1990 - EUH Education Annex,58363,,,,,,,,,,,,,,ATL_222
+,"586 Asbury Cir, Atlanta, GA, 30322",159.6,2020,Residence Hall/Dormitory,1962.0,24.0,3050 - Dobbs Hall,42967,,,,,,,,,,,,,,ATL_223
+,"1501 Clifton Rd NE, Atlanta, GA, 30322",13.8,2020,Residence Hall/Dormitory,1972.0,100.0,3030 - Clifton Tower,44711,,,,,,,,,,,,,,ATL_224
+,"1340 Clifton Rd NE, Atlanta, GA, 30322",98.6,2020,Residence Hall/Dormitory,1952.0,58.0,,90105,,,,,,,,,,,,,,ATL_225
+,"640 Means Dr, Atlanta, GA, 30322",116.0,2020,Residence Hall/Dormitory,2006.0,44.0,3091 - Turman Residence Hall,44929,,,,,,,,,,,,,,ATL_226
+,"646 Means Dr, Atlanta, GA, 30322",96.2,2020,Residence Hall/Dormitory,2009.0,51.0,,114813,,,,,,,,,,,,,,ATL_227
+,"1310 Clifton Rd NE, Atlanta, GA, 30322",132.8,2020,Residence Hall/Dormitory,1957.0,35.0,,84582,,,,,,,,,,,,,,ATL_228
+,"4 Eagle Row NE, Atlanta, GA, 30322",97.3,2020,Residence Hall/Dormitory,2008.0,46.0,,111300,,,,,,,,,,,,,,ATL_229
+,"1760 Haygood Dr NE, Atlanta, GA, 30322",201.2,2020,College/University,2013.0,,,214033,,,,,,,,,,,,,,ATL_230
+,"1495 Clifton Rd NE, Atlanta, GA, 30322",79.6,2020,Residence Hall/Dormitory,1986.0,44.0,,126103,,,,,,,,,,,,,,ATL_231
+,"1390 Oxford Rd NE, Atlanta, GA, 30322",98.6,2020,Retail Store,2009.0,,,54606,,,,,,,,,,,,,,ATL_232
+,"Pierce Dr, Atlanta, GA, 30322",98.5,2020,Residence Hall/Dormitory,2011.0,55.0,,37853,,,,,,,,,,,,,,ATL_233
+,"1700 Clifton Rd NE, Atlanta, GA, 30329",92.6,2020,Pre-school/Daycare,2003.0,,7901 - Clifton School at Clifton,26805,,,,,,,,,,,,,,ATL_234
+,"Eagle Row NE, Atlanta, GA, 30322",57.8,2020,Residence Hall/Dormitory,2005.0,51.0,,90979,,,,,,,,,,,,,,ATL_235
+,"1900 Starvine Way, Decatur, GA, 30033",64.0,2020,Pre-school/Daycare,2000.0,,3380 - Clairmont Campus Child Care Center,30461,,,,,,,,,,,,,,ATL_236
+,"1365 Clifton Rd NE, Atlanta, GA, 30322",109.7,2020,Urgent Care/Clinic/Other Outpatient,1955.0,,,268340,,,,,,,,,,,,,,ATL_237
+,"571 S Kilgo Cir NE, Atlanta, GA, 30322",262.6,2020,Museum,1991.0,,1560 - Bowden Hall,38823,,,,,,,,,,,,,,ATL_238
+,"1762 Clifton Rd NE, Atlanta, GA, 30322",49.6,2020,Office,1985.0,64.0,,133159,,,,,,,,,,,,,,ATL_239
+,"1521 Dickey Dr NE, Atlanta, GA, 30322",376.5,2020,College/University,1999.0,,,86251,,,,,,,,,,,,,,ATL_240
+,"1701 Uppergate Dr NE, Atlanta, GA, 30322",328.2,2020,Urgent Care/Clinic/Other Outpatient,2003.0,,,254887,,,,,,,,,,,,,,ATL_241
+,"2015 Upper Gate Dr NE, Atlanta, GA, 30322",222.4,2020,Urgent Care/Clinic/Other Outpatient,2003.0,,,155535,,,,,,,,,,,,,,ATL_242
+,"2 Eagle Row NE, Atlanta, GA, 30322",93.1,2020,Residence Hall/Dormitory,2012.0,50.0,3109 - Eleonore Raoul Hall,107922,,,,,,,,,,,,,,ATL_243
+,"1327 Clifton Rd NE, Atlanta, GA, 30322",234.6,2020,Urgent Care/Clinic/Other Outpatient,1983.0,,2260 - Emory Clinic Building B,304597,,,,,,,,,,,,,,ATL_244
+,"46 Armstrong St SE, Atlanta, GA, 30303",89.5,2020,College/University,1965.0,,,51422,,,,,,,,,,,,,,ATL_245
+,"3391 Peachtree Rd NE, Atlanta, GA, 30326",67.9,2021,Hotel,1991.0,67.0,LENOX OVERLOOK,384355,,,,,,,,,,,,,,ATL_246
+,"3300 Peachtree Rd NE, Atlanta, GA, 30305",74.4,2022,Hotel,,61.0,GRAND HYATT,503014,,,,,,,,,,,,,,ATL_247
+,"954 Gatewood Rd NE, Atlanta, GA, 30329",463.0,2020,College/University,1963.0,,,345299,,,,,,,,,,,,,,ATL_248
+,"1615 Clifton Rd NE, Atlanta, GA, 30329",114.2,2022,,,1.0,,205707,,,,,,,,,,,,,,ATL_249
+,"2425 Dooley Dr, Decatur, GA, 30033",69.5,2020,Residence Hall/Dormitory,2001.0,55.0,,190947,,,,,,,,,,,,,,ATL_250
+,"84 Walton St NW, Atlanta, GA, 30303",59.4,2019,Office,1907.0,30.0,,131772,,,,,,,,,,,,,,ATL_251
+,"2445 Dooley Dr, Decatur, GA, 30033",29.7,2020,Residence Hall/Dormitory,2001.0,81.0,,342500,,,,,,,,,,,,,,ATL_252
+,"Dooley Dr, Decatur, GA, 30033",34.5,2020,Residence Hall/Dormitory,2001.0,75.0,,247490,,,,,,,,,,,,,,ATL_253
+,"62 Armstrong St SE, Atlanta, GA, 30303",101.4,2020,College/University,1975.0,,,27430,,,,,,,,,,,,,,ATL_254
+,"1441 Clifton Rd NE, Atlanta, GA, 30322",295.3,2020,Outpatient Rehabilitation/Physical Therapy,1974.0,,1340 - Center for Rehabilitation Medicine,96913,,,,,,,,,,,,,,ATL_255
+,"1364 Clifton Rd NE, Atlanta, GA, 30322",207.0,2020,Hospital (General Medical & Surgical),1975.0,55.0,,972185,,,,,,,,,,,,,,ATL_256
+,"1652 N Decatur Rd NE, Atlanta, GA, 30322",106.9,2020,Worship Facility,1930.0,1.0,1470 - Glenn Memorial Church,28453,,,,,,,,,,,,,,ATL_257
+,"1660 N Decatur Rd NE, Atlanta, GA, 30307",49.9,2020,Pre-school/Daycare,1939.0,,1320 - Glenn Memorial Church School,43400,,,,,,,,,,,,,,ATL_258
+,"49 Jesse Hill Jr Dr SE, Atlanta, GA, 30303",73.1,2020,Office,2001.0,36.0,EMORY UNIVERSITY SCHOOL OF MEDICINE,72383,,,,,,,,,,,,,,ATL_259
+,"250 Georgia Ave SE, Atlanta, GA, 30312",57.2,2019,Other - Public Services,2005.0,,OEAM-GA. Hill Neighborhood Ctr,47521,,,,,,,,,,,,,,ATL_260
+,"407 Ashwood Ave SW, Atlanta, GA, 30315",37.2,2019,Other,2005.0,,,36125,,,,,,,,,,,,,,ATL_261
+,"1946 Starvine Way, Decatur, GA, 30033",230.5,2020,Fitness Center/Health Club/Gym,2001.0,,3361 - Student Activities & Academic Center,57692,,,,,,,,,,,,,,ATL_262
+,"72 Marietta St NW, Atlanta, GA, 30303",62.8,2019,Office,2010.0,30.0,,519082,,,,,,,,,,,,,,ATL_263
+,"209 Edgewood Ave SE, Atlanta, GA, 30303",0.2,2019,Other - Public Services,2005.0,,DOA - Maint Fuel Island Pumps,45947,,,,,,,,,,,,,,ATL_264
+,"360 Englewood Ave SE, Atlanta, GA, 30315",67.9,2019,Non-Refrigerated Warehouse,2005.0,8.0,WW-Warehouse-Office-Englewood Ave,33276,,,,,,,,,,,,,,ATL_265
+,"780 Custer Ave SE, Atlanta, GA, 30315",22.6,2021,Other - Public Services,2006.0,,WW-CUSTER AVENUE CSO,35424,,,,,,,,,,,,,,ATL_266
+,"1220 Toffie Ter, Atlanta, GA, 30354",64.9,2019,Other,2005.0,,,253962,,,,,,,,,,,,,,ATL_267
+,"2640 Jonesboro Rd SE, Atlanta, GA, 30315",3336.8,2019,Wastewater Treatment Plant,2005.0,8.0,WW-South River Plant (Treatment),28848,,,,,,,,,,,,,,ATL_268
+,"1139 North Ave NE, Atlanta, GA, 30307",108.9,2019,Other,1987.0,,,18944,,,,,,,,,,,,,,ATL_269
+,"1290 Hemphill Ave NW, Atlanta, GA, 30318",17.8,2019,Other,1950.0,,,32484,,,,,,,,,,,,,,ATL_270
+,"815 Old Flat Shoals Rd SE, Atlanta, GA, 30312",56.2,2019,Other,1975.0,,,66019,,,,,,,,,,,,,,ATL_271
+,"2440 Bolton Rd NW, Atlanta, GA, 30318",6801.6,2019,Wastewater Treatment Plant,1972.0,2.0,,63548,,,,,,,,,,,,,,ATL_272
+,"120 Claire Dr, Atlanta, GA, 30315",22.8,2021,Other - Public Services,2005.0,,PW ST. OPS-TRAFFIC SIGNALS-FLASHERS,30500,,,,,,,,,,,,,,ATL_273
+,"1370 Howell Mill Rd NW, Atlanta, GA, 30318",195.9,2019,Other,1987.0,,,20255,,,,,,,,,,,,,,ATL_274
+,"2532 Bolton Rd NW, Atlanta, GA, 30318",4101.9,2021,Drinking Water Treatment & Distribution,1967.0,,WATER-TREATMENT PLANT-CHATTAHOOCHEE,32172,,,,,,,,,,,,,,ATL_275
+,"155 Loring Dr NW, Atlanta, GA, 30309",18.5,2021,Other - Public Services,2005.0,,WW-TANYARD CREEK CSO,27416,,,,,,,,,,,,,,ATL_276
+,"177 Estoria St SE, Atlanta, GA, 30316",5.8,2021,Other - Recreation,2002.0,,DPRCA-Cabbagetown Park,10128,,,,,,,,,,,,,,ATL_277
+,"1350 Howell Mill Rd NW, Atlanta, GA, 30318",20.2,2019,Other,1929.0,,,31089,,,,,,,,,,,,,,ATL_278
+,"612 Magnolia St NW, Atlanta, GA, 30314",150.1,2019,Other - Public Services,1995.0,,Police Zone 1,10578,,,,,,,,,,,,,,ATL_279
+,"477 Windsor St SW, Atlanta, GA, 30312",66.9,2019,Other,1990.0,,,52411,,,,,,,,,,,,,,ATL_280
+,"180 Southside Industrial Pkwy SE, Atlanta, GA, 30354",28.6,2019,Other,1958.0,,,58036,,,,,,,,,,,,,,ATL_281
+,"1275 Piedmont Ave NE, Atlanta, GA, 30309",50.0,2019,Other,1995.0,,,10363,,,,,,,,,,,,,,ATL_282
+,"815 Williams St NW, Atlanta, GA, 30308",2.3,2019,Other - Recreation,2002.0,,CENTERGY ONE PARKING DECK,458790,,,,,,,,,,,,,,ATL_283
+,"303 Peachtree Center Ave NE, Atlanta, GA, 30303",153.3,2022,Office,,,SUNTRUST GARDEN OFFICES - 40,708144,,,,,,,,,,,,,,ATL_284
+,"1230 W Peachtree St NW, Atlanta, GA, 30309",64.6,2020,Mixed Use Property,1960.0,87.0,LONDON AGENCY BLDG,66070,,,,,,,,,,,,,,ATL_285
+,"1620 Delowe Dr SW, Atlanta, GA, 30311",107.8,2019,Other - Recreation,1978.0,,DPRCA-Adams Park - Rec Building,15450,,,,,,,,,,,,,,ATL_286
+,"303 Peachtree St NE, Atlanta, GA, 30308",57.4,2022,Office,,67.0,SUNTRUST PLAZA OFFICE - 10,1200204,,,,,,,,,,,,,,ATL_287
+,"3550 Lenox Rd NE, Atlanta, GA, 30326",53.4,2020,Office,2016.0,81.0,THREE ALLIANCE CENTER,538783,,,,,,,,,,,,,,ATL_288
+,"1100 Howell Mill Rd NW, Atlanta, GA, 30318",185.0,2022,Office,,1.0,"WHITE PROVISION A BUILDING, RESI TOWER",20868,,,,,,,,,,,,,,ATL_289
+,"1670 Defoor Ave NW, Atlanta, GA, 30318",31.8,2019,Office,1960.0,89.0,"Ballard Designs, Inc.",48645,,,,,,,,,,,,,,ATL_290
+,"1170 Howell Mill Rd NW, Atlanta, GA, 30318",55.1,2022,Mixed Use Property,,,WHITE PROVISION,141739,,,,,,,,,,,,,,ATL_291
+,"890 Chattahoochee Ave NW, Atlanta, GA, 30318",11.3,2022,Self-Storage Facility,,,1593-ATLANTA - CHATTAHOOCHEE OC - EXTRA SPACE STORAGE,67960,,,,,,,,,,,,,,ATL_292
+,"225 Baker St NW, Atlanta, GA, 30313",351.7,2019,Aquarium,2005.0,,GEORGIA AQUARIUM,604000,,,,,,,,,,,,,,ATL_293
+,"121 Baker St NW, Atlanta, GA, 30313",117.6,2022,Museum,,,GEORGIA WORLD OF COKE,132044,,,,,,,,,,,,,,ATL_294
+,"3850 Jonesboro Rd SE, Atlanta, GA, 30354",16.7,2021,Convention Center,1966.0,,ATLANTA EXPO CENTER SOUTH,201000,,,,,,,,,,,,,,ATL_295
+,"3650 Jonesboro Rd SE, Atlanta, GA, 30354",11.4,2021,Convention Center,1974.0,,Atlanta Expo Center North,161000,,,,,,,,,,,,,,ATL_296
+,"650 North Ave NE, Atlanta, GA, 30308",55.2,2022,Office,,,PONCE CITY MARKET SERVICE BUILDING,84439,,,,,,,,,,,,,,ATL_297
+,"3336 Peachtree Rd NE, Atlanta, GA, 30326",47.2,2020,Worship Facility,2007.0,20.0,BUCKHEAD CHURCH,199449,,,,,,,,,,,,,,ATL_298
+,"1800 Peachtree St NW, Atlanta, GA, 30309",21.8,2022,Office,,100.0,THE MACQUARIUM BLDG,146516,,,,,,,,,,,,,,ATL_299
+,"303 Parkway Dr NE, Atlanta, GA, 30312",228.1,2019,Hospital (General Medical & Surgical),1948.0,50.0,,552976,,,,,,,,,,,,,,ATL_300
+,"981 Howell Mill Rd NW, Atlanta, GA, 30318",82.3,2020,Other - Public Services,1980.0,,Atlanta Humane Society Howell Campus,56250,,,,,,,,,,,,,,ATL_301
+,"268 Westminster Dr NE, Atlanta, GA, 30309",6.9,2022,Self-Storage Facility,,,PUBLIC STORAGE,90138,,,,,,,,,,,,,,ATL_302
+,"134 John Wesley Dobbs Ave NE, Atlanta, GA, 30303",14.4,2021,Self-Storage Facility,2001.0,,Public Storage,56836,,,,,,,,,,,,,,ATL_303
+,"647 Donald Lee Hollowell Pkwy NW, Atlanta, GA, 30318",12.0,2022,,,,,125000,,,,,,,,,,,,,,ATL_304
+,"2115 Monroe Dr NE, Atlanta, GA, 30324",3.8,2022,Self-Storage Facility,,,PUBLIC STORAGE,192355,,,,,,,,,,,,,,ATL_305
+,"1067 Memorial Dr SE, Atlanta, GA, 30316",2.7,2022,Self-Storage Facility,,,PUBLIC STORAGE,56039,,,,,,,,,,,,,,ATL_306
+,"2519 Chantilly Dr NE, Atlanta, GA, 30324",2.2,2022,Self-Storage Facility,,,PUBLIC STORAGE,65463,,,,,,,,,,,,,,ATL_307
+,"150 Carnegie Way NW, Atlanta, GA, 30303",4.5,2022,,,,,181800,,,,,,,,,,,,,,ATL_308
+,"1506 Howell Mill Rd NW, Atlanta, GA, 30318",6.2,2022,Self-Storage Facility,,,PUBLIC STORAGE,68675,,,,,,,,,,,,,,ATL_309
+,"1387 Northside Dr NW, Atlanta, GA, 30318",2.8,2022,Self-Storage Facility,,,PUBLIC STORAGE,68329,,,,,,,,,,,,,,ATL_310
+,"180 Peachtree St NW, Atlanta, GA, 30303",627.4,2022,,,,,371748,,,,,,,,,,,,,,ATL_311
+,"1401 Marietta Blvd NW, Atlanta, GA, 30318",85.6,2021,Manufacturing/Industrial Plant,1956.0,,"Art Laminating & Finishing, LLC",62645,,,,,,,,,,,,,,ATL_312
+,"2436 Bolton Rd NW, Atlanta, GA, 30318",2.2,2022,Self-Storage Facility,,,PUBLIC STORAGE,56932,,,,,,,,,,,,,,ATL_313
+,"134 Peachtree St NW, Atlanta, GA, 30303",94.4,2022,Hotel,,24.0,RESIDENCE INN -- PEACHTREE,118800,,,,,,,,,,,,,,ATL_314
+,"2020 Peachtree Rd NE, Atlanta, GA, 30309",115.5,2021,Other - Specialty Hospital,1976.0,,SHEPARD CENTER WOODRUFF FAMILY RESIDENCE,608000,,,,,,,,,,,,,,ATL_315
+,"2020 Peachtree Rd NW, Atlanta, GA, 30309",44.5,2021,Other - Specialty Hospital,1986.0,,,479000,,,,,,,,,,,,,,ATL_316
+,"3393 Peachtree Rd NE, Atlanta, GA, 30326",15.3,2020,Parking,1959.0,,LENOX SQUARE,1596320,,,,,,,,,,,,,,ATL_317
+,"921 Howell Mill Rd NW, Atlanta, GA, 30318",64.2,2021,Other - Lodging/Residential,2003.0,,ATLANTA MISSION MY SISTER'S HOUSE,64771,,,,,,,,,,,,,,ATL_318
+,"3750 Peachtree Rd NE, Atlanta, GA, 30319",92.9,2019,Senior Care Community,1965.0,18.0,,544000,,,,,,,,,,,,,,ATL_319
+,"2353 Bolton Rd NW, Atlanta, GA, 30318",23.7,2022,Office,,94.0,ATLANTA MISSION ADMINISTRATIVE OFFICES,42000,,,,,,,,,,,,,,ATL_320
+,"1776 Peachtree St NW, Atlanta, GA, 30309",54.2,2020,Office,1963.0,,1776 PEACHTREE,229265,,,,,,,,,,,,,,ATL_321
+,"165 Centennial Olympic Park Dr NW, Atlanta, GA, 30313",78.0,2021,Other - Lodging/Residential,1988.0,,SHEPARD'S INN - CLC,30300,,,,,,,,,,,,,,ATL_322
+,"55 Marietta St NW, Atlanta, GA, 30303",262.1,2019,Mixed Use Property,1955.0,,BANK BUILDING LP,335985,,,,,,,,,,,,,,ATL_323
+,"144 Mills St NW, Atlanta, GA, 30313",40.2,2021,Other - Lodging/Residential,1988.0,,Shepard's Inn - Fuqua Hall,37800,,,,,,,,,,,,,,ATL_324
+,"3100 Northside Pkwy NW, Atlanta, GA, 30327",36.7,2019,Senior Care Community,1987.0,65.0,SAINT ANNE'S TERRACE,134000,,,,,,,,,,,,,,ATL_325
+,"501 Pulliam St SW, Atlanta, GA, 30312",94.1,2020,Office,1968.0,4.0,IBEW Local 613,50000,,,,,,,,,,,,,,ATL_326
+,"650 Ponce De Leon Ave NE, Atlanta, GA, 30308",51.2,2022,Retail Store,,79.0,MIDTOWN PLACE/ HOME DEPOT,131534,,,,,,,,,,,,,,ATL_327
+,"2581 Piedmont Rd NE, Atlanta, GA, 30324",43.1,2022,Office,,92.0,LINDBERGH PLAZA,122852,,,,,,,,,,,,,,ATL_328
+,"848 Spring St NW, Atlanta, GA, 30308",34.4,2021,Residence Hall/Dormitory,2015.0,86.0,SQUARE ON FIFTH,370419,,,,,,,,,,,,,,ATL_329
+,"835 Martin Luther King Jr Dr NW, Atlanta, GA, 30314",103.9,2021,Wholesale Club/Supercenter,2013.0,34.0,Walmart Supercenter #3008,75676,,,,,,,,,,,,,,ATL_330
+,"1801 Howell Mill Rd NW, Atlanta, GA, 30318",82.4,2022,Retail Store,,,WALMART SUPERCENTER #01-3775,306109,,,,,,,,,,,,,,ATL_331
+,"966 W Paces Ferry Rd NW, Atlanta, GA, 30327",56.2,2022,K-12 School,,48.0,PACE ACADEMY,391204,,,,,,,,,,,,,,ATL_332
+,"300 Peters St SW, Atlanta, GA, 30313",10.3,2022,Self-Storage Facility,,,U-HAUL MOVING AND STORAGE AT PETERS ST (776053),186250,,,,,,,,,,,,,,ATL_333
+,"469 Marietta St NW, Atlanta, GA, 30313",97.0,2020,Residence Hall/Dormitory,1971.0,20.0,RED SHIELD,48429,,,,,,,,,,,,,,ATL_334
+,"3376 Peachtree Rd NE, Atlanta, GA, 30326",76.3,2022,Hotel,,28.0,WALDORF ASTORIA ATLANTA BUCKHEAD,452369,,,,,,,,,,,,,,ATL_335
+,"683 Peachtree St NE, Atlanta, GA, 30308",61.4,2022,Hotel,,75.0,HOTEL INDIGO,70268,,,,,,,,,,,,,,ATL_336
+,"3050 Peachtree Rd NW, Atlanta, GA, 30305",38.8,2022,Retail Store,,78.0,RETAIL PLAZA,215000,,,,,,,,,,,,,,ATL_337
+,"261 19Th St NW, Atlanta, GA, 30363",103.6,2020,Movie Theater,2000.0,,Atlantic Station Building 1 (Stadium 16),94484,,,,,,,,,,,,,,ATL_338
+,"233 Peachtree St NE, Atlanta, GA, 30303",51.9,2022,,,80.0,,574727,,,,,,,,,,,,,,ATL_339
+,"229 Peachtree St NE, Atlanta, GA, 30303",67.1,2022,Office,,59.0,PTC - TOWER 229 INTERNATIONAL TOWER,623885,,,,,,,,,,,,,,ATL_340
+,"235 Peachtree St NE, Atlanta, GA, 30303",52.9,2022,Office,,74.0,NORTH AND SOUTH TOWER,817211,,,,,,,,,,,,,,ATL_341
+,"3500 Peachtree Rd NE, Atlanta, GA, 30326",80.6,2022,Office,,,PHIPPS PLAZA 14,54505,,,,,,,,,,,,,,ATL_342
+,"864 Spring St NW, Atlanta, GA, 30308",53.5,2022,Office,,94.0,SPRING AT 8TH STREETS LLC,832194,,,,,,,,,,,,,,ATL_343
+,"530 14Th St NW, Atlanta, GA, 30318",29.7,2019,Retail Store,1968.0,28.0,14TH STREET ANTIQUES & MODERN HOME,64000,,,,,,,,,,,,,,ATL_344
+,"165 Bailey St SW, Atlanta, GA, 30314",670.8,2019,Manufacturing/Industrial Plant,1919.0,,,157002,,,,,,,,,,,,,,ATL_345
+,"675 Ponce De Leon Ave NE, Atlanta, GA, 30308",65.4,2022,Mixed Use Property,,52.0,PONCE CITY MARKET,993880,,,,,,,,,,,,,,ATL_346
+,"800 Glenwood Ave SE, Atlanta, GA, 30316",125.8,2020,Supermarket/Grocery Store,2016.0,87.0,,120236,,,,,,,,,,,,,,ATL_347
+,"3655 Roswell Rd NE, Atlanta, GA, 30342",64.2,2022,Strip Mall,,,TUXEDO FESTIVAL,54310,,,,,,,,,,,,,,ATL_348
+,"56 Marietta St NW, Atlanta, GA, 30303",1300.5,2022,Office,,5.0,TELECOM TOWER,152618,,,,,,,,,,,,,,ATL_349
+,"967 Dewey St SW, Atlanta, GA, 30310",66.6,2020,Other - Public Services,2008.0,,KROC CENTER,51553,,,,,,,,,,,,,,ATL_350
+,"3290 Northside Pkwy NW, Atlanta, GA, 30327",54.2,2022,Office,,78.0,THE FORUM,266184,,,,,,,,,,,,,,ATL_351
+,"1085 Lindbergh Dr NE, Atlanta, GA, 30324",12.4,2022,Self-Storage Facility,,,EXTRA SPACE STORAGE - LINDBERGH,70864,,,,,,,,,,,,,,ATL_352
+,"715 Peachtree St NE, Atlanta, GA, 30308",46.4,2022,Office,,74.0,715 PEACHTREE ST,318445,,,,,,,,,,,,,,ATL_353
+,"441 16Th St NW, Atlanta, GA, 30363",42.2,2022,Retail Store,,100.0,IKEA,366000,,,,,,,,,,,,,,ATL_354
+,"2625 Piedmont Rd NE, Atlanta, GA, 30324",35.7,2022,Office,,,BUCKHEAD CROSSING - 1-42,221850,,,,,,,,,,,,,,ATL_355
+,"2452 Morosgo Way NE, Atlanta, GA, 30324",146.4,2019,Supermarket/Grocery Store,2016.0,73.0,,83730,,,,,,,,,,,,,,ATL_356
+,"817 W Peachtree St NE, Atlanta, GA, 30308",63.2,2019,Office,1924.0,66.0,,269641,,,,,,,,,,,,,,ATL_357
+,"3332 Peachtree Rd NE, Atlanta, GA, 30326",80.6,2022,Hotel,,66.0,COURTYARD ATLANTA BUCKHEAD,113856,,,,,,,,,,,,,,ATL_358
+,"3760 Princeton Lakes Pkwy SW, Atlanta, GA, 30331",93.8,2022,,,,,43968,,,,,,,,,,,,,,ATL_359
+,"1041 W Peachtree St NW, Atlanta, GA, 30309",93.4,2022,Hotel,,44.0,MARRIOTT RESIDENCE INN,60126,,,,,,,,,,,,,,ATL_360
+,"1001 Ponce De Leon Ave NE, Atlanta, GA, 30306",220.7,2021,Supermarket/Grocery Store,2001.0,48.0,PUBLIX,39716,,,,,,,,,,,,,,ATL_361
+,"125 10Th St NE, Atlanta, GA, 30309",90.9,2022,Hotel,,30.0,HYATT ATLANTA MIDTOWN,135591,,,,,,,,,,,,,,ATL_362
+,"1198 Howell Mill Rd NW, Atlanta, GA, 30318",82.6,2022,Mixed Use Property,,,WSPD-N2-1198 HOWELL MILL,31365,,,,,,,,,,,,,,ATL_363
+,"1183 Howell Mill Rd NW, Atlanta, GA, 30318",0.3,2022,Mixed Use Property,,,WESTSIDE PROVISIONS DISTRICT,34176,,,,,,,,,,,,,,ATL_364
+,"Asbury Cir, Atlanta, GA, 30322",77.5,2020,College/University,1950.0,,,70116,,,,,,,,,,,,,,ATL_365
+,"1210 Howell Mill Rd NW, Atlanta, GA, 30318",50.0,2022,Mixed Use Property,,,WSPD-N3-1210 HOWELL MILL,15766,,,,,,,,,,,,,,ATL_366
+,"3398 Piedmont Rd NE, Atlanta, GA, 30305",32.3,2019,Hotel,1988.0,100.0,HAMPTON INN ATLANTA BUCKHEAD,182000,,,,,,,,,,,,,,ATL_367
+,"384 Northyards Blvd NW, Atlanta, GA, 30313",4.9,2019,Office,1951.0,,,275854,,,,,,,,,,,,,,ATL_368
+,"3405 Lenox Rd NE, Atlanta, GA, 30326",109.4,2022,Hotel,,42.0,MARRIOTT BUCKHEAD,280555,,,,,,,,,,,,,,ATL_369
+,"431 Marietta St NW, Atlanta, GA, 30313",63.0,2022,Hotel,,87.0,HYATT HOUSE ATLANTA DOWNTOWN,112029,,,,,,,,,,,,,,ATL_370
+,"1700 Clifton Rd NE, Atlanta, GA, 30322",225.4,2020,Hospital (General Medical & Surgical),2016.0,45.0,,450000,,,,,,,,,,,,,,ATL_371
+,"1200 Howell Mill Rd NW, Atlanta, GA, 30318",66.7,2021,Other - Mall,1910.0,,,9864,,,,,,,,,,,,,,ATL_372
+,"550 Pharr Rd NE, Atlanta, GA, 30305",96.8,2022,,,35.0,,108309,,,,,,,,,,,,,,ATL_373
+,"950 W Peachtree St NW, Atlanta, GA, 30309",130.5,2022,,,,,69532,,,,,,,,,,,,,,ATL_374
+,"830 Jefferson St NW, Atlanta, GA, 30318",223.8,2019,"Repair Services (Vehicle, Shoe, Locksmith, etc.)",1974.0,,Atlanta FGA/GLI Maintenance (410026),29600,,,,,,,,,,,,,,ATL_375
+,"2866 Forrest Hills Dr SW, Atlanta, GA, 30315",5.2,2022,Self-Storage Facility,,,U-HAUL MOVING & STORAGE AT CLEVELAND AVENUE (776060),70704,,,,,,,,,,,,,,ATL_376
+,"85 Walton St NW, Atlanta, GA, 30303",66.1,2021,Hotel,1930.0,33.0,ATLANTA GA H2S/HOME2 SUITES BY HILTON,86440,,,,,,,,,,,,,,ATL_377
+,"161 Ted Turner Dr NW, Atlanta, GA, 30303",40.0,2022,Hotel,,96.0,HAMPTON INN & SUITES ATLANTA-DOWNTOWN,153900,,,,,,,,,,,,,,ATL_378
+,"479 Whitehall St SW, Atlanta, GA, 30303",12.7,2020,Other,1920.0,,Building 479,45000,,,,,,,,,,,,,,ATL_379
+,"715 Miami Cir NE, Atlanta, GA, 30324",36.9,2020,Other - Mall,1956.0,,Design Place,31600,,,,,,,,,,,,,,ATL_380
+,"176 Peachtree St NW, Atlanta, GA, 30303",115.2,2019,Hotel,1913.0,17.0,THE ELLIS HOTEL,78948,,,,,,,,,,,,,,ATL_381
+,"455 E Paces Ferry Rd NE, Atlanta, GA, 30305",59.0,2019,Office,1972.0,38.0,Paces Center,34668,,,,,,,,,,,,,,ATL_382
+,"275 Centennial Olympic Park Dr NW, Atlanta, GA, 30313",45.5,2021,Museum,2002.0,,,36000,,,,,,,,,,,,,,ATL_383
+,"950 Joseph E Lowery Blvd NW, Atlanta, GA, 30318",25.8,2022,Non-Refrigerated Warehouse,,,PURITAN MILL,32350,,,,,,,,,,,,,,ATL_384
+,"196 Montgomery Ferry Dr NE, Atlanta, GA, 30309",159.6,2020,Other - Recreation,1930.0,,Ansley Golf Club - Midtown,65000,,,,,,,,,,,,,,ATL_385
+,"3471 Atlanta Industrial Pkwy NW, Atlanta, GA, 30331",0.5,2019,Manufacturing/Industrial Plant,1986.0,,,36000,,,,,,,,,,,,,,ATL_386
+,"781 Peachtree St NE, Atlanta, GA, 30308",31.7,2022,Worship Facility,,,SAINT MARK UNITED METHODIST CHURCH,55492,,,,,,,,,,,,,,ATL_387
+,"300 Marietta St NW, Atlanta, GA, 30313",111.0,2021,Restaurant,1899.0,,"Legacy AH, LLC",33464,,,,,,,,,,,,,,ATL_388
+,"267 Marietta St NW, Atlanta, GA, 30313",97.5,2020,Hotel,1999.0,32.0,EMBASSY SUITES CENTENNIAL PARK,360333,,,,,,,,,,,,,,ATL_389
+,"255 Courtland St NE, Atlanta, GA, 30303",74.0,2022,Hotel,,73.0,HILTON ATLANTA,1170000,,,,,,,,,,,,,,ATL_390
+,"316 Peters St SW, Atlanta, GA, 30313",35.2,2020,Residence Hall/Dormitory,1900.0,85.0,Atlanta City Baptist Rescue Mission,30740,,,,,,,,,,,,,,ATL_391
+,"275 Baker St NW, Atlanta, GA, 30313",77.7,2021,Parking,2008.0,,Park Pavilion Master Condominium,207545,,,,,,,,,,,,,,ATL_392
+,"160 Ted Turner Dr NW, Atlanta, GA, 30303",90.1,2021,Hotel,1962.0,40.0,THE AMERICAN HOTEL ATLANTA DOWNTOWN,153235,,,,,,,,,,,,,,ATL_393
+,"188 14Th St NE, Atlanta, GA, 30361",261.8,2021,Hotel,2000.0,1.0,FMR. SHERATON COLONY SQ. (W HOTEL),435050,,,,,,,,,,,,,,ATL_394
+,"45 Ivan Allen Jr Blvd NW, Atlanta, GA, 30308",42.9,2021,Hotel,2009.0,89.0,W-ATLANTA DOWNTOWN,466000,,,,,,,,,,,,,,ATL_395
+,"54 Ellis St NE, Atlanta, GA, 30303",37.4,2019,Other - Public Services,1911.0,,Beers Construction,31727,,,,,,,,,,,,,,ATL_396
+,"887 Spring St NW, Atlanta, GA, 30308",437.5,2019,Bar/Nightclub,1960.0,,CHEETAH LOUNGE,19500,,,,,,,,,,,,,,ATL_397
+,"2275 Marietta Blvd NW, Atlanta, GA, 30318",115.2,2022,Non-Refrigerated Warehouse,,,MOORES MILL PHASE I,70040,,,,,,,,,,,,,,ATL_398
+,"1820 Marietta Blvd NW, Atlanta, GA, 30318",10.3,2022,Self-Storage Facility,,,CUBE SMART - STORE 543,67025,,,,,,,,,,,,,,ATL_399
+,"88 W Paces Ferry Rd NW, Atlanta, GA, 30305",59.4,2021,Hotel,2009.0,86.0,ST. REGIS,575975,,,,,,,,,,,,,,ATL_400
+,"Peachtree Rd NW, Atlanta, GA, 30305",61.3,2020,Financial Office,2007.0,76.0,REALM,33703,,,,,,,,,,,,,,ATL_401
+,"44 Broad St SW, Atlanta, GA, 30303",45.8,2019,Office,1898.0,67.0,,164352,,,,,,,,,,,,,,ATL_402
+,"3885 Jonesboro Rd SE, Atlanta, GA, 30354",42.9,2022,Retail Store,,90.0,HOME DEPOT,107328,,,,,,,,,,,,,,ATL_403
+,"3328 Peachtree Rd NE, Atlanta, GA, 30326",65.4,2019,Financial Office,2007.0,71.0,Realm,33703,,,,,,,,,,,,,,ATL_404
+,"3438 Peachtree Rd NE, Atlanta, GA, 30326",44.4,2022,Office,,85.0,PHIPPS TOWER,481246,,,,,,,,,,,,,,ATL_405
+,"1170 Peachtree St NE, Atlanta, GA, 30309",41.0,2022,Office,,80.0,THE PROSCENIUM,553482,,,,,,,,,,,,,,ATL_406
+,"578 Whitehall St SW, Atlanta, GA, 30303",6.2,2022,,,,,86465,,,,,,,,,,,,,,ATL_407
+,"2033 Monroe Dr NE, Atlanta, GA, 30324",12.3,2022,,,,,82255,,,,,,,,,,,,,,ATL_408
+,"3342 Peachtree Rd NE, Atlanta, GA, 30326",52.6,2022,Hotel,,90.0,ATLANTA BUCKHEAD GA HGI/HILTON GARDEN INN,245000,,,,,,,,,,,,,,ATL_409
+,"165 Courtland St NE, Atlanta, GA, 30303",96.4,2019,Hotel,1964.0,20.0,SHERATON HOTEL,811642,,,,,,,,,,,,,,ATL_410
+,"241 Pine St NE, Atlanta, GA, 30308",27.4,2019,Office,1993.0,85.0,,12000,,,,,,,,,,,,,,ATL_411
+,"1380 W Paces Ferry Rd NW, Atlanta, GA, 30327",72.2,2020,Office,1970.0,39.0,The Hardin Bldg,37315,,,,,,,,,,,,,,ATL_412
+,"2393 Metropolitan Pkwy SW, Atlanta, GA, 30315",7.9,2021,Wholesale Club/Supercenter,1974.0,100.0,2393 Metropolitan Pkwy Sw,36750,,,,,,,,,,,,,,ATL_413
+,"104 Harris St, Atlanta, GA, 30303",10.2,2022,,,,,26100,,,,,,,,,,,,,,ATL_414
+,"2555 Bolton Rd NW, Atlanta, GA, 30318",3.3,2019,Other,2006.0,,,66000,,,,,,,,,,,,,,ATL_415
+,"126 Mitchell St SW, Atlanta, GA, 30303",1.5,2022,,,,,26920,,,,,,,,,,,,,,ATL_416
+,"1380 Atlantic Dr NW, Atlanta, GA, 30363",95.3,2022,,,,,1184037,,,,,,,,,,,,,,ATL_417
+,"309 E Paces Ferry Rd NE, Atlanta, GA, 30305",10.1,2019,Office,2017.0,100.0,309 East Paces,104885,,,,,,,,,,,,,,ATL_418
+,"842 Peachtree St NE, Atlanta, GA, 30308",82.6,2020,Retail Store,2002.0,46.0,CVS 2943 PEACHTREE,14620,,,,,,,,,,,,,,ATL_419
+,"2770 Lenox Rd NE, Atlanta, GA, 30324",97.7,2022,Other - Lodging/Residential,,,LENOX VILLAGE APARTMENTS,32228,,,,,,,,,,,,,,ATL_420
+,"1382 W Peachtree St NW, Atlanta, GA, 30309",35.3,2019,Office,1982.0,69.0,,26681,,,,,,,,,,,,,,ATL_421
+,"680 14Th St NW, Atlanta, GA, 30318",14.0,2022,Self-Storage Facility,,,LIFE STORAGE-0407,68861,,,,,,,,,,,,,,ATL_422
+,"737 Miami Cir NE, Atlanta, GA, 30324",95.0,2019,Mixed Use Property,2014.0,,Curran Building,34000,,,,,,,,,,,,,,ATL_423
+,"727 Juniper St NE, Atlanta, GA, 30308",81.7,2019,Senior Care Community,1971.0,64.0,Lutheran Towers,143100,,,,,,,,,,,,,,ATL_424
+,"3430 Empire Blvd SW, Atlanta, GA, 30354",22.0,2022,Retail Store,,36.0,SUNBELT RENTALS INC.,38833,,,,,,,,,,,,,,ATL_425
+,"515 Garson Dr NE, Atlanta, GA, 30324",64.4,2021,Worship Facility,1977.0,7.0,Passion City Church,133900,,,,,,,,,,,,,,ATL_426
+,"468 Moreland Ave SE, Atlanta, GA, 30316",17.4,2022,Worship Facility,,,EASTSIDE CHURCH,33000,,,,,,,,,,,,,,ATL_427
+,"1365 Peachtree St NE, Atlanta, GA, 30309",77.4,2020,Hotel,1962.0,67.0,RESIDENCE INN ATLANTA MIDTOWN/PEACHTREE AT 17TH,120000,,,,,,,,,,,,,,ATL_428
+,"101 Andrew Young International Blvd NW, Atlanta, GA, 30303",84.9,2020,Hotel,1985.0,15.0,AC HOTEL,103453,,,,,,,,,,,,,,ATL_429
+,"1130 Donald Lee Hollowell Pkwy NW, Atlanta, GA, 30318",26.5,2022,,,,,141500,,,,,,,,,,,,,,ATL_430
+,"3088 Lenox Rd NE, Atlanta, GA, 30324",87.2,2021,Senior Care Community,1998.0,31.0,BRIGHTON GARDENS OF BUCKHEAD,70000,,,,,,,,,,,,,,ATL_431
+,"1000 Lenox Park Blvd NE, Atlanta, GA, 30319",81.4,2021,Senior Care Community,2000.0,40.0,SUNRISE AT BUCKHEAD,65036,,,,,,,,,,,,,,ATL_432
+,"2848 Lenox Rd NE, Atlanta, GA, 30324",40.4,2021,Senior Living Community,1998.0,85.0,Atria Buckhead,66366,,,,,,,,,,,,,,ATL_433
+,"260 Peachtree St, Atlanta, GA, 30303",76.1,2020,Office,1959.0,40.0,REGUS,272270,,,,,,,,,,,,,,ATL_434
+,"77 W Paces Ferry Rd NW, Atlanta, GA, 30305",147.5,2022,Retail Store,,,WHOLE FOODS,70251,,,,,,,,,,,,,,ATL_435
+,"540 Pharr Rd NE, Atlanta, GA, 30305",72.9,2020,Hotel,2004.0,75.0,STAYBRIDGE SUITES BUCKHEAD,62000,,,,,,,,,,,,,,ATL_436
+,"1819 Peachtree Rd NE, Atlanta, GA, 30309",68.4,2021,Office,1964.0,69.0,PEACHTREE PALISADES EAST,153403,,,,,,,,,,,,,,ATL_437
+,"1155 Peachtree St NE, Atlanta, GA, 30309",26.5,2020,Office,1987.0,93.0,CAMPANILE PLAZA,548620,,,,,,,,,,,,,,ATL_438
+,"270 Peachtree St, Atlanta, GA, 30303",74.4,2020,Office,1959.0,28.0,270 PEACHTREE,331196,,,,,,,,,,,,,,ATL_439
+,"222 Piedmont Ave NE, Atlanta, GA, 30308",23.2,2020,K-12 School,1964.0,97.0,,122145,,,,,,,,,,,,,,ATL_440
+,"680 North Ave NE, Atlanta, GA, 30308",4.2,2022,Mixed Use Property,,,PONCE CITY MARKET - F DECK,189650,,,,,,,,,,,,,,ATL_441
+,"790 Berne St SE, Atlanta, GA, 30316",10.6,2022,Other - Recreation,,,WARREN BOYS & GIRLS CLUB,50000,,,,,,,,,,,,,,ATL_442
+,"3030 Peachtree Rd NW, Atlanta, GA, 30305",101.0,2022,Retail Store,,1.0,RESTORATION HARDWARE,68000,,,,,,,,,,,,,,ATL_443
+,"3377 Peachtree Rd NE, Atlanta, GA, 30326",149.9,2020,Hotel,2008.0,5.0,W Atlanta - Buckhead,117112,,,,,,,,,,,,,,ATL_444
+,"1299 Northside Dr NW, Atlanta, GA, 30318",4.2,2021,Self-Storage Facility,2018.0,,8951- Atlanta- Northside - Extra Space Storage,82710,,,,,,,,,,,,,,ATL_445
+,"Princeton Lakes Pkwy & Camp Creek Pkwy SW, Atlanta, GA, 30331",26.6,2022,,,,,68407,,,,,,,,,,,,,,ATL_446
+,"1033 Jefferson St NW, Atlanta, GA, 30318",1747.3,2020,Data Center,1964.0,80.0,,990000,,,,,,,,,,,,,,ATL_447
+,"1575 Northside Dr NW, Atlanta, GA, 30318",49.6,2020,Office,1986.0,,Atlanta Technology Center (ATC) Building 200,38268,,,,,,,,,,,,,,ATL_448
+,"3715 Northside Pkwy NW, Atlanta, GA, 30327",35.2,2022,Office,,,NORTHCREEK OFFICE PARK BUILDING 100,133523,,,,,,,,,,,,,,ATL_449
+,"3282 Northside Pkwy NW, Atlanta, GA, 30327",85.3,2020,Office,2004.0,58.0,,42704,,,,,,,,,,,,,,ATL_450
+,"255 Ottley Dr NE, Atlanta, GA, 30324",139.1,2022,,,38.0,,52791,,,,,,,,,,,,,,ATL_451
+,"225 Ottley Dr NE, Atlanta, GA, 30324",38.2,2022,Office,,89.0,PARKSIDE @ ARMOUR,37220,,,,,,,,,,,,,,ATL_452
+,"120 Ottley Dr NE, Atlanta, GA, 30324",49.6,2022,Non-Refrigerated Warehouse,,81.0,ARMOUR YARDS,43615,,,,,,,,,,,,,,ATL_453
+,"165 Ottley Dr NE, Atlanta, GA, 30324",96.4,2022,,,42.0,,53153,,,,,,,,,,,,,,ATL_454
+,"1484 Northside Dr NW, Atlanta, GA, 30318",11.4,2022,,,,,258180,,,,,,,,,,,,,,ATL_455
+,"960 E Paces Ferry Rd NE, Atlanta, GA, 30326",27.8,2020,Office,2004.0,94.0,BUCKHEAD 960,342058,,,,,,,,,,,,,,ATL_456
+,"756 W Peachtree St NW, Atlanta, GA, 30308",71.7,2022,Office,,79.0,CODA-756 WEST PEACHTREE ST.,664246,,,,,,,,,,,,,,ATL_457
+,"1073 W Peachtree St NE, Atlanta, GA, 30309",151.0,2021,Office,1969.0,1.0,,35000,,,,,,,,,,,,,,ATL_458
+,"54 Peachtree St SW, Atlanta, GA, 30303",45.5,2022,Hotel,,95.0,FAIRFIELD INN,156474,,,,,,,,,,,,,,ATL_459
+,"642 Northside Dr NW, Atlanta, GA, 30318",35.7,2020,Worship Facility,1980.0,33.0,Graces Church Midtown,25803,,,,,,,,,,,,,,ATL_460
+,"486 Decatur St SE, Atlanta, GA, 30312",7.9,2022,Self-Storage Facility,,,LIFE STORAGE-0778,100985,,,,,,,,,,,,,,ATL_461
+,"3312 Piedmont Rd NE, Atlanta, GA, 30305",48.1,2021,Hotel,1980.0,70.0,ATLANTA BUCKHEAD HAMPTON INN & SUITES,135934,,,,,,,,,,,,,,ATL_462
+,"3315 Peachtree Rd NE, Atlanta, GA, 30326",120.7,2020,Hotel,2004.0,,INTERCONTINENTAL BUCKHEAD,381000,,,,,,,,,,,,,,ATL_463
+,"311 Courtland St NE, Atlanta, GA, 30303",25.7,2022,Hotel,,99.0,MOTEL 6,52426,,,,,,,,,,,,,,ATL_464
+,"675 W Peachtree St NW, Atlanta, GA, 30308",62.2,2020,Office,2000.0,65.0,SOUTHERN BELL TOWER,1524892,,,,,,,,,,,,,,ATL_465
+,"1175 Chattahoochee Ave NW, Atlanta, GA, 30318",13.9,2020,Office,2017.0,,,110161,,,,,,,,,,,,,,ATL_466
+,"3760 Southside Industrial Pkwy SE, Atlanta, GA, 30354",62.9,2021,Manufacturing/Industrial Plant,1989.0,,,187134,,,,,,,,,,,,,,ATL_467
+,"767 Trabert Ave NW, Atlanta, GA, 30318",6.8,2022,,,,,44272,,,,,,,,,,,,,,ATL_468
+,"300 Ted Turner Dr NW, Atlanta, GA, 30308",59.0,2022,Hotel,,87.0,ALOFT ATLANTA DOWNTOWN - 300 TED TURNER DR,136100,,,,,,,,,,,,,,ATL_469
+,"1240 Menlo Dr NW, Atlanta, GA, 30318",11.7,2020,Office,2018.0,,,78814,,,,,,,,,,,,,,ATL_470
+,"723 Lake Ave NE, Atlanta, GA, 30307",263.9,2020,Food Service,1900.0,,KROG STREET MARKET,41464,,,,,,,,,,,,,,ATL_471
+,"590 Means St NW, Atlanta, GA, 30318",31.8,2022,Office,,77.0,590 MEANS STREET,36122,,,,,,,,,,,,,,ATL_472
+,"650 Phipps Blvd NE, Atlanta, GA, 30326",43.5,2021,Senior Living Community,2005.0,70.0,THE PIEDMONT BUCKHEAD,296000,,,,,,,,,,,,,,ATL_473
+,"530 Means St NW, Atlanta, GA, 30318",44.6,2022,Non-Refrigerated Warehouse,,82.0,CARRIAGE WORKS,102858,,,,,,,,,,,,,,ATL_474
+,"3223 Howell Mill Rd NW, Atlanta, GA, 30327",57.7,2022,,,55.0,,70000,,,,,,,,,,,,,,ATL_475
+,"563 Spring St NW, Atlanta, GA, 30308",20.1,2020,Office,1920.0,94.0,,24000,,,,,,,,,,,,,,ATL_476
+,"1589 Peachtree St NE, Atlanta, GA, 30309",68.2,2022,Worship Facility,,,THE TEMPLE,90000,,,,,,,,,,,,,,ATL_477
+,"230 John Wesley Dobbs Ave NE, Atlanta, GA, 30303",65.7,2022,Office,,63.0,UNITED FAMILY LIFE BLDG,87500,,,,,,,,,,,,,,ATL_478
+,"621 North Ave NE, Atlanta, GA, 30308",27.7,2022,,,,,79960,,,,,,,,,,,,,,ATL_479
+,"350 Boulevard SE, Atlanta, GA, 30312",176.6,2020,Senior Living Community,1974.0,70.0,A G Rhodes Rehab Center,61808,,,,,,,,,,,,,,ATL_480
+,"75 Bennett St NW, Atlanta, GA, 30309",1.8,2020,Performing Arts,1953.0,,TULA Arts Center,48172,,,,,,,,,,,,,,ATL_481
+,"3167 Peachtree Rd NE, Atlanta, GA, 30305",57.5,2021,Other - Mall,1960.0,,BUCKHEAD EXCHANGE,44125,,,,,,,,,,,,,,ATL_482
+,"35 14Th St NW, Atlanta, GA, 30309",57.6,2021,Hotel,1990.0,88.0,ATLANTA MARRIOTT SUITES MIDTOWN,342000,,,,,,,,,,,,,,ATL_483
+,"555 Luckie St NW, Atlanta, GA, 30313",88.4,2021,Pre-school/Daycare,1998.0,,Arthur M. Blank Family Youth YMCA,25824,,,,,,,,,,,,,,ATL_484
+,"275 Eva Davis Way SE, Atlanta, GA, 30317",98.7,2021,Fitness Center/Health Club/Gym,2001.0,,,60840,,,,,,,,,,,,,,ATL_485
+,"1160 Moores Mill Rd NW, Atlanta, GA, 30327",110.2,2021,Fitness Center/Health Club/Gym,2000.0,,Carl E. Sanders Family YMCA at Buckhead,48575,,,,,,,,,,,,,,ATL_486
+,"1320 Monroe Dr NE, Atlanta, GA, 30306",45.2,2021,Drinking Water Treatment & Distribution,2005.0,,WW-Clear Creek CSO,38160,,,,,,,,,,,,,,ATL_487
+,"1375 Peachtree St NE, Atlanta, GA, 30309",36.8,2021,Office,1960.0,81.0,PERSHING POINT PLAZA,410357,,,,,,,,,,,,,,ATL_488
+,"2061 Peachtree Rd NE, Atlanta, GA, 30309",93.8,2022,Office,,87.0,2061 PEACHTREE,51038,,,,,,,,,,,,,,ATL_489
+,"746 Willoughby Way NE, Atlanta, GA, 30312",4.8,2022,Office,,,746 WILLOUGHBY OFFICES,58547,,,,,,,,,,,,,,ATL_490
+,"3035 Peachtree Rd NE, Atlanta, GA, 30305",33.7,2022,,,84.0,,607229,,,,,,,,,,,,,,ATL_491
+,"569 Martin Luther King Jr Dr NW, Atlanta, GA, 30314",35.9,2021,Office,2019.0,80.0,YMCA,54400,,,,,,,,,,,,,,ATL_492
+,"53 14Th St NE, Atlanta, GA, 30309",48.3,2022,,,99.0,,163458,,,,,,,,,,,,,,ATL_493
+,"760 Pollard Blvd SW, Atlanta, GA, 30315",57.5,2021,Residential Care Facility,1973.0,,,53100,,,,,,,,,,,,,,ATL_494
+,"3885 Princeton Lakes Way SW, Atlanta, GA, 30331",27.5,2021,Medical Office,2000.0,90.0,Bldg II,40373,,,,,,,,,,,,,,ATL_495
+,"3645 Southside Industrial Pkwy SE, Atlanta, GA, 30354",149.0,2022,,,1.0,,76000,,,,,,,,,,,,,,ATL_496
+,"3655 Southside Industrial Pkwy SE, Atlanta, GA, 30354",57.5,2021,Distribution Center,1988.0,2.0,,115200,,,,,,,,,,,,,,ATL_497
+,"2115 Faulkner Rd NE, Atlanta, GA, 30324",2.7,2022,,,99.0,,50000,,,,,,,,,,,,,,ATL_498
+,"905 Memorial Dr SE, Atlanta, GA, 30316",6.7,2021,Strip Mall,2019.0,,MADISON YARDS REDEVELOPMENT-WHITEBOX,150677,,,,,,,,,,,,,,ATL_499
+,"2241 Faulkner Rd NE, Atlanta, GA, 30324",12.4,2022,,,69.0,,70800,,,,,,,,,,,,,,ATL_500
+,"800 Spring St NW, Atlanta, GA, 30308",127.0,2022,,,1.0,,205000,,,,,,,,,,,,,,ATL_501
+,"248 Chester Ave SE, Atlanta, GA, 30316",38.1,2022,Office,,58.0,AT&T,35383,,,,,,,,,,,,,,ATL_502
+,"975 Memorial Dr SE, Atlanta, GA, 30316",114.3,2022,,,,,35000,,,,,,,,,,,,,,ATL_503
+,"56 E Andrews Dr NW, Atlanta, GA, 30305",44.5,2022,Strip Mall,,,ANDREWS SQUARE,57379,,,,,,,,,,,,,,ATL_504
+,"1414 W Peachtree St NW, Atlanta, GA, 30309",123.1,2022,Hotel,,20.0,CANOPY BY HILTON,106309,,,,,,,,,,,,,,ATL_505
+,"1600 Peachtree St NE, Atlanta, GA, 30309",120.6,2021,College/University,1956.0,,SAVANNAH COLLEGE OF ART AND DESIGN - 1600 PEACHTREE,312000,,,,,,,,,,,,,,ATL_506
+,"1611 W Peachtree St NE, Atlanta, GA, 30309",111.3,2021,College/University,1996.0,,,60000,,,,,,,,,,,,,,ATL_507
+,"40 Scad Way NW, Atlanta, GA, 30309",34.0,2021,College/University,2019.0,,,183000,,,,,,,,,,,,,,ATL_508
+,"3566 Piedmont Rd NE, Atlanta, GA, 30305",69.7,2022,Hotel,,76.0,HOMEWOOD SUITES,66301,,,,,,,,,,,,,,ATL_509
+,"1990 Perkerson Rd SW, Atlanta, GA, 30310",0.9,2021,Worship Facility,1980.0,100.0,,32000,,,,,,,,,,,,,,ATL_510
+,"3886 Princeton Lakes Way SW, Atlanta, GA, 30331",12.2,2021,Medical Office,2000.0,100.0,Bldg III,30405,,,,,,,,,,,,,,ATL_511
+,"739 W Peachtree St NW, Atlanta, GA, 30308",28.0,2022,Office,,89.0,CENTER FOR THE VISUALLY IMPAIRED,50000,,,,,,,,,,,,,,ATL_512
+,"658 Lindbergh Dr NE, Atlanta, GA, 30324",454.2,2021,Parking,2017.0,,LINDVIEW APARTMENT,12000,,,,,,,,,,,,,,ATL_513
+,"260 University Ave SW, Atlanta, GA, 30315",40.8,2022,,,68.0,,25500,,,,,,,,,,,,,,ATL_514
+,"3906 Roswell Rd NE, Atlanta, GA, 30342",27.8,2021,Strip Mall,1994.0,,,41000,,,,,,,,,,,,,,ATL_515
+,"653 Beckwith St SW, Atlanta, GA, 30314",7.9,2022,,,,,89280,,,,,,,,,,,,,,ATL_516
+,"2161 Moreland Ave SE, Atlanta, GA, 30315",13.5,2022,,,63.0,,25000,,,,,,,,,,,,,,ATL_517
+,"189 Merritts Ave NW, Atlanta, GA, 30313",61.2,2021,Office,1936.0,28.0,,8600,,,,,,,,,,,,,,ATL_518
+,"1440 Dutch Valley Pl NE, Atlanta, GA, 30324",41.7,2022,Office,,75.0,PARKSIDE PIEDMONT,58000,,,,,,,,,,,,,,ATL_519
+,"1438 W Peachtree St NW, Atlanta, GA, 30309",53.3,2022,,,76.0,,42750,,,,,,,,,,,,,,ATL_520
+,"1401 Peachtree St NE, Atlanta, GA, 30309",44.6,2022,Office,,58.0,MIDTOWN OFFICE,97000,,,,,,,,,,,,,,ATL_521
+,"160 Trinity Ave SW, Atlanta, GA, 30303",39.8,2021,Office,1970.0,75.0,The Trinity-Pryor Building,57480,,,,,,,,,,,,,,ATL_522
+,"1659 Briarcliff Rd NE, Atlanta, GA, 30306",18.6,2021,Residence Hall/Dormitory,2009.0,97.0,Campus Crossings Briarcliff,285799,,,,,,,,,,,,,,ATL_523
+,"2450 Paces Ferry Rd SE, Atlanta, GA, 30339",61.6,2022,,,45.0,,68276,,,,,,,,,,,,,,ATL_524
+,"4771 S Atlanta Rd SE, Atlanta, GA, 30339",7.9,2022,,,,,57215,,,,,,,,,,,,,,ATL_525
+,"3595 Cumberland Blvd SE, Atlanta, GA, 30339",62.1,2022,,,53.0,,107542,,,,,,,,,,,,,,ATL_526
+,"1494 Ellsworth Industrial Blvd NW, Atlanta, GA, 30318",31.2,2022,,,,,32183,,,,,,,,,,,,,,ATL_527
+,,75.0,2022,,,,,708,,,,,,,,,,,,,,ATL_528
+,"1510 Ellsworth Industrial Blvd NW, Atlanta, GA, 30318",34.1,2022,Non-Refrigerated Warehouse,,78.0,ELLSWORTH,48790,,,,,,,,,,,,,,ATL_529
+,"1236 Menlo Dr NW, Atlanta, GA, 30318",12.5,2022,,,,,40969,,,,,,,,,,,,,,ATL_530
+,"3350 Riverwood Pkwy SE, Atlanta, GA, 30339",40.9,2022,,,86.0,,551886,,,,,,,,,,,,,,ATL_531
+,"1875 Century Blvd NE, Atlanta, GA, 30345",52.2,2022,,,65.0,,107440,,,,,,,,,,,,,,ATL_532
+,"1900 Century Blvd NE, Atlanta, GA, 30345",4.0,2022,,,,,79556,,,,,,,,,,,,,,ATL_533
+,"2200 Century Pkwy NE, Atlanta, GA, 30345",42.8,2022,,,75.0,,158400,,,,,,,,,,,,,,ATL_534
+,"2635 Century Pkwy NE, Atlanta, GA, 30345",33.1,2022,,,88.0,,231757,,,,,,,,,,,,,,ATL_535
+,"2400 Century Pkwy NE, Atlanta, GA, 30345",38.9,2022,,,85.0,,141866,,,,,,,,,,,,,,ATL_536
+,"2600 Century Pkwy NE, Atlanta, GA, 30345",82.8,2022,,,35.0,,106848,,,,,,,,,,,,,,ATL_537
+,"2800 Century Pkwy NE, Atlanta, GA, 30345",37.1,2022,,,75.0,,231757,,,,,,,,,,,,,,ATL_538
+,"2987 Clairmont Rd NE, Brookhaven, GA, 30329",37.4,2022,,,,,109960,,,,,,,,,,,,,,ATL_539
+,"2957 Clairmont Rd NE, Brookhaven, GA, 30329",70.1,2022,,,50.0,,100990,,,,,,,,,,,,,,ATL_540
+,"1800 Century Blvd NE, Atlanta, GA, 30345",46.5,2022,,,62.0,,309296,,,,,,,,,,,,,,ATL_541
+,"2500 Century Pkwy NE, Atlanta, GA, 30345",37.3,2022,,,85.0,,120530,,,,,,,,,,,,,,ATL_542
+,"10 Glenlake Pkwy, Atlanta, GA, 30328",60.4,2022,,,54.0,,252652,,,,,,,,,,,,,,ATL_543
+,"1825 Century Blvd NE, Atlanta, GA, 30345",41.3,2022,,,83.0,,104020,,,,,,,,,,,,,,ATL_544
+,"1740 Century Cir NE, Atlanta, GA, 30345",32.4,2022,,,76.0,,26553,,,,,,,,,,,,,,ATL_545
+,"3300 Riverwood Pkwy SE, Atlanta, GA, 30339",34.6,2022,,,94.0,,359488,,,,,,,,,,,,,,ATL_546
+,"100 Peachtree St NW, Ste 1810, ATLANTA",49.8,2022,Office,,74.0,100 PEACHTREE,700246,,,,,,,,,,,,,,ATL_547
+,"945 E Paces Ferry Rd NE, Ste 150, ATLANTA",39.8,2022,Office,,87.0,RESURGENS PLAZA,438580,,,,,,,,,,,,,,ATL_548
+,"3931 Peachtree Rd NE, Brookhaven, GA, 30319",117.5,2022,,,4.0,,51429,,,,,,,,,,,,,,ATL_549
+,"1197 Peachtree St NE, Atlanta, GA, 30361",62.5,2022,Office,,,100 COLONY SQUARE,189745,,,,,,,,,,,,,,ATL_550
+,"4350 International Pkwy, Atlanta, GA, 30354",28.7,2022,,,40.0,,148000,,,,,,,,,,,,,,ATL_551
+,"4380 International Pkwy, Atlanta, GA, 30354",15.0,2022,,,58.0,,288000,,,,,,,,,,,,,,ATL_552
+,"3700 Southside Industrial Way SE, Atlanta, GA, 30354",9.1,2022,,,80.0,,402554,,,,,,,,,,,,,,ATL_553
+,"4099 Old Dixie Hwy, Bldg 1, ATLANTA",17.7,2022,,,48.0,,167685,,,,,,,,,,,,,,ATL_554
+,"4099 Old Dixie Hwy, Bldg 2, ATLANTA",12.9,2022,,,66.0,,229904,,,,,,,,,,,,,,ATL_555
+,"6021 Greensboro Dr SW, Atlanta, GA, 30336",6.8,2022,,,88.0,,402952,,,,,,,,,,,,,,ATL_556
+,"3710 Atlanta Industrial Pkwy NW, Atlanta, GA, 30331",34.6,2022,,,30.0,,443800,,,,,,,,,,,,,,ATL_557
+,"3610 Atlanta Industrial Dr NW, Atlanta, GA, 30331",11.2,2022,,,81.0,,122920,,,,,,,,,,,,,,ATL_558
+,"1221 Peachtree St NE, Atlanta, GA, 30309",43.0,2022,Office,,75.0,500 COLONY SQUARE,149826,,,,,,,,,,,,,,ATL_559
+,"6300 Boat Rock Blvd SW, Atlanta, GA, 30336",8.6,2022,,,85.0,,292310,,,,,,,,,,,,,,ATL_560
+,"7575 Ponce De Leon Cir, Atlanta, GA, 30340",2.2,2022,,,99.0,,201440,,,,,,,,,,,,,,ATL_561
+,"3475 International Park Dr SE, Atlanta, GA, 30316",7.0,2022,,,89.0,,549374,,,,,,,,,,,,,,ATL_562
+,"4475 S Fulton Pkwy, Atlanta, GA, 30349",24.5,2022,,,12.0,,1000000,,,,,,,,,,,,,,ATL_563
+,"3655 Atlanta Industrial Dr NW, Atlanta, GA, 30331",15.4,2022,,,57.0,,415103,,,,,,,,,,,,,,ATL_564
+,"5350 Hunter Rd, Atlanta, GA, 30349",22.8,2022,,,37.0,,320000,,,,,,,,,,,,,,ATL_565
+,"1279 Seaboard Industrial Blvd NW, Atlanta, GA, 30318",57.1,2022,,,,,26482,,,,,,,,,,,,,,ATL_566
+,"1345 Seaboard Industrial Blvd NW, Atlanta, GA, 30318",20.8,2022,,,,,26951,,,,,,,,,,,,,,ATL_567
+,"1289 Seaboard Industrial Blvd NW, Atlanta, GA, 30318",34.6,2022,,,,,48215,,,,,,,,,,,,,,ATL_568
+,"152 Luckie St NW, Atlanta, GA, 30303",137.8,2022,Performing Arts,,,TABERNACLE,27724,,,,,,,,,,,,,,ATL_569
+,"1410 Seaboard Industrial Blvd NW, Atlanta, GA, 30318",43.2,2022,,,,,50626,,,,,,,,,,,,,,ATL_570
+,"3755 Atlanta Industrial Pkwy NW, Atlanta, GA, 30331",48.9,2022,,,4.0,,403285,,,,,,,,,,,,,,ATL_571
+,"3755 Carmia Dr SW, Atlanta, GA, 30331",3.8,2022,,,,,196283,,,,,,,,,,,,,,ATL_572
+,"740 W Peachtree St NW, Atlanta, GA, 30308",28.6,2022,Office,,93.0,ANTHEM TECHNOLOGY CENTER,640339,,,,,,,,,,,,,,ATL_573
+,"1280 Caroline St NE, Atlanta, GA, 30307",40.3,2022,,,86.0,,132718,,,,,,,,,,,,,,ATL_574
+,"1168 Howell Mill Rd NW, Atlanta, GA, 30318",81.7,2022,Mixed Use Property,,11.0,WHITE PROVISION,8654,,,,,,,,,,,,,,ATL_575
+,"6150 Xavier Dr SW, Atlanta, GA, 30336",54.6,2022,,,28.0,,601617,,,,,,,,,,,,,,ATL_576
+,"1375 Northside Dr NW, Atlanta, GA, 30318",90.5,2022,Hotel,,88.0,INTOWN SUITES,35528,,,,,,,,,,,,,,ATL_577
+,"3300 Lakewood Ave SW, Atlanta, GA, 30310",29.7,2022,,,83.0,,183534,,,,,,,,,,,,,,ATL_578
+,"500 John F Varley Ct SW, Atlanta, GA, 30336",50.9,2022,,,71.0,,158714,,,,,,,,,,,,,,ATL_579
+,"1740 Westgate Pkwy SW, Atlanta, GA, 30336",107.8,2022,,,35.0,,431084,,,,,,,,,,,,,,ATL_580
+,"6500 Trade Water Pkwy SW, Atlanta, GA, 30336",58.8,2022,,,63.0,,455605,,,,,,,,,,,,,,ATL_581
+,"1200 Howell Mill Rd, Atlanta, GA, 30318",73.2,2022,,,,,9864,,,,,,,,,,,,,,ATL_582
+,"1845 Westgate Pkwy SW, Atlanta, GA, 30336",53.0,2022,,,69.0,,262835,,,,,,,,,,,,,,ATL_583
+,"590 W Peachtree St NW, Atlanta, GA, 30308",79.6,2022,Hotel,,33.0,CROWNE PLAZA ATLANTA - MIDTOWN HOTEL,413000,,,,,,,,,,,,,,ATL_584
+,"1231 W Peachtree St NW, Atlanta, GA, 30309",44.6,2022,Hotel,,97.0,HAMPTON INN & SUITES,168246,,,,,,,,,,,,,,ATL_585
+,"2 Concourse Pkwy, Atlanta, GA, 30328",62.7,2022,,,81.0,,306661,,,,,,,,,,,,,,ATL_586
+,"1 Concourse Pkwy, Atlanta, GA, 30328",53.3,2022,,,85.0,,303659,,,,,,,,,,,,,,ATL_587
+,"4 Concourse Pkwy, Atlanta, GA, 30328",29.7,2022,,,91.0,,235487,,,,,,,,,,,,,,ATL_588
+,"239 Ivan Allen Jr Blvd NW, Atlanta, GA, 30313",43.3,2022,,,98.0,,144520,,,,,,,,,,,,,,ATL_589
+,"3491 Piedmont Rd NE, Atlanta, GA, 30305",50.8,2022,Hotel,,95.0,ELEMENT BY WESTIN,97509,,,,,,,,,,,,,,ATL_590
+,"89 Centennial Olympic Park Dr NW, Atlanta, GA, 30313",59.8,2022,Hotel,,72.0,REVERB BY HARD ROCK,141677,,,,,,,,,,,,,,ATL_591
+,"2952 Cobb Pkwy SE, Atlanta, GA, 30339",73.0,2022,,,51.0,,30000,,,,,,,,,,,,,,ATL_592
+,"120 Perimeter Ctr W, Ste 300, ATLANTA",66.9,2022,,,48.0,,27000,,,,,,,,,,,,,,ATL_593
+,"97 10Th St NW, Atlanta, GA, 30309",48.7,2022,Hotel,,95.0,HILTON GARDEN INN & HOMEWOOD SUITES,250747,,,,,,,,,,,,,,ATL_594
+,"725 Ponce De Leon Ave NE, Atlanta, GA, 30306",42.1,2022,,,96.0,,390847,,,,,,,,,,,,,,ATL_595
+,"1212 Huff Rd NW, Atlanta, GA, 30318",76.0,2022,,,1.0,,26120,,,,,,,,,,,,,,ATL_596
+,"1200 Peachtree St NE, Atlanta, GA, 30309",27.7,2022,Office,,,PROMENADE CENTRAL,425486,,,,,,,,,,,,,,ATL_597
+,"8115 Roswell Rd, Atlanta, GA, 30350",16.7,2022,,,,,41515,,,,,,,,,,,,,,ATL_598
+,"8773 Dunwoody Pl, Atlanta, GA, 30350",7.9,2022,,,,,82512,,,,,,,,,,,,,,ATL_599
+,"56 Peachtree Valley Rd NE, Atlanta, GA, 30309",15.1,2022,,,,,86695,,,,,,,,,,,,,,ATL_600
+,"127 Peachtree St NE, Atlanta, GA, 30303",64.2,2022,,,81.0,,216288,,,,,,,,,,,,,,ATL_601
+,"1695 Marietta Blvd NW, Atlanta, GA, 30318",52.0,2022,Performing Arts,,,ATLANTA BALLET HEADQUARTERS,52474,,,,,,,,,,,,,,ATL_602
+,"1500 Northside Dr NW, Atlanta, GA, 30318",36.1,2022,Retail Store,,,MYERS FLOORING OF ATLANTA,38200,,,,,,,,,,,,,,ATL_603
+,"760 Doug Davis Dr, Atlanta, GA, 30354",621.6,2022,,,,,334306,,,,,,,,,,,,,,ATL_604
+,"3193 Howell Mill Rd NW, Atlanta, GA, 30327",112.2,2022,Strip Mall,,,PACES PAVILION,87451,,,,,,,,,,,,,,ATL_605
+,"8 Corporate Blvd NE, Brookhaven, GA, 30329",39.0,2022,,,83.0,,157152,,,,,,,,,,,,,,ATL_606
+,"1 Corporate Blvd NE, Brookhaven, GA, 30329",46.9,2022,,,76.0,,39853,,,,,,,,,,,,,,ATL_607
+,"11 Corporate Blvd NE, Brookhaven, GA, 30329",32.6,2022,,,91.0,,90565,,,,,,,,,,,,,,ATL_608
+,"12 Corporate Blvd NE, Brookhaven, GA, 30329",50.9,2022,,,79.0,,101404,,,,,,,,,,,,,,ATL_609
+,"725 W Peachtree St NE, Atlanta, GA, 30308",154.3,2022,Office,,3.0,RDG71,296538,,,,,,,,,,,,,,ATL_610
+,"4715 Frederick Dr SW, Atlanta, GA, 30336",35.7,2022,,,87.0,,52500,,,,,,,,,,,,,,ATL_611
+,"3799 Browns Mill Rd SE, Atlanta, GA, 30354",4.6,2022,,,,,35000,,,,,,,,,,,,,,ATL_612
+,"87 Walton St NW, Atlanta, GA, 30303",59.1,2022,Hotel,,79.0,ATLANTA GA H2S/HOME2 SUITES BY HILTON,86440,,,,,,,,,,,,,,ATL_613
+,"866 W Peachtree St NW, Atlanta, GA, 30308",69.0,2022,Hotel,,70.0,RENAISSANCE HOTEL,244504,,,,,,,,,,,,,,ATL_614
+,"780 Johnson Ferry Rd, Atlanta, GA, 30342",65.4,2022,,,67.0,,198850,,,,,,,,,,,,,,ATL_615
+,"532 E Paces Ferry Rd NE, Atlanta, GA, 30305",64.0,2022,Office,,24.0,"HARRY NORMAN, JR. BLDG",32000,,,,,,,,,,,,,,ATL_616
+,"201 Wharton Cir SW, Atlanta, GA, 30336",4.6,2022,,,100.0,,64100,,,,,,,,,,,,,,ATL_617
+,"1302 W Peachtree St NW, Atlanta, GA, 30309",72.9,2022,Hotel,,64.0,ARTMORE HOTEL,45276,,,,,,,,,,,,,,ATL_618
+,"200 S University Blvd, Denver, CO, 80209",28.2,2022,,,32.0,,55000,,,,,,,,,,,,,,ATL_619
+,"100 Luckie St NW, Atlanta, GA, 30303",8.9,2022,,,,,46538,,,,,,,,,,,,,,ATL_620
+,"104 Luckie St NW, Atlanta, GA, 30303",4.4,2022,,,,,89600,,,,,,,,,,,,,,ATL_621
+,"102 Cone St NW, Atlanta, GA, 30303",3.3,2022,Parking,,,102 CONE STREET PARKING GARAGE,69690,,,,,,,,,,,,,,ATL_622
+,"1 Monroe Pl NE, Atlanta, GA, 30324",145.7,2022,Office,,3.0,WATL-TV CHANNEL 36,67000,,,,,,,,,,,,,,ATL_623
+,"126 Hemlock St, Fort Collins, CO, 80524",89.4,2022,,,5.0,,7500,,,,,,,,,,,,,,ATL_624
+,"2975 Headland Dr SW, Atlanta, GA, 30311",0.1,2022,Strip Mall,,100.0,GREENBRIAR MARKET PLACE,140222,,,,,,,,,,,,,,ATL_625
+,"3376 Peachtree Rd NE, #30326, ATLANTA",115.1,2022,Hotel,,3.0,WALDORF ASTORIA ATLANTA BUCKHEAD,191578,,,,,,,,,,,,,,ATL_626
+,"1440 Spring St NW, Atlanta, GA, 30309",61.9,2022,,,49.0,,37063,,,,,,,,,,,,,,ATL_627
+,"3423 Piedmont Rd NE, Atlanta, GA, 30305",62.9,2022,Office,,53.0,ATLANTA TECH VILLAGE,116875,,,,,,,,,,,,,,ATL_628
+,"1032 Research Center Atlanta Dr SW, Atlanta, GA, 30331",34.3,2022,Retail Store,,95.0,HOME DEPOT,131689,,,,,,,,,,,,,,ATL_629
+,"3101 Cobb Pkwy SE, Ste 201, ATLANTA",102.8,2022,Office,,,PHIPPS PLAZA 14,60305,,,,,,,,,,,,,,ATL_630
