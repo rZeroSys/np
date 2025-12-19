@@ -4268,7 +4268,7 @@ tr.pin-highlight {
 
       window.refreshLeaderboard = async function(){{
         try {{
-          await firebase.firestore().enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
+          if (window.db) await window.db.enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
           btn.disabled = true;
           btn.textContent = 'Refreshing...';
 
@@ -4898,7 +4898,7 @@ tr.pin-highlight {
     </div>
     <div style="padding: 12px 20px; display: flex; align-items: center; gap: 8px;">
         <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-        <span class="info-tooltip" data-tooltip="Search for a specific building by entering its address. Select from the suggested addresses that appear below to navigate directly to that building on the map.">i</span>
+        <span class="info-tooltip tooltip-right" data-tooltip="Search for a specific building by entering its address. Select from the suggested addresses that appear below to navigate directly to that building on the map.">i</span>
     </div>
     <div id="full-map"></div>
     <div class="climate-legend">
