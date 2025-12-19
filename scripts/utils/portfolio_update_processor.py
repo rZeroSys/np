@@ -25,7 +25,7 @@ from pathlib import Path
 
 # File paths
 API_RESEARCH_DIR = Path("/Users/forrestmiller/Desktop/api_research")
-PROSPECTOR_DIR = Path("/Users/forrestmiller/Desktop/nationwide-prospector/data/source")
+PROSPECTOR_DIR = Path("../data/source")
 
 VERIFIED_FINDINGS_PATH = API_RESEARCH_DIR / "verified_findings.csv"
 RESEARCH_RESULTS_PATH = API_RESEARCH_DIR / "research_results.csv"

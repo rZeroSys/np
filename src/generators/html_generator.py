@@ -6687,7 +6687,6 @@ let searchMarkers = [];
 let selectedAddressLocation = null;
 const SEARCH_RADIUS_METERS = 61; // 200 feet in meters
 
-// Setup Google Places Autocomplete - simple like /Users/forrestmiller/Desktop/index.html
 function setupAddressSearch() {{
     const input = document.getElementById('addressAutocomplete');
     if (!input) return;

@@ -6,7 +6,7 @@ import pytesseract
 from datetime import datetime
 
 # Paths
-csv_file = "/Users/forrestmiller/Desktop/image analysis/portfolio_data.csv"
+csv_file = "../data/source/portfolio_data.csv"
 images_dir = "/Users/forrestmiller/Desktop/nationwide-prospector/assets/images"
 results_file = "/Users/forrestmiller/Desktop/image analysis/ocr_results.csv"
 

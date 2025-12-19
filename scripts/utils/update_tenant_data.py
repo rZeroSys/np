@@ -7,8 +7,8 @@ import csv
 from pathlib import Path
 
 MATCHES_PATH = Path("/Users/forrestmiller/Desktop/new data/matched_buildings.csv")
-PORTFOLIO_PATH = Path("/Users/forrestmiller/Desktop/nationwide-prospector/data/source/portfolio_data.csv")
-BUILDINGS_PATH = Path("/Users/forrestmiller/Desktop/nationwide-prospector/data/source/buildings_tab_data.csv")
+PORTFOLIO_PATH = Path("../data/source/portfolio_data.csv")
+BUILDINGS_PATH = Path("../data/source/buildings_tab_data.csv")
 
 # Only update high-confidence matches
 MIN_CONFIDENCE = 0.7
