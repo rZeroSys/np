@@ -232,7 +232,38 @@
         .section h2 {
             position: relative;
             cursor: pointer;
-            padding-right: 35px;
+            padding-right: 70px;
+        }
+
+        /* Share link button */
+        .share-link {
+            position: absolute;
+            top: 50%;
+            right: 35px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--text-light);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease, color 0.2s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .section h2:hover .share-link,
+        .share-link:focus {
+            opacity: 1;
+        }
+        .share-link:hover {
+            color: var(--rzero-primary);
+            background: rgba(0, 102, 204, 0.08);
+        }
+        .share-link.copied {
+            color: #059669;
+        }
+        .share-link.copied::after {
+            content: ' Copied!';
+            font-size: 12px;
+            font-weight: 500;
         }
 
     </style>
@@ -687,6 +718,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const header = section.querySelector('h2');
         if (!header) return;
 
+        // Create share link button
+        if (section.id) {
+            const shareBtn = document.createElement('span');
+            shareBtn.className = 'share-link';
+            shareBtn.innerHTML = '🔗';
+            shareBtn.title = 'Copy link to this section';
+            shareBtn.setAttribute('tabindex', '0');
+            shareBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const url = window.location.origin + window.location.pathname + '#' + section.id;
+                navigator.clipboard.writeText(url).then(function() {
+                    shareBtn.classList.add('copied');
+                    shareBtn.innerHTML = '✓';
+                    setTimeout(function() {
+                        shareBtn.classList.remove('copied');
+                        shareBtn.innerHTML = '🔗';
+                    }, 2000);
+                });
+            });
+            shareBtn.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    shareBtn.click();
+                }
+            });
+            header.appendChild(shareBtn);
+        }
+
         // Create collapse arrow
         const arrow = document.createElement('div');
         arrow.className = 'collapse-arrow collapsed';
@@ -734,6 +794,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             arrow.classList.toggle('collapsed');
             section.classList.toggle('collapsed');
+
+            // Update URL hash when expanding a section (for shareable links)
+            if (isCollapsed && section.id) {
+                history.replaceState(null, '', '#' + section.id);
+            } else if (!isCollapsed && window.location.hash === '#' + section.id) {
+                // Clear hash when collapsing the section that's in the URL
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
         }
 
         header.addEventListener('click', toggleSection);
