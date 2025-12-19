@@ -183,7 +183,7 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"""
         # Don't fail on empty commit
 
     # Push
-    return run_command(['git', 'push'], "Git push")
+    # return run_command(['git', 'push'], "Git push")
 
 
 # =============================================================================

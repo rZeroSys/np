@@ -37,7 +37,7 @@ def stop_caffeinate():
 
 # Paths
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = '/Users/forrestmiller/Desktop/nationwide-prospector'
+PROJECT_DIR = '..'
 
 INPUT_QUEUE = f'{SCRIPT_DIR}/research_queue.csv'
 OUTPUT_RESULTS = f'{SCRIPT_DIR}/research_results.csv'

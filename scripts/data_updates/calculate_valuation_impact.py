@@ -43,7 +43,7 @@ import os
 # =============================================================================
 
 INPUT_FILES = [
-    '/Users/forrestmiller/Desktop/nationwide-prospector/data/source/test data/portfolio_data.csv',
+    '../data/source/test data/portfolio_data.csv',
 ]
 
 # Commercial building types (cap rate valuation applies to these)

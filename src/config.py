@@ -85,8 +85,8 @@ LEED_MATCHES_PATH = SOURCE_DATA_DIR / 'leed_matches.csv'
 # These files live outside the project. Update this path if you move them.
 # =============================================================================
 
-NYC_DATA_DIR = Path('/Users/forrestmiller/Desktop/New/data')
-NYC_SCRIPTS_DIR = Path('/Users/forrestmiller/Desktop/New/Scripts')
+NYC_DATA_DIR = DATA_DIR / 'nyc'
+NYC_SCRIPTS_DIR = PROJECT_ROOT / 'scripts'
 
 # NYC source files
 NYC_10YR_SAVINGS_PATH = NYC_DATA_DIR / '10_year_savings_by_building.csv'

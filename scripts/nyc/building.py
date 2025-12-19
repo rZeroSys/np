@@ -235,11 +235,7 @@ def safe_val(df, bbl, column, default='N/A'):
     return val
 
 # Determine data path based on current working directory
-import os
-if os.path.basename(os.getcwd()) == 'Scripts':
-    data_path = '../data/'
-else:
-    data_path = '/Users/forrestmiller/Desktop/New/data/'
+data_path = '../data/'
 
 # Load logo mappings from JSON file
 try:
@@ -260,7 +256,7 @@ try:
     
     # Load 10-year savings data - THE ONLY SOURCE for LL97 data
     try:
-        ten_year_savings = pd.read_csv('/Users/forrestmiller/Desktop/New/data/10_year_savings_by_building.csv', encoding='utf-8')
+        ten_year_savings = pd.read_csv('../data/10_year_savings_by_building.csv', encoding='utf-8')
     except Exception as e:
         print(f"CRITICAL: {e}")
         sys.exit(1)
