@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-18 16:17:28 EST -->
+<!-- Generated: 2025-12-18 19:37:49 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -263,6 +263,7 @@
             max-width: 90vw;
             font-size: 13px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
             line-height: 1.7;
             letter-spacing: 0.01em;
             text-align: left;
@@ -386,7 +387,7 @@
 Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>103,825 sqft</td></tr>
 <tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much sales floor HVAC energy you could save by matching conditioning to traffic. Refrigeration is excluded—it runs 24/7 regardless of traffic.<br><br>
 Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). Peak 5-7pm is 80-100% capacity; overnight is 5-15%.<br><br>
-<b>Data:</b> DCV simulation from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" target="_blank" rel="noopener">ASHRAE</a> RP-1747, Purdue DCV research (~25% savings potential), year built, size.</span></span></td><td>Supermarket</td></tr>
+<b>Data:</b> DCV simulation from ASHRAE RP-1747, Purdue DCV research (~25% savings potential), year built, size.</span></span></td><td>Supermarket</td></tr>
 <tr><td>Year Built<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building age tells us about control system sophistication.<br><br>
 Pre-1970 buildings usually have pneumatic controls—harder to make occupancy-based. 1970s-80s buildings have early electronic systems with limited flexibility. 1990s-2000s buildings typically have digital controls. 2010+ buildings usually have modern BMS systems that can handle smart ventilation easily. Older buildings can still benefit but might need control upgrades first.</span></span></td><td>1990</td></tr>
 <tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://unicoprop.com" target="_blank" class="org-logo" data-org-name="Unico Properties"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Unico_Properties.png" alt="Unico Properties" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Unico Properties</span></a></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
@@ -410,29 +411,29 @@ We use ZIP-specific rates because electricity prices vary 5x across the country 
                 <th style="width:35%;"></th>
                 <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to New York through <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv" target="_blank" rel="noopener">LL84</a> disclosure. Real data, not an estimate.</span></span></th>
                 <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if sales floor HVAC matched traffic. Refrigeration unchanged—it runs 24/7 regardless.<br><br>
-Uses New York benchmarking, DCV simulation from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" target="_blank" rel="noopener">ASHRAE</a> RP-1747, Purdue DCV research, and HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
+Uses New York benchmarking, DCV simulation from ASHRAE RP-1747, Purdue DCV research, and HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
                 <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted running HVAC at peak capacity during slow periods. Building conditions for the busiest hour all day long.</span></span></th>
             </tr>
 
             <tr style="">
-                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket electricity is split between refrigeration (which runs continuously no matter what) and sales floor HVAC (which can respond to traffic). We only count savings on the HVAC portion since refrigeration doesn't change with occupancy. Data from New York benchmarking with HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS</a>.</span></span></td>
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket electricity is split between refrigeration (which runs continuously no matter what) and sales floor HVAC (which can respond to traffic). We only count savings on the HVAC portion since refrigeration doesn't change with occupancy. Data from New York benchmarking with HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS</a>. (2023.0 data)</span></span></td>
                 <td>2,188,975 kWh</td>
-                <td>2,123,305 kWh</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓65,669 kWh</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
+                <td>2,148,063 kWh</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓40,911 kWh</span> <span style="color:#64748b;font-size:0.9em;">(2%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket gas heating is separate from refrigeration. The refrigeration system runs continuously, but the sales floor heating can respond to traffic just like any retail store. Data from New York benchmarking.</span></span></td>
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket gas heating is separate from refrigeration. The refrigeration system runs continuously, but the sales floor heating can respond to traffic just like any retail store. Data from New York benchmarking. (2023.0 data)</span></span></td>
                 <td>24,097 therms</td>
-                <td>21,674 therms</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓2,422 therms</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
+                <td>22,587 therms</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓1,509 therms</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI measures energy per square foot per year. Supermarkets have high EUI because of refrigeration, which you can't reduce. HVAC savings help but compare yourself to other supermarkets, not other retail. Data from New York benchmarking.</span></span></td>
                 <td>95.1 kBtu/sqft</td>
-                <td>90.7 kBtu/sqft</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓4.4 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(5%)</span></td>
+                <td>92.3 kBtu/sqft</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓2.8 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
             </tr>
 
         </table>
@@ -458,14 +459,14 @@ Uses New York benchmarking, DCV simulation from <a href="https://github.com/fmil
                 <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to traffic. Refrigeration runs 24/7 (can't change that), but the sales floor HVAC can respond to customer traffic. Energy from New York benchmarking, rates from NREL.</span></span></td>
                 <td>$1.1M/yr</td>
                 <td>$1.1M/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓$36K/yr</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓$22K/yr</span> <span style="color:#64748b;font-size:0.9em;">(2%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grocery stores are valued like other retail—lower costs mean higher value. We only count HVAC savings since refrigeration runs continuously no matter what. Cap rates from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>'s grocery-anchored retail data for New York.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$600K</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$374K</span></td>
             </tr>
 
             <tr style="">
@@ -494,8 +495,8 @@ Uses New York benchmarking, DCV simulation from <a href="https://github.com/fmil
             <tr style="background:#f9fafb;">
                 <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Uses NYC's official LL97 emission factors—the same coefficients the city uses for compliance. This is the carbon reduction NYC will recognize.</span></span></td>
                 <td>760.6 tCO2e/yr</td>
-                <td>728.7 tCO2e/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓31.8 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
+                <td>740.8 tCO2e/yr</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓19.8 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
             </tr>
 
         </table>

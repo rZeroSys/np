@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-18 16:15:04 EST -->
+<!-- Generated: 2025-12-18 19:35:24 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -263,6 +263,7 @@
             max-width: 90vw;
             font-size: 13px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
             line-height: 1.7;
             letter-spacing: 0.01em;
             text-align: left;
@@ -385,7 +386,7 @@
 Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>55,929 sqft</td></tr>
 <tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much sales floor HVAC energy you could save by matching conditioning to traffic. Refrigeration is excluded—it runs 24/7 regardless of traffic.<br><br>
 Traffic-weighted by hour: peak (4 hrs × 90%) + moderate (8 hrs × 50%) + slow (6 hrs × 20%). Peak 5-7pm is 80-100% capacity; overnight is 5-15%.<br><br>
-<b>Data:</b> DCV simulation from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" target="_blank" rel="noopener">ASHRAE</a> RP-1747, Purdue DCV research (~25% savings potential), year built, size.</span></span></td><td>Supermarket</td></tr>
+<b>Data:</b> DCV simulation from ASHRAE RP-1747, Purdue DCV research (~25% savings potential), year built, size.</span></span></td><td>Supermarket</td></tr>
 <tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><span class="org-logo" data-org-name="Jer Realty LLC"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Jer_Realty_LLC.png" alt="Jer Realty LLC" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Jer Realty LLC</span></span></div></td></tr><tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Roche Bros. West Roxbury"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Roche_Bros_West_Roxbury.png" alt="Roche Bros. West Roxbury" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Roche Bros. West Roxbury</span></span></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
 For electricity, we multiply kWh by the rate, then add about 10% for distribution, taxes, and surcharges. Demand charges are based on peak kW times 12 months, with a 26% markup for ratchet clauses and seasonal variations. Gas and fuel oil get a 10% markup. Steam rates are all-inclusive.<br><br>
 We use ZIP-specific rates because electricity prices vary 5x across the country ($0.11-$0.52/kWh) and gas varies 10x ($0.23-$2.42/therm). National averages would be off by 3-4x. Consumption data from Eversource from Boston benchmarking.</span></span></td><td><span class="org-logo" data-org-name="Eversource"><a href="https://www.eversource.com/business/account-billing/manage-bill/about-your-bill/rates-tariffs/summary-of-electric-rates" target="_blank" rel="noopener" title="View Eversource commercial rates" style="text-decoration:none;"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/utilities/NSTAR.png" alt="Eversource" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"></a><span style="display:none;">⚡ Eversource</span></span></td></tr>
@@ -406,29 +407,29 @@ We use ZIP-specific rates because electricity prices vary 5x across the country 
                 <th style="width:35%;"></th>
                 <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to Boston through <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx" target="_blank" rel="noopener">BERDO</a> disclosure. Real data, not an estimate.</span></span></th>
                 <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if sales floor HVAC matched traffic. Refrigeration unchanged—it runs 24/7 regardless.<br><br>
-Uses Boston benchmarking, DCV simulation from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/ASHRAE_Standard_62.1.pdf" target="_blank" rel="noopener">ASHRAE</a> RP-1747, Purdue DCV research, and HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
+Uses Boston benchmarking, DCV simulation from ASHRAE RP-1747, Purdue DCV research, and HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
                 <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted running HVAC at peak capacity during slow periods. Building conditions for the busiest hour all day long.</span></span></th>
             </tr>
 
             <tr style="">
-                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket electricity is split between refrigeration (which runs continuously no matter what) and sales floor HVAC (which can respond to traffic). We only count savings on the HVAC portion since refrigeration doesn't change with occupancy. Data from Boston benchmarking with HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS</a>.</span></span></td>
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket electricity is split between refrigeration (which runs continuously no matter what) and sales floor HVAC (which can respond to traffic). We only count savings on the HVAC portion since refrigeration doesn't change with occupancy. Data from Boston benchmarking with HVAC/refrigeration split from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS</a>. (2024.0 data)</span></span></td>
                 <td>2,946,577 kWh</td>
-                <td>2,841,561 kWh</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓105,016 kWh</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
+                <td>2,867,447 kWh</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓79,129 kWh</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket gas heating is separate from refrigeration. The refrigeration system runs continuously, but the sales floor heating can respond to traffic just like any retail store. Data from Boston benchmarking.</span></span></td>
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Supermarket gas heating is separate from refrigeration. The refrigeration system runs continuously, but the sales floor heating can respond to traffic just like any retail store. Data from Boston benchmarking. (2024.0 data)</span></span></td>
                 <td>58,111 therms</td>
-                <td>52,014 therms</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓6,097 therms</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
+                <td>53,517 therms</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓4,594 therms</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI measures energy per square foot per year. Supermarkets have high EUI because of refrigeration, which you can't reduce. HVAC savings help but compare yourself to other supermarkets, not other retail. Data from Boston benchmarking.</span></span></td>
                 <td>283.7 kBtu/sqft</td>
-                <td>266.4 kBtu/sqft</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓17.3 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
+                <td>270.6 kBtu/sqft</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓13.1 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(5%)</span></td>
             </tr>
 
         </table>
@@ -454,7 +455,7 @@ Uses Boston benchmarking, DCV simulation from <a href="https://github.com/fmille
                 <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to traffic. Refrigeration runs 24/7 (can't change that), but the sales floor HVAC can respond to customer traffic. Energy from Boston benchmarking, rates from NREL.</span></span></td>
                 <td>$1.6M/yr</td>
                 <td>$1.5M/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓$63K/yr</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓$47K/yr</span> <span style="color:#64748b;font-size:0.9em;">(3%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
@@ -468,7 +469,7 @@ Uses Boston benchmarking, DCV simulation from <a href="https://github.com/fmille
                 <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Grocery stores are valued like other retail—lower costs mean higher value. We only count HVAC savings since refrigeration runs continuously no matter what. Cap rates from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>'s grocery-anchored retail data for Boston.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$1.2M</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$965K</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
@@ -495,10 +496,10 @@ Uses Boston benchmarking, DCV simulation from <a href="https://github.com/fmille
             </tr>
 
             <tr style="">
-                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. New England's grid is cleaner than average, but both electricity and gas reductions matter. This determines whether you meet the BPS carbon cap. Grid factors from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" target="_blank" rel="noopener">EPA eGRID 2023</a>.</span></span></td>
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. New England's grid is cleaner than average, but both electricity and gas reductions matter. This determines whether you meet the BPS carbon cap. Grid factors from EPA eGRID 2023.</span></span></td>
                 <td>1,029.5 tCO2e/yr</td>
-                <td>971.4 tCO2e/yr</td>
-                <td><span style="color:#3b82f6;font-weight:700;">↓58.1 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(6%)</span></td>
+                <td>985.7 tCO2e/yr</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓43.8 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(4%)</span></td>
             </tr>
 
         </table>

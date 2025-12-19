@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-18 16:16:47 EST -->
+<!-- Generated: 2025-12-18 19:37:06 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -263,6 +263,7 @@
             max-width: 90vw;
             font-size: 13px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
             line-height: 1.7;
             letter-spacing: 0.01em;
             text-align: left;
@@ -385,7 +386,7 @@
 Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>36,821 sqft</td></tr>
 <tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much HVAC energy you could save by matching ventilation to actual occupancy.<br><br>
 We combine vacancy (empty floors) with utilization (how full the occupied floors are). A building with 25% vacancy and 55% utilization on leased floors has about 59% opportunity. Newer and larger buildings score higher because they typically have better controls.<br><br>
-<b>Data:</b> Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/<a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" target="_blank" rel="noopener">CommercialEdge</a>, office attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a> Back to Work Barometer, plus year built, sqft, Energy Star score, and climate zone.</span></span></td><td>Office</td></tr>
+<b>Data:</b> Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/CommercialEdge, office attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a> Back to Work Barometer, plus year built, sqft, Energy Star score, and climate zone.</span></span></td><td>Office</td></tr>
 <tr><td>Year Built<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building age tells us about control system sophistication.<br><br>
 Pre-1970 buildings usually have pneumatic controls—harder to make occupancy-based. 1970s-80s buildings have early electronic systems with limited flexibility. 1990s-2000s buildings typically have digital controls. 2010+ buildings usually have modern BMS systems that can handle smart ventilation easily. Older buildings can still benefit but might need control upgrades first.</span></span></td><td>1881</td></tr>
 <tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://kewmanagement.com" target="_blank" class="org-logo" data-org-name="Kew Mgmt"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Kew_Mgmt.png" alt="Kew Mgmt" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Kew Mgmt</span></a></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
@@ -408,29 +409,29 @@ We use ZIP-specific rates because electricity prices vary 5x across the country 
                 <th style="width:35%;"></th>
                 <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to Denver through <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" target="_blank" rel="noopener">Energize Denver</a> disclosure. Real data, not an estimate.</span></span></th>
                 <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if ventilation matched actual occupancy—accounting for vacant floors and low utilization on occupied floors.<br><br>
-Uses Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/<a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" target="_blank" rel="noopener">CommercialEdge</a>, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a>, and HVAC % from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
+Uses Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/CommercialEdge, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a>, and HVAC % from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
                 <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted conditioning empty/underutilized spaces: vacant floors, empty conference rooms, unoccupied desks. Building conditions as if full when it's not.</span></span></th>
             </tr>
 
             <tr style="">
-                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most of an office building's electricity goes to HVAC—fans moving air, chillers cooling it, pumps circulating water. The system runs at design capacity even when floors are empty. When you reduce airflow to match actual occupancy, fan energy drops dramatically (cut airflow in half, fan energy drops by 75%). Data from Denver benchmarking plus <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a> vacancy and <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle</a> attendance data.</span></span></td>
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most of an office building's electricity goes to HVAC—fans moving air, chillers cooling it, pumps circulating water. The system runs at design capacity even when floors are empty. When you reduce airflow to match actual occupancy, fan energy drops dramatically (cut airflow in half, fan energy drops by 75%). Data from Denver benchmarking plus <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a> vacancy and <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle</a> attendance data. (2023.0 data)</span></span></td>
                 <td>397,817 kWh</td>
-                <td>339,508 kWh</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓58,309 kWh</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
+                <td>334,089 kWh</td>
+                <td><span style="color:#15803d;font-weight:700;">↓63,727 kWh</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">In offices, about 88% of gas goes to heating. Every cubic foot of outdoor air the ventilation system pulls in has to be heated in winter. When you're conditioning empty floors and half-empty occupied floors, that's a lot of gas heating air nobody needs. Data from Denver benchmarking, vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle</a>.</span></span></td>
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">In offices, about 88% of gas goes to heating. Every cubic foot of outdoor air the ventilation system pulls in has to be heated in winter. When you're conditioning empty floors and half-empty occupied floors, that's a lot of gas heating air nobody needs. Data from Denver benchmarking, vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle</a>. (2023.0 data)</span></span></td>
                 <td>18,402 therms</td>
-                <td>13,861 therms</td>
-                <td><span style="color:#15803d;font-weight:700;">↓4,541 therms</span> <span style="color:#64748b;font-size:0.9em;">(25%)</span></td>
+                <td>13,439 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓4,963 therms</span> <span style="color:#64748b;font-size:0.9em;">(27%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) is your total energy consumption divided by square footage—it's how much energy your building uses per square foot per year. When you stop conditioning empty floors, your EUI drops. This affects your Energy Star score, tenant perception, and in cities like Denver and St. Louis, it's what determines BPS compliance. Data from Denver benchmarking.</span></span></td>
                 <td>86.8 kBtu/sqft</td>
-                <td>69.1 kBtu/sqft</td>
-                <td><span style="color:#15803d;font-weight:700;">↓17.7 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(20%)</span></td>
+                <td>67.5 kBtu/sqft</td>
+                <td><span style="color:#15803d;font-weight:700;">↓19.3 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(22%)</span></td>
             </tr>
 
         </table>
@@ -453,24 +454,24 @@ Uses Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-pro
             </tr>
 
             <tr style="">
-                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to actual occupancy. Centralized HVAC conditions vacant and underutilized floors the same as full ones—the savings come from stopping that. Vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/<a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CommercialEdge_Office_Report.pdf" target="_blank" rel="noopener">CommercialEdge</a>, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a>, energy from Denver benchmarking, rates from NREL.</span></span></td>
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to actual occupancy. Centralized HVAC conditions vacant and underutilized floors the same as full ones—the savings come from stopping that. Vacancy from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE Q3 2025</a>/CommercialEdge, attendance from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" target="_blank" rel="noopener">Kastle Systems</a>, energy from Denver benchmarking, rates from NREL.</span></span></td>
                 <td>$136K/yr</td>
-                <td>$114K/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓$22K/yr</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
+                <td>$112K/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓$24K/yr</span> <span style="color:#64748b;font-size:0.9em;">(18%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
                 <td><strong>Fine Avoidance</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Fines you'd avoid by meeting Denver's EUI target. <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" target="_blank" rel="noopener">Energize Denver</a> sets targets that tighten over time through 2032—buildings need to show steady progress.</span></span></td>
                 <td>$147K/yr</td>
-                <td>$49K/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓$98K/yr</span> <span style="color:#64748b;font-size:0.9em;">(66%)</span></td>
+                <td>$40K/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓$107K/yr</span> <span style="color:#64748b;font-size:0.9em;">(73%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Commercial real estate is valued on income, so every dollar you save on operating costs increases the building's value by a multiple. We divide your annual savings by the cap rate for Denver offices (from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>'s quarterly survey) to get the valuation impact. A 6% cap rate means $1 saved = ~$17 in property value.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$1.5M</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$1.6M</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
@@ -489,18 +490,18 @@ Uses Denver vacancy from <a href="https://github.com/fmillerrzero/nationwide-pro
                     <!-- Gray background arc -->
                     <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
                     <!-- Colored fill arc based on score -->
-                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#b91c1c" stroke-width="8" stroke-linecap="round" stroke-dasharray="47.88 126"/>
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#b91c1c" stroke-width="8" stroke-linecap="round" stroke-dasharray="49.14 126"/>
                 </svg>
-                <span style="font-weight:700;font-size:1.2em;color:#b91c1c;min-width:28px;">38</span>
+                <span style="font-weight:700;font-size:1.2em;color:#b91c1c;min-width:28px;">39</span>
             </div></td>
-                <td><span style="color:#15803d;font-weight:700;">↑12 pts</span> <span style="color:#64748b;font-size:0.9em;">(46%)</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑13 pts</span> <span style="color:#64748b;font-size:0.9em;">(50%)</span></td>
             </tr>
 
             <tr style="">
-                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Denver's grid has more coal/gas generation, so electricity is carbon-heavy here. Every kWh saved prevents more emissions than in cleaner cities. Grid factors from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/EPA_eGRID_2023.xlsx" target="_blank" rel="noopener">EPA eGRID 2023</a>.</span></span></td>
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Denver's grid has more coal/gas generation, so electricity is carbon-heavy here. Every kWh saved prevents more emissions than in cleaner cities. Grid factors from EPA eGRID 2023.</span></span></td>
                 <td>284.8 tCO2e/yr</td>
-                <td>233.2 tCO2e/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓51.5 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(18%)</span></td>
+                <td>228.5 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓56.3 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(20%)</span></td>
             </tr>
 
         </table>
