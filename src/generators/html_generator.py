@@ -1,5 +1,5 @@
 """
-HTML Generator for Nationwide ODCV Prospector Homepage
+HTML Generator for ODCV Prospector Homepage
 =======================================================
 Generates the complete HTML page with:
 - Portfolio Tab: Expandable portfolio cards ranked by OpEx savings
@@ -52,7 +52,7 @@ def savings_color(amount):
 
 
 class NationwideHTMLGenerator:
-    """Generates the Nationwide ODCV Prospector HTML page."""
+    """Generates the ODCV Prospector HTML page."""
 
     def __init__(self, config, data):
         """
@@ -342,12 +342,12 @@ class NationwideHTMLGenerator:
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d %H:%M:%S EST')
 
         return f'''<!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: {timestamp} -->
+<!-- ODCV Prospector - Generated: {timestamp} -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nationwide ODCV Prospector | R-Zero</title>
+    <title>ODCV Prospector | R-Zero</title>
     <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
 
     <!-- Fonts -->
@@ -3947,7 +3947,7 @@ tr.pin-highlight {
             width: 90%;
         ">
             <img src="https://rzero.com/wp-content/uploads/2021/10/rzero-logo-pad.svg" alt="R-Zero Logo" style="width: 150px; margin-bottom: 20px; cursor: pointer;" onclick="handleLogoClick()">
-            <h2 style="margin: 0 0 10px 0; color: #333;">Nationwide ODCV Prospector</h2>
+            <h2 style="margin: 0 0 10px 0; color: #333;">ODCV Prospector</h2>
             <p style="color: #666; margin-bottom: 25px;">Sign in with your R-Zero account</p>
 
             <div id="g_id_onload"
@@ -4019,9 +4019,8 @@ tr.pin-highlight {
         icons = {'Commercial': '¢', 'Education': '✎', 'Healthcare': '✚'}
         for v in ['Commercial', 'Education', 'Healthcare']:
             count = by_vertical.get(v, {}).get('building_count', 0)
-            # Add "All" option at top of each dropdown
-            all_option = f'<label><input type="radio" name="building-type-filter" data-type="all-{v.lower()}" onchange="selectBuildingTypeFromDropdown(\'all\', \'{v}\')">All <span class="dropdown-count">({count:,})</span></label>'
-            dropdown_content = all_option + ''.join(dropdown_options.get(v, []))
+            # No "All" option - only specific building types
+            dropdown_content = ''.join(dropdown_options.get(v, []))
             icon = icons.get(v, '')
             vertical_html.append(
                 f'<div class="vertical-btn-wrapper">'
@@ -4385,7 +4384,7 @@ tr.pin-highlight {
             <a href="https://rzero.com" target="_blank" style="display: flex; align-items: center;">
                 <img src="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png" alt="R-Zero">
             </a>
-            Nationwide ODCV Prospector
+            ODCV Prospector
         </h1>
         <input type="text" id="global-search" class="global-search" placeholder="Search owner, tenant, brand..." oninput="globalSearch(this.value)" style="margin-left: 40px;">
         <div id="filter-chips" class="filter-chips"></div>
@@ -5346,7 +5345,7 @@ function doFilterAllBuildings() {{
     // DEBUG: Log filter state
     console.log('=== doFilterAllBuildings DEBUG ===');
     console.log('selectedBuildingType:', selectedBuildingType);
-    console.log('activeVertical:', activeVertical);
+    console.log('NOTE: Vertical filter REMOVED - filtering by type only');
     console.log('allBuildingsData length:', allBuildingsData?.length);
 
     // Filter by selected city card AND global search
@@ -5354,10 +5353,7 @@ function doFilterAllBuildings() {{
     let debugMisses = 0;
     let sampleTypes = new Set();
     filteredBuildingsData = allBuildingsData.filter(b => {{
-        // FIX: Vertical filter - match Portfolio tab behavior
-        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
-
-        // FIX: Building type filter - match Portfolio tab behavior
+        // Building type filter only - no vertical filter
         if (selectedBuildingType) {{
             sampleTypes.add(b.type);
             if (b.type !== selectedBuildingType) {{
@@ -5653,7 +5649,6 @@ function applyFilters() {{
             if (parts.length !== 2) continue;
             const [t, v] = parts;
             if (selectedBuildingType && t !== selectedBuildingType) continue;
-            if (activeVertical !== 'all' && v !== activeVertical) continue;
             if (vals && typeof vals === 'object') {{
                 count += vals.count || 0;
                 opex += vals.opex || 0;
@@ -6369,51 +6364,31 @@ function toggleVerticalDropdown(event, vertical) {{
 }}
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {{
-    console.log('=== selectBuildingTypeFromDropdown CALLED ===');
+    console.log('=== selectBuildingTypeFromDropdown ===');
     console.log('buildingType:', buildingType);
-    console.log('vertical:', vertical);
+    console.log('vertical param (ignored):', vertical);
+
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
 
-    // If "all" selected, clear the building type filter and just show the vertical
-    if (buildingType === 'all') {{
-        // Uncheck all radios
-        document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
-        // Clear building type filter
-        selectedBuildingType = null;
-        // Remove selected class from all vertical buttons
-        document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
-        // Switch to that vertical
-        selectVertical(vertical);
-        return;
-    }}
-
-    // Set building type BEFORE calling selectVertical
+    // Set building type filter
     selectedBuildingType = buildingType;
+    console.log('selectedBuildingType set to:', selectedBuildingType);
 
-    // Ensure only this radio is selected (clear all others explicitly)
+    // Ensure only this radio is selected
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {{
         r.checked = (r.dataset.type === buildingType);
     }});
 
-    // Switch to that vertical, preserving the building type we just set
-    selectVertical(vertical, true);
-
-    // Add selected class to the vertical button (shows shadow + X)
+    // Mark vertical button as selected (shows X to clear)
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     const verticalBtn = document.querySelector(`.vertical-btn[data-vertical="${{vertical}}"]`);
-    if (verticalBtn) {{
-        verticalBtn.classList.add('selected');
-    }}
+    if (verticalBtn) verticalBtn.classList.add('selected');
 
+    // Apply filter
     applyFilters();
-    // Sync to All Buildings tab - filter if data is loaded
-    console.log('allBuildingsData length:', allBuildingsData?.length);
-    if (allBuildingsData && allBuildingsData.length > 0) {{
-        console.log('Calling doFilterAllBuildings...');
-        doFilterAllBuildings();
-    }}
+    if (allBuildingsData && allBuildingsData.length > 0) doFilterAllBuildings();
 }}
 
 // Close vertical dropdowns when clicking outside

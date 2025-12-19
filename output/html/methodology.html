@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Methodology | Nationwide Prospector</title>
+    <title>ODCV Prospector Methodology | Nationwide Prospector</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://rzero.com">
@@ -248,7 +248,7 @@ if (window.location.search.includes('embed=1')) {
 .embed-mode .header,
 .embed-mode .page-title,
 .embed-mode .footer { display: none !important; }
-.embed-mode .main-content { padding-top: 20px !important; }
+.embed-mode .main-content { padding-top: 40px !important; }
 </style>
 
 <header class="header">
@@ -265,7 +265,7 @@ if (window.location.search.includes('embed=1')) {
 <main class="main-content">
 
     <div class="page-title">
-        <h1>Technical Methodology</h1>
+        <h1>ODCV Prospector Methodology</h1>
     </div>
 
     <!-- Section 1: Energy Savings -->
@@ -314,8 +314,8 @@ if (window.location.search.includes('embed=1')) {
         </table>
 
         <h3>Modifiers</h3>
-        <p id="ref-4"><strong>Automation</strong> (0-1): 50% year-built + 25% building size + 25% zip income tier.<sup><a href="#fn-4" class="appendix-ref">[4]</a></sup></p>
-        <p id="ref-5"><strong>Efficiency</strong> (0.85×-1.10×): Based on ENERGY STAR score. Efficient buildings have less waste; inefficient buildings have more.<sup><a href="#fn-5" class="appendix-ref">[5]</a></sup></p>
+        <p id="ref-1"><strong>Automation</strong> (0-1): 50% year-built + 25% building size + 25% zip income tier.<sup><a href="#fn-1" class="appendix-ref">[1]</a></sup></p>
+        <p id="ref-2"><strong>Efficiency</strong> (0.85×-1.10×): Based on ENERGY STAR score. Efficient buildings have less waste; inefficient buildings have more.<sup><a href="#fn-2" class="appendix-ref">[2]</a></sup></p>
         <p><strong>Climate</strong>: 1.10× Northern, 1.05× North-Central, 1.00× South-Central, 0.95× Southern.</p>
 
         <h3>Master Formula</h3>
@@ -330,10 +330,10 @@ if (window.location.search.includes('embed=1')) {
             <li><strong>District Steam:</strong> kBtu ÷ 909 = Mlb × rate</li>
             <li><strong>Fuel Oil:</strong> kBtu ÷ 1000 = MMBtu × rate × 1.10×</li>
         </ul>
-        <p id="ref-2">Peak demand estimated using building-type load factors (0.30-0.70).<sup><a href="#fn-2" class="appendix-ref">[2]</a></sup></p>
+        <p id="ref-3">Peak demand estimated using building-type load factors (0.30-0.70).<sup><a href="#fn-3" class="appendix-ref">[3]</a></sup></p>
 
         <h3>HVAC Share</h3>
-        <p id="ref-3">Not all energy goes to HVAC. Base values by building type and climate zone.<sup><a href="#fn-3" class="appendix-ref">[3]</a></sup></p>
+        <p id="ref-4">Not all energy goes to HVAC. Base values by building type and climate zone.<sup><a href="#fn-4" class="appendix-ref">[4]</a></sup></p>
 
         <h3>Annual Savings</h3>
         <div class="formula">HVAC_cost = (Elec × hvac_pct_elec) + (Gas × hvac_pct_gas) + (Steam × hvac_pct_steam) + (Fuel_Oil × hvac_pct_oil)</div>
@@ -390,7 +390,41 @@ if (window.location.search.includes('embed=1')) {
     <section class="section" id="appendix">
         <h2>Technical Appendix</h2>
 
-        <h3 id="fn-2" class="appendix-item">Load Factor Reference <a href="#ref-2" class="back-ref">↩</a></h3>
+        <h3 id="fn-1" class="appendix-item">Automation Score <a href="#ref-1" class="back-ref">↩</a></h3>
+        <p>Automation score = 50% year-built + 25% size + 25% zip income tier.<sup><a href="#data-sources" class="appendix-ref">[src]</a></sup></p>
+        <table>
+            <thead>
+                <tr>
+                    <th style="background:#dbeafe;">Year Built</th><th style="background:#dbeafe;">Score</th>
+                    <th style="background:#dcfce7;">Square Footage</th><th style="background:#dcfce7;">Score</th>
+                    <th style="background:#fef3c7;">Income Tier</th><th style="background:#fef3c7;">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="background:#eff6ff;">Before 1970</td><td style="background:#eff6ff;">0.00</td><td style="background:#f0fdf4;">Under 50K</td><td style="background:#f0fdf4;">0.25</td><td style="background:#fffbeb;">Low (&lt;$50K)</td><td style="background:#fffbeb;">0.30</td></tr>
+                <tr><td style="background:#eff6ff;">1970-1989</td><td style="background:#eff6ff;">0.25</td><td style="background:#f0fdf4;">50K-100K</td><td style="background:#f0fdf4;">0.50</td><td style="background:#fffbeb;">Medium ($50-85K)</td><td style="background:#fffbeb;">0.60</td></tr>
+                <tr><td style="background:#eff6ff;">1990-2004</td><td style="background:#eff6ff;">0.50</td><td style="background:#f0fdf4;">100K-250K</td><td style="background:#f0fdf4;">0.75</td><td style="background:#fffbeb;">High (&gt;$85K)</td><td style="background:#fffbeb;">1.00</td></tr>
+                <tr><td style="background:#eff6ff;">2005-2014</td><td style="background:#eff6ff;">0.75</td><td style="background:#f0fdf4;">Over 250K</td><td style="background:#f0fdf4;">1.00</td><td style="background:#fffbeb;"></td><td style="background:#fffbeb;"></td></tr>
+                <tr><td style="background:#eff6ff;">2015+</td><td style="background:#eff6ff;">1.00</td><td style="background:#f0fdf4;"></td><td style="background:#f0fdf4;"></td><td style="background:#fffbeb;"></td><td style="background:#fffbeb;"></td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="fn-2" class="appendix-item">Efficiency Modifier <a href="#ref-2" class="back-ref">↩</a></h3>
+        <p>Efficient buildings have less waste to capture; inefficient buildings have more:</p>
+        <table>
+            <thead>
+                <tr><th>ENERGY STAR Score</th><th>Modifier</th><th>Rationale</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>90+</td><td>0.85×</td><td>Top 10% efficiency &mdash; less waste to find</td></tr>
+                <tr><td>75-89</td><td>0.95×</td><td>Better than 75%</td></tr>
+                <tr><td>50-74</td><td>1.00×</td><td>Average efficiency</td></tr>
+                <tr><td>25-49</td><td>1.05×</td><td>Below average</td></tr>
+                <tr><td>Below 25</td><td>1.10×</td><td>Bottom quartile &mdash; lots of waste</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="fn-3" class="appendix-item">Load Factor Reference <a href="#ref-3" class="back-ref">↩</a></h3>
         <p>Load factor = average demand / peak demand. Higher load factor means more even energy use throughout the day:</p>
         <table>
             <thead>
@@ -405,7 +439,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3 id="fn-3" class="appendix-item">HVAC Energy Share <a href="#ref-3" class="back-ref">↩</a></h3>
+        <h3 id="fn-4" class="appendix-item">HVAC Energy Share <a href="#ref-4" class="back-ref">↩</a></h3>
         <p>Weighted averages by building type and climate zone.<sup><a href="#data-sources" class="appendix-ref">[src]</a></sup></p>
         <table>
             <thead>
@@ -423,36 +457,6 @@ if (window.location.search.includes('embed=1')) {
                 <tr><td>Restaurant</td><td>18%</td><td>34%</td><td>Gas mostly for cooking</td></tr>
             </tbody>
         </table>
-
-        <h3 id="fn-4" class="appendix-item">Automation Score <a href="#ref-4" class="back-ref">↩</a></h3>
-        <p>Automation score = 50% year-built + 25% size + 25% zip income tier.<sup><a href="#data-sources" class="appendix-ref">[src]</a></sup></p>
-        <table>
-            <thead>
-                <tr><th>Year Built</th><th>Score</th><th>Square Footage</th><th>Score</th><th>Income Tier</th><th>Score</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Before 1970</td><td>0.00</td><td>Under 50K</td><td>0.25</td><td>Low (&lt;$50K)</td><td>0.30</td></tr>
-                <tr><td>1970-1989</td><td>0.25</td><td>50K-100K</td><td>0.50</td><td>Medium ($50-85K)</td><td>0.60</td></tr>
-                <tr><td>1990-2004</td><td>0.50</td><td>100K-250K</td><td>0.75</td><td>High (&gt;$85K)</td><td>1.00</td></tr>
-                <tr><td>2005-2014</td><td>0.75</td><td>Over 250K</td><td>1.00</td><td></td><td></td></tr>
-                <tr><td>2015+</td><td>1.00</td><td></td><td></td><td></td><td></td></tr>
-            </tbody>
-        </table>
-
-        <h3 id="fn-5" class="appendix-item">Efficiency Modifier <a href="#ref-5" class="back-ref">↩</a></h3>
-        <p>Efficient buildings have less waste to capture; inefficient buildings have more:</p>
-        <table>
-            <thead>
-                <tr><th>ENERGY STAR Score</th><th>Modifier</th><th>Rationale</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>90+</td><td>0.85×</td><td>Top 10% efficiency &mdash; less waste to find</td></tr>
-                <tr><td>75-89</td><td>0.95×</td><td>Better than 75%</td></tr>
-                <tr><td>50-74</td><td>1.00×</td><td>Average efficiency</td></tr>
-                <tr><td>25-49</td><td>1.05×</td><td>Below average</td></tr>
-                <tr><td>Below 25</td><td>1.10×</td><td>Bottom quartile &mdash; lots of waste</td></tr>
-            </tbody>
-        </table>
     </section>
 
     <!-- Section 6: Data Sources -->
@@ -463,56 +467,48 @@ if (window.location.search.includes('embed=1')) {
         <p>Main building database files powering the application.</p>
         <table>
             <thead>
-                <tr><th>File</th><th>Description</th></tr>
+                <tr><th>Topic</th><th>File</th><th>Description</th></tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>Buildings</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_data.csv" class="source-link">portfolio_data.csv</a></td>
                     <td>Master database of ~23,000 buildings with energy, location, and calculated fields.</td>
                 </tr>
                 <tr>
+                    <td>Buildings</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/portfolio_organizations.csv" class="source-link">portfolio_organizations.csv</a></td>
                     <td>Organization metadata including logos, classifications, and search aliases.</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_certified_buildings.csv" class="source-link">leed_certified_buildings.csv</a></td>
-                    <td>Complete USGBC LEED certification database for building matching.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/leed_matches.csv" class="source-link">leed_matches.csv</a></td>
-                    <td>Buildings matched to LEED certifications by address proximity.</td>
-                </tr>
-                <tr>
+                    <td>Buildings</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/building_type_to_vertical.csv" class="source-link">building_type_to_vertical.csv</a></td>
                     <td>Lookup table mapping building types to vertical categories.</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/column_rename_lookup.csv" class="source-link">column_rename_lookup.csv</a></td>
-                    <td>Data dictionary with column naming definitions and mappings.</td>
+                    <td>Buildings</td>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/nyc_office_data.zip" class="source-link">nyc_office_data.zip</a></td>
+                    <td>NYC office building data: LL97 savings projections, ODCV scores, energy data, tenant info (17 CSVs).</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/utility_logos.csv" class="source-link">utility_logos.csv</a></td>
-                    <td>Utility company logo URL mappings for building reports.</td>
-                </tr>
-                <tr>
+                    <td>Energy</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/eui_post_odcv.csv" class="source-link">eui_post_odcv.csv</a></td>
                     <td>Pre-calculated post-ODCV EUI values for all buildings.</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/market_vacancy_utilization_Q3_2025.csv" class="source-link">market_vacancy_utilization_Q3_2025.csv</a></td>
-                    <td>City-level vacancy and utilization rates from CBRE/Kastle Q3 2025.</td>
-                </tr>
-                <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/zip_income_tiers.csv" class="source-link">zip_income_tiers.csv</a></td>
-                    <td>Zip code income tiers derived from U.S. Census American Community Survey household income data.</td>
-                </tr>
-                <tr>
+                    <td>Energy</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" class="source-link">cbecs2018_final_public.csv</a></td>
                     <td>EIA CBECS 2018 survey microdata for HVAC energy share calculations.</td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/nyc_office_data.zip" class="source-link">nyc_office_data.zip</a></td>
-                    <td>NYC office building data: LL97 savings projections, ODCV scores, energy data, tenant info (17 CSVs).</td>
+                    <td>Markets</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/market_vacancy_utilization_Q3_2025.csv" class="source-link">market_vacancy_utilization_Q3_2025.csv</a></td>
+                    <td>City-level vacancy and utilization rates from CBRE/Kastle Q3 2025.</td>
+                </tr>
+                <tr>
+                    <td>Markets</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/source/zip_income_tiers.csv" class="source-link">zip_income_tiers.csv</a></td>
+                    <td>Zip code income tiers derived from U.S. Census American Community Survey household income data.</td>
                 </tr>
             </tbody>
         </table>
@@ -521,138 +517,156 @@ if (window.location.search.includes('embed=1')) {
         <p>Building energy data from official city disclosure programs requiring commercial and multifamily buildings to report annual energy usage.</p>
         <table>
             <thead>
-                <tr><th>City</th><th>Program</th><th>File</th><th>Buildings</th></tr>
+                <tr><th>Location</th><th>File</th><th>Program</th><th>Year</th><th>Buildings</th></tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>California</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx" class="source-link">California_AB_802.xlsx</a></td>
+                    <td>AB 802</td>
+                    <td>2024</td>
+                    <td>5,200+</td>
+                </tr>
+                <tr>
                     <td>New York City</td>
-                    <td>Local Law 84</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/NYC_LL84.csv" class="source-link">NYC_LL84.csv</a></td>
+                    <td>Local Law 84</td>
+                    <td>2023</td>
                     <td>3,421</td>
                 </tr>
                 <tr>
                     <td>Los Angeles</td>
-                    <td>EBEWE</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/LA_EBEWE.csv" class="source-link">LA_EBEWE.csv</a></td>
+                    <td>EBEWE</td>
+                    <td>2024</td>
                     <td>1,847</td>
                 </tr>
                 <tr>
-                    <td>San Francisco</td>
-                    <td>Existing Buildings</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/SF_Existing_Buildings_Ordinance.csv" class="source-link">SF_Existing_Buildings_Ordinance.csv</a></td>
-                    <td>568</td>
-                </tr>
-                <tr>
-                    <td>Chicago</td>
-                    <td>Energy Benchmarking</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Chicago_Energy_Benchmarking.csv" class="source-link">Chicago_Energy_Benchmarking.csv</a></td>
-                    <td>384</td>
-                </tr>
-                <tr>
-                    <td>Seattle</td>
-                    <td>Energy Benchmarking</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Seattle_Energy_Benchmarking.csv" class="source-link">Seattle_Energy_Benchmarking.csv</a></td>
-                    <td>398</td>
-                </tr>
-                <tr>
                     <td>Washington DC</td>
-                    <td>BEPS</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/DC_BEPS.csv" class="source-link">DC_BEPS.csv</a></td>
+                    <td>BEPS</td>
+                    <td>2024</td>
                     <td>748</td>
                 </tr>
                 <tr>
-                    <td>Boston</td>
-                    <td>BERDO</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx" class="source-link">Boston_BERDO.xlsx</a></td>
-                    <td>327</td>
+                    <td>San Francisco</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/SF_Existing_Buildings_Ordinance.csv" class="source-link">SF_Existing_Buildings_Ordinance.csv</a></td>
+                    <td>Existing Buildings</td>
+                    <td>2024</td>
+                    <td>568</td>
                 </tr>
                 <tr>
-                    <td>Denver</td>
-                    <td>Energize Denver</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" class="source-link">Denver_Energize_Denver.csv</a></td>
-                    <td>349</td>
-                </tr>
-                <tr>
-                    <td>Philadelphia</td>
-                    <td>Energy Benchmarking</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Philadelphia_Energy_Benchmarking.csv" class="source-link">Philadelphia_Energy_Benchmarking.csv</a></td>
-                    <td>136</td>
-                </tr>
-                <tr>
-                    <td>Portland</td>
-                    <td>Energy Performance</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Portland_Energy_Performance_Reporting.xlsx" class="source-link">Portland_Energy_Performance_Reporting.xlsx</a></td>
-                    <td>266</td>
-                </tr>
-                <tr>
-                    <td>Cambridge</td>
-                    <td>BEUDO</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv" class="source-link">Cambridge_BEUDO.csv</a></td>
-                    <td>125</td>
-                </tr>
-                <tr>
-                    <td>Atlanta</td>
-                    <td>CBEEO</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Atlanta_CBEEO.csv" class="source-link">Atlanta_CBEEO.csv</a></td>
-                    <td>171</td>
-                </tr>
-                <tr>
-                    <td>San Diego</td>
-                    <td>Energy Benchmarking</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Diego_Energy_Benchmarking.xlsx" class="source-link">San_Diego_Energy_Benchmarking.xlsx</a></td>
-                    <td>293</td>
+                    <td>Seattle</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Seattle_Energy_Benchmarking.csv" class="source-link">Seattle_Energy_Benchmarking.csv</a></td>
+                    <td>SMC 22.920</td>
+                    <td>2024</td>
+                    <td>398</td>
                 </tr>
                 <tr>
                     <td>San Jose</td>
-                    <td>Building Performance</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Jose_Building_Performance_Ordinance.csv" class="source-link">San_Jose_Building_Performance_Ordinance.csv</a></td>
+                    <td>Building Performance</td>
+                    <td>2024</td>
                     <td>386</td>
                 </tr>
                 <tr>
-                    <td>St. Louis</td>
-                    <td>BEPS</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/St_Louis_BEPS.xlsx" class="source-link">St_Louis_BEPS.xlsx</a></td>
-                    <td>62</td>
+                    <td>Chicago</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Chicago_Energy_Benchmarking.csv" class="source-link">Chicago_Energy_Benchmarking.csv</a></td>
+                    <td>Ch. 18-14</td>
+                    <td>2023</td>
+                    <td>384</td>
                 </tr>
                 <tr>
-                    <td>Kansas City</td>
-                    <td>Energy Empowerment</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Kansas_City_Energy_Empowerment_Ordinance.csv" class="source-link">Kansas_City_Energy_Empowerment_Ordinance.csv</a></td>
-                    <td>98</td>
+                    <td>Denver</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Denver_Energize_Denver.csv" class="source-link">Denver_Energize_Denver.csv</a></td>
+                    <td>Energize Denver</td>
+                    <td>2023</td>
+                    <td>349</td>
+                </tr>
+                <tr>
+                    <td>Boston</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Boston_BERDO.xlsx" class="source-link">Boston_BERDO.xlsx</a></td>
+                    <td>BERDO</td>
+                    <td>2024</td>
+                    <td>327</td>
+                </tr>
+                <tr>
+                    <td>San Diego</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/San_Diego_Energy_Benchmarking.xlsx" class="source-link">San_Diego_Energy_Benchmarking.xlsx</a></td>
+                    <td>Energy Benchmarking</td>
+                    <td>2024</td>
+                    <td>293</td>
+                </tr>
+                <tr>
+                    <td>Portland</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Portland_Energy_Performance_Reporting.xlsx" class="source-link">Portland_Energy_Performance_Reporting.xlsx</a></td>
+                    <td>Energy Performance</td>
+                    <td>2024</td>
+                    <td>266</td>
+                </tr>
+                <tr>
+                    <td>Atlanta</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Atlanta_CBEEO.csv" class="source-link">Atlanta_CBEEO.csv</a></td>
+                    <td>CBEEO</td>
+                    <td>2022</td>
+                    <td>171</td>
                 </tr>
                 <tr>
                     <td>Orlando</td>
-                    <td>BEWES</td>
                     <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Orlando_BEWES.csv" class="source-link">Orlando_BEWES.csv</a></td>
+                    <td>BEWES</td>
+                    <td>2023</td>
                     <td>142</td>
                 </tr>
                 <tr>
-                    <td>California</td>
-                    <td>AB 802</td>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/California_AB_802.xlsx" class="source-link">California_AB_802.xlsx</a></td>
-                    <td>5,200+</td>
+                    <td>Philadelphia</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Philadelphia_Energy_Benchmarking.csv" class="source-link">Philadelphia_Energy_Benchmarking.csv</a></td>
+                    <td>Bill 120428</td>
+                    <td>2023</td>
+                    <td>136</td>
                 </tr>
-            </tbody>
+                <tr>
+                    <td>Cambridge</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Cambridge_BEUDO.csv" class="source-link">Cambridge_BEUDO.csv</a></td>
+                    <td>BEUDO</td>
+                    <td>2024</td>
+                    <td>125</td>
+                </tr>
+                <tr>
+                    <td>Kansas City</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/Kansas_City_Energy_Empowerment_Ordinance.csv" class="source-link">Kansas_City_Energy_Empowerment_Ordinance.csv</a></td>
+                    <td>Energy Empowerment</td>
+                    <td>2023</td>
+                    <td>98</td>
+                </tr>
+                <tr>
+                    <td>St. Louis</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/city_benchmarking/St_Louis_BEPS.xlsx" class="source-link">St_Louis_BEPS.xlsx</a></td>
+                    <td>BEPS</td>
+                    <td>2021</td>
+                    <td>62</td>
+                </tr>
+                </tbody>
         </table>
 
         <h3>Market Research</h3>
-        <p>Office vacancy rates, utilization data, and regional market reports from CBRE, Kastle, and Kidder Mathews:</p>
+        <p>Office vacancy rates, utilization data, and regional market reports:</p>
         <table>
             <thead>
-                <tr><th>File</th><th>Description</th></tr>
+                <tr><th>Description</th><th>File</th></tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" class="source-link">CBRE_Vacancy_Rates_Q3_2025.csv</a></td>
                     <td>Office vacancy rates by metro area from CBRE Q3 2025 report.</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" class="source-link">CBRE_Vacancy_Rates_Q3_2025.csv</a></td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" class="source-link">Kastle_Utilization_Rates.csv</a></td>
                     <td>Office utilization percentages by city from Kastle access data.</td>
+                    <td><span class="file-badge spreadsheet">SPREADSHEET</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/Kastle_Utilization_Rates.csv" class="source-link">Kastle_Utilization_Rates.csv</a></td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/market_research_pdfs.zip" class="source-link">market_research_pdfs.zip</a></td>
                     <td>Office market quarterly reports from CBRE, Kidder Mathews (11 PDFs covering major metros).</td>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/market_research_pdfs.zip" class="source-link">market_research_pdfs.zip</a></td>
                 </tr>
             </tbody>
         </table>
@@ -661,16 +675,16 @@ if (window.location.search.includes('embed=1')) {
         <p>Source code and documentation for reproducing or extending this analysis:</p>
         <table>
             <thead>
-                <tr><th>File</th><th>Description</th></tr>
+                <tr><th>Description</th><th>File</th></tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/scripts_source_code.zip" class="source-link">scripts_source_code.zip</a></td>
                     <td>All 100 Python scripts for data processing and HTML generation.</td>
+                    <td><span class="file-badge zip">ZIP</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/scripts_source_code.zip" class="source-link">scripts_source_code.zip</a></td>
                 </tr>
                 <tr>
-                    <td><span class="file-badge md">MD</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/docs/DEVELOPER_GUIDE.md" class="source-link">DEVELOPER_GUIDE.md</a></td>
                     <td>Project documentation covering directory structure, data files, and AWS setup.</td>
+                    <td><span class="file-badge md">MD</span><a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/docs/DEVELOPER_GUIDE.md" class="source-link">DEVELOPER_GUIDE.md</a></td>
                 </tr>
             </tbody>
         </table>
@@ -679,7 +693,7 @@ if (window.location.search.includes('embed=1')) {
 </main>
 
 <footer class="footer">
-    <p>&copy; R-Zero | Nationwide Prospector Technical Methodology</p>
+    <p>&copy; R-Zero | ODCV Prospector Methodology</p>
 </footer>
 
 <script>
