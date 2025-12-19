@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Nationwide ODCV Prospector Homepage Generator
+ODCV Prospector Homepage Generator
 =============================================
 Main script that generates the nationwide prospector homepage.
 
@@ -59,7 +59,7 @@ CONFIG = {
 # =============================================================================
 
 def main():
-    """Generate the Nationwide ODCV Prospector homepage."""
+    """Generate the ODCV Prospector homepage."""
     print("=" * 70)
     print("NATIONWIDE ODCV PROSPECTOR - HOMEPAGE GENERATOR")
     print("=" * 70)

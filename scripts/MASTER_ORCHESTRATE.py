@@ -34,6 +34,7 @@ import shutil
 SCRIPT_DIR = Path(__file__).parent.absolute()
 PROJECT_ROOT = SCRIPT_DIR.parent
 POPULATE_MASTER_DIR = SCRIPT_DIR / 'populate_master'
+EUI_SCRIPT = SCRIPT_DIR / 'data_updates' / 'calculate_new_eui.py'
 
 # Add project root to path for imports
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -133,6 +134,14 @@ def step_1_data_scripts():
     return True
 
 
+def step_1b_update_eui_lookup():
+    """Update eui_post_odcv.csv lookup file."""
+    return run_command(
+        [sys.executable, str(EUI_SCRIPT)],
+        "EUI post-ODCV lookup update"
+    )
+
+
 def step_2_regenerate_homepage():
     """Regenerate the homepage."""
     return run_command(
@@ -205,6 +214,13 @@ def main():
         print(f"Backup available at: {backup_path}")
         sys.exit(1)
     print("All data scripts complete.")
+
+    # Step 1b: Update EUI lookup
+    print("\nUpdating EUI post-ODCV lookup...")
+    if not step_1b_update_eui_lookup():
+        print_banner("FAILED: EUI LOOKUP UPDATE")
+        sys.exit(1)
+    print("EUI lookup updated.")
 
     # Step 2: Regenerate homepage
     print_step(2, total_steps, "Regenerating homepage...")

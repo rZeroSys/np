@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-18 14:43:57 EST -->
+<!-- Generated: 2025-12-19 01:18:23 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -263,6 +263,7 @@
             max-width: 90vw;
             font-size: 13px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
             line-height: 1.7;
             letter-spacing: 0.01em;
             text-align: left;
@@ -385,11 +386,11 @@
 <tr><td>Size<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Square footage from city benchmarking disclosure.<br><br>
 Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>53,365 sqft</td></tr>
 <tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much HVAC energy you could save by aligning conditioning with operating hours and visitor traffic.<br><br>
-Clear open/closed hours, but HVAC often runs beyond them. Additional savings from slow periods when open.<br><br>
-<b>Data:</b> Operating hours, visitor traffic patterns, year built, size.</span></span></td><td>Library/Museum</td></tr>
+Open 50 hrs/week (30% of time) × 40% average visitor density during open hours. HVAC runs 24/7 for collection preservation (temperature/humidity for artifacts) but visitors only come during limited public hours.<br><br>
+<b>Data:</b> Operating hours, visitor flow analysis, year built, size.</span></span></td><td>Library/Museum</td></tr>
 <tr><td>Year Built<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building age tells us about control system sophistication.<br><br>
 Pre-1970 buildings usually have pneumatic controls—harder to make occupancy-based. 1970s-80s buildings have early electronic systems with limited flexibility. 1990s-2000s buildings typically have digital controls. 2010+ buildings usually have modern BMS systems that can handle smart ventilation easily. Older buildings can still benefit but might need control upgrades first.</span></span></td><td>1980</td></tr>
-<tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Seattle Aquarium"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Seattle_Aquarium.png" alt="Seattle Aquarium" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Seattle Aquarium</span></span></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from <a href="https://www.nrel.gov/" target="_blank" rel="noopener">NREL</a>'s Utility Rate Database.<br><br>
+<tr><td>Tenant</td><td><div style=""><span class="org-logo" data-org-name="Seattle Aquarium"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Seattle_Aquarium.png" alt="Seattle Aquarium" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Seattle Aquarium</span></span></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
 For electricity, we multiply kWh by the rate, then add about 10% for distribution, taxes, and surcharges. Demand charges are based on peak kW times 12 months, with a 26% markup for ratchet clauses and seasonal variations. Gas and fuel oil get a 10% markup. Steam rates are all-inclusive.<br><br>
 We use ZIP-specific rates because electricity prices vary 5x across the country ($0.11-$0.52/kWh) and gas varies 10x ($0.23-$2.42/therm). National averages would be off by 3-4x. Consumption data from Seattle City Light from Seattle benchmarking.</span></span></td><td><span class="org-logo" data-org-name="Seattle City Light"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/utilities/Seattle_City_Light.png" alt="Seattle City Light" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">⚡ Seattle City Light</span></span></td></tr>
 
@@ -408,30 +409,30 @@ We use ZIP-specific rates because electricity prices vary 5x across the country 
             <tr>
                 <th style="width:35%;"></th>
                 <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to Seattle through Seattle Benchmarking Ordinance disclosure. Real data, not an estimate.</span></span></th>
-                <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if conditioning aligned with operating hours and visitor traffic.<br><br>
-Uses Seattle benchmarking and HVAC % from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
+                <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if conditioning aligned with operating hours and visitor traffic. Open 50 hrs/week (30% of time) × 40% visitor density.<br><br>
+Uses Seattle benchmarking and HVAC % from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
                 <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted conditioning empty/underutilized spaces. HVAC runs at design capacity regardless of who's actually there.</span></span></th>
             </tr>
 
             <tr style="">
-                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most commercial buildings run HVAC at design capacity regardless of who's actually there. Matching ventilation to actual occupancy saves electricity by reducing fan and cooling loads. Data from Seattle benchmarking.</span></span></td>
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most commercial buildings run HVAC at design capacity regardless of who's actually there. Matching ventilation to actual occupancy saves electricity by reducing fan and cooling loads. Data from Seattle benchmarking. (2024.0 data)</span></span></td>
                 <td>3,034,296 kWh</td>
-                <td>2,650,458 kWh</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓383,838 kWh</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
+                <td>2,647,003 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓387,293 kWh</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Gas mostly goes to heating the building and the outdoor air that ventilation pulls in. When you're heating air for empty spaces, that's wasted gas. Matching ventilation to occupancy reduces how much air needs heating. Data from Seattle benchmarking.</span></span></td>
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Gas mostly goes to heating the building and the outdoor air that ventilation pulls in. When you're heating air for empty spaces, that's wasted gas. Matching ventilation to occupancy reduces how much air needs heating. Data from Seattle benchmarking. (2024.0 data)</span></span></td>
                 <td>36,655 therms</td>
-                <td>30,848 therms</td>
-                <td><span style="color:#15803d;font-weight:700;">↓5,807 therms</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
+                <td>30,795 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓5,860 therms</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
             <tr style="">
                 <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI (Energy Use Intensity) is your total energy divided by square footage—how much energy per square foot per year. When you stop conditioning empty spaces, your EUI drops. Lower EUI signals efficiency to tenants, investors, and regulators. Data from Seattle benchmarking.</span></span></td>
                 <td>262.7 kBtu/sqft</td>
-                <td>224.6 kBtu/sqft</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓38.1 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
+                <td>226.9 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓35.8 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(14%)</span></td>
             </tr>
 
         </table>
@@ -454,17 +455,17 @@ Uses Seattle benchmarking and HVAC % from <a href="https://www.eia.gov/consumpti
             </tr>
 
             <tr style="">
-                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to operating hours. Fixed hours, steady traffic when open—opportunity is when closed but systems still run, plus slow periods. Energy from Seattle benchmarking, rates from <a href="https://www.nrel.gov/" target="_blank" rel="noopener">NREL</a>.</span></span></td>
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to operating hours. Fixed hours, steady traffic when open—opportunity is when closed but systems still run, plus slow periods. Energy from Seattle benchmarking, rates from NREL.</span></span></td>
                 <td>$801K/yr</td>
-                <td>$698K/yr</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓$103K/yr</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
+                <td>$697K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$104K/yr</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Seattle's grid is mostly hydro/renewables, so most of your emissions come from burning gas, not electricity. Cutting gas has the biggest carbon impact here. Grid factors from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>.</span></span></td>
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Seattle's grid is mostly hydro/renewables, so most of your emissions come from burning gas, not electricity. Cutting gas has the biggest carbon impact here. Grid factors from EPA eGRID 2023.</span></span></td>
                 <td>224.3 tCO2e/yr</td>
-                <td>189.7 tCO2e/yr</td>
-                <td><span style="color:#15803d;font-weight:700;">↓34.6 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
+                <td>189.4 tCO2e/yr</td>
+                <td><span style="color:#15803d;font-weight:700;">↓34.9 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
         </table>

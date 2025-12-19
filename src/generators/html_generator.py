@@ -1,5 +1,5 @@
 """
-HTML Generator for Nationwide ODCV Prospector Homepage
+HTML Generator for ODCV Prospector Homepage
 =======================================================
 Generates the complete HTML page with:
 - Portfolio Tab: Expandable portfolio cards ranked by OpEx savings
@@ -52,7 +52,7 @@ def savings_color(amount):
 
 
 class NationwideHTMLGenerator:
-    """Generates the Nationwide ODCV Prospector HTML page."""
+    """Generates the ODCV Prospector HTML page."""
 
     def __init__(self, config, data):
         """
@@ -342,12 +342,12 @@ class NationwideHTMLGenerator:
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d %H:%M:%S EST')
 
         return f'''<!DOCTYPE html>
-<!-- Nationwide ODCV Prospector - Generated: {timestamp} -->
+<!-- ODCV Prospector - Generated: {timestamp} -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nationwide ODCV Prospector | R-Zero</title>
+    <title>ODCV Prospector | R-Zero</title>
     <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
 
     <!-- Fonts -->
@@ -3948,7 +3948,7 @@ tr.pin-highlight {
             width: 90%;
         ">
             <img src="https://rzero.com/wp-content/uploads/2021/10/rzero-logo-pad.svg" alt="R-Zero Logo" style="width: 150px; margin-bottom: 20px; cursor: pointer;" onclick="handleLogoClick()">
-            <h2 style="margin: 0 0 10px 0; color: #333;">Nationwide ODCV Prospector</h2>
+            <h2 style="margin: 0 0 10px 0; color: #333;">ODCV Prospector</h2>
             <p style="color: #666; margin-bottom: 25px;">Sign in with your R-Zero account</p>
 
             <div id="g_id_onload"
@@ -4020,14 +4020,13 @@ tr.pin-highlight {
         icons = {'Commercial': '¢', 'Education': '✎', 'Healthcare': '✚'}
         for v in ['Commercial', 'Education', 'Healthcare']:
             count = by_vertical.get(v, {}).get('building_count', 0)
-            # Add "All" option at top of each dropdown
-            all_option = f'<label><input type="radio" name="building-type-filter" data-type="all-{v.lower()}" onchange="selectBuildingTypeFromDropdown(\'all\', \'{v}\')">All <span class="dropdown-count">({count:,})</span></label>'
-            dropdown_content = all_option + ''.join(dropdown_options.get(v, []))
+            # No "All" option - only specific building types
+            dropdown_content = ''.join(dropdown_options.get(v, []))
             icon = icons.get(v, '')
             vertical_html.append(
                 f'<div class="vertical-btn-wrapper">'
                 f'<button class="vertical-btn" data-vertical="{v}" '
-                f'onclick="selectVertical(\'{v}\')" style="background:{colors[v]}">'
+                f'onclick="toggleVerticalDropdown(event, \'{v}\')" style="background:{colors[v]}">'
                 f'<span class="btn-icon" style="font-size: 14px;">{icon}</span><span class="btn-label">{v}</span>'
                 f'<span class="btn-x" onclick="event.stopPropagation(); clearVerticalBuildingTypeFilter(\'{v}\')">✕</span>'
                 f'</button>'
@@ -4270,7 +4269,7 @@ tr.pin-highlight {
 
       window.refreshLeaderboard = async function(){{
         try {{
-          await firebase.firestore().enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
+          if (window.db) await window.db.enableNetwork().catch((e)=>{{ if(window.DIAG) DIAG.log('warn', 'Firestore enableNetwork failed', e); }});
           btn.disabled = true;
           btn.textContent = 'Refreshing...';
 
@@ -4386,7 +4385,7 @@ tr.pin-highlight {
             <a href="https://rzero.com" target="_blank" style="display: flex; align-items: center;">
                 <img src="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png" alt="R-Zero">
             </a>
-            Nationwide ODCV Prospector
+            ODCV Prospector
         </h1>
         <input type="text" id="global-search" class="global-search" placeholder="Search owner, tenant, brand..." oninput="globalSearch(this.value)" style="margin-left: 40px;">
         <div id="filter-chips" class="filter-chips"></div>
@@ -4900,7 +4899,7 @@ tr.pin-highlight {
     </div>
     <div style="padding: 12px 20px; display: flex; align-items: center; gap: 8px;">
         <input type="text" id="addressAutocomplete" placeholder="Enter an address" style="flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-        <span class="info-tooltip" data-tooltip="Search for a specific building by entering its address. Select from the suggested addresses that appear below to navigate directly to that building on the map.">i</span>
+        <span class="info-tooltip tooltip-right" data-tooltip="Search for a specific building by entering its address. Select from the suggested addresses that appear below to navigate directly to that building on the map.">i</span>
     </div>
     <div id="full-map"></div>
     <div class="climate-legend">
@@ -5154,12 +5153,14 @@ function switchMainTab(tabId) {{
     document.getElementById('all-buildings-tab').style.display = tabId === 'all-buildings' ? 'block' : 'none';
     document.getElementById('methodology-tab').style.display = tabId === 'methodology' ? 'block' : 'none';
 
-    // Update search placeholder based on tab
+    // Update search placeholder and restore tab-specific search value
     const searchInput = document.getElementById('global-search');
     if (tabId === 'all-buildings') {{
         searchInput.placeholder = 'Search owner, city, building...';
+        searchInput.value = citiesSearchQuery || '';  // Restore Cities tab search
     }} else {{
         searchInput.placeholder = 'Search owner, tenant, brand...';
+        searchInput.value = globalQuery || '';  // Restore Portfolio tab search
     }}
 
     // Initialize All Buildings tab on first view
@@ -5168,7 +5169,7 @@ function switchMainTab(tabId) {{
         window.allBuildingsInitialized = true;
     }}
 
-    // FIX: Re-filter All Buildings tab when switching to it (applies current vertical/type filters)
+    // Re-apply Cities tab filters when switching to it (uses citiesSearchQuery + city filter - independent from Portfolio)
     if (tabId === 'all-buildings' && window.allBuildingsInitialized) {{
         doFilterAllBuildings();
     }}
@@ -5344,35 +5345,16 @@ function filterAllBuildings() {{
 }}
 
 function doFilterAllBuildings() {{
-    // DEBUG: Log filter state
-    console.log('=== doFilterAllBuildings DEBUG ===');
-    console.log('selectedBuildingType:', selectedBuildingType);
-    console.log('activeVertical:', activeVertical);
-    console.log('allBuildingsData length:', allBuildingsData?.length);
+    // Cities tab has its own independent filters - does NOT use Portfolio tab filters
+    // Only city filter and search apply here
 
-    // Filter by selected city card AND global search
-    let debugMatches = 0;
-    let debugMisses = 0;
-    let sampleTypes = new Set();
     filteredBuildingsData = allBuildingsData.filter(b => {{
-        // FIX: Vertical filter - match Portfolio tab behavior
-        if (activeVertical !== 'all' && b.vertical !== activeVertical) return false;
-
-        // FIX: Building type filter - match Portfolio tab behavior
-        if (selectedBuildingType) {{
-            sampleTypes.add(b.type);
-            if (b.type !== selectedBuildingType) {{
-                debugMisses++;
-                return false;
-            }}
-            debugMatches++;
-        }}
-
-        // City filter
+        // City filter (Cities tab only)
         if (selectedCityFilter && b.city !== selectedCityFilter) return false;
 
-        // Global search filter
-        if (globalQuery) {{
+        // Global search filter - uses citiesSearchQuery (independent from Portfolio search)
+        const searchQuery = citiesSearchQuery || '';
+        if (searchQuery) {{
             const searchFields = [
                 b.address || '',
                 b.city || '',
@@ -5384,18 +5366,10 @@ function doFilterAllBuildings() {{
                 b.tenant || '',
                 b.property_manager || ''
             ].join(' ').toLowerCase();
-            if (!searchFields.includes(globalQuery)) return false;
+            if (!searchFields.includes(searchQuery)) return false;
         }}
         return true;
     }});
-
-    // DEBUG: Log filter results
-    if (selectedBuildingType) {{
-        console.log('DEBUG type matches:', debugMatches);
-        console.log('DEBUG type misses:', debugMisses);
-        console.log('DEBUG sample types in data:', Array.from(sampleTypes).slice(0, 10));
-        console.log('DEBUG filteredBuildingsData length:', filteredBuildingsData.length);
-    }}
 
     // Apply current sort
     sortFilteredBuildings();
@@ -5600,6 +5574,9 @@ function safeDisplay(val, formatter, placeholder) {{
 let activeVertical = 'all';
 let selectedBuildingType = null;
 let activeEuiFilter = 'all';  // EUI filter state for building rows
+
+// INDEPENDENT TAB SEARCH - each tab has its own search query
+let citiesSearchQuery = '';  // Search query for Cities tab only
 let mapUpdateTimeout = null;
 // Data loading state for lazy-loaded files (EXPORT_DATA used for All Buildings tab and CSV export)
 let dataLoadState = {{
@@ -5654,7 +5631,6 @@ function applyFilters() {{
             if (parts.length !== 2) continue;
             const [t, v] = parts;
             if (selectedBuildingType && t !== selectedBuildingType) continue;
-            if (activeVertical !== 'all' && v !== activeVertical) continue;
             if (vals && typeof vals === 'object') {{
                 count += vals.count || 0;
                 opex += vals.opex || 0;
@@ -5758,9 +5734,14 @@ function selectVertical(v, preserveBuildingType = false) {{
         v = 'all';
     }}
     activeVertical = v;
-    document.querySelectorAll('.vertical-btn').forEach(b => {{
-        b.classList.toggle('selected', b.dataset.vertical === v);
-    }});
+    // Only show selected state (with X dismiss) when a building type is actually selected
+    if (preserveBuildingType && selectedBuildingType) {{
+        document.querySelectorAll('.vertical-btn').forEach(b => {{
+            b.classList.toggle('selected', b.dataset.vertical === v);
+        }});
+    }} else {{
+        document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
+    }}
     // Show/hide building type buttons based on vertical
     document.querySelectorAll('.building-type-btn').forEach(btn => {{
         const btnVertical = btn.dataset.vertical || '';
@@ -5782,8 +5763,7 @@ function selectVertical(v, preserveBuildingType = false) {{
     }}
 
     applyFilters();
-    // Sync to All Buildings tab
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    // NOTE: Portfolio filters do NOT sync to Cities tab - tabs are independent
 }}
 
 function toggleBuildingType(btn) {{
@@ -5796,8 +5776,7 @@ function toggleBuildingType(btn) {{
         selectedBuildingType = null;
     }}
     applyFilters();
-    // Sync to All Buildings tab
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    // NOTE: Portfolio filters do NOT sync to Cities tab - tabs are independent
 
     // Update filter chip
     const chip = document.getElementById('building-type-chip');
@@ -5820,8 +5799,7 @@ function clearBuildingTypeFilter() {{
     const chip = document.getElementById('building-type-chip');
     if (chip) chip.classList.remove('visible');
     applyFilters();
-    // Sync to All Buildings tab
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    // NOTE: Portfolio filters do NOT sync to Cities tab - tabs are independent
 }}
 
 function clearVerticalBuildingTypeFilter(vertical) {{
@@ -5843,11 +5821,7 @@ function clearVerticalBuildingTypeFilter(vertical) {{
     // FIX: Also reset vertical to 'all' when X is clicked
     activeVertical = 'all';
 
-    // FIX: Update All Buildings tab if initialized
-    if (window.allBuildingsInitialized) {{
-        doFilterAllBuildings();
-    }}
-
+    // NOTE: Portfolio filters do NOT sync to Cities tab - tabs are independent
     applyFilters();
 }}
 
@@ -5924,7 +5898,25 @@ let searchMatchingIndices = null;  // null = show all, array = show only these
 let filterTimeout = null;
 
 function globalSearch(query) {{
-    globalQuery = query.toLowerCase().trim();
+    const isCitiesTab = document.body.classList.contains('all-buildings-active');
+    const cleanQuery = query.toLowerCase().trim();
+
+    if (isCitiesTab) {{
+        // Cities tab: update citiesSearchQuery and filter Cities tab ONLY
+        citiesSearchQuery = cleanQuery;
+        clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(() => {{
+            requestAnimationFrame(() => {{
+                if (window.allBuildingsInitialized) {{
+                    doFilterAllBuildings();
+                }}
+            }});
+        }}, 50);
+        return;
+    }}
+
+    // Portfolio tab: update globalQuery and filter Portfolio tab ONLY
+    globalQuery = cleanQuery;
 
     if (!globalQuery) {{
         searchMatchingIndices = null;
@@ -5965,15 +5957,11 @@ function globalSearch(query) {{
         }});
     }}
 
-    // Debounce search input only (50ms - fast but prevents every keystroke)
+    // Debounce and apply filters (Portfolio tab ONLY - no sync to Cities tab)
     clearTimeout(filterTimeout);
     filterTimeout = setTimeout(() => {{
         requestAnimationFrame(() => {{
             applySearchResults();
-            // Also filter All Buildings tab if initialized
-            if (window.allBuildingsInitialized) {{
-                doFilterAllBuildings();
-            }}
         }});
     }}, 50);
 }}
@@ -5996,7 +5984,7 @@ function filterByType(type) {{
     selectedBuildingType = type;
     selectVertical(vertical, true);
     applyFilters();
-    if (window.allBuildingsInitialized) doFilterAllBuildings();
+    // NOTE: Portfolio filters do NOT sync to Cities tab - tabs are independent
 }}
 
 // Filter portfolios by city (called from table clicks)
@@ -6370,51 +6358,30 @@ function toggleVerticalDropdown(event, vertical) {{
 }}
 
 function selectBuildingTypeFromDropdown(buildingType, vertical) {{
-    console.log('=== selectBuildingTypeFromDropdown CALLED ===');
+    console.log('=== selectBuildingTypeFromDropdown ===');
     console.log('buildingType:', buildingType);
-    console.log('vertical:', vertical);
+    console.log('vertical param (ignored):', vertical);
+
     // Close all dropdowns
     document.querySelectorAll('.vertical-dropdown').forEach(d => d.classList.remove('show'));
     document.querySelectorAll('.vertical-dropdown-arrow').forEach(a => a.classList.remove('open'));
 
-    // If "all" selected, clear the building type filter and just show the vertical
-    if (buildingType === 'all') {{
-        // Uncheck all radios
-        document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => r.checked = false);
-        // Clear building type filter
-        selectedBuildingType = null;
-        // Remove selected class from all vertical buttons
-        document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
-        // Switch to that vertical
-        selectVertical(vertical);
-        return;
-    }}
-
-    // Set building type BEFORE calling selectVertical
+    // Set building type filter
     selectedBuildingType = buildingType;
+    console.log('selectedBuildingType set to:', selectedBuildingType);
 
-    // Ensure only this radio is selected (clear all others explicitly)
+    // Ensure only this radio is selected
     document.querySelectorAll('.vertical-dropdown input[type="radio"]').forEach(r => {{
         r.checked = (r.dataset.type === buildingType);
     }});
 
-    // Switch to that vertical, preserving the building type we just set
-    selectVertical(vertical, true);
-
-    // Add selected class to the vertical button (shows shadow + X)
+    // Mark vertical button as selected (shows X to clear)
     document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('selected'));
     const verticalBtn = document.querySelector(`.vertical-btn[data-vertical="${{vertical}}"]`);
-    if (verticalBtn) {{
-        verticalBtn.classList.add('selected');
-    }}
+    if (verticalBtn) verticalBtn.classList.add('selected');
 
+    // Apply filter (Portfolio tab ONLY - no sync to Cities tab, tabs are independent)
     applyFilters();
-    // Sync to All Buildings tab - filter if data is loaded
-    console.log('allBuildingsData length:', allBuildingsData?.length);
-    if (allBuildingsData && allBuildingsData.length > 0) {{
-        console.log('Calling doFilterAllBuildings...');
-        doFilterAllBuildings();
-    }}
 }}
 
 // Close vertical dropdowns when clicking outside

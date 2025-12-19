@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Generated: 2025-12-18 14:42:12 EST -->
+<!-- Generated: 2025-12-19 01:16:47 EST -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -263,6 +263,7 @@
             max-width: 90vw;
             font-size: 13px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
             line-height: 1.7;
             letter-spacing: 0.01em;
             text-align: left;
@@ -385,11 +386,11 @@
 <tr><td>Size<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Square footage from city benchmarking disclosure.<br><br>
 Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>152,749 sqft</td></tr>
 <tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much HVAC energy you could save by matching conditioning to member traffic.<br><br>
-Wholesale clubs have predictable patterns—heavy on weekends, quiet on weekdays—but HVAC runs at peak regardless. High ceilings mean large HVAC loads, so matching to traffic captures significant waste.<br><br>
-<b>Data:</b> Traffic by day/time from retail studies, year built, size.</span></span></td><td>Wholesale Club</td></tr>
+Zone-weighted: Sales floor (60% of bldg) × 48% traffic + Stock areas (40% of bldg) × 10% = 33% utilization. Shorter hours (10am-8:30pm), weekend-heavy traffic. High ceilings mean large HVAC loads.<br><br>
+<b>Data:</b> Operating patterns from Costco/Sam's/BJ's, year built, size.</span></span></td><td>Wholesale Club</td></tr>
 <tr><td>Year Built<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building age tells us about control system sophistication.<br><br>
 Pre-1970 buildings usually have pneumatic controls—harder to make occupancy-based. 1970s-80s buildings have early electronic systems with limited flexibility. 1990s-2000s buildings typically have digital controls. 2010+ buildings usually have modern BMS systems that can handle smart ventilation easily. Older buildings can still benefit but might need control upgrades first.</span></span></td><td>2018</td></tr>
-<tr><td>Owner/Occupier<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://www.costco.com" target="_blank" class="org-logo" data-org-name="Costco"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Costco.png" alt="Costco" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Costco</span></a></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from <a href="https://www.nrel.gov/" target="_blank" rel="noopener">NREL</a>'s Utility Rate Database.<br><br>
+<tr><td>Owner/Occupier<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://www.costco.com" target="_blank" class="org-logo" data-org-name="Costco"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Costco.png" alt="Costco" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Costco</span></a></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
 For electricity, we multiply kWh by the rate, then add about 10% for distribution, taxes, and surcharges. Demand charges are based on peak kW times 12 months, with a 26% markup for ratchet clauses and seasonal variations. Gas and fuel oil get a 10% markup. Steam rates are all-inclusive.<br><br>
 We use ZIP-specific rates because electricity prices vary 5x across the country ($0.11-$0.52/kWh) and gas varies 10x ($0.23-$2.42/therm). National averages would be off by 3-4x. Consumption data from SoCal Edison from Eastvale benchmarking.</span></span></td><td><span class="org-logo" data-org-name="SoCal Edison"><a href="https://www.sce.com/regulatory/regulatory-information/tariff-books" target="_blank" rel="noopener" title="View SoCal Edison commercial rates" style="text-decoration:none;"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/utilities/SCE.png" alt="SoCal Edison" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"></a><span style="display:none;">⚡ SoCal Edison</span></span></td></tr>
 
@@ -408,23 +409,23 @@ We use ZIP-specific rates because electricity prices vary 5x across the country 
             <tr>
                 <th style="width:35%;"></th>
                 <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to Eastvale through benchmarking disclosure. Real data, not an estimate.</span></span></th>
-                <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if conditioning matched member traffic patterns.<br><br>
-Uses Eastvale benchmarking and HVAC % from <a href="https://www.eia.gov/consumption/commercial/" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
+                <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if conditioning matched member traffic patterns. Zone-weighted: Sales floor (60%) × 48% traffic + Stock areas (40%) × 10%.<br><br>
+Uses Eastvale benchmarking, operating patterns from Costco/Sam's/BJ's, and HVAC % from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/cbecs/cbecs2018_final_public.csv" target="_blank" rel="noopener">CBECS 2018</a>.</span></span></th>
                 <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted running HVAC at peak capacity during slow periods. Building conditions for the busiest hour all day long.</span></span></th>
             </tr>
 
             <tr style="">
-                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most commercial buildings run HVAC at design capacity regardless of who's actually there. Matching ventilation to actual occupancy saves electricity by reducing fan and cooling loads. Data from Eastvale benchmarking.</span></span></td>
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Most commercial buildings run HVAC at design capacity regardless of who's actually there. Matching ventilation to actual occupancy saves electricity by reducing fan and cooling loads. Data from Eastvale benchmarking. (2024.0 data)</span></span></td>
                 <td>4,424,497 kWh</td>
-                <td>4,025,938 kWh</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓398,558 kWh</span> <span style="color:#64748b;font-size:0.9em;">(9%)</span></td>
+                <td>4,005,014 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓419,483 kWh</span> <span style="color:#64748b;font-size:0.9em;">(9%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Gas mostly goes to heating the building and the outdoor air that ventilation pulls in. When you're heating air for empty spaces, that's wasted gas. Matching ventilation to occupancy reduces how much air needs heating. Data from Eastvale benchmarking.</span></span></td>
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Gas mostly goes to heating the building and the outdoor air that ventilation pulls in. When you're heating air for empty spaces, that's wasted gas. Matching ventilation to occupancy reduces how much air needs heating. Data from Eastvale benchmarking. (2024.0 data)</span></span></td>
                 <td>61,523 therms</td>
-                <td>52,047 therms</td>
-                <td><span style="color:#15803d;font-weight:700;">↓9,475 therms</span> <span style="color:#64748b;font-size:0.9em;">(15%)</span></td>
+                <td>51,549 therms</td>
+                <td><span style="color:#15803d;font-weight:700;">↓9,973 therms</span> <span style="color:#64748b;font-size:0.9em;">(16%)</span></td>
             </tr>
 
             <tr style="">
@@ -454,17 +455,17 @@ Uses Eastvale benchmarking and HVAC % from <a href="https://www.eia.gov/consumpt
             </tr>
 
             <tr style="">
-                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to traffic. High ceilings mean large HVAC loads, and traffic is predictable—concentrated on weekends. Energy from Eastvale benchmarking, rates from <a href="https://www.nrel.gov/" target="_blank" rel="noopener">NREL</a>.</span></span></td>
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to traffic. High ceilings mean large HVAC loads, and traffic is predictable—concentrated on weekends. Energy from Eastvale benchmarking, rates from NREL.</span></span></td>
                 <td>$2.4M/yr</td>
                 <td>$2.1M/yr</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓$220K/yr</span> <span style="color:#64748b;font-size:0.9em;">(9%)</span></td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$232K/yr</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Big-box retail is valued on operating income. These buildings have huge HVAC loads because of the high ceilings, so matching ventilation to traffic patterns (busy weekends, quiet weekdays) creates real savings that flow to property value. Cap rates from <a href="https://www.cbre.com/insights/figures/q3-2025-us-office-figures" target="_blank" rel="noopener">CBRE</a>.</span></span></td>
+                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Big-box retail is valued on operating income. These buildings have huge HVAC loads because of the high ceilings, so matching ventilation to traffic patterns (busy weekends, quiet weekdays) creates real savings that flow to property value. Cap rates from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>.</span></span></td>
                 <td>—</td>
                 <td>—</td>
-                <td><span style="color:#15803d;font-weight:700;">↑$3.8M</span></td>
+                <td><span style="color:#15803d;font-weight:700;">↑$4.0M</span></td>
             </tr>
 
             <tr style="">
@@ -491,10 +492,10 @@ Uses Eastvale benchmarking and HVAC % from <a href="https://www.eia.gov/consumpt
             </tr>
 
             <tr style="background:#f9fafb;">
-                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. We use Eastvale's regional grid intensity, not national averages—carbon per kWh varies a lot by region. Grid factors from <a href="https://www.epa.gov/egrid" target="_blank" rel="noopener">EPA eGRID 2023</a>.</span></span></td>
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. We use Eastvale's regional grid intensity, not national averages—carbon per kWh varies a lot by region. Grid factors from EPA eGRID 2023.</span></span></td>
                 <td>1,718.6 tCO2e/yr</td>
-                <td>1,542.9 tCO2e/yr</td>
-                <td><span style="color:#0891b2;font-weight:700;">↓175.7 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(10%)</span></td>
+                <td>1,533.7 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓184.9 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
             </tr>
 
         </table>
