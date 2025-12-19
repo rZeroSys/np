@@ -93,6 +93,9 @@
         .section h3:first-of-type {
             margin-top: 10px;
         }
+        .section h3 {
+            scroll-margin-top: 100px;
+        }
         tbody tr:nth-child(even) {
             background: #f8fafc;
         }
@@ -304,7 +307,7 @@ if (window.location.search.includes('embed=1')) {
     <section class="section" id="savings">
         <h2>Energy Savings</h2>
 
-        <h3>Real Energy Usage</h3>
+        <h3 id="savings-real-energy-usage">Real Energy Usage</h3>
         <p>Every calculation starts with <strong>real energy consumption data</strong> reported by buildings to city benchmarking programs. These aren't estimates&mdash;they're actual utility bills: kWh of electricity, therms of gas, Mlbs of steam.</p>
         <p>We convert consumption to cost using <strong>real utility rates</strong> by zip code:</p>
         <ul>
@@ -315,11 +318,11 @@ if (window.location.search.includes('embed=1')) {
         </ul>
         <p id="ref-3">Peak demand estimated using building-type load factors (0.30-0.70).<sup><a href="#fn-3" class="appendix-ref">[3]</a></sup></p>
 
-        <h3>HVAC Share of Energy</h3>
+        <h3 id="savings-hvac-share">HVAC Share of Energy</h3>
         <p id="ref-4">Not all energy goes to HVAC. The share varies by building type, fuel type, and climate zone&mdash;based on <strong>real measurements from the CBECS survey</strong>, not assumptions.<sup><a href="#fn-4" class="appendix-ref">[4]</a></sup></p>
         <div class="formula">HVAC_cost = (Elec × hvac_pct_elec) + (Gas × hvac_pct_gas) + (Steam × hvac_pct_steam) + (Fuel_Oil × hvac_pct_oil)</div>
 
-        <h3>ODCV Savings Potential</h3>
+        <h3 id="savings-odcv-potential">ODCV Savings Potential</h3>
         <p>Each building type has minimum (floor) and maximum (ceiling) HVAC savings potential. Where a building falls in that range depends on occupancy data: <strong>vacancy</strong> (unleased space) and/or <strong>utilization</strong> (people present in leased space).</p>
         <table>
             <thead>
@@ -339,7 +342,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>Modifiers</h3>
+        <h3 id="savings-modifiers">Modifiers</h3>
         <p>Three factors adjust the savings estimate:</p>
         <ul>
             <li id="ref-1"><strong>Automation (0-1):</strong> Newer, larger buildings in wealthier areas likely have BMS already, reducing ODCV opportunity.<sup><a href="#fn-1" class="appendix-ref">[1]</a></sup></li>
@@ -347,7 +350,7 @@ if (window.location.search.includes('embed=1')) {
             <li><strong>Climate (0.95×-1.10×):</strong> Northern climates have more heating/cooling load, so more savings potential.</li>
         </ul>
 
-        <h3>Utility Bill Savings Formula</h3>
+        <h3 id="savings-formula">Utility Bill Savings Formula</h3>
         <div class="formula">Annual_savings = Total_energy_cost × HVAC% × (Floor + Opportunity × Automation × Range) × EfficiencyMod × ClimateMod</div>
         <p>Where Range = Ceiling - Floor for each building type. Every value comes from real data: your building's reported consumption, your area's utility rates, measured HVAC shares, and your specific occupancy profile.</p>
         <p><strong>Example:</strong> $500K total energy cost × 45% HVAC × 30% ODCV = <strong>$67,500/year</strong></p>
@@ -357,7 +360,7 @@ if (window.location.search.includes('embed=1')) {
     <section class="section" id="benefits">
         <h2>Additional Benefits</h2>
 
-        <h3>Building Performance Standard Penalties</h3>
+        <h3 id="benefits-bps-penalties">Building Performance Standard Penalties</h3>
         <p>Seven cities fine buildings that exceed emissions limits. <strong>6,419 buildings (28%)</strong> in our dataset face these penalties.</p>
         <table>
             <thead>
@@ -374,7 +377,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>Property Value Impact</h3>
+        <h3 id="benefits-property-value">Property Value Impact</h3>
         <p>Commercial property value = Net Operating Income ÷ Cap Rate. Every dollar of OpEx savings increases NOI, which multiplies into property value. A building saving $50K/year with a 7% cap rate adds <strong>$714K in property value</strong>.</p>
         <table>
             <thead>
@@ -394,7 +397,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>ENERGY STAR Score Improvement</h3>
+        <h3 id="benefits-energy-star">ENERGY STAR Score Improvement</h3>
         <p>ENERGY STAR scores rank buildings against similar buildings nationwide (50 = median, 75+ = certified). Reducing energy use improves your score: a 10% EUI reduction typically gains 5-15 points, making certification more achievable.</p>
     </section>
 
@@ -475,7 +478,7 @@ if (window.location.search.includes('embed=1')) {
     <section class="section" id="data-sources">
         <h2>Data Sources</h2>
 
-        <h3>Core Dataset</h3>
+        <h3 id="data-sources-core">Core Dataset</h3>
         <p>Main building database files powering the application.</p>
         <table>
             <thead>
@@ -525,7 +528,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>City Benchmarking Data</h3>
+        <h3 id="data-sources-city">City Benchmarking Data</h3>
         <p>Building energy data from official city disclosure programs requiring commercial and multifamily buildings to report annual energy usage.</p>
         <table>
             <thead>
@@ -661,7 +664,7 @@ if (window.location.search.includes('embed=1')) {
                 </tbody>
         </table>
 
-        <h3>Market Research</h3>
+        <h3 id="data-sources-market">Market Research</h3>
         <p>Office vacancy rates, utilization data, and regional market reports:</p>
         <table>
             <thead>
@@ -683,7 +686,7 @@ if (window.location.search.includes('embed=1')) {
             </tbody>
         </table>
 
-        <h3>Developer Resources</h3>
+        <h3 id="data-sources-developer">Developer Resources</h3>
         <p>Source code and documentation for reproducing or extending this analysis:</p>
         <table>
             <thead>
@@ -821,12 +824,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auto-expand section if URL has hash
     function expandFromHash() {
         const hash = window.location.hash.slice(1);
-        if (hash && sectionToggles[hash]) {
+        if (!hash) return;
+
+        // Direct section match (existing behavior)
+        if (sectionToggles[hash]) {
             sectionToggles[hash]();
-            // Scroll to section after short delay for DOM update
             setTimeout(function() {
                 document.getElementById(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
+            return;
+        }
+
+        // Subsection or any other element - find and expand parent section
+        const target = document.getElementById(hash);
+        if (target) {
+            const parentSection = target.closest('.section');
+            if (parentSection && parentSection.id && sectionToggles[parentSection.id]) {
+                sectionToggles[parentSection.id]();
+            }
+            setTimeout(function() {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
         }
     }
 
