@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<!-- Generated: 2025-12-19 12:02:48 EST -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Report - PDX_221</title>
+    <link rel="icon" type="image/png" href="https://rzero.com/wp-content/themes/rzero/build/images/favicons/favicon.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f9fafb;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            position: relative;
+        }
+
+        .page-header .back-link {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .back-link:hover {
+            color: white;
+        }
+
+        .page-header .header-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-header .header-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .page-header .header-branding a {
+            display: block;
+        }
+
+        /* Hero */
+        .hero {
+            background: url('https://rzero.com/wp-content/uploads/2025/02/bg-cta-bottom.jpg') center/cover;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 1.3em;
+            margin-bottom: 3px;
+        }
+
+        .hero .hq-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .hero .address {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .hero .building-info {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .hero .opportunity {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .hero .metric {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .hero .metric-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .hero .metric-value {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section {
+            margin: 40px 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #1a202c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #0066cc 0%, #0066cc 60%, transparent 100%) 1;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th:first-child {
+            border-radius: 6px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 6px 0 0;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:nth-child(even) td {
+            background: #f9fafb;
+        }
+
+        tr:hover td {
+            background: #f3f4f6;
+        }
+
+        /* Chart */
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .hero .opportunity {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        /* Tooltip Styles */
+        .info-tooltip {
+            display: inline-block;
+            margin-left: 5px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #0066cc 0%, #004494 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            cursor: help;
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tooltip-content {
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 16px 20px;
+            border-radius: 10px;
+            white-space: normal;
+            width: 380px;
+            max-width: 90vw;
+            font-size: 13px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: normal;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            text-align: left;
+            z-index: 2147483647;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+
+        .info-tooltip:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-content a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        .tooltip-content a:hover {
+            color: #93c5fd;
+        }
+
+        /* Tooltip arrow */
+        .tooltip-content::before {
+            content: "";
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1e293b;
+        }
+
+        /* Org Logo Tooltip - instant, visible */
+        .org-logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .org-logo::after {
+            content: attr(data-org-name);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.1s, visibility 0.1s;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 6px;
+        }
+
+        .org-logo:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile tooltip adjustments */
+        @media (max-width: 768px) {
+            .tooltip-content {
+                width: 320px;
+                font-size: 10px;
+                left: auto;
+                right: 0;
+                transform: none;
+            }
+
+            .tooltip-content::before {
+                left: auto;
+                right: 10px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <div class="hero" style="position:relative;text-align:center;padding:20px 80px;">
+        <a href="../index.html" onclick="event.preventDefault(); const from = new URLSearchParams(window.location.search).get('from'); window.location.href = '../index.html' + (from === 'cities' ? '#all-buildings' : '#portfolios');" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(0,0,0,0.3);border-radius:6px;z-index:10;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+    </a>
+        <h1 style="margin-bottom:0;">9301 NE Cascades Pkwy Portland OR 97220</h1>
+    </div>
+
+    <div class="section" style="margin: 0; padding: 0;">
+        <img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/images/PDX_1N2E09C-1400-B4_Marriott.jpg" alt="Building PDX_221" id="building-image" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" onload="
+            var img = this;
+            var ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 2) { img.style.maxHeight = '300px'; }
+            else if (ratio > 1.5) { img.style.maxHeight = '400px'; }
+            else if (ratio < 0.8) { img.style.maxHeight = '500px'; img.style.objectFit = 'contain'; }
+            else { img.style.maxHeight = '450px'; }
+        ">
+    </div>
+
+    <div class="section">
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Property</span>
+            <a href="https://www.reitnotes.com/property/9301-NE-Cascades-Parkway-Portland-Oregon-97220-United-States/ID/12150232270" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>More Info</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table>
+<tr><td>Size<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Square footage from city benchmarking disclosure.<br><br>
+Larger buildings tend to have more sophisticated control systems, making occupancy-based ventilation easier to implement. They also have more zones to optimize—more opportunity. Most building performance laws kick in at 20,000-50,000+ square feet.</span></span></td><td>87,670 sqft</td></tr>
+<tr><td>Type<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">How much HVAC energy you could save by matching room conditioning to when guests are actually present.<br><br>
+Two waste sources: unsold rooms (about 37% unoccupied on any given night) and sold rooms when guests are out. DOE studies show only 45% guest presence factor—guests out 10+ hrs/day for business or sightseeing.<br><br>
+<b>Data:</b> Room occupancy from AHLA 2025, guest presence patterns from DOE Guest Room HVAC Report, year built, sqft.</span></span></td><td>Hotel</td></tr>
+<tr><td>Year Built<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building age tells us about control system sophistication.<br><br>
+Pre-1970 buildings usually have pneumatic controls—harder to make occupancy-based. 1970s-80s buildings have early electronic systems with limited flexibility. 1990s-2000s buildings typically have digital controls. 2010+ buildings usually have modern BMS systems that can handle smart ventilation easily. Older buildings can still benefit but might need control upgrades first.</span></span></td><td>2008</td></tr>
+<tr><td>Owner<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Building ownership from public records and regulatory filings.</span></span></td><td><div style=""><a href="https://www.shpreit.com" target="_blank" class="org-logo" data-org-name="Summit Hotel"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Summit_Hotel_Properties.png" alt="Summit Hotel" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Summit Hotel</span></a></div></td></tr><tr><td>Tenant</td><td><div style=''><a href="https://www.marriott.com" target="_blank" class="org-logo" data-org-name="Marriott"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Marriott.png" alt="Marriott" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Marriott</span></a> &nbsp; <a href="https://www.marriott.com/residence-inn" target="_blank" class="org-logo" data-org-name="Residence Inn"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/Residence_Inn.png" alt="Residence Inn" style="height:60px;max-width:150px;object-fit:contain;" onerror="this.parentElement.className='';this.parentElement.removeAttribute('data-org-name');this.style.display='none';this.nextElementSibling.style.display='inline';"><span style="display:none;">Residence Inn</span></a></div></td></tr><tr><td>Utility<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">We convert consumption to annual costs using ZIP-specific rates from NREL's Utility Rate Database.<br><br>
+For electricity, we multiply kWh by the rate, then add about 10% for distribution, taxes, and surcharges. Demand charges are based on peak kW times 12 months, with a 26% markup for ratchet clauses and seasonal variations. Gas and fuel oil get a 10% markup. Steam rates are all-inclusive.<br><br>
+We use ZIP-specific rates because electricity prices vary 5x across the country ($0.11-$0.52/kWh) and gas varies 10x ($0.23-$2.42/therm). National averages would be off by 3-4x. Consumption data from Portland General from Portland benchmarking.</span></span></td><td><span class="org-logo" data-org-name="Portland General"><a href="https://portlandgeneral.com/about/info/rates-and-regulatory/tariff" target="_blank" rel="noopener" title="View Portland General commercial rates" style="text-decoration:none;"><img src="https://nationwide-odcv-images.s3.us-east-2.amazonaws.com/logos/utilities/PGE_Portland.png" alt="Portland General" style="height:40px;max-width:120px;object-fit:contain;vertical-align:middle;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"></a><span style="display:none;">⚡ Portland General</span></span></td></tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Energy</span>
+            <a href="../methodology.html#savings" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
+            <tr>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current Usage<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Actual metered consumption from utility bills, reported to Portland through Portland Energy Reporting disclosure. Real data, not an estimate.</span></span></th>
+                <th style="width:22%;">Usage w/ ODCV<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Projected consumption if room conditioning matched when guests are actually present. DOE studies show only 45% guest presence factor—guests out 10+ hrs/day.<br><br>
+Only HVAC responds to occupancy—hotel gas splits ~20% HVAC, ~42% hot water, ~33% kitchens. Uses room occupancy from AHLA 2025, presence patterns from DOE Guest Room HVAC Report.</span></span></th>
+                <th style="width:21%;">Change<span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Energy wasted conditioning rooms when guests aren't present. Includes unsold rooms plus hours when guests are out (even sold rooms are only occupied ~10 hrs/day).</span></span></th>
+            </tr>
+
+            <tr style="">
+                <td><strong>Electricity</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Hotels condition every room around the clock, but about 37% of rooms are unsold on any given night, and even sold rooms are only occupied about 10 hours a day—DOE studies show only 45% guest presence factor. That's a lot of electricity cooling empty rooms. Data from Portland benchmarking, AHLA 2025, DOE Guest Room HVAC Report. (2024.0 data)</span></span></td>
+                <td>938,217 kWh</td>
+                <td>802,378 kWh</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓135,838 kWh</span> <span style="color:#64748b;font-size:0.9em;">(14%)</span></td>
+            </tr>
+
+            <tr style="background:#f9fafb;">
+                <td><strong>Natural Gas</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Hotel gas splits three ways: about 20% to space heating, 42% to hot water, and 33% to kitchens. Only the space heating portion responds to room occupancy—you can't reduce hot water or cooking based on guests. So gas savings are limited to that 20%. Data from Portland benchmarking, AHLA 2025, DOE Guest Room HVAC Report. (2024.0 data)</span></span></td>
+                <td>28,305 therms</td>
+                <td>26,246 therms</td>
+                <td><span style="color:#3b82f6;font-weight:700;">↓2,058 therms</span> <span style="color:#64748b;font-size:0.9em;">(7%)</span></td>
+            </tr>
+
+            <tr style="">
+                <td><strong>Site EUI</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">EUI measures energy per square foot per year. Hotels have an unusual pattern—common areas run 24/7 while room loads vary with occupancy. Room-level controls that respond to guest presence can improve this metric. Data from Portland benchmarking.</span></span></td>
+                <td>68.8 kBtu/sqft</td>
+                <td>61.2 kBtu/sqft</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓7.6 kBtu/sqft</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="section">
+        <h2 style="display:flex;align-items:center;gap:12px;">
+            <span>Impact</span>
+            <a href="../methodology.html#benefits" target="_blank" style="display:inline-flex;align-items:center;gap:4px;color:#6b7280;text-decoration:none;font-size:13px;font-weight:500;padding:4px 10px;background:#f3f4f6;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#e5e7eb';this.style.color='#374151'" onmouseout="this.style.background='#f3f4f6';this.style.color='#6b7280'">
+                <span>Methodology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+        </h2>
+        <table style="margin-bottom:0;">
+            <tr>
+                <th style="width:35%;"></th>
+                <th style="width:22%;">Current Usage</th>
+                <th style="width:22%;">Usage w/ ODCV</th>
+                <th style="width:21%;">Change</th>
+            </tr>
+
+            <tr style="">
+                <td><strong>Utility Cost</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Annual savings from matching ventilation to actual occupancy. Room HVAC runs 24/7 whether the room is sold or not—and DOE studies show only 45% guest presence factor (guests out 10+ hrs/day). Occupancy from AHLA 2025, DOE Guest Room HVAC Report, energy from Portland benchmarking, rates from NREL.</span></span></td>
+                <td>$258K/yr</td>
+                <td>$224K/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓$34K/yr</span> <span style="color:#64748b;font-size:0.9em;">(13%)</span></td>
+            </tr>
+
+            <tr style="background:#f9fafb;">
+                <td><strong>Property Value</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Hotels are valued on income just like offices, but with higher cap rates (meaning a lower multiplier per dollar saved). We only count HVAC savings here—hot water and kitchen energy don't respond to occupancy. Cap rates from <a href="https://github.com/fmillerrzero/nationwide-prospector/blob/main/data/reference_documents/CBRE_Vacancy_Rates_Q3_2025.csv" target="_blank" rel="noopener">CBRE</a>'s Portland hotel survey.</span></span></td>
+                <td>—</td>
+                <td>—</td>
+                <td><span style="color:#15803d;font-weight:700;">↑$381K</span></td>
+            </tr>
+
+            <tr style="">
+                <td><strong>ENERGY STAR</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">Hotels have their own Energy Star category, so you're compared to other hotels, not offices. A score of 50 is average, 75+ qualifies for certification. In DC, the building performance law uses Energy Star targets, so this score directly affects compliance.</span></span></td>
+                <td><div style="display:inline-flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#a16207" stroke-width="8" stroke-linecap="round" stroke-dasharray="79.38 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.2em;color:#a16207;min-width:28px;">63</span>
+            </div></td>
+                <td><div style="display:inline-flex;align-items:center;gap:8px;">
+                <svg viewBox="0 0 100 55" style="width:60px;height:32px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));">
+                    <!-- Gray background arc -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Colored fill arc based on score -->
+                    <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#a16207" stroke-width="8" stroke-linecap="round" stroke-dasharray="85.68 126"/>
+                </svg>
+                <span style="font-weight:700;font-size:1.2em;color:#a16207;min-width:28px;">68</span>
+            </div></td>
+                <td><span style="color:#0891b2;font-weight:700;">↑5 pts</span> <span style="color:#64748b;font-size:0.9em;">(8%)</span></td>
+            </tr>
+
+            <tr style="background:#f9fafb;">
+                <td><strong>Carbon Emissions</strong><span class="info-tooltip" style="display: inline-block; margin-left: 5px; width: 16px; height: 16px; background: linear-gradient(135deg, #0066cc 0%, #004494 100%); color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 12px; cursor: help; position: relative;">i<span class="tooltip-content">CO2 you'd avoid by reducing HVAC waste. Portland's grid is mostly hydro/renewables, so most of your emissions come from burning gas, not electricity. Cutting gas has the biggest carbon impact here. Grid factors from EPA eGRID 2023.</span></span></td>
+                <td>340.8 tCO2e/yr</td>
+                <td>302.3 tCO2e/yr</td>
+                <td><span style="color:#0891b2;font-weight:700;">↓38.5 tCO2e</span> <span style="color:#64748b;font-size:0.9em;">(11%)</span></td>
+            </tr>
+
+        </table>
+    </div>
+
+    </div>
+</body>
+</html>
