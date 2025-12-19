@@ -1619,8 +1619,9 @@ def is_valid_building(row):
 
     return True
 
-def get_building_image_url(building_id):
-    """Get AWS S3 URL for building image if it exists"""
+def get_building_image_url(building_id, row=None):
+    """Get AWS S3 URL for building image if it exists.
+    Falls back to bldg_image_url from CSV if no local file found."""
     import glob
     pattern = os.path.join(IMAGES_DIR, f"{building_id}_*.jpg")
     matches = glob.glob(pattern)
@@ -1628,6 +1629,11 @@ def get_building_image_url(building_id):
         # Get filename and construct AWS URL
         filename = os.path.basename(matches[0])
         return f"{AWS_BUCKET}/images/{filename}"
+    # Fallback to bldg_image_url from CSV if provided
+    if row is not None:
+        csv_url = row.get('bldg_image_url', '')
+        if csv_url and str(csv_url) not in ('', 'nan', 'None'):
+            return str(csv_url)
     return None
 
 def get_logo_filename(name):
@@ -2899,7 +2905,7 @@ def generate_html_report(row):
     html += generate_hero(row)
 
     # Add building image if exists - size adapts to resolution via onload
-    image_url = get_building_image_url(building_id)
+    image_url = get_building_image_url(building_id, row)
     if image_url:
         html += f"""
     <div class="section" style="margin: 0; padding: 0;">
