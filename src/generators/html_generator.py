@@ -5132,13 +5132,46 @@ function initTabs() {{
     const hash = window.location.hash.replace('#', '');
     if (hash === 'all-buildings' || hash === 'cities') {{
         switchMainTab('all-buildings');
+    }} else if (hash === 'methodology') {{
+        switchMainTab('methodology');
+    }} else if (hash.startsWith('methodology-')) {{
+        // Handle methodology section URLs like #methodology-savings
+        const section = hash.replace('methodology-', '');
+        switchMainTab('methodology', section);
     }} else if (hash === 'portfolios') {{
         switchMainTab('portfolios');
     }}
+
+    // Listen for browser back/forward navigation
+    window.addEventListener('hashchange', function() {{
+        const newHash = window.location.hash.replace('#', '');
+        if (newHash === 'all-buildings' || newHash === 'cities') {{
+            switchMainTab('all-buildings');
+        }} else if (newHash === 'methodology') {{
+            switchMainTab('methodology');
+        }} else if (newHash.startsWith('methodology-')) {{
+            const section = newHash.replace('methodology-', '');
+            switchMainTab('methodology', section);
+        }} else if (newHash === 'portfolios') {{
+            switchMainTab('portfolios');
+        }} else if (!newHash) {{
+            switchMainTab('portfolios');
+        }}
+    }});
 }}
 
 // Switch main tab (called from tab buttons)
-function switchMainTab(tabId) {{
+// methodologySection is optional - if provided, opens that section in methodology tab
+function switchMainTab(tabId, methodologySection) {{
+    // Update URL hash without triggering hashchange (use replaceState to avoid history spam)
+    let hashValue = tabId === 'all-buildings' ? 'cities' : tabId;
+    if (methodologySection) {{
+        hashValue = 'methodology-' + methodologySection;
+    }}
+    if (window.location.hash !== '#' + hashValue) {{
+        history.replaceState(null, '', '#' + hashValue);
+    }}
+
     // Update tab buttons
     document.querySelectorAll('.main-tab').forEach(t => {{
         t.classList.toggle('active', t.dataset.tab === tabId);
@@ -5175,9 +5208,16 @@ function switchMainTab(tabId) {{
     }}
 
     // Load methodology iframe on first view (embed mode hides header)
-    if (tabId === 'methodology' && !window.methodologyLoaded) {{
-        document.getElementById('methodology-iframe').src = 'methodology.html?embed=1';
-        window.methodologyLoaded = true;
+    if (tabId === 'methodology') {{
+        const iframe = document.getElementById('methodology-iframe');
+        const sectionHash = methodologySection ? '#' + methodologySection : '';
+        if (!window.methodologyLoaded) {{
+            iframe.src = 'methodology.html?embed=1' + sectionHash;
+            window.methodologyLoaded = true;
+        }} else if (methodologySection) {{
+            // Already loaded - update iframe hash to navigate to section
+            iframe.contentWindow.location.hash = methodologySection;
+        }}
     }}
 
     // Show/hide tutorial button - only on portfolios tab
